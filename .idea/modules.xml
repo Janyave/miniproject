@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/EaseCos.iml" filepath="$PROJECT_DIR$/EaseCos.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+>>>>>>> 0691a309d318274fafe9825ff393eb9b01cc9a5a
       <module fileurl="file://$PROJECT_DIR$/cosplay_android.iml" filepath="$PROJECT_DIR$/cosplay_android.iml" />
     </modules>
   </component>
