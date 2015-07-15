@@ -1,7 +1,7 @@
 package com.netease.easecos.dialog;
 
 /**
- * ÀàÃèÊö£ºÌáÊ¾¶Ô»°¿ò
+ * æç¤ºå¯¹è¯æ¡†
  * Created by enlizhang on 2015/7/15.
  */
 public class MyAlertDialog {

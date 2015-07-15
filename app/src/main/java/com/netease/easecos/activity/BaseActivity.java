@@ -12,7 +12,7 @@ import com.netease.easecos.dialog.MyAlertDialog;
 import com.netease.easecos.dialog.MyProgressDialog;
 
 /**
- * Activity»ùÀà£¬ËùÓĞactivity±ØĞë¼Ì³Ğ¸Ã·½·¨
+ * ActivityåŸºç±»ï¼Œæ‰€æœ‰activityå¿…é¡»ç»§æ‰¿è¯¥æ–¹æ³•
  * Created by enlizhang on 2015/7/15.
  */
 public class BaseActivity extends ActionBarActivity {
@@ -20,12 +20,12 @@ public class BaseActivity extends ActionBarActivity {
     private static String TAG = "BaseActivity";
 
     /***
-     * ÌáÊ¾¶Ô»°¿ò
+     * æç¤ºå¯¹è¯æ¡†
      */
     private static MyAlertDialog singleMyAlertDialog;
 
     /***
-     * ¼ÓÔØ¶Ô»°¿ò
+     * åŠ è½½å¯¹è¯æ¡†
      */
     MyProgressDialog mMyProgressDialog;
 
@@ -34,10 +34,10 @@ public class BaseActivity extends ActionBarActivity {
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
 
-        //ÉèÖÃµ±Ç°activity
+        //è®¾ç½®å½“å‰activity
         MyApplication.setCurrentActivity(this);
 
-        //³õÊ¼»¯ÌáÊ¾¶Ô»°¿ò
+        //åˆå§‹åŒ–æç¤ºå¯¹è¯æ¡†
 
     }
 
@@ -47,10 +47,10 @@ public class BaseActivity extends ActionBarActivity {
         // TODO Auto-generated method stub
         super.onResume();
 
-        //ÉèÖÃµ±Ç°activity
+        //è®¾ç½®å½“å‰activity
         MyApplication.setCurrentActivity(this);
 
-        //³õÊ¼»¯ÌáÊ¾¶Ô»°¿ò
+        //åˆå§‹åŒ–æç¤ºå¯¹è¯æ¡†
 
     }
 
@@ -67,62 +67,62 @@ public class BaseActivity extends ActionBarActivity {
     }
 
     /***
-     * ÏÔÊ¾¼ÓÔØ¿òÒÔ¼°¶ÔÓ¦µÄÎÄ×Ö
-     * @param title ¶Ô¿ò¿òÏà¹ØµÄÎÄ×Ö£¬Èç¹ûÓĞ
+     * æ˜¾ç¤ºåŠ è½½æ¡†ä»¥åŠå¯¹åº”çš„æ–‡å­—
+     * @param title å¯¹æ¡†æ¡†ç›¸å…³çš„æ–‡å­—ï¼Œå¦‚æœæœ‰
      *
      */
     public void showProcessBar(String title)
     {
-        Log.i(TAG, "ÏÔÊ¾¼ÓÔØ¿ò");
+        Log.i(TAG, "æ˜¾ç¤ºåŠ è½½æ¡†");
         if(mMyProgressDialog == null)
         {
-            //mMyProgressDialog³õÊ¼»¯
+            //mMyProgressDialogåˆå§‹åŒ–
         }
 
-       //Èç¹ûµ±Ç°¼ÓÔØ¿òÎ´ÏÔÊ¾£¬Ôò½øĞĞÏÔÊ¾
+        //å¦‚æœå½“å‰åŠ è½½æ¡†æœªæ˜¾ç¤ºï¼Œåˆ™è¿›è¡Œæ˜¾ç¤º
 
     }
 
     /***
-     * ÒÆ³ı½çÃæÉÏµÄ¼ÓÔØ¿ò
+     * ç§»é™¤ç•Œé¢ä¸Šçš„åŠ è½½æ¡†
      */
     public void dismissProcessBar()
     {
-        Log.i(TAG, "Ïú»Ù¼ÓÔØ¿ò");
-        //ÈômMyProgressDialogÎªnull»òÕßÒÑ¾­Òş²ØÁË£¬Ôòreturn
+        Log.i(TAG, "é”€æ¯åŠ è½½æ¡†");
+        //è‹¥mMyProgressDialogä¸ºnullæˆ–è€…å·²ç»éšè—äº†ï¼Œåˆ™return
 
-        //·ñÔò½«mMyProgressDialog½øĞĞdismiss
+        //å¦åˆ™å°†mMyProgressDialogè¿›è¡Œdismiss
     }
 
 
     /***
-     * »ñÈ¡¿ÉÓÃµÄÌáÊ¾¶Ô»°¿ò¡£
-     * (ÓÉÓÚÌáÊ¾¶Ô»°¿òÔÚappÖĞ±È½Ï³£¼û£¬¶ø²»¾ÖÏŞÓÚÌØ¶¨activity£¬Òò´ËÎÒ½«ÆäĞ´ÕâÀï£¬´ó¼ÒÒ²¿ÉÒÔ×Ô¼º´´½¨)
+     * è·å–å¯ç”¨çš„æç¤ºå¯¹è¯æ¡†ã€‚
+     * (ç”±äºæç¤ºå¯¹è¯æ¡†åœ¨appä¸­æ¯”è¾ƒå¸¸è§ï¼Œè€Œä¸å±€é™äºç‰¹å®šactivityï¼Œå› æ­¤æˆ‘å°†å…¶å†™è¿™é‡Œï¼Œå¤§å®¶ä¹Ÿå¯ä»¥è‡ªå·±åˆ›å»º)
      *
      * @return
      */
     public static MyAlertDialog getAlertDialog(){
-        Log.i(TAG, "»ñÈ¡¶Ô»°¿ò");
+        Log.i(TAG, "è·å–å¯¹è¯æ¡†");
 
         return null;
     }
 
     /***
-     * »ØÊÕÊÓÍ¼×ÊÔ´£¬ÀıÈç¹Ø±ÕÎ´¹Ø±Õ¶Ô»°¿ò
+     * å›æ”¶è§†å›¾èµ„æºï¼Œä¾‹å¦‚å…³é—­æœªå…³é—­å¯¹è¯æ¡†
      */
     public void recycle()
     {
 
-        //ÈôÌáÊ¾¶Ô»°¿òÎ´¹Ø±Õ£¬Ôò¹Ø±ÕÌáÊ¾¶Ô»°¿ò
+        //è‹¥æç¤ºå¯¹è¯æ¡†æœªå…³é—­ï¼Œåˆ™å…³é—­æç¤ºå¯¹è¯æ¡†
 
-        //Èô¼ÓÔØ¿òÎ´¹Ø±Õ£¬Ôò¹Ø±Õ¼ÓÔØ¿ò
+        //è‹¥åŠ è½½æ¡†æœªå…³é—­ï¼Œåˆ™å…³é—­åŠ è½½æ¡†
     }
 
 
     /***
-     * ¼ì²âÍøÂçÊÇ·ñ¿ÉÓÃ
+     * æ£€æµ‹ç½‘ç»œæ˜¯å¦å¯ç”¨
      * @param context
-     * @return true:ÊÇ false:·ñ
+     * @return true:æ˜¯ false:å¦
      */
     public boolean isNetworkConnected(Context context) {
         if (context != null) {

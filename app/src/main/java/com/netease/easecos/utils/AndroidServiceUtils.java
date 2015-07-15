@@ -19,7 +19,7 @@ public class AndroidServiceUtils {
 	*/
 	public static void sendSMS(Context context,String phone,String smsBody)
 	{
-		if(StringUtils.isBlank(phone))
+		if("".equals(phone))
 		{
 			Log.e(TAG, "号码为空无法发送");
 			return;

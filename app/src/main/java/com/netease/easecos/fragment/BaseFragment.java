@@ -3,7 +3,7 @@ package com.netease.easecos.fragment;
 import android.app.Fragment;
 
 /**
- * 类描述：Fragment基类
+ * Fragment鍩虹被
  * Created by enlizhang on 2015/7/15.
  */
 public class BaseFragment extends Fragment {

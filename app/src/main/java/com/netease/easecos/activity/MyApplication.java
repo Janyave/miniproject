@@ -6,7 +6,7 @@ import android.content.Context;
 import com.netease.easecos.utils.MyMediaScanner;
 
 /**
- * ÀàÃèÊö£ºÓ¦ÓÃÀà
+ * ç±»æè¿°ï¼šåº”ç”¨ç±»
  * Created by enlizhang on 2015/7/15.
  */
 public class MyApplication extends Application {
@@ -14,17 +14,17 @@ public class MyApplication extends Application {
     private static final String TAG = "MyApplication";
 
     /***
-     * ³ÌĞòµ±Ç°µÄActivity£¬ÔÚÃ¿´ÎÆô¶¯activityÊ±£¬ÔÚonCreate()ÖĞ¸³Öµ¡£
-     * ÔÚ¼Ì³ĞBaseActivityºó£¬ÓÉÓÚBaseActivityÖĞÒÑ¾­½øĞĞÉèÖÃ£¬ËùÒÔÔÚµ÷ÓÃsuper.onCreate()Ê±Ïàµ±ÓÚÉèÖÃÁË
+     * ç¨‹åºå½“å‰çš„Activityï¼Œåœ¨æ¯æ¬¡å¯åŠ¨activityæ—¶ï¼Œåœ¨onCreate()ä¸­èµ‹å€¼ã€‚
+     * åœ¨ç»§æ‰¿BaseActivityåï¼Œç”±äºBaseActivityä¸­å·²ç»è¿›è¡Œè®¾ç½®ï¼Œæ‰€ä»¥åœ¨è°ƒç”¨super.onCreate()æ—¶ç›¸å½“äºè®¾ç½®äº†
      *
-     * ¶ÔÓÚ´Ë±äÁ¿ÉèÖÃµÄÓÃÍ¾:ÓÉÓÚÓ¦ÓÃÖĞºÜ¶àµØ·½ĞèÒªµ±Ç°µÄactivityÒıÓÃ£¬ÀıÈç×î¶àµÄ¾ÍÊÇ¶Ô»°¿ò£¬Òò´Ë¸Ã¾²Ì¬±äÁ¿µÄÉè¶¨
-     * Ê¹µÃÔÚ·ÇactivityÀàÖĞ´´½¨¶Ô»°¿òÕâĞ©¿Ø¼şÇ°£¬ÎŞĞè¶îÍâ´«Èëactivity¶ÔÏó£¬ÀıÈçAdapter¡£
+     * å¯¹äºæ­¤å˜é‡è®¾ç½®çš„ç”¨é€”:ç”±äºåº”ç”¨ä¸­å¾ˆå¤šåœ°æ–¹éœ€è¦å½“å‰çš„activityå¼•ç”¨ï¼Œä¾‹å¦‚æœ€å¤šçš„å°±æ˜¯å¯¹è¯æ¡†ï¼Œå› æ­¤è¯¥é™æ€å˜é‡çš„è®¾å®š
+     * ä½¿å¾—åœ¨éactivityç±»ä¸­åˆ›å»ºå¯¹è¯æ¡†è¿™äº›æ§ä»¶å‰ï¼Œæ— éœ€é¢å¤–ä¼ å…¥activityå¯¹è±¡ï¼Œä¾‹å¦‚Adapterã€‚
      */
     public static BaseActivity msCurrentActivity;
 
 
     /***
-     * µ±Ç°Application¶ÔÏóÒıÓÃ
+     * å½“å‰Applicationå¯¹è±¡å¼•ç”¨
      */
     private static Application  mApplication;
 
@@ -39,15 +39,15 @@ public class MyApplication extends Application {
 
 
     /***
-     * ÉèÖÃµ±Ç°activity
-     * @param currentActivity µ±Ç°activity
+     * è®¾ç½®å½“å‰activity
+     * @param currentActivity å½“å‰activity
      */
     public static void setCurrentActivity(BaseActivity currentActivity){
         msCurrentActivity = currentActivity;
     }
 
     /***
-     * »ñÈ¡µ±Ç°Activity¶ÔÏó
+     * è·å–å½“å‰Activityå¯¹è±¡
      * @return
      */
     public static BaseActivity getCurrentActivity(){
@@ -55,8 +55,8 @@ public class MyApplication extends Application {
     }
 
     /****
-     * »ñÈ¡µ±Ç°Context¶ÔÏó£¬Óë{@link #msCurrentActivity}ÓĞµãÀàËÆ£¬ºóĞøÓÃµ½Context¶ÔÏóÊ±£¬
-     *     ÀıÈçSharePreference£¬Êı¾İ¿âµÈµØ·½¿ÉÒÔÖ±½ÓÓÃ±¾·½·¨»ñÈ¡Context¶ÔÏó£¬¼õÉÙ´úÂë¸´ÔÓ¶È
+     * è·å–å½“å‰Contextå¯¹è±¡ï¼Œä¸{@link #msCurrentActivity}æœ‰ç‚¹ç±»ä¼¼ï¼Œåç»­ç”¨åˆ°Contextå¯¹è±¡æ—¶ï¼Œ
+     *     ä¾‹å¦‚SharePreferenceï¼Œæ•°æ®åº“ç­‰åœ°æ–¹å¯ä»¥ç›´æ¥ç”¨æœ¬æ–¹æ³•è·å–Contextå¯¹è±¡ï¼Œå‡å°‘ä»£ç å¤æ‚åº¦
      * @return
      */
     public static Context getContext()
@@ -72,12 +72,12 @@ public class MyApplication extends Application {
 
 
     /***
-     * ¶àÃ½ÌåÉ¨Ãè¶ÔÏó£¬ÓÃÓÚ±£´æÍ¼Æ¬µ½Í¼¿âºó£¬Í¼¿âÎŞ·¨×Ô¶¯Ë¢ĞÂ
+     * å¤šåª’ä½“æ‰«æå¯¹è±¡ï¼Œç”¨äºä¿å­˜å›¾ç‰‡åˆ°å›¾åº“åï¼Œå›¾åº“æ— æ³•è‡ªåŠ¨åˆ·æ–°
      */
     private static MyMediaScanner myMediaScanner;
 
     /***
-     * ²ÉÓÃµ¥Àı»ñÈ¡¿ÉÓÃµÄ{@link #myMediaScanner}
+     * é‡‡ç”¨å•ä¾‹è·å–å¯ç”¨çš„{@link #myMediaScanner}
      * @return
      */
     public static synchronized MyMediaScanner getMediaScanner()

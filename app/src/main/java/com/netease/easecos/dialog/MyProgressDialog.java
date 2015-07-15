@@ -1,7 +1,7 @@
 package com.netease.easecos.dialog;
 
 /**
- * ÀàÃèÊö£º¼ÓÔØ¶Ô»°¿ò
+ * åŠ è½½å¯¹è¯æ¡†
  * Created by enlizhang on 2015/7/15.
  */
 public class MyProgressDialog {
