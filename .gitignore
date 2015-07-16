@@ -1,4 +1,12 @@
 .gradle
+.idea
+build
+gradle
+build.gradle
+ECos.iml
+gradle.properties
+gradlew
+setting.gradle
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries
