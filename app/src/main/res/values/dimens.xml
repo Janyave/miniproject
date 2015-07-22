@@ -3,7 +3,21 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!--标题栏-->
+    <dimen name="tv_title_txsize">21sp</dimen>
+    <dimen name="tv_title_height">45dp</dimen>
+
+
+
+
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
     <dimen name="navigation_drawer_width">150dp</dimen>
+
+
+
+
+    <!-- 新建教程页面开始-->
+    <dimen name="iv_height_course_cover">180dp</dimen>
+    <!-- 新建教程页面结束-->
 </resources>

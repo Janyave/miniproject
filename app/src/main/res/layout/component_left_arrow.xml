@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 左箭头 -->
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/iv_left"
+        android:layout_width="8dp"
+   		android:layout_height="25dp"
+   		android:layout_gravity="center"
+    	android:gravity="center"
+    	android:background="@null"
+    	android:src="@drawable/ic_back" >
+
+</ImageView>

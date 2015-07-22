@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 创建教程，下一步点击效果-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:drawable="@drawable/ic_unpress_next_step" android:state_pressed="false"/>
+    <item android:drawable="@drawable/ic_press_next_step" android:state_pressed="true"/>
+</selector>

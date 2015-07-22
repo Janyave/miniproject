@@ -13,4 +13,5 @@
         android:descendantFocusability="afterDescendants"
         android:dividerHeight="10dp">
     </com.netease.ecos.views.XListView>
+
 </LinearLayout>

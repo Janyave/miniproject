@@ -38,6 +38,9 @@ public class BaseActivity extends ActionBarActivity {
         //设置当前activity
         MyApplication.setCurrentActivity(this);
 
+        //隐藏ActionBar
+        getSupportActionBar().hide();
+
         //初始化提示对话框
 
     }

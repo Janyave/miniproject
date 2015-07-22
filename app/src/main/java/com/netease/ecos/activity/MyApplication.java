@@ -3,6 +3,8 @@ package com.netease.ecos.activity;
 import android.app.Application;
 import android.content.Context;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.netease.ecos.utils.MyMediaScanner;
 
 
@@ -69,6 +71,18 @@ public class MyApplication extends Application {
     public static Application getDemoApplication()
     {
         return mApplication;
+    }
+
+
+    public static RequestQueue volleyQueue;
+
+    public static synchronized RequestQueue getRequestQueue()
+    {
+        if(volleyQueue == null)
+        {
+            volleyQueue = Volley.newRequestQueue(mApplication.getApplicationContext());
+        }
+        return volleyQueue;
     }
 
 

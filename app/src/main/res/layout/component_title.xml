@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rly_title_bar"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/tv_title_height"
+    android:paddingRight="10dp"
+    android:background="@color/theme" >
+
+
+   <LinearLayout 
+       android:contentDescription="标题左侧按钮，含图标和按钮，根据需要进行显示和隐藏，并更改名称"
+       android:id="@+id/lly_left_action"
+       android:layout_width="wrap_content"
+       android:layout_height="match_parent"
+       android:orientation="horizontal"
+       android:layout_centerVertical="true"
+       android:paddingLeft="10dp"
+       android:minWidth="80dp">
+    
+     <include 
+         android:id="@+id/iv_left"
+         layout="@layout/component_left_arrow"/>
+      
+      
+  	 <TextView 
+        android:id="@+id/tv_left"
+        android:layout_width="match_parent"
+    	android:layout_height="match_parent"
+    	android:layout_toRightOf="@id/iv_left"
+    	android:gravity="center_vertical"
+    	android:paddingLeft="5dp"
+    	
+    	android:background="@null"
+    	android:textSize="16sp"
+    	android:textColor="#ffffff"
+    	android:text="返回"
+    	/>
+   </LinearLayout>
+
+
+	<TextView 
+	    android:contentDescription="标题，每次初始化页面时需要修改成对应的名称"
+    	android:id="@+id/tv_title"
+    	android:layout_width="wrap_content"
+    	android:layout_height="match_parent"
+    	android:layout_centerHorizontal="true"
+    	android:gravity="center_vertical"
+   
+    	android:textColor="@color/tv_title"
+    	android:textSize="@dimen/tv_title_txsize"
+    	
+    	android:text="标题"/>
+
+	<Button
+	    android:contentDescription="标题右侧按钮，根据需要进行显示或者隐藏，并更改名称"
+	    android:id="@+id/btn_right_action"
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:layout_centerVertical="true"
+	    android:layout_alignParentRight="true"
+	    android:background="@null"
+	    
+	    android:paddingRight="10dp"
+	    android:paddingLeft="5dp"
+	    android:text="确定"
+	    android:textColor="#ffffff"
+	    android:textSize="16sp" />
+	
+	<ImageView
+	    android:contentDescription="标题右侧按钮对应的图标"
+	    android:id="@+id/iv_right_icon"
+	    android:layout_width="22dp"
+	    android:layout_height="match_parent"
+	    android:layout_toLeftOf="@id/btn_right_action"
+	    
+        android:clickable="true"
+	     />
+</RelativeLayout>

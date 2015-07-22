@@ -15,6 +15,13 @@
 -->
 
 <resources>
+    <!-- 主题色 -->
+    <color name="theme">#339a89</color>
+
+    <!-- 标题 -->
+    <color name="bg_title"> #00bcd5</color>
+    <color name="tv_title"> #ffffff</color>
+
     <drawable name="red">#7f00</drawable>
     <drawable name="blue">#770000ff</drawable>
     <drawable name="green">#7700ff00</drawable>
