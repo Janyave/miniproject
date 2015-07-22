@@ -2,4 +2,34 @@
     <string name="app_name">ECos</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+
+    <!-- tab 开始-->
+    <string name="tab_course">教程</string>
+    <string name="tab_community">社区</string>
+    <string name="tab_transaction">交易</string>
+    <string name="tab_home">主页</string>
+    <!-- tab 结束-->
+
+    <!-- 侧滑栏开始 -->
+    <string name="drawer_title">我是侧滑栏</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_section4">Zyw test</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- 侧滑栏结束 -->
+
+    <!-- xListView(下拉上拉控件)开始-->
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+
+    <string name="xlistview_readmore">查看更多c</string>
+    <!-- xListView(下拉上拉控件)结束-->
 </resources>
