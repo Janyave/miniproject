@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/workDetailsPerson"
+                    layout="@layout/person"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"></include>
+
+                <ImageView
+                    android:id="@+id/workDetailImgVw"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/workDetail_ImgVw_height"
+                    android:layout_toRightOf="@id/workDetailsPerson"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/workDetailDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/workDetailImgVw"
+                    android:text="2015-05-15" />
+
+                <TextView
+                    android:id="@+id/workDetailDescpTxVw"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/workDetailImgVw"
+                    android:layout_below="@id/workDetailDate"
+                    android:text="这是我的作品，模仿的对象是某某某，重点是什么什么，希望大家喜欢。" />
+
+                <TextView
+                    android:id="@+id/workDetailFavorTxVw"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/workDetailDescpTxVw"
+                    android:layout_below="@id/workDetailDescpTxVw"
+                    android:text="56个赞" />
+
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/divider_height"
+                    android:layout_alignLeft="@id/workDetailFavorTxVw"
+                    android:layout_below="@id/workDetailFavorTxVw"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/divider" />
+            </RelativeLayout>
+
+            <ListView
+                android:id="@+id/workDetailsLsVw"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"></ListView>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:divider="@drawable/vertical_divider"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <EditText
+                    android:id="@+id/workDetailsCommentEdTx"
+                    android:layout_width="@dimen/workDetailComment_EdTx_width"
+                    android:layout_height="@dimen/workDetailComment_EdTx_height"
+                    android:hint="@string/comment_hint"
+                    android:textSize="@dimen/textSize" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/workDetailComment_EdTx_height"
+                    android:background="@null"
+                    android:text="@string/favour" />
+            </LinearLayout>
+        </LinearLayout>
+</ScrollView>
