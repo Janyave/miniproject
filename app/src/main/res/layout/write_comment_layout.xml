@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="@drawable/vertical_divider"
+    android:orientation="horizontal"
+    android:showDividers="middle">
+
+    <EditText
+        android:id="@+id/workDetailsCommentEdTx"
+        android:layout_width="@dimen/workDetailComment_EdTx_width"
+        android:layout_height="@dimen/workDetailComment_EdTx_height"
+        android:hint="@string/comment_hint"
+        android:textSize="@dimen/textSize" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/workDetailComment_EdTx_height"
+        android:background="@null"
+        android:text="@string/favour" />
+</LinearLayout>
