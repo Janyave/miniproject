@@ -1,62 +1,135 @@
 package com.netease.ecos.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.Toast;
 
 import com.netease.ecos.R;
+import com.netease.ecos.adapter.CourseListViewAdapter;
+import com.netease.ecos.views.AnimationHelper;
+import com.netease.ecos.views.FloadingButton;
+import com.netease.ecos.views.XListView;
 
 /***
  * 教程页面
  */
-public class CourseFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class CourseFragment extends Fragment implements XListView.IXListViewListener{
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private View mainView;
+    private FloadingButton btn_floading;
+    private XListView lv_course;
 
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CourseFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CourseFragment newInstance(String param1, String param2) {
+    public static CourseFragment newInstance() {
         CourseFragment fragment = new CourseFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     public CourseFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_course, container, false);
+
+
+        mainView=inflater.inflate(R.layout.fragment_course,container,false);
+
+        btn_floading=(FloadingButton)mainView.findViewById(R.id.btn_floading);
+
+        lv_course=(XListView)mainView.findViewById(R.id.lv_course);
+        lv_course.setAdapter(new CourseListViewAdapter(getActivity()));
+        lv_course.setDividerHeight(2);
+        lv_course.initRefleshTime(this.getClass().getSimpleName());
+
+        lv_course.setPullLoadEnable(true);
+        lv_course.setXListViewListener(this);
+
+
+        lv_course.setOnScrollListener(new AbsListView.OnScrollListener() {
+            int lvIndext = 0; //当前listView显示的首个Item的Index
+            String state = "up"; //当前ListView动作状态 up or down
+            Boolean isAnim = false; //是否正在动画
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                /***当前滑动状态，与记录的lvIndex作比较，发生变化触发动画*/
+                String nowstate = state;
+                /***当前可见Item的首个Index*/
+                int nowIndext = firstVisibleItem;
+                /***nowIndex大于lvIndex，ListView下滑*/
+                if (nowIndext > lvIndext&&!isAnim) {
+                    nowstate = "down";
+                    if (!TextUtils.equals(nowstate, state)) {
+                        btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
+                            @Override
+                            public void doAfterAnimation() {
+                                isAnim=false;
+                            }
+                        });
+                        isAnim = true;
+                    }
+                }
+                /***nowIndex小于lvIndex，ListView下滑*/
+                if (nowIndext < lvIndext&&!isAnim) {
+                    nowstate = "up";
+                    if (!TextUtils.equals(nowstate, state)) {
+                        btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
+                            @Override
+                            public void doAfterAnimation() {
+                                isAnim=false;
+                            }
+                        });
+                        isAnim = true;
+                    }
+                }
+                state = nowstate;
+                lvIndext = nowIndext;
+            }
+        });
+
+        return mainView;
     }
 
+    @Override
+    public void onRefresh() {
+        Toast.makeText(getActivity(), "下拉刷新", Toast.LENGTH_SHORT).show();
+        //1秒后关闭刷新
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                lv_course.stopRefresh();
+            }
+        }, 1000);
+    }
+
+    @Override
+    public void onLoadMore() {
+        Toast.makeText(getActivity(),"上拉加载",Toast.LENGTH_SHORT).show();
+
+        //1秒后关闭加载
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                lv_course.stopLoadMore();
+            }
+        }, 1000);
+    }
 }

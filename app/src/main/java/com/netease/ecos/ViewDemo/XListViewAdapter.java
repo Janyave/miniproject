@@ -34,6 +34,7 @@ public class XListViewAdapter extends BaseAdapter
         return mDatas==null?0:mDatas.length;
     }
 
+
     @Override
     public Object getItem(int position) {
         return mDatas[position];
