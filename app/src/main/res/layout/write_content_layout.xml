@@ -4,9 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/component_title" />
+
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:focusableInTouchMode="true"
         android:gravity="top|left"
         android:hint="@string/comment_hint"
         android:inputType="textMultiLine" />

@@ -1,6 +1,7 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.activity.ExhibitDetailActivity;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -19,8 +21,8 @@ public class DisplayListViewAdapter extends BaseAdapter {
 
     private Context mcontext;
 
-    public DisplayListViewAdapter(Context context){
-        this.mcontext=context;
+    public DisplayListViewAdapter(Context context) {
+        this.mcontext = context;
     }
 
     class ViewHolder {
@@ -43,19 +45,26 @@ public class DisplayListViewAdapter extends BaseAdapter {
             tv_name = (TextView) root.findViewById(R.id.tv_name);
             btn_focus = (Button) root.findViewById(R.id.btn_focus);
 
-            iv_cover=(ImageView)root.findViewById(R.id.iv_cover);
-            ll_coverInformation=(LinearLayout)root.findViewById(R.id.ll_coverInformation);
+            iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
+            ll_coverInformation = (LinearLayout) root.findViewById(R.id.ll_coverInformation);
             tv_coverTitle = (TextView) root.findViewById(R.id.tv_coverTitle);
             tv_coverTime = (TextView) root.findViewById(R.id.tv_coverTime);
 
             btn_praise = (Button) root.findViewById(R.id.btn_praise);
             btn_evaluate = (Button) root.findViewById(R.id.btn_evaluate);
+            iv_cover.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mcontext, ExhibitDetailActivity.class);
+                    mcontext.startActivity(intent);
+                }
+            });
         }
 
         /**
          * 传入数据未定
          */
-        public void setData(int position){
+        public void setData(int position) {
             //TODO 绑定数据
             Picasso.with(mcontext).load("http://i.imgur.com/DvpvklR.png").placeholder(R.drawable.img_default).into(iv_cover);
         }
@@ -80,13 +89,13 @@ public class DisplayListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder=null;
-        if (convertView==null){
-            convertView=parent.inflate(mcontext,R.layout.item_display,null);
-            viewHolder=new ViewHolder(convertView);
+        ViewHolder viewHolder = null;
+        if (convertView == null) {
+            convertView = parent.inflate(mcontext, R.layout.item_display, null);
+            viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder=(ViewHolder)convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
         viewHolder.setData(position);
