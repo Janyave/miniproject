@@ -37,6 +37,11 @@
         <activity
             android:name=".activity.WriteContentActivity"
             android:label="@string/app_name" />
+
+        <activity
+            android:name=".activity.ExhibitDetailActivity"
+            android:label="@string/app_name">
+        </activity>
     </application>
 
 
