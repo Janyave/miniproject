@@ -32,4 +32,8 @@
 
     <string name="xlistview_readmore">查看更多c</string>
     <!-- xListView(下拉上拉控件)结束-->
+
+    <!-- 个人作品详情页面-->
+    <string name="comment_hint">请写下你的评论吧:)</string>
+    <string name="favour">点赞</string>
 </resources>
