@@ -49,6 +49,12 @@
                     android:layout_height="40dp"
                     android:text="@string/tab_transaction"
                     style="@style/rb_chat_list_tab"/>
+                <RadioButton
+                    android:id="@+id/radio_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="@string/tab_display"
+                    style="@style/rb_chat_list_tab"/>
             </RadioGroup>
 
         </LinearLayout>

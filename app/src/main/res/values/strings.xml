@@ -8,6 +8,7 @@
     <string name="tab_course">教程</string>
     <string name="tab_community">社区</string>
     <string name="tab_transaction">交易</string>
+    <string name="tab_display">展示</string>
     <string name="tab_home">主页</string>
     <!-- tab 结束-->
 
@@ -36,4 +37,7 @@
     <!-- 个人作品详情页面-->
     <string name="comment_hint">请写下你的评论吧:)</string>
     <string name="favour">点赞</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

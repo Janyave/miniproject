@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.netease.ecos.R;
 import com.netease.ecos.fragment.CommunityFragment;
 import com.netease.ecos.fragment.CourseFragment;
+import com.netease.ecos.fragment.DisplayFragment;
 import com.netease.ecos.fragment.NavigationDrawerFragment;
 import com.netease.ecos.fragment.TransactionFragment;
 
@@ -43,13 +44,16 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     /*** 交易tab下标 */
     public static final int TAB_TRANSACTION_INDEX = 2;
 
+    /*** 展示tab下标 */
+    public static final int TAB_DISPLAY_INDEX = 3;
+
 
     /***
      * mFragments[0]对应{@link CourseFragment}
      * mFragments[1]对应{@link CommunityFragment}
      * mFragments[2]对应{@link TransactionFragment}
      */
-    private Fragment mFragments[] = new Fragment[3];
+    private Fragment mFragments[] = new Fragment[4];
 
     /*** 当前所处的tab */
     private int mCurrentTab = 0;
@@ -150,6 +154,10 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 case R.id.radio_3:
                     setCurrentTab(TAB_TRANSACTION_INDEX);
                     break;
+                //点击展示tab
+                case R.id.radio_4:
+                    setCurrentTab(TAB_DISPLAY_INDEX);
+                    break;
             }
         }
     };
@@ -159,7 +167,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
      * @param index
      */
     private void setCurrentTab(int index){
-        if(mViewPager != null && (index >= 0 && index <= 2)){
+        if(mViewPager != null && (index >= 0 && index <= 3)){
             mViewPager.setCurrentItem(index);
             mCurrentTab = index;
         }
@@ -209,13 +217,19 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                     if(mFragments[TAB_TRANSACTION_INDEX]==null)
                         mFragments[TAB_TRANSACTION_INDEX] = new TransactionFragment();
                     return mFragments[TAB_TRANSACTION_INDEX];
+
+                //点击展示tab，要显示交易页面
+                case TAB_DISPLAY_INDEX:
+                    if(mFragments[TAB_DISPLAY_INDEX]==null)
+                 mFragments[TAB_DISPLAY_INDEX] = new DisplayFragment();
+                    return mFragments[TAB_DISPLAY_INDEX];
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
     }
 
