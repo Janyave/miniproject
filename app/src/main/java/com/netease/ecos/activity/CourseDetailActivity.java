@@ -142,7 +142,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                 startActivity(intent);
             }
         });
-        //拦截listview的touch事件，不会造成scrollview的滑动。 
+        //拦截listview的touch事件，不会造成scrollview的滑动。
         hlv_otherWorks.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {

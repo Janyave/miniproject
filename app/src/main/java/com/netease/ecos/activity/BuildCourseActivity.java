@@ -39,6 +39,13 @@ import butterknife.InjectView;
  */
 public class BuildCourseActivity extends BaseActivity {
 
+    @InjectView(R.id.tv_title)
+    TextView titleTxVw;
+    @InjectView(R.id.btn_right_action)
+    Button rightButton;
+    @InjectView(R.id.tv_left)
+    TextView backTxVw;
+
     /**
      * 教程封面
      */
@@ -103,6 +110,25 @@ public class BuildCourseActivity extends BaseActivity {
     }
 
     private void initData() {
+
+        //implementation on the title bar
+        titleTxVw.setText("新建教程");
+        rightButton.setText("发布");
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO:send the content to the server.
+                //TODO:check if it has finish the contents.
+                BuildCourseActivity.this.finish();
+            }
+        });
+        backTxVw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BuildCourseActivity.this.finish();
+            }
+        });
+
         List<Course.Step> stepsList = new ArrayList<Course.Step>();
 
         /*for(int i=0;i<DESCRIPTIONS.length;i++){
