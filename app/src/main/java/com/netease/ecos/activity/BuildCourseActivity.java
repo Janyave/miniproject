@@ -77,6 +77,9 @@ public class BuildCourseActivity extends BaseActivity{
     /*** 当前正在设置第(couserStepPosition+1)步的教程图片 */
     public int mCouserStepPosition = -1;
 
+    /** 封面图片路径 */
+    public String mCoverImagePath;
+
 
     CourseStepAdapter mCourseStepAdapter;
 
@@ -192,10 +195,27 @@ public class BuildCourseActivity extends BaseActivity{
         releaseImageViewResouce(iv_course_cover);
     }
 
+
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
         Log.i("onSaveInstanceState", "<--------------------");
+
+        Log.i("onRestoreInstanceState", "isSettingCoverPhoto: " + isSettingCoverPhoto );
+        Log.i("onRestoreInstanceState", "isSettingCoursePhoto: " + isSettingCoursePhoto );
+        Log.i("onRestoreInstanceState", "mCouserStepPosition: " + mCouserStepPosition);
+        Log.i("onRestoreInstanceState", "mCoverImagePath: " + mCoverImagePath );
+
+
+        //保存当前封面设置标志位
+        savedInstanceState.putBoolean("isSettingCoverPhoto", isSettingCoverPhoto);
+        //保存当前步骤图片设置标志位
+        savedInstanceState.putBoolean("isSettingCoursePhoto", isSettingCoursePhoto);
+        //保存当前正在设置图片的position
+        savedInstanceState.putInt("mCouserStepPosition", mCouserStepPosition);
+        //保存封面图片路径
+        savedInstanceState.putString("mCoverImagePath", mCoverImagePath);
+        //保存教程列表数据
         savedInstanceState.putParcelableArrayList("stepData", (ArrayList<Course.Step>) mCourseStepAdapter.getStepDataList());
         Log.i("onSaveInstanceState", "-------------------->");
     }
@@ -206,6 +226,16 @@ public class BuildCourseActivity extends BaseActivity{
 
         List<Course.Step> list = savedInstanceState.getParcelableArrayList("stepData");
         Log.i("onRestoreInstanceState", "--------------------" );
+        isSettingCoverPhoto = savedInstanceState.getBoolean("isSettingCoverPhoto");
+        isSettingCoursePhoto = savedInstanceState.getBoolean("isSettingCoursePhoto");
+        mCouserStepPosition = savedInstanceState.getInt("mCouserStepPosition");
+        mCoverImagePath = savedInstanceState.getString("mCoverImagePath");
+
+        Log.i("onRestoreInstanceState", "isSettingCoverPhoto: " + isSettingCoverPhoto );
+        Log.i("onRestoreInstanceState", "isSettingCoursePhoto: " + isSettingCoursePhoto );
+        Log.i("onRestoreInstanceState", "mCouserStepPosition: " + mCouserStepPosition );
+        Log.i("onRestoreInstanceState", "mCoverImagePath: " + mCoverImagePath );
+
 
         for(Course.Step step:list){
             Log.i("onRestoreInstanceState", step.toString() );
@@ -512,6 +542,8 @@ public class BuildCourseActivity extends BaseActivity{
          * @return
          */
         public boolean isSomeEmpty(){
+
+
 
             for(Course.Step step:mStepsList){
                 if(step.isSomeEmpty())
