@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/component_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tv_title_height"
+        android:layout_alignParentTop="true" />
+
     <ListView
         android:id="@+id/commentLsVw"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/include_title"
         android:layout_marginBottom="@dimen/workDetailComment_EdTx_height"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:dividerHeight="3dp"
         android:listSelector="#e7e7e7" />
 
@@ -17,6 +23,6 @@
         layout="@layout/write_comment_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"></include>
+        android:layout_alignParentBottom="true"></include>
 
-</FrameLayout>
+</RelativeLayout>

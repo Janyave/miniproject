@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.ExhibitListViewAdapter;
@@ -27,8 +30,15 @@ public class ExhibitDetailActivity extends Activity {
     ExtensibleListView exhibitCommentLsVwLsVw;
     @InjectView(R.id.workDetailsCommentEdTx)
     EditText commentEdTx;
+    @InjectView(R.id.tv_title)
+    TextView titleTxVw;
+    @InjectView(R.id.btn_right_action)
+    Button rightButton;
+    @InjectView(R.id.tv_left)
+    TextView backTxVw;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exhibit_detail_layout);
@@ -52,6 +62,25 @@ public class ExhibitDetailActivity extends Activity {
                 return false;
             }
         });
+
+        //implementation on the title bar
+        titleTxVw.setVisibility(View.INVISIBLE);
+        rightButton.setText("99+评论");
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ExhibitDetailActivity.this, CommentDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+        backTxVw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ExhibitDetailActivity.this.finish();
+            }
+        });
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 }
 

@@ -15,7 +15,7 @@ import butterknife.InjectView;
 /**
  * Created by Think on 2015/7/23.
  */
-public class WriteContentActivity extends Activity {
+public class UploadWorkActivity extends Activity {
     @InjectView(R.id.tv_title)
     TextView titleTxVw;
     @InjectView(R.id.btn_right_action)
@@ -26,22 +26,22 @@ public class WriteContentActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.write_content_layout);
+        setContentView(R.layout.upload_work_layout);
         ButterKnife.inject(this);
         //implementation on the title bar
-        titleTxVw.setText("添加评论");
-        rightButton.setText("发送");
+        titleTxVw.setText("上传作品");
+        rightButton.setText("发布");
         rightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO:send the content to the server.
-                WriteContentActivity.this.finish();
+                UploadWorkActivity.this.finish();
             }
         });
         backTxVw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WriteContentActivity.this.finish();
+                UploadWorkActivity.this.finish();
             }
         });
         getWindow().setSoftInputMode(

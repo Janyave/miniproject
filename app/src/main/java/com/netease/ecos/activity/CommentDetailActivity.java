@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.WorkDetailListViewAdapter;
@@ -23,6 +26,13 @@ public class CommentDetailActivity extends Activity {
     ListView commentListView;
     @InjectView(R.id.workDetailsCommentEdTx)
     EditText commentEdTx;
+    @InjectView(R.id.tv_title)
+    TextView titleTxVw;
+    @InjectView(R.id.btn_right_action)
+    Button rightButton;
+    @InjectView(R.id.tv_left)
+    TextView backTxVw;
+
 
     private WorkDetailListViewAdapter workDetailListViewAdapter;
 
@@ -44,5 +54,16 @@ public class CommentDetailActivity extends Activity {
                 return false;
             }
         });
+        //implementation on the title bar
+        titleTxVw.setText("评论");
+        rightButton.setVisibility(View.INVISIBLE);
+        backTxVw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommentDetailActivity.this.finish();
+            }
+        });
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 }
