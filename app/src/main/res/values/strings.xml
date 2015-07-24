@@ -40,4 +40,7 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- 个人作品分享页面-->
+    <string name="work_hint">分享一下心得吧:)</string>
 </resources>
