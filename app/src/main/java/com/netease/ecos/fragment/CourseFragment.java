@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.netease.ecos.R;
 import com.netease.ecos.activity.BuildCourseActivity;
+import com.netease.ecos.activity.CourseDetailActivity;
 import com.netease.ecos.adapter.CourseListViewAdapter;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.FloadingButton;
@@ -39,27 +41,37 @@ public class CourseFragment extends Fragment implements XListView.IXListViewList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
         mainView = inflater.inflate(R.layout.fragment_course, container, false);
 
-        btn_floading = (FloadingButton) mainView.findViewById(R.id.btn_floading);
+        bindView();
+        initListener();
+        initData();
 
+        return mainView;
+    }
+
+    private void bindView() {
+        btn_floading = (FloadingButton) mainView.findViewById(R.id.btn_floading);
         lv_course = (XListView) mainView.findViewById(R.id.lv_course);
-        lv_course.setAdapter(new CourseListViewAdapter(getActivity()));
+    }
+
+
+    private void initListener() {
         lv_course.setDividerHeight(2);
         lv_course.initRefleshTime(this.getClass().getSimpleName());
-
         lv_course.setPullLoadEnable(true);
         lv_course.setXListViewListener(this);
-
-
+        lv_course.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(new Intent(getActivity(), CourseDetailActivity.class));
+            }
+        });
         lv_course.setOnScrollListener(new AbsListView.OnScrollListener() {
             int lvIndext = 0; //当前listView显示的首个Item的Index
             String state = "up"; //当前ListView动作状态 up or down
@@ -114,9 +126,14 @@ public class CourseFragment extends Fragment implements XListView.IXListViewList
                 startActivity(intent);
             }
         });
-
-        return mainView;
     }
+
+    private void initData() {
+        lv_course.setAdapter(new CourseListViewAdapter(getActivity()));
+    }
+
+
+
 
     @Override
     public void onRefresh() {
