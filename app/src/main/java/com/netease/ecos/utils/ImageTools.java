@@ -26,9 +26,11 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -443,7 +445,7 @@ public final class ImageTools {
 		{
 			Uri selectedImage = null;
 			selectedImage = data.getData();
-			//System.out.println("Data");
+			System.out.println("Data");
 			String[] filePathColumn = { MediaStore.Images.Media.DATA };
 						   
 			Cursor cursor = context.getContentResolver().query(selectedImage,
@@ -623,7 +625,33 @@ public final class ImageTools {
 		
 		return rotate;
 	}
-	
+
+
+	public static void copyFileTo(File src, File des){
+		if(src != null){
+			try {
+				InputStream is;
+				is = new FileInputStream(src);
+				FileOutputStream out = new FileOutputStream(des);
+
+				byte bytes[] = new byte[1024];
+				int length=0;
+
+				while((length=is.read(bytes))!=-1){
+
+					out.write(bytes,0,length);
+				}
+				out.flush();
+
+
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	
 }
