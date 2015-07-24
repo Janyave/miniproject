@@ -43,4 +43,8 @@
 
     <!-- 个人作品分享页面-->
     <string name="work_hint">分享一下心得吧:)</string>
+
+    <!-- 个人上传作品页面（多个作品）-->
+    <string name="uploadWorks_coverHint">给作品起个名字让别人更容易找到你</string>
+    <string name="workDescrp_hint">作品描述</string>
 </resources>
