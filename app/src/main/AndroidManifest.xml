@@ -2,8 +2,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.netease.ecos">
 
+    <!-- 网络通信 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!-- sd读写 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <!-- 摄像头 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- 短信 -->
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <!-- 手机震动 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- 需要android.permission.GET_TASKS权限判断本程序是否为当前运行的应用? -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
     <application
-        android:name="com.netease.ecos.activity.MyApplication"
+        android:name=".activity.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,23 +46,18 @@
         <activity
             android:name=".ViewDemo.XListViewDemoActivity"
             android:label="@string/app_name" />
-
         <activity
             android:name=".activity.BuildCourseActivity"
             android:label="@string/app_name" />
-
         <activity
             android:name=".activity.WorkDetailActivity"
             android:label="@string/app_name" />
-
         <activity
             android:name=".activity.CommentDetailActivity"
             android:label="@string/app_name" />
-
         <activity
             android:name=".activity.WriteContentActivity"
             android:label="@string/app_name" />
-
         <activity
             android:name=".activity.ExhibitDetailActivity"
             android:label="@string/app_name"></activity>
@@ -47,34 +67,12 @@
         <activity
             android:name=".activity.UploadWorksActivity"
             android:label="@string/app_name" />
+        <activity
+            android:name=".activity.CourseDetailActivity"
+            android:label="@string/title_activity_course_detail"></activity>
+        <activity
+            android:name=".activity.CourseDetailUploadActivity"
+            android:label="@string/title_activity_course_detail_upload"></activity>
     </application>
-
-
-    <!--网络通信-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
-    <!--sd读写-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-
-    <!--摄像头-->
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <!--短信-->
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-
-
-    <!-- 手机震动 -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-
-    <!-- 需要android.permission.GET_TASKS权限判断本程序是否为当前运行的应用? -->
-    <uses-permission android:name="android.permission.GET_TASKS" />
 
 </manifest>
