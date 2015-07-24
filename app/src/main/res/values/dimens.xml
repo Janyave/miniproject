@@ -27,4 +27,7 @@
 
     <!-- text size-->
     <dimen name="textSize">17sp</dimen>
+
+    <dimen name="uploadWork_Img_width">150dp</dimen>
+    <dimen name="uploadWork_Img_height">200dp</dimen>
 </resources>
