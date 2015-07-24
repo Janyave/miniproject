@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/component_title" />
+
     <ScrollView
+        android:id="@+id/course_detail_scrollveiw"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -57,7 +62,7 @@
                     android:background="#aaa">
                     <!-- 标题-->
                     <TextView
-                        android:id="@+id/tv_title"
+                        android:id="@+id/tv_title1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="我是标题 TITLE" />
@@ -66,7 +71,7 @@
                         android:id="@+id/tv_praiseNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_title"
+                        android:layout_below="@id/tv_title1"
                         android:text="56个赞" />
 
                     <LinearLayout
@@ -123,7 +128,8 @@
                     <com.netease.ecos.views.HorizontalListView
                         android:id="@+id/hlv_otherWorks"
                         android:layout_width="wrap_content"
-                        android:layout_height="200dp"></com.netease.ecos.views.HorizontalListView>
+                        android:layout_height="200dp"
+                        android:descendantFocusability="afterDescendants" />
                     <!-- 所有图片-->
                     <Button
                         android:id="@+id/btn_allWorks"
@@ -155,8 +161,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <include
-        android:id="@+id/include_title"
-        layout="@layout/component_title" />
-</RelativeLayout>
+</LinearLayout>
