@@ -26,7 +26,7 @@ public class UploadWorkActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upload_works_layout);
+        setContentView(R.layout.upload_work_layout);
         ButterKnife.inject(this);
         //implementation on the title bar
         titleTxVw.setVisibility(View.INVISIBLE);

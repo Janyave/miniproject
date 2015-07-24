@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,7 +19,7 @@ import com.netease.ecos.views.HorizontalListView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class CourseDetailActivity extends ActionBarActivity implements View.OnClickListener{
+public class CourseDetailActivity extends ActionBarActivity implements View.OnClickListener {
 
     @InjectView(R.id.iv_cover)
     ImageView iv_cover;
@@ -67,7 +68,6 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     }
 
 
-
     private void initListener() {
         btn_allEvaluation.setOnClickListener(this);
         btn_allWorks.setOnClickListener(this);
@@ -77,25 +77,38 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        Intent intent;
+        switch (v.getId()) {
             case R.id.ll_author:
                 //TODO 个人页面
                 break;
             case R.id.btn_allWorks:
                 //TODO 所有作品
+                intent = new Intent(CourseDetailActivity.this, WorkDetailActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btn_uploadMyWork:
-                startActivity(new Intent(CourseDetailActivity.this,CourseDetailUploadActivity.class));
+                startActivity(new Intent(CourseDetailActivity.this, UploadWorkActivity.class));
                 break;
             case R.id.btn_allEvaluation:
                 //TODO 所有评论
+                intent = new Intent(CourseDetailActivity.this, CommentDetailActivity.class);
+                startActivity(intent);
                 break;
         }
     }
 
     private void initData() {
-        adapter=new CourseDetailOtherWorksHListViewAdapter(this);
+        adapter = new CourseDetailOtherWorksHListViewAdapter(this);
         hlv_otherWorks.setAdapter(adapter);
+        hlv_otherWorks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //TODO:进入网友作品
+                Intent intent = new Intent(CourseDetailActivity.this, WorkDetailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

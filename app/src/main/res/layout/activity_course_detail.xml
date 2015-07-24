@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
@@ -21,12 +21,13 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <ImageView
                         android:id="@+id/iv_cover"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:src="@drawable/img_default"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img_default" />
                     <!-- 点赞-->
                     <LinearLayout
                         android:id="@+id/ll_praise"
@@ -34,16 +35,18 @@
                         android:layout_height="40dp"
                         android:layout_gravity="right|bottom"
                         android:orientation="horizontal">
+
                         <ImageView
                             android:id="@+id/iv_praise"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@mipmap/ic_launcher"/>
+                            android:src="@mipmap/ic_launcher" />
+
                         <TextView
                             android:id="@+id/tv_praise"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="点赞"/>
+                            android:text="点赞" />
                     </LinearLayout>
                 </FrameLayout>
 
@@ -57,14 +60,15 @@
                         android:id="@+id/tv_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="我是标题 TITLE"/>
+                        android:text="我是标题 TITLE" />
                     <!-- 赞-->
                     <TextView
                         android:id="@+id/tv_praiseNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="56个赞"
-                        android:layout_below="@id/tv_title"/>
+                        android:layout_below="@id/tv_title"
+                        android:text="56个赞" />
+
                     <LinearLayout
                         android:id="@+id/ll_author"
                         android:layout_width="wrap_content"
@@ -77,14 +81,13 @@
                             android:id="@+id/iv_avatar"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@mipmap/ic_launcher"
-                            />
+                            android:src="@mipmap/ic_launcher" />
                         <!-- 个人昵称-->
                         <TextView
                             android:id="@+id/tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="上面是头像，这是姓名"/>
+                            android:text="上面是头像，这是姓名" />
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -95,12 +98,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
-                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:background="#ccc"
-                        android:text="我是教程内容"/>
+                        android:gravity="center"
+                        android:text="我是教程内容" />
                 </LinearLayout>
 
                 <!-- 网友作品-->
@@ -108,24 +112,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <TextView
                         android:id="@+id/tv_otherWorks"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:text="200个网友作品"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:text="200个网友作品" />
                     <!-- 图片展示-->
                     <com.netease.ecos.views.HorizontalListView
                         android:id="@+id/hlv_otherWorks"
                         android:layout_width="wrap_content"
-                        android:layout_height="200dp">
-                    </com.netease.ecos.views.HorizontalListView>
+                        android:layout_height="200dp"></com.netease.ecos.views.HorizontalListView>
                     <!-- 所有图片-->
                     <Button
                         android:id="@+id/btn_allWorks"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:text="所有作品"/>
+                        android:text="所有作品" />
                 </LinearLayout>
 
                 <!-- 底部按钮-->
@@ -138,79 +142,21 @@
                         android:id="@+id/btn_uploadMyWork"
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
-                        android:text="上传我的作品"/>
+                        android:text="上传我的作品" />
                     <!-- 评论-->
                     <Button
                         android:id="@+id/btn_allEvaluation"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="200个评论"
-                        android:gravity="center"/>
+                        android:gravity="center"
+                        android:text="200个评论" />
                 </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-
-
-    <!-- 标题-->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="48dip"
-        android:background="#ccc"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"
-            android:background="#cccccc"
-            android:orientation="horizontal" >
-
-            <ImageView
-                android:id="@+id/goback"
-                android:layout_width="48dip"
-                android:layout_height="fill_parent"
-                android:padding="5dp"
-                android:scaleType="center"
-                android:src="@drawable/ic_back" />
-
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:paddingBottom="7dip"
-                android:paddingTop="7dip" >
-
-                <TextView
-                    android:id="@+id/title_title"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:background="#ccc"
-                    android:paddingLeft="10dip"
-                    android:paddingRight="10dip"
-                    android:textSize="20sp"
-                    android:gravity="center"
-                    android:text="TITLE"/>
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/search_but"
-                android:layout_width="48dip"
-                android:layout_height="fill_parent"
-                android:padding="5dp"
-                android:scaleType="center"
-                android:src="@drawable/ic_search" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1px"
-            android:background="#666" />
-
-    </LinearLayout>
-
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/component_title" />
 </RelativeLayout>
