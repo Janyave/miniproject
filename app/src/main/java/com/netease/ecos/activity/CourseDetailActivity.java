@@ -3,23 +3,36 @@ package com.netease.ecos.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.CourseDetailOtherWorksHListViewAdapter;
+import com.netease.ecos.dialog.SetPhotoDialog;
+import com.netease.ecos.utils.SetPhotoHelper;
 import com.netease.ecos.views.HorizontalListView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class CourseDetailActivity extends ActionBarActivity implements View.OnClickListener {
+
+    //the widget of the title bar
+    @InjectView(R.id.tv_title)
+    TextView titleTxVw;
+    @InjectView(R.id.btn_right_action)
+    Button rightButton;
+    @InjectView(R.id.tv_left)
+    TextView backTxVw;
 
     @InjectView(R.id.iv_cover)
     ImageView iv_cover;
@@ -29,7 +42,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     TextView tv_praise;
     @InjectView(R.id.iv_praise)
     ImageView iv_praise;
-    @InjectView(R.id.tv_title)
+    @InjectView(R.id.tv_title1)
     TextView tv_title;
     @InjectView(R.id.tv_praiseNum)
     TextView tv_praiseNum;
@@ -51,8 +64,15 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     Button btn_updoadMyWork;
     @InjectView(R.id.btn_allEvaluation)
     Button btn_allEvaluation;
+    @InjectView(R.id.course_detail_scrollveiw)
+    ScrollView scrollView;
 
     private CourseDetailOtherWorksHListViewAdapter adapter;
+    private SetPhotoHelper mSetPhotoHelper;
+    //图片裁剪后输出宽度
+    private final int outPutWidth = 450;
+    //图片裁剪后输出高度
+    private final int outPutHeight = 300;
 
 
     @Override
@@ -88,7 +108,20 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                 startActivity(intent);
                 break;
             case R.id.btn_uploadMyWork:
-                startActivity(new Intent(CourseDetailActivity.this, UploadWorkActivity.class));
+                //TODO:上传作品
+                SetPhotoDialog dialog = new SetPhotoDialog(CourseDetailActivity.this, new SetPhotoDialog.ISetPhoto() {
+
+                    @Override
+                    public void choosePhotoFromLocal() {
+                        mSetPhotoHelper.choosePhotoFromLocal();
+                    }
+
+                    @Override
+                    public void takePhoto() {
+                        mSetPhotoHelper.takePhoto(true);
+                    }
+                });
+                dialog.showSetPhotoDialog();
                 break;
             case R.id.btn_allEvaluation:
                 //TODO 所有评论
@@ -109,6 +142,26 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                 startActivity(intent);
             }
         });
+        //拦截listview的touch事件，不会造成scrollview的滑动。
+        hlv_otherWorks.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                // TODO Auto-generated method stub
+                scrollView.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+        mSetPhotoHelper = new SetPhotoHelper(this, null);
+        mSetPhotoHelper.setOutput(outPutWidth, outPutHeight);
+        //implementation on the title bar
+        titleTxVw.setText("教程详情");
+        rightButton.setVisibility(View.INVISIBLE);
+        backTxVw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CourseDetailActivity.this.finish();
+            }
+        });
     }
 
     @Override
@@ -120,13 +173,38 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case SetPhotoHelper.REQUEST_BEFORE_CROP:
+                    mSetPhotoHelper.setmSetPhotoCallBack(
+                            new SetPhotoHelper.SetPhotoCallBack() {
+                                @Override
+                                public void success(String imagePath) {
+                                    Log.i("裁剪后图片路径", "-----------path:" + imagePath);
+                                    Intent intent = new Intent(CourseDetailActivity.this, UploadWorkActivity.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("img_path", imagePath);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                }
+                            });
+                    mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_BEFORE_CROP, data);
+                    break;
+                case SetPhotoHelper.REQUEST_AFTER_CROP:
+                    mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_AFTER_CROP, data);
+                    break;
+                default:
+                    Log.e("CLASS_TAG", "onActivityResult() 无对应");
+            }
+        }
+    }
 }

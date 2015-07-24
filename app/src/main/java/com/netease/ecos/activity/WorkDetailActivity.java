@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.WorkDetailListViewAdapter;
@@ -22,6 +24,12 @@ public class WorkDetailActivity extends BaseActivity {
     ExtensibleListView commentListView;
     @InjectView(R.id.workDetailsCommentEdTx)
     EditText commentEdTx;
+    @InjectView(R.id.tv_title)
+    TextView titleTxVw;
+    @InjectView(R.id.btn_right_action)
+    Button rightButton;
+    @InjectView(R.id.tv_left)
+    TextView backTxVw;
 
     private WorkDetailListViewAdapter workDetailListViewAdapter;
 
@@ -47,6 +55,15 @@ public class WorkDetailActivity extends BaseActivity {
                     startActivity(intent);
                 }
                 return false;
+            }
+        });
+        //implementation on the title bar
+        titleTxVw.setText("1/20");
+        rightButton.setVisibility(View.INVISIBLE);
+        backTxVw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WorkDetailActivity.this.finish();
             }
         });
 
