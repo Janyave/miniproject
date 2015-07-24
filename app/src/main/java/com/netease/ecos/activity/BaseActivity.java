@@ -31,9 +31,12 @@ public class BaseActivity extends ActionBarActivity {
     MyProgressDialog mMyProgressDialog;
 
 
+    protected  String CLASS_TAG;
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
+
+        CLASS_TAG  = getClass().getSimpleName();
 
         //设置当前activity
         MyApplication.setCurrentActivity(this);

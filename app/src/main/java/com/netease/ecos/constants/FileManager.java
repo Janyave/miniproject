@@ -17,10 +17,14 @@ public class FileManager {
     public static final String DOWNLOAD_IMG_FILE_NAME  = "downloadImage";
 
     /** 图片目录名称 */
-    public static final String IMAGE_FILE_NAME  = "iamge";
+    public static final String IMAGE_FILE_NAME  = "image";
 
     /** 图片缓存目录名称 */
     public static final String TEMP_IMG_FILE_NAME  = "tempImage";
+
+    //文件名
+    /*** 拍照或者上传图片后(裁剪前)的图片文件名   */
+    private final String TEMP_PHOTO_NAME_BEFORE_CROP = "fileBeforeCrop.png";
 
 
     /** 图片文件夹，用来存储所有图片   */
@@ -31,6 +35,12 @@ public class FileManager {
 
     /** 缓存图片文件夹，存储上传图片过程所涉及的缓存图片  */
     private File mTempImgFile;
+
+    /*** 选择本地图片或者拍照后的缓存图片，还未进行裁剪  */
+    private File mTempFileBeforeCrop;
+
+    /*** 裁剪后的图片默认存储文件  */
+    private File mTempFileAfterCrop;
 
 
     private FileManager(){
@@ -65,24 +75,30 @@ public class FileManager {
             appPath.mkdirs();
         }
 
-        //初始化下载图片文件夹路径
-        File mImgFile = new File(appPath, IMAGE_FILE_NAME);
+        //初始化图片文件夹路径
+        mImgFile = new File(appPath, IMAGE_FILE_NAME);
         if (!mImgFile.exists()) {
             mImgFile.mkdirs();
         }
 
         //初始化下载图片文件夹路径
-        File mDownloadImgFile = new File(mImgFile, DOWNLOAD_IMG_FILE_NAME);;
+        mDownloadImgFile = new File(appPath, DOWNLOAD_IMG_FILE_NAME);
         if (!mDownloadImgFile.exists()) {
             mDownloadImgFile.mkdirs();
         }
 
 
         //初始化缓存图片文件夹路径
-        File mTempImgFile = new File(mImgFile, TEMP_IMG_FILE_NAME);;
+        mTempImgFile = new File(appPath, TEMP_IMG_FILE_NAME);
         if (!mTempImgFile.exists()) {
             mTempImgFile.mkdirs();
         }
+
+        //初始化选择本地图片或者拍照后的图片文件
+        mTempFileBeforeCrop = new File(mTempImgFile, TEMP_PHOTO_NAME_BEFORE_CROP);
+
+        //裁剪后的默认图片文件
+        mTempFileAfterCrop = new File(mTempImgFile, TEMP_PHOTO_NAME_BEFORE_CROP);
     }
 
 
@@ -108,5 +124,34 @@ public class FileManager {
      */
     public File getTempImgFile() {
         return mTempImgFile;
+    }
+
+
+    /**
+     * 获取裁剪前的缓存图片存储路径
+     * @return
+     */
+    public File getTempFileBeforeCrop() {
+
+        return mTempFileBeforeCrop;
+    }
+
+    /***
+     * 获取裁剪后的图片存储路径
+     * @return
+     */
+    public File getDefFileAfterCrop()
+    {
+        return mTempFileAfterCrop;
+    }
+
+
+
+    /***
+     * 获取拍照图片输出路径
+     * @return
+     */
+    public File getPhotoOutFile(){
+        return new File(mImgFile,String.valueOf(System.currentTimeMillis()) + ".png");
     }
 }
