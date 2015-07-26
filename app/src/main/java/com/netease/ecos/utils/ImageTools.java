@@ -1,6 +1,7 @@
 package com.netease.ecos.utils;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -26,9 +27,12 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import com.netease.ecos.activity.MyApplication;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -441,23 +445,77 @@ public final class ImageTools {
 	{
 		if (data != null) 
 		{
+
 			Uri selectedImage = null;
 			selectedImage = data.getData();
-			//System.out.println("Data");
-			String[] filePathColumn = { MediaStore.Images.Media.DATA };
-						   
+			Log.e("本地图片路径","----------------" +selectedImage.toString() + "----------------------");
+
+			String[] filePathColumn = { MediaStore.Images.Media.DATA};
+
 			Cursor cursor = context.getContentResolver().query(selectedImage,
-			     filePathColumn, null, null, null);  
-			cursor.moveToFirst();  
-			
-			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);  
+			     filePathColumn, null, null, null);
+			if(cursor==null){
+				Log.e("cursor","cursor 为null");
+				selectedImage = geturi(data);
+				cursor = context.getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+			}
+
+			Log.e("本地图片路径","------cursor==null----------" );
+
+			cursor.moveToFirst();
+
+			int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 			String picturePath = cursor.getString(columnIndex);
-			cursor.close();  
-			
+			cursor.close();
 			return new File(picturePath);
+
 	}
 		
 		return null;
+	}
+
+	public static Uri geturi( android.content.Intent intent){
+		Uri uri=intent.getData();
+		String type = intent.getType();
+		if (uri.getScheme().equals("file") && (type.contains("image/"))) {
+			String path = uri.getEncodedPath();
+			Log.i("uri.getEncodedPath()",path);
+			if (path != null) {
+				path = Uri.decode(path);
+				Log.i("Uri.decode(path)",path);
+				ContentResolver cr = MyApplication.getCurrentActivity().getContentResolver();
+				StringBuffer buff = new StringBuffer();
+				buff.append("(")
+						.append(MediaStore.Images.ImageColumns.DATA)
+						.append("=")
+						.append("'" + path + "'")
+						.append(")");
+				Log.i("queryBuffer",buff.toString());
+				Cursor cur = cr.query(
+						MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+						new String[] { MediaStore.Images.ImageColumns._ID },
+						buff.toString(), null, null);
+				int index = 0;
+				for (cur.moveToFirst(); !cur.isAfterLast(); cur
+						.moveToNext()) {
+					index = cur.getColumnIndex(MediaStore.Images.ImageColumns._ID);
+					// set _id value
+					index = cur.getInt(index);
+				}
+				if (index == 0) {
+					//do nothing
+				} else {
+					Uri uri_temp = Uri
+							.parse("content://media/external/images/media/"
+									+ index);
+					if (uri_temp != null) {
+						uri = uri_temp;
+						Log.i("urishi", uri.toString());
+					}
+				}
+			}
+		}
+		return uri;
 	}
 	
 	
@@ -623,7 +681,33 @@ public final class ImageTools {
 		
 		return rotate;
 	}
-	
+
+
+	public static void copyFileTo(File src, File des){
+		if(src != null){
+			try {
+				InputStream is;
+				is = new FileInputStream(src);
+				FileOutputStream out = new FileOutputStream(des);
+
+				byte bytes[] = new byte[1024];
+				int length=0;
+
+				while((length=is.read(bytes))!=-1){
+
+					out.write(bytes,0,length);
+				}
+				out.flush();
+
+
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	
 }

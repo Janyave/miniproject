@@ -35,6 +35,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     @InjectView(R.id.pager)
     ViewPager mViewPager ;
 
+
     /*** 教程tab下标 */
     public static final int TAB_COURSE_INDEX = 0;
 
@@ -104,7 +105,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
      */
     private void initViews(){
         //        mRadioGroup = (RadioGroup)findViewById(R.id.radio_group);
-//        mViewPager = (ViewPager)findViewById(R.id.pager);
+        //        mViewPager = (ViewPager)findViewById(R.id.pager);
 
         mPagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
@@ -222,7 +223,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 //点击展示tab，要显示交易页面
                 case TAB_DISPLAY_INDEX:
                     if(mFragments[TAB_DISPLAY_INDEX]==null)
-                 mFragments[TAB_DISPLAY_INDEX] = new DisplayFragment();
+                        mFragments[TAB_DISPLAY_INDEX] = new DisplayFragment();
                     return mFragments[TAB_DISPLAY_INDEX];
             }
             return null;

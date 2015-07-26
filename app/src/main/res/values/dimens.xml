@@ -28,7 +28,6 @@
     <!-- text size-->
     <dimen name="textSize">17sp</dimen>
 
-    <!-- the dimens in the upload work page.-->
     <dimen name="uploadWork_Img_width">150dp</dimen>
     <dimen name="uploadWork_Img_height">200dp</dimen>
 </resources>

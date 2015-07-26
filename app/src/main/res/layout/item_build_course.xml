@@ -50,7 +50,7 @@
         android:src="@drawable/ic_selector_btn_next_step"/>
 
 
-    <com.android.volley.toolbox.NetworkImageView
+    <ImageView
         android:contentDescription="教程步骤图片"
         android:id="@+id/niv_course_photo"
         android:layout_width="match_parent"
