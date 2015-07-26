@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="170dp"
+    android:layout_height="wrap_content"
     android:padding="10dp">
 
 
@@ -70,10 +70,8 @@
 
         android:layout_below="@id/niv_course_photo"
         android:layout_alignLeft="@id/niv_course_photo"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
         android:layout_marginRight="20dp"
-        android:paddingTop="10dp"
+        android:padding="6dp"
 
 
         android:textSize="16sp"
@@ -86,7 +84,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_alignLeft="@id/niv_course_photo"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/etv_description"
         android:layout_marginBottom="6dp"
         android:background="#000000"
         />

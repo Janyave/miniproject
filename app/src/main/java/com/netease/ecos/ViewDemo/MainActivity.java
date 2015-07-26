@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,7 +22,6 @@ import com.netease.cloud.nos.android.exception.InvalidParameterException;
 import com.netease.cloud.nos.android.utils.LogUtil;
 import com.netease.cloud.nos.android.utils.Util;
 import com.netease.ecos.R;
-import com.netease.ecos.utils.UploadImageTools;
 
 import org.json.JSONException;
 
@@ -93,7 +90,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         wanNOSObject = new WanNOSObject();*/
         LogUtil.setLevel(0);
-        File file = new File(Environment.getExternalStorageDirectory() + "/" + "a.png");
+       /* File file = new File(Environment.getExternalStorageDirectory() + "/" + "a.png");
         UploadImageTools.uploadImageSys(file, new UploadImageTools.UploadCallBack() {
 
             @Override
@@ -105,7 +102,7 @@ public class MainActivity extends Activity implements OnClickListener {
             public void fail() {
                 Log.e("MainActivity","上传失败");
             }
-        }, this, true);
+        }, this, true);*/
 
     }
 
