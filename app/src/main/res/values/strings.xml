@@ -43,6 +43,20 @@
     <string name="title_activity_course_detail">CourseDetailActivity</string>
     <string name="title_activity_course_detail_upload">CourseDetailUploadActivity</string>
 
+    <!-- 活动详情页面 -->
+    <string name="tag_event_detail">同人展</string>
+    <string name="title_event_detail">西南COSPLAY超级盛典</string>
+    <string name="location_event_detail">成都 武侯区</string>
+    <string name="price_event_detail">¥45</string>
+    <string name="detail_location_event_detail">成都 武侯区 动漫广场1号展厅</string>
+    <integer name="line_num_event_detail">3</integer>
+    <string name="time_event_detail">2015年7月20日-2015年7月24日\n 10:00-14:00</string>
+    <string name="detail_event_detail">我是一段关于本次活动的说明，我有很多字，我一定要超过三行，一定的啊，要不然界面会显得空旷啊，所以我要加油，誓要超越三行</string>
+    <string name="contact_event_detail">联系方式</string>
+    <string name="QQ_event_detail">企鹅群：970020010</string>
+    <string name="weibo_event_detail">微博：www.weibo.com/cosplay</string>
+
     <!-- 个人作品分享页面-->
     <string name="work_hint">分享一下心得吧:)</string>
+    <string name="title_activity_event_detail">EventDetailActivity</string>
 </resources>

@@ -78,6 +78,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         initData();
     }
 
+
     /***
      * 初始化数据
      */
