@@ -42,7 +42,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ViewDemo.XListViewDemoActivity"
             android:label="@string/app_name" />
@@ -76,8 +75,8 @@
             android:name=".ViewDemo.UploadImageDemoActivity"
             android:label="@string/app_name" />
         <activity
-            android:name=".ViewDemo.MainActivity"
-            android:label="@string/app_name" />
+            android:name=".activity.EventDetailActivity"
+            android:label="@string/title_activity_event_detail" />
     </application>
 
 

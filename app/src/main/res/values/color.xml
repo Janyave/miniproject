@@ -35,6 +35,9 @@
     <color name="solid_blue">#0000ff</color>
     <color name="solid_green">#f0f0</color>
     <color name="solid_yellow">#ffffff00</color>
+    
+    <color name="line_black">#000000</color>
+    <color name="line_grey">#787878</color>
 
     <color name="text_normal_color">#787878</color>
     <color name="text_checked_color">#9878ff</color>
