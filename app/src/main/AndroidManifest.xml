@@ -36,20 +36,18 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name">
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
         <activity
             android:name=".ViewDemo.XListViewDemoActivity"
             android:label="@string/app_name" />
-
         <activity
             android:name=".activity.BuildCourseActivity"
-            android:label="@string/app_name"></activity>
-
+            android:label="@string/app_name"/>
         <activity
             android:name=".activity.WorkDetailActivity"
             android:label="@string/app_name" />
@@ -73,13 +71,7 @@
             android:label="@string/title_activity_course_detail" />
         <activity
             android:name=".ViewDemo.UploadImageDemoActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            </activity>
+            android:label="@string/app_name"/> >
         <activity
             android:name=".activity.EventDetailActivity"
             android:label="@string/title_activity_event_detail" />
