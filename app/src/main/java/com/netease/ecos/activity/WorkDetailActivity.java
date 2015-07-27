@@ -1,6 +1,11 @@
 package com.netease.ecos.activity;
 
 import android.content.Intent;
+import android.gesture.Gesture;
+import android.gesture.GestureLibraries;
+import android.gesture.GestureLibrary;
+import android.gesture.GestureOverlayView;
+import android.gesture.Prediction;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -8,10 +13,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.WorkDetailListViewAdapter;
 import com.netease.ecos.views.ExtensibleListView;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -30,8 +38,13 @@ public class WorkDetailActivity extends BaseActivity {
     Button rightButton;
     @InjectView(R.id.tv_left)
     TextView backTxVw;
+    @InjectView(R.id.gestureView)
+    GestureOverlayView gestureOverlayView;
 
     private WorkDetailListViewAdapter workDetailListViewAdapter;
+    private GestureLibrary library;
+    private final String RIGHT = "right";
+    private final String LEFT = "left";
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -64,6 +77,30 @@ public class WorkDetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 WorkDetailActivity.this.finish();
+            }
+        });
+        //code for gesture
+        library = GestureLibraries.fromRawResource(this, R.raw.gestures);
+        library.load();
+        gestureOverlayView.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
+            @Override
+            public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
+                /* 查找手势库中与用户画的手势库有些相似性的手势集合
+                 * 并按照相似性度高到低排序，与用户画的图形最相似的手势，放在集合第一个位置
+                 * */
+                ArrayList<Prediction> predictions = library.recognize(gesture);
+                Prediction prediction;
+                for (int i = 0; i < predictions.size(); i++) {
+                    prediction = predictions.get(i);
+                    // 匹配的手势
+                    if (prediction.score > 1.0) {
+                        if (RIGHT.equals(prediction.name)) {
+                            Toast.makeText(WorkDetailActivity.this, "move to last work.", Toast.LENGTH_LONG).show();
+                        } else if (LEFT.equals(prediction.name)) {
+                            Toast.makeText(WorkDetailActivity.this, "move to next work.", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
             }
         });
 
