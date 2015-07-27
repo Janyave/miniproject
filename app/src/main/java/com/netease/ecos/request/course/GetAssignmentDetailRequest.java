@@ -1,22 +1,16 @@
 package com.netease.ecos.request.course;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request.Method;
-import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Comment.CommentType;
 import com.netease.ecos.model.Course.Assignment;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
-import com.netease.ecos.request.MyStringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /***
  * 
@@ -27,20 +21,20 @@ import com.netease.ecos.request.MyStringRequest;
 *
  */
 public class GetAssignmentDetailRequest extends BaseRequest{
-	
+
 	//请求参数键
 	/*** 教程作业id */
 	public static final String ASSIGNMENT_ID = "assignment_id";
-	
+
 	//响应参数键
 	IAssignmentDetailRespnce mAssignmentDetailRespnce;
-	
-	
+
+
 	public void request(IAssignmentDetailRespnce assignmentDetailRespnce, final String assignmentId)
 	{
 		super.initBaseRequest(assignmentDetailRespnce);
 		mAssignmentDetailRespnce = assignmentDetailRespnce;
-		
+
 		responceSuccess( new JSONObject().toString().toString());
 		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_ASSIGNMENT_DETAIL_URL,  this, this) {  
 	        @Override  
@@ -59,17 +53,17 @@ public class GetAssignmentDetailRequest extends BaseRequest{
 	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 	    
 	    getQueue().add(stringRequest);*/
-	    
+
 	}
-	
+
 	@Override
 	public void responceSuccess(String jstring) {
 		traceNormal(TAG, jstring);
-		
+
 		try {
 			JSONObject json = new JSONObject(jstring);
-			
-			
+
+
 			if(mAssignmentDetailRespnce!=null)
 			{
 				mAssignmentDetailRespnce.success(getTestAssignmentDetail(), getTestCommentList());
@@ -78,36 +72,38 @@ public class GetAssignmentDetailRequest extends BaseRequest{
 			{
 				traceError(TAG,"回调接口为null");
 			}
-			
-			
+
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 			if(mBaseResponse!=null)
 			{
 				mBaseResponse.doAfterFailedResponse("json异常");
 			}
 		}
-		
+
 	}
-	
+
 	/***
 	 * 获取作业详情测试数据
 	 * @return
 	 */
 	public Assignment getTestAssignmentDetail(){
 		Assignment assignment = new Assignment();
-		
+
+		assignment.assignmentId = "1";
 		assignment.author = "张恩立";
 		assignment.authorAvatarUrl = "http://p1.gexing.com/G1/M00/9E/A6/rBACE1J-AI7xPAUWAAAa1SSMm94668_200x200_3.jpg?recache=20131108";
 		assignment.content = "这张图片是关于....？";
 		assignment.praiseNum = 100;
-		
+		assignment.commentNum = 100;
+
 		return assignment;
 	}
-	
-	
+
+
 	/***
 	 * 获取评论列表测试数据(至多4条)
 	 * @return
@@ -129,33 +125,33 @@ public class GetAssignmentDetailRequest extends BaseRequest{
 			comment.fromId = "" + i;
 			comment.fromNickName = fromNickNames[i];
 			comment.targetId = "" + (i<<2);
-			
+
 			commentList.add(comment);
 		}
-		
+
 		return commentList;
 	}
-	
-	
-	
+
+
+
 	/***
-	 * 
-	* @ClassName: AssignmentDetailRespnce 
-	* @Description: 获取教程详情回调
-	* @author enlizhang
-	* @date 2015年7月26日 下午6:30:48 
-	*
+	 *
+	 * @ClassName: AssignmentDetailRespnce
+	 * @Description: 获取教程详情回调
+	 * @author enlizhang
+	 * @date 2015年7月26日 下午6:30:48
+	 *
 	 */
 	public interface IAssignmentDetailRespnce extends IBaseResponse{
-		
+
 		/***
 		 * 获取教程详情成功回调函数，并返回教程详情和简单评论列表
 		 * @param assignment 教程详情
 		 * @param commentList 简单评论列表
 		 */
 		public void success(Assignment assignment,List<Comment> commentList);
-		
+
 	}
-	
+
 }
 

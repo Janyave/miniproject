@@ -1,14 +1,14 @@
 package com.netease.ecos.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONObject;
-
-import android.os.Parcel;
-import android.os.Parcelable;
 
 /***
  * 
@@ -111,7 +111,7 @@ public class Course {
 		public String courseId;
 		
 		/** 用户id */
-		public String usreId;
+		public String userId;
 		
 		/** 作业id */
 		public String assignmentId;
@@ -133,6 +133,9 @@ public class Course {
 		
 		/** 点赞数 */
 		public int praiseNum;
+
+		/** 评论数 */
+		public int commentNum;
 		
 		/***
 		 * 根据{@link #issueTime}获取发布时间描述
@@ -142,16 +145,22 @@ public class Course {
 			return ModelUtils.getDateDesByTimeStamp(issueTime);
 		}
 
+
 		@Override
 		public String toString() {
-			return "Assignment [courseId=" + courseId + ", usreId=" + usreId
-					+ ", assignmentId=" + assignmentId + ", authorAvatarUrl="
-					+ authorAvatarUrl + ", author=" + author + ", issueTime="
-					+ issueTime + ", imageUrl=" + imageUrl + ", content="
-					+ content + ", praiseNum=" + praiseNum + "]";
+			return "Assignment{" +
+					"courseId='" + courseId + '\'' +
+					", userId='" + userId + '\'' +
+					", assignmentId='" + assignmentId + '\'' +
+					", authorAvatarUrl='" + authorAvatarUrl + '\'' +
+					", author='" + author + '\'' +
+					", issueTime=" + issueTime +
+					", imageUrl='" + imageUrl + '\'' +
+					", content='" + content + '\'' +
+					", praiseNum=" + praiseNum +
+					", commentNum=" + commentNum +
+					'}';
 		}
-		
-		
 	}
 	
 	
