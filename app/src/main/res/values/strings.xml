@@ -6,10 +6,10 @@
 
     <!-- tab 开始-->
     <string name="tab_course">教程</string>
-    <string name="tab_community">社区</string>
-    <string name="tab_transaction">交易</string>
+    <string name="tab_community">活动</string>
+    <string name="tab_transaction">招募</string>
     <string name="tab_home">主页</string>
-    <string name="tab_display">展示</string>
+    <string name="tab_display">分享</string>
     <!-- tab 结束-->
 
     <!-- 侧滑栏开始 -->
