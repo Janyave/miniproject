@@ -1,4 +1,4 @@
-package com.netease.ecos.constant;
+package com.netease.ecos.constants;
 
 public class RequestUrlConstants {
 	

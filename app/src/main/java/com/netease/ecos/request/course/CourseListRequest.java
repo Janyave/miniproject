@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
-import com.netease.ecos.constant.RequestUrlConstants;
+import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.model.Course.CourseType;
 import com.netease.ecos.request.BaseRequest;
