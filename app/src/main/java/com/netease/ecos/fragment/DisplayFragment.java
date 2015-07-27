@@ -1,22 +1,25 @@
 package com.netease.ecos.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Toast;
-import android.support.v4.app.Fragment;
+
 import com.netease.ecos.R;
+import com.netease.ecos.activity.PhotoAlbumActivity;
 import com.netease.ecos.adapter.DisplayListViewAdapter;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.FloadingButton;
 import com.netease.ecos.views.XListView;
 
 
-public class DisplayFragment extends Fragment implements XListView.IXListViewListener{
+public class DisplayFragment extends Fragment implements XListView.IXListViewListener {
 
     private View mainView;
     private FloadingButton btn_floading;
@@ -27,7 +30,8 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         return fragment;
     }
 
-    public DisplayFragment() {}
+    public DisplayFragment() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,11 +42,18 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-        mainView=inflater.inflate(R.layout.fragment_display,container,false);
+        mainView = inflater.inflate(R.layout.fragment_display, container, false);
 
-        btn_floading=(FloadingButton)mainView.findViewById(R.id.btn_floading);
+        btn_floading = (FloadingButton) mainView.findViewById(R.id.btn_floading);
+        btn_floading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PhotoAlbumActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        lv_course=(XListView)mainView.findViewById(R.id.lv_course);
+        lv_course = (XListView) mainView.findViewById(R.id.lv_course);
         lv_course.setAdapter(new DisplayListViewAdapter(getActivity()));
         lv_course.setDividerHeight(2);
         lv_course.initRefleshTime(this.getClass().getSimpleName());
@@ -55,9 +66,11 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
             int lvIndext = 0; //当前listView显示的首个Item的Index
             String state = "up"; //当前ListView动作状态 up or down
             Boolean isAnim = false; //是否正在动画
+
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
             }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
@@ -66,26 +79,26 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 /***当前可见Item的首个Index*/
                 int nowIndext = firstVisibleItem;
                 /***nowIndex大于lvIndex，ListView下滑*/
-                if (nowIndext > lvIndext&&!isAnim) {
+                if (nowIndext > lvIndext && !isAnim) {
                     nowstate = "down";
                     if (!TextUtils.equals(nowstate, state)) {
                         btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
                             @Override
                             public void doAfterAnimation() {
-                                isAnim=false;
+                                isAnim = false;
                             }
                         });
                         isAnim = true;
                     }
                 }
                 /***nowIndex小于lvIndex，ListView下滑*/
-                if (nowIndext < lvIndext&&!isAnim) {
+                if (nowIndext < lvIndext && !isAnim) {
                     nowstate = "up";
                     if (!TextUtils.equals(nowstate, state)) {
                         btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
                             @Override
                             public void doAfterAnimation() {
-                                isAnim=false;
+                                isAnim = false;
                             }
                         });
                         isAnim = true;
@@ -114,7 +127,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
     @Override
     public void onLoadMore() {
-        Toast.makeText(getActivity(),"上拉加载",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "上拉加载", Toast.LENGTH_SHORT).show();
 
         //1秒后关闭加载
         Handler handler = new Handler();

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_shuju"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+
+        <GridView
+            android:id="@+id/photo_gridview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/ll_bottom"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:listSelector="#50000000"
+            android:numColumns="3"
+            android:scrollbars="none"
+            android:horizontalSpacing="2dp"
+            android:verticalSpacing="2dp"/>
+        <!--layout_alignParentTop 与父控件的上边沿对齐-->
+
+        <RelativeLayout
+            android:id="@+id/ll_bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="65dip"
+            android:layout_alignParentBottom="true"
+            android:background="#292929"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/btn_sure"
+                android:layout_width="60dip"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="确定"
+                android:textColor="#f4f4f4"
+                android:textSize="13sp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

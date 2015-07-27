@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/last_step"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/tv_index"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:contentDescription="点击将当前步骤置为上一步"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:src="@drawable/ic_selector_btn_last_step" />
+
+    <ImageView
+        android:id="@+id/next_step"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/tv_index"
+        android:layout_below="@id/iv_last_step"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp"
+        android:contentDescription="点击将当前步骤置为下一步"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:src="@drawable/ic_selector_btn_next_step" />
+
+
+    <ImageView
+        android:id="@+id/item_photo"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignTop="@id/tv_index"
+        android:layout_marginLeft="5dp"
+        android:layout_toLeftOf="@id/iv_last_step"
+        android:layout_toRightOf="@id/tv_index"
+        android:contentDescription="教程步骤图片"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@id/niv_course_photo"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="6dp"
+        android:background="#000000" />
+</RelativeLayout>
