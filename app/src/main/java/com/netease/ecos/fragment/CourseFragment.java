@@ -13,8 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.netease.ecos.R;
-import com.netease.ecos.activity.BuildCourseActivity;
-import com.netease.ecos.activity.CourseDetailActivity;
+import com.netease.ecos.activity.CourseTypeActivity;
 import com.netease.ecos.adapter.CourseListViewAdapter;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.FloadingButton;
@@ -69,7 +68,7 @@ public class CourseFragment extends Fragment implements XListView.IXListViewList
         lv_course.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getActivity(), CourseDetailActivity.class));
+                startActivity(new Intent(getActivity(), CourseTypeActivity.class));
             }
         });
         lv_course.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -122,7 +121,7 @@ public class CourseFragment extends Fragment implements XListView.IXListViewList
         btn_floading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CourseFragment.this.getActivity(), BuildCourseActivity.class);
+                Intent intent = new Intent(CourseFragment.this.getActivity(), CourseTypeActivity.class);
                 startActivity(intent);
             }
         });
@@ -131,8 +130,6 @@ public class CourseFragment extends Fragment implements XListView.IXListViewList
     private void initData() {
         lv_course.setAdapter(new CourseListViewAdapter(getActivity()));
     }
-
-
 
 
     @Override

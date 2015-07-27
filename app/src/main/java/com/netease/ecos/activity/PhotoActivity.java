@@ -31,9 +31,9 @@ public class PhotoActivity extends Activity {
     private LayoutInflater inflater;
     private ImageView imageViewPhotoSelect;
 
-    private ArrayList<String> paths = new ArrayList<String>();  // 存放已选中照片的全路径
-    private ArrayList<String> ids = new ArrayList<String>();    // 存放已选中照片的ID
-    private ArrayList<PhotoItem> gl_arr = new ArrayList<PhotoItem>();   // 存放被选中的照片
+    private ArrayList<String> paths = new ArrayList<String>();
+    private ArrayList<String> ids = new ArrayList<String>();
+    private ArrayList<PhotoItem> gl_arr = new ArrayList<PhotoItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +41,8 @@ public class PhotoActivity extends Activity {
         setContentView(R.layout.activity_photoalbum_gridview);
 
         btn_sure = (Button) findViewById(R.id.btn_sure);
-        aibum = (PhotoAibum) getIntent().getExtras().get("aibum");  // 待显示的相册
-        /**
-         * 统计已经选择的图片数量
-         * */
+        aibum = (PhotoAibum) getIntent().getExtras().get("aibum");
+
         for (int i = 0; i < aibum.getBitList().size(); i++) {
             if (aibum.getBitList().get(i).isSelect()) {
                 chooseNum++;
@@ -55,7 +53,6 @@ public class PhotoActivity extends Activity {
         adapter = new PhotoAdappter(PhotoActivity.this, aibum, null);
         gv.setAdapter(adapter);
 
-        // 响应点击图片的事件
         gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,17 +70,11 @@ public class PhotoActivity extends Activity {
                     paths.add(aibum.getBitList().get(position).getPath());
                     gl_arr.add(aibum.getBitList().get(position));
                     chooseNum++;
-                    /**
-                     * 在photoAdapter适配器的getView函数中，为每一个item的mSelect（ImageView）
-                     * 设置Tag为position，此时position就成为了mSelect的索引，使用
-                     * gv.findViewWithTag(position)方法即可获得mSelect，从而更新指定视图
-                     */
                     gv.findViewWithTag(position).setVisibility(View.VISIBLE);
                 }
 //                adapter.notifyDataSetChanged();
             }
         });
-        // 响应点击按钮的事件
         btn_sure.setOnClickListener(new View.OnClickListener() {
 
             @Override
