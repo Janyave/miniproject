@@ -1,25 +1,19 @@
 package com.netease.ecos.request.comment;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.netease.ecos.model.Comment;
+import com.netease.ecos.model.Comment.CommentType;
+import com.netease.ecos.model.Course;
+import com.netease.ecos.model.Course.Assignment;
+import com.netease.ecos.model.Recruitment;
+import com.netease.ecos.model.Share;
+import com.netease.ecos.request.BaseRequest;
+import com.netease.ecos.request.IBaseResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request.Method;
-import com.netease.ecos.constants.RequestUrlConstants;
-import com.netease.ecos.model.Comment;
-import com.netease.ecos.model.Course;
-import com.netease.ecos.model.Recruitment;
-import com.netease.ecos.model.Share;
-import com.netease.ecos.model.Comment.CommentType;
-import com.netease.ecos.model.Course.Assignment;
-import com.netease.ecos.request.BaseRequest;
-import com.netease.ecos.request.IBaseResponse;
-import com.netease.ecos.request.MyStringRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /***
@@ -31,27 +25,27 @@ import com.netease.ecos.request.MyStringRequest;
 *
  */
 public class CommentListRequest extends BaseRequest{
-	
+
 	//请求参数键
 	/** 评论类型{@link CommentType}、包括{@link Course}、作业{@link Assignment}、分享{@link Share}、招募{@link Recruitment}*/
 	public static final String COMMENT_TYPE = "comment_type";
-	
+
 	/** 某种评论类型{@link CommentType}的id，不能为空 */
 	public static final String COMMENT_TYPE_ID = "comment_type_id";
-	
-	
-	
+
+
+
 	//响应参数键
 	ICommentListResponse mCommentListRespnce;
-	
-	
+
+
 	Comment mComment;
-	
+
 	public void request(ICommentListResponse commentListRespnce, final Comment comment)
 	{
 		super.initBaseRequest(commentListRespnce);
 		mCommentListRespnce = commentListRespnce;
-		
+
 		mComment =  comment;
 		responceSuccess(new JSONObject().toString());
 		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COMMENT_LIST_URL,  this, this) {  
@@ -73,17 +67,17 @@ public class CommentListRequest extends BaseRequest{
 	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 	    
 	    getQueue().add(stringRequest);*/
-	    
+
 	}
-	
+
 	@Override
 	public void responceSuccess(String jstring) {
 		traceNormal(TAG, jstring);
-		
+
 		try {
 			JSONObject json = new JSONObject(jstring);
-			
-			
+
+
 			if(mCommentListRespnce!=null)
 			{
 				mCommentListRespnce.success(getTestCommentList());
@@ -92,36 +86,36 @@ public class CommentListRequest extends BaseRequest{
 			{
 				traceError(TAG,"回调接口为null");
 			}
-			
-			
+
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 			if(mBaseResponse!=null)
 			{
 				mBaseResponse.doAfterFailedResponse("json异常");
 			}
 		}
-		
+
 	}
-	
+
 	/***
-	 * 
-	* @ClassName: CommentListRespnce 
-	* @Description: 评论列表响应回调函数 
-	* @author enlizhang
-	* @date 2015年7月26日 下午6:39:13 
-	*
+	 *
+	 * @ClassName: CommentListRespnce
+	 * @Description: 评论列表响应回调函数
+	 * @author enlizhang
+	 * @date 2015年7月26日 下午6:39:13
+	 *
 	 */
 	public interface ICommentListResponse extends IBaseResponse{
-		
+
 		/** 请求成功，返回评论列表 */
 		public void success(List<Comment> commentList);
-		
+
 	}
-	
-	
+
+
 	/***
 	 * 获取评论测试数据
 	 * @return
@@ -144,12 +138,12 @@ public class CommentListRequest extends BaseRequest{
 			comment.fromNickName = fromNickNames[i];
 			comment.targetId = "" + (i<<2);
 			comment.commitTimeStamp = System.currentTimeMillis();
-			
+
 			commentList.add(comment);
 		}
-		
+
 		return commentList;
 	}
-	
+
 }
 
