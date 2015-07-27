@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="text_course_type">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="text_pink_max">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_red</item>
+    </style>
+    <style name="text_dark_max">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_dark</item>
+    </style>
+    <style name="text_gray_max">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+
+    <style name="text_gray_min">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+    <style name="text_dark_min">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/text_dark</item>
+    </style>
+</resources>

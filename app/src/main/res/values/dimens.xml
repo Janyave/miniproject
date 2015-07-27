@@ -37,5 +37,8 @@
     <dimen name="courseType_btn_padding">70dp</dimen>
     <dimen name="courseType_layout_margin">30dp</dimen>
 
-    <dimen name="course_type_width">60dp</dimen>
+    <dimen name="course_type_width">52dp</dimen>
+    <dimen name="course_banner_height">220dp</dimen>
+    <dimen name="course_item_avatar_width">40dp</dimen>
+    <dimen name="course_item_focus_width">15dp</dimen>
 </resources>

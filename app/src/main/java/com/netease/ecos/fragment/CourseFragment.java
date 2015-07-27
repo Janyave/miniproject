@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,14 +37,14 @@ import java.util.List;
 public class CourseFragment extends Fragment implements View.OnClickListener{
     private View mainView;
     private Banner banner;
-    private TextView tv_type_1;
-    private TextView tv_type_2;
-    private TextView tv_type_3;
-    private TextView tv_type_4;
-    private TextView tv_type_5;
-    private TextView tv_type_6;
-    private TextView tv_type_7;
-    private TextView tv_type_8;
+    private ImageView tv_type_1;
+    private ImageView tv_type_2;
+    private ImageView tv_type_3;
+    private ImageView tv_type_4;
+    private ImageView tv_type_5;
+    private ImageView tv_type_6;
+    private ImageView tv_type_7;
+    private ImageView tv_type_8;
     private FloadingButton btn_floading;
     private ExtensibleListView lv_course;
 
@@ -77,19 +78,19 @@ public class CourseFragment extends Fragment implements View.OnClickListener{
         banner=(Banner)mainView.findViewById(R.id.banner);
         btn_floading = (FloadingButton) mainView.findViewById(R.id.btn_floading);
         lv_course = (ExtensibleListView) mainView.findViewById(R.id.lv_course);
-        tv_type_1=(TextView)mainView.findViewById(R.id.tv_type_1);
-        tv_type_2=(TextView)mainView.findViewById(R.id.tv_type_2);
-        tv_type_3=(TextView)mainView.findViewById(R.id.tv_type_3);
-        tv_type_4=(TextView)mainView.findViewById(R.id.tv_type_4);
-        tv_type_5=(TextView)mainView.findViewById(R.id.tv_type_5);
-        tv_type_6=(TextView)mainView.findViewById(R.id.tv_type_6);
-        tv_type_7=(TextView)mainView.findViewById(R.id.tv_type_7);
-        tv_type_8=(TextView)mainView.findViewById(R.id.tv_type_8);
+        tv_type_1=(ImageView)mainView.findViewById(R.id.tv_type_1);
+        tv_type_2=(ImageView)mainView.findViewById(R.id.tv_type_2);
+        tv_type_3=(ImageView)mainView.findViewById(R.id.tv_type_3);
+        tv_type_4=(ImageView)mainView.findViewById(R.id.tv_type_4);
+        tv_type_5=(ImageView)mainView.findViewById(R.id.tv_type_5);
+        tv_type_6=(ImageView)mainView.findViewById(R.id.tv_type_6);
+        tv_type_7=(ImageView)mainView.findViewById(R.id.tv_type_7);
+        tv_type_8=(ImageView)mainView.findViewById(R.id.tv_type_8);
     }
 
 
     private void initListener() {
-        lv_course.setDividerHeight(2);
+        lv_course.setDividerHeight(0);
         lv_course.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

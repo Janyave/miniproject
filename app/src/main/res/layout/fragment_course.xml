@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_white">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,26 +17,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </com.netease.ecos.views.Banner>
-            <include layout="@layout/item_course_type">
+            <include layout="@layout/item_course_type"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
 
             </include>
+            <TextView style="@style/layout_line_grey" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_gray"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_red"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    style="@style/text_dark_max"
                     android:text="推荐教程"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="3dp"
-                    android:background="#ccc"/>
+                    android:layout_height="match_parent"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全部"
+                    style="@style/text_gray_max"/>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/ic_launcher"/>
             </LinearLayout>
             <com.netease.ecos.views.ExtensibleListView
                 android:id="@+id/lv_course"
+                android:background="@color/bg_gray"
+                android:listSelector="@null"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             </com.netease.ecos.views.ExtensibleListView>

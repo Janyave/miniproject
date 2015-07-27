@@ -21,7 +21,6 @@ public class CourseListViewAdapter extends BaseAdapter{
     class ViewHolder {
 
         private ImageView networkImageView;
-        private ImageView imageTitlePic;
         private ImageView imageAuthorPic;
         private TextView textViewTitle;
         private TextView textViewAmz;
@@ -30,7 +29,6 @@ public class CourseListViewAdapter extends BaseAdapter{
 
         public ViewHolder(View root) {
             networkImageView = (ImageView) root.findViewById(R.id.pic_dis);
-            imageTitlePic = (ImageView) root.findViewById(R.id.imageViewTitle);
             imageAuthorPic = (ImageView) root.findViewById(R.id.imageViewAuthor);
 
             textViewTitle = (TextView) root.findViewById(R.id.textViewTitle);

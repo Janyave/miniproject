@@ -41,5 +41,29 @@
 
     <color name="text_normal_color">#787878</color>
     <color name="text_checked_color">#9878ff</color>
+    
+    <!-- 教程首页type-->
+    <color name="cosmetic">#ea6060</color>
+    <color name="property">#ff8a54</color>
+    <color name="camera">#6ace92</color>
+    <color name="effect">#6493ff</color>
+    <color name="hair">#6db760</color>
+    <color name="cloth">#f36492</color>
+    <color name="idea">#d4a6e6</color>
+    <color name="other">#d4a6e6</color>
+    
+    <!-- 文字-->
+    <color name="text_dark">#333333</color>
+    <color name="text_gray">#999999</color>
+    <color name="text_red">#f2457d</color>
+    
+    
+    <!-- 背景-->
+    <color name="bg_gray_dark">#d1d1d1</color>
+    <color name="bg_gray">#eff1f0</color>
+    <color name="bg_white">#ffffff</color>
+    <color name="bg_red">#f2457d</color>
+    <color name="bg_red_light">#fba1bd</color>
+
 
 </resources>

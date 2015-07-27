@@ -9,7 +9,53 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/course_type_width"
-            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/tv_type_1"
+                android:layout_width="@dimen/course_type_width"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_cosmetic"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/tv_type_2"
+                android:layout_width="@dimen/course_type_width"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_property"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/tv_type_3"
+                android:layout_width="@dimen/course_type_width"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_camera"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/tv_type_4"
+                android:layout_width="@dimen/course_type_width"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_effect"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:orientation="horizontal">
             <TextView
@@ -17,37 +63,37 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <TextView
-                android:id="@+id/tv_type_1"
                 android:layout_width="@dimen/course_type_width"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_circle"/>
+                android:text="化妆"
+                style="@style/text_course_type"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <TextView
-                android:id="@+id/tv_type_2"
                 android:layout_width="@dimen/course_type_width"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_circle"/>
+                android:text="道具"
+                style="@style/text_course_type"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <TextView
-                android:id="@+id/tv_type_3"
                 android:layout_width="@dimen/course_type_width"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_circle"/>
+                android:text="摄影"
+                style="@style/text_course_type"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <TextView
-                android:id="@+id/tv_type_4"
                 android:layout_width="@dimen/course_type_width"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_circle"/>
+                android:text="后期"
+                style="@style/text_course_type"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -57,8 +103,54 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/course_type_width"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/tv_type_5"
+                android:layout_width="@dimen/course_type_width"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_hair"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/tv_type_6"
+                android:layout_width="@dimen/course_type_width"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_cloth"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/tv_type_7"
+                android:layout_width="@dimen/course_type_width"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_idea"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/tv_type_8"
+                android:layout_width="@dimen/course_type_width"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_other"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:orientation="horizontal">
             <TextView
@@ -66,37 +158,37 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <TextView
-                android:id="@+id/tv_type_5"
                 android:layout_width="@dimen/course_type_width"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_circle"/>
+                android:text="假发"
+                style="@style/text_course_type"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <TextView
-                android:id="@+id/tv_type_6"
                 android:layout_width="@dimen/course_type_width"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_circle"/>
+                android:text="服装"
+                style="@style/text_course_type"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <TextView
-                android:id="@+id/tv_type_7"
                 android:layout_width="@dimen/course_type_width"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_circle"/>
+                android:text="心得"
+                style="@style/text_course_type"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"/>
             <TextView
-                android:id="@+id/tv_type_8"
                 android:layout_width="@dimen/course_type_width"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_circle"/>
+                android:text="其他"
+                style="@style/text_course_type"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
