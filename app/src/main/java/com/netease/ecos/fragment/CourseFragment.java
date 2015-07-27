@@ -10,23 +10,42 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.netease.ecos.R;
+import com.netease.ecos.activity.BuildCourseActivity;
+import com.netease.ecos.activity.CourseCategoryActivity;
+import com.netease.ecos.activity.CourseDetailActivity;
 import com.netease.ecos.activity.CourseTypeActivity;
 import com.netease.ecos.adapter.CourseListViewAdapter;
 import com.netease.ecos.views.AnimationHelper;
+import com.netease.ecos.views.Banner;
+import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.FloadingButton;
 import com.netease.ecos.views.XListView;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 教程页面
  */
-public class CourseFragment extends Fragment implements XListView.IXListViewListener {
-
+public class CourseFragment extends Fragment implements View.OnClickListener{
     private View mainView;
+    private Banner banner;
+    private TextView tv_type_1;
+    private TextView tv_type_2;
+    private TextView tv_type_3;
+    private TextView tv_type_4;
+    private TextView tv_type_5;
+    private TextView tv_type_6;
+    private TextView tv_type_7;
+    private TextView tv_type_8;
     private FloadingButton btn_floading;
-    private XListView lv_course;
+    private ExtensibleListView lv_course;
 
     public static CourseFragment newInstance() {
         CourseFragment fragment = new CourseFragment();
@@ -55,20 +74,26 @@ public class CourseFragment extends Fragment implements XListView.IXListViewList
     }
 
     private void bindView() {
+        banner=(Banner)mainView.findViewById(R.id.banner);
         btn_floading = (FloadingButton) mainView.findViewById(R.id.btn_floading);
-        lv_course = (XListView) mainView.findViewById(R.id.lv_course);
+        lv_course = (ExtensibleListView) mainView.findViewById(R.id.lv_course);
+        tv_type_1=(TextView)mainView.findViewById(R.id.tv_type_1);
+        tv_type_2=(TextView)mainView.findViewById(R.id.tv_type_2);
+        tv_type_3=(TextView)mainView.findViewById(R.id.tv_type_3);
+        tv_type_4=(TextView)mainView.findViewById(R.id.tv_type_4);
+        tv_type_5=(TextView)mainView.findViewById(R.id.tv_type_5);
+        tv_type_6=(TextView)mainView.findViewById(R.id.tv_type_6);
+        tv_type_7=(TextView)mainView.findViewById(R.id.tv_type_7);
+        tv_type_8=(TextView)mainView.findViewById(R.id.tv_type_8);
     }
 
 
     private void initListener() {
         lv_course.setDividerHeight(2);
-        lv_course.initRefleshTime(this.getClass().getSimpleName());
-        lv_course.setPullLoadEnable(true);
-        lv_course.setXListViewListener(this);
         lv_course.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getActivity(), CourseTypeActivity.class));
+                startActivity(new Intent(getActivity(), CourseDetailActivity.class));
             }
         });
         lv_course.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -121,41 +146,44 @@ public class CourseFragment extends Fragment implements XListView.IXListViewList
         btn_floading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CourseFragment.this.getActivity(), CourseTypeActivity.class);
+                Intent intent = new Intent(CourseFragment.this.getActivity(), BuildCourseActivity.class);
                 startActivity(intent);
             }
         });
+
+        tv_type_1.setOnClickListener(this);
+        tv_type_2.setOnClickListener(this);
+        tv_type_3.setOnClickListener(this);
+        tv_type_4.setOnClickListener(this);
+        tv_type_5.setOnClickListener(this);
+        tv_type_6.setOnClickListener(this);
+        tv_type_7.setOnClickListener(this);
+        tv_type_8.setOnClickListener(this);
+
     }
 
     private void initData() {
         lv_course.setAdapter(new CourseListViewAdapter(getActivity()));
-    }
 
+        List<String> URLList=new ArrayList<>();
+        for (int i=0; i<5; i++){
+            URLList.add("http://img5.duitang.com/uploads/item/201403/07/20140307100224_trTBU.jpeg");
+        }
+        banner.setURLList(URLList);
 
-    @Override
-    public void onRefresh() {
-        Toast.makeText(getActivity(), "下拉刷新", Toast.LENGTH_SHORT).show();
-        //1秒后关闭刷新
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                lv_course.stopRefresh();
-            }
-        }, 1000);
     }
 
     @Override
-    public void onLoadMore() {
-        Toast.makeText(getActivity(), "上拉加载", Toast.LENGTH_SHORT).show();
+    public void onClick(View v) {
+        switch (v.getId()){
+        }
+        startActivity(new Intent(getActivity(), CourseCategoryActivity.class));
+    }
 
-        //1秒后关闭加载
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                lv_course.stopLoadMore();
-            }
-        }, 1000);
+    @Override
+    public void onResume() {
+        super.onResume();
+        banner.setFocusable(true);
+        banner.setFocusableInTouchMode(true);
     }
 }

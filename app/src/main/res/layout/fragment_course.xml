@@ -2,11 +2,46 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.netease.ecos.views.XListView
-        android:id="@+id/lv_course"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.netease.ecos.views.XListView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.netease.ecos.views.Banner
+                android:id="@+id/banner"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.netease.ecos.views.Banner>
+            <include layout="@layout/item_course_type">
+
+            </include>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="推荐教程"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="3dp"
+                    android:background="#ccc"/>
+            </LinearLayout>
+            <com.netease.ecos.views.ExtensibleListView
+                android:id="@+id/lv_course"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.netease.ecos.views.ExtensibleListView>
+        </LinearLayout>
+    </ScrollView>
+
 
     <com.netease.ecos.views.FloadingButton
         android:id="@+id/btn_floading"

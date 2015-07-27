@@ -41,19 +41,45 @@
                 android:layout_height="wrap_content"
                 android:text="关注"/>
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/iv_cover"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/img_default"
-            android:scaleType="fitXY"/>
+            android:layout_height="200dp">
+            <ImageView
+                android:id="@+id/iv_cover"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/img_default"
+                android:scaleType="fitXY"/>
+            <TextView
+                android:id="@+id/tv_coverNum"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:background="#aaaa"
+                android:layout_alignParentRight="true"
+                android:text="5"
+                android:textSize="15sp"/>
+            <Button
+                android:id="@+id/btn_praise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="56个赞"/>
+            <Button
+                android:id="@+id/btn_evaluate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/btn_praise"
+                android:layout_alignBottom="@id/btn_praise"
+                android:text="72条评论"/>
+        </RelativeLayout>
+
 
         <LinearLayout
             android:id="@+id/ll_coverInformation"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:gravity="center_vertical">
             <TextView
                 android:id="@+id/tv_coverTitle"
@@ -63,7 +89,8 @@
                 android:textSize="20sp"
                 android:textStyle="bold"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="5dp" />
             <TextView
                 android:id="@+id/tv_coverTime"
@@ -72,23 +99,11 @@
                 android:text="2011年11月11日"/>
         </LinearLayout>
 
-        <LinearLayout
+        <com.netease.ecos.views.ExtensibleListView
+            android:id="@+id/lv_evaluation"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/btn_praise"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="56个赞"/>
-            <Button
-                android:id="@+id/btn_evaluate"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="72条评论"/>
-        </LinearLayout>
+            android:layout_height="wrap_content">
+        </com.netease.ecos.views.ExtensibleListView>
 
     </LinearLayout>
 </LinearLayout>

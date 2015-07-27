@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.activity.ExhibitDetailActivity;
+import com.netease.ecos.views.ExtensibleListView;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -32,12 +33,16 @@ public class DisplayListViewAdapter extends BaseAdapter {
         private Button btn_focus;
 
         private ImageView iv_cover;
+        private TextView tv_coverNum;
         private LinearLayout ll_coverInformation;
         private TextView tv_coverTitle;
         private TextView tv_coverTime;
 
         private Button btn_praise;
         private Button btn_evaluate;
+
+        private ExtensibleListView lv_evaluation;
+        private DisplayItemEvalutionViewAdapter adapter;
 
 
         public ViewHolder(View root) {
@@ -46,6 +51,7 @@ public class DisplayListViewAdapter extends BaseAdapter {
             btn_focus = (Button) root.findViewById(R.id.btn_focus);
 
             iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
+            tv_coverNum=(TextView)root.findViewById(R.id.tv_coverNum);
             ll_coverInformation = (LinearLayout) root.findViewById(R.id.ll_coverInformation);
             tv_coverTitle = (TextView) root.findViewById(R.id.tv_coverTitle);
             tv_coverTime = (TextView) root.findViewById(R.id.tv_coverTime);
@@ -59,6 +65,8 @@ public class DisplayListViewAdapter extends BaseAdapter {
                     mcontext.startActivity(intent);
                 }
             });
+
+            lv_evaluation=(ExtensibleListView)root.findViewById(R.id.lv_evaluation);
         }
 
         /**
@@ -67,6 +75,8 @@ public class DisplayListViewAdapter extends BaseAdapter {
         public void setData(int position) {
             //TODO 绑定数据
             Picasso.with(mcontext).load("http://i.imgur.com/DvpvklR.png").placeholder(R.drawable.img_default).into(iv_cover);
+            adapter=new DisplayItemEvalutionViewAdapter(mcontext);
+            lv_evaluation.setAdapter(adapter);
         }
     }
 
