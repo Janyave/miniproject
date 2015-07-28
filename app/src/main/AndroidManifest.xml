@@ -120,6 +120,10 @@
             android:name=".activity.PersonageDetailActivity"
             android:label="@string/title_activity_personage_detail" >
         </activity>
+        <activity
+            android:name=".activity.ApiTestActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 
