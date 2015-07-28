@@ -89,5 +89,6 @@
     <string name="backstage">后期</string>
     <string name="others">其他</string>
     <string name="experience">心得</string>
+    <string name="title_activity_recruitment_detail">RecruitmentDetailActivity</string>
     
 </resources>

@@ -11,7 +11,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="16dp">
 
-        <!--头像姓名关注 -->
+        <!--头像姓名私信 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

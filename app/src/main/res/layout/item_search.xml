@@ -4,16 +4,24 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center_vertical">
         <TextView
             android:id="@+id/tv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="火影忍者"
+            style="@style/text_dark_max"
+            android:gravity="center_vertical"/>
+        <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:text="火影忍者"
-            android:gravity="center_vertical"/>
+            android:layout_height="match_parent" />
         <ImageView
             android:id="@+id/iv_delete"
             android:layout_width="20dp"

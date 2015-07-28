@@ -172,21 +172,24 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
     @Override
     public void onClick(View v) {
-        setUnChecked();
+
         switch (v.getId()){
             case R.id.tv_search:
                 startActivity(new Intent(getActivity(), SearchActivity.class));
                 break;
             case R.id.tv_selection:
                 //TODO 选择事件
+                setUnChecked();
                 tv_selection.setTextColor(getResources().getColor(R.color.text_red));
                 break;
             case R.id.tv_attention:
                 //TODO 选择事件
+                setUnChecked();
                 tv_attention.setTextColor(getResources().getColor(R.color.text_red));
                 break;
             case R.id.tv_new:
                 //TODO 选择事件
+                setUnChecked();
                 tv_new.setTextColor(getResources().getColor(R.color.text_red));
                 break;
         }

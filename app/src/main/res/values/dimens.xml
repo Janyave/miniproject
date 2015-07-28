@@ -5,7 +5,8 @@
 
     <!--标题栏-->
     <dimen name="tv_title_txsize">21sp</dimen>
-    <dimen name="tv_title_height">45dp</dimen>
+    <!-- 155px-->
+    <dimen name="tv_title_height">60dp</dimen>
 
 
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
