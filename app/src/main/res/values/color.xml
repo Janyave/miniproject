@@ -56,6 +56,10 @@
     <color name="text_dark">#333333</color>
     <color name="text_gray">#999999</color>
     <color name="text_red">#f2457d</color>
+
+    <color name="text_white">#ffffff</color>
+    <!--搜索框提示文字颜色-->
+    <color name="text_red_light">#ffc2d5</color>
     
     
     <!-- 背景-->
@@ -63,7 +67,12 @@
     <color name="bg_gray">#eff1f0</color>
     <color name="bg_white">#ffffff</color>
     <color name="bg_red">#f2457d</color>
-    <color name="bg_red_light">#fba1bd</color>
+    <color name="bg_red_light_light">#fba1bd</color>
+
+    <!-- 搜索框填充色-->
+    <color name="bg_red_light">#f6759e</color>
+
+    <color name="btn_green">#41bc40</color>
 
 
 </resources>

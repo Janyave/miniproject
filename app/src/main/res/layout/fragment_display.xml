@@ -3,45 +3,65 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/bg_white">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
         <TextView
             android:id="@+id/tv_selection"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:gravity="center"
+            style="@style/text_pink_mid"
             android:text="精选"/>
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="25dp"
+            android:background="@color/bg_gray_dark"/>
         <TextView
             android:id="@+id/tv_new"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:gravity="center"
+            style="@style/text_gray_mid"
             android:text="新人"/>
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="25dp"
+            android:background="@color/bg_gray_dark"/>
         <TextView
             android:id="@+id/tv_attention"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
+            style="@style/text_gray_mid"
             android:gravity="center"
             android:text="关注"/>
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="25dp"
+            android:background="@color/bg_gray_dark"/>
         <TextView
             android:id="@+id/tv_search"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
+            style="@style/text_gray_mid"
             android:gravity="center"
             android:text="搜索"/>
     </LinearLayout>
+    <TextView style="@style/layout_line_gray"/>
 <RelativeLayout
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.netease.ecos.views.XListView
         android:id="@+id/lv_course"
+        android:listSelector="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </com.netease.ecos.views.XListView>

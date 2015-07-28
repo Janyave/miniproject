@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.SearchHistoryAdapter;
+import com.netease.ecos.views.ExtensibleListView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -25,7 +26,7 @@ public class SearchActivity extends Activity{
     @InjectView(R.id.tv_cancel)
     TextView tv_cancel;
     @InjectView(R.id.lv_searchHistory)
-    ListView lv_searchHistory;
+    ExtensibleListView lv_searchHistory;
 
     private SearchHistoryAdapter searchHistoryAdapter;
 
@@ -58,5 +59,6 @@ public class SearchActivity extends Activity{
     private void initData() {
         searchHistoryAdapter=new SearchHistoryAdapter(this);
         lv_searchHistory.setAdapter(searchHistoryAdapter);
+        lv_searchHistory.setDividerHeight(1);
     }
 }

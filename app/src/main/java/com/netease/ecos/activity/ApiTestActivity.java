@@ -15,6 +15,8 @@ import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Comment.CommentType;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.model.Course.Assignment;
+import com.netease.ecos.model.Image;
+import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.comment.CommentListRequest;
 import com.netease.ecos.request.course.CourseListRequest;
@@ -22,6 +24,8 @@ import com.netease.ecos.request.course.CreateAssignmentRequest;
 import com.netease.ecos.request.course.GetAssignmentDetailRequest;
 import com.netease.ecos.request.course.GetBannerRequest;
 import com.netease.ecos.request.course.GetCourseDetailRequest;
+import com.netease.ecos.request.share.GetShareDetailRequest;
+import com.netease.ecos.request.share.ShareListRequest;
 
 import java.util.List;
 
@@ -34,7 +38,8 @@ import java.util.List;
 
 public class ApiTestActivity extends BaseActivity{
 
-	String items[] = {"上传作品","查看作业详情","查看教程评论","获取banner列表","获取推荐教程列表","获取教程筛选列表","获取教程详情"};
+	String items[] = {"上传作品","查看作业详情","查看教程评论","获取banner列表","获取推荐教程列表","获取教程筛选列表","获取教程详情"
+			,"获取分享列表","获取分享详情"};
 
 	public boolean isFirst = true;
 
@@ -86,6 +91,12 @@ public class ApiTestActivity extends BaseActivity{
 						break;
 					case 6:
 						getCourseDetail();
+						break;
+					case 7:
+						getShareList();
+						break;
+					case 8:
+						getShareDetail();
 						break;
 				}
 			}
@@ -191,7 +202,7 @@ public class ApiTestActivity extends BaseActivity{
 			tv_display.append("网友名称:" + assignment.author+"\n");
 			tv_display.append("网友头像url:" + assignment.authorAvatarUrl+"\n");
 			tv_display.append("作业图片url:" + assignment.imageUrl+"\n");
-			tv_display.append("描述内容:" + assignment.content+"\n");
+			tv_display.append("描述内容:" + assignment.content + "\n");
 			tv_display.append("作业点赞数:" + assignment.praiseNum+"\n");
 			tv_display.append("作业评论综述:" + assignment.commentNum+"\n");
 
@@ -430,6 +441,139 @@ public class ApiTestActivity extends BaseActivity{
 			tv_display.append("评论数:" + course.commentNum +"\n");
 
 		}
+	}
+
+
+	/***
+	 * 获取分享列表
+	 */
+	public void getShareList() {
+		ShareListRequest request =  new ShareListRequest();
+
+		request.request(new ShareListResponse(), null,"keyWordk",0);
+	}
+
+	/***
+	 *
+	 * @ClassName: GetAssignmetnDetailResponse
+	 * @Description:
+	 * @author enlizhang
+	 * @date 2015年7月28日 下午5:24:35
+	 *
+	 */
+	class ShareListResponse extends BaseResponceImpl implements ShareListRequest.IShareListResponse{
+
+		@Override
+		public void doAfterFailedResponse(String message) {
+
+		}
+
+		@Override
+		public void onErrorResponse(VolleyError error) {
+
+		}
+
+		@Override
+		public void success(List<Share> shareList) {
+			tv_display.setText("");
+
+			for(int i=0;i<shareList.size();i++){
+
+				Share share = shareList.get(i);
+
+				tv_display.append("分享名称:" + share.title + "\n");
+				tv_display.append("  分享者头像url:" + share.avatarUrl + "\n");
+				tv_display.append("  分享者昵称:" + share.nickname + "\n");
+				tv_display.append("  已关注分享着:" + share.hasAttention + "\n");
+				tv_display.append("  已点赞:" + share.hasPraised + "\n");
+				tv_display.append("  分享封面图url:" + share.coverUrl + "\n");
+				tv_display.append("  分享时间:" + share.getDateDescription() + "\n");
+				tv_display.append("  分享点赞数:" + share.praiseNum + "\n");
+				tv_display.append("  分享评论数:" + share.commentNum + "\n");
+				tv_display.append("  图片总数:" + share.totalPics + "\n");
+				tv_display.append("\n");
+
+				for(Comment comment:share.commentList){
+
+					tv_display.append("网友名称:" + comment.fromNickName+"\n");
+					tv_display.append("    网友头像:" + comment.avatarUrl+"\n");
+					tv_display.append("    评论内容:" + comment.content+"\n");
+
+				}
+				tv_display.append("\n");
+				tv_display.append("\n");
+
+			}
+
+
+		}
+	}
+
+
+	/***
+	 * 获取分享详情
+	 */
+	public void getShareDetail() {
+		GetShareDetailRequest request =  new GetShareDetailRequest();
+
+		request.request(new GetShareDetealResponse(), "0");
+	}
+
+	/**
+	 *
+	 * @ClassName: GetShareResponse
+	 * @Description: 获取分享详情回掉接口
+	 * @author enlizhang
+	 * @date 2015年7月28日 下午7:13:18
+	 *
+	 */
+	class GetShareDetealResponse extends BaseResponceImpl implements GetShareDetailRequest.IGetShareResponse {
+
+		@Override
+		public void doAfterFailedResponse(String message) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onErrorResponse(VolleyError error) {
+
+		}
+
+		@Override
+		public void success(Share share) {
+			tv_display.setText("");
+
+			tv_display.append("分享名称:" + share.title + "\n");
+			tv_display.append("  分享者头像url:" + share.avatarUrl + "\n");
+			tv_display.append("  分享者昵称:" + share.nickname + "\n");
+			tv_display.append("  已关注分享着:" + share.hasAttention + "\n");
+			tv_display.append("  已点赞:" + share.hasPraised + "\n");
+			tv_display.append("  分享封面图url:" + share.coverUrl + "\n");
+			tv_display.append("  分享时间:" + share.getDateDescription() + "\n");
+			tv_display.append("  分享点赞数:" + share.praiseNum + "\n");
+			tv_display.append("  分享评论数:" + share.commentNum + "\n");
+			tv_display.append("  图片总数:" + share.totalPics + "\n");
+
+			List<Image> imageList = share.imageList;
+			for(int i=0;i<imageList.size();i++){
+
+				tv_display.append("  图片ur;:" + imageList.get(i).imageUrl + "\n");
+			}
+
+			tv_display.append("\n");
+
+			for(Comment comment:share.commentList){
+
+				tv_display.append("网友名称:" + comment.fromNickName+"\n");
+				tv_display.append("    网友头像:" + comment.avatarUrl+"\n");
+				tv_display.append("    评论内容:" + comment.content+"\n");
+
+			}
+			tv_display.append("\n");
+			tv_display.append("\n");
+		}
+
 	}
 }
 

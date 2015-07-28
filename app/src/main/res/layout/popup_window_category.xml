@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_all_category"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/btn_same_people_show"
+        android:layout_toStartOf="@+id/btn_same_people_show"
+        android:text="全部分类" />
+
+    <Button
+        android:id="@+id/btn_same_people_show"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btn_all_category"
+        android:layout_centerHorizontal="true"
+        android:text="同人展" />
+
+    <Button
+        android:id="@+id/btn_movie_festival"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btn_same_people_show"
+        android:layout_marginLeft="20dp"
+        android:layout_toEndOf="@+id/btn_same_people_show"
+        android:layout_toRightOf="@+id/btn_same_people_show"
+        android:text="动漫节" />
+
+    <Button
+        android:id="@+id/btn_official_activities"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_all_category"
+        android:layout_alignStart="@+id/btn_all_category"
+        android:layout_below="@+id/btn_all_category"
+        android:layout_marginTop="5dp"
+        android:text="官方活动" />
+
+    <Button
+        android:id="@+id/btn_category_live"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_same_people_show"
+        android:layout_alignStart="@+id/btn_same_people_show"
+        android:layout_alignTop="@+id/btn_official_activities"
+        android:text="LIVE" />
+
+    <Button
+        android:id="@+id/btn_category_stage"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_movie_festival"
+        android:layout_alignStart="@+id/btn_movie_festival"
+        android:layout_alignTop="@+id/btn_category_live"
+        android:text="舞台祭" />
+
+    <Button
+        android:id="@+id/btn_category_match"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_official_activities"
+        android:layout_alignStart="@+id/btn_official_activities"
+        android:layout_below="@+id/btn_official_activities"
+        android:layout_marginTop="5dp"
+        android:text="赛事" />
+
+    <Button
+        android:id="@+id/btn_theme_only"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btn_category_match"
+        android:layout_toEndOf="@+id/btn_all_category"
+        android:layout_toRightOf="@+id/btn_all_category"
+        android:text="主题ONLY" />
+
+    <Button
+        android:id="@+id/btn_category_party"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn_category_stage"
+        android:layout_alignStart="@+id/btn_category_stage"
+        android:layout_alignTop="@+id/btn_theme_only"
+        android:text="派对" />
+
+    <ImageView
+        android:id="@+id/imageViewNull"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btn_category_match"
+        android:src="@drawable/white" />
+
+</RelativeLayout>

@@ -14,6 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/include_title"
+        android:paddingLeft="@dimen/commentDetaiPaddingLeft"
+        android:paddingRight="@dimen/commentDetaiPaddingLeft"
+        android:paddingTop="@dimen/commentDetaiPaddingTop"
         android:layout_marginBottom="@dimen/workDetailComment_EdTx_height">
 
         <LinearLayout
@@ -32,7 +35,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginTop="@dimen/commentDetaiPaddingTop"
                 android:orientation="horizontal">
 
                 <ImageView

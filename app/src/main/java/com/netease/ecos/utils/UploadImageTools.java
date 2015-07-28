@@ -200,11 +200,13 @@ public class UploadImageTools {
                     public void onProcess(
                             Object fileParam,
                             long current, long total) {
-                        LogUtil.e(LOGTAG,
-                                "on process: "
-                                        + current
-                                        + ", total: "
-                                        + total);
+//                        LogUtil.e(LOGTAG,
+//                                "on process: "
+//                                        + current
+//                                        + ", total: "
+//                                        + total);
+
+                        callBack.onProcess(fileParam,current,total);
 
                     }
 
@@ -214,9 +216,9 @@ public class UploadImageTools {
                         String originImageUrl = "http://nos.netease.com" + "/" + BUCKET_NAME + "/" + key;
 
                         //缩略图url，进行等比缩放，总像素数为THUMB_PIXELS;
-                        String thumbUrl = originImageUrl + "?" + "imageView&thumbnail=" + THUMB_PIXELS;
-                        Log.i("图片上传","原图路径" + originImageUrl);
-                        Log.i("图片上传","缩略图路径" + thumbUrl);
+                        String thumbUrl = originImageUrl + "?" + "imageView&pixel=" + THUMB_PIXELS;
+//                        Log.i("图片上传","原图路径" + originImageUrl);
+//                        Log.i("图片上传","缩略图路径" + thumbUrl);
 
                         callBack.success(originImageUrl, thumbUrl);
                     }
@@ -232,68 +234,8 @@ public class UploadImageTools {
                     }
                 });
 
+
     }
-
-
-/*
-        Credentials credentials = new BasicCredentials(accessKey, secretKey);
-        Nos nosClient = new NosClient(credentials);
-
-        try {
-            if(nosClient.doesBucketExist(BUCKET_NAME)){
-                System.out.println("yes");
-            }
-            else{
-                System.out.println("no");
-            }
-
-            System.out.println("Listing buckets");
-            for (Bucket bucket : nosClient.listBuckets()) {
-                System.out.println(" - " + bucket.getName());
-            }
-            System.out.println();
-
-
-            */
-/*
-             * Upload an object to your bucket .
-             *//*
-
-            System.out.println("Uploading a new object to NOS from a file\n");
-            //            File file = createSampleFile();
-            String key = file.getName();
-            nosClient.putObject(new PutObjectRequest(BUCKET_NAME, key, file));
-
-            //原图url
-            String originImageUrl = "http://nos.netease.com" + "/" + BUCKET_NAME + "/" + key;
-
-            //缩略图url，进行等比缩放，总像素数为THUMB_PIXELS;
-            String thumbUrl = originImageUrl + "?" + "imageView&thumbnail=" + THUMB_PIXELS;
-            Log.i("图片上传","原图路径" + originImageUrl);
-            Log.i("图片上传","缩略图路径" + thumbUrl);
-
-            callBack.success(originImageUrl, thumbUrl);
-
-        } catch (ServiceException ase) {
-            System.out.println("ServiceException.some errors occur in server point.");
-            System.out.println("Error Message:    " + ase.getMessage());
-            System.out.println("HTTP Status Code: " + ase.getStatusCode());
-            System.out.println("NOS Error Code:   " + ase.getErrorCode());
-            System.out.println("Error Type:       " + ase.getErrorType());
-            System.out.println("Request ID:       " + ase.getRequestId());
-
-            callBack.fail();
-        } catch (ClientException ace) {
-            System.out.println("ClientException.some errors occur in client point");
-            System.out.println("Error Message: " + ace.getMessage());
-            callBack.fail();
-        }
-
-
-
-
-    }*/
-
 
 
     /***
@@ -312,5 +254,8 @@ public class UploadImageTools {
          * 上传失败回掉函数
          */
         void fail();
+
+        void onProcess(Object fileParam,
+                long current, long total);
     }
 }
