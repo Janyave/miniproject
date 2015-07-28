@@ -164,13 +164,13 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initData() {
-        lv_course.setAdapter(new CourseListViewAdapter(getActivity()));
+//        lv_course.setAdapter(new CourseListViewAdapter(getActivity()));
 
-        List<String> URLList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            URLList.add("http://img5.duitang.com/uploads/item/201403/07/20140307100224_trTBU.jpeg");
-        }
-        banner.setURLList(URLList);
+//        List<String> URLList = new ArrayList<>();
+//        for (int i = 0; i < 5; i++) {
+//            URLList.add("http://img5.duitang.com/uploads/item/201403/07/20140307100224_trTBU.jpeg");
+//        }
+//        banner.setURLList(URLList);
 
         /**获取banner信息**/
         GetBannerRequest requestBanner = new GetBannerRequest();
@@ -210,9 +210,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void success(List<String> bannerList) {
-
             banner.setURLList(bannerList);
-
         }
 
     }
