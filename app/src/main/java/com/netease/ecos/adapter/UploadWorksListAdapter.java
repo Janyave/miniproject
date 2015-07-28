@@ -88,7 +88,7 @@ public class UploadWorksListAdapter extends BaseAdapter implements View.OnClickL
         switch (v.getId()) {
             case R.id.next_step:
                 if (position == (getCount() - 1)) {
-                    Toast.makeText(mContext, "已经在底层，不能下移了", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "already in the bottom", Toast.LENGTH_LONG).show();
                     return;
                 }
                 tempStep = mStepsList.get(position);
@@ -99,7 +99,7 @@ public class UploadWorksListAdapter extends BaseAdapter implements View.OnClickL
                 break;
             case R.id.last_step:
                 if (position == 0) {
-                    Toast.makeText(mContext, "已经置顶，不能上移了", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "already in the top", Toast.LENGTH_LONG).show();
                     return;
                 }
                 tempStep = mStepsList.get(position);

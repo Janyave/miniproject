@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/component_title_type" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- 教程列表-->
+        <com.netease.ecos.views.XListView
+            android:id="@+id/lv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.netease.ecos.views.XListView>
+
+        <LinearLayout
+            android:id="@+id/ll_sort"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="#fff"
+            android:padding="5dp">
+            <!-- 排序下拉菜单-->
+            <Spinner
+                android:id="@+id/sp_sortType"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"/>
+            <!-- 搜索按钮-->
+            <ImageView
+                android:id="@+id/iv_search"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_search"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>
+
+<com.netease.ecos.views.FloadingButton
+android:id="@+id/btn_floading"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_alignParentBottom="true"
+android:layout_alignParentRight="true"
+android:layout_marginRight="20dp"
+android:layout_marginBottom="60dp"
+android:text="悬浮按钮"/>
+</RelativeLayout>

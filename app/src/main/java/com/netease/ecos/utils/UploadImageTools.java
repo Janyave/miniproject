@@ -2,6 +2,7 @@ package com.netease.ecos.utils;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.netease.cloud.nos.android.core.CallRet;
 import com.netease.cloud.nos.android.core.Callback;
@@ -40,9 +41,11 @@ public class UploadImageTools {
      * 上传图片
      * @param file 图片文件对象
      * @param callBack 回掉函数{@link UploadCallBack}
+     * @param context
      * @param isSys 是否同步，true:同步 false:异步
      */
-    public static void uploadImage(final File file, Context context, final UploadCallBack callBack, boolean isSys){
+    public static void uploadImageSys(final File file, final UploadCallBack callBack,
+                          final Context context,boolean isSys){
         if(file==null || !file.exists()){
             Log.e("上传图片","无效的file对象" );
             if(file!=null)
@@ -132,7 +135,7 @@ public class UploadImageTools {
             public void onProcess(Object fileParam, long current, long total) {
                 LogUtil.e(LOGTAG, "on process: " + current + ", total: " + total);
 
-//                Toast.makeText(context, "onProcess " + current + "/" + total, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "onProcess " + current + "/" + total, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -141,7 +144,7 @@ public class UploadImageTools {
                 String originImageUrl = "http://nos.netease.com" + "/" + BUCKET_NAME + "/" + key;
 
                 //缩略图url，进行等比缩放，总像素数为THUMB_PIXELS;
-                String thumbUrl = originImageUrl + "?" + "imageView&pixel=" + THUMB_PIXELS;
+                String thumbUrl = originImageUrl + "?" + "imageView&thumbnail=" + THUMB_PIXELS;
                 Log.i("图片上传","原图路径" + originImageUrl);
                 Log.i("图片上传","缩略图路径" + thumbUrl);
 
@@ -184,12 +187,12 @@ public class UploadImageTools {
                 wanNOSObject, new Callback() {
                     @Override
                     public void onUploadContextCreate(Object fileParam,String oldUploadContext,String newUploadContext) {
-//                        LogUtil.e(
-//                                LOGTAG,
-//                                "context create: "
-//                                        + fileParam
-//                                        + ", newUploadContext: "
-//                                        + newUploadContext);
+                        LogUtil.e(
+                                LOGTAG,
+                                "context create: "
+                                        + fileParam
+                                        + ", newUploadContext: "
+                                        + newUploadContext);
                         Util.setData(context, fileParam.toString(), newUploadContext);
                     }
 
@@ -202,7 +205,8 @@ public class UploadImageTools {
 //                                        + current
 //                                        + ", total: "
 //                                        + total);
-                        callBack.onProcess(fileParam, current, total);
+
+                        callBack.onProcess(fileParam,current,total);
 
                     }
 
@@ -212,9 +216,9 @@ public class UploadImageTools {
                         String originImageUrl = "http://nos.netease.com" + "/" + BUCKET_NAME + "/" + key;
 
                         //缩略图url，进行等比缩放，总像素数为THUMB_PIXELS;
-                        String thumbUrl = originImageUrl + "?" + "imageView&pixel" + THUMB_PIXELS;
-                        Log.i("图片上传","原图路径" + originImageUrl);
-                        Log.i("图片上传","缩略图路径" + thumbUrl);
+                        String thumbUrl = originImageUrl + "?" + "imageView&pixel=" + THUMB_PIXELS;
+//                        Log.i("图片上传","原图路径" + originImageUrl);
+//                        Log.i("图片上传","缩略图路径" + thumbUrl);
 
                         callBack.success(originImageUrl, thumbUrl);
                     }
@@ -230,24 +234,14 @@ public class UploadImageTools {
                     }
                 });
 
-    }
 
+    }
 
 
     /***
      * 上传图片回掉函数，包括成功和失败
      */
     public interface UploadCallBack{
-
-        /***
-         * current/total为上传百分比
-         * @param fileParam
-         * @param current
-         * @param total
-         */
-        public void onProcess(
-                Object fileParam,
-                long current, long total);
 
         /***
          * 上传成功回掉函数
@@ -260,5 +254,8 @@ public class UploadImageTools {
          * 上传失败回掉函数
          */
         void fail();
+
+        void onProcess(Object fileParam,
+                long current, long total);
     }
 }

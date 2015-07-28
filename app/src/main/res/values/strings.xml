@@ -6,19 +6,19 @@
 
     <!-- tab 开始-->
     <string name="tab_course">教程</string>
-    <string name="tab_community">社区</string>
-    <string name="tab_transaction">交易</string>
+    <string name="tab_community">活动</string>
+    <string name="tab_transaction">招募</string>
     <string name="tab_home">主页</string>
-    <string name="tab_display">展示</string>
+    <string name="tab_display">分享</string>
     <!-- tab 结束-->
 
     <!-- 侧滑栏开始 -->
     <string name="drawer_title">我是侧滑栏</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-    <string name="title_section4">Zyw test</string>
+    <string name="title_section1">我的消息</string>
+    <string name="title_section2">我的等级</string>
+    <string name="title_section3">我的教程</string>
+    <string name="title_section4">我的作品</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <!-- 侧滑栏结束 -->
@@ -56,12 +56,38 @@
     <string name="QQ_event_detail">企鹅群：970020010</string>
     <string name="weibo_event_detail">微博：www.weibo.com/cosplay</string>
 
+    <!-- 个人信息页面 -->
+    <string name="bt_personage_name_default">玉生烟</string>
+    <string name="tv_personage_gender_default">女</string>
+    <string name="tv_personage_attention_default">关注：632</string>
+    <string name="tv_personage_fans_default">粉丝：535</string>
+    <string name="tv_personage_description_default">妹控什么的冲我来吧</string>
+    <string name="bt_personage_setting">设置</string>
+    <string name="tv_schedule_set_default">课表集(2)</string>
+    <string name="tv_course_name_default">教程名称</string>
+    <string name="bt_personage_attention">+关注</string>
+    <string name="bt_personage_return">返回</string>
+
     <!-- 个人作品分享页面-->
     <string name="work_hint">分享一下心得吧:)</string>
     <string name="title_activity_event_detail">EventDetailActivity</string>
+    <string name="comment">评论</string>
 
     <!-- 个人上传作品页面（多个作品）-->
     <string name="uploadWorks_coverHint">给作品起个名字让别人更容易找到你</string>
     <string name="workDescrp_hint">作品描述</string>
     <string name="title_activity_category_display">CategoryDisplayActivity</string>
+    <string name="title_activity_personage_detail">PersonageDetailActivity</string>
+
+
+    <!-- CourseType-->
+    <string name="makeuper">妆娘</string>
+    <string name="prop">道具</string>
+    <string name="hair">假发</string>
+    <string name="costume">服装</string>
+    <string name="photography">摄影</string>
+    <string name="backstage">后期</string>
+    <string name="others">其他</string>
+    <string name="experience">心得</string>
+    
 </resources>

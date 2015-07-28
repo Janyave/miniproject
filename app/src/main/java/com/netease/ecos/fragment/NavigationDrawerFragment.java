@@ -1,6 +1,7 @@
 package com.netease.ecos.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -20,9 +21,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.activity.PersonageDetailActivity;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -78,6 +81,9 @@ public class NavigationDrawerFragment extends Fragment {
 
     private boolean mUserLearnedDrawer;
 
+    private Button bt_personage_detail = null;
+    private Button bt_personage_setting = null;
+
     public NavigationDrawerFragment() {
     }
 
@@ -118,6 +124,24 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
         mDrawerView=(View)inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView = (ListView)mDrawerView.findViewById(R.id.lv_list);
+
+        bt_personage_detail = (Button) mDrawerView.findViewById(R.id.bt_personage_name);
+        bt_personage_setting = (Button) mDrawerView.findViewById(R.id.bt_personage_setting);
+
+        bt_personage_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PersonageDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        bt_personage_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO on setting btn click
+            }
+        });
 
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

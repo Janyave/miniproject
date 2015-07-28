@@ -8,20 +8,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.fragment.CourseFragment;
+import com.netease.ecos.model.Course;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CourseListViewAdapter extends BaseAdapter{
 
     private Context mcontext;
+    private List<Course> courseList = new ArrayList<Course>();
 
     public CourseListViewAdapter(Context context) {
         this.mcontext = context;
     }
 
+    public CourseListViewAdapter(Context context, List<Course> courseList) {
+        this.mcontext = context;
+        this.courseList=courseList;
+    }
+
+
     class ViewHolder {
 
         private ImageView networkImageView;
-        private ImageView imageTitlePic;
         private ImageView imageAuthorPic;
         private TextView textViewTitle;
         private TextView textViewAmz;
@@ -30,7 +41,6 @@ public class CourseListViewAdapter extends BaseAdapter{
 
         public ViewHolder(View root) {
             networkImageView = (ImageView) root.findViewById(R.id.pic_dis);
-            imageTitlePic = (ImageView) root.findViewById(R.id.imageViewTitle);
             imageAuthorPic = (ImageView) root.findViewById(R.id.imageViewAuthor);
 
             textViewTitle = (TextView) root.findViewById(R.id.textViewTitle);
@@ -42,8 +52,13 @@ public class CourseListViewAdapter extends BaseAdapter{
          * 传入数据未定
          */
         public void setData(int position){
-            //TODO 绑定数据
-            Picasso.with(mcontext).load("http://i.imgur.com/DvpvklR.png").placeholder(R.drawable.img_default).into(networkImageView);
+            Course item=courseList.get(position);
+
+            Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(networkImageView);
+            Picasso.with(mcontext).load(item.authorAvatarUrl).placeholder(R.drawable.img_default).into(imageAuthorPic);
+            textViewTitle.setText(item.title);
+            textViewAmz.setText(item.praiseNum + "");
+            textViewAuthor.setText(item.author);
         }
     }
 
@@ -51,12 +66,12 @@ public class CourseListViewAdapter extends BaseAdapter{
     //TODO 数据数量【现在模拟为10】
     @Override
     public int getCount() {
-        return 10;
+        return courseList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return position;
     }
 
     @Override

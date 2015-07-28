@@ -89,8 +89,8 @@ public class MainActivity extends Activity implements OnClickListener {
         refreshET = (EditText) findViewById(R.id.refreshET);
 
         wanNOSObject = new WanNOSObject();*/
-        LogUtil.setLevel(0);
-       /* File file = new File(Environment.getExternalStorageDirectory() + "/" + "a.png");
+        /*LogUtil.setLevel(0);
+        File file = new File(Environment.getExternalStorageDirectory() + "/" + "a.png");
         UploadImageTools.uploadImageSys(file, new UploadImageTools.UploadCallBack() {
 
             @Override

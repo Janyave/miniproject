@@ -10,7 +10,7 @@
 
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
-    <dimen name="navigation_drawer_width">150dp</dimen>
+    <dimen name="navigation_drawer_width">250dp</dimen>
 
 
     <!-- 新建教程页面开始-->
@@ -23,11 +23,41 @@
     <dimen name="workDetail_ImgVw_height">250dp</dimen>
     <dimen name="divider_height">2dp</dimen>
     <dimen name="workDetailComment_EdTx_width">300dp</dimen>
-    <dimen name="workDetailComment_EdTx_height">50dp</dimen>
+    <dimen name="workDetailComment_EdTx_height">52dp</dimen>
+    <dimen name="textsizeS">11sp</dimen>
+    <dimen name="textsizeM">16sp</dimen>
+    <dimen name="textsizeL">19sp</dimen>
 
     <!-- text size-->
     <dimen name="textSize">17sp</dimen>
 
     <dimen name="uploadWork_Img_width">150dp</dimen>
     <dimen name="uploadWork_Img_height">200dp</dimen>
+
+    <!-- CourseTypeActivity icon size-->
+    <dimen name="courseType_btn_width">70dp</dimen>
+    <dimen name="courseType_btn_height">70dp</dimen>
+    <dimen name="courseType_btn_padding">70dp</dimen>
+    <dimen name="courseType_layout_margin">30dp</dimen>
+
+    <dimen name="course_type_width">52dp</dimen>
+    <dimen name="course_banner_height">220dp</dimen>
+    <dimen name="course_item_avatar_width">40dp</dimen>
+    <dimen name="course_item_focus_width">15dp</dimen>
+
+
+    <!-- CommentDetail-->
+    <dimen name="commentDetaiPaddingTop">10dp</dimen>
+    <dimen name="commentDetaiPaddingLeft">8dp</dimen>
+    <dimen name="commentDetailLayoutPaddingTop">6dp</dimen>
+    <dimen name="commentDetailTextSize">16dp</dimen>
+
+    <dimen name="course_detail_cover_height">265dp</dimen>
+    <dimen name="course_detail_margin_leftright">16dp</dimen>
+    <dimen name="course_detail_title_height">60dp</dimen>
+    <dimen name="praiseIcon_width">15dp</dimen>
+    <dimen name="course_detail_otherWorks_height">250dp</dimen>
+    <dimen name="course_detail_otherWorks_width">150dp</dimen>
+    <dimen name="course_detail_otherWorks_img_width">165dp</dimen>
+    <dimen name="btn_max_height">48dp</dimen>
 </resources>
