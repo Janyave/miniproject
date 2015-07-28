@@ -13,11 +13,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.CourseListViewAdapter;
+import com.netease.ecos.model.Course;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.FloadingButton;
 import com.netease.ecos.views.XListView;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -144,23 +151,30 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     }
 
     private void initData() {
+
+
+
         //设置下拉菜单选项
         spAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,sortType);
         spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_sortType.setAdapter(spAdapter);
 
+
         //设置列表Adapter
-        courseTypeListViewAdapter=new CourseListViewAdapter(this);
-        lv_list.setAdapter(courseTypeListViewAdapter);
         lv_list.initRefleshTime(this.getClass().getSimpleName());
         lv_list.setPullLoadEnable(true);
         lv_list.setXListViewListener(this);
         lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    startActivity(new Intent(CourseCategoryActivity.this, CourseDetailActivity.class));
+                startActivity(new Intent(CourseCategoryActivity.this, CourseDetailActivity.class));
             }
         });
+
+        //获取course信息
+        CourseListRequest request = new CourseListRequest();
+        request.request(new CourseListResponse(), CourseListRequest.Type.筛选,
+                Course.CourseType.妆娘, "鸣人", CourseListRequest.SortRule.时间);
     }
 
 
@@ -189,5 +203,25 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                 lv_list.stopLoadMore();
             }
         }, 1000);
+    }
+
+
+    class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse{
+
+        @Override
+        public void success(List<Course> courseList) {
+            courseTypeListViewAdapter=new CourseListViewAdapter(CourseCategoryActivity.this,courseList);
+            lv_list.setAdapter(courseTypeListViewAdapter);
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
     }
 }

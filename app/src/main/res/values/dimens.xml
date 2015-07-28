@@ -41,4 +41,12 @@
     <dimen name="course_banner_height">220dp</dimen>
     <dimen name="course_item_avatar_width">40dp</dimen>
     <dimen name="course_item_focus_width">15dp</dimen>
+    <dimen name="course_detail_cover_height">265dp</dimen>
+    <dimen name="course_detail_margin_leftright">16dp</dimen>
+    <dimen name="course_detail_title_height">60dp</dimen>
+    <dimen name="praiseIcon_width">15dp</dimen>
+    <dimen name="course_detail_otherWorks_height">250dp</dimen>
+    <dimen name="course_detail_otherWorks_width">150dp</dimen>
+    <dimen name="course_detail_otherWorks_img_width">165dp</dimen>
+    <dimen name="btn_max_height">48dp</dimen>
 </resources>

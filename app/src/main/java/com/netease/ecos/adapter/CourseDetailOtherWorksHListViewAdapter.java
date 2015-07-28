@@ -9,22 +9,28 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.model.Course;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hzjixinyu on 2015/7/21.
  */
 public class CourseDetailOtherWorksHListViewAdapter extends BaseAdapter {
     private Context mContext;
+    private List<Course.Assignment> assignmentList=new ArrayList<Course.Assignment>();
 
-    public CourseDetailOtherWorksHListViewAdapter(Context c){
+    public CourseDetailOtherWorksHListViewAdapter(Context c, List<Course.Assignment> assignmentList){
         mContext = c;
+        this.assignmentList=assignmentList;
     }
-
 
     //TODO 假定数量
     @Override
     public int getCount() {
-        return 6;
+        return assignmentList.size();
     }
 
     @Override
@@ -48,7 +54,7 @@ public class CourseDetailOtherWorksHListViewAdapter extends BaseAdapter {
 			viewHolder=(ViewHolder) convertView.getTag();
 		}
 
-        viewHolder.setData();
+        viewHolder.setData(position);
 
         return convertView;
     }
@@ -67,8 +73,12 @@ public class CourseDetailOtherWorksHListViewAdapter extends BaseAdapter {
             ll_author=(LinearLayout)v.findViewById(R.id.ll_author);
         }
 
-        //TODO 绑定数据
-        void setData(){
+        void setData(int position){
+            Course.Assignment item=assignmentList.get(position);
+            Picasso.with(mContext).load(item.imageUrl).placeholder(R.drawable.img_default).into(iv_image);
+            Picasso.with(mContext).load(item.authorAvatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
+            tv_name.setText(item.author);
+            tv_time.setText(item.getDateDescription());
         }
     }
 }

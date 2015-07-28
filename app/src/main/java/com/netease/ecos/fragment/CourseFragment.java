@@ -14,12 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.BuildCourseActivity;
 import com.netease.ecos.activity.CourseCategoryActivity;
 import com.netease.ecos.activity.CourseDetailActivity;
 import com.netease.ecos.activity.CourseTypeActivity;
 import com.netease.ecos.adapter.CourseListViewAdapter;
+import com.netease.ecos.model.Course;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.course.CourseListRequest;
+import com.netease.ecos.request.course.GetBannerRequest;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.Banner;
 import com.netease.ecos.views.ExtensibleListView;
@@ -47,6 +52,8 @@ public class CourseFragment extends Fragment implements View.OnClickListener{
     private ImageView tv_type_8;
     private FloadingButton btn_floading;
     private ExtensibleListView lv_course;
+
+    private CourseListViewAdapter courseListViewAdapter;
 
     public static CourseFragment newInstance() {
         CourseFragment fragment = new CourseFragment();
@@ -166,19 +173,21 @@ public class CourseFragment extends Fragment implements View.OnClickListener{
     private void initData() {
         lv_course.setAdapter(new CourseListViewAdapter(getActivity()));
 
-        List<String> URLList=new ArrayList<>();
-        for (int i=0; i<5; i++){
-            URLList.add("http://img5.duitang.com/uploads/item/201403/07/20140307100224_trTBU.jpeg");
-        }
-        banner.setURLList(URLList);
+        /**获取banner信息**/
+        GetBannerRequest requestBanner = new GetBannerRequest();
+        requestBanner.request(new GetBannerResponse());
+
+        CourseListRequest requestCourse = new CourseListRequest();
+        requestCourse.request(new GetCourseResponse(), CourseListRequest.Type.推荐, null, null, null);
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            //TODO 增加点击信息
         }
-        startActivity(new Intent(getActivity(), CourseCategoryActivity.class));
+        startActivity(new Intent(getActivity(),CourseCategoryActivity.class));
     }
 
     @Override
@@ -186,5 +195,45 @@ public class CourseFragment extends Fragment implements View.OnClickListener{
         super.onResume();
         banner.setFocusable(true);
         banner.setFocusableInTouchMode(true);
+    }
+
+    class GetBannerResponse extends BaseResponceImpl implements GetBannerRequest.IGetBannerResponse {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+
+        }
+
+        @Override
+        public void success(List<String> bannerList) {
+
+            banner.setURLList(bannerList);
+
+        }
+
+    }
+
+    class GetCourseResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse{
+
+        @Override
+        public void success(List<Course> courseList) {
+            courseListViewAdapter=new CourseListViewAdapter(getActivity(),courseList);
+            lv_course.setAdapter(courseListViewAdapter);
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
     }
 }
