@@ -1,6 +1,8 @@
 package com.netease.ecos.fragment;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -65,6 +67,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         tv_search=(TextView)mainView.findViewById(R.id.tv_search);
 
         lv_course = (XListView) mainView.findViewById(R.id.lv_course);
+        lv_course.setDividerHeight(0);
         btn_floading = (FloadingButton) mainView.findViewById(R.id.btn_floading);
     }
 
@@ -169,20 +172,31 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
     @Override
     public void onClick(View v) {
+        setUnChecked();
         switch (v.getId()){
             case R.id.tv_search:
                 startActivity(new Intent(getActivity(), SearchActivity.class));
                 break;
             case R.id.tv_selection:
                 //TODO 选择事件
+                tv_selection.setTextColor(getResources().getColor(R.color.text_red));
                 break;
             case R.id.tv_attention:
                 //TODO 选择事件
+                tv_attention.setTextColor(getResources().getColor(R.color.text_red));
                 break;
             case R.id.tv_new:
                 //TODO 选择事件
+                tv_new.setTextColor(getResources().getColor(R.color.text_red));
                 break;
-
         }
+    }
+
+    private void setUnChecked() {
+        int color = getResources().getColor(R.color.text_gray);
+        tv_new.setTextColor(color);
+        tv_search.setTextColor(color);
+        tv_selection.setTextColor(color);
+        tv_attention.setTextColor(color);
     }
 }

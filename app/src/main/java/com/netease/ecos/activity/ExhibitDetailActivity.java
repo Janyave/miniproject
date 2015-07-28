@@ -3,12 +3,15 @@ package com.netease.ecos.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
@@ -36,6 +39,8 @@ public class ExhibitDetailActivity extends Activity {
     Button rightButton;
     @InjectView(R.id.tv_left)
     TextView backTxVw;
+    @InjectView(R.id.exhibitCoverImgVw)
+    ImageView exhibitCoverImgVw;
 
     @Override
 
@@ -81,6 +86,16 @@ public class ExhibitDetailActivity extends Activity {
         });
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Display display = getWindowManager().getDefaultDisplay();
+        int width = display.getWidth();
+        width -= 80;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, width * 4 / 3);
+        exhibitCoverImgVw.setLayoutParams(params);
     }
 }
 
