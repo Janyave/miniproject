@@ -8,7 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#88ffffff">
         <com.netease.ecos.utils.RoundImageView
             android:id="@+id/iv_personage_portrait"
             android:layout_width="80dp"
