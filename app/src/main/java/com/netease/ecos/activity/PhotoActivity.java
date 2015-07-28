@@ -72,7 +72,6 @@ public class PhotoActivity extends Activity {
                     chooseNum++;
                     gv.findViewWithTag(position).setVisibility(View.VISIBLE);
                 }
-//                adapter.notifyDataSetChanged();
             }
         });
         btn_sure.setOnClickListener(new View.OnClickListener() {

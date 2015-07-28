@@ -150,5 +150,4 @@
     <!-- 需要android.permission.GET_TASKS权限判断本程序是否为当前运行的应用? -->
     <uses-permission android:name="android.permission.GET_TASKS" />
 
-
 </manifest>
