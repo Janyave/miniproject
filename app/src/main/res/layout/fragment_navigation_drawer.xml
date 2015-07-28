@@ -4,14 +4,79 @@
               android:layout_height="match_parent"
               android:layout_width="match_parent"
               android:orientation="vertical"
-              android:gravity="center_horizontal"
-    >
-    <TextView
+              android:gravity="center_horizontal">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:gravity="center"
-        android:background="#cccc"
-        android:text="@string/drawer_title"/>
+        android:layout_height="150dp"
+        android:orientation="horizontal">
+        <com.netease.ecos.utils.RoundImageView
+            android:id="@+id/iv_personage_portrait"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/img_default_portrait"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bt_personage_name_default"
+                android:id="@+id/bt_personage_name"
+                android:layout_marginTop="25dp"
+                android:layout_alignParentLeft="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/tv_personage_gender_default"
+                android:id="@+id/textView"
+                android:layout_centerVertical="true"
+                android:textColor="@color/solid_red"
+                android:layout_toRightOf="@+id/bt_personage_name"
+                android:layout_alignBottom="@+id/bt_personage_name"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/tv_personage_attention_default"
+                android:textColor="@color/solid_red"
+                android:id="@+id/tv_personage_attention"
+                android:layout_below="@+id/bt_personage_name"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/tv_personage_fans_default"
+                android:textColor="@color/solid_red"
+                android:id="@+id/tv_personage_fans"
+                android:layout_below="@+id/bt_personage_name"
+                android:layout_toRightOf="@+id/tv_personage_attention" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/tv_personage_description_default"
+                android:textColor="@color/solid_red"
+                android:id="@+id/tv_personage_description"
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@+id/tv_personage_attention" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ListView
         android:id="@+id/lv_list"
         android:layout_width="match_parent"
@@ -22,4 +87,13 @@
         android:dividerHeight="0dp"
         android:background="#cccc"
         />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bt_personage_setting"
+            android:id="@+id/bt_personage_setting"
+            android:layout_gravity="right|bottom" />
+
+    </FrameLayout>
 </LinearLayout>
