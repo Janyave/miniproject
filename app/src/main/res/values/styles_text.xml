@@ -12,6 +12,7 @@
         <item name="android:textColor">@color/text_red</item>
     </style>
 
+    <!-- 44对应，大字体-->
     <style name="text_pink_max">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/text_red</item>
@@ -26,6 +27,24 @@
     </style>
     <style name="text_white_max">
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <!-- 36对应，中字体-->
+    <style name="text_pink_mid">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/text_red</item>
+    </style>
+    <style name="text_dark_mid">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/text_dark</item>
+    </style>
+    <style name="text_gray_mid">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/text_gray</item>
+    </style>
+    <style name="text_white_mid">
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/text_white</item>
     </style>
 
