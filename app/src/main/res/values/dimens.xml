@@ -10,7 +10,7 @@
 
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
-    <dimen name="navigation_drawer_width">150dp</dimen>
+    <dimen name="navigation_drawer_width">250dp</dimen>
 
 
     <!-- 新建教程页面开始-->
@@ -45,9 +45,19 @@
     <dimen name="course_item_avatar_width">40dp</dimen>
     <dimen name="course_item_focus_width">15dp</dimen>
 
+
     <!-- CommentDetail-->
     <dimen name="commentDetaiPaddingTop">10dp</dimen>
     <dimen name="commentDetaiPaddingLeft">8dp</dimen>
     <dimen name="commentDetailLayoutPaddingTop">6dp</dimen>
     <dimen name="commentDetailTextSize">16dp</dimen>
+
+    <dimen name="course_detail_cover_height">265dp</dimen>
+    <dimen name="course_detail_margin_leftright">16dp</dimen>
+    <dimen name="course_detail_title_height">60dp</dimen>
+    <dimen name="praiseIcon_width">15dp</dimen>
+    <dimen name="course_detail_otherWorks_height">250dp</dimen>
+    <dimen name="course_detail_otherWorks_width">150dp</dimen>
+    <dimen name="course_detail_otherWorks_img_width">165dp</dimen>
+    <dimen name="btn_max_height">48dp</dimen>
 </resources>

@@ -42,6 +42,7 @@
     android:layout_height="match_parent">
     <com.netease.ecos.views.XListView
         android:id="@+id/lv_course"
+        android:listSelector="@android:color/transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </com.netease.ecos.views.XListView>
