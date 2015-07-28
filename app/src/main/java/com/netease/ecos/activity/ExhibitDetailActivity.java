@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
@@ -36,6 +38,8 @@ public class ExhibitDetailActivity extends Activity {
     Button rightButton;
     @InjectView(R.id.tv_left)
     TextView backTxVw;
+    @InjectView(R.id.exhibitCoverImgVw)
+    ImageView exhibitCoverImgVw;
 
     @Override
 
@@ -81,6 +85,13 @@ public class ExhibitDetailActivity extends Activity {
         });
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(exhibitCoverImgVw.getWidth(), exhibitCoverImgVw.getWidth() * 4 / 3);
+        exhibitCoverImgVw.setLayoutParams(layoutParams);
     }
 }
 

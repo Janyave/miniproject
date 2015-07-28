@@ -2,17 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/commentDetaiPaddingTop"
+    android:paddingLeft="@dimen/commentDetaiPaddingLeft"
+    android:paddingBottom="@dimen/commentDetaiPaddingTop"
     android:orientation="horizontal">
 
-    <ImageView
+    <com.netease.ecos.views.RoungImageView
         android:id="@+id/commentPersonImgVw"
         android:layout_width="@dimen/personImageView_width"
         android:layout_height="@dimen/personImageView_height"
-        android:layout_marginRight="15dp"
         android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
         android:layout_width="fill_parent"
+        android:layout_marginLeft="@dimen/commentDetaiPaddingLeft"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -20,6 +23,7 @@
             android:id="@+id/commentPersonNameTxVw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/commentDetaiPaddingLeft"
             android:text="somebody"
             android:textSize="@dimen/textSize" />
 

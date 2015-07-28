@@ -80,7 +80,7 @@ public class WorkDetailActivity extends BaseActivity {
             }
         });
         //code for gesture
-        library = GestureLibraries.fromRawResource(this, R.raw.gestures);
+        library = GestureLibraries.fromRawResource(this, R.raw.gesture);
         library.load();
         gestureOverlayView.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
             @Override
@@ -98,6 +98,7 @@ public class WorkDetailActivity extends BaseActivity {
                             Toast.makeText(WorkDetailActivity.this, "move to last work.", Toast.LENGTH_LONG).show();
                         } else if (LEFT.equals(prediction.name)) {
                             Toast.makeText(WorkDetailActivity.this, "move to next work.", Toast.LENGTH_LONG).show();
+                        } else {
                         }
                     }
                 }
