@@ -3,14 +3,15 @@ package com.netease.ecos.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
@@ -90,8 +91,15 @@ public class ExhibitDetailActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(exhibitCoverImgVw.getWidth(), exhibitCoverImgVw.getWidth() * 4 / 3);
-        exhibitCoverImgVw.setLayoutParams(layoutParams);
+        Display display = getWindowManager().getDefaultDisplay();
+
+        System.out.println("width-display :" + display.getWidth());
+
+        System.out.println("heigth-display :" + display.getHeight());
+        int width = display.getWidth();
+        width -= 80;
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, width * 4 / 3);
+        exhibitCoverImgVw.setLayoutParams(params);
     }
 }
 
