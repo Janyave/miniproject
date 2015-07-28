@@ -2,7 +2,6 @@ package com.netease.ecos.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,12 +10,9 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
-import com.netease.ecos.activity.BuildCourseActivity;
 import com.netease.ecos.activity.CourseCategoryActivity;
 import com.netease.ecos.activity.CourseDetailActivity;
 import com.netease.ecos.activity.CourseTypeActivity;
@@ -29,9 +25,6 @@ import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.Banner;
 import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.FloadingButton;
-import com.netease.ecos.views.XListView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +32,7 @@ import java.util.List;
 /**
  * 教程页面
  */
-public class CourseFragment extends Fragment implements View.OnClickListener{
+public class CourseFragment extends Fragment implements View.OnClickListener {
     private View mainView;
     private Banner banner;
     private ImageView tv_type_1;
@@ -82,17 +75,17 @@ public class CourseFragment extends Fragment implements View.OnClickListener{
     }
 
     private void bindView() {
-        banner=(Banner)mainView.findViewById(R.id.banner);
+        banner = (Banner) mainView.findViewById(R.id.banner);
         btn_floading = (FloadingButton) mainView.findViewById(R.id.btn_floading);
         lv_course = (ExtensibleListView) mainView.findViewById(R.id.lv_course);
-        tv_type_1=(ImageView)mainView.findViewById(R.id.tv_type_1);
-        tv_type_2=(ImageView)mainView.findViewById(R.id.tv_type_2);
-        tv_type_3=(ImageView)mainView.findViewById(R.id.tv_type_3);
-        tv_type_4=(ImageView)mainView.findViewById(R.id.tv_type_4);
-        tv_type_5=(ImageView)mainView.findViewById(R.id.tv_type_5);
-        tv_type_6=(ImageView)mainView.findViewById(R.id.tv_type_6);
-        tv_type_7=(ImageView)mainView.findViewById(R.id.tv_type_7);
-        tv_type_8=(ImageView)mainView.findViewById(R.id.tv_type_8);
+        tv_type_1 = (ImageView) mainView.findViewById(R.id.tv_type_1);
+        tv_type_2 = (ImageView) mainView.findViewById(R.id.tv_type_2);
+        tv_type_3 = (ImageView) mainView.findViewById(R.id.tv_type_3);
+        tv_type_4 = (ImageView) mainView.findViewById(R.id.tv_type_4);
+        tv_type_5 = (ImageView) mainView.findViewById(R.id.tv_type_5);
+        tv_type_6 = (ImageView) mainView.findViewById(R.id.tv_type_6);
+        tv_type_7 = (ImageView) mainView.findViewById(R.id.tv_type_7);
+        tv_type_8 = (ImageView) mainView.findViewById(R.id.tv_type_8);
     }
 
 
@@ -154,7 +147,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener{
         btn_floading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CourseFragment.this.getActivity(), BuildCourseActivity.class);
+                Intent intent = new Intent(CourseFragment.this.getActivity(), CourseTypeActivity.class);
                 startActivity(intent);
             }
         });
@@ -173,6 +166,12 @@ public class CourseFragment extends Fragment implements View.OnClickListener{
     private void initData() {
         lv_course.setAdapter(new CourseListViewAdapter(getActivity()));
 
+        List<String> URLList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            URLList.add("http://img5.duitang.com/uploads/item/201403/07/20140307100224_trTBU.jpeg");
+        }
+        banner.setURLList(URLList);
+
         /**获取banner信息**/
         GetBannerRequest requestBanner = new GetBannerRequest();
         requestBanner.request(new GetBannerResponse());
@@ -184,10 +183,10 @@ public class CourseFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             //TODO 增加点击信息
         }
-        startActivity(new Intent(getActivity(),CourseCategoryActivity.class));
+        startActivity(new Intent(getActivity(), CourseCategoryActivity.class));
     }
 
     @Override
@@ -218,11 +217,11 @@ public class CourseFragment extends Fragment implements View.OnClickListener{
 
     }
 
-    class GetCourseResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse{
+    class GetCourseResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse {
 
         @Override
         public void success(List<Course> courseList) {
-            courseListViewAdapter=new CourseListViewAdapter(getActivity(),courseList);
+            courseListViewAdapter = new CourseListViewAdapter(getActivity(), courseList);
             lv_course.setAdapter(courseListViewAdapter);
         }
 

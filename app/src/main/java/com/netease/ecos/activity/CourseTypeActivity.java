@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
 
 import com.netease.ecos.R;
 
@@ -15,22 +15,22 @@ import butterknife.InjectView;
  * Created by Think on 2015/7/27.
  */
 public class CourseTypeActivity extends Activity implements View.OnClickListener {
-    @InjectView(R.id.makeuperBtn)
-    Button makeuperBtn;
-    @InjectView(R.id.propBtn)
-    Button propBtn;
-    @InjectView(R.id.hairBtn)
-    Button hairBtn;
-    @InjectView(R.id.costumeBtn)
-    Button costumeBtn;
-    @InjectView(R.id.photographyBtn)
-    Button photographyBtn;
-    @InjectView(R.id.backstageBtn)
-    Button backstageBtn;
-    @InjectView(R.id.experienceBtn)
-    Button experienceBtn;
-    @InjectView(R.id.othersBtn)
-    Button othersBtn;
+    @InjectView(R.id.tv_type_1)
+    ImageView makeuperImgVw;
+    @InjectView(R.id.tv_type_2)
+    ImageView propImgVw;
+    @InjectView(R.id.tv_type_3)
+    ImageView hairImgVw;
+    @InjectView(R.id.tv_type_4)
+    ImageView costumeImgVw;
+    @InjectView(R.id.tv_type_5)
+    ImageView photographyImgVw;
+    @InjectView(R.id.tv_type_6)
+    ImageView backstageImgVw;
+    @InjectView(R.id.tv_type_7)
+    ImageView experienceImgVw;
+    @InjectView(R.id.tv_type_8)
+    ImageView othersImgVw;
 
 
     @Override
@@ -38,14 +38,14 @@ public class CourseTypeActivity extends Activity implements View.OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_another_activity);
         ButterKnife.inject(this);
-        makeuperBtn.setOnClickListener(this);
-        propBtn.setOnClickListener(this);
-        hairBtn.setOnClickListener(this);
-        costumeBtn.setOnClickListener(this);
-        photographyBtn.setOnClickListener(this);
-        backstageBtn.setOnClickListener(this);
-        experienceBtn.setOnClickListener(this);
-        othersBtn.setOnClickListener(this);
+        makeuperImgVw.setOnClickListener(this);
+        propImgVw.setOnClickListener(this);
+        hairImgVw.setOnClickListener(this);
+        costumeImgVw.setOnClickListener(this);
+        photographyImgVw.setOnClickListener(this);
+        backstageImgVw.setOnClickListener(this);
+        experienceImgVw.setOnClickListener(this);
+        othersImgVw.setOnClickListener(this);
     }
 
     @Override
