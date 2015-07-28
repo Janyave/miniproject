@@ -92,10 +92,6 @@ public class ExhibitDetailActivity extends Activity {
     protected void onResume() {
         super.onResume();
         Display display = getWindowManager().getDefaultDisplay();
-
-        System.out.println("width-display :" + display.getWidth());
-
-        System.out.println("heigth-display :" + display.getHeight());
         int width = display.getWidth();
         width -= 80;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, width * 4 / 3);

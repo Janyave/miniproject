@@ -13,7 +13,8 @@
         android:id="@+id/gestureView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gestureColor="@android:color/transparent">
+        android:gestureColor="@android:color/transparent"
+        android:uncertainGestureColor="@android:color/transparent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -60,8 +61,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:textSize="@dimen/textsizeS"
-                            android:text="2015-05-15" />
+                            android:text="2015-05-15"
+                            android:textSize="@dimen/textsizeS" />
 
                     </RelativeLayout>
 
