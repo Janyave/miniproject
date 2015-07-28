@@ -80,7 +80,6 @@ public class PhotoActivity extends Activity {
                      */
                     gv.findViewWithTag(position).setVisibility(View.VISIBLE);
                 }
-//                adapter.notifyDataSetChanged();
             }
         });
         // 响应点击按钮的事件
