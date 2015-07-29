@@ -2,13 +2,21 @@ package com.netease.ecos.activity;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.netease.ecos.R;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.MyMediaScanner;
+import com.netease.ecos.utils.yunxin.ScreenUtil;
+import com.netease.ecos.utils.yunxin.SystemUtil;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.SDKOptions;
+import com.netease.nimlib.sdk.StatusBarNotificationConfig;
+import com.netease.nimlib.sdk.auth.LoginInfo;
 
 
 /**
@@ -41,6 +49,10 @@ public class MyApplication extends Application {
         super.onCreate();
 
         mApplication = this;
+
+        Log.e("初始化", "初始化");
+        NIMClient.init(this, getLoginInfo(), getOptions());
+
 
         //模拟存储用户数据.
         saveTestUserData();
@@ -131,4 +143,78 @@ public class MyApplication extends Application {
 
         return myMediaScanner;
     }
+
+
+    /***
+     * ------------------------------------------------------
+     * 云信SDK初始化开始------------------------------------------
+     * ------------------------------------------------------
+     */
+
+    private LoginInfo getLoginInfo() {
+        /*String account = Preferences.getUserAccount();
+        String token = Preferences.getUserToken();
+
+        if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
+            DemoCache.setAccount(account.toLowerCase());
+            // open db
+            DatabaseManager.getInstance().open(this);
+            return new LoginInfo(account, token);
+        } else {
+            return null;
+        }*/
+
+        return null;
+    }
+
+
+    private SDKOptions getOptions() {
+        SDKOptions options = new SDKOptions();
+
+        // 如果将新消息通知提醒托管给SDK完成，需要添加以下配置。
+        // 其中notificationSmallIconId必须提供
+        StatusBarNotificationConfig config = new StatusBarNotificationConfig();
+        config.notificationEntrance = MainActivity.class;
+        config.notificationSmallIconId = R.mipmap.ic_launcher;
+        // 通知铃声的uri字符串
+        config.notificationSound = "android.resource://com.netease.ecos/raw/msg";
+        options.statusBarNotificationConfig = config;
+
+        // 配置保存图片，文件，log等数据的目录
+        String sdkPath = Environment.getExternalStorageDirectory() + "/" + getPackageName() + "/nim";
+        options.sdkStorageRootPath = sdkPath;
+
+        // 配置数据库加密秘钥
+        options.databaseEncryptKey = "NETEASE";
+
+        // 配置是否需要预下载附件缩略图
+        options.preloadAttach = true;
+
+        // 配置附件缩略图的尺寸大小，
+        options.thumbnailSize = ScreenUtil.getScreenMin() / 2;
+
+        return options;
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    public boolean inMainProcess() {
+        String packageName = getPackageName();
+        String processName = SystemUtil.getProcessName(this);
+        return packageName.equals(processName);
+    }
+
+    /***
+     * ------------------------------------------------------
+     * 云信SDK初始化结束------------------------------------------
+     * ------------------------------------------------------
+     */
 }
