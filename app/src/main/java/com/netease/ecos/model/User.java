@@ -78,8 +78,18 @@ public class User {
 			this.value = _value;
 		}
 
-		public String getBelongs() {
+		public String getValue() {
 			return value;
+		}
+
+
+		public static Gender getGender(String value){
+			for(Gender gender:Gender.values()){
+				if(gender.getValue().equals(value))
+					return gender;
+			}
+
+			return Gender.暂无;
 		}
 
 	}
@@ -111,4 +121,23 @@ public class User {
 
 	}
 
+	@Override
+	public String toString() {
+		return "User{" +
+				"userId='" + userId + '\'' +
+				", IM_Id='" + IM_Id + '\'' +
+				", phone='" + phone + '\'' +
+				", password='" + password + '\'' +
+				", nickname='" + nickname + '\'' +
+				", avatarUrl='" + avatarUrl + '\'' +
+				", gender=" + gender +
+				", characterSignature='" + characterSignature + '\'' +
+				", roles=" + roles +
+				", cityName='" + cityName + '\'' +
+				", cityCode='" + cityCode + '\'' +
+				", coverUrl='" + coverUrl + '\'' +
+				", followOtherNum='" + followOtherNum + '\'' +
+				", fansNum='" + fansNum + '\'' +
+				'}';
+	}
 }
