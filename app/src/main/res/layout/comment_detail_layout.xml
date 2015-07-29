@@ -11,7 +11,8 @@
         android:id="@+id/commentPersonImgVw"
         android:layout_width="@dimen/personImageView_width"
         android:layout_height="@dimen/personImageView_height"
-        android:src="@mipmap/ic_launcher" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/img_default" />
 
     <LinearLayout
         android:layout_width="fill_parent"

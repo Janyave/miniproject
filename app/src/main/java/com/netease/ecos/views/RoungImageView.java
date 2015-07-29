@@ -16,7 +16,7 @@ import android.widget.ImageView;
  */
 public class RoungImageView extends ImageView {
     private int borderColor = 0xfff2457d;
-    private int borderWidth = 10;
+    private int borderWidth = 5;
 
     public RoungImageView(Context context) {
         super(context);
