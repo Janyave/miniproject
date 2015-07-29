@@ -111,11 +111,12 @@
                     android:layout_gravity="center"
                     android:text="@string/day" />
 
-                <Spinner
-                    android:id="@+id/beginDateSpinner"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/beginDateEdTx"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:editable="false" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -123,11 +124,12 @@
                     android:layout_gravity="center"
                     android:text="@string/to" />
 
-                <Spinner
-                    android:id="@+id/endDateSpinner"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/endDateEdTx"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:editable="false" />
 
             </LinearLayout>
 
@@ -146,11 +148,12 @@
                     android:layout_gravity="center"
                     android:text="@string/time" />
 
-                <Spinner
-                    android:id="@+id/beginTimeSpinner"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/beginTimeEdTx"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:editable="false" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -158,11 +161,12 @@
                     android:layout_gravity="center"
                     android:text="@string/to" />
 
-                <Spinner
-                    android:id="@+id/endTimeSpinner"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/endTimeEdTx"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:editable="false" />
 
             </LinearLayout>
 

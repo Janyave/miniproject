@@ -160,17 +160,17 @@
         </LinearLayout>
         <TextView style="@style/layout_line_gray"/>
 
-        <com.netease.ecos.views.ExtensibleListView
-            android:id="@+id/lv_evaluation"
+        <LinearLayout
+            android:id="@+id/ll_evaluationList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="5dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="12dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:background="@color/bg_white"
-            android:listSelector="@android:color/transparent">
-        </com.netease.ecos.views.ExtensibleListView>
+            android:orientation="vertical">
+        </LinearLayout>
         <TextView style="@style/layout_line_gray"/>
 
         <TextView
