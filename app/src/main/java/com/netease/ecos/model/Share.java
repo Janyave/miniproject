@@ -57,7 +57,7 @@ public class Share {
 	public List<Image> imageList = new ArrayList<Image>();
 
 	/** 评论列表 */
-	public List<Comment> commentList = new ArrayList<Comment>();;
+	public List<Comment> commentList = new ArrayList<Comment>();
 
 	/*** 内容 */
 	public String content;

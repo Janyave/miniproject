@@ -2,73 +2,84 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/coursePadding"
+    android:paddingLeft="@dimen/coursePadding"
+    android:paddingRight="@dimen/coursePadding"
+    android:paddingTop="@dimen/coursePadding">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/courseType_layout_margin"
+        android:layout_marginBottom="@dimen/coursePadding"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
-        <Button
+        <ImageView
             android:id="@+id/makeuper_btn"
-            android:layout_width="@dimen/courseType_btn_width"
-            android:layout_height="@dimen/courseType_btn_height"
-            android:layout_marginRight="@dimen/courseType_btn_padding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/coursePadding"
+            android:layout_weight="1"
             android:background="@drawable/icon_button"
-            android:text="@string/makeuper" />
+            android:scaleType="centerCrop" />
 
-        <Button
+        <ImageView
             android:id="@+id/photography_btn"
-            android:layout_width="@dimen/courseType_btn_width"
-            android:layout_height="@dimen/courseType_btn_height"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/icon_button"
-            android:text="@string/photography" />
+            android:scaleType="centerCrop" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/courseType_layout_margin"
+        android:layout_marginBottom="@dimen/coursePadding"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
-        <Button
+        <ImageView
             android:id="@+id/backstage_btn"
-            android:layout_width="@dimen/courseType_btn_width"
-            android:layout_height="@dimen/courseType_btn_height"
-            android:layout_marginRight="@dimen/courseType_btn_padding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/coursePadding"
+            android:layout_weight="1"
             android:background="@drawable/icon_button"
-            android:text="@string/backstage" />
+            android:scaleType="centerCrop" />
 
-        <Button
+        <ImageView
             android:id="@+id/costume_btn"
-            android:layout_width="@dimen/courseType_btn_width"
-            android:layout_height="@dimen/courseType_btn_height"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/icon_button"
-            android:text="@string/costume" />
+            android:scaleType="centerCrop" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/courseType_layout_margin"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
-        <Button
+        <ImageView
             android:id="@+id/prop_btn"
-            android:layout_width="@dimen/courseType_btn_width"
-            android:layout_height="@dimen/courseType_btn_height"
-            android:layout_marginRight="@dimen/courseType_btn_padding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/coursePadding"
+            android:layout_weight="1"
             android:background="@drawable/icon_button"
-            android:text="@string/prop" />
+            android:scaleType="centerCrop" />
 
-        <Button
+        <ImageView
             android:id="@+id/others_btn"
-            android:layout_width="@dimen/courseType_btn_width"
-            android:layout_height="@dimen/courseType_btn_height"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/icon_button"
-            android:text="@string/others" />
+            android:scaleType="centerCrop" />
     </LinearLayout>
 
 

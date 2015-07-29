@@ -26,7 +26,6 @@ import com.netease.ecos.views.Banner;
 import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.FloadingButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -95,6 +94,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 startActivity(new Intent(getActivity(), CourseDetailActivity.class));
+
             }
         });
         lv_course.setOnScrollListener(new AbsListView.OnScrollListener() {

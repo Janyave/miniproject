@@ -8,15 +8,22 @@
 
     <!-- 主页面tab按钮样式-->
     <style name="rb_chat_list_tab">
-        <item name="android:textSize">17sp</item>
-        <item name="android:textColor">@color/text_normal_color</item>
-        <item name="android:ellipsize">marquee</item>
-        <item name="android:gravity">center</item>  
-        <item name="android:background">@drawable/btn_tab_selector</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:button">@null</item>  
-        <item name="android:layout_weight">1.0</item>
+                
+        <item name="android:textSize">17sp</item>
+                
+        <item name="android:textColor">@color/text_normal_color</item>
+                
+        <item name="android:ellipsize">marquee</item>
+                <item name="android:gravity">center</item>  
+                
+        <item name="android:background">@drawable/btn_tab_selector</item>
+                
+        <item name="android:layout_width">fill_parent</item>
+                
+        <item name="android:layout_height">fill_parent</item>
+                <item name="android:button">@null</item>  
+                
+        <item name="android:layout_weight">1.0</item>
     </style>
 
     <!-- 自定义对话框样式-->
@@ -26,9 +33,10 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:background">@null</item>
-        <item name="android:backgroundDimAmount">0.4</item><!-- 灰度 -->
+        <item name="android:backgroundDimAmount">0.4</item>
+        <!-- 灰度 -->
         <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:windowBackground"> @android:color/transparent </item>
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
 </resources>
