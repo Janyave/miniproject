@@ -1,11 +1,17 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ecos="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.netease.ecos.activity.PersonageDetailActivity">
+    <include
+    android:id="@+id/include_title"
+    layout="@layout/component_title" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp">
+        android:layout_height="170dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -18,7 +24,11 @@
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/img_default_portrait"/>
+                android:src="@drawable/img_default_portrait"
+                ecos:showable="true"
+                ecos:circle_color="#00ff00"
+                ecos:line_width="4.0"/>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/tv_personage_gender_default"
-                    android:id="@+id/textView" />
+                    android:id="@+id/tv_personage_gender" />
             </LinearLayout>
 
             <LinearLayout
@@ -72,15 +82,15 @@
                 android:gravity="center"
                 android:layout_below="@+id/ll_personage_attention" />
 
-            <Button
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:text="@string/bt_personage_return"
-                android:id="@+id/bt_personage_return"
-                android:background="#ddddff88"
-                android:layout_alignTop="@+id/iv_personage_portrait"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+            <!--<Button-->
+                <!--android:layout_width="70dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/bt_personage_return"-->
+                <!--android:id="@+id/bt_personage_return"-->
+                <!--android:background="#ddddff88"-->
+                <!--android:layout_alignTop="@+id/iv_personage_portrait"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_alignParentStart="true" />-->
         </RelativeLayout>
 
     </LinearLayout>
@@ -90,7 +100,8 @@
         android:orientation="horizontal">
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:background="@mipmap/bg_top_switch_bar_item"
+            android:layout_height="match_parent"
             android:layout_weight="1"/>
         <RadioGroup
             android:id="@+id/radio_group"
@@ -128,7 +139,8 @@
         </RadioGroup>
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:background="@mipmap/bg_top_switch_bar_item"
+            android:layout_height="match_parent"
             android:layout_weight="1"/>
     </LinearLayout>
     <FrameLayout
@@ -143,11 +155,14 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:id="@+id/bt_attention"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/bt_personage_attention"
-            android:layout_gravity="center_horizontal|bottom"
-            android:gravity="center"/>
+            android:background="@drawable/btn_nor_white_press_gray"
+            android:gravity="center"
+            android:layout_gravity="bottom"/>
+
+
     </FrameLayout>
+
 </LinearLayout>

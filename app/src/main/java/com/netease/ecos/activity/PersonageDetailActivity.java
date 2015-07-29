@@ -1,6 +1,6 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -11,15 +11,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.fragment.CommunityFragment;
 import com.netease.ecos.fragment.CourseFragment;
 import com.netease.ecos.fragment.DisplayFragment;
 import com.netease.ecos.fragment.PersonageCourseFragment;
 import com.netease.ecos.fragment.TransactionFragment;
+import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -32,65 +40,57 @@ public class PersonageDetailActivity extends BaseActivity {
     @InjectView(R.id.pager)
     ViewPager mViewPager ;
 
-    @InjectView(R.id.bt_personage_return)
-    Button bt_personage_return;
+    @InjectView(R.id.lly_left_action)
+    View bt_personage_return;
+
+    @InjectView(R.id.tv_title)
+    TextView tv_title;
+
+    @InjectView(R.id.btn_right_action)
+    Button bt_confirm;
 
     @InjectView(R.id.bt_attention)
     Button bt_attention;
 
+    private UserDataService mUserDataService;
+    private User mUserData;
 
-    /*** ½Ì³ÌtabÏÂ±ê */
+
     public static final int TAB_COURSE_INDEX = 0;
-
-    /*** ÉçÇøtabÏÂ±ê */
     public static final int TAB_COMMUCITY_INDEX = 1;
-
-    /*** ½»Ò×tabÏÂ±ê */
     public static final int TAB_TRANSACTION_INDEX = 2;
-
-    /*** Õ¹Ê¾tabÏÂ±ê */
     public static final int TAB_DISPLAY_INDEX = 3;
 
-
-    /***
-     * mFragments[0]¶ÔÓ¦{@link CourseFragment}
-     * mFragments[1]¶ÔÓ¦{@link CommunityFragment}
-     * mFragments[2]¶ÔÓ¦{@link TransactionFragment}
-     */
     private Fragment mFragments[] = new Fragment[4];
 
-    /*** µ±Ç°Ëù´¦µÄtab */
     private int mCurrentTab = 0;
-    /*** {@link #mViewPager}ÊÊÅäÆ÷ */
     private TabFragmentPagerAdapter mPagerAdapter;
 
 
 
     /***
-     * ³õÊ¼»¯ÊÓÍ¼
+     * åˆå§‹åŒ–è§†å›¾
      */
     private void initViews(){
 
         mPagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setCurrentItem(mCurrentTab);
-
-        //ÈÎÒâÒ»¸öÒ³ÃæÁ½±ßÓ¦³Ö¾Ã»¯µÄfragmentÎª2
         mViewPager.setOffscreenPageLimit(2);
 
-        //ÉèÖÃ»»Ò³¼àÌı
         mViewPager.setOnPageChangeListener(mOnPageChangeListener);
 
-        //ÉèÖÃ°´Å¥¼àÌı
         mRadioGroup.setOnCheckedChangeListener(mOnCheckedChangeListener);
 
-        //Ñ¡ÖĞµÚmCurrentTab¸ö°´Å¥
         ((RadioButton)mRadioGroup.getChildAt(mCurrentTab)).setChecked(true);
+
+        bt_confirm.setVisibility(View.INVISIBLE);
+        tv_title.setText("ä¸ªäººä¸»é¡µ");
 
         bt_attention.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "¹Ø×¢³É¹¦", Toast.LENGTH_SHORT);
+                showAttentionSuccess();
             }
         });
         bt_personage_return.setOnClickListener(new View.OnClickListener() {
@@ -101,26 +101,26 @@ public class PersonageDetailActivity extends BaseActivity {
         });
     }
 
+    private void showAttentionSuccess(){
+        Toast.makeText(this, "å…³æ³¨æˆåŠŸ", Toast.LENGTH_LONG).show();
+    }
+
     /***
-     * {@link #mRadioGroup}µÄ°´Å¥¼àÌıÆ÷
+     * {@link #mRadioGroup}ç›‘å¬Radio æŒ‰é”®
      */
     private RadioGroup.OnCheckedChangeListener mOnCheckedChangeListener = new RadioGroup.OnCheckedChangeListener(){
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             switch(checkedId){
-                //µã»÷½Ì³Ìtab
                 case R.id.radio_1:
                     setCurrentTab(TAB_COURSE_INDEX);
                     break;
-                //µã»÷ÉçÇøtab
                 case R.id.radio_2:
                     setCurrentTab(TAB_COMMUCITY_INDEX);
                     break;
-                //µã»÷½»Ò×tab
                 case R.id.radio_3:
                     setCurrentTab(TAB_TRANSACTION_INDEX);
                     break;
-                //µã»÷Õ¹Ê¾tab
                 case R.id.radio_4:
                     setCurrentTab(TAB_DISPLAY_INDEX);
                     break;
@@ -129,7 +129,7 @@ public class PersonageDetailActivity extends BaseActivity {
     };
 
     /***
-     * {@link #mViewPager}Ñ¡ÖĞµÚindex¸öÒ³Ãæ
+     * {@link #mViewPager}è®¾ç½®å½“å‰tab id
      * @param index
      */
     private void setCurrentTab(int index){
@@ -140,7 +140,7 @@ public class PersonageDetailActivity extends BaseActivity {
     }
 
     /***
-     * {@link #mViewPager}»»Ò³ÊÊÅäÆ÷
+     * {@link #mViewPager}
      */
     private ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener(){
         @Override
@@ -152,12 +152,39 @@ public class PersonageDetailActivity extends BaseActivity {
         }
         @Override
         public void onPageSelected(int index) {
-            //Ñ¡ÖĞµÚindex¸ötab°´Å¥£¬À´´¥·¢¶ÔÓ¦tabÑ¡ÖĞĞ§¹û(°´Å¥ÏÂ·½»á³öÏÖÖ¸Ê¾Ïß)
             ((RadioButton)mRadioGroup.getChildAt(index)).setChecked(true);
 
         }
     };
 
+
+    private void initUserData(){
+        mUserDataService = UserDataService.getSingleUserDataService(this);
+        mUserData = mUserDataService.getUser();
+
+        RoundImageView user_avatar = (RoundImageView) findViewById(R.id.iv_personage_portrait);
+        TextView user_name = (TextView) findViewById(R.id.bt_personage_name);
+        TextView user_gender = (TextView) findViewById(R.id.tv_personage_gender);
+        TextView user_attention = (TextView) findViewById(R.id.tv_personage_attention);
+        TextView user_fans = (TextView) findViewById(R.id.tv_personage_fans);
+        TextView user_description = (TextView) findViewById(R.id.tv_personage_description);
+
+        //è®¾ç½®é»˜è®¤å›¾ç‰‡
+        user_avatar.setDefaultImageResId(R.drawable.img_default);
+        //è®¾ç½®åŠ è½½å‡ºé”™å›¾ç‰‡
+        user_avatar.setErrorImageResId(R.drawable.img_default);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        ImageLoader.ImageCache imageCache = new SDImageCache();
+        ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+        user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
+
+        user_name.setText(mUserData.nickname);
+        user_gender.setText(mUserData.gender.toString());
+        user_attention.setText("å…³æ³¨æ•°ï¼š" + mUserData.followOtherNum);
+        user_fans.setText("ç²‰ä¸æ•°ï¼š" + mUserData.fansNum);
+        user_description.setText(mUserData.characterSignature);
+
+    }
 
     class TabFragmentPagerAdapter extends FragmentPagerAdapter {
         public TabFragmentPagerAdapter(FragmentManager fm) {
@@ -166,25 +193,21 @@ public class PersonageDetailActivity extends BaseActivity {
         @Override
         public Fragment getItem(int tabIndex) {
             switch (tabIndex) {
-                //µã»÷½Ì³Ìtab£¬ÒªÏÔÊ¾½Ì³ÌÒ³Ãæ
                 case TAB_COURSE_INDEX:
                     if(mFragments[TAB_COURSE_INDEX]==null)
                         mFragments[TAB_COURSE_INDEX] = new PersonageCourseFragment();
                     return mFragments[TAB_COURSE_INDEX];
 
-                //µã»÷ÉçÇøtab£¬ÒªÏÔÊ¾ÉçÇøÒ³Ãæ
                 case TAB_COMMUCITY_INDEX:
                     if(mFragments[TAB_COMMUCITY_INDEX]==null)
                         mFragments[TAB_COMMUCITY_INDEX] = new CommunityFragment();
                     return mFragments[TAB_COMMUCITY_INDEX];
 
-                //µã»÷½»Ò×tab£¬ÒªÏÔÊ¾½»Ò×Ò³Ãæ
                 case TAB_TRANSACTION_INDEX:
                     if(mFragments[TAB_TRANSACTION_INDEX]==null)
                         mFragments[TAB_TRANSACTION_INDEX] = new TransactionFragment();
                     return mFragments[TAB_TRANSACTION_INDEX];
 
-                //µã»÷Õ¹Ê¾tab£¬ÒªÏÔÊ¾½»Ò×Ò³Ãæ
                 case TAB_DISPLAY_INDEX:
                     if(mFragments[TAB_DISPLAY_INDEX]==null)
                         mFragments[TAB_DISPLAY_INDEX] = new DisplayFragment();
@@ -205,9 +228,9 @@ public class PersonageDetailActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personage_detail);
-        //×¢½â¹¤¾ß³õÊ¼»¯
+
         ButterKnife.inject(this);
-        //Òş²ØActionBar
+        initUserData();
         initViews();
     }
 

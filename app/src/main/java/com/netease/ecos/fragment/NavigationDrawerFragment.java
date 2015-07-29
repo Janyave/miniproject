@@ -23,9 +23,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.PersonageDetailActivity;
+import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -81,8 +89,12 @@ public class NavigationDrawerFragment extends Fragment {
 
     private boolean mUserLearnedDrawer;
 
-    private Button bt_personage_detail = null;
-    private Button bt_personage_setting = null;
+    private Button btPersonageDetail = null;
+    private Button btPersonageSetting = null;
+
+    private UserDataService mUserDataService;
+    private User mUserData;
+
 
     public NavigationDrawerFragment() {
     }
@@ -125,10 +137,11 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerView=(View)inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView = (ListView)mDrawerView.findViewById(R.id.lv_list);
 
-        bt_personage_detail = (Button) mDrawerView.findViewById(R.id.bt_personage_name);
-        bt_personage_setting = (Button) mDrawerView.findViewById(R.id.bt_personage_setting);
 
-        bt_personage_detail.setOnClickListener(new View.OnClickListener() {
+        btPersonageDetail = (Button) mDrawerView.findViewById(R.id.bt_personage_name);
+        btPersonageSetting = (Button) mDrawerView.findViewById(R.id.bt_personage_setting);
+
+        btPersonageDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PersonageDetailActivity.class);
@@ -136,7 +149,7 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-        bt_personage_setting.setOnClickListener(new View.OnClickListener() {
+        btPersonageSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO on setting btn click
@@ -149,11 +162,17 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+
+
         //给mDrawerListView进行数据绑定
 //        mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar().getThemedContext(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, new String[]{getString(R.string.title_section1), getString(R.string.title_section2), getString(R.string.title_section3), getString(R.string.title_section4),}));
         mDrawerListView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, new String[]{getString(R.string.title_section1), getString(R.string.title_section2), getString(R.string.title_section3), getString(R.string.title_section4),}));
         //设置侧边栏默认记录的选项
 //        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
+        //初始化用户信息
+        initUserData(mDrawerView);
+
         return mDrawerView;
     }
 
@@ -343,5 +362,33 @@ public class NavigationDrawerFragment extends Fragment {
          * Called when an item in the navigation drawer is selected.
          */
         void onNavigationDrawerItemSelected(int position);
+    }
+
+    private void initUserData(View v){
+        mUserDataService = UserDataService.getSingleUserDataService(v.getContext());
+        mUserData = mUserDataService.getUser();
+
+        RoundImageView user_avatar = (RoundImageView) v.findViewById(R.id.iv_personage_portrait);
+        Button user_name = (Button) v.findViewById(R.id.bt_personage_name);
+        TextView user_gender = (TextView) v.findViewById(R.id.tv_personage_gender);
+        TextView user_attention = (TextView) v.findViewById(R.id.tv_personage_attention);
+        TextView user_fans = (TextView) v.findViewById(R.id.tv_personage_fans);
+        TextView user_description = (TextView) v.findViewById(R.id.tv_personage_description);
+
+        //设置默认图片
+        user_avatar.setDefaultImageResId(R.drawable.img_default);
+        //设置加载出错图片
+        user_avatar.setErrorImageResId(R.drawable.img_default);
+        RequestQueue queue = Volley.newRequestQueue(v.getContext());
+        ImageLoader.ImageCache imageCache = new SDImageCache();
+        ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+        user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
+
+        user_name.setText(mUserData.nickname);
+        user_gender.setText(mUserData.gender.toString());
+        user_attention.setText("关注数：" + mUserData.followOtherNum);
+        user_fans.setText("粉丝数：" + mUserData.fansNum);
+        user_description.setText(mUserData.characterSignature);
+
     }
 }

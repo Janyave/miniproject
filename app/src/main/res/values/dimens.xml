@@ -14,6 +14,7 @@
     <dimen name="navigation_drawer_width">250dp</dimen>
 
 
+
     <!-- 新建教程页面开始-->
     <dimen name="iv_height_course_cover">180dp</dimen>
     <!-- 新建教程页面结束-->
