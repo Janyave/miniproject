@@ -61,4 +61,5 @@
     <dimen name="course_detail_otherWorks_width">150dp</dimen>
     <dimen name="course_detail_otherWorks_img_width">165dp</dimen>
     <dimen name="btn_max_height">48dp</dimen>
+    <dimen name="contact_avatar_width">40dp</dimen>
 </resources>

@@ -157,6 +157,12 @@
             android:name=".activity.RecruitmentDetailActivity"
             android:label="@string/title_activity_recruitment_detail" >
         </activity>
+        <activity
+            android:name=".activity.NotificationActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activity.ContactActivity"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>
