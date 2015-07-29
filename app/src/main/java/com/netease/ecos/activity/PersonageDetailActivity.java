@@ -1,6 +1,6 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -15,12 +15,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.fragment.CommunityFragment;
 import com.netease.ecos.fragment.CourseFragment;
 import com.netease.ecos.fragment.DisplayFragment;
 import com.netease.ecos.fragment.PersonageCourseFragment;
 import com.netease.ecos.fragment.TransactionFragment;
+import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -45,6 +52,8 @@ public class PersonageDetailActivity extends BaseActivity {
     @InjectView(R.id.bt_attention)
     Button bt_attention;
 
+    private UserDataService mUserDataService;
+    private User mUserData;
 
 
     public static final int TAB_COURSE_INDEX = 0;
@@ -149,6 +158,34 @@ public class PersonageDetailActivity extends BaseActivity {
     };
 
 
+    private void initUserData(){
+        mUserDataService = UserDataService.getSingleUserDataService(this);
+        mUserData = mUserDataService.getUser();
+
+        RoundImageView user_avatar = (RoundImageView) findViewById(R.id.iv_personage_portrait);
+        TextView user_name = (TextView) findViewById(R.id.bt_personage_name);
+        TextView user_gender = (TextView) findViewById(R.id.tv_personage_gender);
+        TextView user_attention = (TextView) findViewById(R.id.tv_personage_attention);
+        TextView user_fans = (TextView) findViewById(R.id.tv_personage_fans);
+        TextView user_description = (TextView) findViewById(R.id.tv_personage_description);
+
+        //设置默认图片
+        user_avatar.setDefaultImageResId(R.drawable.img_default);
+        //设置加载出错图片
+        user_avatar.setErrorImageResId(R.drawable.img_default);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        ImageLoader.ImageCache imageCache = new SDImageCache();
+        ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+        user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
+
+        user_name.setText(mUserData.nickname);
+        user_gender.setText(mUserData.gender.toString());
+        user_attention.setText("关注数：" + mUserData.followOtherNum);
+        user_fans.setText("粉丝数：" + mUserData.fansNum);
+        user_description.setText(mUserData.characterSignature);
+
+    }
+
     class TabFragmentPagerAdapter extends FragmentPagerAdapter {
         public TabFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -193,7 +230,7 @@ public class PersonageDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_personage_detail);
 
         ButterKnife.inject(this);
-
+        initUserData();
         initViews();
     }
 

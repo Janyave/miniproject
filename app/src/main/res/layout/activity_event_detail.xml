@@ -103,11 +103,16 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_event_time_detail"
                         android:text="@string/time_event_detail"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/line_grey"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_event_contant_detail"
                         android:lines="@integer/line_num_event_detail"
+                        android:layout_gravity="start"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/detail_event_detail"/>
 
@@ -119,12 +124,16 @@
 
             </LinearLayout>
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_event_contact"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/contact_event_detail"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/line_cyan"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

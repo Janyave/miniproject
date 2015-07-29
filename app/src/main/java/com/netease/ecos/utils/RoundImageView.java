@@ -15,13 +15,14 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.netease.ecos.R;
 
 /**
  * 圆形ImageView
  * Created by hzzhanyawei on 2015/7/27.
  */
-public class RoundImageView extends ImageView{
+public class RoundImageView extends NetworkImageView{
 
     private int circle_color;
     private Boolean is_circle_show;
@@ -109,6 +110,7 @@ public class RoundImageView extends ImageView{
         Paint p = new Paint();
         Log.d("ZYW_DEBUG", String.valueOf(circle_color));
         p.setColor(circle_color);
+        p.setAntiAlias(true); //去除锯齿
         p.setStyle(Paint.Style.STROKE);
         p.setStrokeWidth(circle_lind_width);
         canvas.drawCircle(Radius/2 + 0.7f, Radius/2 + 0.7f, Radius/2 - 2.0f, p);

@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/tv_personage_gender_default"
-                android:id="@+id/textView"
+                android:id="@+id/tv_personage_gender"
                 android:layout_centerVertical="true"
                 android:textColor="@color/solid_red"
                 android:layout_toRightOf="@+id/bt_personage_name"
@@ -75,6 +75,10 @@
 
 
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_grey"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

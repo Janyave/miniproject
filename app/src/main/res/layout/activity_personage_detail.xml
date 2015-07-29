@@ -27,7 +27,7 @@
                 android:src="@drawable/img_default_portrait"
                 ecos:showable="true"
                 ecos:circle_color="#00ff00"
-                ecos:line_width="3.0"/>
+                ecos:line_width="4.0"/>
 
 
             <LinearLayout
@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="@string/tv_personage_gender_default"
-                    android:id="@+id/textView" />
+                    android:id="@+id/tv_personage_gender" />
             </LinearLayout>
 
             <LinearLayout
