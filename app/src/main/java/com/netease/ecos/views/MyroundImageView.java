@@ -12,21 +12,21 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 /**
- * Created by Think on 2015/7/28.
+ * Created by Think on 2015/7/29.
  */
-public class RoungImageView extends ImageView {
+public class MyroundImageView extends ImageView {
     private int borderColor = 0xfff2457d;
     private int borderWidth = 5;
 
-    public RoungImageView(Context context) {
+    public MyroundImageView(Context context) {
         super(context);
     }
 
-    public RoungImageView(Context context, AttributeSet attrs) {
+    public MyroundImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public RoungImageView(Context context, AttributeSet attrs, int defStyle) {
+    public MyroundImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

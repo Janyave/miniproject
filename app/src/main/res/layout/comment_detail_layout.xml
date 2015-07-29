@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/commentDetaiPaddingTop"
-    android:paddingLeft="@dimen/commentDetaiPaddingLeft"
+    android:orientation="horizontal"
     android:paddingBottom="@dimen/commentDetaiPaddingTop"
-    android:orientation="horizontal">
+    android:paddingLeft="@dimen/commentDetaiPaddingLeft"
+    android:paddingTop="@dimen/commentDetaiPaddingTop">
 
-    <com.netease.ecos.views.RoungImageView
+    <com.netease.ecos.views.MyroundImageView
         android:id="@+id/commentPersonImgVw"
         android:layout_width="@dimen/personImageView_width"
         android:layout_height="@dimen/personImageView_height"
@@ -16,8 +16,8 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_marginLeft="@dimen/commentDetaiPaddingLeft"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/commentDetaiPaddingLeft"
         android:orientation="vertical">
 
         <TextView

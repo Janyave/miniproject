@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/include_title"
-        android:layout_marginBottom="@dimen/workDetailComment_EdTx_height">
+        android:layout_marginBottom="72dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,8 +35,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/commentDetaiPaddingTop"
                 android:layout_marginBottom="@dimen/commentDetaiPaddingTop"
+                android:layout_marginTop="@dimen/commentDetaiPaddingTop"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -72,28 +72,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/commentDetaiPaddingTop"
-                android:textColor="@color/bg_red"
                 android:text="叛逆的鲁鲁修"
+                android:textColor="@color/bg_red"
                 android:textSize="@dimen/textsizeL" />
 
             <TextView
                 android:id="@+id/exhibitTitleContentTxVw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="最后两张花絮【似乎有两张发不上来？完整版请戳coser路德七世吧】"
                 android:layout_marginBottom="@dimen/commentDetaiPaddingTop"
+                android:text="最后两张花絮【似乎有两张发不上来？完整版请戳coser路德七世吧】"
                 android:textSize="@dimen/textSize" />
 
             <com.netease.ecos.views.ExtensibleListView
                 android:id="@+id/exhibitLsVw"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="@dimen/commentDetaiPaddingTop"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/commentDetaiPaddingTop" />
 
             <include
                 layout="@layout/comment_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <com.netease.ecos.views.ExtensibleListView
                 android:id="@+id/exhibitCommentLsVw"
@@ -111,7 +111,7 @@
         <include
             layout="@layout/write_comment_layout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/workDetailComment_EdTx_height" />
+            android:layout_height="wrap_content" />
 
     </FrameLayout>
 </RelativeLayout>
