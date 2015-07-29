@@ -13,3 +13,6 @@ setting.gradle
 .DS_Store
 /build
 /captures
+#add by zyw
+*.iml
+.idea/*

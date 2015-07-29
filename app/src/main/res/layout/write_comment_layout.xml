@@ -12,19 +12,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@drawable/vertical_divider"
-        android:orientation="horizontal"
-        android:showDividers="middle">
+        android:paddingBottom="@dimen/commentDetaiPaddingTop"
+        android:paddingLeft="@dimen/commentDetaiPaddingLeft"
+        android:paddingTop="@dimen/commentDetaiPaddingTop">
 
-        <EditText
-            android:id="@+id/workDetailsCommentEdTx"
-            android:layout_width="@dimen/workDetailComment_EdTx_width"
-            android:layout_height="@dimen/workDetailComment_EdTx_height"
-            android:hint="@string/comment_hint"
-            android:paddingBottom="@dimen/commentDetaiPaddingTop"
-            android:paddingLeft="@dimen/commentDetaiPaddingLeft"
-            android:paddingTop="@dimen/commentDetaiPaddingTop"
-            android:textSize="@dimen/commentDetailTextSize" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/comment_shape"
+            android:gravity="center_vertical"
+            android:layout_marginRight="@dimen/commentDetaiPaddingLeft"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/workDetailsCommentEdTx"
+                style="@style/text_white_mid"
+                android:layout_width="@dimen/workDetailComment_EdTx_width"
+                android:layout_height="@dimen/workDetailComment_EdTx_height"
+                android:layout_margin="5dp"
+                android:background="@android:color/transparent"
+                android:gravity="left|center_vertical"
+                android:hint="@string/comment_hint"
+                android:paddingBottom="@dimen/commentDetaiPaddingTop"
+                android:paddingLeft="@dimen/commentDetaiPaddingLeft"
+                android:paddingTop="@dimen/commentDetaiPaddingTop"
+                android:textSize="@dimen/commentDetailTextSize" />
+        </LinearLayout>
 
         <Button
             android:layout_width="match_parent"
@@ -34,6 +47,8 @@
             android:textColor="@color/bg_red"
             android:textSize="@dimen/commentDetailTextSize" />
 
+
     </LinearLayout>
+
 
 </LinearLayout>

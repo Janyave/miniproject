@@ -38,6 +38,7 @@
     
     <color name="line_black">#000000</color>
     <color name="line_grey">#787878</color>
+    <color name="line_cyan">#6ace92</color>
 
     <color name="text_normal_color">#787878</color>
     <color name="text_checked_color">#9878ff</color>
