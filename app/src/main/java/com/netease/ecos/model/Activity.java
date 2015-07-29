@@ -1,11 +1,11 @@
 package com.netease.ecos.model;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.json.JSONObject;
 
 /***
  * 
@@ -187,7 +187,7 @@ public class Activity {
 	public static enum ContactWay {
 		
 		QQ("1"),
-		QQ群("2"),
+		微信("2"),
 		电话("3");
 		
 		/*** 类型*/
