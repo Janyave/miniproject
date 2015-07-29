@@ -82,6 +82,18 @@
         android:background="@null"
         />
 
+    <ImageView
+        android:contentDescription="删除当前步骤"
+        android:id="@+id/iv_delete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_alignBottom="@id/niv_course_photo"
+
+        android:src="@mipmap/ic_launcher"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
