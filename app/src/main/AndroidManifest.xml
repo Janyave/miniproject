@@ -145,19 +145,20 @@
             android:label="@string/app_name" />
         <activity
             android:name=".activity.CourseCategoryActivity"
-            android:label="@string/title_activity_event_detail" />
+            android:label="@string/app_name" />
         <activity
             android:name=".activity.PersonageDetailActivity"
-            android:label="@string/title_activity_personage_detail"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".activity.RecruitmentCategoryActivity"
             android:label="@string/app_name" />
         <activity
             android:name=".activity.RecruitmentDetailActivity"
-            android:label="@string/title_activity_recruitment_detail"></activity>
+            android:label="@string/app_name" />
         <activity
             android:name=".activity.NewActivityActivity"
             android:label="@string/app_name" />
+
     </application>
 
 </manifest>
