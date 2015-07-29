@@ -13,7 +13,7 @@ import java.util.Date;
 public class ModelUtils {
 	
 	/***
-	 * 将时间戳转换成日期描述
+	 * 将时间戳转换成日期描述:yyyy-MM-dd
 	 * @param srcTimeStamp 时间戳,若该值为null则返回空串
 	 * @return
 	 */
@@ -26,6 +26,23 @@ public class ModelUtils {
 		  
 		String sd = sdf.format(new Date(srcTimeStamp)); 
 		
+		return sd;
+	}
+
+	/***
+	 * 将时间戳转换成日期描述:yyyy-MM-dd hh:mm:ss
+	 * @param srcTimeStamp
+	 * @return
+	 */
+	public static String getDateDetailByTimeStamp(Long srcTimeStamp){
+
+		if(srcTimeStamp == null)
+			return "";
+
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+		String sd = sdf.format(new Date(srcTimeStamp));
+
 		return sd;
 	}
 

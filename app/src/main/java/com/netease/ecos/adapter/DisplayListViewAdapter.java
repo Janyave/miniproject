@@ -9,12 +9,17 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.activity.ExhibitDetailActivity;
+import com.netease.ecos.model.Comment;
+import com.netease.ecos.model.Share;
 import com.netease.ecos.views.ExtensibleListView;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 /**
  * Created by hzjixinyu on 2015/7/23.
@@ -22,9 +27,11 @@ import com.squareup.picasso.Picasso;
 public class DisplayListViewAdapter extends BaseAdapter {
 
     private Context mcontext;
+    private List<Share> shareList;
 
-    public DisplayListViewAdapter(Context context) {
+    public DisplayListViewAdapter(Context context, List<Share> shareList) {
         this.mcontext = context;
+        this.shareList=shareList;
     }
 
     class ViewHolder {
@@ -49,7 +56,8 @@ public class DisplayListViewAdapter extends BaseAdapter {
 
         private TextView tv_allEvaluation;
 
-        private ExtensibleListView lv_evaluation;
+//        private ExtensibleListView lv_evaluation;
+        private LinearLayout ll_evaluationList;
         private DisplayItemEvalutionViewAdapter adapter;
 
 
@@ -75,6 +83,7 @@ public class DisplayListViewAdapter extends BaseAdapter {
             tv_evaluate = (TextView) root.findViewById(R.id.tv_evaluation);
 
             tv_allEvaluation=(TextView)root.findViewById(R.id.tv_allEvalution);
+//            ll_evaluationList=(LinearLayout)root.findViewById(R.id.ll_evaluationList);
 
             iv_cover.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -123,25 +132,54 @@ public class DisplayListViewAdapter extends BaseAdapter {
                 }
             });
 
-            lv_evaluation=(ExtensibleListView)root.findViewById(R.id.lv_evaluation);
-            lv_evaluation.setDividerHeight(0);
+//            lv_evaluation=(ExtensibleListView)root.findViewById(R.id.lv_evaluation);
+//            lv_evaluation.setDividerHeight(0);
+
         }
 
         /**
          * 传入数据未定
          */
         public void setData(int position) {
-            //TODO 绑定数据
-            Picasso.with(mcontext).load("http://i.imgur.com/DvpvklR.png").placeholder(R.drawable.img_default).into(iv_cover);
-            adapter=new DisplayItemEvalutionViewAdapter(mcontext);
-            lv_evaluation.setAdapter(adapter);
+            Share item=shareList.get(position);
+
+            Picasso.with(mcontext).load(item.avatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
+            Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            tv_name.setText(item.nickname);
+            tv_coverTitle.setText(item.title);
+            tv_coverNum.setText(item.totalPageNumber+"");
+            tv_coverTime.setText(item.getDateDescription());
+            tv_praise.setText(item.praiseNum+"");
+            tv_evaluate.setText(item.commentNum+"");
+            if (item.hasAttention){
+                tv_focus.setText("已关注");
+            }else {
+                tv_focus.setText("关注");
+            }
+            if (item.hasPraised){
+                //TODO 已赞图片
+            }else{
+                //TODO 未赞图片
+            }
+
+            //评论Adapter
+//            adapter=new DisplayItemEvalutionViewAdapter(mcontext, item.commentList);
+//            lv_evaluation.setAdapter(adapter);
+//            int num=item.commentList.size()>3?3:item.commentList.size();
+//            for (int i=0; i<num; i++){
+//                Comment comment=item.commentList.get(i);
+//                View view=View.inflate(mcontext,R.layout.item_display_item_evalution,null);
+//                ((TextView)view.findViewById(R.id.tv_name)).setText(comment.fromNickName);
+//                ((TextView)view.findViewById(R.id.tv_evaluation)).setText(comment.content);
+//                ll_evaluationList.addView(view);
+//            }
         }
     }
 
     //TODO 数据数量【现在模拟为10】
     @Override
     public int getCount() {
-        return 10;
+        return shareList.size();
     }
 
 
