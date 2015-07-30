@@ -1,18 +1,27 @@
 package com.netease.ecos.fragment;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -24,26 +33,30 @@ import com.netease.ecos.activity.EventDetailActivity;
 import com.netease.ecos.activity.NewActivityActivity;
 import com.netease.ecos.adapter.CampaignListViewAdapter;
 import com.netease.ecos.adapter.CommunityLocationListViewAdapter;
+import com.netease.ecos.interfaces.CommunityCallBack;
+import com.netease.ecos.utils.Util;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.CommunityListView;
 import com.netease.ecos.views.FloadingButton;
 import com.netease.ecos.views.XListView;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
  * *
  * 社区页面
  */
-public class CommunityFragment extends Fragment implements View.OnClickListener, XListView.IXListViewListener {
+public class CommunityFragment extends Fragment implements View.OnClickListener, XListView.IXListViewListener, CommunityCallBack {
 
     private View mainView;
     private Button btn_location, btn_categary;
     private FloadingButton btn_floading;
     private XListView lv_campaign;
-    private PopupWindow popupWindow;
+    private PopupWindow popupWindowLocation, popupWindowCategory;
     private Handler handler;
     private ArrayList<int[]> locationCommunityCountList;
+    private ImageView iv_show_flag_location, iv_show_flag_category;
 
     public static CommunityFragment newInstance(String param1, String param2) {
         CommunityFragment fragment = new CommunityFragment();
@@ -72,24 +85,52 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         return mainView;
     }
 
+
     private void bindView() {
         btn_categary = (Button) mainView.findViewById(R.id.btn_category);
         btn_location = (Button) mainView.findViewById(R.id.btn_location);
         lv_campaign = (XListView) mainView.findViewById(R.id.lv_campaign);
         btn_floading = (FloadingButton) mainView.findViewById(R.id.btn_floading_community);
+        iv_show_flag_location = (ImageView) mainView.findViewById(R.id.iv_show_flag_location);
+        iv_show_flag_category = (ImageView) mainView.findViewById(R.id.iv_show_flag_category);
     }
 
     private void initListener() {
         btn_categary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCategoryPopupWindow(v);
+                if (popupWindowCategory == null) {
+                    showCategoryPopupWindow(v);
+                } else if (popupWindowCategory.isShowing()) {
+                    popupWindowCategory.dismiss();
+                    iv_show_flag_category.setImageResource(R.drawable.ic_unpress_next_step);
+                } else {
+                    showCategoryPopupWindow(v);
+                }
+                if (popupWindowLocation != null)
+                    if (popupWindowLocation.isShowing()) {
+                        popupWindowLocation.dismiss();
+                        iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
+                    }
             }
         });
         btn_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showLocationPopupWindow(v);
+
+                if (popupWindowLocation == null) {
+                    showLocationPopupWindow(v);
+                } else if (popupWindowLocation.isShowing()) {
+                    popupWindowLocation.dismiss();
+                    iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
+                } else {
+                    showLocationPopupWindow(v);
+                }
+                if (popupWindowCategory != null)
+                    if (popupWindowCategory.isShowing()) {
+                        popupWindowCategory.dismiss();
+                        iv_show_flag_category.setImageResource(R.drawable.ic_unpress_next_step);
+                    }
             }
         });
 
@@ -100,6 +141,14 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         lv_campaign.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (popupWindowLocation != null)
+                    if (popupWindowLocation.isShowing()) {
+                        popupWindowLocation.dismiss();
+                    }
+                if (popupWindowCategory != null)
+                    if (popupWindowCategory.isShowing()) {
+                        popupWindowCategory.dismiss();
+                    }
                 startActivity(new Intent(getActivity(), EventDetailActivity.class));
             }
         });
@@ -176,6 +225,8 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void showCategoryPopupWindow(final View view) {
 
+        iv_show_flag_category.setImageResource(R.drawable.ic_unpress_last_step);
+        iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_window_category, null);
         // 设置按钮的点击事件
@@ -199,10 +250,11 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         btn_theme_only.setOnClickListener(this);
         btn_category_party.setOnClickListener(this);
 
-        popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindowCategory = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
-        popupWindow.setTouchable(true);
-        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+        popupWindowCategory.setTouchable(true);
+        setPopupWindowTouchModal(popupWindowCategory, false);// 使得popupWindow在显示的时候，popupWindow外部的控件也能够获得焦点
+        popupWindowCategory.setTouchInterceptor(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -217,11 +269,11 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
         // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
         // 我觉得这里是API的一个bug
-        popupWindow.setBackgroundDrawable(getResources().getDrawable(
+        popupWindowCategory.setBackgroundDrawable(getResources().getDrawable(
                 R.drawable.white));
 
         // 设置好参数之后再show
-        popupWindow.showAsDropDown(view);
+        popupWindowCategory.showAsDropDown(view);
     }
 
     /**
@@ -231,12 +283,18 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
      */
     private void showLocationPopupWindow(final View view) {
 
+        iv_show_flag_location.setImageResource(R.drawable.ic_unpress_last_step);
+        iv_show_flag_category.setImageResource(R.drawable.ic_unpress_next_step);
+
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 btn_location.setText((CharSequence) msg.obj);
-                popupWindow.dismiss();
+                popupWindowLocation.dismiss();
+                iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
+                int length = ((CharSequence) msg.obj).length();
+                Util.setMargins(iv_show_flag_location, Util.dip2px(getActivity(), 120 + (length - 3) * 8), Util.dip2px(getActivity(), 15), 0, 0);
             }
         };
 
@@ -259,26 +317,35 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
             }
         });
 
-        popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
-        popupWindow.setTouchable(true);
-        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+        popupWindowLocation = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+        popupWindowLocation.setTouchable(true);
+        setPopupWindowTouchModal(popupWindowLocation, false);   // 使得popupWindow在显示的时候，popupWindow外部的控件也能够获得焦点
+        popupWindowLocation.setTouchInterceptor(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return false;
             }
         });
-        popupWindow.setBackgroundDrawable(getResources().getDrawable(
+        popupWindowLocation.setBackgroundDrawable(getResources().getDrawable(
                 R.drawable.white));
-        popupWindow.showAsDropDown(view);
+        popupWindowLocation.showAsDropDown(view);
     }
 
     @Override
     public void onClick(View v) {
         CharSequence string = ((Button) v.findViewById(v.getId())).getText();
-        System.out.println(string);
         btn_categary.setText(string);
-        popupWindow.dismiss();
+        int length = 0;
+        if (string.equals("LIVE"))
+            length = 2;
+        else if (string.equals("主题ONLY"))
+            length = 4;
+        else
+            length = string.length();
+        Util.setMargins(iv_show_flag_category, 0, Util.dip2px(getActivity(), 15), Util.dip2px(getActivity(), 60 - (length - 2) * 8), 0);
+        popupWindowCategory.dismiss();
+        iv_show_flag_category.setImageResource(R.drawable.ic_unpress_next_step);
         /**
          * 根据点击的按钮，刷新listView的数据
          */
@@ -311,5 +378,34 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         }, 1000);
     }
 
+    public static void setPopupWindowTouchModal(PopupWindow popupWindow, boolean touchModal) {
+        if (null == popupWindow) {
+            return;
+        }
+        Method method;
+        try {
+            method = PopupWindow.class.getDeclaredMethod("setTouchModal", boolean.class);
+            method.setAccessible(true);
+            method.invoke(popupWindow, touchModal);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private int[] locationCommunityCount = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+
+    @Override
+    public void execute() {
+        if (popupWindowLocation != null)
+            if (popupWindowLocation.isShowing()) {
+                popupWindowLocation.dismiss();
+                iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
+            }
+        if (popupWindowCategory != null)
+            if (popupWindowCategory.isShowing()) {
+                popupWindowCategory.dismiss();
+                iv_show_flag_category.setImageResource(R.drawable.ic_unpress_next_step);
+            }
+    }
 }

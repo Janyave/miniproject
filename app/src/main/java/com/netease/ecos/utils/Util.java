@@ -1,7 +1,10 @@
 package com.netease.ecos.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Environment;
+import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * 该类封装了一些小工具
@@ -65,5 +68,32 @@ public class Util {
 			imageName = url.substring(url.lastIndexOf("/") + 1);
 		}
 		return imageName;
+	}
+
+	/**
+	 * 设置View的Margins值
+	 * @param v
+	 * @param left
+	 * @param top
+	 * @param right
+	 * @param button
+	 */
+	public static void setMargins (View v, int left, int top, int right, int button) {
+		if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+			ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+			p.setMargins(left, top, right, button);
+			v.requestLayout();
+		}
+	}
+
+	/**
+	 * dp转px
+	 * @param context
+	 * @param dpValue
+	 * @return
+	 */
+	public static int dip2px(Context context, float dpValue) {
+		final float scale = context.getResources().getDisplayMetrics().density;
+		return (int) (dpValue * scale + 0.5f);
 	}
 }

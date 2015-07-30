@@ -1,100 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btn_all_category"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/btn_same_people_show"
-        android:layout_toStartOf="@+id/btn_same_people_show"
-        android:text="全部分类" />
+    <TextView style="@style/layout_line_gray"/>
 
-    <Button
-        android:id="@+id/btn_same_people_show"
-        android:layout_width="100dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btn_all_category"
-        android:layout_centerHorizontal="true"
-        android:text="同人展" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btn_movie_festival"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btn_same_people_show"
-        android:layout_marginLeft="20dp"
-        android:layout_toEndOf="@+id/btn_same_people_show"
-        android:layout_toRightOf="@+id/btn_same_people_show"
-        android:text="动漫节" />
+        <Button
+            android:id="@+id/btn_all_category"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:text="全部分类"
+            style="@style/text_gray_mid"/>
 
-    <Button
-        android:id="@+id/btn_official_activities"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btn_all_category"
-        android:layout_alignStart="@+id/btn_all_category"
-        android:layout_below="@+id/btn_all_category"
-        android:layout_marginTop="5dp"
-        android:text="官方活动" />
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView5"
+            android:layout_weight="0"
+            android:src="@drawable/vertical_divider" />
 
-    <Button
-        android:id="@+id/btn_category_live"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btn_same_people_show"
-        android:layout_alignStart="@+id/btn_same_people_show"
-        android:layout_alignTop="@+id/btn_official_activities"
-        android:text="LIVE" />
+        <Button
+            android:id="@+id/btn_same_people_show"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:text="同人展"
+            style="@style/text_gray_mid"/>
 
-    <Button
-        android:id="@+id/btn_category_stage"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btn_movie_festival"
-        android:layout_alignStart="@+id/btn_movie_festival"
-        android:layout_alignTop="@+id/btn_category_live"
-        android:text="舞台祭" />
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView6"
+            android:layout_weight="0"
+            android:src="@drawable/vertical_divider" />
 
-    <Button
-        android:id="@+id/btn_category_match"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btn_official_activities"
-        android:layout_alignStart="@+id/btn_official_activities"
-        android:layout_below="@+id/btn_official_activities"
-        android:layout_marginTop="5dp"
-        android:text="赛事" />
+        <Button
+            android:id="@+id/btn_movie_festival"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:text="动漫节"
+            style="@style/text_gray_mid"/>
 
-    <Button
-        android:id="@+id/btn_theme_only"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btn_category_match"
-        android:layout_toEndOf="@+id/btn_all_category"
-        android:layout_toRightOf="@+id/btn_all_category"
-        android:text="主题ONLY" />
-
-    <Button
-        android:id="@+id/btn_category_party"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btn_category_stage"
-        android:layout_alignStart="@+id/btn_category_stage"
-        android:layout_alignTop="@+id/btn_theme_only"
-        android:text="派对" />
+    </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageViewNull"
         android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/btn_category_match"
-        android:src="@drawable/white" />
+        android:layout_height="1dp"
+        android:id="@+id/imageView2"
+        android:src="@drawable/divider"
+        android:scaleType="fitXY" />
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_official_activities"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:text="官方活动"
+            style="@style/text_gray_mid"/>
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView7"
+            android:layout_weight="0"
+            android:src="@drawable/vertical_divider" />
+        <Button
+            android:id="@+id/btn_category_live"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:text="LIVE"
+            style="@style/text_gray_mid"/>
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView8"
+            android:layout_weight="0"
+            android:src="@drawable/vertical_divider" />
+        <Button
+            android:id="@+id/btn_category_stage"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:text="舞台祭"
+            style="@style/text_gray_mid"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/imageView3"
+        android:src="@drawable/divider"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_category_match"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:text="赛事"
+            style="@style/text_gray_mid"/>
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView9"
+            android:layout_weight="0"
+            android:src="@drawable/vertical_divider" />
+        <Button
+            android:id="@+id/btn_theme_only"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:text="主题ONLY"
+            style="@style/text_gray_mid"/>
+        <ImageView
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView10"
+            android:layout_weight="0"
+            android:src="@drawable/vertical_divider" />
+        <Button
+            android:id="@+id/btn_category_party"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:text="派对"
+            style="@style/text_gray_mid"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:id="@+id/imageView4"
+        android:src="@drawable/divider"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
