@@ -24,6 +24,7 @@ import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.share.ShareListRequest;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.FloadingButton;
+import com.netease.ecos.views.ListViewListener;
 import com.netease.ecos.views.XListView;
 
 import org.w3c.dom.Text;
@@ -104,7 +105,68 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         lv_course.setPullLoadEnable(true);
         lv_course.setPullLoadEnable(true);
         lv_course.setXListViewListener(this);
-        lv_course.setOnScrollListener(new AbsListView.OnScrollListener() {
+        lv_course.setOnTouchListener(new ListViewListener(new ListViewListener.IOnMotionEvent() {
+            Boolean isAnim = false; //是否正在动画
+            @Override
+            public void doInDown() {
+                if (!isAnim&&btn_floading.isAppear()){
+                    isAnim = true;
+                    btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
+                        @Override
+                        public void doAfterAnimation() {
+                            isAnim = false;
+                            btn_floading.setIsDisappear();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void doInUp() {
+                if (!isAnim&&btn_floading.isDisappear()){
+                    if (!isAnim){
+                        isAnim = true;
+                        btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
+                            @Override
+                            public void doAfterAnimation() {
+                                isAnim = false;
+                                btn_floading.setIsAppear();
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void doInChangeToDown() {
+                if (!isAnim){
+                    isAnim = true;
+                    btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
+                        @Override
+                        public void doAfterAnimation() {
+                            isAnim = false;
+                            btn_floading.setIsDisappear();
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void doInChangeToUp() {
+                if (!isAnim){
+                    isAnim = true;
+                    btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
+                        @Override
+                        public void doAfterAnimation() {
+                            isAnim = false;
+                            btn_floading.setIsAppear();
+                        }
+                    });
+                }
+            }
+        }));
+        /*lv_course.setOnScrollListener(new AbsListView.OnScrollListener() {
             int lvIndext = 0; //当前listView显示的首个Item的Index
             String state = "up"; //当前ListView动作状态 up or down
             Boolean isAnim = false; //是否正在动画
@@ -116,11 +178,11 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-                /***当前滑动状态，与记录的lvIndex作比较，发生变化触发动画*/
+                *//***当前滑动状态，与记录的lvIndex作比较，发生变化触发动画*//*
                 String nowstate = state;
-                /***当前可见Item的首个Index*/
+                *//***当前可见Item的首个Index*//*
                 int nowIndext = firstVisibleItem;
-                /***nowIndex大于lvIndex，ListView下滑*/
+                *//***nowIndex大于lvIndex，ListView下滑*//*
                 if (nowIndext > lvIndext && !isAnim) {
                     nowstate = "down";
                     if (!TextUtils.equals(nowstate, state)) {
@@ -133,7 +195,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                         isAnim = true;
                     }
                 }
-                /***nowIndex小于lvIndex，ListView下滑*/
+                *//***nowIndex小于lvIndex，ListView下滑*//*
                 if (nowIndext < lvIndext && !isAnim) {
                     nowstate = "up";
                     if (!TextUtils.equals(nowstate, state)) {
@@ -149,7 +211,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 state = nowstate;
                 lvIndext = nowIndext;
             }
-        });
+        });*/
     }
 
 
