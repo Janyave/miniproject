@@ -4,12 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/personPicImgView"
         android:layout_width="@dimen/personImageView_width"
         android:layout_height="@dimen/personImageView_height"
-        android:layout_marginBottom="@dimen/commentDetaiPaddingLeft"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_marginBottom="@dimen/commentDetaiPaddingLeft" />
 
     <TextView
         android:id="@+id/personNameTxV"
@@ -17,7 +16,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textSize="11sp"
-        android:text="@string/hello_world" />
+        android:text="@string/hello_world"
+        android:textSize="11sp" />
 
 </LinearLayout>

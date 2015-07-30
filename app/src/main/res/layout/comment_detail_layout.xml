@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/commentDetaiPaddingLeft"
     android:paddingTop="@dimen/commentDetaiPaddingTop">
 
-    <com.netease.ecos.views.MyroundImageView
+    <com.netease.ecos.utils.RoundImageView
         android:id="@+id/commentPersonImgVw"
         android:layout_width="@dimen/personImageView_width"
         android:layout_height="@dimen/personImageView_height"

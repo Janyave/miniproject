@@ -23,12 +23,13 @@
     <dimen name="personImageView_height">50dp</dimen>
     <dimen name="workDetail_ImgVw_height">250dp</dimen>
     <dimen name="divider_height">0.5dp</dimen>
-    <dimen name="workDetailComment_EdTx_width">300dp</dimen>
+    <dimen name="workDetailComment_EdTx_width">280dp</dimen>
     <dimen name="workDetailComment_EdTx_height">42dp</dimen>
     <dimen name="workDetailCommentLayoutHeight">58dp</dimen>
     <dimen name="textsizeS">11sp</dimen>
     <dimen name="textsizeM">16sp</dimen>
     <dimen name="textsizeL">19sp</dimen>
+    <dimen name="ExhibitListItemMargin">4dp</dimen>
 
     <!-- text size-->
     <dimen name="textSize">17sp</dimen>

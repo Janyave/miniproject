@@ -167,9 +167,6 @@ public class ApiTestActivity extends BaseActivity {
     public void getAssignmentDetail() {
         Log.e("获取作业详情", "createAssignment()");
         GetAssignmentDetailRequest request = new GetAssignmentDetailRequest();
-
-        Assignment assignment = new Assignment();
-
         request.request(new GetAssignmetnDetailResponse(), "1");
     }
 
@@ -221,15 +218,11 @@ public class ApiTestActivity extends BaseActivity {
     public void getCommentList() {
         Log.e("获取评论列表", "createAssignment()");
         CommentListRequest request = new CommentListRequest();
-
-        Assignment assignment = new Assignment();
         Comment comment = new Comment();
-
         //当前评论类别是作业
         comment.commentType = CommentType.作业;
         //评论对应的作业id是1
         comment.commentTypeId = "1";
-
         request.request(new GetCommentListResponse(), comment);
     }
 
@@ -500,7 +493,6 @@ public class ApiTestActivity extends BaseActivity {
      */
     public void getShareDetail() {
         GetShareDetailRequest request = new GetShareDetailRequest();
-
         request.request(new GetShareDetealResponse(), "0");
     }
 
