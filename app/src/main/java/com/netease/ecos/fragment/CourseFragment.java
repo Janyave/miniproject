@@ -3,13 +3,12 @@ package com.netease.ecos.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
@@ -25,6 +24,7 @@ import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.Banner;
 import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.FloadingButton;
+import com.netease.ecos.views.ViewScrollListener;
 
 import java.util.List;
 
@@ -44,6 +44,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
     private ImageView tv_type_8;
     private FloadingButton btn_floading;
     private ExtensibleListView lv_course;
+    private ScrollView sv;
 
     private CourseListViewAdapter courseListViewAdapter;
 
@@ -63,7 +64,6 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         mainView = inflater.inflate(R.layout.fragment_course, container, false);
 
         bindView();
@@ -85,6 +85,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         tv_type_6 = (ImageView) mainView.findViewById(R.id.tv_type_6);
         tv_type_7 = (ImageView) mainView.findViewById(R.id.tv_type_7);
         tv_type_8 = (ImageView) mainView.findViewById(R.id.tv_type_8);
+        sv=(ScrollView)mainView.findViewById(R.id.sv);
     }
 
 
@@ -97,52 +98,56 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
 
             }
         });
-        lv_course.setOnScrollListener(new AbsListView.OnScrollListener() {
-            int lvIndext = 0; //当前listView显示的首个Item的Index
-            String state = "up"; //当前ListView动作状态 up or down
-            Boolean isAnim = false; //是否正在动画
 
+        sv.setOnTouchListener(new ViewScrollListener(new ViewScrollListener.IOnMotionEvent() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            public void doInDown() {
+                if (btn_floading.isAppear()){
+                    btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
+                        @Override
+                        public void doAfterAnimation() {
+                            btn_floading.setIsDisappear();
+                            btn_floading.setIsAnim(false);
+                        }
+                    });
+                }
             }
 
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                /***当前滑动状态，与记录的lvIndex作比较，发生变化触发动画*/
-                String nowstate = state;
-                /***当前可见Item的首个Index*/
-                int nowIndext = firstVisibleItem;
-                /***nowIndex大于lvIndex，ListView下滑*/
-                if (nowIndext > lvIndext && !isAnim) {
-                    nowstate = "down";
-                    if (!TextUtils.equals(nowstate, state)) {
-                        btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
-                            @Override
-                            public void doAfterAnimation() {
-                                isAnim = false;
-                            }
-                        });
-                        isAnim = true;
-                    }
-                }
-                /***nowIndex小于lvIndex，ListView下滑*/
-                if (nowIndext < lvIndext && !isAnim) {
-                    nowstate = "up";
-                    if (!TextUtils.equals(nowstate, state)) {
+            public void doInUp() {
+                if (btn_floading.isDisappear()){
                         btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
                             @Override
                             public void doAfterAnimation() {
-                                isAnim = false;
+                                btn_floading.setIsAppear();
+                                btn_floading.setIsAnim(false);
                             }
                         });
-                        isAnim = true;
                     }
-                }
-                state = nowstate;
-                lvIndext = nowIndext;
             }
-        });
+
+            @Override
+            public void doInChangeToDown() {
+                    btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
+                        @Override
+                        public void doAfterAnimation() {
+                            btn_floading.setIsDisappear();
+                            btn_floading.setIsAnim(false);
+                        }
+                    });
+            }
+
+            @Override
+            public void doInChangeToUp() {
+                    btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
+                        @Override
+                        public void doAfterAnimation() {
+                            btn_floading.setIsAppear();
+                            btn_floading.setIsAnim(false);
+                        }
+                    });
+            }
+        }));
 
         btn_floading.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,7 +182,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         requestBanner.request(new GetBannerResponse());
 
         CourseListRequest requestCourse = new CourseListRequest();
-        requestCourse.request(new GetCourseResponse(), CourseListRequest.Type.推荐, null, null, null);
+        requestCourse.request(new GetCourseResponse(), CourseListRequest.Type.推荐, null, null, null,0);
 
     }
 
@@ -194,6 +199,8 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         super.onResume();
         banner.setFocusable(true);
         banner.setFocusableInTouchMode(true);
+
+        btn_floading.reset();
     }
 
     class GetBannerResponse extends BaseResponceImpl implements GetBannerRequest.IGetBannerResponse {

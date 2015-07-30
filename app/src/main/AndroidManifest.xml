@@ -39,6 +39,7 @@
     <!-- 接收SDK消息广播权限， 第三方APP接入时，请将com.netease.nim.demo替换为自己的包名 -->
     <uses-permission android:name="com.netease.ecos.permission.RECEIVE_MSG" />
 
+
     <application
         android:name=".activity.MyApplication"
         android:allowBackup="true"
@@ -47,87 +48,108 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/app_name" >
+
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ViewDemo.XListViewDemoActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.BuildCourseActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WorkDetailActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CommentDetailActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WriteContentActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ExhibitDetailActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.UploadWorkActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.UploadWorksActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CourseDetailActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewDemo.UploadImageDemoActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.EventDetailActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PhotoAlbumActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PhotoActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CourseTypeActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
             android:name=".activity.SearchActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.CourseCategoryActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PersonageDetailActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.RecruitmentCategoryActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.RecruitmentDetailActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.NewActivityActivity"
-            android:label="@string/app_name" />
+
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.ApiTestActivity"
-            android:label="@string/app_name" />
-        <activity
-            android:name=".activity.YunXinLoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
 
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
+        <activity
+            android:name="com.netease.ecos.activity.YunXinLoginActivity"
+            android:label="@string/app_name">
+
         </activity>
         <activity
             android:name=".activity.NotificationActivity"
@@ -151,6 +173,7 @@
             android:name="com.google.android.maps"
             android:required="false" />
 
+
         <!-- NimService组件。 如需保持后台推送，使用独立进程效果会更好。 -->
         <service
             android:name="com.netease.nimlib.service.NimService"
@@ -160,7 +183,9 @@
         <receiver
             android:name="com.netease.nimlib.service.NimReceiver"
             android:exported="false"
-            android:process=":core" >
+
+            android:process=":core">
+
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

@@ -63,7 +63,7 @@ public class NavigationDrawerFragment extends Fragment {
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
 
     /**
-     * A pointer to the current callbacks instance (the Activity).
+     * A pointer to the current callbacks instance (the ActivityModel).
      */
     private NavigationDrawerCallbacks mCallbacks;
 
@@ -206,7 +206,7 @@ public class NavigationDrawerFragment extends Fragment {
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.
         mDrawerToggle = new ActionBarDrawerToggle(
-                getActivity(),                    /* host Activity */
+                getActivity(),                    /* host ActivityModel */
                 mDrawerLayout,                    /* DrawerLayout object */
                 R.mipmap.ic_launcher,             /* nav drawer image to replace 'Up' caret */
                 R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
@@ -300,7 +300,7 @@ public class NavigationDrawerFragment extends Fragment {
         try {
             mCallbacks = (NavigationDrawerCallbacks) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
+            throw new ClassCastException("ActivityModel must implement NavigationDrawerCallbacks.");
         }
     }
 

@@ -224,7 +224,7 @@ public class PersonageCourseFragment extends Fragment {
 
         CourseListRequest request = new CourseListRequest();
         request.request(new CourseListResponse(),CourseListRequest.Type.筛选,
-                Course.CourseType.妆娘,"鸣人",CourseListRequest.SortRule.时间);
+                Course.CourseType.妆娘,"鸣人",CourseListRequest.SortRule.时间,0);
     }
 
     class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse {

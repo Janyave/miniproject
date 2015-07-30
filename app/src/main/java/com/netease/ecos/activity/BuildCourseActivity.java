@@ -1,6 +1,5 @@
 package com.netease.ecos.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,23 +7,23 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.adapter.CourseStepAdapter;
+import com.netease.ecos.constants.IntentDataKeyContants;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.Course;
-import com.netease.ecos.utils.SDImageCache;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.course.CreateCourseRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
+import com.netease.ecos.utils.UploadImageTools;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -45,6 +44,12 @@ public class BuildCourseActivity extends BaseActivity {
     Button rightButton;
     @InjectView(R.id.tv_left)
     TextView backTxVw;
+
+    /**
+     * 教程名称
+     */
+    @InjectView(R.id.etv_course_title)
+    TextView etv_course_title;
 
     /**
      * 教程封面
@@ -99,11 +104,29 @@ public class BuildCourseActivity extends BaseActivity {
 
     CourseStepAdapter mCourseStepAdapter;
 
+    /** {@link com.netease.ecos.model.Course.CourseType}枚举值 */
+    public String mCourseTypeValue;
+
+    /*** 教程封面本地路径  */
+    public String mCoverLocalPath;
+
+    /*** 教程标题 */
+    public String mCourseTitle;
+
+
     @Override
     protected void onCreate(Bundle onSavedInstance) {
         super.onCreate(onSavedInstance);
         Log.i(CLASS_TAG, "onCreate()");
         setContentView(R.layout.activity_build_course);
+
+        if(getIntent()!=null){
+            mCourseTypeValue = getIntent().getStringExtra(IntentDataKeyContants.COURSE_TYPE);
+
+            if(mCourseTypeValue==null)
+                mCourseTypeValue = Course.CourseType.摄影.getBelongs();
+        }
+
         //注解工具初始化
         ButterKnife.inject(this);
         initData();
@@ -227,6 +250,11 @@ public class BuildCourseActivity extends BaseActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i("onSaveInstanceState", "<--------------------");
         savedInstanceState.putParcelableArrayList("stepData", (ArrayList<Course.Step>) mCourseStepAdapter.getStepDataList());
+        savedInstanceState.putString("mConurseTypeValue", mCourseTypeValue);
+        savedInstanceState.putString("mCoverLocalPath",mCoverLocalPath);
+        savedInstanceState.putString("mCourseTitle",mCourseTitle);
+
+        Log.i("onSaveInstanceState", getCourseByPage().toString());
         Log.i("onSaveInstanceState", "-------------------->");
     }
 
@@ -240,6 +268,16 @@ public class BuildCourseActivity extends BaseActivity {
         for (Course.Step step : list) {
             Log.i("onRestoreInstanceState", step.toString());
         }
+
+        mCourseTypeValue = savedInstanceState.getString("mConurseTypeValue");
+        mCoverLocalPath = savedInstanceState.getString("mCoverLocalPath");
+        mCourseTitle =  savedInstanceState.getString("mCourseTitle");
+
+        releaseImageViewResouce(iv_course_cover);
+        iv_course_cover.setImageBitmap(BitmapFactory.decodeFile(mCoverLocalPath));
+        etv_course_title.setText(mCourseTitle);
+
+        Log.i("onSaveInstanceState", getCourseByPage().toString());
         Log.i("onRestoreInstanceState", "--------------------");
 
     }
@@ -327,231 +365,109 @@ public class BuildCourseActivity extends BaseActivity {
                     break;
                 //发布教程
                 case R.id.btn_iss_course:
-                    startActivity(new Intent(BuildCourseActivity.this, MainActivity.class));
+//                    startActivity(new Intent(BuildCourseActivity.this, MainActivity.class));
+                    createCourse();
+
                     break;
             }
         }
     };
 
+    public void createCourse(){
+        Course course = getCourseByPage();
+        CreateCourseRequest request = new CreateCourseRequest();
+        request.request(new CreateCourseResponse(),course);
+    }
 
-    /**
-     * 教程步骤列表适配器
+    /***
+     * 获取页面教程数据
+     * @return
      */
-    static class CourseStepAdapter extends BaseAdapter {
+    public Course getCourseByPage(){
+        final Course course = new Course();
+        course.title = etv_course_title.getText().toString();
+        course.courseType = Course.CourseType.getCourseType(mCourseTypeValue);
 
-        private Context mContext;
+        //获取图片
+        if(mCoverLocalPath!=null && new File(mCoverLocalPath).exists()){
+            UploadImageTools.uploadImageSys(new File(mCoverLocalPath), new UploadImageTools.UploadCallBack(){
 
-        private List<Course.Step> mStepsList;
+                @Override
+                public void success(String originUrl, String thumbUrl) {
 
-        private LayoutInflater mInflater;
-
-        private AdapterAction mAdapterAction;
-
-        public CourseStepAdapter(Context context, List<Course.Step> stepsList, AdapterAction adapterAction) {
-            mContext = context;
-            mStepsList = stepsList;
-            mAdapterAction = adapterAction;
-
-
-            mInflater = LayoutInflater.from(mContext);
-
-            mImageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
-        }
-
-        @Override
-        public int getCount() {
-            return mStepsList == null ? 0 : mStepsList.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return mStepsList.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        public class ViewHolder {
-            /**
-             * 步骤序号
-             */
-            TextView tv_index;
-            /**
-             * 置为上一步
-             */
-            ImageView iv_last_step;
-            /**
-             * 置为下一步
-             */
-            ImageView iv_next_step;
-            /**
-             * 步骤图片
-             */
-            ImageView niv_course_photo;
-            /**
-             * 步骤描述
-             */
-            EditText etv_description;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            final ViewHolder holder;
-            if (convertView == null) {
-                convertView = mInflater.inflate(R.layout.item_build_course, null);
-                holder = new ViewHolder();
-
-                holder.tv_index = (TextView) convertView.findViewById(R.id.tv_index);
-                holder.iv_last_step = (ImageView) convertView.findViewById(R.id.iv_last_step);
-                holder.iv_next_step = (ImageView) convertView.findViewById(R.id.iv_next_step);
-                holder.niv_course_photo = (ImageView) convertView.findViewById(R.id.niv_course_photo);
-                holder.etv_description = (EditText) convertView.findViewById(R.id.etv_description);
-
-                convertView.setTag(holder);
-            } else {
-                holder = (ViewHolder) convertView.getTag();
-            }
-
-            holder.niv_course_photo.setTag(position);
-            holder.iv_last_step.setTag(position);
-            holder.iv_next_step.setTag(position);
-
-            setData(holder, position, mStepsList.get(position));
-
-            return convertView;
-        }
-
-        ImageLoader mImageLoader;
-
-        /**
-         * 绑定视图数据
-         *
-         * @param holder   视图holder
-         * @param position 位置
-         * @param stepData 步骤数据
-         */
-        private void setData(ViewHolder holder, int position, Course.Step stepData) {
-            holder.tv_index.setText(String.valueOf(stepData.stepIndex));
-
-//            holder.niv_course_photo.setErrorImageResId(R.drawable.bg_niv_error);
-//            //若照片Url有效，则进行加载
-//            if( !(stepData.photoUrl ==null) && !("".equals(stepData.photoUrl.trim())) )
-//                holder.niv_course_photo.setImageUrl(stepData.photoUrl, mImageLoader);
-
-
-            //从SD卡中读取，可以优化为从内存读取，后续做
-            if (!(stepData.imagePath == null) && !("".equals(stepData.imagePath.trim()))) {
-                File file = new File(stepData.imagePath);
-                if (file.exists()) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(stepData.imagePath);
-                    holder.niv_course_photo.setImageBitmap(bitmap);
-                } else {
-                    Log.e("设置教程步骤图片", "无效路径: " + stepData.imagePath);
-                }
-            }
-
-            //对步骤描述进行数字限制
-            //.......
-            holder.etv_description.setText(stepData.description);
-
-            holder.niv_course_photo.setOnClickListener(viewClickListener);
-            holder.iv_last_step.setOnClickListener(viewClickListener);
-            holder.iv_next_step.setOnClickListener(viewClickListener);
-        }
-
-
-        /**
-         * item点击事件，包括点击{@link ViewHolder#iv_next_step}和{@link ViewHolder#iv_last_step}
-         */
-        View.OnClickListener viewClickListener = new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                int position = 0;
-                Course.Step tempStep;
-                Log.e("点击事件", " ");
-                switch (view.getId()) {
-                    //点击设置图片
-                    case R.id.niv_course_photo:
-                        position = (int) view.getTag();
-                        if (mAdapterAction != null)
-                            mAdapterAction.setPhotoAtPosition(position);
-                        break;
-                    //点击向上按钮
-                    case R.id.iv_last_step:
-                        position = (int) view.getTag();
-                        if (position == 0) {
-                            Toast.makeText(mContext, "已经置顶，不能上移了", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                        tempStep = mStepsList.get(position);
-                        mStepsList.set(position, mStepsList.get(position - 1));
-                        mStepsList.set(position - 1, tempStep);
-                        notifyDataSetChanged();
-                        break;
-                    //点击向下按钮
-                    case R.id.iv_next_step:
-                        position = (int) view.getTag();
-                        if (position == (getCount() - 1)) {
-                            Toast.makeText(mContext, "已经在底层，不能下移了", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                        tempStep = mStepsList.get(position);
-                        mStepsList.set(position, mStepsList.get(position + 1));
-                        mStepsList.set(position + 1, tempStep);
-                        notifyDataSetChanged();
-                        break;
+                    course.coverUrl = originUrl;
+                    Log.i("图片上传","原图路径" + originUrl);
+                    Log.i("图片上传", "缩略图路径" + thumbUrl);
                 }
 
+                @Override
+                public void fail() {
+                    Toast.makeText(BuildCourseActivity.this,"上传失败",Toast.LENGTH_LONG).show();
+
+                }
+
+                @Override
+                public void onProcess(Object fileParam, long current, long total) {
+                    Log.i("图片上传","上传数" + total + "  ," + "已上传" + current);
+                }
+
+            },   BuildCourseActivity.this, false); }
+
+        course.stepList = mCourseStepAdapter.getStepDataList();
+
+
+        for(final Course.Step step:course.stepList)
+        {
+            if(step.imagePath!=null && new File(step.imagePath).exists())
+            {
+                UploadImageTools.uploadImageSys(new File(step.imagePath), new UploadImageTools.UploadCallBack(){
+
+                    @Override
+                    public void success(String originUrl, String thumbUrl) {
+
+                        step.imageUrl = originUrl;
+                    }
+
+                    @Override
+                    public void fail() {
+
+                    }
+
+                    @Override
+                    public void onProcess(Object fileParam, long current, long total) {
+                        Log.i("图片上传","上传数" + total + "  ," + "已上传" + current);
+                    }
+
+                },   BuildCourseActivity.this, false);
             }
-        };
-
-
-        /**
-         * 适配器中的动作接口，包括选择图片
-         */
-        public interface AdapterAction {
-            /**
-             * 设置第(position+1)个步骤的照片
-             *
-             * @param position
-             */
-            public void setPhotoAtPosition(int position);
         }
 
-        /**
-         * 刷新教程第(positon+1)步的图片
-         *
-         * @param position  图片位置
-         * @param imagePath 图片路径
-         */
-        public void refleshImageAtPosition(int position, String imagePath) {
+        Log.v(TAG,"发布教程数据:------------" + course.toString());
 
-            Log.i("刷新图片", "position:" + position + ",------------    imagePath: " + imagePath);
-            if (position >= 0 && position < getCount()) {
-                mStepsList.get(position).imagePath = imagePath;
-                notifyDataSetChanged();
-            }
+        return course;
+    }
+
+    /***
+     * 创建教程响应回调接口
+     */
+    class CreateCourseResponse extends BaseResponceImpl implements CreateCourseRequest.ICreateCourseResponce {
+
+        @Override
+        public void success(Course course) {
+            Log.e(TAG,"上传成功");
+            finish();
         }
 
-        public List<Course.Step> getStepDataList() {
-            return mStepsList;
+        @Override
+        public void doAfterFailedResponse(String message) {
+
         }
 
-        /**
-         * 是否有步骤数据不全
-         *
-         * @return
-         */
-        public boolean isSomeEmpty() {
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
 
-            for (Course.Step step : mStepsList) {
-                if (step.isSomeEmpty())
-                    return true;
-            }
-            return false;
         }
     }
+
+
 }

@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -19,6 +18,7 @@ import com.netease.ecos.fragment.CourseFragment;
 import com.netease.ecos.fragment.DisplayFragment;
 import com.netease.ecos.fragment.NavigationDrawerFragment;
 import com.netease.ecos.fragment.TransactionFragment;
+import com.netease.ecos.views.MyroundImageView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -27,7 +27,7 @@ import butterknife.InjectView;
 public class MainActivity extends BaseActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     @InjectView(R.id.btn_open)
-    Button btn_open;
+    MyroundImageView btn_open;
 
     @InjectView(R.id.radio_group)
     RadioGroup mRadioGroup;
@@ -154,6 +154,10 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     private RadioGroup.OnCheckedChangeListener mOnCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
+            /**用于在fragment切换的时候关闭CommunityFragment中的popupWindow*/
+            if (mFragments[TAB_COMMUCITY_INDEX] != null)
+                ((CommunityFragment) mFragments[TAB_COMMUCITY_INDEX]).execute();
+
             switch (checkedId) {
                 //点击教程tab
                 case R.id.radio_1:

@@ -11,7 +11,9 @@ import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.activity.ContactActivity;
+import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.Course;
+import com.netease.ecos.model.ModelUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,9 +25,11 @@ import java.util.List;
 public class NotificationContactAdapter extends BaseAdapter{
 
     private Context mcontext;
+    private List<Contact> contactList=new ArrayList<Contact>();
 
-    public NotificationContactAdapter(Context context) {
+    public NotificationContactAdapter(Context context, List<Contact> contactList) {
         this.mcontext = context;
+        this.contactList=contactList;
     }
 
     class ViewHolder implements View.OnClickListener{
@@ -49,10 +53,14 @@ public class NotificationContactAdapter extends BaseAdapter{
         }
 
         /**
-         * ´«ÈëÊý¾ÝÎ´¶¨
+         * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½
          */
         public void setData(int position){
-//            Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(networkImageView);
+            Contact item=contactList.get(position);
+//            Picasso.with(mcontext).load("").placeholder(R.drawable.img_default).into(iv_avatar);
+            tv_name.setText("TEST");
+            tv_recentContact.setText(item.messageContent);
+            tv_recentTime.setText(ModelUtils.getDateDetailByTimeStamp(item.time)+"");
         }
 
         @Override
@@ -69,10 +77,10 @@ public class NotificationContactAdapter extends BaseAdapter{
     }
 
 
-    //TODO Êý¾ÝÊýÁ¿¡¾ÏÖÔÚÄ£ÄâÎª10¡¿
+    //TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½Îª10ï¿½ï¿½
     @Override
     public int getCount() {
-        return 10;
+        return contactList==null?0:contactList.size();
     }
 
     @Override
