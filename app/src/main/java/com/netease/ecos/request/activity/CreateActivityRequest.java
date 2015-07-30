@@ -1,19 +1,22 @@
 package com.netease.ecos.request.activity;
 
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.netease.ecos.constants.RequestUrlConstants;
-import com.netease.ecos.model.Activity;
-import com.netease.ecos.model.Course;
+import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /***
  * 
@@ -24,87 +27,135 @@ import com.netease.ecos.request.MyStringRequest;
 *
  */
 public class CreateActivityRequest extends BaseRequest{
-	
+
 	//请求参数键
 	/*** Activity对象数据json串，空的属性用"null"字符串 */
-	public static final String ACTIVITY_JSON = "act_json";
-	
-	
+	public static final String ACTIVITY_JSON = "activityJson";
+
+
 	//响应参数键
-	Activity mActivity;
-	
-	CreateActivityResponce mCreateActivityResponce;
-	
-	public void request(CreateActivityResponce createActivityResponce, final Activity activity)
+	ActivityModel mActivity;
+
+	ICreateActivityResponce mCreateActivityResponce;
+
+	public void request(ICreateActivityResponce createActivityResponce, final ActivityModel activity)
 	{
 		super.initBaseRequest(createActivityResponce);
 		mCreateActivityResponce = createActivityResponce;
 		mActivity = activity;
-		
-		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.CREATE_ACTIVITY_URL,  this, this) {  
-	        @Override  
-	        protected Map<String, String> getParams() throws AuthFailureError {  
-	        	Map<String, String> map = getRequestBasicMap();
-	            
-	        	map.put(ACTIVITY_JSON, activity.getRequestJson());
-	        	
-	            traceNormal(TAG, map.toString());
-	            traceNormal(TAG, CreateActivityRequest.this.getUrl(RequestUrlConstants.CREATE_ACTIVITY_URL, map));
-	            return map;  
-	        }  
-	        
-	    }; 
-	    
-	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-	    
-	    getQueue().add(stringRequest);
-	    
+
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.CREATE_ACTIVITY_URL,  this, this) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> map = getRequestBasicMap();
+
+				map.put(ACTIVITY_JSON, getRequestActivityJSon(activity));
+
+				traceNormal(TAG, map.toString());
+				traceNormal(TAG, CreateActivityRequest.this.getUrl(RequestUrlConstants.CREATE_ACTIVITY_URL, map));
+				return map;
+			}
+
+		};
+
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+		getQueue().add(stringRequest);
+
 	}
-	
+
 	@Override
 	public void responceSuccess(String jstring) {
 		traceNormal(TAG, jstring);
-		
+
 		try {
 			JSONObject json = new JSONObject(jstring);
-			
-			
+
+
 			if(mCreateActivityResponce!=null)
 			{
+				mCreateActivityResponce.success(mActivity);
 			}
 			else
 			{
 				traceError(TAG,"回调接口为null");
 			}
-			
-			
+
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 			if(mBaseResponse!=null)
 			{
 				mBaseResponse.doAfterFailedResponse("json异常");
 			}
 		}
-		
+
 	}
-	
+
 	/***
-	 * 
-	* @ClassName: CreateActivityResponce 
-	* @Description: 创建活动回调接口
-	* @author enlizhang
-	* @date 2015年7月26日 下午8:23:15 
-	*
+	 * 获取Activity的JSON串
+	 * @param activity
+	 * @return
 	 */
-	interface CreateActivityResponce extends IBaseResponse
+	public String getRequestActivityJSon(ActivityModel activity){
+		Map<Object,Object> jsonMap = new HashMap<Object,Object>();
+
+		jsonMap.put("title",activity.title);
+		jsonMap.put("activityType",activity.activityType.getValue());
+		jsonMap.put("logoUrl",activity.coverUrl);
+
+		jsonMap.put("startDateStamp",String.valueOf(activity.activityTime.startDateStamp));
+		jsonMap.put("endDateStamp",String.valueOf(activity.activityTime.endDateStamp));
+		jsonMap.put("dayStartStamp",String.valueOf(activity.activityTime.dayStartTime));
+		jsonMap.put("dayEndStamp",String.valueOf(activity.activityTime.dayEndTime));
+
+		jsonMap.put("description",activity.introductino);
+		jsonMap.put("fee",activity.fee);
+
+		JSONObject locationJO = new JSONObject();
+		try {
+			locationJO.put("provinceCode", activity.location.province.provinceCode);
+			locationJO.put("cityCode", activity.location.city.cityCode);
+			locationJO.put("address", activity.location.address);
+			jsonMap.put("location", locationJO);
+
+			List<Object> contactWayList = new ArrayList<Object>();
+
+			for(int i=0;i<contactWayList.size();i++){
+				JSONObject contactWayJO = new JSONObject();
+				contactWayJO.put("contactType", activity.contactWayList.get(i).getType());
+				contactWayJO.put("contactValue", activity.contactWayList.get(i).getValue());
+				contactWayList.add(contactWayJO);
+			}
+			jsonMap.put("contacts", new JSONArray(contactWayList));
+
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return jsonMap.toString();
+	}
+
+
+	/***
+	 *
+	 * @ClassName: CreateActivityResponce
+	 * @Description: 创建活动回调接口
+	 * @author enlizhang
+	 * @date 2015年7月26日 下午8:23:15
+	 *
+	 */
+	interface ICreateActivityResponce extends IBaseResponse
 	{
 		/***
 		 * 请求成功回掉函数，并返回创建的活动
 		 */
-		public void success(Course course);
+		public void success(ActivityModel activity);
 	}
-	
+
 }
 

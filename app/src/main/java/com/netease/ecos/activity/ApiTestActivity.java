@@ -11,13 +11,16 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Comment.CommentType;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.model.Course.Assignment;
 import com.netease.ecos.model.Image;
+import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.activity.ActivityListRequest;
 import com.netease.ecos.request.comment.CommentListRequest;
 import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.request.course.CreateAssignmentRequest;
@@ -39,7 +42,7 @@ import java.util.List;
 public class ApiTestActivity extends BaseActivity{
 
 	String items[] = {"上传作品","查看作业详情","查看教程评论","获取banner列表","获取推荐教程列表","获取教程筛选列表","获取教程详情"
-			,"获取分享列表","获取分享详情"};
+			,"获取分享列表","获取分享详情","获取活动列表"};
 
 	public boolean isFirst = true;
 
@@ -97,6 +100,9 @@ public class ApiTestActivity extends BaseActivity{
 						break;
 					case 8:
 						getShareDetail();
+						break;
+					case 9:
+						getActivityList();
 						break;
 				}
 			}
@@ -572,6 +578,62 @@ public class ApiTestActivity extends BaseActivity{
 			}
 			tv_display.append("\n");
 			tv_display.append("\n");
+		}
+
+	}
+
+
+	/***
+	 * 获取活动列表
+	 */
+	public void getActivityList() {
+		ActivityListRequest request =  new ActivityListRequest();
+
+		request.request(new ActivityListResponse(), "12", ActivityModel.ActivityType.同人展,0);
+	}
+
+	/***
+	 *
+	 * @ClassName: ActivityListResponse
+	 * @Description: 活动列表响应回掉接口
+	 * @author enlizhang
+	 * @date 2015年7月30日 下午7:14:25
+	 *
+	 */
+	class ActivityListResponse extends BaseResponceImpl implements ActivityListRequest.IActivityListResponse {
+
+		@Override
+		public void doAfterFailedResponse(String message) {
+
+		}
+
+		@Override
+		public void onErrorResponse(VolleyError error) {
+
+		}
+
+		@Override
+		public void success(List<ActivityModel> activityList) {
+			tv_display.setText("");
+
+			for(int i=0;i<activityList.size();i++){
+
+				ActivityModel activity = activityList.get(i);
+
+				tv_display.append("活动名称:" + activity.title + "\n");
+				tv_display.append("  活动封面图:" + activity.coverUrl + "\n");
+				tv_display.append("  活动开始日期:" + ModelUtils.getDateDesByTimeStamp(activity.activityTime.startDateStamp) + "\n");
+				tv_display.append("  活动结束日期:" + ModelUtils.getDateDesByTimeStamp(activity.activityTime.endDateStamp) + "\n");
+				tv_display.append("  每日开始时间:" + activity.activityTime.dayStartTime + "\n");
+				tv_display.append("  每日结束时间:" + activity.activityTime.dayEndTime + "\n");
+				tv_display.append("  城市名称:" + activity.location.city.cityName + "\n");
+				tv_display.append("  详细地址:" + activity.location.address + "\n");
+				tv_display.append("  活动类型:" + activity.activityType.name() + "\n");
+				tv_display.append("\n");
+
+			}
+
+
 		}
 
 	}

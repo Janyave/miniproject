@@ -17,6 +17,7 @@ import android.widget.TimePicker;
 
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.ContactListAdapter;
+import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.views.ExtensibleListView;
 
 import java.util.ArrayList;
@@ -175,19 +176,19 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     }
 
 
-    ArrayList<com.netease.ecos.model.Activity.ContactWay> getDataFromListView() {
+    ArrayList<ActivityModel.ContactWay> getDataFromListView() {
         /*clear all the data in the contactWaysList;
         * read the data from the listview and add them in the contactWayList.
         */
         View view;
-        ArrayList<com.netease.ecos.model.Activity.ContactWay> contactWayArrayList = new ArrayList<>();
+        ArrayList<ActivityModel.ContactWay> contactWayArrayList = new ArrayList<>();
         for (int i = 0; i < contactListAdapter.getCount(); i++) {
             view = contactListView.getChildAt(i);
             Spinner spinner = (Spinner) view.findViewById(R.id.contactTypeSpinner);
             EditText editText = (EditText) view.findViewById(R.id.contactDetailEdTx);
             Log.d("test", "spinner " + i + ":" + spinner.getSelectedItemId());
             Log.d("test", "edittext:" + editText.getText());
-            com.netease.ecos.model.Activity.ContactWay contactWay = ContactListAdapter.contactWays[(int) spinner.getSelectedItemId()];
+            ActivityModel.ContactWay contactWay = ContactListAdapter.contactWays[(int) spinner.getSelectedItemId()];
             contactWay.setValue(editText.getText().toString());
             contactWayArrayList.add(contactWay);
         }
