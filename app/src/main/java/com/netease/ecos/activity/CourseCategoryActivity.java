@@ -85,16 +85,14 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         btn_floading.setOnClickListener(this);
 
         lv_list.setOnTouchListener(new ListViewListener(new ListViewListener.IOnMotionEvent() {
-            Boolean isAnim = false; //是否正在动画
             @Override
             public void doInDown() {
-                if (!isAnim&&btn_floading.isAppear()){
-                    isAnim = true;
+                if (btn_floading.isAppear()){
                     btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
                         @Override
                         public void doAfterAnimation() {
-                            isAnim = false;
                             btn_floading.setIsDisappear();
+                            btn_floading.setIsAnim(false);
                         }
                     });
                 }
@@ -102,47 +100,37 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
             @Override
             public void doInUp() {
-                if (!isAnim&&btn_floading.isDisappear()){
-                    if (!isAnim){
-                        isAnim = true;
-                        btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
-                            @Override
-                            public void doAfterAnimation() {
-                                isAnim = false;
-                                btn_floading.setIsAppear();
-                            }
-                        });
-                    }
+                if (btn_floading.isDisappear()){
+                    btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
+                        @Override
+                        public void doAfterAnimation() {
+                            btn_floading.setIsAppear();
+                            btn_floading.setIsAnim(false);
+                        }
+                    });
                 }
             }
 
             @Override
             public void doInChangeToDown() {
-                if (!isAnim){
-                    isAnim = true;
-                    btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
-                        @Override
-                        public void doAfterAnimation() {
-                            isAnim = false;
-                            btn_floading.setIsDisappear();
-                        }
-                    });
-                }
-
+                btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
+                    @Override
+                    public void doAfterAnimation() {
+                        btn_floading.setIsDisappear();
+                        btn_floading.setIsAnim(false);
+                    }
+                });
             }
 
             @Override
             public void doInChangeToUp() {
-                if (!isAnim){
-                    isAnim = true;
-                    btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
-                        @Override
-                        public void doAfterAnimation() {
-                            isAnim = false;
-                            btn_floading.setIsAppear();
-                        }
-                    });
-                }
+                btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
+                    @Override
+                    public void doAfterAnimation() {
+                        btn_floading.setIsAppear();
+                        btn_floading.setIsAnim(false);
+                    }
+                });
             }
         }));
 //        lv_list.setOnScrollListener(new AbsListView.OnScrollListener() {

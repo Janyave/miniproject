@@ -102,7 +102,6 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         });
 
         sv.setOnTouchListener(new ViewScrollListener(new ViewScrollListener.IOnMotionEvent() {
-            Boolean isAnim = false; //是否正在动画
             @Override
             public void doInDown() {
                 if (btn_floading.isAppear()){
