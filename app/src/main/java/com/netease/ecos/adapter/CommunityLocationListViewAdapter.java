@@ -3,23 +3,17 @@ package com.netease.ecos.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.views.CommunityGridView;
-import com.netease.ecos.views.CommunityListView;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -107,11 +101,11 @@ public class CommunityLocationListViewAdapter extends BaseAdapter {
         }
     }
 
-    private String[] strings = new String[]{"热门", "A-G", "H-K", "L-S", "T-Z"};
-    private String[] Location_H = new String[]{"不限", "北京", "上海", "广东", "浙江", "四川"};
-    private String[] Location_A = new String[]{"安徽", "北京", "重庆", "福建", "甘肃", "广东", "广西", "贵州"};
-    private String[] Location_I = new String[]{"海南", "河北", "黑龙江", "河南", "湖北", "湖南", "江苏", "江西", "吉林"};
-    private String[] Location_L = new String[]{"辽宁", "内蒙", "宁夏", "青海", "山东", "上海", "陕西", "山西", "四川"};
-    private String[] Location_T = new String[]{"天津", "新疆", "西藏", "云南", "浙江"};
+    public static String[] strings = new String[]{"热门", "A-G", "H-K", "L-S", "T-Z"};
+    public static String[] Location_H = new String[]{"不限", "北京", "上海", "广东", "浙江", "四川"};
+    public static String[] Location_A = new String[]{"安徽", "北京", "重庆", "福建", "甘肃", "广东", "广西", "贵州"};
+    public static String[] Location_I = new String[]{"海南", "河北", "黑龙江", "河南", "湖北", "湖南", "江苏", "江西", "吉林"};
+    public static String[] Location_L = new String[]{"辽宁", "内蒙", "宁夏", "青海", "山东", "上海", "陕西", "山西", "四川"};
+    public static String[] Location_T = new String[]{"天津", "新疆", "西藏", "云南", "浙江"};
     private ArrayList<String[]> arrayListLocation = new ArrayList<String[]>();
 }

@@ -15,18 +15,18 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/29.
  */
-public class NotificationActivity extends Activity implements View.OnClickListener{
+public class NotificationActivity extends Activity implements View.OnClickListener {
 
     @InjectView(R.id.tv_reply)
-    TextView tv_reply; //»Ø¸´
+    TextView tv_reply; //ï¿½Ø¸ï¿½
     @InjectView(R.id.tv_contact)
-    TextView tv_contact; //Ë½ÐÅ
+    TextView tv_contact; //Ë½ï¿½ï¿½
     @InjectView(R.id.tv_notice)
     TextView tv_notice; //Í¨Öª
     @InjectView(R.id.lv_list)
-    ListView lv_list; //ÏÔÊ¾ÁÐ±í
+    ListView lv_list; //ï¿½ï¿½Ê¾ï¿½Ð±ï¿½
 
-    private NotificationContactAdapter contactAdapter; //Ë½ÐÅAdapter
+    private NotificationContactAdapter contactAdapter; //Ë½ï¿½ï¿½Adapter
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,18 +47,18 @@ public class NotificationActivity extends Activity implements View.OnClickListen
     }
 
     private void initData() {
-        contactAdapter=new NotificationContactAdapter(this);
+        contactAdapter = new NotificationContactAdapter(this);
         lv_list.setAdapter(contactAdapter);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_reply:
-                //»Ø¸´
+                //ï¿½Ø¸ï¿½
                 break;
             case R.id.tv_contact:
-                //Ë½ÐÅ
+                //Ë½ï¿½ï¿½
                 break;
             case R.id.tv_notice:
                 //Í¨Öª
