@@ -71,8 +71,8 @@ public class Course {
 	public void addStep(Assignment assignment){
 		assignmentList.add(assignment);
 	}
-	
-	
+
+
 	/***
 	 * 返回教程类别名称列表
 	 * @return
@@ -182,7 +182,7 @@ public class Course {
         public String imagePath;
 
         /*** 步骤对应的图片url */
-        public String photoUrl;
+        public String imageUrl;
 
         /*** 步骤描述 */
         public String description;
@@ -193,7 +193,7 @@ public class Course {
         {
             out.writeInt(stepIndex);
             out.writeString(imagePath);
-            out.writeString(photoUrl);
+            out.writeString(imageUrl);
             out.writeString(description);
 
         }
@@ -217,7 +217,7 @@ public class Course {
         {
             stepIndex = in.readInt();
             imagePath = in.readString();
-            photoUrl = in.readString();
+			imageUrl = in.readString();
             description = in.readString();
 
         }
@@ -230,7 +230,7 @@ public class Course {
 
         /***
          * {@link #stepIndex}、{@link #imagePath}、{@link #description}是否有为空的(null或空串)
-         * @return true:除{@link #photoUrl}外数据都不为空 false:除{@link #photoUrl}外数据有数据为空
+         * @return true:除{@link #imageUrl}外数据都不为空 false:除{@link #photoUrl}外数据有数据为空
          */
         public boolean isSomeEmpty(){
 
@@ -243,7 +243,7 @@ public class Course {
 		@Override
 		public String toString() {
 			return "Step [stepIndex=" + stepIndex + ", imagePath=" + imagePath
-					+ ", photoUrl=" + photoUrl + ", description=" + description
+					+ ", imageUrl=" + imageUrl + ", description=" + description
 					+ "]";
 		}
 
@@ -280,6 +280,16 @@ public class Course {
 		public String getBelongs() {
 			return value;
 		}
+
+		public static CourseType getCourseType(String value){
+			for(CourseType courseType:CourseType.values()){
+				if(courseType.getBelongs().equals(value))
+					return courseType;
+			}
+
+			return null;
+		}
+
 	}
 	
 	/***
@@ -301,15 +311,21 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course [courseId=" + courseId + ", userId=" + userId
-				+ ", courseType=" + courseType + ", title=" + title
-				+ ", author=" + author + ", authorAvatarUrl=" + authorAvatarUrl
-				+ ", issueTimeStamp=" + issueTimeStamp + ", coverLocalPath="
-				+ coverLocalPath + ", coverUrl=" + coverUrl + ", stepList="
-				+ stepList + ", praiseNum=" + praiseNum + ", assignmentList="
-				+ assignmentList + ", assignmentNum=" + assignmentNum
-				+ ", commentNum=" + commentNum + "]";
+		return "Course{" +
+				"courseId='" + courseId + '\'' +
+				", userId='" + userId + '\'' +
+				", courseType=" + courseType +
+				", title='" + title + '\'' +
+				", author='" + author + '\'' +
+				", authorAvatarUrl='" + authorAvatarUrl + '\'' +
+				", issueTimeStamp=" + issueTimeStamp +
+				", coverLocalPath='" + coverLocalPath + '\'' +
+				", coverUrl='" + coverUrl + '\'' +
+				", stepList=" + stepList +
+				", praiseNum=" + praiseNum +
+				", assignmentList=" + assignmentList +
+				", assignmentNum=" + assignmentNum +
+				", commentNum=" + commentNum +
+				'}';
 	}
-
-
 }

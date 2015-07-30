@@ -14,20 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.VolleyError;
 import com.netease.ecos.R;
-import com.netease.ecos.adapter.CourseListViewAdapter;
 import com.netease.ecos.adapter.RecruitmentListViewAdapter;
-import com.netease.ecos.model.Course;
-import com.netease.ecos.request.BaseResponceImpl;
-import com.netease.ecos.request.course.CourseListRequest;
-import com.netease.ecos.views.AnimationHelper;
-import com.netease.ecos.views.FloadingButton;
 import com.netease.ecos.views.XListView;
-
-import java.util.List;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 

@@ -66,7 +66,6 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         mainView = inflater.inflate(R.layout.fragment_course, container, false);
 
         bindView();
@@ -103,40 +102,52 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         });
 
         sv.setOnTouchListener(new ViewScrollListener(new ViewScrollListener.IOnMotionEvent() {
-            Boolean isAnim = false; //是否正在动画
             @Override
             public void doInDown() {
+                if (btn_floading.isAppear()){
+                    btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
+                        @Override
+                        public void doAfterAnimation() {
+                            btn_floading.setIsDisappear();
+                            btn_floading.setIsAnim(false);
+                        }
+                    });
+                }
             }
 
             @Override
             public void doInUp() {
+                if (btn_floading.isDisappear()){
+                        btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
+                            @Override
+                            public void doAfterAnimation() {
+                                btn_floading.setIsAppear();
+                                btn_floading.setIsAnim(false);
+                            }
+                        });
+                    }
             }
 
             @Override
             public void doInChangeToDown() {
-                if (!isAnim){
                     btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
                         @Override
                         public void doAfterAnimation() {
-                            isAnim = false;
+                            btn_floading.setIsDisappear();
+                            btn_floading.setIsAnim(false);
                         }
                     });
-                    isAnim = true;
-                }
-
             }
 
             @Override
             public void doInChangeToUp() {
-                if (!isAnim){
                     btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
                         @Override
                         public void doAfterAnimation() {
-                            isAnim = false;
+                            btn_floading.setIsAppear();
+                            btn_floading.setIsAnim(false);
                         }
                     });
-                    isAnim = true;
-                }
             }
         }));
 
@@ -190,6 +201,8 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         super.onResume();
         banner.setFocusable(true);
         banner.setFocusableInTouchMode(true);
+
+        btn_floading.reset();
     }
 
     class GetBannerResponse extends BaseResponceImpl implements GetBannerRequest.IGetBannerResponse {

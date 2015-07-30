@@ -433,6 +433,7 @@ public class ApiTestActivity extends BaseActivity {
         request.request(new ShareListResponse(), null, "keyWordk", 0);
     }
 
+
     /**
      * @author enlizhang
      * @ClassName: GetAssignmetnDetailResponse
@@ -440,6 +441,7 @@ public class ApiTestActivity extends BaseActivity {
      * @date 2015年7月28日 下午5:24:35
      */
     class ShareListResponse extends BaseResponceImpl implements ShareListRequest.IShareListResponse {
+
 
         @Override
         public void doAfterFailedResponse(String message) {

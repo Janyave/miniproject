@@ -1,20 +1,11 @@
 package com.netease.ecos.request.course;
 
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request.Method;
-import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
-import com.netease.ecos.request.MyStringRequest;
-import com.netease.ecos.request.NorResponce;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /***
  * 
@@ -31,16 +22,20 @@ public class CreateCourseRequest extends BaseRequest{
 	public static final String COURSE_JSON = "course_json";
 	
 	//响应参数键
-	CreateCourseResponce mCreateCourseResponce;
+	ICreateCourseResponce mCreateCourseResponce;
 	
 	Course mCourse;
 	
-	public void request(CreateCourseResponce createCourseResponce, final Course course)
+	public void request(ICreateCourseResponce createCourseResponce, final Course course)
 	{
 		super.initBaseRequest(createCourseResponce);
 		mCreateCourseResponce = createCourseResponce;
-		
-		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.CREATE_COURSE_URL,  this, this) {  
+		if(mCreateCourseResponce!=null)
+		{
+			mCreateCourseResponce.success(mCourse);
+		}
+
+		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.CREATE_COURSE_URL,  this, this) {
 	        @Override  
 	        protected Map<String, String> getParams() throws AuthFailureError {  
 	        	Map<String, String> map = getRequestBasicMap();
@@ -56,7 +51,7 @@ public class CreateCourseRequest extends BaseRequest{
 	    
 	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 	    
-	    getQueue().add(stringRequest);
+	    getQueue().add(stringRequest);*/
 	    
 	}
 	
@@ -98,7 +93,7 @@ public class CreateCourseRequest extends BaseRequest{
 	* @date 2015年7月26日 下午4:34:42 
 	*
 	 */
-	interface CreateCourseResponce extends IBaseResponse
+	public interface ICreateCourseResponce extends IBaseResponse
 	{
 		/***
 		 * 请求成功

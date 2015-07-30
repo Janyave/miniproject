@@ -11,7 +11,6 @@ import com.netease.ecos.R;
 import com.netease.ecos.model.Course;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,19 +48,19 @@ public class CourseDetailStepAdapter extends BaseAdapter{
         }
 
         /**
-         * ´«ÈëÊý¾ÝÎ´¶¨
+         * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½
          */
         public void setData(int position){
             Course.Step item=stepList.get(position);
 
-            Picasso.with(mcontext).load(item.photoUrl).placeholder(R.drawable.img_default).into(iv_stepImage);
+            Picasso.with(mcontext).load(item.imagePath).placeholder(R.drawable.img_default).into(iv_stepImage);
             tv_stepText.setText(item.description);
             tv_stepNum.setText(position+1+"");
         }
     }
 
 
-    //TODO Êý¾ÝÊýÁ¿¡¾ÏÖÔÚÄ£ÄâÎª4¡¿
+    //TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½Îª4ï¿½ï¿½
     @Override
     public int getCount() {
         return 4;

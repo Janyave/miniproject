@@ -176,6 +176,10 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     private RadioGroup.OnCheckedChangeListener mOnCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
+            /**用于在fragment切换的时候关闭CommunityFragment中的popupWindow*/
+            if (mFragments[TAB_COMMUCITY_INDEX] != null)
+                ((CommunityFragment) mFragments[TAB_COMMUCITY_INDEX]).execute();
+
             switch (checkedId) {
                 //点击教程tab
                 case R.id.radio_1:

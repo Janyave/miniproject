@@ -10,6 +10,10 @@ import android.widget.Button;
  */
 public class FloadingButton extends Button{
 
+    private Boolean isDisappear=false;
+    private Boolean isAppear=true;
+    private Boolean isAnim=false;
+
     public FloadingButton(Context context) {
         super(context);
     }
@@ -22,15 +26,62 @@ public class FloadingButton extends Button{
      * button appear
      * @param doAfterAnimation
      */
-    public void appear(AnimationHelper.DoAfterAnimation doAfterAnimation){
-        AnimationHelper.setViewMoveAnimation(this, 0, -300, 0, 1, 500, doAfterAnimation);
+    public synchronized void appear(AnimationHelper.DoAfterAnimation doAfterAnimation){
+        if (!IsAnim()&&isDisappear){
+            setIsAnim(true);
+            AnimationHelper.setViewMoveAnimation(this, 0, -300, 0, 1, 500, doAfterAnimation);
+        }
     }
 
     /**
      * button disappear
      * @param doAfterAnimation
      */
-    public void disappear(AnimationHelper.DoAfterAnimation doAfterAnimation){
-        AnimationHelper.setViewMoveAnimation(this, 0, 300, 1, 0, 500,doAfterAnimation);
+    public synchronized void disappear(AnimationHelper.DoAfterAnimation doAfterAnimation){
+        if (!IsAnim()&&isAppear){
+            setIsAnim(true);
+            AnimationHelper.setViewMoveAnimation(this, 0, 300, 1, 0, 500, doAfterAnimation);
+        }
+    }
+
+    public synchronized void setIsDisappear(){
+        isDisappear=true;
+        isAppear=false;
+    }
+
+    public synchronized void setIsAppear(){
+        isAppear=true;
+        isDisappear=false;
+    }
+
+    public synchronized Boolean isAppear(){
+        return isAppear;
+    }
+
+    public synchronized Boolean isDisappear(){
+        return isDisappear;
+    }
+
+    public synchronized Boolean IsAnim(){
+        return isAnim;
+    }
+
+    public synchronized void setIsAnim(Boolean b){
+        isAnim=b;
+    }
+
+    public void reset(){
+        if (!isAppear()){
+            appear(new AnimationHelper.DoAfterAnimation(){
+
+                @Override
+                public void doAfterAnimation() {
+                    setIsAppear();
+                    setIsAnim(false);
+                }
+            });
+        }else if(isAppear()) {
+            setIsAppear();
+        }
     }
 }

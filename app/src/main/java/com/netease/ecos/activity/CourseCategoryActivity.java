@@ -22,6 +22,7 @@ import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.FloadingButton;
+import com.netease.ecos.views.ListViewListener;
 import com.netease.ecos.views.XListView;
 
 import java.util.List;
@@ -83,52 +84,101 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         lly_left_action.setOnClickListener(this);
         btn_floading.setOnClickListener(this);
 
-        lv_list.setOnScrollListener(new AbsListView.OnScrollListener() {
-            int lvIndext = 0; //当前listView显示的首个Item的Index
-            String state = "up"; //当前ListView动作状态 up or down
-            Boolean isAnim = false; //是否正在动画
-
+        lv_list.setOnTouchListener(new ListViewListener(new ListViewListener.IOnMotionEvent() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            public void doInDown() {
+                if (btn_floading.isAppear()){
+                    btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
+                        @Override
+                        public void doAfterAnimation() {
+                            btn_floading.setIsDisappear();
+                            btn_floading.setIsAnim(false);
+                        }
+                    });
+                }
             }
 
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                /***当前滑动状态，与记录的lvIndex作比较，发生变化触发动画*/
-                String nowstate = state;
-                /***当前可见Item的首个Index*/
-                int nowIndext = firstVisibleItem;
-                /***nowIndex大于lvIndex，ListView下滑*/
-                if (nowIndext > lvIndext && !isAnim) {
-                    nowstate = "down";
-                    if (!TextUtils.equals(nowstate, state)) {
-                        btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
-                            @Override
-                            public void doAfterAnimation() {
-                                isAnim = false;
-                            }
-                        });
-                        isAnim = true;
-                    }
+            public void doInUp() {
+                if (btn_floading.isDisappear()){
+                    btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
+                        @Override
+                        public void doAfterAnimation() {
+                            btn_floading.setIsAppear();
+                            btn_floading.setIsAnim(false);
+                        }
+                    });
                 }
-                /***nowIndex小于lvIndex，ListView下滑*/
-                if (nowIndext < lvIndext && !isAnim) {
-                    nowstate = "up";
-                    if (!TextUtils.equals(nowstate, state)) {
-                        btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
-                            @Override
-                            public void doAfterAnimation() {
-                                isAnim = false;
-                            }
-                        });
-                        isAnim = true;
-                    }
-                }
-                state = nowstate;
-                lvIndext = nowIndext;
             }
-        });
+
+            @Override
+            public void doInChangeToDown() {
+                btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
+                    @Override
+                    public void doAfterAnimation() {
+                        btn_floading.setIsDisappear();
+                        btn_floading.setIsAnim(false);
+                    }
+                });
+            }
+
+            @Override
+            public void doInChangeToUp() {
+                btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
+                    @Override
+                    public void doAfterAnimation() {
+                        btn_floading.setIsAppear();
+                        btn_floading.setIsAnim(false);
+                    }
+                });
+            }
+        }));
+//        lv_list.setOnScrollListener(new AbsListView.OnScrollListener() {
+//            int lvIndext = 0; //当前listView显示的首个Item的Index
+//            String state = "up"; //当前ListView动作状态 up or down
+//            Boolean isAnim = false; //是否正在动画
+//
+//            @Override
+//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//            }
+//
+//            @Override
+//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//
+//                /***当前滑动状态，与记录的lvIndex作比较，发生变化触发动画*/
+//                String nowstate = state;
+//                /***当前可见Item的首个Index*/
+//                int nowIndext = firstVisibleItem;
+//                /***nowIndex大于lvIndex，ListView下滑*/
+//                if (nowIndext > lvIndext && !isAnim) {
+//                    nowstate = "down";
+//                    if (!TextUtils.equals(nowstate, state)) {
+//                        btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
+//                            @Override
+//                            public void doAfterAnimation() {
+//                                isAnim = false;
+//                            }
+//                        });
+//                        isAnim = true;
+//                    }
+//                }
+//                /***nowIndex小于lvIndex，ListView下滑*/
+//                if (nowIndext < lvIndext && !isAnim) {
+//                    nowstate = "up";
+//                    if (!TextUtils.equals(nowstate, state)) {
+//                        btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
+//                            @Override
+//                            public void doAfterAnimation() {
+//                                isAnim = false;
+//                            }
+//                        });
+//                        isAnim = true;
+//                    }
+//                }
+//                state = nowstate;
+//                lvIndext = nowIndext;
+//            }
+//        });
     }
 
     @Override
