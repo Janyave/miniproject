@@ -423,7 +423,7 @@ public class ApiTestActivity extends BaseActivity{
 			for(Course.Step step:course.stepList){
 
 				tv_display.append("教程步骤序号:" + step.stepIndex+"\n");
-				tv_display.append("    教程图片url:" + step.photoUrl+"\n");
+				tv_display.append("    教程图片url:" + step.imagePath+"\n");
 				tv_display.append("    评论内容:" + step.description+"\n");
 			}
 			tv_display.append("\n");

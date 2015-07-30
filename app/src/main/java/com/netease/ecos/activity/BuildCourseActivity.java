@@ -14,11 +14,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.CourseStepAdapter;
+import com.netease.ecos.constants.IntentDataKeyContants;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.Course;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.course.CreateCourseRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
+import com.netease.ecos.utils.UploadImageTools;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,6 +44,12 @@ public class BuildCourseActivity extends BaseActivity {
     Button rightButton;
     @InjectView(R.id.tv_left)
     TextView backTxVw;
+
+    /**
+     * 教程名称
+     */
+    @InjectView(R.id.etv_course_title)
+    TextView etv_course_title;
 
     /**
      * 教程封面
@@ -93,11 +104,29 @@ public class BuildCourseActivity extends BaseActivity {
 
     CourseStepAdapter mCourseStepAdapter;
 
+    /** {@link com.netease.ecos.model.Course.CourseType}枚举值 */
+    public String mCourseTypeValue;
+
+    /*** 教程封面本地路径  */
+    public String mCoverLocalPath;
+
+    /*** 教程标题 */
+    public String mCourseTitle;
+
+
     @Override
     protected void onCreate(Bundle onSavedInstance) {
         super.onCreate(onSavedInstance);
         Log.i(CLASS_TAG, "onCreate()");
         setContentView(R.layout.activity_build_course);
+
+        if(getIntent()!=null){
+            mCourseTypeValue = getIntent().getStringExtra(IntentDataKeyContants.COURSE_TYPE);
+
+            if(mCourseTypeValue==null)
+                mCourseTypeValue = Course.CourseType.摄影.getBelongs();
+        }
+
         //注解工具初始化
         ButterKnife.inject(this);
         initData();
@@ -221,6 +250,11 @@ public class BuildCourseActivity extends BaseActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i("onSaveInstanceState", "<--------------------");
         savedInstanceState.putParcelableArrayList("stepData", (ArrayList<Course.Step>) mCourseStepAdapter.getStepDataList());
+        savedInstanceState.putString("mConurseTypeValue", mCourseTypeValue);
+        savedInstanceState.putString("mCoverLocalPath",mCoverLocalPath);
+        savedInstanceState.putString("mCourseTitle",mCourseTitle);
+
+        Log.i("onSaveInstanceState", getCourseByPage().toString());
         Log.i("onSaveInstanceState", "-------------------->");
     }
 
@@ -234,6 +268,16 @@ public class BuildCourseActivity extends BaseActivity {
         for (Course.Step step : list) {
             Log.i("onRestoreInstanceState", step.toString());
         }
+
+        mCourseTypeValue = savedInstanceState.getString("mConurseTypeValue");
+        mCoverLocalPath = savedInstanceState.getString("mCoverLocalPath");
+        mCourseTitle =  savedInstanceState.getString("mCourseTitle");
+
+        releaseImageViewResouce(iv_course_cover);
+        iv_course_cover.setImageBitmap(BitmapFactory.decodeFile(mCoverLocalPath));
+        etv_course_title.setText(mCourseTitle);
+
+        Log.i("onSaveInstanceState", getCourseByPage().toString());
         Log.i("onRestoreInstanceState", "--------------------");
 
     }
@@ -321,11 +365,109 @@ public class BuildCourseActivity extends BaseActivity {
                     break;
                 //发布教程
                 case R.id.btn_iss_course:
-                    startActivity(new Intent(BuildCourseActivity.this, MainActivity.class));
+//                    startActivity(new Intent(BuildCourseActivity.this, MainActivity.class));
+                    createCourse();
+
                     break;
             }
         }
     };
+
+    public void createCourse(){
+        Course course = getCourseByPage();
+        CreateCourseRequest request = new CreateCourseRequest();
+        request.request(new CreateCourseResponse(),course);
+    }
+
+    /***
+     * 获取页面教程数据
+     * @return
+     */
+    public Course getCourseByPage(){
+        final Course course = new Course();
+        course.title = etv_course_title.getText().toString();
+        course.courseType = Course.CourseType.getCourseType(mCourseTypeValue);
+
+        //获取图片
+        if(mCoverLocalPath!=null && new File(mCoverLocalPath).exists()){
+            UploadImageTools.uploadImageSys(new File(mCoverLocalPath), new UploadImageTools.UploadCallBack(){
+
+                @Override
+                public void success(String originUrl, String thumbUrl) {
+
+                    course.coverUrl = originUrl;
+                    Log.i("图片上传","原图路径" + originUrl);
+                    Log.i("图片上传", "缩略图路径" + thumbUrl);
+                }
+
+                @Override
+                public void fail() {
+                    Toast.makeText(BuildCourseActivity.this,"上传失败"，Toast.LENGTH_LONG).show();;
+
+                }
+
+                @Override
+                public void onProcess(Object fileParam, long current, long total) {
+                    Log.i("图片上传","上传数" + total + "  ," + "已上传" + current);
+                }
+
+            },   BuildCourseActivity.this, false); }
+
+        course.stepList = mCourseStepAdapter.getStepDataList();
+
+
+        for(final Course.Step step:course.stepList)
+        {
+            if(step.imagePath!=null && new File(step.imagePath).exists())
+            {
+                UploadImageTools.uploadImageSys(new File(step.imagePath), new UploadImageTools.UploadCallBack(){
+
+                    @Override
+                    public void success(String originUrl, String thumbUrl) {
+
+                        step.imageUrl = originUrl;
+                    }
+
+                    @Override
+                    public void fail() {
+
+                    }
+
+                    @Override
+                    public void onProcess(Object fileParam, long current, long total) {
+                        Log.i("图片上传","上传数" + total + "  ," + "已上传" + current);
+                    }
+
+                },   BuildCourseActivity.this, false);
+            }
+        }
+
+        Log.v(TAG,"发布教程数据:------------" + course.toString());
+
+        return course;
+    }
+
+    /***
+     * 创建教程响应回调接口
+     */
+    class CreateCourseResponse extends BaseResponceImpl implements CreateCourseRequest.ICreateCourseResponce {
+
+        @Override
+        public void success(Course course) {
+            Log.e(TAG,"上传成功");
+            finish();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
+    }
 
 
 }

@@ -133,7 +133,7 @@ public class GetCourseDetailRequest extends BaseRequest{
 		Step step;
 		for(int i=0;i<5;i++){
 			step= new Step(i+1);
-			step.photoUrl = stepImageList.get(i);
+			step.imagePath = stepImageList.get(i);
 			step.description = "这是测试" + i;
 			course.addStep(step);
 		}

@@ -18,7 +18,7 @@ import com.netease.ecos.dialog.MyProgressDialog;
  */
 public class BaseActivity extends ActionBarActivity {
 
-    private static String TAG = "BaseActivity";
+    protected static String TAG = "BaseActivity";
 
     /***
      * 提示对话框

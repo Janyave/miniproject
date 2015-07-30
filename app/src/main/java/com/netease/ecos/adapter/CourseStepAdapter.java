@@ -140,6 +140,8 @@ public class CourseStepAdapter extends BaseAdapter {
         holder.tv_index.setText(String.valueOf(stepData.stepIndex));
         Log.e("步骤描述", stepData.toString());
 
+
+
         //            holder.niv_course_photo.setErrorImageResId(R.drawable.bg_niv_error);
         //            //若照片Url有效，则进行加载
         //            if( !(stepData.photoUrl ==null) && !("".equals(stepData.photoUrl.trim())) )
