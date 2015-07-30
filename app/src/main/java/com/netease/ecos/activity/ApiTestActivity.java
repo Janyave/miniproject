@@ -330,7 +330,7 @@ public class ApiTestActivity extends BaseActivity{
 		Log.e("获取推荐教程列表", "getCommentList()");
 
 		CourseListRequest request = new CourseListRequest();
-		request.request(new CourseListResponse(),CourseListRequest.Type.推荐,null,null,null);
+		request.request(new CourseListResponse(),CourseListRequest.Type.推荐,null,null,null,0);
 	}
 
 
@@ -339,7 +339,7 @@ public class ApiTestActivity extends BaseActivity{
 
 		CourseListRequest request = new CourseListRequest();
 		request.request(new CourseListResponse(),CourseListRequest.Type.筛选,
-				Course.CourseType.妆娘,"鸣人",CourseListRequest.SortRule.时间);
+				Course.CourseType.妆娘,"鸣人",CourseListRequest.SortRule.时间,0);
 	}
 
 
@@ -374,6 +374,7 @@ public class ApiTestActivity extends BaseActivity{
 				tv_display.append("    作者头像url:" + course.authorAvatarUrl +"\n");
 				tv_display.append("    教程封面url:" + course.coverUrl +"\n");
 				tv_display.append("    点赞数:" + course.praiseNum +"\n");
+				tv_display.append("    日期:" + ModelUtils.getDateDesByTimeStamp(course.issueTimeStamp));
 
 			}
 

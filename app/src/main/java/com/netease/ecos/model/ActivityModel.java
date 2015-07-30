@@ -238,6 +238,7 @@ public class ActivityModel {
 
 		QQ("0"),
 		QQ群("1"),
+		微信("2"),
 		电话("3");
 
 		/*** 类型*/
