@@ -361,13 +361,13 @@ public class ApiTestActivity extends BaseActivity{
 		public void success(List<Course> courseList) {
 			tv_display.setText("");
 
-			for(Course course:courseList){
+				for(Course course:courseList){
 
-				tv_display.append("网友昵称:" + course.author +"\n");
-				tv_display.append("    教程标题:" + course.title +"\n");
-				tv_display.append("    作者头像url:" + course.authorAvatarUrl +"\n");
-				tv_display.append("    教程封面url:" + course.coverUrl +"\n");
-				tv_display.append("    点赞数:" + course.praiseNum +"\n");
+					tv_display.append("网友昵称:" + course.author +"\n");
+					tv_display.append("    教程标题:" + course.title +"\n");
+					tv_display.append("    作者头像url:" + course.authorAvatarUrl +"\n");
+					tv_display.append("    教程封面url:" + course.coverUrl +"\n");
+					tv_display.append("    点赞数:" + course.praiseNum +"\n");
 
 			}
 

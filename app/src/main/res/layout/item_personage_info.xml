@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:id="@+id/item_personage_info">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:id="@+id/item_personage_icon"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:layout_weight="7"
+        android:gravity="center"
+        android:id="@+id/item_personage_title"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:layout_margin="15dp"
+        android:background="@drawable/bg_personage_info_num"
+        android:id="@+id/item_personage_warn_num"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:padding="10dp"
+        android:src="@drawable/ic_show"/>
+
+
+
+
+</LinearLayout>

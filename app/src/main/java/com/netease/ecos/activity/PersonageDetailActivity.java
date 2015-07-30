@@ -13,8 +13,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
@@ -22,7 +20,10 @@ import com.netease.ecos.R;
 import com.netease.ecos.fragment.CommunityFragment;
 import com.netease.ecos.fragment.CourseFragment;
 import com.netease.ecos.fragment.DisplayFragment;
+import com.netease.ecos.fragment.PersonageActivityFragment;
 import com.netease.ecos.fragment.PersonageCourseFragment;
+import com.netease.ecos.fragment.PersonageRecruitFragment;
+import com.netease.ecos.fragment.PersonageShareFragment;
 import com.netease.ecos.fragment.TransactionFragment;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
@@ -43,12 +44,6 @@ public class PersonageDetailActivity extends BaseActivity {
     @InjectView(R.id.lly_left_action)
     View bt_personage_return;
 
-    @InjectView(R.id.tv_title)
-    TextView tv_title;
-
-    @InjectView(R.id.btn_right_action)
-    Button bt_confirm;
-
     @InjectView(R.id.bt_attention)
     Button bt_attention;
 
@@ -68,6 +63,16 @@ public class PersonageDetailActivity extends BaseActivity {
 
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_personage_detail);
+
+        ButterKnife.inject(this);
+        initUserData();
+        initViews();
+    }
+
     /***
      * 初始化视图
      */
@@ -84,8 +89,6 @@ public class PersonageDetailActivity extends BaseActivity {
 
         ((RadioButton)mRadioGroup.getChildAt(mCurrentTab)).setChecked(true);
 
-        bt_confirm.setVisibility(View.INVISIBLE);
-        tv_title.setText("个人主页");
 
         bt_attention.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,7 +167,7 @@ public class PersonageDetailActivity extends BaseActivity {
 
         RoundImageView user_avatar = (RoundImageView) findViewById(R.id.iv_personage_portrait);
         TextView user_name = (TextView) findViewById(R.id.bt_personage_name);
-        TextView user_gender = (TextView) findViewById(R.id.tv_personage_gender);
+        RoundImageView user_gender = (RoundImageView) findViewById(R.id.riv_personage_gender);
         TextView user_attention = (TextView) findViewById(R.id.tv_personage_attention);
         TextView user_fans = (TextView) findViewById(R.id.tv_personage_fans);
         TextView user_description = (TextView) findViewById(R.id.tv_personage_description);
@@ -179,7 +182,11 @@ public class PersonageDetailActivity extends BaseActivity {
         user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
 
         user_name.setText(mUserData.nickname);
-        user_gender.setText(mUserData.gender.toString());
+        if(mUserData.gender == User.Gender.女) {
+            user_gender.setBackgroundResource(R.drawable.img_gender_famale);
+        }else {
+            user_gender.setBackgroundResource(R.drawable.img_gender_male);
+        }
         user_attention.setText("关注数：" + mUserData.followOtherNum);
         user_fans.setText("粉丝数：" + mUserData.fansNum);
         user_description.setText(mUserData.characterSignature);
@@ -200,17 +207,17 @@ public class PersonageDetailActivity extends BaseActivity {
 
                 case TAB_COMMUCITY_INDEX:
                     if(mFragments[TAB_COMMUCITY_INDEX]==null)
-                        mFragments[TAB_COMMUCITY_INDEX] = new CommunityFragment();
+                        mFragments[TAB_COMMUCITY_INDEX] = new PersonageActivityFragment();
                     return mFragments[TAB_COMMUCITY_INDEX];
 
                 case TAB_TRANSACTION_INDEX:
                     if(mFragments[TAB_TRANSACTION_INDEX]==null)
-                        mFragments[TAB_TRANSACTION_INDEX] = new TransactionFragment();
+                        mFragments[TAB_TRANSACTION_INDEX] = new PersonageRecruitFragment();
                     return mFragments[TAB_TRANSACTION_INDEX];
 
                 case TAB_DISPLAY_INDEX:
                     if(mFragments[TAB_DISPLAY_INDEX]==null)
-                        mFragments[TAB_DISPLAY_INDEX] = new DisplayFragment();
+                        mFragments[TAB_DISPLAY_INDEX] = new PersonageShareFragment();
                     return mFragments[TAB_DISPLAY_INDEX];
             }
             return null;
@@ -220,18 +227,6 @@ public class PersonageDetailActivity extends BaseActivity {
         public int getCount() {
             return 4;
         }
-    }
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_personage_detail);
-
-        ButterKnife.inject(this);
-        initUserData();
-        initViews();
     }
 
 //    @Override

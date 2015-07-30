@@ -1,28 +1,38 @@
 package com.netease.ecos.fragment;
 
 import android.app.Activity;
-
-import android.app.ListActivity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
+import com.netease.ecos.activity.ApiTestActivity;
+import com.netease.ecos.model.Course;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.course.CourseListRequest;
+import com.netease.ecos.utils.SDImageCache;
+import com.netease.ecos.utils.yunxin.NetworkUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.zip.CheckedOutputStream;
 
 
 /**
@@ -39,10 +49,11 @@ public class PersonageCourseFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    public static final String ZYW_DEBUG = "ZYW_DEBUG";
+
     private ListView lv_schedule;
-    private ArrayList<HashMap<String, Object>> listItem;
-    private int schedule_set_num = 2;
-    private TextView tv_schedule = null;
+    private List<Course> mListItem;
+    private int schedule_set_num = 5;
 
 
     // TODO: Rename and change types of parameters
@@ -81,24 +92,22 @@ public class PersonageCourseFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        requestData();
     }
 
     public void setSechedule_set_num(int list_num){
         schedule_set_num = list_num;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_personage_course, container, false);
 
+        View root = inflater.inflate(R.layout.fragment_personage_course, container, false);
         lv_schedule = (ListView) root.findViewById(R.id.lv_schedule_set);
-        tv_schedule = (TextView) root.findViewById(R.id.tv_schedule_set);
         MyAdapter adapter = new MyAdapter(root.getContext());
         lv_schedule.setAdapter(adapter);
-        tv_schedule.setText("课程集("+schedule_set_num+")");
+
         return root;
     }
 
@@ -108,7 +117,6 @@ public class PersonageCourseFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
 
     /**
      * This interface must be implemented by activities that contain this
@@ -125,19 +133,24 @@ public class PersonageCourseFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    private ArrayList<HashMap<String, Object>> getDate(){
-
-        ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
-        for(int i = 0; i < schedule_set_num; i++)
-        {
-            HashMap<String, Object> map = new HashMap<String, Object>();
-            map.put("ItemTitle", "第"+i+"个课程");
-            map.put("img", R.drawable.img_default);
-            listItem.add(map);
-        }
-        return listItem;
-
-    }
+    /**
+     * 填充item 数据
+     * */
+//    private ArrayList<HashMap<String, Object>> getDate(){
+//
+//        ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
+//        for(int i = 0; i < schedule_set_num; i++)
+//        {
+//            HashMap<String, Object> map = new HashMap<String, Object>();
+//            map.put("ItemTitle", "第"+i+"个课程");
+//            map.put("img", R.drawable.img_default);
+//            map.put("num", "32个赞");
+//            map.put("date", "2015年7月30日");
+//            listItem.add(map);
+//        }
+//        return listItem;
+//
+//    }
 
     private class MyAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
@@ -148,7 +161,7 @@ public class PersonageCourseFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return getDate().size();
+            return mListItem.size();
         }
 
         @Override
@@ -167,16 +180,31 @@ public class PersonageCourseFragment extends Fragment {
             ViewHolder holder;
 
             if (convertView == null) {
-                convertView = mInflater.inflate(R.layout.item_schedule_set, null);
+                convertView = mInflater.inflate(R.layout.item_personage_course, null);
                 holder = new ViewHolder();
-                holder.title = (TextView) convertView.findViewById(R.id.personage_schedule_set_title);
-                holder.cover = (ImageView) convertView.findViewById(R.id.personage_schedule_set_img);
+                holder.title = (TextView) convertView.findViewById(R.id.tv_personage_item_course_title);
+                holder.cover = (NetworkImageView) convertView.findViewById(R.id.iv_personage_item_course_cover);
+                holder.date = (TextView) convertView.findViewById(R.id.tv_personage_item_course_date);
+                holder.praise = (TextView) convertView.findViewById(R.id.tv_personage_item_praise_num);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            holder.cover.setBackgroundResource((Integer)getDate().get(position).get("img"));
-            holder.title.setText(getDate().get(position).get("ItemTitle").toString());
+            //设置默认图片
+            holder.cover.setDefaultImageResId(R.drawable.img_default);
+            //设置加载出错图片
+            holder.cover.setErrorImageResId(R.drawable.img_default);
+            RequestQueue queue = Volley.newRequestQueue(mInflater.getContext());
+                                                                                                                                                                                                                                                                           ImageLoader.ImageCache imageCache = new SDImageCache();
+            ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+            Log.d(ZYW_DEBUG, mListItem.toString());
+            holder.cover.setImageUrl(mListItem.get(position).coverUrl, imageLoader);
+
+
+            //holder.cover.setBackgroundResource((Integer)getDate().get(position).get("img"));
+            holder.title.setText(mListItem.get(position).title);
+            holder.date.setText("2015年7月30日"/*mListItem.get(position).issueTimeStamp.toString()*/);
+            holder.praise.setText(mListItem.get(position).praiseNum + "个赞");
 
             return convertView;
 
@@ -185,9 +213,39 @@ public class PersonageCourseFragment extends Fragment {
 
         public final class ViewHolder {
             public TextView title;
-            public ImageView cover;
+            public TextView date;
+            public NetworkImageView cover;
+            public TextView praise;
         }
     }
+
+    public void requestData(){
+        Log.e("获取筛选教程列表", "getCourseListByFilter()");
+
+        CourseListRequest request = new CourseListRequest();
+        request.request(new CourseListResponse(),CourseListRequest.Type.筛选,
+                Course.CourseType.妆娘,"鸣人",CourseListRequest.SortRule.时间);
+    }
+
+    class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+
+        }
+
+        @Override
+        public void success(List<Course> courseList) {
+            setSechedule_set_num(courseList.size());
+            mListItem = courseList;
+            }
+        }
+
 
 }
 
