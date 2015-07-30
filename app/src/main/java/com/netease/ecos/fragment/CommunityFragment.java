@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -26,15 +25,12 @@ import android.view.animation.Animation;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.netease.ecos.R;
-import com.netease.ecos.activity.BuildCourseActivity;
-import com.netease.ecos.activity.CourseDetailActivity;
+import com.netease.ecos.activity.EventDetailActivity;
+import com.netease.ecos.activity.NewActivityActivity;
 import com.netease.ecos.adapter.CampaignListViewAdapter;
 import com.netease.ecos.adapter.CommunityLocationListViewAdapter;
 import com.netease.ecos.interfaces.CommunityCallBack;
@@ -145,7 +141,6 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         lv_campaign.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                startActivity(new Intent(getActivity(), CourseDetailActivity.class));
                 if (popupWindowLocation != null)
                     if (popupWindowLocation.isShowing()) {
                         popupWindowLocation.dismiss();
@@ -154,6 +149,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                     if (popupWindowCategory.isShowing()) {
                         popupWindowCategory.dismiss();
                     }
+                startActivity(new Intent(getActivity(), EventDetailActivity.class));
             }
         });
         lv_campaign.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -203,13 +199,13 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
             }
         });
 
-//        btn_floading.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(CommunityFragment.this.getActivity(), BuildCourseActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        btn_floading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CommunityFragment.this.getActivity(), NewActivityActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initData() {

@@ -9,6 +9,7 @@ import android.gesture.Prediction;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -70,6 +71,8 @@ public class WorkDetailActivity extends BaseActivity {
                 return false;
             }
         });
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //implementation on the title bar
         titleTxVw.setText("1/20");
         rightButton.setVisibility(View.INVISIBLE);
@@ -85,14 +88,14 @@ public class WorkDetailActivity extends BaseActivity {
         gestureOverlayView.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
             @Override
             public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
-                /* ²éÕÒÊÖÊÆ¿âÖÐÓëÓÃ»§»­µÄÊÖÊÆ¿âÓÐÐ©ÏàËÆÐÔµÄÊÖÊÆ¼¯ºÏ
-                 * ²¢°´ÕÕÏàËÆÐÔ¶È¸ßµ½µÍÅÅÐò£¬ÓëÓÃ»§»­µÄÍ¼ÐÎ×îÏàËÆµÄÊÖÊÆ£¬·ÅÔÚ¼¯ºÏµÚÒ»¸öÎ»ÖÃ
+                /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¿ï¿½ï¿½ï¿½Ð©ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ï¿½
+                 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶È¸ßµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½Ïµï¿½Ò»ï¿½ï¿½Î»ï¿½ï¿½
                  * */
                 ArrayList<Prediction> predictions = library.recognize(gesture);
                 Prediction prediction;
                 for (int i = 0; i < predictions.size(); i++) {
                     prediction = predictions.get(i);
-                    // Æ¥ÅäµÄÊÖÊÆ
+                    // Æ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     if (prediction.score > 1.0) {
                         if (RIGHT.equals(prediction.name)) {
                             Toast.makeText(WorkDetailActivity.this, "move to last work.", Toast.LENGTH_LONG).show();

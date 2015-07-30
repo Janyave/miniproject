@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_gray">
+        <include
+            android:id="@+id/include_title"
+            layout="@layout/component_title_type" />
+        <LinearLayout
+            android:id="@+id/ll_sort"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+            android:background="@color/bg_white">
+            <!-- 排序下拉菜单-->
+            <Spinner
+                android:id="@+id/sp_sortType"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                style="@style/text_pink_mid"
+                android:background="@color/bg_white"/>
+            <TextView style="@style/layout_line_gray"/>
+        </LinearLayout>
+
+        <!-- 教程列表-->
+        <com.netease.ecos.views.XListView
+            android:id="@+id/lv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:listSelector="@android:color/transparent"
+            android:paddingTop="4dp">
+        </com.netease.ecos.views.XListView>
+
+    </LinearLayout>
+</RelativeLayout>

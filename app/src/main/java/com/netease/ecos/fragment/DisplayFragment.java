@@ -14,15 +14,21 @@ import android.widget.AbsListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.PhotoAlbumActivity;
 import com.netease.ecos.activity.SearchActivity;
 import com.netease.ecos.adapter.DisplayListViewAdapter;
+import com.netease.ecos.model.Share;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.share.ShareListRequest;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.FloadingButton;
 import com.netease.ecos.views.XListView;
 
 import org.w3c.dom.Text;
+
+import java.util.List;
 
 
 public class DisplayFragment extends Fragment implements XListView.IXListViewListener, View.OnClickListener{
@@ -35,6 +41,8 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
     private TextView tv_new;
     private TextView tv_attention;
     private TextView tv_search;
+
+    private DisplayListViewAdapter displayListViewAdapter;
 
     public static DisplayFragment newInstance() {
         DisplayFragment fragment = new DisplayFragment();
@@ -73,7 +81,8 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
 
     private void initData() {
-        lv_course.setAdapter(new DisplayListViewAdapter(getActivity()));
+        ShareListRequest request =  new ShareListRequest();
+        request.request(new GetShareListResponse(), null, "keyWordk", 0);
     }
 
     private void initListener() {
@@ -92,6 +101,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
         lv_course.setDividerHeight(2);
         lv_course.initRefleshTime(this.getClass().getSimpleName());
+        lv_course.setPullLoadEnable(true);
         lv_course.setPullLoadEnable(true);
         lv_course.setXListViewListener(this);
         lv_course.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -172,21 +182,24 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
     @Override
     public void onClick(View v) {
-        setUnChecked();
+
         switch (v.getId()){
             case R.id.tv_search:
                 startActivity(new Intent(getActivity(), SearchActivity.class));
                 break;
             case R.id.tv_selection:
                 //TODO 选择事件
+                setUnChecked();
                 tv_selection.setTextColor(getResources().getColor(R.color.text_red));
                 break;
             case R.id.tv_attention:
                 //TODO 选择事件
+                setUnChecked();
                 tv_attention.setTextColor(getResources().getColor(R.color.text_red));
                 break;
             case R.id.tv_new:
                 //TODO 选择事件
+                setUnChecked();
                 tv_new.setTextColor(getResources().getColor(R.color.text_red));
                 break;
         }
@@ -198,5 +211,24 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         tv_search.setTextColor(color);
         tv_selection.setTextColor(color);
         tv_attention.setTextColor(color);
+    }
+
+    class GetShareListResponse extends BaseResponceImpl implements ShareListRequest.IShareListResponse{
+
+        @Override
+        public void success(List<Share> shareList) {
+            displayListViewAdapter=new DisplayListViewAdapter(getActivity(),shareList);
+            lv_course.setAdapter(displayListViewAdapter);
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
     }
 }

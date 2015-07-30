@@ -8,6 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.model.Comment;
+import com.netease.ecos.model.Share;
+
+import java.util.List;
 
 
 /**
@@ -15,8 +19,11 @@ import com.netease.ecos.R;
  */
 public class DisplayItemEvalutionViewAdapter extends BaseAdapter{
     private Context mcontext;
-    public DisplayItemEvalutionViewAdapter(Context context) {
+    private List<Comment> commentList;
+
+    public DisplayItemEvalutionViewAdapter(Context context, List<Comment> commentList) {
         this.mcontext = context;
+        this.commentList=commentList;
     }
 
     class ViewHolder {
@@ -33,14 +40,21 @@ public class DisplayItemEvalutionViewAdapter extends BaseAdapter{
          * 传入数据未定
          */
         public void setData(int position) {
-            //TODO 绑定数据
+            Comment item=commentList.get(position);
+            tv_name.setText(item.fromNickName);
+            tv_evaluation.setText(item.content);
         }
     }
 
-    //TODO 数据数量【现在模拟为10】
     @Override
     public int getCount() {
-        return 4;
+
+        if (commentList.size()>3){
+            return 3;
+        }else {
+            return commentList.size();
+        }
+//        return 3;
     }
 
 
