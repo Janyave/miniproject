@@ -90,7 +90,7 @@ public class YunXinLoginActivity extends BaseActivity{
             	
             	Log.i("登录", "登录成功");
             	
-            	startActivity(new Intent(YunXinLoginActivity.this, YunXinApiActivity.class));
+            	startActivity(new Intent(YunXinLoginActivity.this, NotificationActivity.class));
             }
 
             @Override

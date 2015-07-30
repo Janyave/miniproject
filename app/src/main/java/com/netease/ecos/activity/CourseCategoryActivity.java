@@ -51,7 +51,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     LinearLayout ll_left;
 
     private ArrayAdapter<String> spAdapter;
-    private static final String[] sortType={"A型","B型","O型","AB型","其他"};
+    private static final String[] sortType={"按发布时间排序","B型","O型","AB型","其他"};
 
     private CourseListViewAdapter courseTypeListViewAdapter;
 
@@ -155,7 +155,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
 
         //设置下拉菜单选项
-        spAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,sortType);
+        spAdapter=new ArrayAdapter<String>(this,R.layout.text_spinner_course_type,sortType);
         spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_sortType.setAdapter(spAdapter);
 

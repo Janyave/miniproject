@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.model.Course;
+import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -19,10 +20,13 @@ import java.util.List;
  */
 public class ContactAdapter extends BaseAdapter{
     private Context mcontext;
+    private List<IMMessage> messageList=new ArrayList<>();
 
-    public ContactAdapter(Context context) {
+    public ContactAdapter(Context context, List<IMMessage> messageList) {
         this.mcontext = context;
+        this.messageList=messageList;
     }
+
 
     class ViewHolder {
 
@@ -36,35 +40,27 @@ public class ContactAdapter extends BaseAdapter{
         }
 
         /**
-         * ´«ÈëÊý¾ÝÎ´¶¨
+         * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½
          */
         public void setData(int position){
+            IMMessage item=messageList.get(position);
+            tv_text.setText(item.getContent());
         }
     }
 
     /**
-     * ÊÇ·ñÊÇ×Ô¼ºµÄÏûÏ¢
-     * @param position
-     * @return
-     */
-    private Boolean isMe(int position){
-        //TODO
-        return true;
-    }
-
-    /**
-     * Ôö¼ÓÔªËØ
+     * ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
      * @param i
      */
-    private void add(int i){
-        //TODO
+    public void add(IMMessage message){
+        messageList.add(message);
         notifyDataSetChanged();
     }
 
-    //TODO Êý¾ÝÊýÁ¿¡¾ÏÖÔÚÄ£ÄâÎª10¡¿
+    //TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½Îª10ï¿½ï¿½
     @Override
     public int getCount() {
-        return 10;
+        return messageList.size();
     }
 
     @Override
@@ -81,7 +77,9 @@ public class ContactAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder=null;
 
-        if(true){
+        //åˆ¤æ–­
+        Boolean isMe=messageList.get(position).getFromAccount().equals("test1");
+        if(isMe){
             convertView=parent.inflate(mcontext, R.layout.item_contact_me, null);
         }else{
             convertView=parent.inflate(mcontext, R.layout.item_contact_other, null);
