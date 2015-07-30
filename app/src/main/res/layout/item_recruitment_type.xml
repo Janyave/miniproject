@@ -9,17 +9,17 @@
         android:background="@drawable/bg_course_item"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="12dp">
 
         <!--头像姓名私信 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:gravity="center_vertical">
             <LinearLayout
                 android:id="@+id/ll_author"
@@ -30,33 +30,39 @@
                 <ImageView
                     android:id="@+id/iv_avatar"
                     android:layout_width="@dimen/course_item_avatar_width"
-                    android:layout_height="40dp"
+                    android:layout_height="@dimen/course_item_avatar_width"
                     android:src="@mipmap/ic_launcher"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
                     android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/tv_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="NAME"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                         <TextView
-                            android:id="@+id/tv_distance"
+                            android:id="@+id/tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3km"/>
-                        <TextView
-                            android:id="@+id/tv_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:text="均价30元/人"/>
+                            style="@style/text_dark_mid"
+                            android:text="NAME"/>
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@mipmap/ic_launcher"
+                            android:layout_marginLeft="16dp"/>
+
                     </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="5dp"/>
+                    <TextView
+                        android:id="@+id/tv_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/text_gray_min"
+                        android:text="3km"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -75,15 +81,24 @@
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="235dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp">
+            android:layout_height="245dp"
+            android:layout_margin="1dp">
             <ImageView
                 android:id="@+id/iv_cover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/img_default"
                 android:scaleType="centerCrop"/>
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="88dp"
+                android:layout_height="36dp"
+                android:gravity="center"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="30dp"
+                android:text="$ 60/人"
+                android:background="@drawable/bg_recruition_price"
+                style="@style/text_white_max"/>
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

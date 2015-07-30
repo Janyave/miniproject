@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
@@ -25,6 +26,7 @@ import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.Banner;
 import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.FloadingButton;
+import com.netease.ecos.views.ViewScrollListener;
 
 import java.util.List;
 
@@ -44,6 +46,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
     private ImageView tv_type_8;
     private FloadingButton btn_floading;
     private ExtensibleListView lv_course;
+    private ScrollView sv;
 
     private CourseListViewAdapter courseListViewAdapter;
 
@@ -85,6 +88,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         tv_type_6 = (ImageView) mainView.findViewById(R.id.tv_type_6);
         tv_type_7 = (ImageView) mainView.findViewById(R.id.tv_type_7);
         tv_type_8 = (ImageView) mainView.findViewById(R.id.tv_type_8);
+        sv=(ScrollView)mainView.findViewById(R.id.sv);
     }
 
 
@@ -97,52 +101,44 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
 
             }
         });
-        lv_course.setOnScrollListener(new AbsListView.OnScrollListener() {
-            int lvIndext = 0; //当前listView显示的首个Item的Index
-            String state = "up"; //当前ListView动作状态 up or down
+
+        sv.setOnTouchListener(new ViewScrollListener(new ViewScrollListener.IOnMotionEvent() {
             Boolean isAnim = false; //是否正在动画
-
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            public void doInDown() {
             }
 
             @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                /***当前滑动状态，与记录的lvIndex作比较，发生变化触发动画*/
-                String nowstate = state;
-                /***当前可见Item的首个Index*/
-                int nowIndext = firstVisibleItem;
-                /***nowIndex大于lvIndex，ListView下滑*/
-                if (nowIndext > lvIndext && !isAnim) {
-                    nowstate = "down";
-                    if (!TextUtils.equals(nowstate, state)) {
-                        btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
-                            @Override
-                            public void doAfterAnimation() {
-                                isAnim = false;
-                            }
-                        });
-                        isAnim = true;
-                    }
-                }
-                /***nowIndex小于lvIndex，ListView下滑*/
-                if (nowIndext < lvIndext && !isAnim) {
-                    nowstate = "up";
-                    if (!TextUtils.equals(nowstate, state)) {
-                        btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
-                            @Override
-                            public void doAfterAnimation() {
-                                isAnim = false;
-                            }
-                        });
-                        isAnim = true;
-                    }
-                }
-                state = nowstate;
-                lvIndext = nowIndext;
+            public void doInUp() {
             }
-        });
+
+            @Override
+            public void doInChangeToDown() {
+                if (!isAnim){
+                    btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
+                        @Override
+                        public void doAfterAnimation() {
+                            isAnim = false;
+                        }
+                    });
+                    isAnim = true;
+                }
+
+            }
+
+            @Override
+            public void doInChangeToUp() {
+                if (!isAnim){
+                    btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
+                        @Override
+                        public void doAfterAnimation() {
+                            isAnim = false;
+                        }
+                    });
+                    isAnim = true;
+                }
+            }
+        }));
 
         btn_floading.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rly_title_bar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/tv_title_height"
-    android:background="@color/theme"
-    android:paddingRight="10dp">
+    android:background="@color/bg_red"
+    android:paddingRight="16dp">
 
     <LinearLayout
         android:id="@+id/lly_left_action"
@@ -14,7 +20,7 @@
         android:contentDescription="标题左侧按钮，含图标和按钮，根据需要进行显示和隐藏，并更改名称"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:paddingLeft="10dp">
+        android:paddingLeft="16dp">
 
         <include
             android:id="@+id/iv_left"
@@ -37,12 +43,11 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:paddingLeft="5dp"
-            android:text="返回"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:text="妆娘"
+            style="@style/text_white_max"/>
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_marginLeft="8dp"
             android:src="@mipmap/ic_launcher"/>
     </LinearLayout>
@@ -80,3 +85,5 @@
             style="@style/text_white_max"/>
     </LinearLayout>
 </RelativeLayout>
+    <TextView style="@style/layout_line_gray"/>
+</LinearLayout>
