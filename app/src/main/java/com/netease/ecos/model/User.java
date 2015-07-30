@@ -76,9 +76,21 @@ public class User {
 			this.value = _value;
 		}
 
-		public String getBelongs() {
+		public String getValue() {
 			return value;
 		}
+
+
+		public static Gender getGender(String value){
+
+			for(Gender gender:Gender.values()){
+				if(gender.getValue().equals(value))
+					return gender;
+			}
+
+			return null;
+		}
+
 
 	}
 
