@@ -8,6 +8,10 @@ package com.netease.ecos.model;
  */
 
 public class City {
+    /*** 城市码 */
+    public String cityCode;
 
+    /*** 城市名称 */
+    public String cityName;
 }
 

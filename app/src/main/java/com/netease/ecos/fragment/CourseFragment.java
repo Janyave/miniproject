@@ -3,11 +3,9 @@ package com.netease.ecos.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -185,7 +183,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         requestBanner.request(new GetBannerResponse());
 
         CourseListRequest requestCourse = new CourseListRequest();
-        requestCourse.request(new GetCourseResponse(), CourseListRequest.Type.推荐, null, null, null);
+        requestCourse.request(new GetCourseResponse(), CourseListRequest.Type.推荐, null, null, null,0);
 
     }
 

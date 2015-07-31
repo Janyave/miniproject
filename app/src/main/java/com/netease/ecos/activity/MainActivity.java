@@ -7,18 +7,23 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.fragment.CommunityFragment;
 import com.netease.ecos.fragment.CourseFragment;
 import com.netease.ecos.fragment.DisplayFragment;
 import com.netease.ecos.fragment.NavigationDrawerFragment;
 import com.netease.ecos.fragment.TransactionFragment;
-import com.netease.ecos.views.MyroundImageView;
+import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -26,8 +31,10 @@ import butterknife.InjectView;
 
 public class MainActivity extends BaseActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    private final String TAG = "Ecos---Main";
+
     @InjectView(R.id.btn_open)
-    MyroundImageView btn_open;
+    RoundImageView btn_open;
 
     @InjectView(R.id.radio_group)
     RadioGroup mRadioGroup;
@@ -78,17 +85,24 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
 
+    /**
+     * for netWorkImageView
+     *
+     * @param savedInstanceState
+     */
+    //for NetWorkImageView
+    static ImageLoader.ImageCache imageCache;
+    RequestQueue queue;
+    ImageLoader imageLoader;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //注解工具初始化
         ButterKnife.inject(this);
-
         //隐藏ActionBar
         getSupportActionBar().hide();
-
         initViews();
         initData();
     }
@@ -104,7 +118,6 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         //初始化侧滑栏
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
-
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,6 +131,15 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
      * 初始化视图
      */
     private void initViews() {
+        //init the data for NetWorkImageView
+        btn_open.setDefaultImageResId(R.drawable.img_default);
+        //设置加载出错图片
+        btn_open.setErrorImageResId(R.drawable.img_default);
+        queue = Volley.newRequestQueue(this);
+        imageCache = new SDImageCache();
+        imageLoader = new ImageLoader(queue, imageCache);
+        btn_open.setImageUrl("http://image.tianjimedia.com/uploadImages/upload/20140912/upload/201409/w4qlbtkmqrapng.png", imageLoader);
+
         mPagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setCurrentItem(mCurrentTab);
@@ -247,6 +269,20 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         public int getCount() {
             return 4;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        /**
+         * when back button is pressed, to check whether the person page is show.
+         */
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mNavigationDrawerFragment.isVisible()) {
+                mNavigationDrawerFragment.closeNavigationDrawer();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

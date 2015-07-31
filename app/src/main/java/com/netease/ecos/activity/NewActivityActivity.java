@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -17,6 +18,8 @@ import android.widget.TimePicker;
 
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.ContactListAdapter;
+import com.netease.ecos.model.ActivityModel;
+import com.netease.ecos.model.ActivityModel.ActivityType;
 import com.netease.ecos.views.ExtensibleListView;
 
 import java.util.ArrayList;
@@ -74,6 +77,10 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     private int mDay;
     private int mHour;
     private int mMinute;
+    //the types of activity
+    private ActivityType[] activityTypes = new ActivityType[]{ActivityType.LIVE,
+            ActivityType.主题ONLY, ActivityType.动漫节, ActivityType.同人展,
+            ActivityType.官方活动, ActivityType.派对, ActivityType.舞台祭, ActivityType.赛事};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +101,12 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
         beginTimeEdTx.setOnTouchListener(this);
         endTimeEdTx.setOnTouchListener(this);
         calendar = Calendar.getInstance();
+        ArrayAdapter<ActivityType> activityTypeAdapter = new ArrayAdapter<ActivityType>(this, android.R.layout.simple_list_item_1, activityTypes);
+        activityTypeSpinner.setAdapter(activityTypeAdapter);
+        ArrayAdapter<String> provinceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"浙江"});
+        activityProvinceSpinner.setAdapter(provinceAdapter);
+        ArrayAdapter<String> cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"杭州"});
+        activityCitySpinner.setAdapter(cityAdapter);
     }
 
     @Override
@@ -128,10 +141,10 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
                     setDate(endDateEdTx);
                     break;
                 case R.id.beginTimeEdTx:
-                    setTime(beginTimeEdTx);
+                    setTime(beginTimeEdTx, true);
                     break;
                 case R.id.endTimeEdTx:
-                    setTime(endTimeEdTx);
+                    setTime(endTimeEdTx, false);
                     break;
             }
         }
@@ -157,7 +170,7 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     }
 
 
-    void setTime(final EditText editText) {
+    void setTime(final EditText editText, boolean isNow) {
         //点击时间按钮布局 设置时间
         new TimePickerDialog(NewActivityActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -171,23 +184,23 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
                         .append(mMinute < 10 ? 0 + mMinute : mMinute).append(":00"));
             }
         }, calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE), true).show();
+                isNow ? calendar.get(Calendar.MINUTE) : calendar.get(Calendar.MINUTE) + 1, true).show();
     }
 
 
-    ArrayList<com.netease.ecos.model.Activity.ContactWay> getDataFromListView() {
+    ArrayList<ActivityModel.ContactWay> getDataFromListView() {
         /*clear all the data in the contactWaysList;
         * read the data from the listview and add them in the contactWayList.
         */
         View view;
-        ArrayList<com.netease.ecos.model.Activity.ContactWay> contactWayArrayList = new ArrayList<>();
+        ArrayList<ActivityModel.ContactWay> contactWayArrayList = new ArrayList<>();
         for (int i = 0; i < contactListAdapter.getCount(); i++) {
             view = contactListView.getChildAt(i);
             Spinner spinner = (Spinner) view.findViewById(R.id.contactTypeSpinner);
             EditText editText = (EditText) view.findViewById(R.id.contactDetailEdTx);
             Log.d("test", "spinner " + i + ":" + spinner.getSelectedItemId());
             Log.d("test", "edittext:" + editText.getText());
-            com.netease.ecos.model.Activity.ContactWay contactWay = ContactListAdapter.contactWays[(int) spinner.getSelectedItemId()];
+            ActivityModel.ContactWay contactWay = ContactListAdapter.contactWays[(int) spinner.getSelectedItemId()];
             contactWay.setValue(editText.getText().toString());
             contactWayArrayList.add(contactWay);
         }

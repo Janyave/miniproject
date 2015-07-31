@@ -1,47 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <include
+        android:id="@+id/include_title"
+        layout="@layout/component_title" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/include_title"
-            layout="@layout/component_title" />
-
-        <ImageView
-            android:id="@+id/uploadWorksCoverImgVw"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/workDetail_ImgVw_height"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/uploadWorksCoverEdTx"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/uploadWorks_coverHint"
-            android:textSize="@dimen/textSize" />
+            <ImageView
+                android:id="@+id/uploadWorksCoverImgVw"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/workDetail_ImgVw_height"
+                android:src="@mipmap/ic_launcher" />
 
-        <EditText
-            android:id="@+id/uploadWorksDescrpEdTx"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/workDescrp_hint"
-            android:textSize="@dimen/textSize" />
+            <EditText
+                android:id="@+id/uploadWorksCoverEdTx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/uploadWorks_coverHint"
+                android:textSize="@dimen/textSize" />
 
-        <com.netease.ecos.views.ExtensibleListView
-            android:id="@+id/uploadWorksLsVw"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:dividerHeight="3dp"
-            android:listSelector="#e7e7e7" />
+            <EditText
+                android:id="@+id/uploadWorksDescrpEdTx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="@string/workDescrp_hint"
+                android:textSize="@dimen/textSize" />
 
-    </LinearLayout>
-</ScrollView>
+            <com.netease.ecos.views.ExtensibleListView
+                android:id="@+id/uploadWorksLsVw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:dividerHeight="@dimen/divider_height" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

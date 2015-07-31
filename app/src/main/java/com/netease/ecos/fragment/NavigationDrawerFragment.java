@@ -1,6 +1,7 @@
 package com.netease.ecos.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -21,7 +22,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,6 +37,8 @@ import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
+
+import java.util.zip.Inflater;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -58,7 +63,7 @@ public class NavigationDrawerFragment extends Fragment {
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
 
     /**
-     * A pointer to the current callbacks instance (the Activity).
+     * A pointer to the current callbacks instance (the ActivityModel).
      */
     private NavigationDrawerCallbacks mCallbacks;
 
@@ -166,7 +171,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         //给mDrawerListView进行数据绑定
 //        mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar().getThemedContext(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, new String[]{getString(R.string.title_section1), getString(R.string.title_section2), getString(R.string.title_section3), getString(R.string.title_section4),}));
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, new String[]{getString(R.string.title_section1), getString(R.string.title_section2), getString(R.string.title_section3), getString(R.string.title_section4),}));
+        mDrawerListView.setAdapter(new MyAdapter(mDrawerView.getContext()));
         //设置侧边栏默认记录的选项
 //        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
@@ -201,7 +206,7 @@ public class NavigationDrawerFragment extends Fragment {
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the navigation drawer and the action bar app icon.
         mDrawerToggle = new ActionBarDrawerToggle(
-                getActivity(),                    /* host Activity */
+                getActivity(),                    /* host ActivityModel */
                 mDrawerLayout,                    /* DrawerLayout object */
                 R.mipmap.ic_launcher,             /* nav drawer image to replace 'Up' caret */
                 R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
@@ -295,7 +300,7 @@ public class NavigationDrawerFragment extends Fragment {
         try {
             mCallbacks = (NavigationDrawerCallbacks) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
+            throw new ClassCastException("ActivityModel must implement NavigationDrawerCallbacks.");
         }
     }
 
@@ -339,6 +344,83 @@ public class NavigationDrawerFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    private class MyAdapter extends BaseAdapter{
+        private LayoutInflater mInflater = null;
+
+        public MyAdapter(Context context){
+            this.mInflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public int getCount() {
+            return 4;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+
+            if (convertView == null) {
+                convertView = mInflater.inflate(R.layout.item_personage_info, null);
+                holder = new ViewHolder();
+                holder.title = (TextView) convertView.findViewById(R.id.item_personage_title);
+                holder.icon = (ImageView) convertView.findViewById(R.id.item_personage_icon);
+                holder.warn_num = (TextView) convertView.findViewById(R.id.item_personage_warn_num);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            switch (position){
+                case 0:
+                    holder.icon.setImageResource(R.drawable.img_setting_default);
+                    holder.title.setText(R.string.title_section1);
+                    //if()//判断是否有消息提醒
+                    holder.warn_num.setText("1");
+
+                    break;
+                case 1:
+                    holder.icon.setImageResource(R.drawable.img_setting_default);
+                    holder.title.setText(R.string.title_section2);
+                    //if()//判断是否有消息提醒
+                    holder.warn_num.setText("12");
+                    break;
+                case 2:
+                    holder.icon.setImageResource(R.drawable.img_setting_default);
+                    holder.title.setText(R.string.title_section3);
+                    //if()//判断是否有消息提醒
+                    holder.warn_num.setText("3");
+                    break;
+                case 3:
+                    holder.icon.setImageResource(R.drawable.img_setting_default);
+                    holder.title.setText(R.string.title_section4);
+                    //if()//判断是否有消息提醒
+                    holder.warn_num.setText("4");
+                    break;
+            }
+            return convertView;
+
+        }
+
+
+        public final class ViewHolder {
+
+            public ImageView icon;
+            public TextView title;
+            public TextView warn_num; //may not need
+
+        }
+    }
+
     /**
      * Per the navigation drawer design guidelines, updates the action bar to show the global app
      * 'context', rather than just what's in the current screen.
@@ -370,7 +452,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         RoundImageView user_avatar = (RoundImageView) v.findViewById(R.id.iv_personage_portrait);
         Button user_name = (Button) v.findViewById(R.id.bt_personage_name);
-        TextView user_gender = (TextView) v.findViewById(R.id.tv_personage_gender);
+        RoundImageView user_gender = (RoundImageView) v.findViewById(R.id.riv_personage_gender);
         TextView user_attention = (TextView) v.findViewById(R.id.tv_personage_attention);
         TextView user_fans = (TextView) v.findViewById(R.id.tv_personage_fans);
         TextView user_description = (TextView) v.findViewById(R.id.tv_personage_description);
@@ -385,7 +467,11 @@ public class NavigationDrawerFragment extends Fragment {
         user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
 
         user_name.setText(mUserData.nickname);
-        user_gender.setText(mUserData.gender.toString());
+        if(mUserData.gender == User.Gender.女) {
+            user_gender.setBackgroundResource(R.drawable.img_gender_famale);
+        }else {
+            user_gender.setBackgroundResource(R.drawable.img_gender_male);
+        }
         user_attention.setText("关注数：" + mUserData.followOtherNum);
         user_fans.setText("粉丝数：" + mUserData.fansNum);
         user_description.setText(mUserData.characterSignature);

@@ -188,5 +188,7 @@ public class RequestUrlConstants {
 	
 	/*** 获取招募列表 */
 	public static final String GET_RECRUITMENT_LIST_URL = HOST + "/m/activity/photo/delete?";
-	
+
+	/*** 获取招募详情 */
+	public static final String GET_RECRUITMENT_DETAIL_URL = HOST + "/m/recruit/detail?";
 }

@@ -4,16 +4,24 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.UploadWorksListAdapter;
 import com.netease.ecos.dialog.SetPhotoDialog;
+import com.netease.ecos.model.Image;
 import com.netease.ecos.utils.SetPhotoHelper;
+import com.netease.ecos.utils.UploadImageTools;
 import com.netease.ecos.views.ExtensibleListView;
+
+import java.io.File;
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -22,6 +30,8 @@ import butterknife.InjectView;
  * Created by Think on 2015/7/24.
  */
 public class UploadWorksActivity extends BaseActivity implements View.OnClickListener {
+
+    private final String TAG = "Ecos---UploadWorks";
     @InjectView(R.id.tv_title)
     TextView titleTxVw;
     @InjectView(R.id.btn_right_action)
@@ -32,8 +42,24 @@ public class UploadWorksActivity extends BaseActivity implements View.OnClickLis
     ExtensibleListView worksLsVw;
     @InjectView(R.id.uploadWorksCoverImgVw)
     ImageView coverImgView;
+    @InjectView(R.id.uploadWorksCoverEdTx)
+    EditText uploadWorksCoverEdTx;
+    @InjectView(R.id.uploadWorksDescrpEdTx)
+    EditText uploadWorksDescrpEdTx;
 
     private UploadWorksListAdapter uploadWorksListAdapter;
+    /*
+    to record the images' path not including the cover image path
+     */
+    private ArrayList<String> imagePaths;
+    /*
+    to record the cover image path.
+     */
+    private String coverImagePath = "";
+    /*
+    to record the returned image urls responding to different types of image, such as cover or details.
+     */
+    private ArrayList<Image> imagesArraylist;
     /**
      * 当前正在设置第(couserStepPosition+1)步的教程图片
      */
@@ -62,7 +88,8 @@ public class UploadWorksActivity extends BaseActivity implements View.OnClickLis
         rightButton.setText("发布");
         rightButton.setOnClickListener(this);
         backTxVw.setOnClickListener(this);
-        uploadWorksListAdapter = new UploadWorksListAdapter(this, getIntent().getExtras().getStringArrayList("paths"));
+        imagePaths = getIntent().getExtras().getStringArrayList("paths");
+        uploadWorksListAdapter = new UploadWorksListAdapter(this, imagePaths);
         worksLsVw.setAdapter(uploadWorksListAdapter);
         coverImgView.setOnClickListener(this);
     }
@@ -77,6 +104,7 @@ public class UploadWorksActivity extends BaseActivity implements View.OnClickLis
                             new SetPhotoHelper.SetPhotoCallBack() {
                                 @Override
                                 public void success(String imagePath) {
+                                    coverImagePath = imagePath;
                                     Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
                                     coverImgView.setImageBitmap(bitmap);
                                 }
@@ -94,7 +122,20 @@ public class UploadWorksActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_right_action:
-                UploadWorksActivity.this.finish();
+                if (coverImagePath.equals("")
+                        || uploadWorksCoverEdTx.getText().toString().equals("")
+                        || uploadWorksDescrpEdTx.getText().toString().equals("")) {
+                    Toast.makeText(UploadWorksActivity.this, "请填写完所有内容:)", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                imagesArraylist = new ArrayList<>();
+                //TODO: to check whether it has finished all the item. if not, it can not be uploaded.
+                for (int i = 0; i < imagePaths.size(); i++) {
+                    File file = new File(imagePaths.get(i));
+                    UploadImageTools.uploadImageSys(file, new UploadWorksCallbacks(Image.ImageType.detailImage), UploadWorksActivity.this, false);
+                }
+                File file = new File(coverImagePath);
+                UploadImageTools.uploadImageSys(file, new UploadWorksCallbacks(Image.ImageType.coverImage), UploadWorksActivity.this, false);
                 break;
             case R.id.tv_left:
                 UploadWorksActivity.this.finish();
@@ -114,6 +155,48 @@ public class UploadWorksActivity extends BaseActivity implements View.OnClickLis
                 });
                 dialog.showSetPhotoDialog();
                 break;
+        }
+    }
+
+    /*
+    to record how many images have been uploaded already.
+    every time it return success, add one to count.
+    upload all the urls until the count up to imagePaths.size()+1.
+     */
+    private Integer count = 0;
+
+    class UploadWorksCallbacks implements UploadImageTools.UploadCallBack {
+        private Image.ImageType imageType;
+
+        public UploadWorksCallbacks(Image.ImageType imageType) {
+            this.imageType = imageType;
+        }
+
+        @Override
+        public void onProcess(Object fileParam, long current, long total) {
+        }
+
+        @Override
+        public void fail() {
+            Log.e(TAG, "uploadWorksFailed.");
+        }
+
+        @Override
+        public void success(String originUrl, String thumbUrl) {
+            Log.d(TAG, "uploadworksSuccess");
+            synchronized (count) {
+                count++;
+                Log.d(TAG, "image " + count + " has been uploaded");
+                if (count == (imagePaths.size() + 1)) {
+                    Log.d(TAG, "all the images has been uploaded successfully.");
+                }
+            }
+            Image image = new Image();
+            image.type = imageType;
+            image.originUrl = originUrl;
+            image.thumbUrl = thumbUrl;
+            imagesArraylist.add(image);
+
         }
     }
 }

@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -224,7 +222,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         //获取course信息
         CourseListRequest request = new CourseListRequest();
         request.request(new CourseListResponse(), CourseListRequest.Type.筛选,
-                Course.CourseType.妆娘, "鸣人", CourseListRequest.SortRule.时间);
+                Course.CourseType.妆娘, "鸣人", CourseListRequest.SortRule.时间,0);
     }
 
 

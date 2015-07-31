@@ -5,6 +5,7 @@ import com.netease.ecos.model.Course.CourseType;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,39 +38,92 @@ public class CourseListRequest extends BaseRequest{
 	//响应参数键
 	ICourseListResponse mCourseListRespnce;
 
+	/*** 教程列表JSONArray,内含JSONObject */
+	public static final String JA_COURSE = "courses";
+
+	/** 教程id */
+	public static final String KEY_COURSE_ID = "courseId";
+
+	/** 封面图url */
+	public static final String KEY_COVER_URL = "coverUrl";
+
+	/** 作者头像url */
+	public static final String KEY_AVATAR_URL = "authorAvatarUrl";
+
+	/** 作者昵称 */
+	public static final String KEY_NICKNAME = "nickname";
+
+	/** 作者id */
+	public static final String KEY_USER_ID = "userId";
+
+	/** 教程类型 */
+	public static final String KEY_COURSE_TYPE= "courseType";
+
+	/** 标题 */
+	public static final String KEY_TITLE = "title";
+
+	/** 点赞数 */
+	public static final String KEY_PRAISE_NUM = "praiseNum";
+
+	/** 发布时间时间戳 */
+	public static final String KEY_ISSUR_TIME_STAMP = "issueTimeStamp";
+
+	/** 步骤图片JA,其顺序与步骤序号一致 */
+	public static final String KEY_IMG_URLS = "imgUrls";
+
+	/** 步骤描述JA,其顺序与步骤序号一致 */
+	public static final String KEY_DESCRIPTION = "descriptions";
+
+
+
+
+
+	/*** 教程类别 */
+	CourseType mCourseType;
+
 
 	public void request(ICourseListResponse courseListRespnce, final Type type, final CourseType courseType
-			,final String keyWord, final SortRule sortRule)
+			,final String keyWord, final SortRule sortRule,final int pageIndex)
 	{
 		super.initBaseRequest(courseListRespnce);
 		mCourseListRespnce = courseListRespnce;
 
-		responceSuccess(new JSONObject().toString());
-		
-		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COURSE_LIST_URL,  this, this) {  
-	        @Override  
-	        protected Map<String, String> getParams() throws AuthFailureError {  
+		mCourseType = courseType;
+
+		List<Course> courseList = getTestCourseList();
+
+		if(mCourseListRespnce!=null)
+		{
+			mCourseListRespnce.success(courseList);
+		}
+
+
+		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COURSE_LIST_URL,  this, this) {
+	        @Override
+	        protected Map<String, String> getParams() throws AuthFailureError {
 	        	Map<String, String> map = getRequestBasicMap();
-	            
+
 	        	map.put(TYPE, type.getValue());
-	        	
+
 	        	//如果当前获取方式是筛选
 	        	if(type == Type.筛选){
 	        		map.put(COURSE_TYPE, courseType.getBelongs());
 		        	map.put(KEY_WORD, keyWord);
 		        	map.put(SORT_RULE, sortRule.getValue());
 	        	}
-	        	
-	        	
+
+	        	map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
+	        	map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
+
 	            traceNormal(TAG, map.toString());
 	            traceNormal(TAG, CourseListRequest.this.getUrl(RequestUrlConstants.GET_COURSE_LIST_URL, map));
-	            return map;  
-	        }  
-	        
-	    }; 
-	    
+	            return map;
+	        }
+
+	    };
+
 	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-	    
+
 	    getQueue().add(stringRequest);*/
 
 	}
@@ -79,9 +133,36 @@ public class CourseListRequest extends BaseRequest{
 		traceNormal(TAG, jstring);
 
 		try {
-			JSONObject json = new JSONObject(jstring);
+			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
 
-			List<Course> courseList = getTestCourseList();
+			List<Course> courseList = new ArrayList<Course>();
+			if(json.has(JA_COURSE)){
+				JSONArray courseJA = json.getJSONArray(JA_COURSE);
+
+				Course course = new Course();
+				for(int i=0;i<courseJA.length();i++){
+
+					JSONObject courseJO = courseJA.getJSONObject(i);
+
+					course.courseId = getString(courseJO, KEY_COURSE_ID);
+					course.userId = getString(courseJO, KEY_USER_ID);
+
+					course.coverUrl = getString(courseJO, KEY_COVER_URL);
+					course.authorAvatarUrl = getString(courseJO, KEY_AVATAR_URL);
+					course.author = getString(courseJO, KEY_NICKNAME);
+					course.title = getString(courseJO, KEY_TITLE);
+					course.courseId = getString(courseJO, KEY_COURSE_ID);
+					course.userId = getString(courseJO, KEY_USER_ID);
+					course.courseType = mCourseType;
+					course.issueTimeStamp = Long.valueOf(getString(courseJO, KEY_ISSUR_TIME_STAMP)).longValue();
+
+					String praiseNum = getString(courseJO, KEY_PRAISE_NUM);
+					course.praiseNum = "".equals(praiseNum)?0:Integer.valueOf(praiseNum);
+
+					courseList.add(course);
+				}
+
+			}
 
 			if(mCourseListRespnce!=null)
 			{
@@ -185,11 +266,13 @@ public class CourseListRequest extends BaseRequest{
 		for(int i=0;i<2;i++){
 			course = new Course();
 			course.coverUrl = bannerList.get(i);
+			course.authorAvatarUrl = "http://p3.gexing.com/G1/M00/A9/D1/rBACFFIZgEPDWDxwAAAlaw2mvB4124_200x200_3.jpg?recache=20131109";
 			course.title = "鸣人系列教程-"+i;
 			course.author = "小鸣人 -" + i;
 			course.courseId = "" + i;
 			course.userId = "" + i;
 			course.praiseNum = i*100;
+			course.issueTimeStamp = System.currentTimeMillis();
 
 			courseList.add(course);
 		}
