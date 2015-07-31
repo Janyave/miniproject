@@ -24,12 +24,13 @@ public class UploadImageDemoActivity extends BaseActivity {
     ImageView iv_display;
 
     SetPhotoHelper mSetPhotoHelper;
+
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
 
         setContentView(R.layout.demo_upload_image);
-        iv_display = (ImageView)findViewById(R.id.iv_display);
+        iv_display = (ImageView) findViewById(R.id.iv_display);
 
 
         mSetPhotoHelper = new SetPhotoHelper(this, null);
@@ -39,7 +40,7 @@ public class UploadImageDemoActivity extends BaseActivity {
         final int outPutHeight = 300;
         mSetPhotoHelper.setOutput(outPutWidth, outPutHeight);
 
-        SetPhotoDialog dialog = new SetPhotoDialog(this, new SetPhotoDialog.ISetPhoto(){
+        SetPhotoDialog dialog = new SetPhotoDialog(this, new SetPhotoDialog.ISetPhoto() {
 
             @Override
             public void choosePhotoFromLocal() {
@@ -70,26 +71,23 @@ public class UploadImageDemoActivity extends BaseActivity {
                     iv_display.setImageBitmap(bitmap);
 
 
-                    UploadImageTools.uploadImageSys(imageFile,new UploadCallBack(),UploadImageDemoActivity.this,false);
+                    UploadImageTools.uploadImageSys(imageFile, new UploadCallBack(), UploadImageDemoActivity.this, false);
                     break;
                 default:
                     Log.e("CLASS_TAG", "onActivityResult() 无对应");
             }
-
-
         } else {
             Log.e(CLASS_TAG, "操作取消");
         }
     }
 
 
-
-    class UploadCallBack implements UploadImageTools.UploadCallBack{
+    class UploadCallBack implements UploadImageTools.UploadCallBack {
 
         @Override
         public void success(String originUrl, String thumbUrl) {
 
-            Log.i("图片上传","原图路径" + originUrl);
+            Log.i("图片上传", "原图路径" + originUrl);
             Log.i("图片上传", "缩略图路径" + thumbUrl);
         }
 
@@ -100,8 +98,10 @@ public class UploadImageDemoActivity extends BaseActivity {
 
         @Override
         public void onProcess(Object fileParam, long current, long total) {
-            Log.i("图片上传","上传数" + total + "  ," + "已上传" + current);
+            Log.i("图片上传", "上传数" + total + "  ," + "已上传" + current);
         }
 
-    };
+    }
+
+    ;
 }

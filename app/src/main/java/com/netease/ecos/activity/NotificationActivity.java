@@ -1,6 +1,5 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
@@ -40,18 +38,19 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/29.
  */
-public class NotificationActivity extends BaseActivity implements View.OnClickListener{
+public class NotificationActivity extends BaseActivity implements View.OnClickListener {
 
     @InjectView(R.id.tv_reply)
     TextView tv_reply; //回复
     @InjectView(R.id.tv_contact)
     TextView tv_contact; //私信
+
     @InjectView(R.id.tv_notice)
     TextView tv_notice; //通知
     @InjectView(R.id.lv_list)
     XListView lv_list; //显示列表
 
-    private List<Contact> contactList=new ArrayList<Contact>();
+    private List<Contact> contactList = new ArrayList<Contact>();
 
     private NotificationContactAdapter contactAdapter; //私信Adapter
 
@@ -105,24 +104,24 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 //        lv_list.setAdapter(contactAdapter);
 
         contactList = ContactDBService.getInstance(NotificationActivity.this).getContactList();
-        for(Contact contact:contactList){
+        for (Contact contact : contactList) {
             Log.e("数据库读取", "contact: --" + contact.toString());
 
 
         }
 
-        contactAdapter=new NotificationContactAdapter(this, contactList);
+        contactAdapter = new NotificationContactAdapter(this, contactList);
         lv_list.setAdapter(contactAdapter);
     }
 
     private void freshData() {
-        contactAdapter=new NotificationContactAdapter(this, contactList);
+        contactAdapter = new NotificationContactAdapter(this, contactList);
         lv_list.setAdapter(contactAdapter);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_reply:
                 //回复
                 break;
@@ -134,8 +133,6 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
                 break;
         }
     }
-
-
 
 
     /**
@@ -177,7 +174,6 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
         //最近联系人列表监听
         NIMClient.getService(MsgServiceObserve.class)
                 .observeRecentContact(messageObserver, true);
-
 
 
     }
@@ -232,11 +228,10 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
                 @Override
                 public void onEvent(List<IMMessage> messages) {
 
-                    for(IMMessage message:messages){
+                    for (IMMessage message : messages) {
 
                         Log.i("收到消息", "----------------------------------------------------------");
-                        if(message.getMsgType().compareTo(MsgTypeEnum.text)==0)
-                        {
+                        if (message.getMsgType().compareTo(MsgTypeEnum.text) == 0) {
 //                            ((TextView)findViewById(R.id.tv_received_text)).setText(message.getContent());
 
                             Log.i("发送消息状态回掉", "消息内容：" + message.getContent());
@@ -252,7 +247,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
                             Log.i("发送消息状态回掉", "当前是收到:" + message.getDirect().compareTo(MsgDirectionEnum.In));
                             Log.i("发送消息状态回掉", "消息类型：" + message.getMsgType().name());
                         }
-                        if(message.getMsgType().compareTo(MsgTypeEnum.image)==0){
+                        if (message.getMsgType().compareTo(MsgTypeEnum.image) == 0) {
 
                             ImageAttachment imageAttachment = (ImageAttachment) message.getAttachment();
 
@@ -269,7 +264,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 
                             File srcFile = new File(imageAttachment.getPathForSave());
                             System.out.println("原图图片父路径:" + srcFile.getParent());
-                            if(srcFile.exists()){
+                            if (srcFile.exists()) {
                                 Bitmap bitmap = BitmapFactory.decodeFile(imageAttachment.getPathForSave());
                                 BitmapFactory.Options options = new BitmapFactory.Options();
                                 options.inJustDecodeBounds = true;
@@ -278,14 +273,13 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
                                 Log.e("展示图片", "drawable原图高度:" + options.outHeight);
                                 ImageView iv_received_origin_image = (ImageView) findViewById(R.id.iv_received_origin_image);
                                 iv_received_origin_image.setImageBitmap(bitmap);
-                            }
-                            else{
+                            } else {
                                 Log.e("图片打开错误", "原图不在");
                             }
 
                             File thumbFile = new File(imageAttachment.getThumbPathForSave());
                             System.out.println("缩略图图片父路径:" + thumbFile.getParent());
-                            if(thumbFile.exists()){
+                            if (thumbFile.exists()) {
                                 Bitmap bitmap = BitmapFactory.decodeFile(imageAttachment.getThumbPathForSave());
                                 BitmapFactory.Options options = new BitmapFactory.Options();
                                 options.inJustDecodeBounds = true;
@@ -295,11 +289,10 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 
                                 ImageView iv_received_thumb_image = (ImageView) findViewById(R.id.iv_received_thumb_image);
                                 iv_received_thumb_image.setImageBitmap(bitmap);
-                            }
-                            else{
+                            } else {
                                 Log.e("图片打开错误", "缩略图不在");
                             }
-			        		/*BitmapDrawable drawable = new BitmapDrawable(getResources(), imageAttachment.getPathForSave());
+                            /*BitmapDrawable drawable = new BitmapDrawable(getResources(), imageAttachment.getPathForSave());
 			        		BitmapFactory.Options options = new BitmapFactory.Options();
 			                options.inJustDecodeBounds = true;
 			                BitmapFactory.decodeFile(imageAttachment.getPathForSave(), options);
@@ -332,7 +325,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
                 @Override
                 public void onEvent(List<RecentContact> messages) {
 
-                    for(RecentContact msg:messages){
+                    for (RecentContact msg : messages) {
 
                         Contact contact = new Contact();
                         contact.contactAccid = msg.getContactId();
@@ -351,7 +344,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
                         Log.e("最近会话信息", "时间：" + ModelUtils.getDateDetailByTimeStamp(msg.getTime()));
                         Log.e("最近会话信息", "未读数：" + msg.getUnreadCount());
                         Log.e("最近会话信息", "信息状态：" + msg.getMsgStatus());
-                        Log.e("最近会话信息", "会话类型：" + (msg.getSessionType()==SessionTypeEnum.Team?"群聊":"单聊"));
+                        Log.e("最近会话信息", "会话类型：" + (msg.getSessionType() == SessionTypeEnum.Team ? "群聊" : "单聊"));
                         Log.i("最近会话信息", "----------------------------------------");
 	    	                /*NIMClient.getService(MsgService.class).setChattingAccount(
 	    	                		msg.getContactId(),
@@ -363,7 +356,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 
                     /**Add**/
                     freshData();
-                    for(Contact contact:contactList){
+                    for (Contact contact : contactList) {
                         Log.e("数据库读取", "contact: --" + contact.toString());
                     }
 
@@ -374,8 +367,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
             };
 
 
-
-    public void testMessageHistory(String accid){
+    public void testMessageHistory(String accid) {
 
         IMMessage endMessage = MessageBuilder.createEmptyMessage(accid, SessionTypeEnum.P2P, 0);
 
