@@ -66,9 +66,9 @@ public class User {
 	 */
 	public static enum Gender {
 
-		男("0"),
-		女("1"),
-		暂无("2");
+		暂无("0"),
+		男("1"),
+		女("2");
 
 		private String value;
 
@@ -90,7 +90,6 @@ public class User {
 
 			return null;
 		}
-
 
 	}
 

@@ -8,6 +8,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
@@ -18,15 +19,19 @@ import com.netease.ecos.model.Course;
 import com.netease.ecos.model.Course.Assignment;
 import com.netease.ecos.model.Image;
 import com.netease.ecos.model.ModelUtils;
+import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.activity.ActivityListRequest;
+import com.netease.ecos.request.activity.CreateActivityRequest;
 import com.netease.ecos.request.comment.CommentListRequest;
 import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.request.course.CreateAssignmentRequest;
 import com.netease.ecos.request.course.GetAssignmentDetailRequest;
 import com.netease.ecos.request.course.GetBannerRequest;
 import com.netease.ecos.request.course.GetCourseDetailRequest;
+import com.netease.ecos.request.recruitment.GetRecruitmentDetailRequest;
+import com.netease.ecos.request.recruitment.RecruitmentListRequest;
 import com.netease.ecos.request.share.GetShareDetailRequest;
 import com.netease.ecos.request.share.ShareListRequest;
 
@@ -42,7 +47,7 @@ import java.util.List;
 public class ApiTestActivity extends BaseActivity{
 
 	String items[] = {"上传作品","查看作业详情","查看教程评论","获取banner列表","获取推荐教程列表","获取教程筛选列表","获取教程详情"
-			,"获取分享列表","获取分享详情","获取活动列表"};
+			,"获取分享列表","获取分享详情","获取活动列表","创建活动","获取招募列表","获取招募列表详情"};
 
 	public boolean isFirst = true;
 
@@ -103,6 +108,15 @@ public class ApiTestActivity extends BaseActivity{
 						break;
 					case 9:
 						getActivityList();
+						break;
+					case 10:
+						createActivity();
+						break;
+					case 11:
+						getRecruitmentList();
+						break;
+					case 12:
+						getRecruitmentDetail();
 						break;
 				}
 			}
@@ -631,6 +645,182 @@ public class ApiTestActivity extends BaseActivity{
 				tv_display.append("  活动类型:" + activity.activityType.name() + "\n");
 				tv_display.append("\n");
 
+			}
+
+
+		}
+
+	}
+
+
+	/***
+	 * 创建活动
+	 */
+	public void createActivity(){
+		CreateActivityRequest request = new CreateActivityRequest();
+		request.testData(new CreateActivityResponce(), new ActivityModel());
+	}
+
+	/***
+	 *
+	 * @ClassName: CreateActivityResponce
+	 * @Description:
+	 * @author enlizhang
+	 * @date 2015年7月30日 下午8:26:40
+	 *
+	 */
+	class CreateActivityResponce extends BaseResponceImpl implements CreateActivityRequest.ICreateActivityResponce {
+
+		@Override
+		public void doAfterFailedResponse(String message) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onErrorResponse(VolleyError error) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void success(ActivityModel activity) {
+			Toast.makeText(ApiTestActivity.this, "创建成功", Toast.LENGTH_LONG).show();
+
+		}
+
+	}
+
+
+
+	/***
+	 * 获取招募列表
+	 */
+	public void getRecruitmentList() {
+		RecruitmentListRequest request =  new RecruitmentListRequest();
+
+		//请求妆娘招募类别，城市id为12，排序方式为最受欢迎的招募列表的第0页数据
+		request.request(new RecruitmentListResponse(), Recruitment.RecruitType.妆娘,"12",RecruitmentListRequest.SortRule.最受欢迎,0);
+	}
+
+
+	/***
+	 *
+	 * @ClassName: RecruitmentListResponse
+	 * @Description: 招募列表响应回掉接口
+	 * @author enlizhang
+	 * @date 2015年7月31日 上午8:32:33
+	 *
+	 */
+	class RecruitmentListResponse extends BaseResponceImpl implements RecruitmentListRequest.IRecruitmentListResponse {
+
+		@Override
+		public void doAfterFailedResponse(String message) {
+
+		}
+
+		@Override
+		public void onErrorResponse(VolleyError error) {
+
+		}
+
+		@Override
+		public void success(List<Recruitment> recruitList) {
+			tv_display.setText("");
+
+			for(int i=0;i<recruitList.size();i++){
+
+				Recruitment recruit = recruitList.get(i);
+
+				//				tv_display.append("招募标题:" + recruit.title + "\n");
+				tv_display.append("招募封面图url:" + recruit.coverUrl + "\n");
+				tv_display.append("  招募id:" + recruit.recruitmentId + "\n");
+				tv_display.append("  发起者用户id:" + recruit.userId + "\n");
+				tv_display.append("  发起者云信id:" + recruit.imId + "\n");
+				tv_display.append("  发起者头像:" + recruit.avatarUrl + "\n");
+				tv_display.append("  发起者昵称:" + recruit.nickname + "\n");
+				tv_display.append("  发起者性别:" + recruit.gender.name() + "\n");
+				tv_display.append("  发起时间:" + ModelUtils.getDateDesByTimeStamp(recruit.issueTimeStamp) + "\n");
+				tv_display.append("  与发起者距离:" + recruit.distanceKM + "km" + "\n");
+				tv_display.append("  与发起者距离:" + "均价 " + recruit.averagePrice + "\n");
+				tv_display.append("\n");
+
+
+			}
+
+
+		}
+
+	}
+
+	/***
+	 * 获取招募详情
+	 */
+	public void getRecruitmentDetail(){
+		GetRecruitmentDetailRequest request = new GetRecruitmentDetailRequest();
+
+		//请求招募id为1的招募详情
+		request.request(new GetRecruitmentLDetailResponse(), "1");
+
+	}
+
+
+	/***
+	 *
+	 * @ClassName: RecruitmentListResponse
+	 * @Description: 招募列表响应回掉接口
+	 * @author enlizhang
+	 * @date 2015年7月31日 上午8:32:33
+	 *
+	 */
+	class GetRecruitmentLDetailResponse extends BaseResponceImpl implements GetRecruitmentDetailRequest.IGetRecruitmentLDetailResponse {
+
+		@Override
+		public void doAfterFailedResponse(String message) {
+
+		}
+
+		@Override
+		public void onErrorResponse(VolleyError error) {
+
+		}
+
+		@Override
+		public void success(Recruitment recruit) {
+			tv_display.setText("");
+
+
+			tv_display.append("招募标题:" + recruit.title + "\n");
+			tv_display.append("  招募封面图url:" + recruit.coverUrl + "\n");
+			tv_display.append("  招募描述:" + recruit.decription + "\n");
+			tv_display.append("  招募id:" + recruit.recruitmentId + "\n");
+			tv_display.append("  发起者用户id:" + recruit.userId + "\n");
+			tv_display.append("  发起者云信id:" + recruit.imId + "\n");
+			tv_display.append("  发起者头像:" + recruit.avatarUrl + "\n");
+			tv_display.append("  发起者昵称:" + recruit.nickname + "\n");
+			tv_display.append("  发起者性别:" + recruit.gender.name() + "\n");
+			tv_display.append("  发起时间:" + ModelUtils.getDateDesByTimeStamp(recruit.issueTimeStamp) + "\n");
+			tv_display.append("  与发起者距离:" + recruit.distanceKM + "km" + "\n");
+			tv_display.append("  与发起者距离:" + "均价 " + recruit.averagePrice + "\n");
+			tv_display.append("\n");
+
+			List<Share> shareList = recruit.shareList;
+			int length = shareList.size();
+			for(int i=0;i<length;i++){
+
+				Share share = recruit.shareList.get(i);
+
+				tv_display.append("分享名称:" + share.title + "\n");
+				tv_display.append(" 分享id:" + share.shareId + "\n");
+				tv_display.append("  已关注分享着:" + share.hasAttention + "\n");
+				tv_display.append("  已点赞:" + share.hasPraised + "\n");
+				tv_display.append("  分享封面图url:" + share.coverUrl + "\n");
+				tv_display.append("  分享时间:" + share.getDateDescription() + "\n");
+				tv_display.append("  分享点赞数:" + share.praiseNum + "\n");
+				tv_display.append("  分享评论数:" + share.commentNum + "\n");
+				tv_display.append("  图片总数:" + share.totalPics + "\n");
+
+				tv_display.append("\n");
 			}
 
 
