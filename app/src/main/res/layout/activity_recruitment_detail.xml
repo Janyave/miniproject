@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_white"
+    android:background="@color/bg_gray"
     android:orientation="vertical">
 
     <include
@@ -17,15 +17,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <!--头像姓名私信 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px"
+                android:layout_marginTop="@dimen/margin_40px"
+                android:background="@drawable/bg_course_item">
+            <!--头像姓名私信 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_item_personInforamtion_180px"
                 android:orientation="horizontal"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:paddingLeft="@dimen/margin_40px"
+                android:paddingRight="@dimen/margin_40px"
                 android:gravity="center_vertical">
                 <LinearLayout
                     android:id="@+id/ll_author"
@@ -35,18 +41,26 @@
                     android:gravity="center">
                     <ImageView
                         android:id="@+id/iv_avatar"
-                        android:layout_width="@dimen/course_item_avatar_width"
-                        android:layout_height="40dp"
+                        android:focusableInTouchMode="true"
+                        android:focusable="true"
+                        android:layout_width="@dimen/circle_icon_108px"
+                        android:layout_height="@dimen/circle_icon_108px"
                         android:src="@mipmap/ic_launcher"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/height_item_personInforamtion_text_108px"
+                        android:layout_marginLeft="@dimen/margin_40px"
                         android:orientation="vertical">
                         <TextView
                             android:id="@+id/tv_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            style="@style/text_dark_mid"
                             android:text="NAME"/>
+                        <TextView
+                            android:layout_width="@dimen/width_line"
+                            android:layout_weight="1"
+                            android:layout_height="0dp" />
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -55,12 +69,14 @@
                                 android:id="@+id/tv_distance"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                style="@style/text_gray_mid"
                                 android:text="3km"/>
                             <TextView
                                 android:id="@+id/tv_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="8dp"
+                                android:layout_marginLeft="@dimen/margin_40px"
+                                style="@style/text_pink_max"
                                 android:text="均价30元/人"/>
                         </LinearLayout>
                     </LinearLayout>
@@ -72,42 +88,57 @@
                     android:layout_weight="1"/>
                 <TextView
                     android:id="@+id/tv_talk"
-                    android:layout_width="64dp"
-                    android:layout_height="30dp"
+                    android:layout_width="@dimen/width_btn_focus_152px"
+                    android:layout_height="@dimen/height_btn_focus_70px"
                     android:gravity="center"
                     android:text="私信"
                     android:background="@drawable/btn_little_pink"
                     style="@style/text_white_mid"/>
             </LinearLayout>
-
+                <TextView style="@style/layout_line_gray"/>
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="我是招募标题君"/>
             <TextView
                 android:id="@+id/tv_detail"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px"
+                android:layout_marginTop="@dimen/margin_40px"
+                android:layout_marginBottom="@dimen/margin_40px"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="我是内容！\n不我才是内容！ \n你们都错了！！！我才是！！！！"/>
+                style="@style/text_dark_mid"
+                android:lineSpacingExtra="@dimen/spacing_recruite_detail_26"
+                android:text="我是内容！\n不我才是内容！ \n你们都错了！！！我才是！！！！Name"/>
 
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/height_label_100px"
                 android:background="@color/bg_gray"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:padding="16dp">
-                <TextView
-                    android:layout_width="4dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/bg_red"/>
-                <TextView
+                android:paddingLeft="@dimen/margin_40px"
+                android:paddingRight="@dimen/margin_40px">
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    style="@style/text_dark_max"
-                    android:text="作品"/>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/bg_red"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_40px"
+                        style="@style/text_dark_max"
+                        android:text="作品"/>
+                </LinearLayout>
+
             </LinearLayout>
             <com.netease.ecos.views.ExtensibleListView
                 android:id="@+id/lv_list"

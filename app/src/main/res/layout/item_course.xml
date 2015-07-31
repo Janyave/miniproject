@@ -7,15 +7,17 @@
     android:layout_height="wrap_content"
     android:id="@+id/RecyclerShow"
     android:background="@drawable/bg_course_item"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginBottom="12dp">
+    android:layout_marginLeft="@dimen/margin_40px"
+    android:layout_marginRight="@dimen/margin_40px"
+    android:layout_marginBottom="@dimen/margin_30px">
     <!-- 图片-->
     <ImageView
         android:id="@+id/pic_dis"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:layout_margin="8dp"
+        android:layout_height="@dimen/height_cover_640px_960px"
+        android:layout_marginTop="@dimen/margin_20px"
+        android:layout_marginLeft="@dimen/margin_20px"
+        android:layout_marginRight="@dimen/margin_20px"
         android:gravity="center"
         android:adjustViewBounds="true"
         android:src="@drawable/img_default"
@@ -23,22 +25,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="@dimen/height_item_workInforamtion_200px"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin_40px"
+        android:paddingRight="@dimen/margin_40px"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="@dimen/course_item_avatar_width"
-            android:layout_height="@dimen/course_item_avatar_width"
+            android:layout_width="@dimen/circle_icon_100px"
+            android:layout_height="@dimen/circle_icon_100px"
             android:id="@+id/imageViewAuthor"
             android:src="@mipmap/ic_launcher"/>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginLeft="16dp">
+            android:layout_marginLeft="@dimen/margin_40px">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,44 +47,43 @@
                 android:text="大圣归来"
                 android:id="@+id/textViewTitle"
                 style="@style/text_pink_max"/>
-            <TextView
-                android:textAllCaps="false"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Author Name"
-                style="@style/text_gray_min"
-                android:id="@+id/textViewAuthor"
-                android:layout_marginTop="4dp"/>
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_20px">
+                <TextView
+                    android:textAllCaps="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Author Name"
+                    style="@style/text_gray_min"
+                    android:id="@+id/textViewAuthor" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:layout_width="@dimen/icon_little_36px"
+                    android:layout_height="@dimen/icon_little_36px"
+                    android:layout_gravity="right|bottom"
+                    android:src="@mipmap/ic_launcher"/>
+                <TextView
+                    android:textAllCaps="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25"
+                    android:id="@+id/textViewAmz"
+                    style="@style/text_dark_min"
+                    android:layout_marginLeft="@dimen/margin_20px"
+                    />
+            </LinearLayout>
+
         </LinearLayout>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent" />
 
-        <ImageView
-            android:layout_width="@dimen/course_item_focus_width"
-            android:layout_height="@dimen/course_item_focus_width"
-            android:layout_gravity="right|bottom"
-            android:src="@mipmap/ic_launcher"/>
-        <TextView
-            android:textAllCaps="false"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="25个赞"
-            android:id="@+id/textViewAmz"
-            style="@style/text_dark_min"
-            android:layout_gravity="right|bottom"
-            android:layout_marginLeft="8dp"
-            />
     </LinearLayout>
-
-
-
-
-
-
-
-
 </LinearLayout>
 </LinearLayout>

@@ -10,8 +10,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"
             android:gravity="center_vertical">
             <TextView
                 android:id="@+id/gap1"
@@ -24,7 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/margin_50px"
                 style="@style/text_gray_max"/>
             <TextView
                 android:id="@+id/gap2"
@@ -37,16 +37,19 @@
         <ImageView
             android:id="@+id/iv_stepImage"
             android:layout_width="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_height="230dp"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"
+            android:layout_height="@dimen/height_cover_664px_1000px"
             android:src="@drawable/img_default"
             android:scaleType="centerCrop"/>
         <TextView
             android:id="@+id/tv_stepText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"
+            android:layout_marginTop="@dimen/margin_50px"
+            android:layout_marginBottom="@dimen/margin_20px"
             style="@style/text_dark_max"
             android:text="我是萌萌哒文字君"/>
     </LinearLayout>
