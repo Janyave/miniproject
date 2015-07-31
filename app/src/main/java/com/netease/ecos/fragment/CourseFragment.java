@@ -15,6 +15,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.activity.CourseCategoryActivity;
 import com.netease.ecos.activity.CourseDetailActivity;
 import com.netease.ecos.activity.CourseTypeActivity;
+import com.netease.ecos.activity.SplashActivity;
 import com.netease.ecos.adapter.CourseListViewAdapter;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
@@ -102,7 +103,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         sv.setOnTouchListener(new ViewScrollListener(new ViewScrollListener.IOnMotionEvent() {
             @Override
             public void doInDown() {
-                if (btn_floading.isAppear()){
+                if (btn_floading.isAppear()) {
                     btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
                         @Override
                         public void doAfterAnimation() {
@@ -115,30 +116,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void doInUp() {
-                if (btn_floading.isDisappear()){
-                        btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
-                            @Override
-                            public void doAfterAnimation() {
-                                btn_floading.setIsAppear();
-                                btn_floading.setIsAnim(false);
-                            }
-                        });
-                    }
-            }
-
-            @Override
-            public void doInChangeToDown() {
-                    btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
-                        @Override
-                        public void doAfterAnimation() {
-                            btn_floading.setIsDisappear();
-                            btn_floading.setIsAnim(false);
-                        }
-                    });
-            }
-
-            @Override
-            public void doInChangeToUp() {
+                if (btn_floading.isDisappear()) {
                     btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
                         @Override
                         public void doAfterAnimation() {
@@ -146,6 +124,29 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
                             btn_floading.setIsAnim(false);
                         }
                     });
+                }
+            }
+
+            @Override
+            public void doInChangeToDown() {
+                btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
+                    @Override
+                    public void doAfterAnimation() {
+                        btn_floading.setIsDisappear();
+                        btn_floading.setIsAnim(false);
+                    }
+                });
+            }
+
+            @Override
+            public void doInChangeToUp() {
+                btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
+                    @Override
+                    public void doAfterAnimation() {
+                        btn_floading.setIsAppear();
+                        btn_floading.setIsAnim(false);
+                    }
+                });
             }
         }));
 

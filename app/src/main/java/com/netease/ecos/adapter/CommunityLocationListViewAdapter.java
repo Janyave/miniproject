@@ -93,7 +93,7 @@ public class CommunityLocationListViewAdapter extends BaseAdapter {
                     Message message = handler.obtainMessage();
                     CharSequence charSequence = ((Button) parent.findViewWithTag("Button" + position)).getText();
                     String string = (String) charSequence;
-                    String[] strings = string.split("\\(");
+                    String[] strings = string.split(" ");
                     message.obj = strings[0];
                     handler.sendMessage(message);
                 }

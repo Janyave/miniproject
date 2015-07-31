@@ -66,4 +66,19 @@
     <dimen name="btn_max_height">48dp</dimen>
 
     <dimen name="contact_avatar_width">40dp</dimen>
+
+    <!-- login & regist-->
+    <dimen name="splash_item_width">120dp</dimen>
+    <dimen name="splash_item_height">44dp</dimen>
+    <dimen name="splash_item_height_radius">22dp</dimen>
+    <dimen name="splash_item_edit_marginleft">16dp</dimen>
+    <dimen name="splash_item_marginTop">8dp</dimen>
+    <dimen name="splash_btn_marginTop">24dp</dimen>
+    <dimen name="login_item_height">44dp</dimen>
+    <dimen name="login_item_width">250dp</dimen>
+    <dimen name="login_item_text_width">60dp</dimen>
+    <dimen name="splash_return_height">40dp</dimen>
+    <dimen name="splash_content_height">200dp</dimen>
+    <!-- 30px-->
+    <dimen name="splash_input_text_size">14sp</dimen>
 </resources>

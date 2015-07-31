@@ -117,9 +117,8 @@
     <string name="to">至</string>
     <string name="rmb">元</string>
     <string name="title_activity_personage_share_fragment">PersonageShareFragment</string>
+    <string name="title_activity_personal_info_setting">PersonalInfoSettingActivity</string>
 
     <!-- 个人单个作品上传页面-->
     <string name="notFinished">请填写分享内容:)</string>
-
-
 </resources>

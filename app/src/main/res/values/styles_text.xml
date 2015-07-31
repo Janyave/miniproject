@@ -48,6 +48,11 @@
         <item name="android:textColor">@color/text_white</item>
     </style>
 
+
+    <style name="text_pink_min">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/text_red</item>
+    </style>
     <style name="text_gray_min">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/text_gray</item>
@@ -59,5 +64,21 @@
     <style name="text_white_min">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/text_white</item>
+    </style>
+
+
+
+    <!-- login & regist text style-->
+    <style name="text_splash_pink">
+        <item name="android:textSize">@dimen/splash_input_text_size</item>
+        <item name="android:textColor">@color/text_red</item>
+    </style>
+    <style name="text_splash_gray">
+        <item name="android:textSize">@dimen/splash_input_text_size</item>
+        <item name="android:textColor">@color/text_splash_input</item>
+    </style>
+    <style name="text_splash_white">
+        <item name="android:textSize">@dimen/splash_input_text_size</item>
+        <item name="android:textColor">@color/bg_white</item>
     </style>
 </resources>
