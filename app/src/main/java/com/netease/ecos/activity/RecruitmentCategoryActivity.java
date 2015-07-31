@@ -4,27 +4,29 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.RecruitmentListViewAdapter;
 import com.netease.ecos.views.XListView;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
  * Created by hzjixinyu on 2015/7/27.
  */
-public class RecruitmentCategoryActivity extends Activity implements View.OnClickListener,XListView.IXListViewListener{
+public class RecruitmentCategoryActivity extends Activity implements View.OnClickListener, XListView.IXListViewListener {
 
+    private static final String TAG = "Ecos---Recruitment";
+    public static final String TRecruitmentType = "recruitmentType";
+    private String recruitment_type = "";
     @InjectView(R.id.sp_sortType)
     Spinner sp_sortType;
     @InjectView(R.id.lv_list)
@@ -38,11 +40,14 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
     TextView tv_location;
     @InjectView(R.id.ll_location)
     LinearLayout ll_location;
+    @InjectView(R.id.tv_left)
+    TextView recruitmentTypeTxVw;
 
     private ArrayAdapter<String> spAdapter;
-    private static final String[] sortType={"A型","B型","O型","AB型","其他"};
+    private static final String[] sortType = {"A型", "B型", "O型", "AB型", "其他"};
 
     private RecruitmentListViewAdapter recruitmentListViewAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +79,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_left:
                 //TODO 左上角类型选择事件
                 break;
@@ -88,8 +93,10 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
     }
 
     private void initData() {
+        recruitment_type = getIntent().getExtras().getString(TRecruitmentType);
+        recruitmentTypeTxVw.setText(recruitment_type);
         //设置下拉菜单选项
-        spAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,sortType);
+        spAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sortType);
         spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_sortType.setAdapter(spAdapter);
 
@@ -106,7 +113,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
         });
 
         //获取course信息
-        recruitmentListViewAdapter=new RecruitmentListViewAdapter(this);
+        recruitmentListViewAdapter = new RecruitmentListViewAdapter(this);
         lv_list.setAdapter(recruitmentListViewAdapter);
     }
 

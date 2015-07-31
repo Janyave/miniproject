@@ -117,6 +117,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
         //初始化侧滑栏
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
+        mNavigationDrawerFragment.closeNavigationDrawer();
 
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +160,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
     /**
      * implements NavigationDrawerFragment.NavigationDrawerCallbacks
-     * <p/>
+     * <p>
      * 点击侧滑栏(NavigationDrawerFragment)item时的回掉函数
      *
      * @param position 点击的item序号，从0开始

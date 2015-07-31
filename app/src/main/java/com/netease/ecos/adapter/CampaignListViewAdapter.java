@@ -1,6 +1,8 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,20 +10,37 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.model.ActivityModel;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.List;
 
 public class CampaignListViewAdapter extends BaseAdapter {
 
     private Context mcontext;
+    private List<ActivityModel> activityList;
 
-    public CampaignListViewAdapter(Context context) {
+    private ViewHolder viewHolder = null;
+
+    public CampaignListViewAdapter(Context context, List<ActivityModel> activityList) {
         this.mcontext = context;
+        this.activityList = activityList;
     }
 
-    //TODO 数据数量【现在模拟为10】
+    public List<ActivityModel> getActivityList() {
+        return activityList;
+    }
+
+    public void setActivityList(List<ActivityModel> activityList) {
+        this.activityList = activityList;
+    }
+
     @Override
     public int getCount() {
-        return 10;
+        return activityList.size();
     }
 
     @Override
@@ -36,7 +55,6 @@ public class CampaignListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = parent.inflate(mcontext, R.layout.item_campaign_show, null);
             viewHolder = new ViewHolder(convertView);
@@ -71,7 +89,16 @@ public class CampaignListViewAdapter extends BaseAdapter {
          */
         public void setData(int position) {
             //TODO 绑定数据
-            Picasso.with(mcontext).load("http://i.imgur.com/DvpvklR.png").placeholder(R.drawable.img_default).into(imageTitlePic);
+            // 设置封面
+            Picasso.with(mcontext).load(activityList.get(position).coverUrl).placeholder(R.drawable.img_default).into(viewHolder.imageTitlePic);
+
+            viewHolder.textViewTitle.setText(activityList.get(position).title);
+
+            ActivityModel.ActivityTime activityTime = activityList.get(position).activityTime;  // 设置时间
+            viewHolder.textViewTime.setText(activityTime.dayStartTime + "-" + activityTime.dayEndTime);
+
+            ActivityModel.Location location = activityList.get(position).location;  // 设置地点
+            viewHolder.textViewLocation.setText(location.province.provinceName + "/" + location.city + "/" + location.address);
         }
     }
 }

@@ -2,21 +2,15 @@ package com.netease.ecos.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
-import com.netease.ecos.activity.ExhibitDetailActivity;
 import com.netease.ecos.activity.RecruitmentDetailActivity;
-import com.netease.ecos.views.ExtensibleListView;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by hzjixinyu on 2015/7/23.
@@ -41,9 +35,9 @@ public class RecruitmentListViewAdapter extends BaseAdapter {
         public ViewHolder(View root) {
             iv_avatar = (ImageView) root.findViewById(R.id.iv_avatar);
             tv_name = (TextView) root.findViewById(R.id.tv_name);
-            tv_distance=(TextView) root.findViewById(R.id.tv_distance);
-            tv_price=(TextView) root.findViewById(R.id.tv_price);
-            tv_talk=(TextView) root.findViewById(R.id.tv_talk);
+            tv_distance = (TextView) root.findViewById(R.id.tv_distance);
+            tv_price = (TextView) root.findViewById(R.id.tv_price);
+            tv_talk = (TextView) root.findViewById(R.id.tv_talk);
             iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
 
             iv_cover.setOnClickListener(new View.OnClickListener() {

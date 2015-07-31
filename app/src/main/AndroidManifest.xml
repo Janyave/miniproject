@@ -39,7 +39,6 @@
     <!-- 接收SDK消息广播权限， 第三方APP接入时，请将com.netease.nim.demo替换为自己的包名 -->
     <uses-permission android:name="com.netease.ecos.permission.RECEIVE_MSG" />
 
-
     <application
         android:name=".activity.MyApplication"
         android:allowBackup="true"
@@ -48,13 +47,11 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.MainActivity"
-
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
-
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -143,19 +140,15 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.NewActivityActivity"
-
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.ApiTestActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name="com.netease.ecos.activity.YunXinLoginActivity"
-            android:label="@string/app_name">
-
+            android:name=".activity.YunXinLoginActivity"
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".activity.NotificationActivity"
@@ -193,7 +186,6 @@
             android:name="com.google.android.maps"
             android:required="false" />
 
-
         <!-- NimService组件。 如需保持后台推送，使用独立进程效果会更好。 -->
         <service
             android:name="com.netease.nimlib.service.NimService"
@@ -203,9 +195,7 @@
         <receiver
             android:name="com.netease.nimlib.service.NimReceiver"
             android:exported="false"
-
-            android:process=":core">
-
+            android:process=":core" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -213,6 +203,10 @@
         </receiver>
         <!-- 云信结束 -->
 
+        <activity
+            android:name=".activity.PersonalInfoSettingActivity"
+            android:label="@string/title_activity_personal_info_setting" >
+        </activity>
     </application>
 
 </manifest>

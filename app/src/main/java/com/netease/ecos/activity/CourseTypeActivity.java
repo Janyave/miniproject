@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.model.Course;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -15,6 +16,7 @@ import butterknife.InjectView;
  * Created by Think on 2015/7/27.
  */
 public class CourseTypeActivity extends Activity implements View.OnClickListener {
+    private final String TAG = "Ecos---CourseType";
     @InjectView(R.id.tv_type_1)
     ImageView makeuperImgVw;
     @InjectView(R.id.tv_type_2)
@@ -50,9 +52,36 @@ public class CourseTypeActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
+        Course.CourseType courseType = Course.CourseType.妆娘;
+        switch (v.getId()) {
+            case R.id.tv_type_1:
+                courseType = Course.CourseType.妆娘;
+                break;
+            case R.id.tv_type_2:
+                courseType = Course.CourseType.道具;
+                break;
+            case R.id.tv_type_3:
+                courseType = Course.CourseType.摄影;
+                break;
+            case R.id.tv_type_4:
+                courseType = Course.CourseType.后期;
+                break;
+            case R.id.tv_type_5:
+                courseType = Course.CourseType.假发;
+                break;
+            case R.id.tv_type_6:
+                courseType = Course.CourseType.服装;
+                break;
+            case R.id.tv_type_7:
+                courseType = Course.CourseType.心得;
+                break;
+            case R.id.tv_type_8:
+                courseType = Course.CourseType.其他;
+                break;
+        }
         Intent intent = new Intent(CourseTypeActivity.this, BuildCourseActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("id", v.getId());
+        bundle.putString(BuildCourseActivity.CourseType, courseType.getBelongs());
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
