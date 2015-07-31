@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ll_personage_item"
+        android:background="@drawable/bg_course_item"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp">
+        <!-- 图片-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="260dp">
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/iv_personage_item_course_cover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:adjustViewBounds="true"
+                android:src="@drawable/img_default"
+                android:scaleType="centerCrop"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:gravity="right">
+                <ImageView
+                    android:layout_width="@dimen/course_item_focus_width"
+                    android:layout_height="@dimen/course_item_focus_width"
+                    android:layout_marginRight="5dp"
+                    android:src="@mipmap/ic_launcher"/>
+                <TextView
+                    android:textAllCaps="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25个赞"
+                    android:id="@+id/tv_personage_item_praise_num"
+                    android:layout_marginRight="20dp"/>
+
+            </LinearLayout>
+
+
+        </FrameLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="大圣归来"
+                android:id="@+id/tv_personage_item_course_title"
+                style="@style/text_pink_max"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="2015年7月28日"
+                style="@style/text_dark_min"
+                android:id="@+id/tv_personage_item_course_date"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
+

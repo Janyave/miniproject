@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.netease.ecos.R;
-import com.netease.ecos.model.Activity;
+import com.netease.ecos.model.ActivityModel;
 
 import java.util.ArrayList;
 
@@ -21,8 +21,8 @@ public class ContactListAdapter extends BaseAdapter {
 
     private Context mcontext;
     private LayoutInflater layoutInflater;
-    private ArrayList<Activity.ContactWay> contactWaysList;
-    public static Activity.ContactWay[] contactWays = new Activity.ContactWay[]{Activity.ContactWay.QQ, Activity.ContactWay.微信, Activity.ContactWay.电话};
+    private ArrayList<ActivityModel.ContactWay> contactWaysList;
+    public static ActivityModel.ContactWay[] contactWays = new ActivityModel.ContactWay[]{ActivityModel.ContactWay.QQ, ActivityModel.ContactWay.微信, ActivityModel.ContactWay.电话};
 
     public ContactListAdapter(Context context) {
         this.mcontext = context;
@@ -30,12 +30,12 @@ public class ContactListAdapter extends BaseAdapter {
         contactWaysList = new ArrayList<>();
     }
 
-    public void addItem(ArrayList<Activity.ContactWay> contactWayArrayList) {
+    public void addItem(ArrayList<ActivityModel.ContactWay> contactWayArrayList) {
         /*then, add a new contactWay in the list.
          * at last, execute the adapter.notifyDataSetChanged();
          */
         this.contactWaysList = contactWayArrayList;
-        Activity.ContactWay contactWay = Activity.ContactWay.QQ;
+        ActivityModel.ContactWay contactWay = ActivityModel.ContactWay.QQ;
         contactWay.setValue("");
         this.contactWaysList.add(contactWay);
         notifyDataSetChanged();
@@ -62,7 +62,7 @@ public class ContactListAdapter extends BaseAdapter {
             convertView.setTag(contactViewHolder);
         } else
             contactViewHolder = (ContactViewHolder) convertView.getTag();
-        ArrayAdapter<Activity.ContactWay> adapter = new ArrayAdapter<Activity.ContactWay>(mcontext, android.R.layout.simple_list_item_1, contactWays);
+        ArrayAdapter<ActivityModel.ContactWay> adapter = new ArrayAdapter<ActivityModel.ContactWay>(mcontext, android.R.layout.simple_list_item_1, contactWays);
         contactViewHolder.typeSpinner.setAdapter(adapter);
         contactViewHolder.detailEditText.setText(contactWaysList.get(position).getValue());
         for (int i = 0; i < contactWays.length; i++) {

@@ -8,6 +8,10 @@ package com.netease.ecos.model;
  */
 
 public class Province {
+    /*** 省份码 */
+    public String provinceCode;
 
+    /*** 省份名称 */
+    public String provinceName;
 }
 

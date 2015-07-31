@@ -402,7 +402,7 @@ public class BuildCourseActivity extends BaseActivity {
 
                 @Override
                 public void fail() {
-                    Toast.makeText(BuildCourseActivity.this,"上传失败"，Toast.LENGTH_LONG).show();;
+                    Toast.makeText(BuildCourseActivity.this,"上传失败",Toast.LENGTH_LONG).show();
 
                 }
 
