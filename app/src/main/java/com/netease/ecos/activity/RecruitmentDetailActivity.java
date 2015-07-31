@@ -68,10 +68,10 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ll_author:
-                //TODO ¸öÈË½çÃæ
+                //TODO  ï¿½ï¿½ï¿½Ë½ï¿½ï¿½ï¿½
                 break;
             case R.id.tv_talk:
-                //TODO Ë½ÐÅ
+                //TODO Ë½ï¿½ï¿½
                 break;
         }
     }

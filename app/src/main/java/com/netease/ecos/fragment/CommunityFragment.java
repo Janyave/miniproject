@@ -1,40 +1,32 @@
 package com.netease.ecos.fragment;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.EventDetailActivity;
 import com.netease.ecos.activity.NewActivityActivity;
 import com.netease.ecos.adapter.CampaignListViewAdapter;
 import com.netease.ecos.adapter.CommunityLocationListViewAdapter;
 import com.netease.ecos.interfaces.CommunityCallBack;
+import com.netease.ecos.model.ActivityModel;
+import com.netease.ecos.request.activity.ActivityListRequest;
 import com.netease.ecos.utils.Util;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.CommunityListView;
@@ -44,6 +36,7 @@ import com.netease.ecos.views.XListView;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * *
@@ -59,6 +52,10 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
     private Handler handler;
     private ArrayList<int[]> locationCommunityCountList;
     private ImageView iv_show_flag_location, iv_show_flag_category;
+    private ActivityListRequest request;
+    private CampaignListViewAdapter campaignListViewAdapter;
+
+    private String recentLocation, recentCategory;
 
     public static CommunityFragment newInstance(String param1, String param2) {
         CommunityFragment fragment = new CommunityFragment();
@@ -79,6 +76,8 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mainView = inflater.inflate(R.layout.fragment_community, container, false);
+        recentLocation = "浙江";
+        recentCategory = "全部分类";
 
         bindView();
         initListener();
@@ -214,7 +213,34 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
     }
 
     private void initData() {
-        lv_campaign.setAdapter(new CampaignListViewAdapter(getActivity()));
+        request = new ActivityListRequest();
+        request.request(new ActivityListRequest.IActivityListResponse() {
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void success(List<ActivityModel> activityList) {
+                if (campaignListViewAdapter == null) {
+                    campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
+                    lv_campaign.setAdapter(campaignListViewAdapter);
+                }
+            }
+            // TODO 省份ID与省份名称未定
+            // TODO 全部分类项需要添加
+        }, "12", ActivityModel.ActivityType.LIVE, 0);
     }
 
     @Override
@@ -295,11 +321,45 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
+
+                final String strLocation = (String) msg.obj;
+                final String strCategory = recentCategory;  // 记录当前状态下的地点和分类
+                recentLocation = strLocation;
+
+                request.request(new ActivityListRequest.IActivityListResponse() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+
+                    }
+
+                    @Override
+                    public void doAfterFailedResponse(String message) {
+
+                    }
+
+                    @Override
+                    public void responseNoGrant() {
+
+                    }
+
+                    @Override
+                    public void success(List<ActivityModel> activityList) {
+                        if (campaignListViewAdapter == null) {
+                            campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
+                            lv_campaign.setAdapter(campaignListViewAdapter);
+                        } else if (strCategory.equals(recentCategory) && strLocation.equals(recentLocation)) {  // 判断是否需要更新数据
+                            campaignListViewAdapter.setActivityList(activityList);
+                            campaignListViewAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
+
                 btn_location.setText((CharSequence) msg.obj);
                 popupWindowLocation.dismiss();
                 iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
                 int length = ((CharSequence) msg.obj).length();
-                Util.setMargins(iv_show_flag_location, Util.dip2px(getActivity(), 120 + (length - 3) * 8), Util.dip2px(getActivity(), 15), 0, 0);
+                Util.setMargins(iv_show_flag_location, Util.dip2px(getActivity(), 120 + (length - 2) * 8), Util.dip2px(getActivity(), 15), 0, 0);
             }
         };
 
@@ -339,15 +399,47 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
-        CharSequence string = ((Button) v.findViewById(v.getId())).getText();
-        btn_categary.setText(string);
+        final String strCategory = ((Button) v.findViewById(v.getId())).getText().toString();
+        final String strLocation = recentLocation;
+        recentCategory = strCategory;
+
+        request.request(new ActivityListRequest.IActivityListResponse() {
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void success(List<ActivityModel> activityList) {
+                if (campaignListViewAdapter == null) {
+                    campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
+                    lv_campaign.setAdapter(campaignListViewAdapter);
+                } else if (strCategory.equals(recentCategory) && strLocation.equals(recentLocation)) {
+                    campaignListViewAdapter.setActivityList(activityList);
+                    campaignListViewAdapter.notifyDataSetChanged();
+                }
+            }
+        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
+
+        btn_categary.setText(strCategory);
         int length = 0;
-        if (string.equals("LIVE"))
+        if (strCategory.equals("LIVE"))
             length = 2;
-        else if (string.equals("主题ONLY"))
+        else if (strCategory.equals("主题ONLY"))
             length = 4;
         else
-            length = string.length();
+            length = strCategory.length();
         Util.setMargins(iv_show_flag_category, 0, Util.dip2px(getActivity(), 15), Util.dip2px(getActivity(), 60 - (length - 2) * 8), 0);
         popupWindowCategory.dismiss();
         iv_show_flag_category.setImageResource(R.drawable.ic_unpress_next_step);
@@ -381,6 +473,39 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                 lv_campaign.stopLoadMore();
             }
         }, 1000);
+
+        final String strCategory = recentCategory;
+        final String strLocation = recentLocation;
+
+        request.request(new ActivityListRequest.IActivityListResponse() {
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void success(List<ActivityModel> activityList) {
+                if (campaignListViewAdapter == null) {
+                    campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
+                    lv_campaign.setAdapter(campaignListViewAdapter);
+                } else if (strCategory.equals(recentCategory) && strLocation.equals(recentLocation)) {
+                    campaignListViewAdapter.getActivityList().addAll(activityList); // 添加ListView的内容
+                    campaignListViewAdapter.notifyDataSetChanged();
+                }
+            }
+        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
+
     }
 
     public static void setPopupWindowTouchModal(PopupWindow popupWindow, boolean touchModal) {
