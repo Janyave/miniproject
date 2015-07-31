@@ -2,21 +2,18 @@ package com.netease.ecos.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.activity.ExhibitDetailActivity;
-import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
-import com.netease.ecos.views.ExtensibleListView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -31,7 +28,7 @@ public class DisplayListViewAdapter extends BaseAdapter {
 
     public DisplayListViewAdapter(Context context, List<Share> shareList) {
         this.mcontext = context;
-        this.shareList=shareList;
+        this.shareList = shareList;
     }
 
     class ViewHolder {
@@ -56,19 +53,19 @@ public class DisplayListViewAdapter extends BaseAdapter {
 
         private TextView tv_allEvaluation;
 
-//        private ExtensibleListView lv_evaluation;
+        //        private ExtensibleListView lv_evaluation;
         private LinearLayout ll_evaluationList;
         private DisplayItemEvalutionViewAdapter adapter;
 
 
-        public ViewHolder(View root) {
-            ll_author=(LinearLayout)root.findViewById(R.id.ll_author);
+        public ViewHolder(View root, int position) {
+            ll_author = (LinearLayout) root.findViewById(R.id.ll_author);
             iv_avatar = (ImageView) root.findViewById(R.id.iv_avatar);
             tv_name = (TextView) root.findViewById(R.id.tv_name);
             tv_focus = (TextView) root.findViewById(R.id.tv_focus);
 
             iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
-            tv_coverNum=(TextView)root.findViewById(R.id.tv_coverNum);
+            tv_coverNum = (TextView) root.findViewById(R.id.tv_coverNum);
             ll_coverInformation = (LinearLayout) root.findViewById(R.id.ll_coverInformation);
             tv_coverTitle = (TextView) root.findViewById(R.id.tv_coverTitle);
             tv_coverTime = (TextView) root.findViewById(R.id.tv_coverTime);
@@ -82,16 +79,8 @@ public class DisplayListViewAdapter extends BaseAdapter {
             tv_praise = (TextView) root.findViewById(R.id.tv_praise);
             tv_evaluate = (TextView) root.findViewById(R.id.tv_evaluation);
 
-            tv_allEvaluation=(TextView)root.findViewById(R.id.tv_allEvalution);
+            tv_allEvaluation = (TextView) root.findViewById(R.id.tv_allEvalution);
 //            ll_evaluationList=(LinearLayout)root.findViewById(R.id.ll_evaluationList);
-
-            iv_cover.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(mcontext, ExhibitDetailActivity.class);
-                    mcontext.startActivity(intent);
-                }
-            });
 
             ll_author.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -109,10 +98,10 @@ public class DisplayListViewAdapter extends BaseAdapter {
             tv_focus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (TextUtils.equals(tv_focus.getText().toString(),"关注")){
+                    if (TextUtils.equals(tv_focus.getText().toString(), "关注")) {
                         tv_focus.setText("已关注");
                         //TODO 关注事件
-                    }else{
+                    } else {
                         tv_focus.setText("关注");
                     }
                 }
@@ -140,25 +129,25 @@ public class DisplayListViewAdapter extends BaseAdapter {
         /**
          * 传入数据未定
          */
-        public void setData(int position) {
-            Share item=shareList.get(position);
+        public void setData(final int position) {
+            Share item = shareList.get(position);
 
             Picasso.with(mcontext).load(item.avatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
             Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             tv_name.setText(item.nickname);
             tv_coverTitle.setText(item.title);
-            tv_coverNum.setText(item.totalPageNumber+"");
+            tv_coverNum.setText(item.totalPageNumber + "");
             tv_coverTime.setText(item.getDateDescription());
-            tv_praise.setText(item.praiseNum+"");
-            tv_evaluate.setText(item.commentNum+"");
-            if (item.hasAttention){
+            tv_praise.setText(item.praiseNum + "");
+            tv_evaluate.setText(item.commentNum + "");
+            if (item.hasAttention) {
                 tv_focus.setText("已关注");
-            }else {
+            } else {
                 tv_focus.setText("关注");
             }
-            if (item.hasPraised){
+            if (item.hasPraised) {
                 //TODO 已赞图片
-            }else{
+            } else {
                 //TODO 未赞图片
             }
 
@@ -173,6 +162,17 @@ public class DisplayListViewAdapter extends BaseAdapter {
 //                ((TextView)view.findViewById(R.id.tv_evaluation)).setText(comment.content);
 //                ll_evaluationList.addView(view);
 //            }
+
+            iv_cover.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mcontext, ExhibitDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(ExhibitDetailActivity.ShareId, shareList.get(position).shareId);
+                    intent.putExtras(bundle);
+                    mcontext.startActivity(intent);
+                }
+            });
         }
     }
 
@@ -198,7 +198,7 @@ public class DisplayListViewAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = parent.inflate(mcontext, R.layout.item_display, null);
-            viewHolder = new ViewHolder(convertView);
+            viewHolder = new ViewHolder(convertView, position);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.activity.RecruitmentCategoryActivity;
+import com.netease.ecos.model.Recruitment;
 
 /**
  * 交易页面
@@ -81,7 +82,28 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        Intent intent=new Intent(getActivity(), RecruitmentCategoryActivity.class);
+        Recruitment.RecruitType recruitType = Recruitment.RecruitType.妆娘;
+        switch (v.getId()) {
+            case R.id.photography_btn:
+                recruitType = Recruitment.RecruitType.摄影;
+                break;
+            case R.id.backstage_btn:
+                recruitType = Recruitment.RecruitType.后期;
+                break;
+            case R.id.costume_btn:
+                recruitType = Recruitment.RecruitType.服装;
+                break;
+            case R.id.prop_btn:
+                recruitType = Recruitment.RecruitType.道具;
+                break;
+            case R.id.others_btn:
+                recruitType = Recruitment.RecruitType.其他;
+                break;
+        }
+        Intent intent = new Intent(getActivity(), RecruitmentCategoryActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(RecruitmentCategoryActivity.TRecruitmentType, recruitType.name());
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 }

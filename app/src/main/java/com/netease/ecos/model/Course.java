@@ -11,63 +11,61 @@ import java.util.List;
 import java.util.Map;
 
 /***
- * 
-* @ClassName: Course 
+ *
+* @ClassName: Course
 * @Description: 教程
 * @author enlizhang
-* @date 2015年7月25日 下午11:31:19 
+* @date 2015年7月25日 下午11:31:19
 *
  */
 public class Course {
 
 	/** 教程id */
 	public String courseId;
-	
+
 	/** 发布者id */
 	public String userId;
-	
+
 	/** 类别 */
 	public CourseType courseType;
-	
+
 	/** 标题 */
 	public String title ;
-	
+
 	/** 发布者 */
 	public String author;
-	
+
 	/** 发布者头像url */
 	public String authorAvatarUrl;
-	
+
 	/** 发布时间,是一个时间戳,可以通过{@link #getDateDescription()}获取日期描述 */
 	public Long issueTimeStamp ;
-	
+
 	/** 封面图本地路径 */
 	public String coverLocalPath;
-	
+
 	/** 封面图url */
 	public String coverUrl;
-	
+
 	/** 教程步骤{@link Step}列表 */
 	public List<Step> stepList = new ArrayList();
-	
+
 	/** 点赞数 */
 	public int praiseNum ;
-	
+
 	/** 作业{@link Assignment}列表 */
 	public List<Assignment> assignmentList = new ArrayList();
-	
+
 	/** 教程下的作品{@link Assignment}个数 */
 	public int assignmentNum ;
-	
+
 	/** 评论数 */
 	public int commentNum;
-	
-	
-	
+
 	public void addStep(Step step){
 		stepList.add(step);
 	}
-	
+
 	public void addStep(Assignment assignment){
 		assignmentList.add(assignment);
 	}
@@ -82,61 +80,61 @@ public class Course {
 		for(CourseType ct:CourseType.values()){
 			list.add(ct.name());
 		}
-		
+
 		return list;
 	}
-	
+
 	/***
 	 * 根据{@link #issueTimeStamp}获取发布时间描述
 	 * @return
 	 */
 	public String getDateDescription(){
-		
+
 		return ModelUtils.getDateDesByTimeStamp(issueTimeStamp);
 	}
-	
-	
-	
+
+
+
 	/***
-	 * 
-	* @ClassName: Assignment 
+	 *
+	* @ClassName: Assignment
 	* @Description: 教程课后作业
 	* @author enlizhang
-	* @date 2015年7月25日 下午11:28:29 
+	* @date 2015年7月25日 下午11:28:29
 	*
 	 */
 	public static class Assignment {
 
 		/** 教程id */
 		public String courseId;
-		
+
 		/** 用户id */
 		public String userId;
-		
+
 		/** 作业id */
 		public String assignmentId;
-		
+
 		/** 作者头像url */
 		public String authorAvatarUrl;
-		
+
 		/** 发布者 */
 		public String author;
-		
+
 		/** 发布时间,是一个时间戳 */
 		public Long issueTime ;
-		
+
 		/** 图片url */
 		public String imageUrl;
-		
+
 		/** 内容 */
 		public String content;
-		
+
 		/** 点赞数 */
 		public int praiseNum;
 
 		/** 评论数 */
 		public int commentNum;
-		
+
 		/***
 		 * 根据{@link #issueTime}获取发布时间描述
 		 * @return
@@ -162,10 +160,10 @@ public class Course {
 					'}';
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	/***
      * 教程步骤
      */
@@ -247,21 +245,21 @@ public class Course {
 					+ "]";
 		}
 
-        
-        
+
+
     }
-    
-    
+
+
     /**
-	 * 
-	* @ClassName: CourseType 
+	 *
+	* @ClassName: CourseType
 	* @Description: 教程类别，包括妆娘、摄影、后期、服装、道具、假发、新的、其他
 	* @author enlizhang
-	* @date 2015年7月25日 下午11:37:26 
+	* @date 2015年7月25日 下午11:37:26
 	*
 	 */
 	public static enum CourseType {
-		
+
 		妆娘("1"),
 		摄影("2"),
 		后期("3"),
@@ -270,7 +268,7 @@ public class Course {
 		假发("6"),
 		心得("7"),
 		其他("8");
-		
+
 		private String value;
 
 		private CourseType(String _value ) {
@@ -291,10 +289,10 @@ public class Course {
 		}
 
 	}
-	
+
 	/***
 	 * 返回变量的json串
-	 * 
+	 *
 	 *  type:类别
 	 *  title:标题
 	 *  cover_url:封面图URL
@@ -305,7 +303,7 @@ public class Course {
 	 */
 	public String getRequestJson(){
 		Map<String,String> jsonMap = new HashMap<String,String>();
-		
+
 		return new JSONObject(jsonMap).toString();
 	}
 

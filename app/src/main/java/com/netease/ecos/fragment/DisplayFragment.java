@@ -1,16 +1,12 @@
 package com.netease.ecos.fragment;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +23,10 @@ import com.netease.ecos.views.FloadingButton;
 import com.netease.ecos.views.ListViewListener;
 import com.netease.ecos.views.XListView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 
-public class DisplayFragment extends Fragment implements XListView.IXListViewListener, View.OnClickListener{
+public class DisplayFragment extends Fragment implements XListView.IXListViewListener, View.OnClickListener {
 
     private View mainView;
     private FloadingButton btn_floading;
@@ -70,10 +64,10 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
     }
 
     private void bindView() {
-        tv_selection=(TextView)mainView.findViewById(R.id.tv_selection);
-        tv_new=(TextView)mainView.findViewById(R.id.tv_new);
-        tv_attention=(TextView)mainView.findViewById(R.id.tv_attention);
-        tv_search=(TextView)mainView.findViewById(R.id.tv_search);
+        tv_selection = (TextView) mainView.findViewById(R.id.tv_selection);
+        tv_new = (TextView) mainView.findViewById(R.id.tv_new);
+        tv_attention = (TextView) mainView.findViewById(R.id.tv_attention);
+        tv_search = (TextView) mainView.findViewById(R.id.tv_search);
 
         lv_course = (XListView) mainView.findViewById(R.id.lv_course);
         lv_course.setDividerHeight(0);
@@ -82,7 +76,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
 
     private void initData() {
-        ShareListRequest request =  new ShareListRequest();
+        ShareListRequest request = new ShareListRequest();
         request.request(new GetShareListResponse(), null, "keyWordk", 0);
     }
 
@@ -108,7 +102,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         lv_course.setOnTouchListener(new ListViewListener(new ListViewListener.IOnMotionEvent() {
             @Override
             public void doInDown() {
-                if (btn_floading.isAppear()){
+                if (btn_floading.isAppear()) {
                     btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
                         @Override
                         public void doAfterAnimation() {
@@ -121,7 +115,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
             @Override
             public void doInUp() {
-                if (btn_floading.isDisappear()){
+                if (btn_floading.isDisappear()) {
                     btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
                         @Override
                         public void doAfterAnimation() {
@@ -233,7 +227,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_search:
                 startActivity(new Intent(getActivity(), SearchActivity.class));
                 break;
@@ -263,11 +257,11 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         tv_attention.setTextColor(color);
     }
 
-    class GetShareListResponse extends BaseResponceImpl implements ShareListRequest.IShareListResponse{
+    class GetShareListResponse extends BaseResponceImpl implements ShareListRequest.IShareListResponse {
 
         @Override
         public void success(List<Share> shareList) {
-            displayListViewAdapter=new DisplayListViewAdapter(getActivity(),shareList);
+            displayListViewAdapter = new DisplayListViewAdapter(getActivity(), shareList);
             lv_course.setAdapter(displayListViewAdapter);
         }
 

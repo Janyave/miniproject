@@ -16,10 +16,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.ContactListAdapter;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.ActivityModel.ActivityType;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.activity.CreateActivityRequest;
 import com.netease.ecos.views.ExtensibleListView;
 
 import java.util.ArrayList;
@@ -32,6 +35,7 @@ import butterknife.InjectView;
  * Created by Think on 2015/7/28.
  */
 public class NewActivityActivity extends Activity implements View.OnClickListener, View.OnTouchListener {
+    private final String TAG = "Ecos---NewActivity";
     @InjectView(R.id.tv_title)
     TextView titleTxVw;
     @InjectView(R.id.btn_right_action)
@@ -81,32 +85,50 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     private ActivityType[] activityTypes = new ActivityType[]{ActivityType.LIVE,
             ActivityType.主题ONLY, ActivityType.动漫节, ActivityType.同人展,
             ActivityType.官方活动, ActivityType.派对, ActivityType.舞台祭, ActivityType.赛事};
+    private ArrayAdapter<ActivityType> activityTypeAdapter;
+    private ArrayAdapter<String> provinceAdapter;
+    private ArrayAdapter<String> cityAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_activity_layout);
         ButterKnife.inject(this);
+        initData();
+        initView();
+    }
+
+    void initView() {
         titleTxVw.setText("发布活动");
         rightButton.setText("发布");
         backTxVw.setText("取消");
+        //set adapter
+        contactListView.setAdapter(contactListAdapter);
+        activityTypeSpinner.setAdapter(activityTypeAdapter);
+        activityProvinceSpinner.setAdapter(provinceAdapter);
+        activityCitySpinner.setAdapter(cityAdapter);
+        //set listener
         backTxVw.setOnClickListener(this);
         rightButton.setOnClickListener(this);
         coverImgVw.setOnClickListener(this);
         newIcon.setOnClickListener(this);
-        contactListAdapter = new ContactListAdapter(this);
-        contactListView.setAdapter(contactListAdapter);
         beginDateEdTx.setOnTouchListener(this);
         endDateEdTx.setOnTouchListener(this);
         beginTimeEdTx.setOnTouchListener(this);
         endTimeEdTx.setOnTouchListener(this);
+    }
+
+    void initData() {
+        //init the adapter
+        contactListAdapter = new ContactListAdapter(this);
+        activityTypeAdapter = new ArrayAdapter<ActivityType>(this, android.R.layout.simple_list_item_1, activityTypes);
+        provinceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"浙江"});
+        cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"杭州"});
+        //send the request
+        CreateActivityRequest request = new CreateActivityRequest();
+        request.testData(new CreateActivityResponce(), new ActivityModel());
+        //init the calendar
         calendar = Calendar.getInstance();
-        ArrayAdapter<ActivityType> activityTypeAdapter = new ArrayAdapter<ActivityType>(this, android.R.layout.simple_list_item_1, activityTypes);
-        activityTypeSpinner.setAdapter(activityTypeAdapter);
-        ArrayAdapter<String> provinceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"浙江"});
-        activityProvinceSpinner.setAdapter(provinceAdapter);
-        ArrayAdapter<String> cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"杭州"});
-        activityCitySpinner.setAdapter(cityAdapter);
     }
 
     @Override
@@ -205,5 +227,22 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
             contactWayArrayList.add(contactWay);
         }
         return contactWayArrayList;
+    }
+
+    class CreateActivityResponce extends BaseResponceImpl implements CreateActivityRequest.ICreateActivityResponce {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+        }
+
+        @Override
+        public void success(ActivityModel activity) {
+            Log.d(TAG, "create activity successfully.");
+        }
+
     }
 }
