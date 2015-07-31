@@ -92,8 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:dividerHeight="@dimen/divider_height"
-                        android:listSelector="#000000"></com.netease.ecos.views.ExtensibleListView>
+                        android:dividerHeight="@dimen/divider_height" />
 
 
                 </LinearLayout>
