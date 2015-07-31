@@ -504,7 +504,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                     campaignListViewAdapter.notifyDataSetChanged();
                 }
             }
-        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
+        }, strLocation, ActivityModel.ActivityType.主题ONLY, 0);
 
     }
 
