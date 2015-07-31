@@ -1,13 +1,8 @@
 package com.netease.ecos.request.activity;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request.Method;
-import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
-import com.netease.ecos.request.MyStringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,29 +33,49 @@ public class CreateActivityRequest extends BaseRequest{
 
 	ICreateActivityResponce mCreateActivityResponce;
 
+	/***
+	 * 用于测试，验证请求数据完整性以及请求数据封装正确性，例如无null
+	 * @param createActivityResponce
+	 * @param activity
+	 */
+	public void testData(ICreateActivityResponce createActivityResponce, final ActivityModel activity)
+	{
+		Map<String, String> map = getRequestBasicMap();
+		map.put(ACTIVITY_JSON, getRequestActivityJSon(activity));
+		traceNormal(TAG, map.toString());
+		mCreateActivityResponce = createActivityResponce;
+		mCreateActivityResponce.success(activity);
+	}
+
+	/***
+	 *
+	 * @param createActivityResponce 创建活动请求回掉接口
+	 * @param activity
+	 */
 	public void request(ICreateActivityResponce createActivityResponce, final ActivityModel activity)
 	{
 		super.initBaseRequest(createActivityResponce);
 		mCreateActivityResponce = createActivityResponce;
 		mActivity = activity;
+		mCreateActivityResponce.success(mActivity);
 
-		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.CREATE_ACTIVITY_URL,  this, this) {
-			@Override
-			protected Map<String, String> getParams() throws AuthFailureError {
-				Map<String, String> map = getRequestBasicMap();
+		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.CREATE_ACTIVITY_URL,  this, this) {
+	        @Override
+	        protected Map<String, String> getParams() throws AuthFailureError {
+	        	Map<String, String> map = getRequestBasicMap();
 
-				map.put(ACTIVITY_JSON, getRequestActivityJSon(activity));
+	        	map.put(ACTIVITY_JSON, getRequestActivityJSon(activity));
 
-				traceNormal(TAG, map.toString());
-				traceNormal(TAG, CreateActivityRequest.this.getUrl(RequestUrlConstants.CREATE_ACTIVITY_URL, map));
-				return map;
-			}
+	            traceNormal(TAG, map.toString());
+	            traceNormal(TAG, CreateActivityRequest.this.getUrl(RequestUrlConstants.CREATE_ACTIVITY_URL, map));
+	            return map;
+	        }
 
-		};
+	    };
 
-		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-		getQueue().add(stringRequest);
+	    getQueue().add(stringRequest);*/
 
 	}
 
@@ -149,7 +164,7 @@ public class CreateActivityRequest extends BaseRequest{
 	 * @date 2015年7月26日 下午8:23:15
 	 *
 	 */
-	interface ICreateActivityResponce extends IBaseResponse
+	public interface ICreateActivityResponce extends IBaseResponse
 	{
 		/***
 		 * 请求成功回掉函数，并返回创建的活动
