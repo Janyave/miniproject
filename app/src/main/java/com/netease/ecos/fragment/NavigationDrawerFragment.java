@@ -33,6 +33,7 @@ import com.android.volley.toolbox.Volley;
 import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.PersonageDetailActivity;
+import com.netease.ecos.activity.PersonalInfoSettingActivity;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
@@ -157,7 +158,8 @@ public class NavigationDrawerFragment extends Fragment {
         btPersonageSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO on setting btn click
+                Intent intent = new Intent(getActivity(), PersonalInfoSettingActivity.class);
+                startActivity(intent);
             }
         });
 
