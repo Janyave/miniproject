@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/include_title"
-        android:layout_marginBottom="72dp">
+        android:layout_marginBottom="@dimen/workDetailCommentLayoutHeight">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:paddingRight="@dimen/commentDetaiPaddingLeft"
             android:paddingTop="@dimen/commentDetaiPaddingTop">
 
-            <ImageView
+            <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/exhibitCoverImgVw"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/workDetail_ImgVw_height"
@@ -39,13 +39,12 @@
                 android:layout_marginTop="@dimen/commentDetaiPaddingTop"
                 android:orientation="horizontal">
 
-                <ImageView
+                <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/exhibitPersonImgVw"
                     android:layout_width="@dimen/personImageView_width"
                     android:layout_height="@dimen/personImageView_height"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginRight="@dimen/commentDetaiPaddingLeft"
-                    android:src="@mipmap/ic_launcher" />
+                    android:layout_marginRight="@dimen/commentDetaiPaddingLeft" />
 
                 <TextView
                     android:id="@+id/exhibitPersonNameTxVw"
@@ -88,7 +87,8 @@
                 android:id="@+id/exhibitLsVw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/commentDetaiPaddingTop" />
+                android:layout_marginBottom="@dimen/commentDetaiPaddingTop"
+                android:divider="#00000000" />
 
             <include
                 layout="@layout/comment_title"

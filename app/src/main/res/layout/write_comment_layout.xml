@@ -12,16 +12,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/commentDetaiPaddingTop"
+        android:paddingBottom="@dimen/commentDetaiPaddingLeft"
         android:paddingLeft="@dimen/commentDetaiPaddingLeft"
-        android:paddingTop="@dimen/commentDetaiPaddingTop">
+        android:paddingTop="@dimen/commentDetaiPaddingLeft">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/commentDetaiPaddingLeft"
             android:background="@drawable/comment_shape"
             android:gravity="center_vertical"
-            android:layout_marginRight="@dimen/commentDetaiPaddingLeft"
             android:orientation="vertical">
 
             <EditText
@@ -35,11 +35,12 @@
                 android:hint="@string/comment_hint"
                 android:paddingBottom="@dimen/commentDetaiPaddingTop"
                 android:paddingLeft="@dimen/commentDetaiPaddingLeft"
-                android:paddingTop="@dimen/commentDetaiPaddingTop"
+                android:paddingTop="@dimen/commentDetaiPaddingLeft"
                 android:textSize="@dimen/commentDetailTextSize" />
         </LinearLayout>
 
         <Button
+            android:id="@+id/favorBtn"
             android:layout_width="match_parent"
             android:layout_height="@dimen/workDetailComment_EdTx_height"
             android:background="@null"
@@ -47,8 +48,6 @@
             android:textColor="@color/bg_red"
             android:textSize="@dimen/commentDetailTextSize" />
 
-
     </LinearLayout>
-
 
 </LinearLayout>

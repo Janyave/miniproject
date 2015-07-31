@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/include_title"
-        android:layout_marginBottom="72dp"
-        android:dividerHeight="2dp"
+        android:layout_marginBottom="@dimen/workDetailCommentLayoutHeight"
+        android:dividerHeight="@dimen/divider_height"
         android:listSelector="#e7e7e7" />
 
     <include

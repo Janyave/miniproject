@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="72dp">
+                android:layout_marginBottom="@dimen/workDetailCommentLayoutHeight">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -33,14 +33,13 @@
                     android:paddingLeft="@dimen/commentDetaiPaddingLeft"
                     android:paddingRight="@dimen/commentDetaiPaddingLeft">
 
-                    <ImageView
+                    <com.android.volley.toolbox.NetworkImageView
                         android:id="@+id/workDetailImgVw"
                         android:layout_width="fill_parent"
                         android:layout_height="@dimen/workDetail_ImgVw_height"
                         android:layout_marginTop="@dimen/commentDetaiPaddingTop"
                         android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:src="@mipmap/ic_launcher" />
+                        android:focusableInTouchMode="true" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -93,8 +92,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
-                        android:dividerHeight="3dp"
-                        android:listSelector="#e7e7e7"></com.netease.ecos.views.ExtensibleListView>
+                        android:dividerHeight="@dimen/divider_height"
+                        android:listSelector="#000000"></com.netease.ecos.views.ExtensibleListView>
 
 
                 </LinearLayout>
