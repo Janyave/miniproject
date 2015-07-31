@@ -7,19 +7,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@drawable/bg_course_item"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="12dp">
+        android:layout_marginLeft="@dimen/margin_40px"
+        android:layout_marginRight="@dimen/margin_40px"
+        android:layout_marginBottom="@dimen/margin_30px">
 
         <!--头像姓名私信 -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/height_item_personInforamtion_180px"
             android:orientation="horizontal"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:paddingLeft="@dimen/margin_40px"
+            android:paddingRight="@dimen/margin_40px"
             android:gravity="center_vertical">
             <LinearLayout
                 android:id="@+id/ll_author"
@@ -29,13 +27,15 @@
                 android:gravity="center">
                 <ImageView
                     android:id="@+id/iv_avatar"
-                    android:layout_width="@dimen/course_item_avatar_width"
-                    android:layout_height="@dimen/course_item_avatar_width"
+                    android:focusableInTouchMode="true"
+                    android:focusable="true"
+                    android:layout_width="@dimen/circle_icon_108px"
+                    android:layout_height="@dimen/circle_icon_108px"
                     android:src="@mipmap/ic_launcher"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_height="@dimen/height_item_personInforamtion_text_108px"
+                    android:layout_marginLeft="@dimen/margin_40px"
                     android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -48,20 +48,21 @@
                             style="@style/text_dark_mid"
                             android:text="NAME"/>
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="@dimen/icon_little_36px"
+                            android:layout_height="@dimen/icon_little_36px"
                             android:src="@mipmap/ic_launcher"
-                            android:layout_marginLeft="16dp"/>
+                            android:layout_marginLeft="12dp"/>
 
                     </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="5dp"/>
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
                     <TextView
                         android:id="@+id/tv_distance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/text_gray_min"
+                        style="@style/text_gray_mid"
                         android:text="3km"/>
                 </LinearLayout>
             </LinearLayout>
@@ -72,8 +73,8 @@
                 android:layout_weight="1"/>
             <TextView
                 android:id="@+id/tv_talk"
-                android:layout_width="64dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/width_btn_focus_152px"
+                android:layout_height="@dimen/height_btn_focus_70px"
                 android:gravity="center"
                 android:text="私信"
                 android:background="@drawable/btn_little_pink"
@@ -81,8 +82,8 @@
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="245dp"
-            android:layout_margin="1dp">
+            android:layout_height="@dimen/height_cover_664px_1000px"
+            android:layout_margin="@dimen/width_line">
             <ImageView
                 android:id="@+id/iv_cover"
                 android:layout_width="match_parent"
@@ -91,11 +92,11 @@
                 android:scaleType="centerCrop"/>
             <TextView
                 android:id="@+id/tv_price"
-                android:layout_width="88dp"
-                android:layout_height="36dp"
+                android:layout_width="@dimen/width_btn_price_216px"
+                android:layout_height="@dimen/height_btn_price_92px"
                 android:gravity="center"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="@dimen/margin_80px"
                 android:text="$ 60/人"
                 android:background="@drawable/bg_recruition_price"
                 style="@style/text_white_max"/>
