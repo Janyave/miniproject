@@ -12,7 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
-import com.netease.ecos.activity.ExhibitDetailActivity;
+import com.netease.ecos.activity.DisplayDetailActivity;
+import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.model.Share;
 import com.squareup.picasso.Picasso;
 
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * Created by hzjixinyu on 2015/7/23.
  */
-public class DisplayListViewAdapter extends BaseAdapter {
+public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickListener {
 
     private Context mcontext;
     private List<Share> shareList;
@@ -140,6 +141,16 @@ public class DisplayListViewAdapter extends BaseAdapter {
             tv_coverTime.setText(item.getDateDescription());
             tv_praise.setText(item.praiseNum + "");
             tv_evaluate.setText(item.commentNum + "");
+            //set tag
+            ll_author.setTag(position);
+            iv_cover.setTag(position);
+            tv_coverTitle.setTag(position);
+
+            //set listener
+            ll_author.setOnClickListener(DisplayListViewAdapter.this);
+            iv_cover.setOnClickListener(DisplayListViewAdapter.this);
+            tv_coverTitle.setOnClickListener(DisplayListViewAdapter.this);
+
             if (item.hasAttention) {
                 tv_focus.setText("已关注");
             } else {
@@ -166,9 +177,9 @@ public class DisplayListViewAdapter extends BaseAdapter {
             iv_cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mcontext, ExhibitDetailActivity.class);
+                    Intent intent = new Intent(mcontext, DisplayDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString(ExhibitDetailActivity.ShareId, shareList.get(position).shareId);
+                    bundle.putString(DisplayDetailActivity.ShareId, shareList.get(position).shareId);
                     intent.putExtras(bundle);
                     mcontext.startActivity(intent);
                 }
@@ -190,7 +201,7 @@ public class DisplayListViewAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -208,4 +219,25 @@ public class DisplayListViewAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        Bundle bundle = new Bundle();
+        int position = (int) v.getTag();
+        switch (v.getId()) {
+            case R.id.ll_author:
+                intent = new Intent(mcontext, PersonageDetailActivity.class);
+//                bundle.putString(PersonageDetailActivity.UserID, shareList.get(position).userId);
+                bundle.putString(PersonageDetailActivity.UserID, "");
+                break;
+            default:
+                intent = new Intent(mcontext, DisplayDetailActivity.class);
+                bundle.putString(PersonageDetailActivity.UserID, shareList.get(position).shareId);
+                break;
+        }
+        intent.putExtras(bundle);
+        mcontext.startActivity(intent);
+    }
+
 }

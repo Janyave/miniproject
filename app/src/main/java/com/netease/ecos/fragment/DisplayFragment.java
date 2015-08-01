@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.activity.CourseCategoryActivity;
 import com.netease.ecos.activity.PhotoAlbumActivity;
 import com.netease.ecos.activity.SearchActivity;
 import com.netease.ecos.adapter.DisplayListViewAdapter;
@@ -27,17 +28,28 @@ import java.util.List;
 
 
 public class DisplayFragment extends Fragment implements XListView.IXListViewListener, View.OnClickListener {
+    private static final String TAG = "Ecos---DisplayF";
 
     private View mainView;
     private FloadingButton btn_floading;
     private XListView lv_course;
 
-    private TextView tv_selection;
+    private TextView tv_all;
+    private TextView tv_recommend;
     private TextView tv_new;
     private TextView tv_attention;
     private TextView tv_search;
 
     private DisplayListViewAdapter displayListViewAdapter;
+
+    //for request
+    private ShareListRequest shareListRequest;
+    private GetShareListResponse getShareListResponse;
+
+    //record share type including recommend, latest, favor.
+    private ShareListRequest.ShareType shareType;
+    private String searchWord;
+
 
     public static DisplayFragment newInstance() {
         DisplayFragment fragment = new DisplayFragment();
@@ -55,16 +67,15 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mainView = inflater.inflate(R.layout.fragment_display, container, false);
-
         bindView();
         initListener();
         initData();
-
         return mainView;
     }
 
     private void bindView() {
-        tv_selection = (TextView) mainView.findViewById(R.id.tv_selection);
+        tv_all = (TextView) mainView.findViewById(R.id.tv_all);
+        tv_recommend = (TextView) mainView.findViewById(R.id.tv_recommend);
         tv_new = (TextView) mainView.findViewById(R.id.tv_new);
         tv_attention = (TextView) mainView.findViewById(R.id.tv_attention);
         tv_search = (TextView) mainView.findViewById(R.id.tv_search);
@@ -76,14 +87,18 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
 
     private void initData() {
-        ShareListRequest request = new ShareListRequest();
-        request.request(new GetShareListResponse(), null, "keyWordk", 0);
+        searchWord = "";
+        shareListRequest = new ShareListRequest();
+        getShareListResponse = new GetShareListResponse();
+        shareType = ShareListRequest.ShareType.所有;
+        shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
     }
 
     private void initListener() {
+        tv_all.setOnClickListener(this);
         tv_search.setOnClickListener(this);
         tv_attention.setOnClickListener(this);
-        tv_selection.setOnClickListener(this);
+        tv_recommend.setOnClickListener(this);
         tv_new.setOnClickListener(this);
 
         btn_floading.setOnClickListener(new View.OnClickListener() {
@@ -231,30 +246,58 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
             case R.id.tv_search:
                 startActivity(new Intent(getActivity(), SearchActivity.class));
                 break;
-            case R.id.tv_selection:
-                //TODO 选择事件
+            case R.id.tv_all:
+                //the text color
                 setUnChecked();
-                tv_selection.setTextColor(getResources().getColor(R.color.text_red));
+                tv_all.setTextColor(getResources().getColor(R.color.text_red));
+                shareType = ShareListRequest.ShareType.所有;
+                //send the request
+                shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
+                break;
+            case R.id.tv_recommend:
+                //the text color
+                setUnChecked();
+                tv_recommend.setTextColor(getResources().getColor(R.color.text_red));
+                shareType = ShareListRequest.ShareType.推荐;
+                //send the request
+                shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
                 break;
             case R.id.tv_attention:
-                //TODO 选择事件
+                //the text color
                 setUnChecked();
                 tv_attention.setTextColor(getResources().getColor(R.color.text_red));
+                shareType = ShareListRequest.ShareType.关注;
+                //send the request
+                shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
+
                 break;
             case R.id.tv_new:
-                //TODO 选择事件
+                //the text color
                 setUnChecked();
                 tv_new.setTextColor(getResources().getColor(R.color.text_red));
+                shareType = ShareListRequest.ShareType.新人;
+                //send the request
+                shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
                 break;
         }
     }
 
     private void setUnChecked() {
         int color = getResources().getColor(R.color.text_gray);
+        tv_all.setTextColor(color);
         tv_new.setTextColor(color);
         tv_search.setTextColor(color);
-        tv_selection.setTextColor(color);
+        tv_recommend.setTextColor(color);
         tv_attention.setTextColor(color);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CourseCategoryActivity.RequestCodeForSearch && resultCode == CourseCategoryActivity.ResultCodeForSearch) {
+            searchWord = data.getExtras().getString(SearchActivity.SearchWord);
+            shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
+        }
     }
 
     class GetShareListResponse extends BaseResponceImpl implements ShareListRequest.IShareListResponse {

@@ -15,7 +15,6 @@ import com.netease.ecos.R;
 import com.netease.ecos.activity.CourseCategoryActivity;
 import com.netease.ecos.activity.CourseDetailActivity;
 import com.netease.ecos.activity.CourseTypeActivity;
-import com.netease.ecos.activity.SplashActivity;
 import com.netease.ecos.adapter.CourseListViewAdapter;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
@@ -86,7 +85,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         tv_type_6 = (ImageView) mainView.findViewById(R.id.tv_type_6);
         tv_type_7 = (ImageView) mainView.findViewById(R.id.tv_type_7);
         tv_type_8 = (ImageView) mainView.findViewById(R.id.tv_type_8);
-        sv=(ScrollView)mainView.findViewById(R.id.sv);
+        sv = (ScrollView) mainView.findViewById(R.id.sv);
     }
 
 
@@ -170,29 +169,49 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initData() {
-//        lv_course.setAdapter(new CourseListViewAdapter(getActivity()));
-
-//        List<String> URLList = new ArrayList<>();
-//        for (int i = 0; i < 5; i++) {
-//            URLList.add("http://img5.duitang.com/uploads/item/201403/07/20140307100224_trTBU.jpeg");
-//        }
-//        banner.setURLList(URLList);
-
         /**获取banner信息**/
         GetBannerRequest requestBanner = new GetBannerRequest();
         requestBanner.request(new GetBannerResponse());
 
         CourseListRequest requestCourse = new CourseListRequest();
-        requestCourse.request(new GetCourseResponse(), CourseListRequest.Type.推荐, null, null, null,0);
+        requestCourse.request(new GetCourseResponse(), CourseListRequest.Type.推荐, null, null, null, 0);
 
     }
 
     @Override
     public void onClick(View v) {
+        Course.CourseType courseType = Course.CourseType.化妆;
         switch (v.getId()) {
-            //TODO 增加点击信息
+            case R.id.tv_type_1:
+                courseType = Course.CourseType.化妆;
+                break;
+            case R.id.tv_type_2:
+                courseType = Course.CourseType.道具;
+                break;
+            case R.id.tv_type_3:
+                courseType = Course.CourseType.摄影;
+                break;
+            case R.id.tv_type_4:
+                courseType = Course.CourseType.后期;
+                break;
+            case R.id.tv_type_5:
+                courseType = Course.CourseType.假发;
+                break;
+            case R.id.tv_type_6:
+                courseType = Course.CourseType.服装;
+                break;
+            case R.id.tv_type_7:
+                courseType = Course.CourseType.心得;
+                break;
+            case R.id.tv_type_8:
+                courseType = Course.CourseType.其他;
+                break;
         }
-        startActivity(new Intent(getActivity(), CourseCategoryActivity.class));
+        Intent intent = new Intent(getActivity(), CourseCategoryActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(CourseCategoryActivity.CourseCategory, courseType.getBelongs());
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override

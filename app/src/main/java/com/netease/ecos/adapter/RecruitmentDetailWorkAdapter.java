@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
-import com.netease.ecos.activity.ExhibitDetailActivity;
+import com.netease.ecos.activity.DisplayDetailActivity;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -58,9 +58,9 @@ public class RecruitmentDetailWorkAdapter extends BaseAdapter {
             iv_cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mcontext, ExhibitDetailActivity.class);
+                    Intent intent = new Intent(mcontext, DisplayDetailActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString(ExhibitDetailActivity.ShareId, "1");
+                    bundle.putString(DisplayDetailActivity.ShareId, "1");
                     intent.putExtras(bundle);
                     mcontext.startActivity(intent);
                 }

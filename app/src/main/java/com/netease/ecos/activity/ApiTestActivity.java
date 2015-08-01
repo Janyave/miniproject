@@ -356,7 +356,7 @@ public class ApiTestActivity extends BaseActivity {
         Log.e("获取筛选教程列表", "getCourseListByFilter()");
 
         CourseListRequest request = new CourseListRequest();
-        request.request(new CourseListResponse(), CourseListRequest.Type.筛选, Course.CourseType.妆娘,"鸣人", CourseListRequest.SortRule.时间,0);
+        request.request(new CourseListResponse(), CourseListRequest.Type.筛选, Course.CourseType.化妆,"鸣人", CourseListRequest.SortRule.时间,0);
     }
 
 

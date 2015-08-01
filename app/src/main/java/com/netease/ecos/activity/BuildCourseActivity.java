@@ -107,7 +107,7 @@ public class BuildCourseActivity extends BaseActivity {
     CourseStepAdapter mCourseStepAdapter;
 
     /**
-     * {@link com.netease.ecos.model.Course.CourseType}枚举值
+     * {@link com.netease.ecos.model.Course.CourseType}枚举值, it's value not name.
      */
     public String mCourseTypeValue;
 
