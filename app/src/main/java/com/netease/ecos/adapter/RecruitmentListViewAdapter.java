@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.activity.ContactActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.RecruitmentDetailActivity;
 import com.netease.ecos.model.Recruitment;
@@ -38,6 +40,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
         private TextView tv_price;
         private TextView tv_talk;
         private ImageView iv_cover;
+        private LinearLayout ll_author;
 
         public ViewHolder(View root) {
             iv_avatar = (ImageView) root.findViewById(R.id.iv_avatar);
@@ -46,22 +49,25 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             tv_price = (TextView) root.findViewById(R.id.tv_price);
             tv_talk = (TextView) root.findViewById(R.id.tv_talk);
             iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
+            ll_author = (LinearLayout) root.findViewById(R.id.ll_author);
         }
 
         /**
          * 传入数据未定
          */
         public void setData(int position) {
-            //TODO 绑定数据
-            Picasso.with(mcontext).load("http://i.imgur.com/DvpvklR.png").placeholder(R.drawable.img_default).into(iv_cover);
+            //set the data for each widget
+            Picasso.with(mcontext).load(recruitmentArrayList.get(position).avatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
+            Picasso.with(mcontext).load(recruitmentArrayList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            tv_name.setText(recruitmentArrayList.get(position).nickname);
+            tv_distance.setText(recruitmentArrayList.get(position).distanceKM);
+            tv_price.setText(mcontext.getResources().getString(R.string.$) + recruitmentArrayList.get(position).averagePrice + mcontext.getResources().getString(R.string.perPerson));
             //set tag
-            iv_avatar.setTag(position);
-            tv_name.setTag(position);
+            ll_author.setTag(position);
             tv_talk.setTag(position);
             iv_cover.setTag(position);
             //set listener
-            iv_avatar.setOnClickListener(RecruitmentListViewAdapter.this);
-            tv_name.setOnClickListener(RecruitmentListViewAdapter.this);
+            ll_author.setOnClickListener(RecruitmentListViewAdapter.this);
             iv_cover.setOnClickListener(RecruitmentListViewAdapter.this);
             tv_talk.setOnClickListener(RecruitmentListViewAdapter.this);
         }
@@ -106,8 +112,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
         Bundle bundle = new Bundle();
         int position = (int) v.getTag();
         switch (v.getId()) {
-            case R.id.iv_avatar:
-            case R.id.tv_name:
+            case R.id.ll_author:
                 intent = new Intent(mcontext, PersonageDetailActivity.class);
                 bundle.putString(PersonageDetailActivity.UserID, recruitmentArrayList.get(position).userId);
                 intent.putExtras(bundle);
@@ -121,7 +126,12 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
                 mcontext.startActivity(intent);
                 break;
             case R.id.tv_talk:
-                //TODO:私信
+                intent = new Intent(mcontext, ContactActivity.class);
+                bundle.putString(ContactActivity.TargetUserID, recruitmentArrayList.get(position).userId);
+                bundle.putString(ContactActivity.TargetUserName, recruitmentArrayList.get(position).nickname);
+                bundle.putString(ContactActivity.TargetUserAvatar, recruitmentArrayList.get(position).avatarUrl);
+                intent.putExtras(bundle);
+                mcontext.startActivity(intent);
                 break;
         }
     }

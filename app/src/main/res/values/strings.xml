@@ -128,4 +128,6 @@
     <string name="auction">挂牌</string>
     <string name="instruction">说明</string>
     <string name="chooseCover">选择封面作品</string>
+    <string name="perPerson">/人</string>
+    <string name="$">$</string>
 </resources>
