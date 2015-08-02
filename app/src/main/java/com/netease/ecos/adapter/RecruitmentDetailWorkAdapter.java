@@ -12,17 +12,22 @@ import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.activity.DisplayDetailActivity;
+import com.netease.ecos.model.Share;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 /**
  * Created by hzjixinyu on 2015/7/23.
  */
-public class RecruitmentDetailWorkAdapter extends BaseAdapter {
+public class RecruitmentDetailWorkAdapter extends BaseAdapter implements View.OnClickListener {
 
     private Context mcontext;
+    private List<Share> shareList;
 
-    public RecruitmentDetailWorkAdapter(Context context) {
+    public RecruitmentDetailWorkAdapter(Context context, List<Share> shareList) {
         this.mcontext = context;
+        this.shareList = shareList;
     }
 
     class ViewHolder {
@@ -41,69 +46,45 @@ public class RecruitmentDetailWorkAdapter extends BaseAdapter {
 
 
         public ViewHolder(View root) {
-
             iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
             tv_coverNum = (TextView) root.findViewById(R.id.tv_coverNum);
             tv_coverTitle = (TextView) root.findViewById(R.id.tv_coverTitle);
             tv_coverTime = (TextView) root.findViewById(R.id.tv_coverTime);
-
             tv_praise = (TextView) root.findViewById(R.id.tv_praise);
             tv_evaluate = (TextView) root.findViewById(R.id.tv_evaluation);
             iv_praise = (ImageView) root.findViewById(R.id.iv_praise);
             iv_evaluate = (ImageView) root.findViewById(R.id.iv_evaluation);
             ll_praise = (LinearLayout) root.findViewById(R.id.ll_praise);
             ll_evaluate = (LinearLayout) root.findViewById(R.id.ll_evaluation);
-
-
-            iv_cover.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(mcontext, DisplayDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString(DisplayDetailActivity.ShareId, "1");
-                    intent.putExtras(bundle);
-                    mcontext.startActivity(intent);
-                }
-            });
-            ll_praise.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO 关注图标切换
-                }
-            });
-
-            ll_evaluate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO 评论页面
-                }
-            });
         }
 
         /**
          * 传入数据未定
          */
         public void setData(int position) {
-            //TODO 绑定数据
-            Picasso.with(mcontext).load("http://i.imgur.com/DvpvklR.png").placeholder(R.drawable.img_default).into(iv_cover);
+            Picasso.with(mcontext).load(shareList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            tv_coverNum.setText(shareList.get(position).totalPageNumber + "");
+            tv_coverTitle.setText(shareList.get(position).title);
+            tv_coverTime.setText(shareList.get(position).getDateDescription() + "");
+            tv_praise.setText(shareList.get(position).praiseNum + "");
+            tv_evaluate.setText(shareList.get(position).commentNum + "");
         }
     }
 
-    //TODO 数据数量【现在模拟为5】
     @Override
     public int getCount() {
-        return 5;
+        return shareList.size();
     }
 
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return shareList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -116,9 +97,16 @@ public class RecruitmentDetailWorkAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
         viewHolder.setData(position);
-
         return convertView;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(mcontext, DisplayDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(DisplayDetailActivity.ShareId, "1");
+        intent.putExtras(bundle);
+        mcontext.startActivity(intent);
     }
 }

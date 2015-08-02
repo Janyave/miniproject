@@ -38,27 +38,22 @@ public class ViewScrollListener implements View.OnTouchListener{
             if (offsetY>30){
                 nowState="down";
                 y=v.getScrollY();
-                //TODO 下滑事件
                 Log.v("sroll", "down " + v.getScrollY() + "");
                 onMotionEvent.doInDown();
             }
             if (offsetY<-30){
                 nowState="up";
                 y=v.getScrollY();
-                //TODO 上滑事件
                 Log.v("sroll","up "+v.getScrollY()+"");
                 onMotionEvent.doInUp();
             }
 
             if (!TextUtils.equals(nowState, state)){
-                //TODO 方向装换事件
                 if (TextUtils.equals(nowState,"up")){
-                    //TODO 上滑事件
                     Log.v("sroll","change up "+v.getScrollY()+"");
                     onMotionEvent.doInChangeToUp();
                 }
                 if (TextUtils.equals(nowState,"down")){
-                    //TODO 下滑事件
                     Log.v("sroll","change down "+v.getScrollY()+"");
                     onMotionEvent.doInChangeToDown();
                 }

@@ -66,13 +66,11 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             iv_avatar = (ImageView) root.findViewById(R.id.iv_avatar);
             tv_name = (TextView) root.findViewById(R.id.tv_name);
             tv_focus = (TextView) root.findViewById(R.id.tv_focus);
-
             iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
             tv_coverNum = (TextView) root.findViewById(R.id.tv_coverNum);
             ll_coverInformation = (LinearLayout) root.findViewById(R.id.ll_coverInformation);
             tv_coverTitle = (TextView) root.findViewById(R.id.tv_coverTitle);
             tv_coverTime = (TextView) root.findViewById(R.id.tv_coverTime);
-
             tv_praise = (TextView) root.findViewById(R.id.tv_praise);
             tv_evaluate = (TextView) root.findViewById(R.id.tv_evaluation);
             iv_praise = (ImageView) root.findViewById(R.id.iv_praise);
@@ -81,11 +79,8 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             ll_evaluate = (LinearLayout) root.findViewById(R.id.ll_evaluation);
             tv_praise = (TextView) root.findViewById(R.id.tv_praise);
             tv_evaluate = (TextView) root.findViewById(R.id.tv_evaluation);
-
             ll_evaluationList = (LinearLayout) root.findViewById(R.id.ll_evaluationList);
             tv_allEvaluation = (TextView) root.findViewById(R.id.tv_allEvalution);
-
-
         }
 
         /**
@@ -156,7 +151,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return position;
     }
 
     @Override
@@ -176,7 +171,6 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
         }
 
         viewHolder.setData(position);
-
         return convertView;
     }
 
@@ -188,8 +182,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
         switch (v.getId()) {
             case R.id.ll_author:
                 intent = new Intent(mcontext, PersonageDetailActivity.class);
-//                bundle.putString(PersonageDetailActivity.UserID, shareList.get(position).userId);
-                bundle.putString(PersonageDetailActivity.UserID, "");
+                bundle.putString(PersonageDetailActivity.UserID, shareList.get(position).userId);
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;

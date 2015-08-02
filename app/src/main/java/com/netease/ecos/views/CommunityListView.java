@@ -2,7 +2,6 @@ package com.netease.ecos.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.widget.ListView;
 
 /**
@@ -24,14 +23,4 @@ public class CommunityListView extends ListView {
         super(context, attrs, defStyle);
     }
 
-    /**
-     * 重构onInterceptTouchEvent方法并返回false会停止父ListView拦截子GridView的
-     * 滑动操作，从而使子GridView能够滑动
-     * @param ev
-     * @return
-     */
-//    @Override
-//    public boolean onInterceptTouchEvent(MotionEvent ev) {
-//        return false;
-//    }
 }
