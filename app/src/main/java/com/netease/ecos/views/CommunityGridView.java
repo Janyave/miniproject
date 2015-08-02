@@ -2,7 +2,6 @@ package com.netease.ecos.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.widget.GridView;
 
 public class CommunityGridView extends GridView {
@@ -18,11 +17,6 @@ public class CommunityGridView extends GridView {
         super(context, attrs, defStyle);
     }
 
-    /**
-     * 重构onMeasure方法使得子GridView能够显示全部内容
-     * @param widthMeasureSpec
-     * @param heightMeasureSpec
-     */
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 

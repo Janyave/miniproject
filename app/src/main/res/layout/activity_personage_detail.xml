@@ -257,6 +257,5 @@
         android:listSelector="@android:color/transparent"
         android:layout_marginTop="@dimen/margin_40px"/>
 
-
 </LinearLayout>
     </ScrollView>

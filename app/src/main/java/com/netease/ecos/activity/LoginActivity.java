@@ -68,7 +68,7 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
                 login();
                 break;
             case R.id.tv_forgetPassword:
-                startActivity(new Intent(LoginActivity.this, VerifyCodeActivity.class));
+                startActivityForResult(new Intent(LoginActivity.this, VerifyCodeActivity.class),0);
                 break;
             case R.id.iv_return:
                 finish();
@@ -104,6 +104,8 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
         @Override
         public void success() {
             Toast.makeText(LoginActivity.this,"LOGIN SUCCESS",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
         }
 
         @Override
@@ -114,6 +116,16 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             Toast.makeText(LoginActivity.this,"NETWORK FAIL",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            Intent intent=new Intent(LoginActivity.this, ResetPasswordActivity.class);
+            intent.putExtra("phone",data.getStringExtra("phone"));
+            startActivity(intent);
         }
     }
 }

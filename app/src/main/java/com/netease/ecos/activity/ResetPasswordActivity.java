@@ -12,7 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.NorResponce;
+import com.netease.ecos.request.user.ResetPasswordRequest;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -53,9 +57,9 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_reset_password:
-                //TODO 修改密码
-                String  newPassword= et_password.getText().toString();
-                Toast.makeText(ResetPasswordActivity.this,"重置密码",Toast.LENGTH_SHORT).show();
+                ResetPasswordRequest reqeust = new ResetPasswordRequest();
+                //TODO phone
+                reqeust.request(new ResetPwdResponse(), getIntent().getStringExtra("phone"), et_password.getText().toString());
                 break;
             case R.id.iv_return:
                 finish();
@@ -76,5 +80,24 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
     }
     @Override
     public void afterTextChanged(Editable s) {
+    }
+
+    class ResetPwdResponse extends BaseResponceImpl implements NorResponce{
+
+        @Override
+        public void success() {
+            Toast.makeText(ResetPasswordActivity.this, "RESET SUCCESS", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+            Toast.makeText(ResetPasswordActivity.this, "RESET FAIL", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+            Toast.makeText(ResetPasswordActivity.this, "NETWORK FAIL", Toast.LENGTH_SHORT).show();
+        }
     }
 }

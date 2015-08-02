@@ -166,22 +166,6 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
 
         @Override
         public void success(List<Recruitment> recruitList) {
-//            tv_display.setText("");
-//            for (int i = 0; i < recruitList.size(); i++) {
-//                Recruitment recruit = recruitList.get(i);
-//                //				tv_display.append("招募标题:" + recruit.title + "\n");
-//                tv_display.append("招募封面图url:" + recruit.coverUrl + "\n");
-//                tv_display.append("  招募id:" + recruit.recruitmentId + "\n");
-//                tv_display.append("  发起者用户id:" + recruit.userId + "\n");
-//                tv_display.append("  发起者云信id:" + recruit.imId + "\n");
-//                tv_display.append("  发起者头像:" + recruit.avatarUrl + "\n");
-//                tv_display.append("  发起者昵称:" + recruit.nickname + "\n");
-//                tv_display.append("  发起者性别:" + recruit.gender.name() + "\n");
-//                tv_display.append("  发起时间:" + ModelUtils.getDateDesByTimeStamp(recruit.issueTimeStamp) + "\n");
-//                tv_display.append("  与发起者距离:" + recruit.distanceKM + "km" + "\n");
-//                tv_display.append("  与发起者距离:" + "均价 " + recruit.averagePrice + "\n");
-//                tv_display.append("\n");
-//            }
             //获取course信息
             recruitmentListViewAdapter = new RecruitmentListViewAdapter(RecruitmentCategoryActivity.this, recruitList);
             lv_list.setAdapter(recruitmentListViewAdapter);

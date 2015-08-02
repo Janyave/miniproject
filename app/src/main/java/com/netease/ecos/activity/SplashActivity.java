@@ -49,8 +49,18 @@ public class SplashActivity extends Activity implements View.OnClickListener{
                 startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                 break;
             case R.id.tv_regist:
-                startActivity(new Intent(SplashActivity.this, RegistActivity.class));
+                startActivityForResult(new Intent(SplashActivity.this, VerifyCodeActivity.class), 0);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            Intent intent=new Intent(SplashActivity.this, RegistActivity.class);
+            intent.putExtra("phone",data.getStringExtra("phone"));
+            startActivity(intent);
         }
     }
 }
