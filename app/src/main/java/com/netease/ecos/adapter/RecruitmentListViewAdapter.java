@@ -121,7 +121,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             case R.id.iv_cover:
                 intent = new Intent(mcontext, RecruitmentDetailActivity.class);
                 intent.putExtras(bundle);
-                bundle.putString(RecruitmentDetailActivity.UserID, recruitmentArrayList.get(position).userId);
+                bundle.putString(RecruitmentDetailActivity.RecruitID, recruitmentArrayList.get(position).recruitmentId);
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;

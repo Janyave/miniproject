@@ -31,7 +31,6 @@ public class ListViewListener implements View.OnTouchListener{
             if (offsetY>30){
                 nowState="up";
                 downY=event.getY();
-                //TODO 上滑事件
                 Log.v("sroll", "up " + offsetY + "");
                 onMotionEvent.doInUp();
 
@@ -39,20 +38,16 @@ public class ListViewListener implements View.OnTouchListener{
             if (offsetY<-30){
                 nowState="down";
                 downY=event.getY();
-                //TODO 上滑事件
                 Log.v("sroll", "down " + offsetY);
                 onMotionEvent.doInDown();
             }
 
             if (!TextUtils.equals(nowState, state)){
-                //TODO 方向装换事件
                 if (TextUtils.equals(nowState,"up")){
-                    //TODO 上滑事件
                     Log.v("sroll","change up "+v.getScrollY()+"");
                     onMotionEvent.doInChangeToUp();
                 }
                 if (TextUtils.equals(nowState,"down")){
-                    //TODO 下滑事件
                     Log.v("sroll","change down "+v.getScrollY()+"");
                     onMotionEvent.doInChangeToDown();
                 }
