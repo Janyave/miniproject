@@ -12,9 +12,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.RecruitmentListViewAdapter;
+import com.netease.ecos.model.Recruitment;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.recruitment.RecruitmentListRequest;
 import com.netease.ecos.views.XListView;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -43,10 +49,14 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
     @InjectView(R.id.tv_left)
     TextView recruitmentTypeTxVw;
 
-    private ArrayAdapter<String> spAdapter;
-    private static final String[] sortType = {"A型", "B型", "O型", "AB型", "其他"};
+    private ArrayAdapter<RecruitmentListRequest.SortRule> spAdapter;
+    private RecruitmentListRequest.SortRule sortRules[] = {RecruitmentListRequest.SortRule.智能排序,
+            RecruitmentListRequest.SortRule.价格最低, RecruitmentListRequest.SortRule.最受欢迎, RecruitmentListRequest.SortRule.距离最近};
 
     private RecruitmentListViewAdapter recruitmentListViewAdapter;
+    //for request
+    private RecruitmentListRequest request;
+    private RecruitmentListResponse recruitmentListResponse;
 
 
     @Override
@@ -96,10 +106,9 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
         recruitment_type = getIntent().getExtras().getString(TRecruitmentType);
         recruitmentTypeTxVw.setText(recruitment_type);
         //设置下拉菜单选项
-        spAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sortType);
+        spAdapter = new ArrayAdapter<RecruitmentListRequest.SortRule>(this, android.R.layout.simple_spinner_item, sortRules);
         spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_sortType.setAdapter(spAdapter);
-
 
         //设置列表Adapter
         lv_list.initRefleshTime(this.getClass().getSimpleName());
@@ -111,12 +120,12 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                 startActivity(new Intent(RecruitmentCategoryActivity.this, CourseDetailActivity.class));
             }
         });
-
-        //获取course信息
-        recruitmentListViewAdapter = new RecruitmentListViewAdapter(this);
-        lv_list.setAdapter(recruitmentListViewAdapter);
+        //for request
+        request = new RecruitmentListRequest();
+        recruitmentListResponse = new RecruitmentListResponse();
+        //请求妆娘招募类别，城市id为12，排序方式为最受欢迎的招募列表的第0页数据
+        request.request(recruitmentListResponse, Recruitment.RecruitType.妆娘, "12", RecruitmentListRequest.SortRule.最受欢迎, 0);
     }
-
 
     @Override
     public void onRefresh() {
@@ -143,5 +152,23 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                 lv_list.stopLoadMore();
             }
         }, 1000);
+    }
+
+    class RecruitmentListResponse extends BaseResponceImpl implements RecruitmentListRequest.IRecruitmentListResponse {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+        }
+
+        @Override
+        public void success(List<Recruitment> recruitList) {
+            //获取course信息
+            recruitmentListViewAdapter = new RecruitmentListViewAdapter(RecruitmentCategoryActivity.this, recruitList);
+            lv_list.setAdapter(recruitmentListViewAdapter);
+        }
     }
 }

@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -31,8 +32,11 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/27.
  */
-public class CourseCategoryActivity extends Activity implements View.OnClickListener,XListView.IXListViewListener{
+public class CourseCategoryActivity extends Activity implements View.OnClickListener, XListView.IXListViewListener {
 
+    private static final String TAG = "Ecos---CourseCategory";
+    public static final String CourseCategory = "CourseCategory";
+    private Course.CourseType courseType;
     @InjectView(R.id.sp_sortType)
     Spinner sp_sortType;
     @InjectView(R.id.iv_search)
@@ -48,11 +52,23 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     LinearLayout lly_left_action;
     @InjectView(R.id.ll_left)
     LinearLayout ll_left;
+    @InjectView(R.id.tv_left)
+    TextView tv_left;
 
-    private ArrayAdapter<String> spAdapter;
-    private static final String[] sortType={"按发布时间排序","B型","O型","AB型","其他"};
+    private ArrayAdapter<CourseListRequest.SortRule> spAdapter;
+    private static final CourseListRequest.SortRule[] SORT_RULES = {CourseListRequest.SortRule.时间, CourseListRequest.SortRule.被关注数, CourseListRequest.SortRule.被点赞数};
+
 
     private CourseListViewAdapter courseTypeListViewAdapter;
+    //record the search keyword.
+    private String searchWords = "";
+
+    public static final int RequestCodeForSearch = 1;
+    public static final int ResultCodeForSearch = 2;
+
+    //for request.
+    private CourseListRequest request;
+    private CourseListResponse courseListResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,18 +81,6 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     }
 
     private void initListener() {
-        sp_sortType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //TODO 排序事件
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         iv_search.setOnClickListener(this);
         ll_left.setOnClickListener(this);
         lly_left_action.setOnClickListener(this);
@@ -85,7 +89,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         lv_list.setOnTouchListener(new ListViewListener(new ListViewListener.IOnMotionEvent() {
             @Override
             public void doInDown() {
-                if (btn_floading.isAppear()){
+                if (btn_floading.isAppear()) {
                     btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
                         @Override
                         public void doAfterAnimation() {
@@ -98,7 +102,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
             @Override
             public void doInUp() {
-                if (btn_floading.isDisappear()){
+                if (btn_floading.isDisappear()) {
                     btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
                         @Override
                         public void doAfterAnimation() {
@@ -181,9 +185,11 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        Intent intent;
+        switch (v.getId()) {
             case R.id.iv_search:
-                //TODO 搜索按钮事件
+                intent = new Intent(CourseCategoryActivity.this, SearchActivity.class);
+                startActivityForResult(intent, RequestCodeForSearch);
                 break;
             case R.id.ll_left:
                 //TODO 左上角类型选择事件
@@ -192,21 +198,23 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                 finish();
                 break;
             case R.id.btn_floading:
-                        Intent intent = new Intent(CourseCategoryActivity.this, BuildCourseActivity.class);
-                        startActivity(intent);
+                intent = new Intent(CourseCategoryActivity.this, BuildCourseActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(BuildCourseActivity.CourseType, courseType.getBelongs());
+                intent.putExtras(bundle);
+                startActivity(intent);
                 break;
         }
     }
 
     private void initData() {
-
-
-
+        //get the extras from intent
+        courseType = Course.CourseType.getCourseType(getIntent().getExtras().getString(CourseCategory));
+        tv_left.setText(courseType.name());
         //设置下拉菜单选项
-        spAdapter=new ArrayAdapter<String>(this,R.layout.text_spinner_course_type,sortType);
+        spAdapter = new ArrayAdapter<CourseListRequest.SortRule>(this, R.layout.text_spinner_course_type, SORT_RULES);
         spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp_sortType.setAdapter(spAdapter);
-
 
         //设置列表Adapter
         lv_list.initRefleshTime(this.getClass().getSimpleName());
@@ -220,9 +228,10 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         });
 
         //获取course信息
-        CourseListRequest request = new CourseListRequest();
-        request.request(new CourseListResponse(), CourseListRequest.Type.筛选,
-                Course.CourseType.妆娘, "鸣人", CourseListRequest.SortRule.时间,0);
+        request = new CourseListRequest();
+        courseListResponse = new CourseListResponse();
+        request.request(courseListResponse, CourseListRequest.Type.筛选,
+                courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], 0);
     }
 
 
@@ -253,12 +262,21 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         }, 1000);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RequestCodeForSearch && resultCode == ResultCodeForSearch) {
+            searchWords = data.getExtras().getString(SearchActivity.SearchWord);
+            request.request(courseListResponse, CourseListRequest.Type.筛选,
+                    courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], 0);
+        }
+    }
 
-    class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse{
+    class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse {
 
         @Override
         public void success(List<Course> courseList) {
-            courseTypeListViewAdapter=new CourseListViewAdapter(CourseCategoryActivity.this,courseList);
+            courseTypeListViewAdapter = new CourseListViewAdapter(CourseCategoryActivity.this, courseList);
             lv_list.setAdapter(courseTypeListViewAdapter);
         }
 

@@ -52,10 +52,10 @@ public class CourseTypeActivity extends Activity implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        Course.CourseType courseType = Course.CourseType.妆娘;
+        Course.CourseType courseType = Course.CourseType.化妆;
         switch (v.getId()) {
             case R.id.tv_type_1:
-                courseType = Course.CourseType.妆娘;
+                courseType = Course.CourseType.化妆;
                 break;
             case R.id.tv_type_2:
                 courseType = Course.CourseType.道具;

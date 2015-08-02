@@ -37,9 +37,9 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by Think on 2015/7/22.
+ * Created by Think on 2015/8/1.
  */
-public class WorkDetailActivity extends BaseActivity implements View.OnTouchListener, AdapterView.OnItemClickListener, View.OnClickListener, GestureOverlayView.OnGesturePerformedListener {
+public class AssignmentDetailActivity extends BaseActivity implements View.OnTouchListener, AdapterView.OnItemClickListener, View.OnClickListener, GestureOverlayView.OnGesturePerformedListener {
 
     private final String TAG = "Ecos---WorkDetail";
     public static final String Work_ID = "workId";
@@ -172,14 +172,14 @@ public class WorkDetailActivity extends BaseActivity implements View.OnTouchList
             personNameTxV.setText(assignment.author);
             workDetailDate.setText(assignment.getDateDescription());
             workDetailDescpTxVw.setText(assignment.content);
-            workDetailFavorTxVw.setText(assignment.praiseNum + WorkDetailActivity.this.getString(R.string.favorCount));
+            workDetailFavorTxVw.setText(assignment.praiseNum + AssignmentDetailActivity.this.getString(R.string.favorCount));
             workDetailListViewAdapter.updateCommentList(commentList);
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(WorkDetailActivity.this, CommentDetailActivity.class);
+        Intent intent = new Intent(AssignmentDetailActivity.this, CommentDetailActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.作业.getBelongs());
         bundle.putString(CommentDetailActivity.FromId, workList.get(workOrder));
@@ -190,7 +190,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnTouchList
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            Intent intent = new Intent(WorkDetailActivity.this, WriteContentActivity.class);
+            Intent intent = new Intent(AssignmentDetailActivity.this, WriteContentActivity.class);
             startActivity(intent);
         }
         return false;
@@ -203,7 +203,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnTouchList
                 //TODO:send the favor message to the server.
                 break;
             case R.id.tv_left:
-                WorkDetailActivity.this.finish();
+                AssignmentDetailActivity.this.finish();
                 break;
         }
 
@@ -218,14 +218,14 @@ public class WorkDetailActivity extends BaseActivity implements View.OnTouchList
             if (prediction.score > 1.0) {
                 if (RIGHT.equals(prediction.name)) {
                     if (workOrder == 0) {
-                        Toast.makeText(WorkDetailActivity.this, WorkDetailActivity.this.getString(R.string.alreadyFirstAssignment), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.alreadyFirstAssignment), Toast.LENGTH_SHORT).show();
                         return;
                     }
                     workOrder--;
                     titleTxVw.setText((workOrder + 1) + "/" + workList.size());
                 } else if (LEFT.equals(prediction.name)) {
                     if (workOrder == workList.size() - 1) {
-                        Toast.makeText(WorkDetailActivity.this, WorkDetailActivity.this.getString(R.string.alreadyLastAssignment), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.alreadyLastAssignment), Toast.LENGTH_SHORT).show();
                         return;
                     }
                     workOrder++;

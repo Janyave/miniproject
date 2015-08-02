@@ -22,19 +22,19 @@ import java.util.TimerTask;
 /**
  * Created by hzjixinyu on 2015/7/24.
  */
-public class Banner extends RelativeLayout{
+public class Banner extends RelativeLayout {
 
     private Context mContext;
 
     private TextView tv_currentNum;
     private ViewPager vp_image;
 
-    private List<String> URLList=new ArrayList<>();
-    private List<View> ViewList=new ArrayList<>();
-    private int count=0;
-    private int delayTime=3000;
+    private List<String> URLList = new ArrayList<>();
+    private List<View> ViewList = new ArrayList<>();
+    private int count = 0;
+    private int delayTime = 3000;
 
-    private int pagerViewID=R.layout.item_bannerpager;
+    private int pagerViewID = R.layout.item_bannerpager;
     private PagerAdapter pagerAdapter;
 
     private Timer timer;
@@ -42,33 +42,31 @@ public class Banner extends RelativeLayout{
 
     public Banner(Context context) {
         super(context);
-        this.mContext=context;
+        this.mContext = context;
         initView();
         initAuto();
     }
-
 
 
     public Banner(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.mContext=context;
+        this.mContext = context;
         initView();
         initAuto();
     }
 
 
-    public void setURLList(List<String> data){
-        this.URLList=data;
-        this.count=data.size();
+    public void setURLList(List<String> data) {
+        this.URLList = data;
+        this.count = data.size();
 
         for (int i=0; i<count; i++){
             View v=View.inflate(mContext, pagerViewID,null);
-            /**ÉèÖÃÏÔÊ¾ÄÚÈÝ**/
             Picasso.with(mContext).load(URLList.get(i)).into((ImageView)v.findViewById(R.id.iv_image));
             ViewList.add(v);
         }
 
-        pagerAdapter=new PagerAdapter() {
+        pagerAdapter = new PagerAdapter() {
             @Override
             public int getCount() {
                 return Integer.MAX_VALUE;
@@ -76,17 +74,17 @@ public class Banner extends RelativeLayout{
 
             @Override
             public boolean isViewFromObject(View view, Object o) {
-                return view==o;
+                return view == o;
             }
 
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
-                container.addView((View) ViewList.get(position % count));//Ìí¼ÓÒ³¿¨
+                container.addView((View) ViewList.get(position % count));//ï¿½ï¿½ï¿½Ò³ï¿½ï¿?
                 return ViewList.get(position % count);
             }
 
             @Override
-            public void destroyItem(ViewGroup container, int position, Object object)   {
+            public void destroyItem(ViewGroup container, int position, Object object) {
                 container.removeView((View) ViewList.get(position % count));
             }
         };
@@ -111,27 +109,27 @@ public class Banner extends RelativeLayout{
         });
     }
 
-    public void setDelayTime(int time){
-        this.delayTime=time;
+    public void setDelayTime(int time) {
+        this.delayTime = time;
     }
 
-    private void initView(){
-        View.inflate(mContext, R.layout.item_bannerlayout,this);
-        vp_image=(ViewPager)findViewById(R.id.vp_image);
-        tv_currentNum=(TextView)findViewById(R.id.tv_currentNum);
+    private void initView() {
+        View.inflate(mContext, R.layout.item_bannerlayout, this);
+        vp_image = (ViewPager) findViewById(R.id.vp_image);
+        tv_currentNum = (TextView) findViewById(R.id.tv_currentNum);
         vp_image.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction()==MotionEvent.ACTION_DOWN){
-                    if (timer!=null){
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (timer != null) {
                         timer.cancel();
-                        timer=null;
+                        timer = null;
                     }
                 }
-                if (event.getAction()==MotionEvent.ACTION_UP){
+                if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (timer == null) {
-                        timer=new Timer();
-                        timer.schedule(getNewTask(),delayTime,delayTime);
+                        timer = new Timer();
+                        timer.schedule(getNewTask(), delayTime, delayTime);
                     }
                 }
                 return false;
@@ -140,19 +138,19 @@ public class Banner extends RelativeLayout{
     }
 
     private void initAuto() {
-        timer=new Timer();
-        timer.schedule(getNewTask(),delayTime,delayTime);
+        timer = new Timer();
+        timer.schedule(getNewTask(), delayTime, delayTime);
     }
 
-    private TimerTask getNewTask(){
-        task=null;
-        task=new TimerTask() {
+    private TimerTask getNewTask() {
+        task = null;
+        task = new TimerTask() {
             @Override
             public void run() {
                 post(new Runnable() {
                     @Override
                     public void run() {
-                        vp_image.setCurrentItem(vp_image.getCurrentItem()+1);
+                        vp_image.setCurrentItem(vp_image.getCurrentItem() + 1);
                     }
                 });
             }
@@ -162,16 +160,16 @@ public class Banner extends RelativeLayout{
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction()==MotionEvent.ACTION_DOWN){
-            if (timer!=null){
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            if (timer != null) {
                 timer.cancel();
-                timer=null;
+                timer = null;
             }
         }
-        if (event.getAction()==MotionEvent.ACTION_UP){
+        if (event.getAction() == MotionEvent.ACTION_UP) {
             if (timer == null) {
-                timer=new Timer();
-                timer.schedule(getNewTask(),delayTime,delayTime);
+                timer = new Timer();
+                timer.schedule(getNewTask(), delayTime, delayTime);
             }
         }
         return true;

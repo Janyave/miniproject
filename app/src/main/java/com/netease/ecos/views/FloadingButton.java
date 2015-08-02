@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Button;
 
+import com.netease.ecos.R;
+
 /**
  * 主页悬浮按钮
  * Created by hzjixinyu on 2015/7/23.
@@ -16,10 +18,16 @@ public class FloadingButton extends Button{
 
     public FloadingButton(Context context) {
         super(context);
+        init();
     }
 
     public FloadingButton(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init();
+    }
+
+    private void init() {
+        setBackgroundDrawable(getResources().getDrawable(R.drawable.btn_publish));
     }
 
     /**

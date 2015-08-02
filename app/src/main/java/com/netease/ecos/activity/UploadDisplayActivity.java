@@ -12,10 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.UploadWorksListAdapter;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.Image;
+import com.netease.ecos.model.Share;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.share.CreateShareRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
 import com.netease.ecos.utils.UploadImageTools;
 import com.netease.ecos.views.ExtensibleListView;
@@ -27,9 +31,9 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by Think on 2015/7/24.
+ * Created by Think on 2015/8/1.
  */
-public class UploadWorksActivity extends BaseActivity implements View.OnClickListener {
+public class UploadDisplayActivity extends BaseActivity implements View.OnClickListener {
 
     private final String TAG = "Ecos---UploadWorks";
     @InjectView(R.id.tv_title)
@@ -66,12 +70,21 @@ public class UploadWorksActivity extends BaseActivity implements View.OnClickLis
     private int mCouserStepPosition = -1;
     public SetPhotoHelper mSetPhotoHelper;
     private String PhotoId;
+    //for request
+    private CreateShareRequest request;
+    private CreateShareResponse response;
+    private Share share;
 
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         setContentView(R.layout.upload_works_layout);
         ButterKnife.inject(this);
+        initData();
+        initView();
+    }
+
+    void initData() {
         //choose the cover image
         mSetPhotoHelper = new SetPhotoHelper(this, null);
         //图片裁剪后输出宽度
@@ -79,10 +92,13 @@ public class UploadWorksActivity extends BaseActivity implements View.OnClickLis
         //图片裁剪后输出高度
         final int outPutHeight = 300;
         mSetPhotoHelper.setOutput(outPutWidth, outPutHeight);
-        initView();
+        request = new CreateShareRequest();
+        response = new CreateShareResponse();
+        share = new Share();
+
     }
 
-    public void initView() {
+    void initView() {
         //implementation on the title bar
         titleTxVw.setText("新建作品");
         rightButton.setText("发布");
@@ -125,23 +141,26 @@ public class UploadWorksActivity extends BaseActivity implements View.OnClickLis
                 if (coverImagePath.equals("")
                         || uploadWorksCoverEdTx.getText().toString().equals("")
                         || uploadWorksDescrpEdTx.getText().toString().equals("")) {
-                    Toast.makeText(UploadWorksActivity.this, "请填写完所有内容:)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadDisplayActivity.this, "请填写完所有内容:)", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                share.title = uploadWorksCoverEdTx.getText().toString();
+                share.content = uploadWorksDescrpEdTx.getText().toString();
+                share.totalPageNumber = worksLsVw.getCount();
                 imagesArraylist = new ArrayList<>();
-                //TODO: to check whether it has finished all the item. if not, it can not be uploaded.
                 for (int i = 0; i < imagePaths.size(); i++) {
                     File file = new File(imagePaths.get(i));
-                    UploadImageTools.uploadImageSys(file, new UploadWorksCallbacks(Image.ImageType.detailImage), UploadWorksActivity.this, false);
+                    UploadImageTools.uploadImageSys(file, new UploadWorksCallbacks(Image.ImageType.detailImage), UploadDisplayActivity.this, false);
                 }
                 File file = new File(coverImagePath);
-                UploadImageTools.uploadImageSys(file, new UploadWorksCallbacks(Image.ImageType.coverImage), UploadWorksActivity.this, false);
+                UploadImageTools.uploadImageSys(file, new UploadWorksCallbacks(Image.ImageType.coverImage), UploadDisplayActivity.this, false);
+
                 break;
             case R.id.tv_left:
-                UploadWorksActivity.this.finish();
+                UploadDisplayActivity.this.finish();
                 break;
             case R.id.uploadWorksCoverImgVw:
-                SetPhotoDialog dialog = new SetPhotoDialog(UploadWorksActivity.this, new SetPhotoDialog.ISetPhoto() {
+                SetPhotoDialog dialog = new SetPhotoDialog(UploadDisplayActivity.this, new SetPhotoDialog.ISetPhoto() {
 
                     @Override
                     public void choosePhotoFromLocal() {
@@ -183,20 +202,45 @@ public class UploadWorksActivity extends BaseActivity implements View.OnClickLis
 
         @Override
         public void success(String originUrl, String thumbUrl) {
-            Log.d(TAG, "uploadworksSuccess");
+            if (imageType == Image.ImageType.coverImage)
+                share.coverUrl = originUrl;
+            else {
+                Image image = new Image();
+                image.type = imageType;
+                image.originUrl = originUrl;
+                image.thumbUrl = thumbUrl;
+                imagesArraylist.add(image);
+            }
             synchronized (count) {
                 count++;
                 Log.d(TAG, "image " + count + " has been uploaded");
                 if (count == (imagePaths.size() + 1)) {
                     Log.d(TAG, "all the images has been uploaded successfully.");
+                    share.imageList = imagesArraylist;
+                    request.request(response, share);
                 }
             }
-            Image image = new Image();
-            image.type = imageType;
-            image.originUrl = originUrl;
-            image.thumbUrl = thumbUrl;
-            imagesArraylist.add(image);
-
         }
     }
+
+    class CreateShareResponse extends BaseResponceImpl implements CreateShareRequest.ICreateShareResponse {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+            Toast.makeText(UploadDisplayActivity.this, "doAfterFailedResponse", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Toast.makeText(UploadDisplayActivity.this, "onErrorResponse:" + error.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void success(Share share) {
+            Toast.makeText(UploadDisplayActivity.this, "upload the share successfully", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+    }
 }
+

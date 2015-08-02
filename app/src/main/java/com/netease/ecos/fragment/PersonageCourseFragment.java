@@ -1,20 +1,16 @@
 package com.netease.ecos.fragment;
 
-import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -22,17 +18,12 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
-import com.netease.ecos.activity.ApiTestActivity;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.utils.SDImageCache;
-import com.netease.ecos.utils.yunxin.NetworkUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.zip.CheckedOutputStream;
 
 
 /**
@@ -95,7 +86,7 @@ public class PersonageCourseFragment extends Fragment {
         requestData();
     }
 
-    public void setSechedule_set_num(int list_num){
+    public void setSechedule_set_num(int list_num) {
         schedule_set_num = list_num;
     }
 
@@ -123,7 +114,7 @@ public class PersonageCourseFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
@@ -135,7 +126,7 @@ public class PersonageCourseFragment extends Fragment {
 
     /**
      * 填充item 数据
-     * */
+     */
 //    private ArrayList<HashMap<String, Object>> getDate(){
 //
 //        ArrayList<HashMap<String, Object>> listItem = new ArrayList<HashMap<String, Object>>();
@@ -182,10 +173,10 @@ public class PersonageCourseFragment extends Fragment {
             if (convertView == null) {
                 convertView = mInflater.inflate(R.layout.item_personage_course, null);
                 holder = new ViewHolder();
-                holder.title = (TextView) convertView.findViewById(R.id.tv_personage_item_course_title);
-                holder.cover = (NetworkImageView) convertView.findViewById(R.id.iv_personage_item_course_cover);
-                holder.date = (TextView) convertView.findViewById(R.id.tv_personage_item_course_date);
-                holder.praise = (TextView) convertView.findViewById(R.id.tv_personage_item_praise_num);
+                holder.title = (TextView) convertView.findViewById(R.id.tv_title);
+                holder.cover = (NetworkImageView) convertView.findViewById(R.id.iv_cover);
+                holder.date = (TextView) convertView.findViewById(R.id.tv_time);
+                holder.praise = (TextView) convertView.findViewById(R.id.tv_praiseNum);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
@@ -195,7 +186,7 @@ public class PersonageCourseFragment extends Fragment {
             //设置加载出错图片
             holder.cover.setErrorImageResId(R.drawable.img_default);
             RequestQueue queue = Volley.newRequestQueue(mInflater.getContext());
-                                                                                                                                                                                                                                                                           ImageLoader.ImageCache imageCache = new SDImageCache();
+            ImageLoader.ImageCache imageCache = new SDImageCache();
             ImageLoader imageLoader = new ImageLoader(queue, imageCache);
             Log.d(ZYW_DEBUG, mListItem.toString());
             holder.cover.setImageUrl(mListItem.get(position).coverUrl, imageLoader);
@@ -219,12 +210,12 @@ public class PersonageCourseFragment extends Fragment {
         }
     }
 
-    public void requestData(){
+    public void requestData() {
         Log.e("获取筛选教程列表", "getCourseListByFilter()");
 
         CourseListRequest request = new CourseListRequest();
-        request.request(new CourseListResponse(),CourseListRequest.Type.筛选,
-                Course.CourseType.妆娘,"鸣人",CourseListRequest.SortRule.时间,0);
+        request.request(new CourseListResponse(), CourseListRequest.Type.筛选,
+                Course.CourseType.化妆, "鸣人", CourseListRequest.SortRule.时间, 0);
     }
 
     class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse {
@@ -243,8 +234,8 @@ public class PersonageCourseFragment extends Fragment {
         public void success(List<Course> courseList) {
             setSechedule_set_num(courseList.size());
             mListItem = courseList;
-            }
         }
+    }
 
 
 }

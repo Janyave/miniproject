@@ -22,9 +22,9 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by Think on 2015/7/23.
+ * Created by Think on 2015/8/1.
  */
-public class UploadWorkActivity extends Activity implements View.OnClickListener {
+public class UploadAssignmentActivity extends Activity implements View.OnClickListener {
 
     private final String TAG = "Ecos---UploadWork";
     public static final String CourseId = "courseId";
@@ -75,7 +75,7 @@ public class UploadWorkActivity extends Activity implements View.OnClickListener
         switch (v.getId()) {
             case R.id.btn_right_action:
                 if (uploadWorkEdTx.getText().toString().equals("")) {
-                    Toast.makeText(UploadWorkActivity.this, UploadWorkActivity.this.getString(R.string.notFinished), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadAssignmentActivity.this, UploadAssignmentActivity.this.getString(R.string.notFinished), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 //TODO:send the content to the server.
@@ -83,10 +83,10 @@ public class UploadWorkActivity extends Activity implements View.OnClickListener
                 * if upload success, it will return two urls.
                 */
                 File file = new File(image_path);
-                UploadImageTools.uploadImageSys(file, new UploadWorkCallBack(), UploadWorkActivity.this, false);
+                UploadImageTools.uploadImageSys(file, new UploadWorkCallBack(), UploadAssignmentActivity.this, false);
                 break;
             case R.id.tv_left:
-                UploadWorkActivity.this.finish();
+                UploadAssignmentActivity.this.finish();
                 break;
         }
 
@@ -99,8 +99,7 @@ public class UploadWorkActivity extends Activity implements View.OnClickListener
             Log.d(TAG, "have got the url already.");
             String assignmentContent = uploadWorkEdTx.getText().toString();
             //TODO:upload the information to the server to store it.
-
-            UploadWorkActivity.this.finish();
+            UploadAssignmentActivity.this.finish();
         }
 
         @Override
@@ -115,3 +114,4 @@ public class UploadWorkActivity extends Activity implements View.OnClickListener
 
     }
 }
+

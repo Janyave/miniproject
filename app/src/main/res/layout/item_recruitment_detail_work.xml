@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/bg_course_item"
+        android:layout_marginBottom="@dimen/margin_30px"
         android:layout_marginLeft="@dimen/margin_40px"
         android:layout_marginRight="@dimen/margin_40px"
-        android:layout_marginBottom="@dimen/margin_30px">
+        android:background="@drawable/bg_course_item"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -18,24 +19,25 @@
             android:layout_marginLeft="@dimen/margin_20px"
             android:layout_marginRight="@dimen/margin_20px"
             android:layout_marginTop="@dimen/margin_20px">
+
             <ImageView
                 android:id="@+id/iv_cover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/img_default"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_default" />
+
             <TextView
                 android:id="@+id/tv_coverNum"
+                style="@style/text_white_min"
                 android:layout_width="35dp"
                 android:layout_height="20dp"
-                android:gravity="center"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginRight="16dp"
+                android:layout_alignParentRight="true"
                 android:layout_marginBottom="16dp"
-                android:text="5P"
+                android:layout_marginRight="16dp"
                 android:background="@drawable/bg_pagenum"
-                style="@style/text_white_min"/>
+                android:gravity="center" />
 
         </RelativeLayout>
 
@@ -44,74 +46,80 @@
             android:id="@+id/ll_coverInformation"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/height_item_workInformation_190px"
-            android:orientation="vertical"
             android:layout_marginLeft="@dimen/margin_20px"
             android:layout_marginRight="@dimen/margin_20px"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_coverTitle"
+                style="@style/text_pink_max"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我是萌萌哒标题君"
-                style="@style/text_pink_max"/>
+                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/tv_coverTime"
+                style="@style/text_gray_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20px"
-                style="@style/text_gray_min"
-                android:text="2011年11月11日"/>
-            </LinearLayout>
-        <TextView style="@style/layout_line_gray"/>
+                android:layout_marginTop="@dimen/margin_20px" />
+        </LinearLayout>
+
+        <TextView style="@style/layout_line_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_evaluationAndPraise_92px"
+            android:orientation="horizontal">
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_item_evaluationAndPraise_92px"
+                android:id="@+id/ll_praise"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:id="@+id/ll_praise"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:visibility="gone"
-                        android:id="@+id/iv_praise"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@mipmap/ic_launcher"/>
-                    <TextView
-                        android:id="@+id/tv_praise"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/text_gray_mid"
-                        android:text="56个赞"/>
-                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/iv_praise"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:visibility="gone" />
 
                 <TextView
-                    android:layout_width="@dimen/width_line"
-                    android:background="@color/bg_gray_dark"
-                    android:layout_height="match_parent" />
-                <LinearLayout
-                    android:id="@+id/ll_evaluation"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:visibility="gone"
-                        android:id="@+id/iv_evaluation"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:src="@mipmap/ic_launcher"/>
-                    <TextView
-                        android:id="@+id/tv_evaluation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/text_gray_mid"
-                        android:text="120条评论"/>
-                </LinearLayout>
+                    android:id="@+id/tv_praise"
+                    style="@style/text_gray_mid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
+            <TextView
+                android:layout_width="@dimen/width_line"
+                android:layout_height="match_parent"
+                android:background="@color/bg_gray_dark" />
+
+            <LinearLayout
+                android:id="@+id/ll_evaluation"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_evaluation"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tv_evaluation"
+                    style="@style/text_gray_mid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -13,7 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.NorResponce;
+import com.netease.ecos.request.user.LoginRequest;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -61,16 +65,20 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_login:
-                //TODO 登录
-                Toast.makeText(LoginActivity.this,"LOGIN",Toast.LENGTH_SHORT).show();
+                login();
                 break;
             case R.id.tv_forgetPassword:
-                startActivity(new Intent(LoginActivity.this, VerifyCodeActivity.class));
+                startActivityForResult(new Intent(LoginActivity.this, VerifyCodeActivity.class),0);
                 break;
             case R.id.iv_return:
                 finish();
                 break;
         }
+    }
+
+    private void login() {
+        LoginRequest request = new LoginRequest();
+        request.request(new LoginResponse(), et_phone.getText().toString(),et_password.getText().toString());
     }
 
     @Override
@@ -79,7 +87,8 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (et_password.getText().toString().length()>7&&et_password.getText().toString().length()<17&&!TextUtils.isEmpty(et_phone.getText().toString())){
+//        if (et_password.getText().toString().length()>7&&et_password.getText().toString().length()<17&&!TextUtils.isEmpty(et_phone.getText().toString())){
+        if (!TextUtils.isEmpty(et_phone.getText().toString())){
             tv_login.setEnabled(true);
         }else{
             tv_login.setEnabled(false);
@@ -88,5 +97,35 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
 
     @Override
     public void afterTextChanged(Editable s) {
+    }
+
+    class LoginResponse extends BaseResponceImpl implements NorResponce{
+
+        @Override
+        public void success() {
+            Toast.makeText(LoginActivity.this,"LOGIN SUCCESS",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+            Toast.makeText(LoginActivity.this,"LOGIN FAIL",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+            Toast.makeText(LoginActivity.this,"NETWORK FAIL",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            Intent intent=new Intent(LoginActivity.this, ResetPasswordActivity.class);
+            intent.putExtra("phone",data.getStringExtra("phone"));
+            startActivity(intent);
+        }
     }
 }

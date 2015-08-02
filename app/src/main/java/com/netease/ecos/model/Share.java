@@ -23,6 +23,9 @@ public class Share {
 	/** 标题 */
 	public String title ;
 
+	/*** 用户id */
+	public String userId;
+
 	/** 发布者昵称 */
 	public String nickname;
 
@@ -61,9 +64,6 @@ public class Share {
 
 	/*** 内容 */
 	public String content;
-
-	/*** 分享作品图片总数  */
-	public int totalPics;
 
 
 	/***

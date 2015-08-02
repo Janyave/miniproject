@@ -107,7 +107,7 @@ public class BuildCourseActivity extends BaseActivity {
     CourseStepAdapter mCourseStepAdapter;
 
     /**
-     * {@link com.netease.ecos.model.Course.CourseType}枚举值
+     * {@link com.netease.ecos.model.Course.CourseType}枚举值, it's value not name.
      */
     public String mCourseTypeValue;
 
@@ -454,7 +454,7 @@ public class BuildCourseActivity extends BaseActivity {
     /**
      * 创建教程响应回调接口
      */
-    class CreateCourseResponse extends BaseResponceImpl implements CreateCourseRequest.ICreateCourseResponce {
+    class CreateCourseResponse extends BaseResponceImpl implements CreateCourseRequest.ICreateCourseResponse {
 
         @Override
         public void success(Course course) {

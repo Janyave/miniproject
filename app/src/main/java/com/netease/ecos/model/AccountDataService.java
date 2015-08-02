@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 /***
- * 
-* @ClassName: AccountDataService 
-* @Description: TODO(管理帐号信息，保罗) 
-* @author enlizhang
-* @date 2015年1月26日 下午2:20:42 
-*
+ *
+ * @ClassName: AccountDataService
+ * @Description: TODO(管理帐号信息，保罗)
+ * @author enlizhang
+ * @date 2015年1月26日 下午2:20:42
+ *
  */
 public class AccountDataService {
 
@@ -34,12 +34,11 @@ public class AccountDataService {
 	 */
 	private final static String TOKEN = "token";
 
-	/*** 注册验证码 */
-	private final static String REGIST_VALIDATE_CODE = "registValidateCode";
+	/*** 验证码 */
+	private final static String AUTOCODE = "autocode";
 
-
-	/*** 重置密码验证码 */
-	private final static String RESET_PWD_VALIDATE_CODE = "resetPwdValidateCode";
+	/*** 验证码 */
+	private final static String COOKIE = "cookie";
 
 	private String DEFAULT_VALUE = "";
 
@@ -98,7 +97,7 @@ public class AccountDataService {
 	 * 保存token
 	 * @param token 请求令牌
 	 */
-	public void savetToken(String token)
+	public void saveToken(String token)
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,WRITE_MODE);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -111,29 +110,41 @@ public class AccountDataService {
 
 
 	/***
-	 * 保存注册验证码
+	 * 保存验证码
 	 * @param registValidateCode 注册验证码
 	 */
-	public void saveRegistValidateCode(String registValidateCode)
+	public void saveAutocode(String autocode)
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,WRITE_MODE);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 
-		editor.putString(REGIST_VALIDATE_CODE, registValidateCode);
+		editor.putString(AUTOCODE, autocode);
+		editor.commit();
+	}
+
+
+	/***
+	 * 保存验证码 cookie
+	 * @param cookie 验证码cookie
+	 */
+	public void saveAutocodeCookie(String cookie)
+	{
+		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,WRITE_MODE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+
+		editor.putString(COOKIE, cookie);
 		editor.commit();
 	}
 
 	/***
-	 * 保存重置密码验证码
-	 * @param resetPwdValidateCode 重置密码验证码
+	 * 获取验证码 cookie
+	 * @param cookie 验证码cookie
 	 */
-	public void saveResetPwdValidateCode(String resetPwdValidateCode)
+	public String getAutocodeCookie()
 	{
-		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,WRITE_MODE);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
+		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
 
-		editor.putString(RESET_PWD_VALIDATE_CODE, resetPwdValidateCode);
-		editor.commit();
+		return sharedPreferences.getString(COOKIE, "1");
 	}
 
 
@@ -145,7 +156,7 @@ public class AccountDataService {
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
 
-		return sharedPreferences.getString(USER_ID, null);
+		return sharedPreferences.getString(USER_ID, "1");
 	}
 
 
@@ -168,27 +179,17 @@ public class AccountDataService {
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
 
-		return sharedPreferences.getString(TOKEN, "");
+		return sharedPreferences.getString(TOKEN, "1");
 	}
 
 	/****
-	 * 获取注册验证码
+	 * 获取验证码
 	 * @return 若无则返回"-1"
 	 */
-	public String getRegistValidateCode()
+	public String getAutoCode()
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
-		return sharedPreferences.getString(REGIST_VALIDATE_CODE, "-1");
-	}
-
-	/****
-	 * 获取重置密码验证码
-	 * @return 若无则返回"-1"
-	 */
-	public String getResetPwdValidateCode()
-	{
-		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
-		return sharedPreferences.getString(RESET_PWD_VALIDATE_CODE, "-1");
+		return sharedPreferences.getString(AUTOCODE, "-1");
 	}
 
 	/**
@@ -201,7 +202,6 @@ public class AccountDataService {
 
 		editor.commit();
 	}
-
 
 }
 

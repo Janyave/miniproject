@@ -128,6 +128,51 @@ public class CourseListRequest extends BaseRequest{
 
 	}
 
+
+	/**
+	 * 请求个人教程列表
+	 * @param courseListRespnce
+	 * @param pageIndex
+	 */
+	public void requestMySelf(ICourseListResponse courseListRespnce, final int pageIndex)
+	{
+		super.initBaseRequest(courseListRespnce);
+		mCourseListRespnce = courseListRespnce;
+
+
+		List<Course> courseList = getTestCourseList();
+
+		if(mCourseListRespnce!=null)
+		{
+			mCourseListRespnce.success(courseList);
+		}
+		/*
+
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COURSE_LIST_URL,  this, this) {
+	        @Override
+	        protected Map<String, String> getParams() throws AuthFailureError {
+	        	Map<String, String> map = getRequestBasicMap();
+
+	        	map.put(TYPE, type.getValue());
+
+	        	map.put(COURSE_TYPE, "mySelf");
+
+	        	map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
+	        	map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
+
+	            traceNormal(TAG, map.toString());
+	            traceNormal(TAG, CourseListRequest.this.getUrl(RequestUrlConstants.GET_COURSE_LIST_URL, map));
+	            return map;
+	        }
+
+	    };
+
+	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+	    getQueue().add(stringRequest);*/
+
+	}
+
 	@Override
 	public void responceSuccess(String jstring) {
 		traceNormal(TAG, jstring);
@@ -153,7 +198,7 @@ public class CourseListRequest extends BaseRequest{
 					course.title = getString(courseJO, KEY_TITLE);
 					course.courseId = getString(courseJO, KEY_COURSE_ID);
 					course.userId = getString(courseJO, KEY_USER_ID);
-					course.courseType = mCourseType;
+					course.courseType = CourseType.getCourseType(getString(courseJO,KEY_COURSE_TYPE));
 					course.issueTimeStamp = Long.valueOf(getString(courseJO, KEY_ISSUR_TIME_STAMP)).longValue();
 
 					String praiseNum = getString(courseJO, KEY_PRAISE_NUM);

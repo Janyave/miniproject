@@ -1,86 +1,136 @@
 package com.netease.ecos.request.user;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.netease.ecos.constants.RequestUrlConstants;
+import com.netease.ecos.model.Course;
+import com.netease.ecos.model.User;
+import com.netease.ecos.model.User.RoleType;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
+import com.netease.ecos.request.NorResponce;
 
 /***
- * 
-* @ClassName: UpdateUserInfoRequest 
-* @Description: 更新用户信息
-* @author enlizhang
-* @date 2015年7月26日 上午10:38:52 
-*
+ *
+ * @ClassName: UpdateUserInfoRequest
+ * @Description: 更新用户信息
+ * @author enlizhang
+ * @date 2015年7月26日 上午10:38:52
+ *
  */
 public class UpdateUserInfoRequest extends BaseRequest{
-	
+
 	//请求参数键
-	
+	/*** 用户信息JO键 */
+	public static final String USER_JSON = "userInfo";
+
 	//响应参数键
-	
-	
-	
-	public void request(IBaseResponse baseresponce, final String mobile, final String password)
+	NorResponce mNorResponce;
+
+
+	public void request(NorResponce norResponce, final User user)
 	{
-		super.initBaseRequest(baseresponce);
-		
-		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.SEND_AUTO_CODE_URL,  this, this) {  
-	        @Override  
-	        protected Map<String, String> getParams() throws AuthFailureError {  
-	        	Map<String, String> map = getRequestBasicMap();
-	            
-	        	
-	            traceNormal(TAG, map.toString());
-	            traceNormal(TAG, UpdateUserInfoRequest.this.getUrl(RequestUrlConstants.SEND_AUTO_CODE_URL, map));
-	            return map;  
-	        }  
-	        
-	    }; 
-	    
-	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-	    
-	    getQueue().add(stringRequest);
-	    
+		super.initBaseRequest(norResponce);
+		mNorResponce = norResponce;
+		//		Log.i("修改的个人信息json", getUserJSonDescription(user));
+		//		mNorResponce.success();
+
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.UPDATE_USER_INFO,  this, this) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> map = getRequestBasicMap();
+
+				map.put("token", "4");
+				map.put(USER_JSON, getUserJSonDescription(user));
+
+				traceNormal(TAG, map.toString());
+				traceNormal(TAG, UpdateUserInfoRequest.this.getUrl(RequestUrlConstants.UPDATE_USER_INFO, map));
+				return map;
+			}
+
+		};
+
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+		getQueue().add(stringRequest);
+
 	}
-	
+
 	@Override
 	public void responceSuccess(String jstring) {
 		traceNormal(TAG, jstring);
-		
+
 		try {
-			JSONObject json = new JSONObject(jstring);
-			
-			
-			if(mBaseResponse!=null)
+			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
+
+			if(mNorResponce!=null)
 			{
+				mNorResponce.success();
 			}
 			else
 			{
 				traceError(TAG,"回调接口为null");
 			}
-			
-			
+
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 			if(mBaseResponse!=null)
 			{
 				mBaseResponse.doAfterFailedResponse("json异常");
 			}
 		}
-		
+
 	}
-	
+
+	/***
+	 * 根据User对象获取请求Json串,包括avatarUrl、characterSignature、coverUrl、fansNum、followOtherNum、gender、nickname、roles
+	 * @return
+	 */
+	private String getUserJSonDescription(User user) {
+		Map<Object,Object> userMap = new HashMap<Object,Object>();
+		addProIntoMap(userMap,"avatarUrl",user.avatarUrl);
+		addProIntoMap(userMap,"characterSignature",user.characterSignature);
+		addProIntoMap(userMap,"coverUrl",user.coverUrl);
+		addProIntoMap(userMap,"fansNum",user.fansNum);
+		addProIntoMap(userMap,"followOtherNum",user.followOtherNum);
+		addProIntoMap(userMap,"gender",user.gender.getValue());
+		addProIntoMap(userMap,"nickname",user.nickname);
+
+		List<String> roles = new ArrayList<String>();
+		if(user.roleTypeSet!=null && user.roleTypeSet.size()!=0){
+
+			for(RoleType role:user.roleTypeSet){
+				roles.add(role.getBelongs());
+			}
+
+			userMap.put("roles", roles);
+		}
+
+
+		return new JSONObject(userMap).toString();
+	}
+
+	public void addProIntoMap(Map<Object,Object> userMap, String key, String value){
+		if( null!=value && !"".equals(value))
+			userMap.put(key, value);
+
+	}
+
+
 }
 

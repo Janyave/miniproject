@@ -37,6 +37,7 @@ import butterknife.InjectView;
 
 public class CourseDetailActivity extends ActionBarActivity implements View.OnClickListener {
 
+    public static final String CourseID = "CourseID";
     //the widget of the title bar
     @InjectView(R.id.tv_title)
     TextView titleTxVw;
@@ -119,10 +120,10 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         hlv_otherWorks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(CourseDetailActivity.this, WorkDetailActivity.class);
+                Intent intent = new Intent(CourseDetailActivity.this, AssignmentDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList(WorkDetailActivity.Work_List, workList);
-                bundle.putInt(WorkDetailActivity.Work_Order, position);
+                bundle.putStringArrayList(AssignmentDetailActivity.Work_List, workList);
+                bundle.putInt(AssignmentDetailActivity.Work_Order, position);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -154,15 +155,15 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         Intent intent;
         switch (v.getId()) {
             case R.id.ll_author:
-                //TODO 个人页面
+                intent = new Intent(CourseDetailActivity.this, PersonageDetailActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btn_allWorks:
                 //TODO 所有作品
-//                intent = new Intent(CourseDetailActivity.this, WorkDetailActivity.class);
+//                intent = new Intent(CourseDetailActivity.this, AssignmentDetailActivity.class);
 //                startActivity(intent);
                 break;
             case R.id.ll_uploadMyWork:
-                //TODO:上传作品
                 SetPhotoDialog dialog = new SetPhotoDialog(CourseDetailActivity.this, new SetPhotoDialog.ISetPhoto() {
 
                     @Override
@@ -178,7 +179,6 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                 dialog.showSetPhotoDialog();
                 break;
             case R.id.btn_allEvaluation:
-                //TODO 所有评论
                 intent = new Intent(CourseDetailActivity.this, CommentDetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(CommentDetailActivity.FromId, courseId);
@@ -187,7 +187,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                 startActivity(intent);
                 break;
             case R.id.ll_praise:
-                //点击关注
+                //TODO:点击关注 send the request to the server.
                 if (TextUtils.equals(tv_praise.getText().toString(), "点赞")) {
                     tv_praise.setText("已赞");
                 } else {
@@ -198,6 +198,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     }
 
     private void initData() {
+        courseId = getIntent().getExtras().getString(CourseID);
         GetCourseDetailRequest request = new GetCourseDetailRequest();
         request.request(new GetCourseDetailResponse(), "1");
     }
@@ -227,10 +228,10 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                             new SetPhotoHelper.SetPhotoCallBack() {
                                 @Override
                                 public void success(String imagePath) {
-                                    Intent intent = new Intent(CourseDetailActivity.this, UploadWorkActivity.class);
+                                    Intent intent = new Intent(CourseDetailActivity.this, UploadAssignmentActivity.class);
                                     Bundle bundle = new Bundle();
-                                    bundle.putString(UploadWorkActivity.CourseId, courseId);
-                                    bundle.putString(UploadWorkActivity.ImagePath, imagePath);
+                                    bundle.putString(UploadAssignmentActivity.CourseId, courseId);
+                                    bundle.putString(UploadAssignmentActivity.ImagePath, imagePath);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                 }
@@ -273,7 +274,6 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
      * @param course
      */
     private void bindData(Course course) {
-        courseId = course.courseId;
         tv_title.setText(course.title);
         tv_name.setText(course.author);
         tv_praiseNum.setText(course.praiseNum + "");

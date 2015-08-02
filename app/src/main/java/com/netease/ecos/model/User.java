@@ -1,12 +1,15 @@
 package com.netease.ecos.model;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /***
- * 
-* @ClassName: User 
-* @Description: 用户信息
-* @author enlizhang
-* @date 2015年7月25日 下午11:30:09 
-*
+ *
+ * @ClassName: User
+ * @Description: 用户信息
+ * @author enlizhang
+ * @date 2015年7月25日 下午11:30:09
+ *
  */
 public class User {
 
@@ -14,7 +17,7 @@ public class User {
 	public String userId;
 
 	/*** 云信id */
-	public String IM_Id;
+	public String imId;
 
 	/** 手机号 */
 	public String phone;
@@ -35,7 +38,7 @@ public class User {
 	public String characterSignature;
 
 	/** 个人角色（可以多个） */
-	public RoleType roleType;
+	public Set<RoleType> roleTypeSet;
 
 	/** 城市名称  */
 	public String cityName;
@@ -55,6 +58,28 @@ public class User {
 	/** 粉丝数  */
 	public String fansNum;
 
+
+	public User(){
+		gender = Gender.女;
+		roleTypeSet =  new LinkedHashSet<RoleType>();
+	}
+
+	public String getSortRoleString(){
+		String string = "";
+		for(RoleType role:roleTypeSet)
+			string+=role.getBelongs()+",";
+
+		return string;
+	}
+
+	public Set<RoleType> getRoleTypeByString(String string){
+
+		LinkedHashSet<RoleType> roleTypeSet = new LinkedHashSet<RoleType>();
+		for(String s:string.split(",")){
+			roleTypeSet.add(RoleType.getRoleTypeByValue(s));
+		}
+		return roleTypeSet;
+	}
 
 	/***
 	 *
@@ -88,7 +113,7 @@ public class User {
 					return gender;
 			}
 
-			return null;
+			return 男;
 		}
 
 	}

@@ -1,65 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/tv_title_height"
         android:background="@color/bg_red"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:paddingTop="8dp">
+
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/bg_search_pink"
             android:gravity="center_vertical"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/ic_search"/>
+                android:src="@drawable/ic_search" />
+
             <EditText
                 android:id="@+id/et_search"
+                style="@style/text_white_mid"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@android:color/transparent"
                 android:gravity="left|center_vertical"
                 android:hint="搜索你喜爱的动漫和角色"
-                android:textColorHint="@color/text_red_light"
-                style="@style/text_white_mid"
-                android:background="@android:color/transparent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"/>
+                android:textColorHint="@color/text_red_light" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_cancel"
+            android:id="@+id/tv_confirm"
+            style="@style/text_white_mid"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
-            android:text="取消"
-            style="@style/text_white_mid"
-            android:gravity="center" />
+            android:gravity="center"
+            android:text="确定" />
     </LinearLayout>
-    <TextView style="@style/layout_line_gray"/>
+
+    <TextView style="@style/layout_line_gray" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="12dp"
-        android:gravity="center_vertical"
-        android:background="@color/bg_gray"/>
-    <com.netease.ecos.views.ExtensibleListView
+        android:background="@color/bg_gray"
+        android:gravity="center_vertical" />
+
+    <ListView
         android:id="@+id/lv_searchHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_white"
         android:listSelector="@android:color/transparent">
 
-    </com.netease.ecos.views.ExtensibleListView>
+    </ListView>
 
 </LinearLayout>

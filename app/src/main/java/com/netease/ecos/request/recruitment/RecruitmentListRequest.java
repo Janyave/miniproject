@@ -1,27 +1,16 @@
 package com.netease.ecos.request.recruitment;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request.Method;
-import com.netease.ecos.constants.RequestUrlConstants;
-import com.netease.ecos.model.Comment;
-import com.netease.ecos.model.Comment.CommentType;
 import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.model.Recruitment.RecruitType;
-import com.netease.ecos.model.Share;
 import com.netease.ecos.model.User.Gender;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
-import com.netease.ecos.request.MyStringRequest;
-import com.netease.ecos.request.share.ShareListRequest.IShareListResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /***
  * 
@@ -113,7 +102,40 @@ public class RecruitmentListRequest extends BaseRequest{
 	    getQueue().add(stringRequest);*/
 	    
 	}
-	
+
+
+	public static final String VALUE_MY_RECRUITS = "6";
+
+	public void requestMyself(IRecruitmentListResponse recruitmentListResponse,  final int pageIndex)
+	{
+		super.initBaseRequest(recruitmentListResponse);
+		mRecruitmentListResponse = recruitmentListResponse;
+
+		recruitmentListResponse.success(getTestRecruitmentList());
+
+		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_RECRUITMENT_LIST_URL,  this, this) {
+	        @Override
+	        protected Map<String, String> getParams() throws AuthFailureError {
+	        	Map<String, String> map = getRequestBasicMap();
+
+	        	map.put(KEY_RECRUITMENT_TYPE, VALUE_MY_RECRUITS);
+
+	        	map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
+	        	map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
+
+	            traceNormal(TAG, map.toString());
+	            traceNormal(TAG, RecruitmentListRequest.this.getUrl(RequestUrlConstants.GET_RECRUITMENT_LIST_URL, map));
+	            return map;
+	        }
+
+	    };
+
+	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+	    getQueue().add(stringRequest);*/
+
+	}
+
 	@Override
 	public void responceSuccess(String jstring) {
 		traceNormal(TAG, jstring);
