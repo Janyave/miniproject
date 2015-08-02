@@ -52,7 +52,7 @@ public class GetShareDetailRequest extends BaseRequest {
     /**
      * 作者id
      */
-    public static final String KEY_USER_ID = "userId";
+    public static final String KEY_USER_ID = "authorId";
 
     /**
      * 是否已评论，true:是 false:否

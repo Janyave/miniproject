@@ -111,7 +111,7 @@ public class ShareListRequest extends BaseRequest{
 	/**
 	 *
 	 * @param shareListResponse
-	 * @param shareType {@link ShareType},如果是请求所有类型，则传null
+	 * @param type {@link ShareType},如果是请求所有类型，则传null
 	 * @param keyWord
 	 * @param pageIndex
 	 */
@@ -128,9 +128,42 @@ public class ShareListRequest extends BaseRequest{
 	        protected Map<String, String> getParams() throws AuthFailureError {
 	        	Map<String, String> map = getRequestBasicMap();
 
+	        	map.put("isMyself", String.valueOf(false));
+
 	        	map.put(TYPE, shareType!=null?shareType.getValue():"all");
 
 	        	map.put(KEY_WORD, keyWord);
+	        	map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
+	        	map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
+
+	            traceNormal(TAG, map.toString());
+	            traceNormal(TAG, ShareListRequest.this.getUrl(RequestUrlConstants.GET_SHARE_LIST_URL, map));
+	            return map;
+	        }
+
+	    };
+
+	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+	    getQueue().add(stringRequest);*/
+
+	}
+
+	public void requestMyShareList(IShareListResponse shareListResponse, final int pageIndex)
+	{
+		super.initBaseRequest(shareListResponse);
+		mShareListResponse = shareListResponse;
+
+		shareListResponse.success(getTestShareList());
+
+		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_SHARE_LIST_URL,  this, this) {
+	        @Override
+	        protected Map<String, String> getParams() throws AuthFailureError {
+	        	Map<String, String> map = getRequestBasicMap();
+
+
+	        	map.put("isMyself", String.valueOf(true));
+
 	        	map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
 	        	map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
 

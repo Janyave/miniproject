@@ -1,5 +1,6 @@
 package com.netease.ecos.activity;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
@@ -7,7 +8,14 @@ import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.GeofenceClient;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.netease.ecos.R;
+import com.netease.ecos.model.LocationData;
+import com.netease.ecos.model.LocationDataService;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.MyMediaScanner;
@@ -17,7 +25,6 @@ import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.SDKOptions;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.auth.LoginInfo;
-
 
 /**
  * 类描述：应用类
@@ -43,6 +50,16 @@ public class MyApplication extends Application {
     private static Application mApplication;
 
 
+    //百度定位---------------------开始
+    public static LocationClient mLocationClient;
+    public GeofenceClient mGeofenceClient;
+    public MyLocationListener mMyLocationListener;
+
+    private static boolean firstTime = true;
+
+    public static Activity currentActivity;
+    public static LocationCallBack mLocationCallBack;
+    //百度定位---------------------结束
 
     @Override
     public void onCreate() {
@@ -58,6 +75,22 @@ public class MyApplication extends Application {
         saveTestUserData();
 
         Log.e("tag","---------------" + UserDataService.getSingleUserDataService(this).getUser().toString());
+
+        //百度定位---------------------开始
+        Log.i("百度", "application start");
+        // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
+        //		SDKInitializer.initialize(this);
+
+
+        mLocationClient = new LocationClient(this.getApplicationContext());
+        mMyLocationListener = new MyLocationListener();
+        mLocationClient.registerLocationListener(mMyLocationListener);
+        mGeofenceClient = new GeofenceClient(getApplicationContext());
+        mLocationClient.setDebug(false);
+        InitLocation();
+        mLocationClient.start();
+        firstTime = false;
+        //百度定位---------------------结束
     }
 
     private void saveTestUserData() {
@@ -217,4 +250,142 @@ public class MyApplication extends Application {
      * 云信SDK初始化结束------------------------------------------
      * ------------------------------------------------------
      */
+
+
+    //百度定位---------------------开始
+    /**
+     * 实现实位回调监听
+     */
+    public class MyLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+
+            Log.i(TAG, "location.getLocType()"+location.getLocType());
+            Log.i(TAG, "location.TypeCacheLocation"+location.TypeCacheLocation);
+            Log.i(TAG, "location.TypeGpsLocation"+location.TypeGpsLocation);
+            Log.i(TAG, "location.TypeNetWorkLocation"+location.TypeNetWorkLocation);
+
+            Log.i(TAG, "TypeNetWorkException"+location.TypeNetWorkException);
+            Log.i(TAG, "TypeNone"+location.TypeNone);
+            Log.i(TAG, "TypeServerError"+location.TypeServerError);
+
+            String latitude= String.valueOf(location.getLatitude());
+            String longitude = String.valueOf(location.getLongitude());
+            String locCity = location.getCity();
+            String locDistrict = location.getDistrict();
+            String locStree = location.getStreet()+location.getStreetNumber() ;
+
+            LocationData locationData = new LocationData(latitude, longitude,
+                    locCity, locDistrict, locStree);
+
+            if(location.getLocType() == location.TypeOffLineLocationNetworkFail || locCity==null)
+            {
+                Log.w(TAG, "定位失败");
+                if(mLocationCallBack!=null)
+                    mLocationCallBack.locationFailed("定位失败");
+            }
+            if(locCity!=null)
+            {
+                Log.w(TAG, "locCity!=null");
+                if(mLocationCallBack!=null)
+                {
+                    Log.w(TAG, "mLocationCallBack!=null");
+                    mLocationCallBack.locationSuccess(locationData);
+
+                }
+                LocationDataService.getBDLocationDataService(getApplicationContext()).save(locationData);
+            }
+            else
+            {
+                System.out.println("无法定位");
+            }
+
+
+            StringBuffer sb = new StringBuffer(256);
+            sb.append("\nlatitude : ");
+            sb.append(location.getLatitude());
+            sb.append("\nlontitude : ");
+            sb.append(location.getLongitude());
+            if (location.getLocType() == BDLocation.TypeGpsLocation){
+                sb.append("\nspeed : ");
+                sb.append(location.getSpeed());
+                sb.append("\nsatellite : ");
+                sb.append(location.getSatelliteNumber());
+                sb.append("\ndirection : ");
+                sb.append("\naddr : ");
+                sb.append(location.getAddrStr());
+                sb.append(location.getDirection());
+            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation){
+                sb.append("\naddr : ");
+                sb.append(location.getAddrStr());
+                //运营商信息
+                sb.append("\noperationers : ");
+                sb.append("\ncityCode:"+location.getCityCode());
+                sb.append(location.getOperators());
+                sb.append("\ncity:"+location.getCity()+"  district"+location.getDistrict()+"  street"+location.getStreet());
+                sb.append("\nNetworkLocationType:"+location.getNetworkLocationType());
+                sb.append("\nfloor:"+location.getFloor());
+            }
+            Log.i("百度地图回调函数", sb.toString());
+            Log.i("百度地图回调函数", ""+location.describeContents());
+            Log.i("百度地图回调函数", " LOCATION_WHERE_IN_CN"+BDLocation.LOCATION_WHERE_IN_CN );
+            Log.i("百度地图回调函数", " LOCATION_WHERE_OUT_CN"+BDLocation.LOCATION_WHERE_OUT_CN );
+            Log.i("百度地图回调函数", " LOCATION_WHERE_UNKNOW"+BDLocation.LOCATION_WHERE_UNKNOW );
+
+            mLocationClient.stop();
+            mLocationCallBack = null;
+        }
+
+
+    }
+
+    private void InitLocation(){
+
+        LocationClientOption.LocationMode tempMode = LocationClientOption.LocationMode.Hight_Accuracy;
+        String tempcoor="bd09ll";
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(tempMode);//设置定位模式
+        option.setCoorType(tempcoor);//返回的定位结果是百度经纬度，默认值gcj02
+        option.setIsNeedAddress(true);
+        option.setAddrType("all");
+        int span=120000;
+        option.setScanSpan(span);//设置发起定位请求的间隔时间为5000ms
+        option.setIsNeedAddress(true);
+        mLocationClient.setLocOption(option);
+
+    }
+    /***
+     * 启动定位
+     * @param locationCallBack,定位结束回调函数
+     */
+    public static void startLocation(LocationCallBack locationCallBack)
+    {
+        mLocationCallBack = locationCallBack;
+        mLocationClient.start();
+    }
+
+    /***
+     *
+     * @ClassName: LocationCallBack
+     * @Description: TODO(定位回调函数)
+     * @author enlizhang
+     * @date 2015年1月21日 上午11:37:41
+     *
+     */
+    public interface LocationCallBack
+    {
+        /***
+         * 定位成功
+         * @param locationData，定位成功后返回的定位数据
+         */
+        public void locationSuccess(LocationData locationData);
+
+        /***
+         * 定位失败
+         * @param message 失败信息
+         */
+        public void locationFailed(String message);
+    }
+    //百度定位---------------------结束
 }
