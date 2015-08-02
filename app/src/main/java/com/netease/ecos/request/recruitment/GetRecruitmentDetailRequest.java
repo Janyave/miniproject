@@ -221,7 +221,7 @@ public class GetRecruitmentDetailRequest extends BaseRequest{
 		recruit.issueTimeStamp = System.currentTimeMillis() - i*24*60*60*1000;
 		recruit.distanceKM = "" + ( 1+i );
 		recruit.averagePrice = "30元/人";
-		recruit.decription = "小熊有点菜";
+		recruit.description = "小熊有点菜";
 			
 		int length = 2;
 		List<Share> shareList = new ArrayList<Share>();

@@ -115,6 +115,4 @@ public class RoundImageView extends NetworkImageView{
         p.setStrokeWidth(circle_lind_width);
         canvas.drawCircle(Radius/2 + 0.7f, Radius/2 + 0.7f, Radius/2 - 2.0f, p);
     }
-
-
 }

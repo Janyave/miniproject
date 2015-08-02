@@ -8,8 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
-import com.netease.ecos.dialog.MyAlertDialog;
-import com.netease.ecos.dialog.MyProgressDialog;
+import com.netease.ecos.views.sweet_alert_dialog.SweetAlertDialog;
 
 
 /**
@@ -23,13 +22,12 @@ public class BaseActivity extends ActionBarActivity {
     /***
      * 提示对话框
      */
-    private static MyAlertDialog singleMyAlertDialog;
+    public static SweetAlertDialog mAlertDialog;
 
     /***
      * 加载对话框
      */
-    MyProgressDialog mMyProgressDialog;
-
+    SweetAlertDialog mProgressDialog;
 
     protected  String CLASS_TAG;
     @Override
@@ -58,6 +56,7 @@ public class BaseActivity extends ActionBarActivity {
         MyApplication.setCurrentActivity(this);
 
         //初始化提示对话框
+        initAlertSweetDialog();
 
     }
 
@@ -73,21 +72,46 @@ public class BaseActivity extends ActionBarActivity {
 
     }
 
+
     /***
-     * 显示加载框以及对应的文字
-     * @param title 对框框相关的文字，如果有
+     * 初始化加载对话框
+     */
+    private void initProgressSweetDialog(String title){
+
+        if (mProgressDialog == null) {
+            //mMyProgressDialog初始化
+            mProgressDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE).setTitleText("Loading");
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setCanceledOnTouchOutside(false);
+        }
+    }
+
+    /***
+     * 初始化提示对话框
+     */
+    private void initAlertSweetDialog() {
+
+        mAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
+        mAlertDialog.setCancelable(true);
+        mAlertDialog.setCanceledOnTouchOutside(true);
+    }
+
+
+
+    /***
+     * 显示加载框
      *
      */
     public void showProcessBar(String title)
     {
         Log.i(TAG, "显示加载框");
-        if(mMyProgressDialog == null)
+        initProgressSweetDialog(title);
+
+        //如果加载框存在并未未显示，则进行显示
+        if( !mProgressDialog.isShowing())
         {
-            //mMyProgressDialog初始化
+            mProgressDialog.show();
         }
-
-        //如果当前加载框未显示，则进行显示
-
     }
 
     /***
@@ -96,9 +120,12 @@ public class BaseActivity extends ActionBarActivity {
     public void dismissProcessBar()
     {
         Log.i(TAG, "销毁加载框");
-        //若mMyProgressDialog为null或者已经隐藏了，则return
+        //如果加载框存在并显示，则进行销毁
+        if(mProgressDialog != null && mProgressDialog.isShowing())
+        {
+            mProgressDialog.dismiss();
+        }
 
-        //否则将mMyProgressDialog进行dismiss
     }
 
 
@@ -108,21 +135,27 @@ public class BaseActivity extends ActionBarActivity {
      *
      * @return
      */
-    public static MyAlertDialog getAlertDialog(){
+    public static SweetAlertDialog getAlertDialog(){
         Log.i(TAG, "获取对话框");
 
-        return null;
+        return mAlertDialog;
     }
 
     /***
      * 回收视图资源，例如关闭未关闭对话框
      */
-    public void recycle()
+    public synchronized  void recycle()
     {
 
-        //若提示对话框未关闭，则关闭提示对话框
+        if(mAlertDialog!=null && mAlertDialog.isShowing())
+        {
+            mAlertDialog.dismiss();
+        }
 
-        //若加载框未关闭，则关闭加载框
+        if(mProgressDialog!=null && mProgressDialog.isShowing())
+        {
+            dismissProcessBar();
+        }
     }
 
 

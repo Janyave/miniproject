@@ -270,7 +270,6 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 shareType = ShareListRequest.ShareType.关注;
                 //send the request
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
-
                 break;
             case R.id.tv_new:
                 //the text color

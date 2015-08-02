@@ -909,7 +909,7 @@ public class UserApiTestActivity extends BaseActivity{
 				
 			tv_display.append("招募标题:" + recruit.title + "\n");
 			tv_display.append("  招募封面图url:" + recruit.coverUrl + "\n");
-			tv_display.append("  招募描述:" + recruit.decription + "\n");
+			tv_display.append("  招募描述:" + recruit.description + "\n");
 			tv_display.append("  招募id:" + recruit.recruitmentId + "\n");
 			tv_display.append("  发起者用户id:" + recruit.userId + "\n");
 			tv_display.append("  发起者云信id:" + recruit.imId + "\n");
