@@ -1,45 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?><!--创建教程页面布局-->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_white">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
+        android:background="@color/bg_white"
         android:orientation="vertical">
 
         <include
             android:id="@+id/include_title"
             layout="@layout/component_title" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_cover_670px_1080px">
         <ImageView
             android:id="@+id/iv_course_cover"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/iv_height_course_cover"
-            android:background="#cccccc"
+            android:layout_height="@dimen/height_cover_670px_1080px"
             android:contentDescription="教程封面"
+            android:src="@drawable/img_default"
             android:scaleType="centerCrop"/>
-
+            <ImageView
+                android:layout_width="@dimen/icon_big_200px"
+                android:layout_height="@dimen/icon_big_200px"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/margin_40px"
+                android:layout_marginBottom="@dimen/margin_50px"
+                android:src="@mipmap/ic_launcher"/>
+        </RelativeLayout>
         <EditText
             android:id="@+id/etv_course_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_height="@dimen/height_label_100px"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"
             android:background="@null"
-            android:hint="教程名称"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:textColor="#cccccc"
-            android:textSize="16sp" />
+            android:hint="请输入你的教程名称"
+            android:textColorHint="@color/text_gray"
+            style="@style/text_dark_max" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="#cccccc" />
+        <View style="@style/layout_line_gray"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"/>
 
         <com.netease.ecos.views.ExtensibleListView
             android:id="@+id/lv_build_course"
@@ -52,30 +59,35 @@
             android:dividerHeight="10dp"
             android:listSelector="#e7e7e7" />
 
-        <Button
-            android:id="@+id/btn_add_step"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_selector_btn_add_step"
-            android:text="添加步骤"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:layout_height="@dimen/height_btn_big_120px"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"
+            android:layout_marginTop="@dimen/margin_50px"
+            android:layout_marginBottom="@dimen/margin_50px"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_add_step"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_big_white"
+                style="@style/text_pink_max"
+                android:text="添加步骤" />
 
-        <Button
-            android:id="@+id/btn_iss_course"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_selector_btn_issue_course"
-            android:text="发布!"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
+            <Button
+                android:id="@+id/btn_iss_course"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:background="@drawable/btn_big_green"
+                android:text="发布!"
+                style="@style/text_white_max"/>
+        </LinearLayout>
+        <View style="@style/layout_line_gray"
+            android:layout_marginBottom="@dimen/margin_80px"/>
 
     </LinearLayout>
 </ScrollView>

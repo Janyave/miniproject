@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/bg_gray_dark"
+    android:layout_height="@dimen/height_label_100px"
+    android:background="@color/bg_gray"
     android:orientation="horizontal"
-    android:paddingBottom="@dimen/commentDetailLayoutPaddingTop"
-    android:paddingTop="@dimen/commentDetailLayoutPaddingTop">
-
-    <ImageView
-        android:layout_width="3dp"
-        android:layout_height="match_parent"
-        android:background="@color/bg_red" />
-
-    <TextView
+    android:gravity="center_vertical">
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/commentDetailLayoutPaddingTop"
-        android:text="@string/comment" />
+        android:layout_marginLeft="@dimen/margin_40px"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/bg_red" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:text="@string/comment" />
+    </LinearLayout>
 </LinearLayout>

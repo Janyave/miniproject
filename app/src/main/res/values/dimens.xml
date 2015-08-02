@@ -104,14 +104,16 @@
     <dimen name="margin_30px">10dp</dimen>
     <dimen name="margin_20px">8dp</dimen>
 
-    <dimen name="height_btn_focus_70px">21dp</dimen>
+    <dimen name="height_btn_focus_70px">24dp</dimen>
     <dimen name="width_btn_focus_152px">50dp</dimen>
-    <dimen name="height_btn_price_92px">35dp</dimen>
+    <dimen name="radius_btn_focus_70px">12dp</dimen>
+    <dimen name="height_btn_price_92px">34dp</dimen>
     <dimen name="width_btn_price_216px">75dp</dimen>
     <dimen name="height_btn_person_80px">24dp</dimen>
     <dimen name="width_btn_person_180px">65dp</dimen>
     <dimen name="radius_btn_person_80px">12dp</dimen>
     <dimen name="height_btn_big_120px">42dp</dimen>
+    <dimen name="radius_btn_big_120px">21dp</dimen>
 
     <dimen name="height_item_evaluationAndPraise_92px">35dp</dimen>
     <dimen name="height_item_workInformation_190px">65dp</dimen>
@@ -143,6 +145,7 @@
     <dimen name="text_size_36">13sp</dimen>
     <dimen name="text_size_24">10sp</dimen>
 
+    <dimen name="icon_big_200px">60dp</dimen>
     <dimen name="icon_big_64px">30dp</dimen>
     <dimen name="icon_little_36px">15dp</dimen>
     <dimen name="icon_return_50px">25dp</dimen>
@@ -150,8 +153,11 @@
     
     
     <!-- 图片高度-->
+    <dimen name="height_cover_580px_890px">200dp</dimen>
     <dimen name="height_cover_640px_960px">240dp</dimen>
     <dimen name="height_cover_664px_1000px">245dp</dimen>
+    <dimen name="height_cover_670px_1080px">250dp</dimen>
+    <dimen name="height_cover_1500px_960px">500dp</dimen>
     <dimen name="height_banner_610px_1080px">210dp</dimen>
     <dimen name="height_personDetail_640px_1080px">230dp</dimen> //should not change
 
@@ -167,7 +173,10 @@
     <dimen name="progress_circle_radius">34dp</dimen>
 
 
-    <dimen name="fbtn_icon_180px">60dp</dimen>
+    <dimen name="fbtn_icon_180px">70dp</dimen>
     <dimen name="fbtn_marginRight_50px">15dp</dimen>
     <dimen name="fbtn_marginBotton_100px">30dp</dimen>
+
+
+
 </resources>

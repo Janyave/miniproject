@@ -77,7 +77,6 @@
 
     <com.netease.ecos.views.FloadingButton
         android:id="@+id/btn_floading"
-        android:background="@null"
         android:layout_width="@dimen/fbtn_icon_180px"
         android:layout_height="@dimen/fbtn_icon_180px"
         android:layout_alignParentBottom="true"

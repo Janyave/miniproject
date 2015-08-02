@@ -6,9 +6,9 @@
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/personPicImgView"
-        android:layout_width="@dimen/personImageView_width"
-        android:layout_height="@dimen/personImageView_height"
-        android:layout_marginBottom="@dimen/commentDetaiPaddingLeft" />
+        android:layout_width="@dimen/circle_icon_108px"
+        android:layout_height="@dimen/circle_icon_108px"
+        android:layout_marginBottom="@dimen/margin_30px" />
 
     <TextView
         android:id="@+id/personNameTxV"
@@ -17,6 +17,6 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/hello_world"
-        android:textSize="11sp" />
+        style="@style/text_gray_min" />
 
 </LinearLayout>

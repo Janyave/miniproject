@@ -52,7 +52,7 @@
                 android:layout_height="30dp"
                 android:gravity="center"
                 android:text="关注"
-                android:background="@drawable/btn_little_pink"
+                android:background="@drawable/btn_focus_pink"
                 style="@style/text_white_mid"/>
         </LinearLayout>
         <RelativeLayout

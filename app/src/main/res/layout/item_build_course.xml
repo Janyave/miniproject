@@ -2,64 +2,56 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="170dp"
-    android:padding="10dp">
+    android:layout_height="wrap_content">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_40px"
+        android:layout_marginRight="@dimen/margin_40px"
+        android:layout_marginTop="@dimen/margin_50px">
 
     <TextView
         android:contentDescription="教程步骤序号"
         android:id="@+id/tv_index"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textSize="18sp"
-        android:textColor="#000000"
-        android:text="1."/>
+        style="@style/text_gray_max"
+        android:text="1"/>
 
     <ImageView
         android:contentDescription="点击将当前步骤置为上一步"
         android:id="@+id/iv_last_step"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/icon_return_50px"
+        android:layout_height="@dimen/icon_return_50px"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/tv_index"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-
-
-        android:src="@drawable/ic_selector_btn_last_step"/>
+        android:layout_marginRight="@dimen/margin_40px"
+        android:layout_marginLeft="@dimen/margin_40px"
+        android:src="@mipmap/ic_launcher"/>
 
     <ImageView
         android:contentDescription="点击将当前步骤置为下一步"
         android:id="@+id/iv_next_step"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/tv_index"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_below="@id/iv_last_step"
-        android:layout_marginTop="40dp"
-
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-
-
-        android:src="@drawable/ic_selector_btn_next_step"/>
+        android:layout_marginTop="@dimen/margin_30px"
+        android:layout_width="@dimen/icon_return_50px"
+        android:layout_height="@dimen/icon_return_50px"
+        android:layout_marginRight="@dimen/margin_40px"
+        android:layout_marginLeft="@dimen/margin_40px"
+        android:src="@mipmap/ic_launcher"/>
 
 
     <ImageView
         android:contentDescription="教程步骤图片"
         android:id="@+id/niv_course_photo"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="@dimen/height_cover_580px_890px"
         android:layout_toRightOf="@id/tv_index"
         android:layout_toLeftOf="@id/iv_last_step"
-
-        android:layout_marginLeft="5dp"
-        android:layout_alignTop="@id/tv_index"
+        android:src="@drawable/img_default"
+        android:layout_marginLeft="@dimen/margin_30px"
+        android:layout_marginRight="@dimen/margin_40px"
         android:scaleType="centerCrop"/>
 
     <EditText
@@ -67,39 +59,26 @@
         android:id="@+id/etv_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_below="@id/niv_course_photo"
-        android:layout_alignLeft="@id/niv_course_photo"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="20dp"
-        android:paddingTop="10dp"
-
-
-        android:textSize="16sp"
-        android:hint="教程描述"
-        android:textColor="#cccccc"
-        android:background="@null"
+        android:text="教程描述"
+        style="@style/text_gray_max"
+        android:background="@android:color/transparent"
+        android:layout_marginTop="@dimen/margin_50px"
         />
 
     <ImageView
         android:contentDescription="删除当前步骤"
         android:id="@+id/iv_delete"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-
+        android:layout_width="@dimen/icon_big_64px"
+        android:layout_height="@dimen/icon_big_64px"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="@dimen/margin_20px"
         android:layout_alignBottom="@id/niv_course_photo"
 
         android:src="@mipmap/ic_launcher"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignLeft="@id/niv_course_photo"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="6dp"
-        android:background="#000000"
-        />
+    <View style="@style/layout_line_gray"
+        android:layout_below="@id/etv_description"
+        android:layout_marginTop="@dimen/margin_20px"/>
+        </RelativeLayout>
 </RelativeLayout>

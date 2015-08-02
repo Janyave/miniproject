@@ -3,6 +3,7 @@ package com.netease.ecos.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.netease.ecos.R;
 

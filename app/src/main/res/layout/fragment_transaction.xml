@@ -2,84 +2,173 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/coursePadding"
-    android:paddingLeft="@dimen/coursePadding"
-    android:paddingRight="@dimen/coursePadding"
-    android:paddingTop="@dimen/coursePadding">
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/coursePadding"
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/makeuper_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/coursePadding"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:background="@drawable/icon_button"
-            android:scaleType="centerCrop" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/makeuper_btn"
+                android:layout_width="@dimen/icon_big_200px"
+                android:layout_height="@dimen/icon_big_200px"
+                android:background="@drawable/icon_button"
+                android:scaleType="centerCrop" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_50px"
+                android:text="化妆"
+                style="@style/text_dark_max"/>
+        </LinearLayout>
+        <View style="@style/layout_line_gray_v"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/photography_btn"
+                android:layout_width="@dimen/icon_big_200px"
+                android:layout_height="@dimen/icon_big_200px"
+                android:background="@drawable/icon_button"
+                android:scaleType="centerCrop" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_50px"
+                android:text="道具"
+                style="@style/text_dark_max"/>
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/photography_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/icon_button"
-            android:scaleType="centerCrop" />
+
     </LinearLayout>
 
+    <View style="@style/layout_line_gray"/>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/coursePadding"
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/backstage_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/coursePadding"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:background="@drawable/icon_button"
-            android:scaleType="centerCrop" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/backstage_btn"
+                android:layout_width="@dimen/icon_big_200px"
+                android:layout_height="@dimen/icon_big_200px"
+                android:background="@drawable/icon_button"
+                android:scaleType="centerCrop" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_50px"
+                android:text="摄影"
+                style="@style/text_dark_max"/>
+        </LinearLayout>
+        <View style="@style/layout_line_gray_v"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/costume_btn"
+                android:layout_width="@dimen/icon_big_200px"
+                android:layout_height="@dimen/icon_big_200px"
+                android:background="@drawable/icon_button"
+                android:scaleType="centerCrop" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_50px"
+                android:text="后期"
+                style="@style/text_dark_max"/>
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/costume_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/icon_button"
-            android:scaleType="centerCrop" />
+
     </LinearLayout>
 
+    <View style="@style/layout_line_gray"/>
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/prop_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/coursePadding"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_weight="1"
-            android:background="@drawable/icon_button"
-            android:scaleType="centerCrop" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/prop_btn"
+                android:layout_width="@dimen/icon_big_200px"
+                android:layout_height="@dimen/icon_big_200px"
+                android:background="@drawable/icon_button"
+                android:scaleType="centerCrop" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_50px"
+                android:text="服装"
+                style="@style/text_dark_max"/>
+        </LinearLayout>
+        <View style="@style/layout_line_gray_v"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/others_btn"
+                android:layout_width="@dimen/icon_big_200px"
+                android:layout_height="@dimen/icon_big_200px"
+                android:background="@drawable/icon_button"
+                android:scaleType="centerCrop" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_50px"
+                android:text="其他"
+                style="@style/text_dark_max"/>
+        </LinearLayout>
+    </LinearLayout>
 
-        <ImageView
-            android:id="@+id/others_btn"
+    <View style="@style/layout_line_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/margin_40px"
+        android:layout_marginRight="@dimen/margin_40px">
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/icon_button"
-            android:scaleType="centerCrop" />
+            android:layout_height="@dimen/height_btn_big_120px"
+            android:background="@drawable/btn_big_pink"
+            android:text="我要挂牌"
+            android:gravity="center"
+            style="@style/text_white_max"
+            android:layout_marginTop="@dimen/margin_60px"
+            android:layout_marginBottom="@dimen/margin_60px"/>
     </LinearLayout>
 
 
