@@ -1,24 +1,34 @@
 package com.netease.ecos.request.share;
 
-import com.netease.ecos.model.Comment;
-import com.netease.ecos.model.Share;
-import com.netease.ecos.request.BaseRequest;
-import com.netease.ecos.request.IBaseResponse;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request.Method;
+import com.netease.ecos.constants.RequestUrlConstants;
+import com.netease.ecos.model.Comment;
+import com.netease.ecos.model.Comment.CommentType;
+import com.netease.ecos.model.Course;
+import com.netease.ecos.model.Course.Assignment;
+import com.netease.ecos.model.Recruitment;
+import com.netease.ecos.model.Share;
+import com.netease.ecos.request.BaseRequest;
+import com.netease.ecos.request.IBaseResponse;
+import com.netease.ecos.request.MyStringRequest;
 
 /***
- * 
-* @ClassName: ShareListRequest 
-* @Description: 获取分享列表
-* @author enlizhang
-* @date 2015年7月26日 下午12:43:32 
-*
+ *
+ * @ClassName: ShareListRequest
+ * @Description: 获取分享列表
+ * @author enlizhang
+ * @date 2015年7月26日 下午12:43:32
+ *
  */
 public class ShareListRequest extends BaseRequest{
 
@@ -32,7 +42,7 @@ public class ShareListRequest extends BaseRequest{
 
 	//响应参数列表
 	/*** 分享列表JSONArray,内含JSONObject */
-	public static final String JA_SHARE = "shares";
+	public static final String JA_SHARE = "detailShareVo";
 
 	/** 分享id */
 	public static final String KEY_SHARE_ID = "shareId";
@@ -83,10 +93,10 @@ public class ShareListRequest extends BaseRequest{
 	/** 评论内容  */
 	public static final String KEY_COMMENT_CONTENT = "content";
 
-	/** 评论类型{@link Comment.CommentType}、包括教程、作业、分享、招募的评论 */
+	/** 评论类型{@link CommentType}、包括{@link Course}、作业{@link Assignment}、分享{@link Share}、招募{@link Recruitment} */
 	public static final String KEY_COMMENT_TYPE = "commentType";
 
-	/** 某种评论类型{@link Comment.CommentType}的id，不能为空 */
+	/** 某种评论类型{@link CommentType}的id，不能为空 */
 	public static final String KEY_COMMENT_TYPE_ID = "commentTypeId";
 
 	/** 评论者id */
@@ -121,31 +131,32 @@ public class ShareListRequest extends BaseRequest{
 		super.initBaseRequest(shareListResponse);
 		mShareListResponse = shareListResponse;
 
-		shareListResponse.success(getTestShareList());
+		//		shareListResponse.success(getTestShareList());
 
-		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_SHARE_LIST_URL,  this, this) {
-	        @Override
-	        protected Map<String, String> getParams() throws AuthFailureError {
-	        	Map<String, String> map = getRequestBasicMap();
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_SHARE_LIST_URL,  this, this) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> map = getRequestBasicMap();
 
-	        	map.put("isMyself", String.valueOf(false));
+				map.put("isMyself", String.valueOf(false));
 
-	        	map.put(TYPE, shareType!=null?shareType.getValue():"all");
+				map.put(TYPE, shareType!=null?shareType.getValue():"all");
 
-	        	map.put(KEY_WORD, keyWord);
-	        	map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
-	        	map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
+				map.put(KEY_WORD, keyWord);
+				map.put(KEY_PAGE_SIZE, String.valueOf(5 ) );
+				//	        	map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
+				map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
 
-	            traceNormal(TAG, map.toString());
-	            traceNormal(TAG, ShareListRequest.this.getUrl(RequestUrlConstants.GET_SHARE_LIST_URL, map));
-	            return map;
-	        }
+				traceNormal(TAG, map.toString());
+				traceNormal(TAG, ShareListRequest.this.getUrl(RequestUrlConstants.GET_SHARE_LIST_URL, map));
+				return map;
+			}
 
-	    };
+		};
 
-	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-	    getQueue().add(stringRequest);*/
+		getQueue().add(stringRequest);
 
 	}
 
@@ -154,35 +165,34 @@ public class ShareListRequest extends BaseRequest{
 		super.initBaseRequest(shareListResponse);
 		mShareListResponse = shareListResponse;
 
-		shareListResponse.success(getTestShareList());
+		//		shareListResponse.success(getTestShareList());
 
-		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_SHARE_LIST_URL,  this, this) {
-	        @Override
-	        protected Map<String, String> getParams() throws AuthFailureError {
-	        	Map<String, String> map = getRequestBasicMap();
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_SHARE_LIST_URL,  this, this) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> map = getRequestBasicMap();
 
+				map.put(TYPE, "myself");
 
-	        	map.put("isMyself", String.valueOf(true));
+				map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
+				map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
 
-	        	map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
-	        	map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
+				traceNormal(TAG, map.toString());
+				traceNormal(TAG, ShareListRequest.this.getUrl(RequestUrlConstants.GET_SHARE_LIST_URL, map));
+				return map;
+			}
 
-	            traceNormal(TAG, map.toString());
-	            traceNormal(TAG, ShareListRequest.this.getUrl(RequestUrlConstants.GET_SHARE_LIST_URL, map));
-	            return map;
-	        }
+		};
 
-	    };
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-	    getQueue().add(stringRequest);*/
+		getQueue().add(stringRequest);
 
 	}
 
 	@Override
 	public void responceSuccess(String jstring) {
-		traceNormal(TAG, jstring);
+		//		traceNormal(TAG, jstring);
 
 		try {
 			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
@@ -193,6 +203,7 @@ public class ShareListRequest extends BaseRequest{
 			for(int i=0;i<length;i++){
 				JSONObject shareJO = shareJA.getJSONObject(i);
 				Share share = new Share();
+				share.shareId = getString(shareJO, KEY_SHARE_ID);
 				share.avatarUrl = getString(shareJO, KEY_AVATAR_URL);
 				share.nickname = getString(shareJO, KEY_NICKNAME);
 				share.hasAttention = Boolean.valueOf(getString(shareJO, KEY_HAS_FOLLOWED));
@@ -212,8 +223,8 @@ public class ShareListRequest extends BaseRequest{
 
 				//设置评论数据
 				List<Comment> commentList = new ArrayList<Comment>();
-				if(json.has(JA_COMMENTS)){
-					JSONArray commentJA = json.getJSONArray(JA_COMMENTS);
+				if(shareJO.has(JA_COMMENTS)){
+					JSONArray commentJA = shareJO.getJSONArray(JA_COMMENTS);
 
 					int commentsLength = commentJA.length();
 					Comment comment;
@@ -225,7 +236,7 @@ public class ShareListRequest extends BaseRequest{
 						comment.commentId = getString(commentJO, KEY_COMMENT_ID);
 						comment.avatarUrl = getString(commentJO, KEY_COMMENT_AVATAR_URL);
 						comment.content = getString(commentJO, KEY_COMMENT_CONTENT);
-						comment.commentType = Comment.CommentType.valueOf(getString(commentJO, KEY_COMMENT_TYPE));
+						comment.commentType = CommentType.getCommentTypeByValue(getString(commentJO, KEY_COMMENT_TYPE));
 						comment.commentTypeId = getString(commentJO, KEY_COMMENT_TYPE_ID);
 						comment.fromId = getString(commentJO, KEY_COMMENT_FROM_ID);
 						comment.fromNickName = getString(commentJO, KEY_COMMENT_USER_NICKNAME);
@@ -331,6 +342,7 @@ public class ShareListRequest extends BaseRequest{
 
 		for(int i=0;i<length;i++){
 			Share share = new Share();
+			share.shareId = ""+i;
 			share.avatarUrl = "http://img3.imgtn.bdimg.com/it/u=3310376763,3294662014&fm=21&gp=0.jpg";
 			share.nickname = "栗子" + i;
 			share.hasAttention = (i==0);
@@ -360,7 +372,7 @@ public class ShareListRequest extends BaseRequest{
 				comment.avatarUrl = "http://p2.gexing.com/touxiang/20120812/2335/5027cd5ea61c8.jpg";
 				comment.content ="不错";
 
-				comment.commentType = Comment.CommentType.getCommentTypeByValue("2");
+				comment.commentType = CommentType.getCommentTypeByValue("2");
 
 				comment.commentTypeId = ""+i;
 				comment.fromId = ""+i;

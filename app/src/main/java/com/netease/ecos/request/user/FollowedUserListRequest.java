@@ -1,8 +1,10 @@
 package com.netease.ecos.request.user;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,77 +12,133 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.netease.ecos.constants.RequestUrlConstants;
+import com.netease.ecos.model.User;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
 
 /***
- * 
-* @ClassName: FollowedUserListRequest 
-* @Description: 获取关注的人列表
-* @author enlizhang
-* @date 2015年7月26日 上午10:29:17 
-*
+ *
+ * @ClassName: FollowedUserListRequest
+ * @Description: 获取关注的人列表
+ * @author enlizhang
+ * @date 2015年7月26日 上午10:29:17
+ *
  */
 public class FollowedUserListRequest extends BaseRequest{
-	
-	//请求参数键
-	
-	//响应参数键
-	
-	
-	
-	public void request(IBaseResponse baseresponce, final String mobile, final String password)
+
+
+
+	IFollowUserListResponce mFollowUserListResponce;
+
+	/**
+	 * 请求我关注的人列表
+	 * @param baseresponce
+	 */
+	public void requestMyFollows(IFollowUserListResponce followUserListResponce,int pageIndex)
 	{
-		super.initBaseRequest(baseresponce);
-		
-		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_FOLLED_USER_LIST,  this, this) {  
-	        @Override  
-	        protected Map<String, String> getParams() throws AuthFailureError {  
-	        	Map<String, String> map = getRequestBasicMap();
-	            
-	        	
-	            traceNormal(TAG, map.toString());
-	            traceNormal(TAG, FollowedUserListRequest.this.getUrl(RequestUrlConstants.GET_FOLLED_USER_LIST, map));
-	            return map;  
-	        }  
-	        
-	    }; 
-	    
-	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-	    
-	    getQueue().add(stringRequest);
-	    
+		super.initBaseRequest(followUserListResponce);
+		mFollowUserListResponce = followUserListResponce;
+		String url = RequestUrlConstants.GET_FOLLED_USER_LIST + "type=follow" + "&" + "userId=" + getUserId()
+				+ "&" + "pageSize=20" + "&" + "pages=" + String.valueOf(pageIndex);
+		traceNormal(TAG, url);
+
+		MyStringRequest stringRequest = new MyStringRequest(Method.GET, url,  this, this);
+
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+		getQueue().add(stringRequest);
+
 	}
-	
+
+	/**
+	 * 请求我的粉丝列表
+	 * @param baseresponce
+	 */
+	public void requestMyFans(IFollowUserListResponce followUserListResponce,int pageIndex)
+	{
+		super.initBaseRequest(followUserListResponce);
+		mFollowUserListResponce = followUserListResponce;
+
+		String url = RequestUrlConstants.GET_FOLLED_USER_LIST + "type=fans" + "&" + "userId=" + getUserId()
+				+ "&" + "pageSize=20" + "&" + "pages=" + String.valueOf(pageIndex);
+
+		traceNormal(TAG, url);
+		MyStringRequest stringRequest = new MyStringRequest(Method.GET, url,  this, this);
+
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+		getQueue().add(stringRequest);
+
+	}
+
 	@Override
 	public void responceSuccess(String jstring) {
 		traceNormal(TAG, jstring);
-		
+
 		try {
-			JSONObject json = new JSONObject(jstring);
-			
-			
+			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
+			JSONArray userJA = json.getJSONArray("users");
+
+			int length = userJA.length();
+
+			List<User>userList = new ArrayList<User>();
+
+			for(int i=0;i<length;i++){
+				JSONObject usreJO = userJA.getJSONObject(i);
+
+				User user = new User();
+
+				user.userId = getString(usreJO, "userId");
+				user.imId = getString(usreJO, "imId");
+				user.nickname = getString(usreJO, "nickname");
+				user.avatarUrl = getString(usreJO, "avatarUrl");
+
+				userList.add(user);
+			}
+
+
+
 			if(mBaseResponse!=null)
 			{
+				mFollowUserListResponce.success(userList);
 			}
 			else
 			{
 				traceError(TAG,"回调接口为null");
 			}
-			
-			
+
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 			if(mBaseResponse!=null)
 			{
 				mBaseResponse.doAfterFailedResponse("json异常");
 			}
 		}
-		
+
 	}
-	
+
+
+	/***
+	 *
+	 * @ClassName: IFollowUserListResponce
+	 * @Description: 本人关注的用户列表或粉丝列表请求响应回调接口
+	 * @author enlizhang
+	 * @date 2015年8月1日 上午9:25:18
+	 *
+	 */
+	public interface IFollowUserListResponce extends IBaseResponse{
+
+
+		/*** 
+		 * 操作成功，并返回用户列表，该列表中的用户对象只包含userId、imId、nickname、avatarUrl
+		 * @param userList
+		 */
+		public void success(List<User> userList);
+	}
+
 }
 

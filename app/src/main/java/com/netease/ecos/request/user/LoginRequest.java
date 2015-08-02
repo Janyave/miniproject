@@ -1,94 +1,166 @@
 package com.netease.ecos.request.user;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
+import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.constants.RequestUrlConstants;
+import com.netease.ecos.model.AccountDataService;
+import com.netease.ecos.model.User;
+import com.netease.ecos.model.User.Gender;
+import com.netease.ecos.model.User.RoleType;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseRequest;
-import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
+import com.netease.ecos.request.NorResponce;
+import com.netease.ecos.utils.StringUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 
 /***
- * 
-* @ClassName: LoginRequest 
-* @Description: 登录
-* @author enlizhang
-* @date 2015年7月26日 上午10:30:53 
-*
+ *
+ * @ClassName: LoginRequest
+ * @Description: 登录
+ * @author enlizhang
+ * @date 2015年7月26日 上午10:30:53
+ *
  */
 public class LoginRequest extends BaseRequest{
-	
+
 	//请求参数键
 	/*** 手机号 */
 	public static final String PHONE = "phone";
-	
+
 	/*** 密码 */
-	public static final String PASSWORD = "password";
-	
-	
+	public static final String PASSWORD = "pwd";
+
+
 	//响应参数键
-	
-	
-	
-	public void request(IBaseResponse baseresponce, final String phone, final String password)
+	NorResponce mNorResponce;
+
+	public void request(NorResponce norResponce , final String phone, final String password)
 	{
-		super.initBaseRequest(baseresponce);
-		
-		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.LOLGIN_URL,  this, this) {  
-	        @Override  
-	        protected Map<String, String> getParams() throws AuthFailureError {  
-	        	Map<String, String> map = new HashMap<String, String>();
-	            
-	        	map.put(PHONE, phone);
-	        	map.put(PASSWORD, password);
-	        	
-	            traceNormal(TAG, map.toString());
-	            traceNormal(TAG, LoginRequest.this.getUrl(RequestUrlConstants.LOLGIN_URL, map));
-	            return map;  
-	        }  
-	        
-	    }; 
-	    
-	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-	    
-	    getQueue().add(stringRequest);
-	    
+		super.initBaseRequest(norResponce);
+		mNorResponce = norResponce;
+		//		testLogin();
+		//		mNorResponce.success();
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.LOLGIN_URL,  this, this) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> map = new HashMap<String, String>();
+
+				map.put(PHONE, phone);
+				map.put(PASSWORD, StringUtils.hashKeyForDisk(password));
+
+				traceNormal(TAG, map.toString());
+				traceNormal(TAG, LoginRequest.this.getUrl(RequestUrlConstants.LOLGIN_URL, map));
+				return map;
+			}
+
+		};
+
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+		getQueue().add(stringRequest);
+
 	}
-	
+
 	@Override
 	public void responceSuccess(String jstring) {
 		traceNormal(TAG, jstring);
-		
+
 		try {
-			JSONObject json = new JSONObject(jstring);
-			
-			
-			if(mBaseResponse!=null)
+			JSONObject usreJO = new JSONObject(jstring).getJSONObject(KEY_DATA);
+
+
+			User user = new User();
+			user.userId = getString(usreJO,"userId");
+			user.imId = getString(usreJO,"imId");
+			user.avatarUrl = getString(usreJO,"avatarUrl");
+			user.nickname = getString(usreJO,"nickname");
+
+			user.characterSignature = getString(usreJO,"characterSignature");
+			user.coverUrl = getString(usreJO,"coverUrl");
+			user.avatarUrl = getString(usreJO,"avatarUrl");
+			user.fansNum = getString(usreJO,"fansNum");
+			user.followOtherNum = getString(usreJO,"followOtherNum");
+
+			if(usreJO.has("gender") && !usreJO.isNull("gender")){
+				user.gender = Gender.getGender( usreJO.getString("gender") );
+			}
+
+
+
+			if(usreJO.has("roles") && !usreJO.isNull("roles")){
+				JSONArray rolesJA = usreJO.getJSONArray("roles");
+				Set<RoleType> roleTypeSet = new LinkedHashSet<RoleType>();
+				for(int i=0;i<rolesJA.length();i++){
+					roleTypeSet.add( RoleType.getRoleTypeByValue(rolesJA.getString(i)) );
+				}
+			}
+
+
+			UserDataService.getSingleUserDataService(MyApplication.getContext()).saveUser(user);
+			AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveUserAccId(user.imId);
+			AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveUserId(user.userId);
+
+
+
+			if(mNorResponce!=null)
 			{
+				mNorResponce.success();
 			}
 			else
 			{
 				traceError(TAG,"回调接口为null");
 			}
-			
-			
+
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 			if(mBaseResponse!=null)
 			{
 				mBaseResponse.doAfterFailedResponse("json异常");
 			}
 		}
-		
+
 	}
-	
+
+
+	public void testLogin(){
+
+		User user = new User();
+
+		user.userId = "123";
+		user.imId = "321";
+		user.avatarUrl = "http://img5.imgtn.bdimg.com/it/u=2797503391,4239472514&fm=21&gp=0.jpg";
+		user.nickname = "小张";
+
+		user.characterSignature = "网易遇见最美年华";
+		user.coverUrl = "http://img4.imgtn.bdimg.com/it/u=2501638931,3725345607&fm=21&gp=0.jpg";
+		user.fansNum = "100";
+		user.followOtherNum = "5";
+		user.gender = Gender.getGender("1");
+
+		Set<RoleType> roleTypeSet = new LinkedHashSet<RoleType>();
+		roleTypeSet.add(RoleType.妆娘);
+		roleTypeSet.add(RoleType.后期);
+		roleTypeSet.add(RoleType.妆娘);
+		user.roleTypeSet = roleTypeSet;
+
+		UserDataService.getSingleUserDataService(MyApplication.getContext()).saveUser(user);
+		AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveUserAccId(user.imId);
+		AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveUserId(user.userId);
+	}
+
 }
 
