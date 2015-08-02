@@ -264,7 +264,7 @@ public class GetShareDetailRequest extends BaseRequest{
         share.issueTimeStamp = System.currentTimeMillis();
 
         String totalPics = "2";
-        share.totalPics = "".equals(totalPics)?0:Integer.valueOf(totalPics);
+        share.totalPageNumber = "".equals(totalPics)?0:Integer.valueOf(totalPics);
 
         String praiseNum = "100";
         share.praiseNum = "".equals(praiseNum)?0:Integer.valueOf(praiseNum);

@@ -1,4 +1,4 @@
-package com.netease.ecos.request.share;
+﻿package com.netease.ecos.request.share;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -277,158 +277,196 @@ public class ShareListRequest extends BaseRequest {
                     for (int commentIndex = 0; i < commentsLength; i++) {
 
                         JSONObject commentJO = commentJA.getJSONObject(commentIndex);
+			List<Share> shareList = new ArrayList<Share>();
+			for(int i=0;i<length;i++){
+				JSONObject shareJO = shareJA.getJSONObject(i);
+				Share share = new Share();
+				share.shareId = getString(shareJO, KEY_SHARE_ID);
+				share.avatarUrl = getString(shareJO, KEY_AVATAR_URL);
+				share.nickname = getString(shareJO, KEY_NICKNAME);
+				share.hasAttention = Boolean.valueOf(getString(shareJO, KEY_HAS_FOLLOWED));
+				share.hasPraised = Boolean.valueOf(getString(shareJO,KEY_HAS_Praised));
+				share.coverUrl = getString(shareJO, KEY_COVER_URL);
+				share.title = getString(shareJO, KEY_TITLE);
+				share.issueTimeStamp = Long.valueOf(shareJO.getString(KEY_ISSUE_TIME)).longValue();
 
-                        comment = new Comment();
-                        comment.commentId = getString(commentJO, KEY_COMMENT_ID);
-                        comment.avatarUrl = getString(commentJO, KEY_COMMENT_AVATAR_URL);
-                        comment.content = getString(commentJO, KEY_COMMENT_CONTENT);
-                        comment.commentType = CommentType.getCommentTypeByValue(getString(commentJO, KEY_COMMENT_TYPE));
-                        comment.commentTypeId = getString(commentJO, KEY_COMMENT_TYPE_ID);
-                        comment.fromId = getString(commentJO, KEY_COMMENT_FROM_ID);
-                        comment.fromNickName = getString(commentJO, KEY_COMMENT_USER_NICKNAME);
-                        comment.targetId = getString(commentJO, KEY_COMMENT_PARENT_ID);
-                        comment.targetNickname = getString(commentJO, KEY_COMMENT_PARENT_NICKNAME);
-                        comment.commitTimeStamp = Long.valueOf(commentJO.getString(KEY_COMMENT_TIME_STAMP)).longValue();
-                        commentList.add(comment);
-                    }
+				String totalPics = getString(shareJO, KEY_TOTAL_IMAGES);
+				share.totalPageNumber = "".equals(totalPics)?0:Integer.valueOf(totalPics);
 
-                }
-                share.commentList = commentList;
-                shareList.add(share);
-            }
+				String praiseNum = getString(shareJO, KEY_PRAISE_NUM);
+				share.praiseNum = "".equals(praiseNum)?0:Integer.valueOf(praiseNum);
+
+				String commentNum = getString(shareJO, KEY_COMMENT_NUM);
+				share.commentNum = "".equals(commentNum)?0:Integer.valueOf(commentNum);
+
+				//设置评论数据
+				List<Comment> commentList = new ArrayList<Comment>();
+				if(shareJO.has(JA_COMMENTS)){
+					JSONArray commentJA = shareJO.getJSONArray(JA_COMMENTS);
+
+					int commentsLength = commentJA.length();
+					Comment comment;
+					for(int commentIndex=0;i<commentsLength;i++){
+
+						JSONObject commentJO = commentJA.getJSONObject(commentIndex);
+
+						comment = new Comment();
+						comment.commentId = getString(commentJO, KEY_COMMENT_ID);
+						comment.avatarUrl = getString(commentJO, KEY_COMMENT_AVATAR_URL);
+						comment.content = getString(commentJO, KEY_COMMENT_CONTENT);
+						comment.commentType = CommentType.getCommentTypeByValue(getString(commentJO, KEY_COMMENT_TYPE));
+						comment.commentTypeId = getString(commentJO, KEY_COMMENT_TYPE_ID);
+						comment.fromId = getString(commentJO, KEY_COMMENT_FROM_ID);
+						comment.fromNickName = getString(commentJO, KEY_COMMENT_USER_NICKNAME);
+						comment.targetId = getString(commentJO, KEY_COMMENT_PARENT_ID);
+						comment.targetNickname = getString(commentJO, KEY_COMMENT_PARENT_NICKNAME);
+						comment.commitTimeStamp = Long.valueOf(commentJO.getString(KEY_COMMENT_TIME_STAMP)).longValue();
+						commentList.add(comment);
+					}
+
+				}
+				share.commentList = commentList;
+				shareList.add(share);
+			}
 
 
-            if (mShareListResponse != null) {
-                mShareListResponse.success(shareList);
-            } else {
-                traceError(TAG, "回调接口为null");
-            }
+			if(mShareListResponse!=null)
+			{
+				mShareListResponse.success(shareList);
+			}
+			else
+			{
+				traceError(TAG,"回调接口为null");
+			}
 
 
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 
-            if (mBaseResponse != null) {
-                mBaseResponse.doAfterFailedResponse("json异常");
-            }
-        }
+			if(mBaseResponse!=null)
+			{
+				mBaseResponse.doAfterFailedResponse("json异常");
+			}
+		}
 
-    }
+	}
 
-    /**
-     * @author enlizhang
-     * @ClassName: Type
-     * @Description: 分享类型
-     * @date 2015年7月26日 下午7:48:42
-     */
-    public static enum ShareType {
-        所有("all"),
-        推荐("recommended"),
-        新人("transparent"),
-        关注("follow");
+	/***
+	 *
+	 * @ClassName: Type
+	 * @Description: 分享类型
+	 * @author enlizhang
+	 * @date 2015年7月26日 下午7:48:42
+	 *
+	 */
+	public static enum ShareType
+	{
+		所有("all"),
+		推荐("recommended"),
+		新人("transparent"),
+		关注("follow");
 
-        public String type;
+		public String type;
 
-        ShareType(String _type) {
-            type = _type;
-        }
+		ShareType(String _type){
+			type = _type;
+		}
 
-        public String getValue() {
-            return type;
-        }
+		public String getValue(){
+			return type;
+		}
 
-        public static ShareType getShareTypeByValue(String value) {
+		public static ShareType getShareTypeByValue(String value){
 
-            for (ShareType shareType : ShareType.values()) {
-                if (shareType.getValue().equals(value))
-                    return shareType;
-            }
+			for(ShareType shareType:ShareType.values()){
+				if(shareType.getValue().equals(value))
+					return shareType;
+			}
 
-            return null;
-        }
-    }
+			return null;
+		}
+	}
 
-    /**
-     * @author enlizhang
-     * @ClassName: ShareListRespnce
-     * @Description: 获取教程请求回调接口
-     * @date 2015年7月26日 下午7:42:45
-     */
-    public interface IShareListResponse extends IBaseResponse {
+	/**
+	 *
+	 * @ClassName: ShareListRespnce
+	 * @Description: 获取教程请求回调接口
+	 * @author enlizhang
+	 * @date 2015年7月26日 下午7:42:45
+	 *
+	 */
+	public interface IShareListResponse extends IBaseResponse{
 
-        /**
-         * 请求成功回调函数，返回分享列表
-         */
-        public void success(List<Share> shareList);
+		/** 请求成功回调函数，返回分享列表 */
+		public void success(List<Share> shareList);
 
-    }
+	}
 
-    /**
-     * 获取测试分享数据
-     *
-     * @return
-     */
-    public List<Share> getTestShareList() {
-        List<Share> shareList = new ArrayList<Share>();
+	/***
+	 * 获取测试分享数据
+	 * @return
+	 */
+	public List<Share> getTestShareList(){
+		List<Share> shareList = new ArrayList<Share>();
 
-        int length = 2;
+		int length = 2;
 
-        List<String> bannerList = new ArrayList<String>();
-        bannerList.add("http://u4.tdimg.com/7/203/19/46138657748730920288026757971472766587.jpg");
-        bannerList.add("http://www.cnnb.com.cn/pic/0/01/49/86/1498602_864010.jpg");
-        bannerList.add("http://u3.tdimg.com/6/88/143/_56696781343356143444965292996172123406.jpg");
-        bannerList.add("http://i3.cqnews.net/news/attachement/jpg/site82/2011-07-27/4386628352243053135.jpg");
+		List<String> bannerList = new ArrayList<String>();
+		bannerList.add("http://u4.tdimg.com/7/203/19/46138657748730920288026757971472766587.jpg");
+		bannerList.add("http://www.cnnb.com.cn/pic/0/01/49/86/1498602_864010.jpg");
+		bannerList.add("http://u3.tdimg.com/6/88/143/_56696781343356143444965292996172123406.jpg");
+		bannerList.add("http://i3.cqnews.net/news/attachement/jpg/site82/2011-07-27/4386628352243053135.jpg");
 
-        for (int i = 0; i < length; i++) {
-            Share share = new Share();
-            share.shareId = "" + i;
-            share.avatarUrl = "http://img3.imgtn.bdimg.com/it/u=3310376763,3294662014&fm=21&gp=0.jpg";
-            share.nickname = "栗子" + i;
-            share.hasAttention = (i == 0);
-            share.hasPraised = (i == 0);
-            share.coverUrl = bannerList.get(i);
-            share.title = "栗子cos" + i;
-            share.issueTimeStamp = System.currentTimeMillis();
+		for(int i=0;i<length;i++){
+			Share share = new Share();
+			share.shareId = ""+i;
+			share.avatarUrl = "http://img3.imgtn.bdimg.com/it/u=3310376763,3294662014&fm=21&gp=0.jpg";
+			share.nickname = "栗子" + i;
+			share.hasAttention = (i==0);
+			share.hasPraised = (i==0);
+			share.coverUrl = bannerList.get(i);
+			share.title = "栗子cos" + i;
+			share.issueTimeStamp = System.currentTimeMillis();
 
-            String totalPics = "2";
-            share.totalPics = "".equals(totalPics) ? 0 : Integer.valueOf(totalPics);
+			String totalPics = "2";
+			share.totalPageNumber = "".equals(totalPics)?0:Integer.valueOf(totalPics);
 
-            String praiseNum = "100";
-            share.praiseNum = "".equals(praiseNum) ? 0 : Integer.valueOf(praiseNum);
+			String praiseNum = "100";
+			share.praiseNum = "".equals(praiseNum)?0:Integer.valueOf(praiseNum);
 
-            String commentNum = "2";
-            share.commentNum = "".equals(commentNum) ? 0 : Integer.valueOf(commentNum);
+			String commentNum = "2";
+			share.commentNum = "".equals(commentNum)?0:Integer.valueOf(commentNum);
 
-            //设置评论数据
-            List<Comment> commentList = new ArrayList<Comment>();
+			//设置评论数据
+			List<Comment> commentList = new ArrayList<Comment>();
 
-            int commentsLength = 2;
-            Comment comment;
-            for (int commentIndex = 0; i < commentsLength; i++) {
+			int commentsLength = 2;
+			Comment comment;
+			for(int commentIndex=0;i<commentsLength;i++){
 
-                comment = new Comment();
-                comment.commentId = "" + commentIndex;
-                comment.avatarUrl = "http://p2.gexing.com/touxiang/20120812/2335/5027cd5ea61c8.jpg";
-                comment.content = "不错";
+				comment = new Comment();
+				comment.commentId = ""+commentIndex;
+				comment.avatarUrl = "http://p2.gexing.com/touxiang/20120812/2335/5027cd5ea61c8.jpg";
+				comment.content ="不错";
 
-                comment.commentType = CommentType.getCommentTypeByValue("2");
+				comment.commentType = CommentType.getCommentTypeByValue("2");
 
-                comment.commentTypeId = "" + i;
-                comment.fromId = "" + i;
-                comment.fromNickName = "蓝天";
-                comment.targetId = "" + i;
-                comment.targetNickname = "" + i;
-                comment.commitTimeStamp = System.currentTimeMillis();
-                commentList.add(comment);
-            }
+				comment.commentTypeId = ""+i;
+				comment.fromId = ""+i;
+				comment.fromNickName = "蓝天";
+				comment.targetId = ""+i;
+				comment.targetNickname = ""+i;
+				comment.commitTimeStamp = System.currentTimeMillis();
+				commentList.add(comment);
+			}
 
-            share.commentList = commentList;
-            shareList.add(share);
-        }
+			share.commentList = commentList;
+			shareList.add(share);
+		}
 
-        return shareList;
-    }
+		return shareList;
+	}
 
 
 }

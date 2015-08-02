@@ -173,10 +173,10 @@ public class PersonageCourseFragment extends Fragment {
             if (convertView == null) {
                 convertView = mInflater.inflate(R.layout.item_personage_course, null);
                 holder = new ViewHolder();
-                holder.title = (TextView) convertView.findViewById(R.id.tv_personage_item_course_title);
-                holder.cover = (NetworkImageView) convertView.findViewById(R.id.iv_personage_item_course_cover);
-                holder.date = (TextView) convertView.findViewById(R.id.tv_personage_item_course_date);
-                holder.praise = (TextView) convertView.findViewById(R.id.tv_personage_item_praise_num);
+                holder.title = (TextView) convertView.findViewById(R.id.tv_title);
+                holder.cover = (NetworkImageView) convertView.findViewById(R.id.iv_cover);
+                holder.date = (TextView) convertView.findViewById(R.id.tv_time);
+                holder.praise = (TextView) convertView.findViewById(R.id.tv_praiseNum);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();

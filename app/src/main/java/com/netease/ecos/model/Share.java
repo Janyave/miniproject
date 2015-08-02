@@ -65,9 +65,6 @@ public class Share {
 	/*** 内容 */
 	public String content;
 
-	/*** 分享作品图片总数  */
-	public int totalPics;
-
 
 	/***
 	 * 根据{@link #issueTimeStamp}获取发布时间描述
