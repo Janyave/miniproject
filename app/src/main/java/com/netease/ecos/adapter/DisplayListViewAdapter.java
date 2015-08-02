@@ -12,8 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.activity.CommentDetailActivity;
 import com.netease.ecos.activity.DisplayDetailActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
+import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
 import com.squareup.picasso.Picasso;
 
@@ -80,50 +82,9 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             tv_praise = (TextView) root.findViewById(R.id.tv_praise);
             tv_evaluate = (TextView) root.findViewById(R.id.tv_evaluation);
 
+            ll_evaluationList = (LinearLayout) root.findViewById(R.id.ll_evaluationList);
             tv_allEvaluation = (TextView) root.findViewById(R.id.tv_allEvalution);
-//            ll_evaluationList=(LinearLayout)root.findViewById(R.id.ll_evaluationList);
 
-            ll_author.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO 个人界面
-                }
-            });
-            tv_allEvaluation.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO 所有评论页面
-                }
-            });
-
-            tv_focus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (TextUtils.equals(tv_focus.getText().toString(), "关注")) {
-                        tv_focus.setText("已关注");
-                        //TODO 关注事件
-                    } else {
-                        tv_focus.setText("关注");
-                    }
-                }
-            });
-
-            ll_praise.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO 关注图标切换
-                }
-            });
-
-            ll_evaluate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //TODO 评论页面
-                }
-            });
-
-//            lv_evaluation=(ExtensibleListView)root.findViewById(R.id.lv_evaluation);
-//            lv_evaluation.setDividerHeight(0);
 
         }
 
@@ -145,11 +106,21 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             ll_author.setTag(position);
             iv_cover.setTag(position);
             tv_coverTitle.setTag(position);
+            tv_focus.setTag(position);
+            ll_praise.setTag(position);
+            ll_evaluate.setTag(position);
+            ll_evaluationList.setTag(position);
+            tv_allEvaluation.setTag(position);
 
             //set listener
             ll_author.setOnClickListener(DisplayListViewAdapter.this);
             iv_cover.setOnClickListener(DisplayListViewAdapter.this);
             tv_coverTitle.setOnClickListener(DisplayListViewAdapter.this);
+            tv_focus.setOnClickListener(DisplayListViewAdapter.this);
+            ll_praise.setOnClickListener(DisplayListViewAdapter.this);
+            ll_evaluate.setOnClickListener(DisplayListViewAdapter.this);
+            ll_evaluationList.setOnClickListener(DisplayListViewAdapter.this);
+            tv_allEvaluation.setOnClickListener(DisplayListViewAdapter.this);
 
             if (item.hasAttention) {
                 tv_focus.setText("已关注");
@@ -173,17 +144,6 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 //                ((TextView)view.findViewById(R.id.tv_evaluation)).setText(comment.content);
 //                ll_evaluationList.addView(view);
 //            }
-
-            iv_cover.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(mcontext, DisplayDetailActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString(DisplayDetailActivity.ShareId, shareList.get(position).shareId);
-                    intent.putExtras(bundle);
-                    mcontext.startActivity(intent);
-                }
-            });
         }
     }
 
@@ -230,14 +190,37 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 intent = new Intent(mcontext, PersonageDetailActivity.class);
 //                bundle.putString(PersonageDetailActivity.UserID, shareList.get(position).userId);
                 bundle.putString(PersonageDetailActivity.UserID, "");
+                intent.putExtras(bundle);
+                mcontext.startActivity(intent);
                 break;
-            default:
+            case R.id.iv_cover:
+            case R.id.tv_coverTitle:
                 intent = new Intent(mcontext, DisplayDetailActivity.class);
                 bundle.putString(PersonageDetailActivity.UserID, shareList.get(position).shareId);
+                intent.putExtras(bundle);
+                mcontext.startActivity(intent);
+                break;
+            case R.id.tv_focus:
+                if (TextUtils.equals(((TextView) v).getText().toString(), "关注")) {
+                    ((TextView) v).setText("已关注");
+                    //TODO 关注事件
+                } else {
+                    ((TextView) v).setText("关注");
+                }
+                break;
+            case R.id.ll_praise:
+                //TODO:点赞 favor
+                break;
+            case R.id.ll_evaluation:
+            case R.id.tv_allEvalution:
+            case R.id.ll_evaluationList:
+                intent = new Intent(mcontext, CommentDetailActivity.class);
+                bundle.putString(CommentDetailActivity.FromId, shareList.get(position).shareId);
+                bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.分享.getBelongs());
+                intent.putExtras(bundle);
+                mcontext.startActivity(intent);
                 break;
         }
-        intent.putExtras(bundle);
-        mcontext.startActivity(intent);
     }
 
 }
