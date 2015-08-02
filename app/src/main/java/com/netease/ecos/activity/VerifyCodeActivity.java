@@ -11,10 +11,17 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.model.AccountDataService;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.user.CheckAutoRequest;
+import com.netease.ecos.request.user.SendAutocodeRequest;
 
-import org.w3c.dom.Text;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -46,6 +53,10 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
 
     private String phone="";
 
+    private Timer timer;
+    private TimerTask task;
+    private int timeCount=60;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,26 +84,17 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
         tv_notice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO 重新获取验证码
-                phone=et_phone.getText().toString();
+                requestCode();
             }
         });
         tv_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (stepN==1){
-                    changePageTo(2);
-                    //TODO 要求验证
-                    phone=et_phone.getText().toString(); //已输入手机号
-
+                    requestCode();
                 }else{
-                    //TODO 验证
-                    String p=phone; //手机号
-                    String code=et_code.getText().toString(); //已输入验证码
-
-
-                    //TODO 修改
-                    startActivity(new Intent(VerifyCodeActivity.this, ResetPasswordActivity.class));
+                    //verify code
+                    checkCode();
                 }
             }
         });
@@ -112,7 +114,50 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
         et_code.addTextChangedListener(this);
     }
 
+    /**
+     * 请求验证码
+     */
+    private void requestCode() {
+        SendAutocodeRequest request = new SendAutocodeRequest();
+        request.requestSend(new RequestCodeResponse(), et_phone.getText().toString());
+    }
+
+    /**
+     * 核对验证码
+     */
+    public void checkCode()
+    {
+        CheckAutoRequest request = new CheckAutoRequest();
+        String phone = et_phone.getText().toString();
+        //TODO change
+        String autocode = AccountDataService.getSingleAccountDataService(this).getAutoCode();
+        request.requestCheck(new CheckAutocodeResponse(), phone, autocode);
+    }
+
     private void initData() {
+    }
+
+    void setTimer(){
+        timeCount=60;
+        timer=new Timer();
+        task=new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        timeCount--;
+                        tv_notice.setText(timeCount+"s 后可重发验证码");
+                        if (timeCount<=0){
+                            timer.cancel();
+                            tv_notice.setText("点击重新获取验证码");
+                            tv_notice.setEnabled(true);
+                        }
+                    }
+                });
+            }
+        };
+        timer.schedule(task,1000,1000);
     }
 
     private void changePageTo(int i){
@@ -154,4 +199,49 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
     @Override
     public void afterTextChanged(Editable s) {
     }
+
+
+    class RequestCodeResponse extends BaseResponceImpl implements SendAutocodeRequest.ISendAutocodeResponse{
+
+        @Override
+        public void success() {
+            Toast.makeText(VerifyCodeActivity.this, "RequestCode SUCCESS", Toast.LENGTH_SHORT).show();
+            changePageTo(2);
+            tv_notice.setEnabled(false);
+            setTimer();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+            Toast.makeText(VerifyCodeActivity.this, "NETWORK FAIL", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    class  CheckAutocodeResponse extends BaseResponceImpl implements CheckAutoRequest.ICheckAutocodeResponse{
+
+        @Override
+        public void success() {
+            Toast.makeText(VerifyCodeActivity.this, "VERIFY SUCCESS", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent();
+            intent.putExtra("phone",et_phone.getText().toString());
+            setResult(RESULT_OK,intent);
+            finish();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+            Toast.makeText(VerifyCodeActivity.this, "VERIFY FAIL", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+            Toast.makeText(VerifyCodeActivity.this, "NETWORK FAIL", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
