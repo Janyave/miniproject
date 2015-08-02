@@ -23,6 +23,9 @@ public class Share {
 	/** 标题 */
 	public String title ;
 
+	/*** 用户id */
+	public String userId;
+
 	/** 发布者昵称 */
 	public String nickname;
 

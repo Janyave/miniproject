@@ -263,7 +263,7 @@ public class Course {
      */
     public static enum CourseType {
 
-        妆娘("1"),
+        化妆("1"),
         摄影("2"),
         后期("3"),
         服装("4"),
