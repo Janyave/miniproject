@@ -12,7 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.NorResponce;
+import com.netease.ecos.request.user.RegistRequest;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -60,9 +64,9 @@ public class RegistActivity extends Activity implements View.OnClickListener,Tex
         switch (v.getId()){
             case R.id.tv_complete:
                 //TODO 注册
-                String name=et_name.getText().toString();
-                String password=et_password.getText().toString();
-                Toast.makeText(RegistActivity.this, "REGIST", Toast.LENGTH_SHORT).show();
+                RegistRequest request = new RegistRequest();
+                request.request(new RegistResponse(), getIntent().getStringExtra("phone"), et_password.getText().toString(), et_name.getText().toString(),
+                        "http://img5.imgtn.bdimg.com/it/u=3692347433,431191650&fm=21&gp=0.jpg");
                 break;
             case R.id.iv_avatar:
                 //TODO 选择头像
@@ -89,5 +93,23 @@ public class RegistActivity extends Activity implements View.OnClickListener,Tex
 
     @Override
     public void afterTextChanged(Editable s) {
+    }
+
+    class RegistResponse extends BaseResponceImpl implements NorResponce{
+
+        @Override
+        public void success() {
+            Toast.makeText(RegistActivity.this, "REGIST SUCCESS", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+            Toast.makeText(RegistActivity.this, "REGIST FAIL", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+            Toast.makeText(RegistActivity.this, "NETWORK FAIL", Toast.LENGTH_SHORT).show();
+        }
     }
 }

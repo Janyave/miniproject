@@ -63,7 +63,6 @@ public class Banner extends RelativeLayout{
 
         for (int i=0; i<count; i++){
             View v=View.inflate(mContext, pagerViewID,null);
-            /**ÉèÖÃÏÔÊ¾ÄÚÈÝ**/
             Picasso.with(mContext).load(URLList.get(i)).into((ImageView)v.findViewById(R.id.iv_image));
             ViewList.add(v);
         }
