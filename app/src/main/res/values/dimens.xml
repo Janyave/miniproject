@@ -89,6 +89,8 @@
     <dimen name="height_item_work_620px">200dp</dimen>
     <dimen name="width_item_work_360px">120dp</dimen>
     <dimen name="width_item_work_540px">135dp</dimen>
+
+    <dimen name="height_personDetail_information_186px">68dp</dimen>
     <!--<dimen name="height_item_personInformation_gender_36px">15dp</dimen>-->
     <!--<dimen name="height_label_more_36px">15dp</dimen>-->
     <dimen name="length_100px">30dp</dimen>
@@ -106,18 +108,24 @@
     <dimen name="width_btn_focus_152px">50dp</dimen>
     <dimen name="height_btn_price_92px">35dp</dimen>
     <dimen name="width_btn_price_216px">75dp</dimen>
+    <dimen name="height_btn_person_80px">24dp</dimen>
+    <dimen name="width_btn_person_180px">65dp</dimen>
+    <dimen name="radius_btn_person_80px">12dp</dimen>
     <dimen name="height_btn_big_120px">42dp</dimen>
 
     <dimen name="height_item_evaluationAndPraise_92px">35dp</dimen>
     <dimen name="height_item_workInformation_190px">65dp</dimen>
     <dimen name="height_item_courseInformation_244px">88dp</dimen>
     <dimen name="height_item_workInforamtion_200px">68dp</dimen>
-
+    <dimen name="height_item_courseInformation_person_106px">40dp</dimen>
 
     <dimen name="height_btn_150px">55dp</dimen>
 
     <!-- 带粉色装饰label等-->
     <dimen name="height_label_100px">35dp</dimen>
+    <dimen name="height_tag_36px">14dp</dimen>
+    <dimen name="width_tag_100px">38dp</dimen>
+    <dimen name="radius_tag_36px">7dp</dimen>
 
     <!-- 活动详情内容item高度等-->
     <dimen name="height_activity_show_item_90px">27dp</dimen>
@@ -127,6 +135,8 @@
     <dimen name="circle_icon_108px">35dp</dimen>
     <dimen name="circle_icon_100px">34dp</dimen>
     <dimen name="circle_icon_80px">28dp</dimen>
+    <dimen name="circle_icon_210px">70dp</dimen>
+    <dimen name="circle_icon_50px">17dp</dimen>
 
 
     <dimen name="text_size_44">17sp</dimen>
@@ -142,10 +152,13 @@
     <dimen name="height_cover_640px_960px">240dp</dimen>
     <dimen name="height_cover_664px_1000px">245dp</dimen>
     <dimen name="height_banner_610px_1080px">210dp</dimen>
+    <dimen name="height_personDetail_640px_1080px">230dp</dimen> //should not change
 
     <dimen name="height_main_type_636px">240dp</dimen>
     <dimen name="height_main_type_item_144px">55dp</dimen>
 
     <!-- line width-->
     <dimen name="width_line">1px</dimen>
+
+
 </resources>
