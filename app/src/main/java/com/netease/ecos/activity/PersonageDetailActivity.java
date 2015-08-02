@@ -29,6 +29,7 @@ import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
+import com.netease.ecos.views.ExtensibleListView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -48,7 +49,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
     Button btn_contact;
 
     @InjectView(R.id.lv_list)
-    ListView lv_list;
+    ExtensibleListView lv_list;
 
     private UserDataService mUserDataService;
     private User mUserData;
@@ -76,7 +77,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
-        String ID=bundle.getString("UserID");
+//        String ID=bundle.getString("UserID");
 
         //TODO 比对ID
         initUserData();
@@ -155,12 +156,12 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         user_name.setText(mUserData.nickname);
         if (mUserData.gender == User.Gender.女) {
-            user_gender.setBackgroundResource(R.drawable.img_gender_famale);
+            user_gender.setImageDrawable(getResources().getDrawable(R.drawable.img_gender_famale));
         } else {
-            user_gender.setBackgroundResource(R.drawable.img_gender_male);
+            user_gender.setImageDrawable(getResources().getDrawable(R.drawable.img_gender_male));
         }
-        user_attention.setText("关注数：" + mUserData.followOtherNum);
-        user_fans.setText("粉丝数：" + mUserData.fansNum);
+        user_attention.setText(""+ mUserData.followOtherNum);
+        user_fans.setText(""+ mUserData.fansNum);
         user_description.setText(mUserData.characterSignature);
 
 

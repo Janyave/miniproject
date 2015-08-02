@@ -1,5 +1,6 @@
 package com.netease.ecos.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -96,7 +97,10 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     //TODO set pwd
                     break;
                 case R.id.personal_info_logout:
-                    //TODO jump login activity
+                    Intent intent=new Intent(PersonalInfoSettingActivity.this,SplashActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();
                     break;
             }
         }

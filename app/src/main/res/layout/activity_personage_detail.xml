@@ -1,7 +1,10 @@
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ecos="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,21 +12,11 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_personDetail_640px_1080px">
-        <LinearLayout
-            android:id="@+id/lly_left_action"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:contentDescription="标题左侧按钮，含图标和按钮，根据需要进行显示和隐藏，并更改名称"
-            android:minWidth="80dp"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp">
-
-            <include
-                android:id="@+id/iv_left"
-                layout="@layout/component_left_arrow" />
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_return"
+            android:layout_width="@dimen/icon_return_50px"
+            android:layout_height="@dimen/icon_return_50px"
+            android:src="@mipmap/ic_launcher"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -41,8 +34,8 @@
                     android:layout_centerHorizontal="true"
                     android:src="@mipmap/ic_launcher"
                     ecos:showable="true"
-                    ecos:circle_color="#00ff00"
-                    ecos:line_width="4.0"/>
+                    ecos:circle_color="@color/bg_red"
+                    ecos:line_width="2.0"/>
                 <ImageView
                     android:layout_width="@dimen/circle_icon_50px"
                     android:layout_height="@dimen/circle_icon_50px"
@@ -52,7 +45,7 @@
                     android:background="@drawable/bg_circle_pink"
                     android:layout_alignBottom="@id/iv_personage_portrait"
                     android:layout_alignRight="@id/iv_personage_portrait"
-                    android:layout_marginBottom="@dimen/margin_20px"/>
+                    android:layout_marginBottom="5dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -255,11 +248,15 @@
     </LinearLayout>
     <TextView style="@style/layout_line_gray"/>
 
-    <ListView
+    <com.netease.ecos.views.ExtensibleListView
         android:id="@+id/lv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:dividerHeight="0px"
+        android:divider="@android:color/transparent"
+        android:listSelector="@android:color/transparent"
         android:layout_marginTop="@dimen/margin_40px"/>
 
 
 </LinearLayout>
+    </ScrollView>

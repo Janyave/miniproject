@@ -123,9 +123,9 @@
 
     <!-- 带粉色装饰label等-->
     <dimen name="height_label_100px">35dp</dimen>
-    <dimen name="height_tag_36px">14dp</dimen>
-    <dimen name="width_tag_100px">38dp</dimen>
-    <dimen name="radius_tag_36px">7dp</dimen>
+    <dimen name="height_tag_36px">16dp</dimen>
+    <dimen name="width_tag_100px">40dp</dimen>
+    <dimen name="radius_tag_36px">8dp</dimen>
 
     <!-- 活动详情内容item高度等-->
     <dimen name="height_activity_show_item_90px">27dp</dimen>
@@ -145,6 +145,7 @@
 
     <dimen name="icon_big_64px">30dp</dimen>
     <dimen name="icon_little_36px">15dp</dimen>
+    <dimen name="icon_return_50px">25dp</dimen>
     <dimen name="spacing_recruite_detail_26">3dp</dimen>
     
     
@@ -160,12 +161,8 @@
     <!-- line width-->
     <dimen name="width_line">1px</dimen>
 
-<<<<<<< HEAD
-
-=======
     <!-- sweet-alert-dialog -->
     <dimen name="alert_width">290dp</dimen>
     <dimen name="common_circle_width">3dp</dimen>
     <dimen name="progress_circle_radius">34dp</dimen>
->>>>>>> a3f6e0569435b924214d15258bd965a0fdacca92
 </resources>
