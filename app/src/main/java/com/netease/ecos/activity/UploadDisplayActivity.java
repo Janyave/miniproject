@@ -27,9 +27,9 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by Think on 2015/7/24.
+ * Created by Think on 2015/8/1.
  */
-public class UploadWorksActivity extends BaseActivity implements View.OnClickListener {
+public class UploadDisplayActivity extends BaseActivity implements View.OnClickListener {
 
     private final String TAG = "Ecos---UploadWorks";
     @InjectView(R.id.tv_title)
@@ -125,23 +125,23 @@ public class UploadWorksActivity extends BaseActivity implements View.OnClickLis
                 if (coverImagePath.equals("")
                         || uploadWorksCoverEdTx.getText().toString().equals("")
                         || uploadWorksDescrpEdTx.getText().toString().equals("")) {
-                    Toast.makeText(UploadWorksActivity.this, "请填写完所有内容:)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadDisplayActivity.this, "请填写完所有内容:)", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 imagesArraylist = new ArrayList<>();
                 //TODO: to check whether it has finished all the item. if not, it can not be uploaded.
                 for (int i = 0; i < imagePaths.size(); i++) {
                     File file = new File(imagePaths.get(i));
-                    UploadImageTools.uploadImageSys(file, new UploadWorksCallbacks(Image.ImageType.detailImage), UploadWorksActivity.this, false);
+                    UploadImageTools.uploadImageSys(file, new UploadWorksCallbacks(Image.ImageType.detailImage), UploadDisplayActivity.this, false);
                 }
                 File file = new File(coverImagePath);
-                UploadImageTools.uploadImageSys(file, new UploadWorksCallbacks(Image.ImageType.coverImage), UploadWorksActivity.this, false);
+                UploadImageTools.uploadImageSys(file, new UploadWorksCallbacks(Image.ImageType.coverImage), UploadDisplayActivity.this, false);
                 break;
             case R.id.tv_left:
-                UploadWorksActivity.this.finish();
+                UploadDisplayActivity.this.finish();
                 break;
             case R.id.uploadWorksCoverImgVw:
-                SetPhotoDialog dialog = new SetPhotoDialog(UploadWorksActivity.this, new SetPhotoDialog.ISetPhoto() {
+                SetPhotoDialog dialog = new SetPhotoDialog(UploadDisplayActivity.this, new SetPhotoDialog.ISetPhoto() {
 
                     @Override
                     public void choosePhotoFromLocal() {
@@ -200,3 +200,4 @@ public class UploadWorksActivity extends BaseActivity implements View.OnClickLis
         }
     }
 }
+

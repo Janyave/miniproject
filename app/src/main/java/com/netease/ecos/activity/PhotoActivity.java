@@ -78,7 +78,7 @@ public class PhotoActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PhotoActivity.this, UploadWorksActivity.class);
+                Intent intent = new Intent(PhotoActivity.this, UploadDisplayActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putStringArrayList("paths", paths);
                 intent.putExtras(bundle);

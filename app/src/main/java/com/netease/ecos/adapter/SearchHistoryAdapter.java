@@ -13,37 +13,38 @@ import com.netease.ecos.R;
 /**
  * Created by hzjixinyu on 2015/7/27.
  */
-public class SearchHistoryAdapter extends BaseAdapter{
+public class SearchHistoryAdapter extends BaseAdapter {
     private Context mcontext;
+
     public SearchHistoryAdapter(Context context) {
         this.mcontext = context;
     }
 
-    class ViewHolder {
+    public class SearchHistoryViewHolder {
 
-        private TextView tv_search;
-        private ImageView iv_delete;
+        public TextView tv_search;
+        public ImageView iv_delete;
 
-        public ViewHolder(View root) {
+        public SearchHistoryViewHolder(View root) {
             tv_search = (TextView) root.findViewById(R.id.tv_search);
-            iv_delete = (ImageView)root.findViewById(R.id.iv_delete);
+            iv_delete = (ImageView) root.findViewById(R.id.iv_delete);
         }
 
         /**
-         * ´«ÈëÊý¾ÝÎ´¶¨
+         * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½
          */
         public void setData(final int position) {
             iv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mcontext,"delete "+position,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mcontext, "delete " + position, Toast.LENGTH_SHORT).show();
                 }
             });
-            //TODO °ó¶¨Êý¾Ý
+            //TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         }
     }
 
-    //TODO Êý¾ÝÊýÁ¿¡¾ÏÖÔÚÄ£ÄâÎª10¡¿
+    //TODO ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½Îª10ï¿½ï¿½
     @Override
     public int getCount() {
         return 4;
@@ -62,13 +63,13 @@ public class SearchHistoryAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        SearchHistoryViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = parent.inflate(mcontext, R.layout.item_search, null);
-            viewHolder = new ViewHolder(convertView);
+            viewHolder = new SearchHistoryViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder = (SearchHistoryViewHolder) convertView.getTag();
         }
 
         viewHolder.setData(position);

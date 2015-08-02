@@ -20,6 +20,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.ExhibitListViewAdapter;
 import com.netease.ecos.adapter.WorkDetailListViewAdapter;
+import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.share.GetShareDetailRequest;
@@ -30,10 +31,12 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by Think on 2015/7/23.
+ * Created by Think on 2015/8/1.
  */
-public class ExhibitDetailActivity extends Activity implements View.OnTouchListener, AdapterView.OnItemClickListener, View.OnClickListener {
+public class DisplayDetailActivity extends Activity implements View.OnTouchListener, AdapterView.OnItemClickListener, View.OnClickListener {
 
+    private final String TAG = "Ecos---ExhibitDetail";
+    public static final String ShareId = "shareId";
     //widget in the title bar
     @InjectView(R.id.tv_title)
     TextView titleTxVw;
@@ -71,6 +74,8 @@ public class ExhibitDetailActivity extends Activity implements View.OnTouchListe
     RequestQueue queue;
     ImageLoader imageLoader;
 
+    private String shareId = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +103,7 @@ public class ExhibitDetailActivity extends Activity implements View.OnTouchListe
     }
 
     void initData() {
+        shareId = getIntent().getExtras().getString(ShareId);
         //init the adapter
         exhibitListViewAdapter = new ExhibitListViewAdapter(this);
         workDetailListViewAdapter = new WorkDetailListViewAdapter(this);
@@ -107,7 +113,7 @@ public class ExhibitDetailActivity extends Activity implements View.OnTouchListe
         imageLoader = new ImageLoader(queue, imageCache);
         //request the data
         GetShareDetailRequest request = new GetShareDetailRequest();
-        request.request(new GetShareDetealResponse(), "0");
+        request.request(new GetShareDetealResponse(), shareId);
     }
 
     @Override
@@ -122,14 +128,18 @@ public class ExhibitDetailActivity extends Activity implements View.OnTouchListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(ExhibitDetailActivity.this, CommentDetailActivity.class);
+        Intent intent = new Intent(DisplayDetailActivity.this, CommentDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(CommentDetailActivity.FromId, shareId);
+        bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.分享.getBelongs());
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            Intent intent = new Intent(ExhibitDetailActivity.this, WriteContentActivity.class);
+            Intent intent = new Intent(DisplayDetailActivity.this, WriteContentActivity.class);
             startActivity(intent);
         }
         return false;
@@ -139,11 +149,15 @@ public class ExhibitDetailActivity extends Activity implements View.OnTouchListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_right_action:
-                Intent intent = new Intent(ExhibitDetailActivity.this, CommentDetailActivity.class);
+                Intent intent = new Intent(DisplayDetailActivity.this, CommentDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(CommentDetailActivity.FromId, shareId);
+                bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.分享.getBelongs());
+                intent.putExtras(bundle);
                 startActivity(intent);
                 break;
             case R.id.tv_left:
-                ExhibitDetailActivity.this.finish();
+                DisplayDetailActivity.this.finish();
                 break;
             case R.id.favorBtn:
                 //TODO:send the favor information to the server.
@@ -166,7 +180,7 @@ public class ExhibitDetailActivity extends Activity implements View.OnTouchListe
             exhibitCoverImgVw.setImageUrl(share.coverUrl, imageLoader);
             exhibitPersonImgVw.setImageUrl(share.avatarUrl, imageLoader);
             exhibitPersonNameTxVw.setText(share.nickname);
-            exhibitFocusBtn.setText(share.hasAttention ? ExhibitDetailActivity.this.getString(R.string.focus) : ExhibitDetailActivity.this.getString(R.string.notFocus));
+            exhibitFocusBtn.setText(share.hasAttention ? DisplayDetailActivity.this.getString(R.string.focus) : DisplayDetailActivity.this.getString(R.string.notFocus));
             exhibitTitleTxVw.setText(share.title);
             exhibitTitleContentTxVw.setText(share.content);
             exhibitListViewAdapter.updateDataList(share.imageList);
@@ -174,4 +188,3 @@ public class ExhibitDetailActivity extends Activity implements View.OnTouchListe
         }
     }
 }
-

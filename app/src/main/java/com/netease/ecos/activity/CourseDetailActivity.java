@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -22,6 +21,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.adapter.CourseDetailOtherWorksHListViewAdapter;
 import com.netease.ecos.adapter.CourseDetailStepAdapter;
 import com.netease.ecos.dialog.SetPhotoDialog;
+import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.GetCourseDetailRequest;
@@ -30,11 +30,14 @@ import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.HorizontalListView;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class CourseDetailActivity extends ActionBarActivity implements View.OnClickListener {
 
+    public static final String CourseID = "CourseID";
     //the widget of the title bar
     @InjectView(R.id.tv_title)
     TextView titleTxVw;
@@ -88,6 +91,10 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     //图片裁剪后输出高度
     private final int outPutHeight = 300;
 
+    //record the list of assignment id.
+    private ArrayList<String> workList;
+    private String courseId = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +120,11 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         hlv_otherWorks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO:进入网友作品
-                Intent intent = new Intent(CourseDetailActivity.this, WorkDetailActivity.class);
+                Intent intent = new Intent(CourseDetailActivity.this, AssignmentDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putStringArrayList(AssignmentDetailActivity.Work_List, workList);
+                bundle.putInt(AssignmentDetailActivity.Work_Order, position);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -145,15 +155,15 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         Intent intent;
         switch (v.getId()) {
             case R.id.ll_author:
-                //TODO 个人页面
+                intent = new Intent(CourseDetailActivity.this, PersonageDetailActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btn_allWorks:
                 //TODO 所有作品
-                intent = new Intent(CourseDetailActivity.this, WorkDetailActivity.class);
-                startActivity(intent);
+//                intent = new Intent(CourseDetailActivity.this, AssignmentDetailActivity.class);
+//                startActivity(intent);
                 break;
             case R.id.ll_uploadMyWork:
-                //TODO:上传作品
                 SetPhotoDialog dialog = new SetPhotoDialog(CourseDetailActivity.this, new SetPhotoDialog.ISetPhoto() {
 
                     @Override
@@ -169,15 +179,18 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                 dialog.showSetPhotoDialog();
                 break;
             case R.id.btn_allEvaluation:
-                //TODO 所有评论
                 intent = new Intent(CourseDetailActivity.this, CommentDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(CommentDetailActivity.FromId, courseId);
+                bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.教程.getBelongs());
+                intent.putExtras(bundle);
                 startActivity(intent);
                 break;
             case R.id.ll_praise:
-                //点击关注
-                if (TextUtils.equals(tv_praise.getText().toString(),"点赞")){
+                //TODO:点击关注 send the request to the server.
+                if (TextUtils.equals(tv_praise.getText().toString(), "点赞")) {
                     tv_praise.setText("已赞");
-                }else{
+                } else {
                     tv_praise.setText("点赞");
                 }
                 break;
@@ -185,8 +198,9 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     }
 
     private void initData() {
-        GetCourseDetailRequest request =  new GetCourseDetailRequest();
-        request.request(new GetCourseDetailResponse(),"1");
+        courseId = getIntent().getExtras().getString(CourseID);
+        GetCourseDetailRequest request = new GetCourseDetailRequest();
+        request.request(new GetCourseDetailResponse(), "1");
     }
 
     @Override
@@ -214,10 +228,10 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                             new SetPhotoHelper.SetPhotoCallBack() {
                                 @Override
                                 public void success(String imagePath) {
-                                    Log.i("裁剪后图片路径", "-----------path:" + imagePath);
-                                    Intent intent = new Intent(CourseDetailActivity.this, UploadWorkActivity.class);
+                                    Intent intent = new Intent(CourseDetailActivity.this, UploadAssignmentActivity.class);
                                     Bundle bundle = new Bundle();
-                                    bundle.putString("img_path", imagePath);
+                                    bundle.putString(UploadAssignmentActivity.CourseId, courseId);
+                                    bundle.putString(UploadAssignmentActivity.ImagePath, imagePath);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                 }
@@ -236,7 +250,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     /**
      * 网络返回事件处理类
      */
-    class GetCourseDetailResponse extends BaseResponceImpl implements GetCourseDetailRequest.ICourseDetailResponse{
+    class GetCourseDetailResponse extends BaseResponceImpl implements GetCourseDetailRequest.ICourseDetailResponse {
 
         @Override
         public void success(Course course) {
@@ -256,6 +270,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
     /**
      * 绑定网络返回数据Course
+     *
      * @param course
      */
     private void bindData(Course course) {
@@ -268,10 +283,16 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         tv_otherWorks.setText(course.assignmentNum + " 个网友作品");
         btn_allEvaluation.setText("查看全部" + course.commentNum + "条评论");
 
-        courseDetailStepAdapter=new CourseDetailStepAdapter(this,course.stepList);
+        courseDetailStepAdapter = new CourseDetailStepAdapter(this, course.stepList);
         lv_courseStep.setAdapter(courseDetailStepAdapter);
 
         courseDetailOtherWorksHListViewAdapter = new CourseDetailOtherWorksHListViewAdapter(this, course.assignmentList);
         hlv_otherWorks.setAdapter(courseDetailOtherWorksHListViewAdapter);
+
+        //get the list of assignment id
+        workList = new ArrayList<String>();
+        for (int i = 0; i < course.assignmentNum; i++) {
+            workList.add(course.assignmentList.get(i).assignmentId);
+        }
     }
 }

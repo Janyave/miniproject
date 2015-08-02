@@ -14,8 +14,10 @@ import com.netease.ecos.adapter.RecruitmentDetailWorkAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class RecruitmentDetailActivity extends ActionBarActivity implements View.OnClickListener{
+public class RecruitmentDetailActivity extends ActionBarActivity implements View.OnClickListener {
 
+    private static final String TAG = "Ecos---RecruitmentDet";
+    public static final String UserID = "UserID";
     @InjectView(R.id.ll_author)
     LinearLayout ll_author;
     @InjectView(R.id.iv_avatar)
@@ -36,6 +38,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
     ListView lv_list;
 
     private RecruitmentDetailWorkAdapter recruitmentDetailWorkAdapter;
+    private String userID = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,18 +61,16 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
     }
 
     private void initData() {
-        recruitmentDetailWorkAdapter=new RecruitmentDetailWorkAdapter(this);
+        recruitmentDetailWorkAdapter = new RecruitmentDetailWorkAdapter(this);
         lv_list.setAdapter(recruitmentDetailWorkAdapter);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_author:
-                //TODO ���˽���
                 break;
             case R.id.tv_talk:
-                //TODO ˽��
                 break;
         }
     }

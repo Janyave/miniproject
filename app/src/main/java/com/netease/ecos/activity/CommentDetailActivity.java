@@ -30,6 +30,11 @@ import butterknife.InjectView;
  * Created by Think on 2015/7/23.
  */
 public class CommentDetailActivity extends Activity implements View.OnTouchListener, View.OnClickListener {
+    private static final String TAG = "Ecos---CommentDetail";
+    public static final String FromId = "fromId";
+    public static final String CommentType = "commentType";
+    private String fromId = "";
+    private Comment.CommentType commentType;
     @InjectView(R.id.commentLsVw)
     ListView commentListView;
     @InjectView(R.id.workDetailsCommentEdTx)
@@ -71,6 +76,8 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     }
 
     void initData() {
+        fromId = getIntent().getExtras().getString(FromId);
+        commentType = Comment.CommentType.getCommentTypeByValue(getIntent().getExtras().getString(CommentType));
         //init the data for NetWorkImageView
         queue = MyApplication.getRequestQueue();
         imageCache = new SDImageCache();
@@ -80,10 +87,8 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
 
         CommentListRequest request = new CommentListRequest();
         Comment comment = new Comment();
-        //当前评论类别是作业
-        comment.commentType = Comment.CommentType.作业;
-        //评论对应的作业id是1
-        comment.commentTypeId = "1";
+        comment.commentType = commentType;
+        comment.commentTypeId = fromId;
         request.request(new GetCommentListResponse(), comment);
     }
 

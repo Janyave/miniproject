@@ -66,4 +66,86 @@
     <dimen name="btn_max_height">48dp</dimen>
 
     <dimen name="contact_avatar_width">40dp</dimen>
+
+    <!-- login & regist-->
+    <dimen name="splash_item_width">120dp</dimen>
+    <dimen name="splash_item_height">44dp</dimen>
+    <dimen name="splash_item_height_radius">22dp</dimen>
+    <dimen name="splash_item_edit_marginleft">16dp</dimen>
+    <dimen name="splash_item_marginTop">8dp</dimen>
+    <dimen name="splash_btn_marginTop">24dp</dimen>
+    <dimen name="login_item_height">44dp</dimen>
+    <dimen name="login_item_width">250dp</dimen>
+    <dimen name="login_item_text_width">60dp</dimen>
+    <dimen name="splash_return_height">40dp</dimen>
+    <dimen name="splash_content_height">200dp</dimen>
+    <!-- 30px-->
+    <dimen name="splash_input_text_size">14sp</dimen>
+
+
+    <!-- jixinyu length-->
+    <dimen name="height_item_personInforamtion_180px">60dp</dimen>
+    <dimen name="height_item_personInforamtion_text_108px">40dp</dimen>
+    <dimen name="height_item_work_620px">200dp</dimen>
+    <dimen name="width_item_work_360px">120dp</dimen>
+    <dimen name="width_item_work_540px">135dp</dimen>
+    <!--<dimen name="height_item_personInformation_gender_36px">15dp</dimen>-->
+    <!--<dimen name="height_label_more_36px">15dp</dimen>-->
+    <dimen name="length_100px">30dp</dimen>
+    <dimen name="length_80px">24dp</dimen>
+
+
+    <dimen name="margin_80px">23dp</dimen>
+    <dimen name="margin_60px">17dp</dimen>
+    <dimen name="margin_50px">14dp</dimen>
+    <dimen name="margin_40px">12dp</dimen>
+    <dimen name="margin_30px">10dp</dimen>
+    <dimen name="margin_20px">8dp</dimen>
+
+    <dimen name="height_btn_focus_70px">21dp</dimen>
+    <dimen name="width_btn_focus_152px">50dp</dimen>
+    <dimen name="height_btn_price_92px">35dp</dimen>
+    <dimen name="width_btn_price_216px">75dp</dimen>
+    <dimen name="height_btn_big_120px">42dp</dimen>
+
+    <dimen name="height_item_evaluationAndPraise_92px">35dp</dimen>
+    <dimen name="height_item_workInformation_190px">65dp</dimen>
+    <dimen name="height_item_courseInformation_244px">88dp</dimen>
+    <dimen name="height_item_workInforamtion_200px">68dp</dimen>
+
+
+    <dimen name="height_btn_150px">55dp</dimen>
+
+    <!-- 带粉色装饰label等-->
+    <dimen name="height_label_100px">35dp</dimen>
+
+    <!-- 活动详情内容item高度等-->
+    <dimen name="height_activity_show_item_90px">27dp</dimen>
+    <dimen name="height_activity_new_item_140px">42dp</dimen>
+
+    <!-- 头像-->
+    <dimen name="circle_icon_108px">35dp</dimen>
+    <dimen name="circle_icon_100px">34dp</dimen>
+    <dimen name="circle_icon_80px">28dp</dimen>
+
+
+    <dimen name="text_size_44">17sp</dimen>
+    <dimen name="text_size_36">13sp</dimen>
+    <dimen name="text_size_24">10sp</dimen>
+
+    <dimen name="icon_big_64px">30dp</dimen>
+    <dimen name="icon_little_36px">15dp</dimen>
+    <dimen name="spacing_recruite_detail_26">3dp</dimen>
+    
+    
+    <!-- 图片高度-->
+    <dimen name="height_cover_640px_960px">240dp</dimen>
+    <dimen name="height_cover_664px_1000px">245dp</dimen>
+    <dimen name="height_banner_610px_1080px">210dp</dimen>
+
+    <dimen name="height_main_type_636px">240dp</dimen>
+    <dimen name="height_main_type_item_144px">55dp</dimen>
+
+    <!-- line width-->
+    <dimen name="width_line">1px</dimen>
 </resources>

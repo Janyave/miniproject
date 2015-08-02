@@ -81,6 +81,8 @@
     <string name="work_hint">分享一下心得吧:)</string>
     <string name="title_activity_event_detail">EventDetailActivity</string>
     <string name="comment">评论</string>
+    <string name="alreadyLastAssignment">已经到最后一个作品！</string>
+    <string name="alreadyFirstAssignment">已经到第一个作品！</string>
 
     <!-- 个人上传作品页面（多个作品）-->
     <string name="uploadWorks_coverHint">给作品起个名字让别人更容易找到你</string>
@@ -115,6 +117,15 @@
     <string name="to">至</string>
     <string name="rmb">元</string>
     <string name="title_activity_personage_share_fragment">PersonageShareFragment</string>
-    
+    <string name="title_activity_personal_info_setting">PersonalInfoSettingActivity</string>
 
+    <!-- 个人单个作品上传页面-->
+    <string name="notFinished">请填写分享内容:)</string>
+    <!-- 发布招募页面-->
+    <string name="avgPrice">均价</string>
+    <string name="perHour">/小时</string>
+    <string name="recruitmentTitle">设置价格和封面作品</string>
+    <string name="auction">挂牌</string>
+    <string name="instruction">说明</string>
+    <string name="chooseCover">选择封面作品</string>
 </resources>

@@ -37,11 +37,20 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by Think on 2015/7/22.
+ * Created by Think on 2015/8/1.
  */
-public class WorkDetailActivity extends BaseActivity implements View.OnTouchListener, AdapterView.OnItemClickListener, View.OnClickListener, GestureOverlayView.OnGesturePerformedListener {
+public class AssignmentDetailActivity extends BaseActivity implements View.OnTouchListener, AdapterView.OnItemClickListener, View.OnClickListener, GestureOverlayView.OnGesturePerformedListener {
 
     private final String TAG = "Ecos---WorkDetail";
+    public static final String Work_ID = "workId";
+    public static final String Work_List = "workList";
+    public static final String Work_Order = "workOrder";
+    //to record the work id.
+    private String workID = "";
+    //to record the list of works
+    private ArrayList<String> workList;
+    //to record the order of the current work.
+    private int workOrder;
     //widget for gesture
     @InjectView(R.id.gestureView)
     GestureOverlayView gestureOverlayView;
@@ -72,7 +81,6 @@ public class WorkDetailActivity extends BaseActivity implements View.OnTouchList
     @InjectView(R.id.favorBtn)
     Button favorBtn;
 
-
     private WorkDetailListViewAdapter workDetailListViewAdapter;
     private GestureLibrary library;
     private final String RIGHT = "right";
@@ -82,6 +90,10 @@ public class WorkDetailActivity extends BaseActivity implements View.OnTouchList
     static ImageLoader.ImageCache imageCache;
     RequestQueue queue;
     ImageLoader imageLoader;
+
+    //request
+    private GetAssignmentDetailRequest request;
+    private GetAssignmentDetailResponse assignmentDetailResponse;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -93,6 +105,11 @@ public class WorkDetailActivity extends BaseActivity implements View.OnTouchList
     }
 
     void initData() {
+        workID = getIntent().getExtras().getString(Work_ID);
+        workList = getIntent().getExtras().getStringArrayList(Work_List);
+        workOrder = getIntent().getExtras().getInt(Work_Order);
+        if (workID == null)
+            workID = workList.get(workOrder);
         //code for gesture
         library = GestureLibraries.fromRawResource(this, R.raw.gesture);
         library.load();
@@ -105,14 +122,15 @@ public class WorkDetailActivity extends BaseActivity implements View.OnTouchList
         imageCache = new SDImageCache();
         imageLoader = new ImageLoader(queue, imageCache);
         //get the work detail from the server
-        GetAssignmentDetailRequest request = new GetAssignmentDetailRequest();
-        request.request(new GetAssignmetnDetailResponse(), "1");
+        request = new GetAssignmentDetailRequest();
+        assignmentDetailResponse = new GetAssignmentDetailResponse();
+        request.request(assignmentDetailResponse, workID);
 
     }
 
     void initView() {
         //implementation on the title bar
-        titleTxVw.setText("1/20");
+        titleTxVw.setText((workOrder + 1) + "/" + workList.size());
         rightButton.setVisibility(View.INVISIBLE);
 
         //set the default image for NetWorkImageView
@@ -135,7 +153,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnTouchList
      * @ClassName: GetAssignmetnDetailResponse
      * @Description: 获取作业详情
      */
-    class GetAssignmetnDetailResponse extends BaseResponceImpl implements GetAssignmentDetailRequest.IAssignmentDetailRespnce {
+    class GetAssignmentDetailResponse extends BaseResponceImpl implements GetAssignmentDetailRequest.IAssignmentDetailRespnce {
 
         @Override
         public void doAfterFailedResponse(String message) {
@@ -154,21 +172,25 @@ public class WorkDetailActivity extends BaseActivity implements View.OnTouchList
             personNameTxV.setText(assignment.author);
             workDetailDate.setText(assignment.getDateDescription());
             workDetailDescpTxVw.setText(assignment.content);
-            workDetailFavorTxVw.setText(assignment.praiseNum + WorkDetailActivity.this.getString(R.string.favorCount));
+            workDetailFavorTxVw.setText(assignment.praiseNum + AssignmentDetailActivity.this.getString(R.string.favorCount));
             workDetailListViewAdapter.updateCommentList(commentList);
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(WorkDetailActivity.this, CommentDetailActivity.class);
+        Intent intent = new Intent(AssignmentDetailActivity.this, CommentDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.作业.getBelongs());
+        bundle.putString(CommentDetailActivity.FromId, workList.get(workOrder));
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            Intent intent = new Intent(WorkDetailActivity.this, WriteContentActivity.class);
+            Intent intent = new Intent(AssignmentDetailActivity.this, WriteContentActivity.class);
             startActivity(intent);
         }
         return false;
@@ -181,7 +203,7 @@ public class WorkDetailActivity extends BaseActivity implements View.OnTouchList
                 //TODO:send the favor message to the server.
                 break;
             case R.id.tv_left:
-                WorkDetailActivity.this.finish();
+                AssignmentDetailActivity.this.finish();
                 break;
         }
 
@@ -195,12 +217,23 @@ public class WorkDetailActivity extends BaseActivity implements View.OnTouchList
             prediction = predictions.get(i);
             if (prediction.score > 1.0) {
                 if (RIGHT.equals(prediction.name)) {
-                    Toast.makeText(WorkDetailActivity.this, "move to last work.", Toast.LENGTH_LONG).show();
+                    if (workOrder == 0) {
+                        Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.alreadyFirstAssignment), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    workOrder--;
+                    titleTxVw.setText((workOrder + 1) + "/" + workList.size());
                 } else if (LEFT.equals(prediction.name)) {
-                    Toast.makeText(WorkDetailActivity.this, "move to next work.", Toast.LENGTH_LONG).show();
-                } else {
+                    if (workOrder == workList.size() - 1) {
+                        Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.alreadyLastAssignment), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    workOrder++;
+                    titleTxVw.setText((workOrder + 1) + "/" + workList.size());
                 }
             }
         }
+        workID = workList.get(workOrder);
+        request.request(assignmentDetailResponse, workID);
     }
 }

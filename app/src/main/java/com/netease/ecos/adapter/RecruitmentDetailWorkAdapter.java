@@ -2,7 +2,7 @@ package com.netease.ecos.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,8 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
-import com.netease.ecos.activity.ExhibitDetailActivity;
-import com.netease.ecos.views.ExtensibleListView;
+import com.netease.ecos.activity.DisplayDetailActivity;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -44,7 +43,7 @@ public class RecruitmentDetailWorkAdapter extends BaseAdapter {
         public ViewHolder(View root) {
 
             iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
-            tv_coverNum=(TextView)root.findViewById(R.id.tv_coverNum);
+            tv_coverNum = (TextView) root.findViewById(R.id.tv_coverNum);
             tv_coverTitle = (TextView) root.findViewById(R.id.tv_coverTitle);
             tv_coverTime = (TextView) root.findViewById(R.id.tv_coverTime);
 
@@ -59,7 +58,10 @@ public class RecruitmentDetailWorkAdapter extends BaseAdapter {
             iv_cover.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mcontext, ExhibitDetailActivity.class);
+                    Intent intent = new Intent(mcontext, DisplayDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(DisplayDetailActivity.ShareId, "1");
+                    intent.putExtras(bundle);
                     mcontext.startActivity(intent);
                 }
             });

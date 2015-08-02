@@ -19,8 +19,6 @@
                 android:layout_height="wrap_content">
             </com.netease.ecos.views.Banner>
             <include layout="@layout/item_course_type"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="40dp"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent">
 
@@ -28,34 +26,43 @@
             <TextView style="@style/layout_line_gray" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/height_label_100px"
                 android:background="@color/bg_gray"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:padding="16dp">
-                <TextView
-                    android:layout_width="4dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/bg_red"/>
-                <TextView
-                    android:layout_width="wrap_content"
+                android:paddingLeft="@dimen/margin_40px"
+                android:paddingRight="@dimen/margin_40px">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    style="@style/text_dark_max"
-                    android:text="推荐教程"/>
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="全部"
-                    style="@style/text_gray_max"/>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/bg_red"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_40px"
+                        style="@style/text_dark_max"
+                        android:text="推荐教程"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="全部"
+                        style="@style/text_gray_max"/>
+                    <ImageView
+                        android:layout_width="@dimen/icon_little_36px"
+                        android:layout_height="@dimen/icon_little_36px"
+                        android:layout_marginLeft="@dimen/margin_20px"
+                        android:src="@mipmap/ic_launcher"/>
+                </LinearLayout>
+
             </LinearLayout>
             <com.netease.ecos.views.ExtensibleListView
                 android:id="@+id/lv_course"

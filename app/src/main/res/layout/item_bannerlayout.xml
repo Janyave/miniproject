@@ -5,7 +5,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_image"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/course_banner_height"/>
+        android:layout_height="@dimen/height_banner_610px_1080px"/>
     <TextView
         android:id="@+id/tv_currentNum"
         android:layout_width="50dp"
