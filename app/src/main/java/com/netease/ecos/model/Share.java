@@ -65,6 +65,7 @@ public class Share {
 	/*** 内容 */
 	public String content;
 
+
 	/***
 	 * 根据{@link #issueTimeStamp}获取发布时间描述
 	 * @return

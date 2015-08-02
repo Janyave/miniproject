@@ -538,7 +538,7 @@ public class ApiTestActivity extends BaseActivity {
                 tv_display.append("  分享时间:" + share.getDateDescription() + "\n");
                 tv_display.append("  分享点赞数:" + share.praiseNum + "\n");
                 tv_display.append("  分享评论数:" + share.commentNum + "\n");
-                tv_display.append("  图片总数:" + share.totalPics + "\n");
+                tv_display.append("  图片总数:" + share.totalPageNumber + "\n");
                 tv_display.append("\n");
 
                 for(int index=0;index<share.commentList.size();index++){
@@ -604,7 +604,7 @@ public class ApiTestActivity extends BaseActivity {
             tv_display.append("  分享时间:" + share.getDateDescription() + "\n");
             tv_display.append("  分享点赞数:" + share.praiseNum + "\n");
             tv_display.append("  分享评论数:" + share.commentNum + "\n");
-            tv_display.append("  图片总数:" + share.totalPics + "\n");
+            tv_display.append("  图片总数:" + share.totalPageNumber + "\n");
 
             List<Image> imageList = share.imageList;
             for(int i=0;i<imageList.size();i++){
@@ -854,7 +854,7 @@ public class ApiTestActivity extends BaseActivity {
                 tv_display.append("  分享时间:" + share.getDateDescription() + "\n");
                 tv_display.append("  分享点赞数:" + share.praiseNum + "\n");
                 tv_display.append("  分享评论数:" + share.commentNum + "\n");
-                tv_display.append("  图片总数:" + share.totalPics + "\n");
+                tv_display.append("  图片总数:" + share.totalPageNumber + "\n");
 
                 tv_display.append("\n");
             }
@@ -930,7 +930,7 @@ public class ApiTestActivity extends BaseActivity {
             tv_display.append("  分享时间:" + share.getDateDescription() + "\n");
             tv_display.append("  分享点赞数:" + share.praiseNum + "\n");
             tv_display.append("  分享评论数:" + share.commentNum + "\n");
-            tv_display.append("  图片总数:" + share.totalPics + "\n");
+            tv_display.append("  图片总数:" + share.totalPageNumber + "\n");
 
             List<Image> imageList = share.imageList;
             for(int i=0;i<imageList.size();i++){

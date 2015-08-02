@@ -231,7 +231,7 @@ public class GetRecruitmentDetailRequest extends BaseRequest{
 			share.shareId = ""+i;
 			
 			String totalPics = "2";
-			share.totalPics = "".equals(totalPics)?0:Integer.valueOf(totalPics);
+			share.totalPageNumber = "".equals(totalPics)?0:Integer.valueOf(totalPics);
 			share.coverUrl = bannerList.get(i);
 			
 			share.title = "栗子cos" + i;
