@@ -160,5 +160,12 @@
     <!-- line width-->
     <dimen name="width_line">1px</dimen>
 
+<<<<<<< HEAD
 
+=======
+    <!-- sweet-alert-dialog -->
+    <dimen name="alert_width">290dp</dimen>
+    <dimen name="common_circle_width">3dp</dimen>
+    <dimen name="progress_circle_radius">34dp</dimen>
+>>>>>>> a3f6e0569435b924214d15258bd965a0fdacca92
 </resources>

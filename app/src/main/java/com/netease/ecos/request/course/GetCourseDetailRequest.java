@@ -160,7 +160,7 @@ public class GetCourseDetailRequest extends BaseRequest{
 			assignment.content = "张恩立的描述" + i;
 			assignment.imageUrl = imageList.get(i);
 			assignment.authorAvatarUrl = "http://p1.gexing.com/G1/M00/9E/A6/rBACE1J-AI7xPAUWAAAa1SSMm94668_200x200_3.jpg?recache=20131108";
-			assignment.issueTime = System.currentTimeMillis();
+			assignment.issueTimeStamp = System.currentTimeMillis();
 
 			assignmentList.add(assignment);
 		}

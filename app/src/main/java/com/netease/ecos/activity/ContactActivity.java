@@ -12,8 +12,6 @@ import android.widget.Toast;
 
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.ContactAdapter;
-import com.netease.ecos.database.ContactDBService;
-import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.ModelUtils;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -25,9 +23,7 @@ import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
-import com.netease.nimlib.sdk.msg.model.RecentContact;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,7 +34,14 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/29.
  */
-public class ContactActivity extends Activity implements View.OnClickListener{
+public class ContactActivity extends Activity implements View.OnClickListener {
+
+    private final String TAG = "Ecos---Contact";
+    public static final String TargetUserID = "TargetUserID";
+    public static final String TargetUserName = "TargetUserName";
+    public static final String TargetUserAvatar = "TargetUserAvatar";
+
+    private String userId = "", userName = "", userAvatar = "";
 
     @InjectView(R.id.title_left)
     ImageView title_left;
@@ -55,7 +58,7 @@ public class ContactActivity extends Activity implements View.OnClickListener{
     EditText et_input;
 
 
-    private List<IMMessage> messageList=new ArrayList<>();
+    private List<IMMessage> messageList = new ArrayList<>();
     private ContactAdapter contactAdapter;
 
     @Override
@@ -63,7 +66,6 @@ public class ContactActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         ButterKnife.inject(this);
-
 
 
         NIMClient.getService(MsgService.class).setChattingAccount(
@@ -81,7 +83,7 @@ public class ContactActivity extends Activity implements View.OnClickListener{
 
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
 
         NIMClient.getService(MsgServiceObserve.class)
@@ -102,9 +104,9 @@ public class ContactActivity extends Activity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.title_right:
-                Toast.makeText(ContactActivity.this,"MORE",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ContactActivity.this, "MORE", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.title_left:
                 finish();
@@ -127,18 +129,16 @@ public class ContactActivity extends Activity implements View.OnClickListener{
         testMessageHistory("test2");
     }
 
-    private void initList(){
-        contactAdapter=new ContactAdapter(this, messageList);
+    private void initList() {
+        contactAdapter = new ContactAdapter(this, messageList);
         lv_list.setAdapter(contactAdapter);
         lv_list.setSelection(contactAdapter.getCount() + 1);
     }
 
-    private void addList(IMMessage message){
+    private void addList(IMMessage message) {
         contactAdapter.add(message);
         lv_list.setSelection(contactAdapter.getCount() + 1);
     }
-
-
 
 
     private void regeisterObserver() {
@@ -166,7 +166,7 @@ public class ContactActivity extends Activity implements View.OnClickListener{
                 Log.i("发送消息状态回掉", "消息类型：" + message.getMsgType().name());
 
                 /**Add**/
-                Toast.makeText(ContactActivity.this,message.getStatus().toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(ContactActivity.this, message.getStatus().toString(), Toast.LENGTH_SHORT).show();
                 addList(message);
 
             }
@@ -182,14 +182,13 @@ public class ContactActivity extends Activity implements View.OnClickListener{
                 @Override
                 public void onEvent(List<IMMessage> messages) {
 
-                    for(IMMessage message:messages){
+                    for (IMMessage message : messages) {
 
                         /**Add**/
                         addList(message);
 
                         Log.i("收到消息", "----------------------------------------------------------");
-                        if(message.getMsgType().compareTo(MsgTypeEnum.text)==0)
-                        {
+                        if (message.getMsgType().compareTo(MsgTypeEnum.text) == 0) {
 //                            ((TextView)findViewById(R.id.tv_received_text)).setText(message.getContent());
 
                             Log.i("发送消息状态回掉", "消息内容：" + message.getContent());
@@ -211,10 +210,7 @@ public class ContactActivity extends Activity implements View.OnClickListener{
             };
 
 
-
-
-
-    public void testMessageHistory(String toAccid){
+    public void testMessageHistory(String toAccid) {
 
         IMMessage endMessage = MessageBuilder.createEmptyMessage(toAccid, SessionTypeEnum.P2P, 0);
 
@@ -224,7 +220,7 @@ public class ContactActivity extends Activity implements View.OnClickListener{
                     public void onSuccess(List<IMMessage> msgList) {
 
                         /**Add**/
-                        messageList=msgList;
+                        messageList = msgList;
                         Collections.reverse(messageList);
                         initList();
 
@@ -256,7 +252,6 @@ public class ContactActivity extends Activity implements View.OnClickListener{
                     }
                 });
     }
-
 
 
 }

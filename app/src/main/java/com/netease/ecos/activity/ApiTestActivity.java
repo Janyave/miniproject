@@ -372,7 +372,7 @@ public class ApiTestActivity extends BaseActivity {
         Log.e("获取筛选教程列表", "getCourseListByFilter()");
 
         CourseListRequest request = new CourseListRequest();
-        request.request(new CourseListResponse(), CourseListRequest.Type.筛选, Course.CourseType.妆娘,"鸣人", CourseListRequest.SortRule.时间,0);
+        request.request(new CourseListResponse(), CourseListRequest.Type.筛选, Course.CourseType.化妆,"鸣人", CourseListRequest.SortRule.时间,0);
     }
 
 
@@ -994,7 +994,7 @@ public class ApiTestActivity extends BaseActivity {
         Course course = new Course();
 
         course.title = "sige nihao";
-        course.courseType= Course.CourseType.妆娘;
+        course.courseType= Course.CourseType.化妆;
         course.coverUrl = "http://img3.cache.netease.com/house/2015/7/3/20150703163657b0237_550.jpg";
 
         for(int i=0;i<2;i++){
