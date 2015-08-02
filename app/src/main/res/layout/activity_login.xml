@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            style="@style/text_white_min"
+            style="@style/text_pink_min"
             android:text="忘记密码？"/>
     </LinearLayout>
 </LinearLayout>

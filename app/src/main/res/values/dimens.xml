@@ -165,4 +165,9 @@
     <dimen name="alert_width">290dp</dimen>
     <dimen name="common_circle_width">3dp</dimen>
     <dimen name="progress_circle_radius">34dp</dimen>
+
+
+    <dimen name="fbtn_icon_180px">60dp</dimen>
+    <dimen name="fbtn_marginRight_50px">15dp</dimen>
+    <dimen name="fbtn_marginBotton_100px">30dp</dimen>
 </resources>
