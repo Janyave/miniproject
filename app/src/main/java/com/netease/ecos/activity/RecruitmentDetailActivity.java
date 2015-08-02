@@ -69,10 +69,8 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_author:
-                //TODO
                 break;
             case R.id.tv_talk:
-                //TODO ˽��
                 break;
         }
     }

@@ -5,6 +5,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.model.User;
+import com.netease.ecos.model.User.RoleType;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
@@ -32,7 +33,7 @@ public class SingupPeopleListRequest extends BaseRequest{
 		super.initBaseRequest(signupPeopleListResponce);
 		mSignupPeopleListResponce = signupPeopleListResponce;
 
-		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.CREATE_COMMENT_URL,  this, this) {
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.ACTIVITY_SIGNUP_PEOPLE_URL,  this, this) {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
 				Map<String, String> map = getRequestBasicMap();
@@ -42,7 +43,7 @@ public class SingupPeopleListRequest extends BaseRequest{
 				map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
 
 				traceNormal(TAG, map.toString());
-				traceNormal(TAG, SingupPeopleListRequest.this.getUrl(RequestUrlConstants.CREATE_COMMENT_URL, map));
+				traceNormal(TAG, SingupPeopleListRequest.this.getUrl(RequestUrlConstants.ACTIVITY_SIGNUP_PEOPLE_URL, map));
 				return map;
 			}
 
@@ -74,11 +75,12 @@ public class SingupPeopleListRequest extends BaseRequest{
 
 				User user = new User();
 				user.userId = usreJO.getString("userId");
-				user.IM_Id = usreJO.getString("IM_Id");
+				user.imId = usreJO.getString("IM_Id");
 				user.characterSignature = usreJO.getString("characterSignature");
 				user.nickname = usreJO.getString("nickname");
 				user.avatarUrl = usreJO.getString("avatarUrl");
-				user.roleType = User.RoleType.getRoleTypeByValue(usreJO.getString("roleType"));
+
+				user.roleTypeSet.add(RoleType.getRoleTypeByValue(usreJO.getString("roleType")));
 
 				hasFollowEd[i] = Boolean.valueOf(usreJO.getString("hasFollowed"));
 				beFollowed[i] = Boolean.valueOf(usreJO.getString("beFollowed"));

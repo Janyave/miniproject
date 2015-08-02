@@ -9,91 +9,138 @@ import org.json.JSONObject;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
+import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.constants.RequestUrlConstants;
+import com.netease.ecos.model.AccountDataService;
+import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
+import com.netease.ecos.request.NorResponce;
+import com.netease.ecos.utils.StringUtils;
 
 /***
- * 
-* @ClassName: RegistRequest 
-* @Description: 注册
-* @author enlizhang
-* @date 2015年7月26日 上午10:31:18 
-*
+ *
+ * @ClassName: RegistRequest
+ * @Description: 注册
+ * @author enlizhang
+ * @date 2015年7月26日 上午10:31:18
+ *
  */
 public class RegistRequest extends BaseRequest{
-	
+
 	//请求参数键
 	/*** 手机号 */
 	public static final String PHONE = "phone";
-	
+
 	/*** 昵称 */
-	public static final String NICK_NAME = "nickname";
-	
+	public static final String NICK_NAME = "name";
+
 	/*** 密码 */
-	public static final String PASSWORD = "password";
-	
-	
+	public static final String PASSWORD = "pwd";
+
+	/*** 头像URL */
+	public static final String AVATAR_URL = "avatarUrl";
+
 	//响应参数键
-	
-	
-	
-	public void request(IBaseResponse baseresponce, final String phone, final String password,
-			final String nickName)
+	NorResponce mNorResponce;
+
+	/***
+	 * 请求结束后把userId,imId,avatarUrl存入SharePreference
+	 * @param norResponce
+	 * @param phone
+	 * @param password
+	 * @param nickName
+	 * @param avatarUrl
+	 */
+	public void request(NorResponce norResponce, final String phone, final String password,
+						final String nickName,final String avatarUrl)
 	{
-		super.initBaseRequest(baseresponce);
-		
-		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.REGIST_URL,  this, this) {  
-	        @Override  
-	        protected Map<String, String> getParams() throws AuthFailureError {  
-	        	Map<String, String> map = new HashMap<String, String>();
-	        	
-	        	map.put(PHONE, phone);
-	        	map.put(NICK_NAME, password);
-	        	map.put(PASSWORD, nickName);
-	        	
-	            traceNormal(TAG, map.toString());
-	            traceNormal(TAG, RegistRequest.this.getUrl(RequestUrlConstants.REGIST_URL, map));
-	            return map;  
-	        }  
-	        
-	    }; 
-	    
-	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-	    
-	    getQueue().add(stringRequest);
-	    
+		super.initBaseRequest(norResponce);
+		mNorResponce = norResponce;
+
+		//		testRegist();
+		//		mNorResponce.success();
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.REGIST_URL,  this, this) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> map = new HashMap<String, String>();
+
+				map.put(PHONE, phone);
+				map.put(PASSWORD, StringUtils.hashKeyForDisk(password));
+				map.put(NICK_NAME, nickName);
+				if(avatarUrl!=null && !"".equals(avatarUrl))
+					map.put(AVATAR_URL, avatarUrl);
+
+				traceNormal(TAG, map.toString());
+				traceNormal(TAG, RegistRequest.this.getUrl(RequestUrlConstants.REGIST_URL, map));
+				return map;
+			}
+
+		};
+
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+		getQueue().add(stringRequest);
 	}
-	
+
 	@Override
 	public void responceSuccess(String jstring) {
 		traceNormal(TAG, jstring);
-		
+
 		try {
-			JSONObject json = new JSONObject(jstring);
-			
-			
-			if(mBaseResponse!=null)
+			JSONObject usreJO = new JSONObject(jstring).getJSONObject(KEY_DATA);
+
+			User user = new User();
+			user.userId = getString(usreJO,"userId");
+			user.imId = getString(usreJO,"imId");
+			user.avatarUrl = getString(usreJO,"avatarUrl");
+			user.nickname = getString(usreJO,"nickname");
+
+			UserDataService userService = UserDataService.getSingleUserDataService(MyApplication.getContext());
+			userService.saveUser(user);
+
+			AccountDataService service = AccountDataService.getSingleAccountDataService(MyApplication.getContext());
+			service.saveUserId(user.userId);
+			service.saveUserAccId(user.imId);
+
+			if(mNorResponce!=null)
 			{
+				mNorResponce.success();
 			}
 			else
 			{
 				traceError(TAG,"回调接口为null");
 			}
-			
-			
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			
+
 			if(mBaseResponse!=null)
 			{
 				mBaseResponse.doAfterFailedResponse("json异常");
 			}
 		}
-		
+
 	}
-	
+
+	public void testRegist(){
+		User user = new User();
+		user.userId = "1";
+		user.imId = "test1";
+		user.phone = "18868816564";
+		user.avatarUrl = "http://img5.imgtn.bdimg.com/it/u=3692347433,431191650&fm=21&gp=0.jpg";
+		user.nickname = "张恩立";
+
+		UserDataService userService = UserDataService.getSingleUserDataService(MyApplication.getContext());
+		userService.saveUser(user);
+
+		AccountDataService service = AccountDataService.getSingleAccountDataService(MyApplication.getContext());
+		service.saveUserId(user.userId);
+		service.saveUserAccId(user.imId);
+	}
+
 }
 

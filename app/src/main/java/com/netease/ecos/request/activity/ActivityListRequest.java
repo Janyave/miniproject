@@ -1,9 +1,14 @@
 package com.netease.ecos.request.activity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.ActivityModel.ActivityType;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
+import com.netease.ecos.request.MyStringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,6 +16,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /***
  * 
@@ -31,7 +37,7 @@ public class ActivityListRequest extends BaseRequest{
 
 	/***
 	 *
-	 * @param baseresponce
+	 * @param activityListResponse
 	 * @param provinceId 省id
 	 * @param activityType {@link ActivityType}活动类型
 	 * @param pageIndex 请求页数
@@ -66,6 +72,44 @@ public class ActivityListRequest extends BaseRequest{
 
 	}
 
+
+	public static final String VALUE_MY_ACTIVITYS = "6";
+	/**
+	 * 获取个人活动列表
+	 * @param activityListResponse
+	 * @param provinceId
+	 * @param activityType
+	 * @param pageIndex
+	 */
+	public void requestMySelf(IActivityListResponse activityListResponse,final int pageIndex)
+	{
+		super.initBaseRequest(activityListResponse);
+		mActivityListResponse = activityListResponse;
+
+		mActivityListResponse.success(getTestActivityList());
+//		mActivityListResponse.success(getTestActivityList());
+//		MyStringRequest stringRequest = new MyStringRequest(Request.Method.POST, RequestUrlConstants.GET_ACTIVITY_LIST_URL,  this, this) {
+//			@Override
+//			protected Map<String, String> getParams() throws AuthFailureError {
+//				Map<String, String> map = getRequestBasicMap();
+//
+//				//活动类别为个人
+//				map.put("activityType", VALUE_MY_ACTIVITYS);
+//				map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
+//				map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
+//
+//				traceNormal(TAG, map.toString());
+//				traceNormal(TAG, ActivityListRequest.this.getUrl(RequestUrlConstants.GET_ACTIVITY_LIST_URL, map));
+//				return map;
+//			}
+//
+//		};
+//
+//		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//
+//		getQueue().add(stringRequest);
+
+	}
 	@Override
 	public void responceSuccess(String jstring) {
 		traceNormal(TAG, jstring);

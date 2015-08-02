@@ -28,14 +28,18 @@ import com.netease.ecos.request.comment.CommentListRequest;
 import com.netease.ecos.request.comment.CreateCommentRequest;
 import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.request.course.CreateAssignmentRequest;
+import com.netease.ecos.request.course.CreateCourseRequest;
 import com.netease.ecos.request.course.GetAssignmentDetailRequest;
 import com.netease.ecos.request.course.GetBannerRequest;
 import com.netease.ecos.request.course.GetCourseDetailRequest;
 import com.netease.ecos.request.recruitment.GetRecruitmentDetailRequest;
 import com.netease.ecos.request.recruitment.RecruitmentListRequest;
+import com.netease.ecos.request.share.CreateShareRequest;
+import com.netease.ecos.request.share.DeleteShareRequest;
 import com.netease.ecos.request.share.GetShareDetailRequest;
 import com.netease.ecos.request.share.ShareListRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,7 +52,8 @@ import java.util.List;
 public class ApiTestActivity extends BaseActivity {
 
     String items[] = {"上传作品","查看作业详情","查看教程评论","获取banner列表","获取推荐教程列表","获取教程筛选列表","获取教程详情"
-            ,"获取分享列表","获取分享详情","获取活动列表","创建活动","获取招募列表","获取招募列表详情"};
+            ,"获取分享列表","获取个人列表","获取分享详情","获取活动列表","创建活动","获取招募列表","获取招募列表详情","创建分享","删除分享"
+            ,"创建教程"};
 
 
     public boolean isFirst = true;
@@ -105,19 +110,31 @@ public class ApiTestActivity extends BaseActivity {
                         getShareList();
                         break;
                     case 8:
-                        getShareDetail();
+                        getPersonalShareList();
                         break;
                     case 9:
-                        getActivityList();
+                        getShareDetail();
                         break;
                     case 10:
-                        createActivity();
+                        getActivityList();
                         break;
                     case 11:
-                        getRecruitmentList();
+                        createActivity();
                         break;
                     case 12:
+                        getRecruitmentList();
+                        break;
+                    case 13:
                         getRecruitmentDetail();
+                        break;
+                    case 14:
+                        createShare();
+                        break;
+                    case 15:
+                        deleteShare();
+                        break;
+                    case 16:
+                        createCourse();
                         break;
                 }
             }
@@ -131,7 +148,6 @@ public class ApiTestActivity extends BaseActivity {
 
         });
 
-        testCreateComment();
     }
 
     /***
@@ -143,13 +159,13 @@ public class ApiTestActivity extends BaseActivity {
 
         Assignment assignment = new Assignment();
 
-        assignment.author = "张恩立";
-        assignment.authorAvatarUrl = "http://p1.gexing.com/G1/M00/9E/A6/rBACE1J-AI7xPAUWAAAa1SSMm94668_200x200_3.jpg?recache=20131108";
+        assignment.courseId = "1";
+        //		assignment.author = "张恩立";
+        //		assignment.authorAvatarUrl = "http://p1.gexing.com/G1/M00/9E/A6/rBACE1J-AI7xPAUWAAAa1SSMm94668_200x200_3.jpg?recache=20131108";
         assignment.imageUrl = "http://news.xinhuanet.com/games/2011-02/28/121123255_511n.jpg";
         assignment.content = "很有成就感";
-        assignment.praiseNum = 100;
 
-        request.request(new CreateAssignmentResponse(), "1", assignment);
+        request.request(new CreateAssignmentResponse(), assignment);
     }
 
     /***
@@ -195,7 +211,7 @@ public class ApiTestActivity extends BaseActivity {
 
         Assignment assignment = new Assignment();
 
-        request.request(new GetAssignmetnDetailResponse(), "1");
+        request.request(new GetAssignmetnDetailResponse(), "6");
     }
 
     /***
@@ -473,7 +489,15 @@ public class ApiTestActivity extends BaseActivity {
     public void getShareList() {
         ShareListRequest request =  new ShareListRequest();
 
-        request.request(new ShareListResponse(), null,"keyWordk",0);
+        request.request(new ShareListResponse(), null,"",1);
+    }
+
+    /***
+     * 获取个人分享列表
+     */
+    public void getPersonalShareList() {
+        ShareListRequest request =  new ShareListRequest();
+        request.requestMyShareList(new ShareListResponse(), 1);
     }
 
     /***
@@ -517,6 +541,16 @@ public class ApiTestActivity extends BaseActivity {
                 tv_display.append("  图片总数:" + share.totalPics + "\n");
                 tv_display.append("\n");
 
+                for(int index=0;index<share.commentList.size();index++){
+                    Comment comment = share.commentList.get(index);
+
+                    tv_display.append("网友名称:" + comment.fromNickName+"\n");
+                    tv_display.append("    网友头像:" + comment.avatarUrl+"\n");
+                    tv_display.append("    评论内容:" + comment.content+"\n");
+                    tv_display.append("\n");
+
+                }
+
                 tv_display.append("\n");
                 tv_display.append("\n");
 
@@ -533,7 +567,7 @@ public class ApiTestActivity extends BaseActivity {
     public void getShareDetail() {
         GetShareDetailRequest request =  new GetShareDetailRequest();
 
-        request.request(new GetShareResponse(), "0");
+        request.request(new GetShareResponse(), "3");
     }
 
     /**
@@ -699,8 +733,6 @@ public class ApiTestActivity extends BaseActivity {
 
     }
 
-
-
     /***
      * 获取招募列表
      */
@@ -753,12 +785,8 @@ public class ApiTestActivity extends BaseActivity {
                 tv_display.append("  与发起者距离:" + "均价 " + recruit.averagePrice + "\n");
                 tv_display.append("\n");
 
-
             }
-
-
         }
-
     }
 
     /***
@@ -830,10 +858,178 @@ public class ApiTestActivity extends BaseActivity {
 
                 tv_display.append("\n");
             }
-
-
         }
 
     }
+
+    /***
+     * 创建分享
+     */
+    public void createShare(){
+        CreateShareRequest request = new CreateShareRequest();
+
+        Share share = new Share();
+        share.title = "houzhe nihao";
+        share.content = "houzhe jintian mai i6";
+        share.coverUrl = "http://img3.cache.netease.com/house/2015/7/3/20150703163657b0237_550.jpg";
+
+        int length = 2;
+        share.totalPageNumber = length;
+        for(int i=0;i<length;i++){
+            Image image = new Image();
+            image.originUrl = bannerList.get(i);
+            share.imageList.add(image);
+        }
+        share.imageList.add(new Image());
+
+
+
+        //请求招募id为1的招募详情
+        request.request(new CreateShareResponse(), share);
+
+    }
+
+    static List<String> bannerList = new ArrayList<String>();
+    {
+        bannerList.add("http://u4.tdimg.com/7/203/19/46138657748730920288026757971472766587.jpg");
+        bannerList.add("http://www.cnnb.com.cn/pic/0/01/49/86/1498602_864010.jpg");
+    }
+
+
+    /**
+     *
+     * @ClassName: GetShareResponse
+     * @Description: 获取分享详情回掉接口
+     * @author enlizhang
+     * @date 2015年7月28日 下午7:13:18
+     *
+     */
+    class CreateShareResponse extends BaseResponceImpl implements CreateShareRequest.ICreateShareResponse {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+
+        }
+
+        @Override
+        public void success(Share share) {
+            tv_display.setText("");
+
+            tv_display.append("分享名称:" + share.title + "\n");
+            tv_display.append("  分享者头像url:" + share.avatarUrl + "\n");
+            tv_display.append("  分享者昵称:" + share.nickname + "\n");
+            tv_display.append("  已关注分享着:" + share.hasAttention + "\n");
+            tv_display.append("  已点赞:" + share.hasPraised + "\n");
+            tv_display.append("  分享封面图url:" + share.coverUrl + "\n");
+            tv_display.append("  分享时间:" + share.getDateDescription() + "\n");
+            tv_display.append("  分享点赞数:" + share.praiseNum + "\n");
+            tv_display.append("  分享评论数:" + share.commentNum + "\n");
+            tv_display.append("  图片总数:" + share.totalPics + "\n");
+
+            List<Image> imageList = share.imageList;
+            for(int i=0;i<imageList.size();i++){
+
+                tv_display.append("  图片ur;:" + imageList.get(i).originUrl + "\n");
+            }
+
+            tv_display.append("\n");
+
+            for(Comment comment:share.commentList){
+
+                tv_display.append("网友名称:" + comment.fromNickName+"\n");
+                tv_display.append("    网友头像:" + comment.avatarUrl+"\n");
+                tv_display.append("    评论内容:" + comment.content+"\n");
+
+            }
+            tv_display.append("\n");
+            tv_display.append("\n");
+        }
+
+    }
+
+    /***
+     * 删除分享
+     */
+    public void deleteShare(){
+        DeleteShareRequest request = new DeleteShareRequest();
+        request.request(new DeleteShareResponse(), "2");
+    }
+
+    class DeleteShareResponse extends BaseResponceImpl implements DeleteShareRequest.IDeleteShareResponse {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void success(String shareId) {
+            tv_display.setText("");
+
+            tv_display.append("删除分享id:" + shareId);
+        }
+
+    }
+
+
+    /***
+     * 创建教程
+     */
+    public void createCourse(){
+        CreateCourseRequest request = new CreateCourseRequest();
+
+        Course course = new Course();
+
+        course.title = "sige nihao";
+        course.courseType= Course.CourseType.化妆;
+        course.coverUrl = "http://img3.cache.netease.com/house/2015/7/3/20150703163657b0237_550.jpg";
+
+        for(int i=0;i<2;i++){
+            Course.Step step = new Course.Step(i+1);
+            step.description = "great!" + i;
+            step.imageUrl = bannerList.get(i);
+            course.addStep(step);
+        }
+
+        request.request(new CreateCourseResponse(), course);
+
+    }
+
+    class CreateCourseResponse extends BaseResponceImpl implements CreateCourseRequest.ICreateCourseResponse {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void success(Course course) {
+            // TODO Auto-generated method stub
+
+        }
+
+
+    }
+
 }
 
