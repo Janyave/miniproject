@@ -113,7 +113,7 @@ public class User {
 					return gender;
 			}
 
-			return null;
+			return 男;
 		}
 
 	}
