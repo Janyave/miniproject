@@ -1,6 +1,5 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -9,7 +8,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.views.sweet_alert_dialog.SweetAlertDialog;
 
 
-public class SweetAlertDialogActivity extends Activity implements View.OnClickListener
+public class SweetAlertDialogActivity extends BaseActivity implements View.OnClickListener
 {
 	
 	private int i = -1;

@@ -32,6 +32,7 @@ import com.netease.ecos.request.course.CreateCourseRequest;
 import com.netease.ecos.request.course.GetAssignmentDetailRequest;
 import com.netease.ecos.request.course.GetBannerRequest;
 import com.netease.ecos.request.course.GetCourseDetailRequest;
+import com.netease.ecos.request.recruitment.CreateRecruitmentRequest;
 import com.netease.ecos.request.recruitment.GetRecruitmentDetailRequest;
 import com.netease.ecos.request.recruitment.RecruitmentListRequest;
 import com.netease.ecos.request.share.CreateShareRequest;
@@ -53,7 +54,7 @@ public class ApiTestActivity extends BaseActivity {
 
     String items[] = {"上传作品","查看作业详情","查看教程评论","获取banner列表","获取推荐教程列表","获取教程筛选列表","获取教程详情"
             ,"获取分享列表","获取个人列表","获取分享详情","获取活动列表","创建活动","获取招募列表","获取招募列表详情","创建分享","删除分享"
-            ,"创建教程"};
+            ,"创建教程","创建招募"};
 
 
     public boolean isFirst = true;
@@ -135,6 +136,8 @@ public class ApiTestActivity extends BaseActivity {
                         break;
                     case 16:
                         createCourse();
+                    case 17:
+                        createRecruitment();
                         break;
                 }
             }
@@ -828,7 +831,7 @@ public class ApiTestActivity extends BaseActivity {
 
             tv_display.append("招募标题:" + recruit.title + "\n");
             tv_display.append("  招募封面图url:" + recruit.coverUrl + "\n");
-            tv_display.append("  招募描述:" + recruit.decription + "\n");
+            tv_display.append("  招募描述:" + recruit.description + "\n");
             tv_display.append("  招募id:" + recruit.recruitmentId + "\n");
             tv_display.append("  发起者用户id:" + recruit.userId + "\n");
             tv_display.append("  发起者云信id:" + recruit.imId + "\n");
@@ -1024,12 +1027,60 @@ public class ApiTestActivity extends BaseActivity {
 
         @Override
         public void success(Course course) {
-            // TODO Auto-generated method stub
 
         }
 
 
     }
 
+    /***
+     * 创建招募
+     */
+    public void createRecruitment(){
+        CreateRecruitmentRequest request = new CreateRecruitmentRequest();
+
+        Recruitment recruitment  = new Recruitment();
+        recruitment.recruitmentId = "" + 1;
+        recruitment.averagePrice = "" + 1*100 + "/人";
+        recruitment.description = "这是一个测试描述" + 1;
+        recruitment.coverUrl = "http://pic.jschina.com.cn/0/10/40/90/10409045_975387.jpg";
+        recruitment.shareId = "" + 1;
+        recruitment.title = "招募测试标题" + 1;
+        recruitment.priceUnit = "人" + 1;
+        recruitment.issueTimeStamp = System.currentTimeMillis() - 1*24*60*60*1000;
+
+        request.request(new ICreateRecruitmentResponce(),recruitment);
+    }
+
+
+    /***
+     * 创建招募响应回调接口
+     */
+    class ICreateRecruitmentResponce extends BaseResponceImpl implements CreateRecruitmentRequest.ICreateRecruitmentResponce{
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
+
+        @Override
+        public void success(Recruitment recruit) {
+            tv_display.setText("");
+
+            tv_display.append("招募名称:" + recruit.recruitmentId + "\n");
+            tv_display.append("  招募均价:" + recruit.averagePrice + "\n");
+            tv_display.append("  招募描述:" + recruit.description + "\n");
+            tv_display.append("  招募封面图url:" + recruit.coverUrl + "\n");
+            tv_display.append("  分享id:" + recruit.shareId + "\n");
+            tv_display.append("  招募发表时间:" + ModelUtils.getDateDesByTimeStamp(recruit.issueTimeStamp) + "\n");
+
+
+        }
+    }
 }
 
