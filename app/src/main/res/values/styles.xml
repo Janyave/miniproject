@@ -10,19 +10,13 @@
     <style name="rb_chat_list_tab">
                 
         <item name="android:textSize">@dimen/text_size_36</item>
-                
         <item name="android:textColor">@color/text_gray</item>
-                
         <item name="android:ellipsize">marquee</item>
-                <item name="android:gravity">center</item>  
-                
+        <item name="android:gravity">center</item>  
         <item name="android:background">@drawable/btn_tab_selector</item>
-                
         <item name="android:layout_width">match_parent</item>
-                
         <item name="android:layout_height">match_parent</item>
-                <item name="android:button">@null</item>  
-                
+        <item name="android:button">@null</item>  
         <item name="android:layout_weight">1.0</item>
     </style>
 

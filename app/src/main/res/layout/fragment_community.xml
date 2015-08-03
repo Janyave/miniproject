@@ -15,29 +15,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/bg_white">
 
             <Button
                 android:id="@+id/btn_location"
                 style="@style/text_gray_mid"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/height_item_140px"
                 android:layout_gravity="right"
+                android:background="@android:color/transparent"
                 android:layout_weight="1"
-                android:background="@color/bg_white"
                 android:text="浙江" />
 
             <TextView
-                android:layout_width="2dp"
-                android:layout_height="25dp"
-                android:layout_gravity="center"
-                android:background="@color/bg_gray_dark" />
+                android:layout_width="1dp"
+                android:layout_height="@dimen/height_item_60px"
+                style="@style/layout_line_gray_v"/>
 
             <Button
                 android:id="@+id/btn_category"
                 style="@style/text_gray_mid"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="@dimen/height_item_140px"
                 android:layout_weight="1"
                 android:background="@color/bg_white"
                 android:text="全部分类" />
@@ -48,7 +48,12 @@
         <com.netease.ecos.views.XListView
             android:id="@+id/lv_campaign"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:background="@color/bg_gray"
+            android:paddingTop="@dimen/margin_30px"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:listSelector="@android:color/transparent"/>
 
     </LinearLayout>
 
@@ -59,7 +64,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/fbtn_marginRight_50px"
-        android:layout_marginBottom="@dimen/fbtn_marginBotton_100px"/>
+        android:layout_marginBottom="@dimen/fbtn_marginBotton_100px" />
 
     <ImageView
         android:id="@+id/iv_show_flag_location"
@@ -68,7 +73,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="120dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/height_item_60px"
         android:layout_weight="1"
         android:src="@drawable/ic_unpress_next_step" />
 
@@ -79,7 +84,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="44dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/height_item_60px"
         android:layout_weight="1"
         android:src="@drawable/ic_unpress_next_step" />
 
