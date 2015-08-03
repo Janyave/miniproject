@@ -76,10 +76,10 @@ public class CreateCommentRequest extends BaseRequest{
 	//响应参数键
 	Comment mComment;
 
-	CreateCommentResponse mCreateCommentResponse;
+	ICreateCommentResponse mCreateCommentResponse;
 
 
-	public void request(CreateCommentResponse createCommentResponse, final Comment comment)
+	public void request(ICreateCommentResponse createCommentResponse, final Comment comment)
 	{
 		super.initBaseRequest(createCommentResponse);
 		mCreateCommentResponse = createCommentResponse;
@@ -161,7 +161,7 @@ public class CreateCommentRequest extends BaseRequest{
 	 * @date 2015年7月26日 下午8:04:04
 	 *
 	 */
-	interface CreateCommentResponse extends IBaseResponse{
+	public interface ICreateCommentResponse extends IBaseResponse{
 
 		/** 请求成功回掉函数，返回创建的评论 */
 		public void success(Comment comment);

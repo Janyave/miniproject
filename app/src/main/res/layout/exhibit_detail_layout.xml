@@ -60,13 +60,15 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"/>
-                <Button
+
+                <TextView
                     android:id="@+id/exhibitFocusBtn"
                     android:layout_width="@dimen/width_btn_focus_152px"
                     android:layout_height="@dimen/height_btn_focus_70px"
-                    android:background="@drawable/btn_focus_pink"
+                    android:gravity="center"
                     android:text="关注"
-                    style="@style/text_white_mid" />
+                    android:background="@drawable/btn_focus_pink"
+                    style="@style/text_white_mid"/>
 
             </LinearLayout>
 

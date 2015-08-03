@@ -92,7 +92,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         shareListRequest = new ShareListRequest();
         getShareListResponse = new GetShareListResponse();
         shareType = ShareListRequest.ShareType.所有;
-        shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
+        shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
     }
 
     private void initListener() {
@@ -245,7 +245,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
         switch (v.getId()) {
             case R.id.tv_search:
-                startActivity(new Intent(getActivity(), SearchActivity.class));
+                startActivityForResult(new Intent(getActivity(), SearchActivity.class),CourseCategoryActivity.RequestCodeForSearch);
                 break;
             case R.id.tv_all:
                 //the text color
@@ -253,7 +253,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_all.setTextColor(getResources().getColor(R.color.text_red));
                 shareType = ShareListRequest.ShareType.所有;
                 //send the request
-                shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
+                shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 break;
             case R.id.tv_recommend:
                 //the text color
@@ -261,7 +261,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_recommend.setTextColor(getResources().getColor(R.color.text_red));
                 shareType = ShareListRequest.ShareType.推荐;
                 //send the request
-                shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
+                shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 break;
             case R.id.tv_attention:
                 //the text color
@@ -269,7 +269,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_attention.setTextColor(getResources().getColor(R.color.text_red));
                 shareType = ShareListRequest.ShareType.关注;
                 //send the request
-                shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
+                shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 break;
             case R.id.tv_new:
                 //the text color
@@ -277,7 +277,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_new.setTextColor(getResources().getColor(R.color.text_red));
                 shareType = ShareListRequest.ShareType.新人;
                 //send the request
-                shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
+                shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 break;
         }
     }
@@ -295,8 +295,9 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CourseCategoryActivity.RequestCodeForSearch && resultCode == CourseCategoryActivity.ResultCodeForSearch) {
+            Log.d("test","searchWord:"+searchWord);
             searchWord = data.getExtras().getString(SearchActivity.SearchWord);
-            shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
+            shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
         }
     }
 

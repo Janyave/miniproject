@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
@@ -22,6 +23,8 @@ public class WriteContentActivity extends Activity {
     Button rightButton;
     @InjectView(R.id.tv_left)
     TextView backTxVw;
+    @InjectView(R.id.commentEdTx)
+    EditText commentEdTx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,10 @@ public class WriteContentActivity extends Activity {
         backTxVw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WriteContentActivity.this.finish();
+                Bundle bundle = new Bundle();
+                bundle.putString(CommentDetailActivity.CommentContent, commentEdTx.getText().toString());
+                getIntent().putExtras(bundle);
+                setResult(CommentDetailActivity.ResultCodeForComment, getIntent());
             }
         });
         getWindow().setSoftInputMode(

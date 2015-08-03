@@ -25,6 +25,7 @@ import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.GetCourseDetailRequest;
+import com.netease.ecos.request.user.FollowUserRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
 import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.HorizontalListView;
@@ -45,7 +46,6 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     Button rightButton;
     @InjectView(R.id.tv_left)
     TextView backTxVw;
-
     @InjectView(R.id.iv_cover)
     ImageView iv_cover;
     @InjectView(R.id.ll_praise)
@@ -79,7 +79,6 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     @InjectView(R.id.lv_courseStep)
     ExtensibleListView lv_courseStep;
 
-
     //教程步骤
     private CourseDetailStepAdapter courseDetailStepAdapter;
     //作业列表
@@ -94,6 +93,9 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     //record the list of assignment id.
     private ArrayList<String> workList;
     private String courseId = "";
+    private Course course;
+    private GetCourseDetailRequest getCourseDetailRequest;
+    private GetCourseDetailResponse getCourseDetailResponse;
 
 
     @Override
@@ -101,13 +103,10 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_detail);
         ButterKnife.inject(this);
-
         initListener();
         initData();
-
         getSupportActionBar().hide();
     }
-
 
     private void initListener() {
         btn_allEvaluation.setOnClickListener(this);
@@ -153,9 +152,14 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         Intent intent;
+        Bundle bundle;
         switch (v.getId()) {
             case R.id.ll_author:
                 intent = new Intent(CourseDetailActivity.this, PersonageDetailActivity.class);
+                bundle = new Bundle();
+                bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
+                bundle.putString(PersonageDetailActivity.UserID, course.userId);
+                intent.putExtras(bundle);
                 startActivity(intent);
                 break;
             case R.id.btn_allWorks:
@@ -180,14 +184,13 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                 break;
             case R.id.btn_allEvaluation:
                 intent = new Intent(CourseDetailActivity.this, CommentDetailActivity.class);
-                Bundle bundle = new Bundle();
+                bundle = new Bundle();
                 bundle.putString(CommentDetailActivity.FromId, courseId);
                 bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.教程.getBelongs());
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
             case R.id.ll_praise:
-                //TODO:点击关注 send the request to the server.
                 if (TextUtils.equals(tv_praise.getText().toString(), "点赞")) {
                     tv_praise.setText("已赞");
                 } else {
@@ -199,8 +202,9 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
     private void initData() {
         courseId = getIntent().getExtras().getString(CourseID);
-        GetCourseDetailRequest request = new GetCourseDetailRequest();
-        request.request(new GetCourseDetailResponse(), "1");
+        getCourseDetailRequest = new GetCourseDetailRequest();
+        getCourseDetailResponse = new GetCourseDetailResponse();
+        getCourseDetailRequest.request(getCourseDetailResponse, courseId);
     }
 
     @Override
@@ -274,6 +278,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
      * @param course
      */
     private void bindData(Course course) {
+        this.course = course;
         tv_title.setText(course.title);
         tv_name.setText(course.author);
         tv_praiseNum.setText(course.praiseNum + "");
@@ -293,6 +298,23 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         workList = new ArrayList<String>();
         for (int i = 0; i < course.assignmentNum; i++) {
             workList.add(course.assignmentList.get(i).assignmentId);
+        }
+    }
+
+    class FollowResponce extends BaseResponceImpl implements FollowUserRequest.IFollowResponce {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+        }
+
+        @Override
+        public void success(String userId, boolean follow) {
+//            tv_display.append("操作对象userId:" + userId + "\n");
+//            tv_display.append("关注状态:" + follow + "\n");
         }
     }
 }

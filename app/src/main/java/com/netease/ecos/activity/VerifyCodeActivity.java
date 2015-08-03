@@ -29,7 +29,7 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/30.
  */
-public class VerifyCodeActivity extends Activity implements TextWatcher{
+public class VerifyCodeActivity extends Activity implements TextWatcher {
     @InjectView(R.id.iv_return)
     ImageView iv_return;
     @InjectView(R.id.ll_container)
@@ -39,7 +39,7 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
     @InjectView(R.id.tv_notice)
     TextView tv_notice;
 
-    private int stepN=1;  //默认step
+    private int stepN = 1;  //默认step
 
     private View view_step1;
     private View view_step2;
@@ -51,11 +51,15 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
     private TextView tv_phone;
     private EditText et_code;
 
-    private String phone="";
+    private String phone = "";
 
     private Timer timer;
     private TimerTask task;
-    private int timeCount=60;
+    private int timeCount = 60;
+
+    //for request
+    private SendAutocodeRequest request;
+    private RequestCodeResponse response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +67,8 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
         setContentView(R.layout.activity_verifycode);
         ButterKnife.inject(this);
 
-        view_step1=(View)View.inflate(VerifyCodeActivity.this, R.layout.view_verify_step1, null);
-        view_step2=(View)View.inflate(VerifyCodeActivity.this, R.layout.view_verify_step2, null);
+        view_step1 = (View) View.inflate(VerifyCodeActivity.this, R.layout.view_verify_step1, null);
+        view_step2 = (View) View.inflate(VerifyCodeActivity.this, R.layout.view_verify_step2, null);
 
         ll_container.addView(view_step1);//默认设置step1
 
@@ -75,9 +79,9 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
     }
 
     private void bindView() {
-        et_phone=(EditText)view_step1.findViewById(R.id.et_phone);
-        tv_phone=(TextView)view_step2.findViewById(R.id.tv_phone);
-        et_code=(EditText)view_step2.findViewById(R.id.et_code);
+        et_phone = (EditText) view_step1.findViewById(R.id.et_phone);
+        tv_phone = (TextView) view_step2.findViewById(R.id.tv_phone);
+        et_code = (EditText) view_step2.findViewById(R.id.et_code);
     }
 
     private void initListener() {
@@ -90,9 +94,9 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
         tv_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (stepN==1){
+                if (stepN == 1) {
                     requestCode();
-                }else{
+                } else {
                     //verify code
                     checkCode();
                 }
@@ -102,9 +106,9 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
         iv_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (stepN==1){
+                if (stepN == 1) {
                     finish();
-                }else{
+                } else {
                     changePageTo(1);
                 }
             }
@@ -118,15 +122,15 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
      * 请求验证码
      */
     private void requestCode() {
-        SendAutocodeRequest request = new SendAutocodeRequest();
-        request.requestSend(new RequestCodeResponse(), et_phone.getText().toString());
+        request = new SendAutocodeRequest();
+        response = new RequestCodeResponse();
+        request.requestSend(response, et_phone.getText().toString());
     }
 
     /**
      * 核对验证码
      */
-    public void checkCode()
-    {
+    public void checkCode() {
         CheckAutoRequest request = new CheckAutoRequest();
         String phone = et_phone.getText().toString();
         //TODO change
@@ -137,18 +141,18 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
     private void initData() {
     }
 
-    void setTimer(){
-        timeCount=60;
-        timer=new Timer();
-        task=new TimerTask() {
+    void setTimer() {
+        timeCount = 60;
+        timer = new Timer();
+        task = new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         timeCount--;
-                        tv_notice.setText(timeCount+"s 后可重发验证码");
-                        if (timeCount<=0){
+                        tv_notice.setText(timeCount + "s 后可重发验证码");
+                        if (timeCount <= 0) {
                             timer.cancel();
                             tv_notice.setText("点击重新获取验证码");
                             tv_notice.setEnabled(true);
@@ -157,20 +161,20 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
                 });
             }
         };
-        timer.schedule(task,1000,1000);
+        timer.schedule(task, 1000, 1000);
     }
 
-    private void changePageTo(int i){
-        if (i==1&&stepN!=1){
-            stepN=1;
+    private void changePageTo(int i) {
+        if (i == 1 && stepN != 1) {
+            stepN = 1;
             ll_container.removeAllViews();
             ll_container.addView(view_step1);
             et_phone.setText(phone);
             tv_notice.setText("");
             tv_next.setText("获取验证码");
         }
-        if (i==2&&stepN!=2){
-            stepN=2;
+        if (i == 2 && stepN != 2) {
+            stepN = 2;
             ll_container.removeAllViews();
             ll_container.addView(view_step2);
             tv_phone.setText(phone);
@@ -186,12 +190,12 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         /**当有文字输入时才可以点击下一步按钮**/
-        if (stepN==1&&!TextUtils.isEmpty(et_phone.getText().toString())) {
-            phone=et_phone.getText().toString();
+        if (stepN == 1 && !TextUtils.isEmpty(et_phone.getText().toString())) {
+            phone = et_phone.getText().toString();
             tv_next.setEnabled(true);
-        }else if (stepN==2&&!TextUtils.isEmpty(et_code.getText().toString())){
+        } else if (stepN == 2 && !TextUtils.isEmpty(et_code.getText().toString())) {
             tv_next.setEnabled(true);
-        }else {
+        } else {
             tv_next.setEnabled(false);
         }
     }
@@ -201,7 +205,7 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
     }
 
 
-    class RequestCodeResponse extends BaseResponceImpl implements SendAutocodeRequest.ISendAutocodeResponse{
+    class RequestCodeResponse extends BaseResponceImpl implements SendAutocodeRequest.ISendAutocodeResponse {
 
         @Override
         public void success() {
@@ -222,14 +226,14 @@ public class VerifyCodeActivity extends Activity implements TextWatcher{
         }
     }
 
-    class  CheckAutocodeResponse extends BaseResponceImpl implements CheckAutoRequest.ICheckAutocodeResponse{
+    class CheckAutocodeResponse extends BaseResponceImpl implements CheckAutoRequest.ICheckAutocodeResponse {
 
         @Override
         public void success() {
             Toast.makeText(VerifyCodeActivity.this, "VERIFY SUCCESS", Toast.LENGTH_SHORT).show();
-            Intent intent=new Intent();
-            intent.putExtra("phone",et_phone.getText().toString());
-            setResult(RESULT_OK,intent);
+            Intent intent = new Intent();
+            intent.putExtra("phone", et_phone.getText().toString());
+            setResult(RESULT_OK, intent);
             finish();
         }
 
