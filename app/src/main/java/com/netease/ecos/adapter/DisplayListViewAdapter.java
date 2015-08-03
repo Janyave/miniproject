@@ -51,43 +51,34 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
         private ImageView iv_cover;
         private TextView tv_coverNum;
-        //        private LinearLayout ll_coverInformation;
         private TextView tv_coverTitle;
         private TextView tv_coverTime;
 
         private TextView tv_praise;
-        private TextView tv_evaluate;
-        //        private ImageView iv_praise;
-//        private ImageView iv_evaluate;
+        private TextView tv_evaluation;
         private LinearLayout ll_praise;
         private LinearLayout ll_evaluate;
-
-        private TextView tv_allEvaluation;
 
         private ExtensibleListView lv_evaluation;
         private LinearLayout ll_evaluationList;
         private DisplayItemEvalutionViewAdapter adapter;
 
-        public ViewHolder(View root, int position) {
+        public ViewHolder(View root) {
             ll_author = (LinearLayout) root.findViewById(R.id.ll_author);
             iv_avatar = (ImageView) root.findViewById(R.id.iv_avatar);
             tv_name = (TextView) root.findViewById(R.id.tv_name);
             tv_focus = (TextView) root.findViewById(R.id.tv_focus);
             iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
             tv_coverNum = (TextView) root.findViewById(R.id.tv_coverNum);
-//            ll_coverInformation = (LinearLayout) root.findViewById(R.id.ll_coverInformation);
             tv_coverTitle = (TextView) root.findViewById(R.id.tv_coverTitle);
             tv_coverTime = (TextView) root.findViewById(R.id.tv_coverTime);
             tv_praise = (TextView) root.findViewById(R.id.tv_praise);
-            tv_evaluate = (TextView) root.findViewById(R.id.tv_evaluation);
-//            iv_praise = (ImageView) root.findViewById(R.id.iv_praise);
-//            iv_evaluate = (ImageView) root.findViewById(R.id.iv_evaluation);
+            tv_evaluation = (TextView) root.findViewById(R.id.tv_evaluation);
             ll_praise = (LinearLayout) root.findViewById(R.id.ll_praise);
             ll_evaluate = (LinearLayout) root.findViewById(R.id.ll_evaluation);
             tv_praise = (TextView) root.findViewById(R.id.tv_praise);
-            tv_evaluate = (TextView) root.findViewById(R.id.tv_evaluation);
+            tv_evaluation = (TextView) root.findViewById(R.id.tv_evaluation);
             ll_evaluationList = (LinearLayout) root.findViewById(R.id.ll_evaluationList);
-            tv_allEvaluation = (TextView) root.findViewById(R.id.tv_allEvalution);
             lv_evaluation = (ExtensibleListView) root.findViewById(R.id.lv_evaluation);
         }
 
@@ -97,53 +88,48 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
         public void setData(final int position) {
             Share item = shareList.get(position);
 
+            //bind the data
             if (item.avatarUrl != null)
                 Picasso.with(mcontext).load(item.avatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
+            tv_name.setText(item.nickname);
+            tv_focus.setText(item.hasAttention ? "已关注" : "关注");
+
             if (item.coverUrl != null)
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
-            tv_name.setText(item.nickname);
-            tv_coverTitle.setText(item.title);
             tv_coverNum.setText(item.totalPageNumber + mcontext.getResources().getString(R.string.page));
+            tv_coverTitle.setText(item.title);
             tv_coverTime.setText(item.getDateDescription());
+
             tv_praise.setText(item.praiseNum + mcontext.getResources().getString(R.string.manyFavor));
-            tv_evaluate.setText(item.commentNum + mcontext.getResources().getString(R.string.manyComment));
+            tv_evaluation.setText(item.commentNum + mcontext.getResources().getString(R.string.manyComment));
+
+            adapter = new DisplayItemEvalutionViewAdapter(mcontext, item.commentList);
+            lv_evaluation.setAdapter(adapter);
+
             //set tag
             ll_author.setTag(position);
+            tv_focus.setTag(position);
             iv_cover.setTag(position);
             tv_coverTitle.setTag(position);
-            tv_focus.setTag(position);
             ll_praise.setTag(position);
             ll_evaluate.setTag(position);
             ll_evaluationList.setTag(position);
-            tv_allEvaluation.setTag(position);
 
             //set listener
             ll_author.setOnClickListener(DisplayListViewAdapter.this);
+            tv_focus.setOnClickListener(DisplayListViewAdapter.this);
             iv_cover.setOnClickListener(DisplayListViewAdapter.this);
             tv_coverTitle.setOnClickListener(DisplayListViewAdapter.this);
-            tv_focus.setOnClickListener(DisplayListViewAdapter.this);
             ll_praise.setOnClickListener(DisplayListViewAdapter.this);
             ll_evaluate.setOnClickListener(DisplayListViewAdapter.this);
             ll_evaluationList.setOnClickListener(DisplayListViewAdapter.this);
-            tv_allEvaluation.setOnClickListener(DisplayListViewAdapter.this);
 
-            if (item.hasAttention) {
-                tv_focus.setText("已关注");
-            } else {
-                tv_focus.setText("关注");
-            }
-            if (item.hasPraised) {
-                //TODO 已赞图片
-            } else {
+            if (!item.hasPraised) {
                 //TODO 未赞图片
             }
-            //set adapter
-            adapter = new DisplayItemEvalutionViewAdapter(mcontext, item.commentList);
-            lv_evaluation.setAdapter(adapter);
         }
     }
 
-    //TODO 数据数量【现在模拟为10】
     @Override
     public int getCount() {
         return shareList.size();
@@ -165,12 +151,11 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = parent.inflate(mcontext, R.layout.item_display, null);
-            viewHolder = new ViewHolder(convertView, position);
+            viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
         viewHolder.setData(position);
         return convertView;
     }
@@ -188,14 +173,6 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;
-            case R.id.iv_cover:
-            case R.id.tv_coverTitle:
-                intent = new Intent(mcontext, DisplayDetailActivity.class);
-                bundle.putString(PersonageDetailActivity.UserID, shareList.get(position).shareId);
-                bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
-                intent.putExtras(bundle);
-                mcontext.startActivity(intent);
-                break;
             case R.id.tv_focus:
                 if (TextUtils.equals(((TextView) v).getText().toString(), "关注")) {
                     ((TextView) v).setText("已关注");
@@ -205,11 +182,19 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                     request.request(followResponce, shareList.get(position).userId, false);
                 }
                 break;
+            case R.id.iv_cover:
+            case R.id.tv_coverTitle:
+                intent = new Intent(mcontext, DisplayDetailActivity.class);
+                bundle.putString(PersonageDetailActivity.UserID, shareList.get(position).shareId);
+                bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
+                intent.putExtras(bundle);
+                mcontext.startActivity(intent);
+                break;
+
             case R.id.ll_praise:
                 //TODO:点赞 favor
                 break;
             case R.id.ll_evaluation:
-            case R.id.tv_allEvalution:
             case R.id.ll_evaluationList:
                 intent = new Intent(mcontext, CommentDetailActivity.class);
                 bundle.putString(CommentDetailActivity.FromId, shareList.get(position).shareId);

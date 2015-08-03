@@ -245,7 +245,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
         switch (v.getId()) {
             case R.id.tv_search:
-                startActivity(new Intent(getActivity(), SearchActivity.class));
+                startActivityForResult(new Intent(getActivity(), SearchActivity.class),CourseCategoryActivity.RequestCodeForSearch);
                 break;
             case R.id.tv_all:
                 //the text color
@@ -295,6 +295,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CourseCategoryActivity.RequestCodeForSearch && resultCode == CourseCategoryActivity.ResultCodeForSearch) {
+            Log.d("test","searchWord:"+searchWord);
             searchWord = data.getExtras().getString(SearchActivity.SearchWord);
             shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
         }

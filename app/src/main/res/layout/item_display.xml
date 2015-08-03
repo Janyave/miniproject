@@ -42,8 +42,7 @@
                     style="@style/text_dark_mid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text="NAME" />
+                    android:layout_marginLeft="8dp" />
             </LinearLayout>
 
             <TextView
@@ -104,16 +103,14 @@
                 android:id="@+id/tv_coverTitle"
                 style="@style/text_pink_max"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TITLE" />
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/tv_coverTime"
                 style="@style/text_gray_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="2011年11月11日" />
+                android:layout_marginTop="8dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -135,15 +132,14 @@
                         android:id="@+id/iv_praise"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@mipmap/ic_praise" />
 
                     <TextView
                         android:id="@+id/tv_praise"
                         style="@style/text_pink_mid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="56" />
+                        android:layout_marginLeft="8dp" />
                 </LinearLayout>
 
                 <TextView
@@ -170,8 +166,7 @@
                         style="@style/text_pink_mid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:text="120" />
+                        android:layout_marginLeft="8dp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -181,11 +176,9 @@
         <LinearLayout
             android:id="@+id/ll_evaluationList"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_marginBottom="12dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="20dp"
             android:background="@color/bg_white"
             android:orientation="vertical">
 
@@ -195,17 +188,5 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-
-        <TextView style="@style/layout_line_gray" />
-
-        <TextView
-            android:id="@+id/tv_allEvalution"
-            style="@style/text_pink_mid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="查看全部120条评论" />
     </LinearLayout>
 </LinearLayout>

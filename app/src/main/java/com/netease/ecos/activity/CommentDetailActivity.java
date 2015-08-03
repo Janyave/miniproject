@@ -50,6 +50,10 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     static ImageLoader.ImageCache imageCache;
     RequestQueue queue;
     ImageLoader imageLoader;
+    //for request
+    private CommentListRequest commentListRequest;
+    private GetCommentListResponse getCommentListResponse;
+
 
     private WorkDetailListViewAdapter workDetailListViewAdapter;
 
@@ -60,6 +64,24 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
         ButterKnife.inject(this);
         initData();
         initView();
+    }
+
+    void initData() {
+        fromId = getIntent().getExtras().getString(FromId);
+        commentType = Comment.CommentType.getCommentTypeByValue(getIntent().getExtras().getString(CommentType));
+        //init the data for NetWorkImageView
+        queue = MyApplication.getRequestQueue();
+        imageCache = new SDImageCache();
+        imageLoader = new ImageLoader(queue, imageCache);
+        //init the adapter
+        workDetailListViewAdapter = new WorkDetailListViewAdapter(this);
+
+        commentListRequest = new CommentListRequest();
+        getCommentListResponse = new GetCommentListResponse();
+        Comment comment = new Comment();
+        comment.commentType = commentType;
+        comment.commentTypeId = fromId;
+        commentListRequest.request(getCommentListResponse, comment);
     }
 
     void initView() {
@@ -73,23 +95,6 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
         //set listener
         commentEdTx.setOnTouchListener(this);
         backTxVw.setOnClickListener(this);
-    }
-
-    void initData() {
-        fromId = getIntent().getExtras().getString(FromId);
-        commentType = Comment.CommentType.getCommentTypeByValue(getIntent().getExtras().getString(CommentType));
-        //init the data for NetWorkImageView
-        queue = MyApplication.getRequestQueue();
-        imageCache = new SDImageCache();
-        imageLoader = new ImageLoader(queue, imageCache);
-        //init the adapter
-        workDetailListViewAdapter = new WorkDetailListViewAdapter(this);
-
-        CommentListRequest request = new CommentListRequest();
-        Comment comment = new Comment();
-        comment.commentType = commentType;
-        comment.commentTypeId = fromId;
-        request.request(new GetCommentListResponse(), comment);
     }
 
     @Override

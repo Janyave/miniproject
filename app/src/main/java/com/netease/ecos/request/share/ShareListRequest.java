@@ -103,13 +103,13 @@ public class ShareListRequest extends BaseRequest{
     public static final String KEY_COMMENT_FROM_ID = "fromId";
 
     /** 评论者名称 */
-    public static final String KEY_COMMENT_USER_NICKNAME = "fromNickName";
+    public static final String KEY_COMMENT_USER_NICKNAME = "fromNickname";
 
     /** 父评论id */
     public static final String KEY_COMMENT_PARENT_ID= "parentId";
 
     /** 父评论用户昵称 */
-    public static final String KEY_COMMENT_PARENT_NICKNAME= "parentNickname";
+    public static final String KEY_COMMENT_PARENT_NICKNAME= "parentNickName";
 
     /** 评论时间时间戳 */
     public static final String KEY_COMMENT_TIME_STAMP = "commentTimeStamp";
@@ -227,7 +227,7 @@ public class ShareListRequest extends BaseRequest{
 
                     int commentsLength = commentJA.length();
                     Comment comment;
-                    for(int commentIndex=0;i<commentsLength;i++){
+                    for(int commentIndex=0;commentIndex<commentsLength;commentIndex++){
 
                         JSONObject commentJO = commentJA.getJSONObject(commentIndex);
 

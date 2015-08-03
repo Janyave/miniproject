@@ -37,7 +37,7 @@ public class DisplayItemEvalutionViewAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return position;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class DisplayItemEvalutionViewAdapter extends BaseAdapter {
 
         public void setData(int position) {
             Comment item = commentList.get(position);
-            tv_name.setText(item.fromNickName);
+            tv_name.setText(item.fromNickName );
             tv_evaluation.setText(item.content);
         }
     }
