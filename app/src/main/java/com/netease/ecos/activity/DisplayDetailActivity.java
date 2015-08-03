@@ -3,6 +3,7 @@ package com.netease.ecos.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.share.GetShareDetailRequest;
+import com.netease.ecos.request.user.FollowUserRequest;
 import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.views.ExtensibleListView;
 
@@ -52,7 +54,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
     @InjectView(R.id.exhibitPersonNameTxVw)
     TextView exhibitPersonNameTxVw;
     @InjectView(R.id.exhibitFocusBtn)
-    Button exhibitFocusBtn;
+    TextView exhibitFocusBtn;
     @InjectView(R.id.exhibitTitleTxVw)
     TextView exhibitTitleTxVw;
     @InjectView(R.id.exhibitTitleContentTxVw)
@@ -73,8 +75,14 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
     static ImageLoader.ImageCache imageCache;
     RequestQueue queue;
     ImageLoader imageLoader;
+    //for request
+    private FollowUserRequest followUserRequest;
+    private FollowResponce followResponce;
+    private GetShareDetailRequest getShareDetailRequest;
+    private GetShareDetealResponse getShareDetealResponse;
 
     private String shareId = "";
+    private Share share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +106,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
         rightButton.setOnClickListener(this);
         backTxVw.setOnClickListener(this);
         exhibitCommentLsVwLsVw.setOnItemClickListener(this);
+        exhibitFocusBtn.setOnClickListener(this);
         //always hide the keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
@@ -112,8 +121,9 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
         imageCache = new SDImageCache();
         imageLoader = new ImageLoader(queue, imageCache);
         //request the data
-        GetShareDetailRequest request = new GetShareDetailRequest();
-        request.request(new GetShareDetealResponse(), shareId);
+        getShareDetailRequest = new GetShareDetailRequest();
+        getShareDetealResponse = new GetShareDetealResponse();
+        getShareDetailRequest.request(getShareDetealResponse, shareId);
     }
 
     @Override
@@ -162,6 +172,20 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
             case R.id.favorBtn:
                 //TODO:send the favor information to the server.
                 break;
+            case R.id.exhibitFocusBtn:
+                if (followUserRequest == null)
+                    followUserRequest = new FollowUserRequest();
+                if (followResponce == null)
+                    followResponce = new FollowResponce();
+                if (TextUtils.equals(((TextView) v).getText().toString(), DisplayDetailActivity.this.getString(R.string.focus))) {
+                    ((TextView) v).setText("已关注");
+                    followUserRequest.request(followResponce, share.userId, true);
+                } else {
+                    ((TextView) v).setText("关注");
+                    followUserRequest.request(followResponce, share.userId, false);
+                }
+                followUserRequest.request(followResponce, share.userId, true);
+                break;
         }
     }
 
@@ -177,6 +201,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
 
         @Override
         public void success(Share share) {
+            DisplayDetailActivity.this.share = share;
             exhibitCoverImgVw.setImageUrl(share.coverUrl, imageLoader);
             exhibitPersonImgVw.setImageUrl(share.avatarUrl, imageLoader);
             exhibitPersonNameTxVw.setText(share.nickname);
@@ -185,6 +210,22 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
             exhibitTitleContentTxVw.setText(share.content);
             exhibitListViewAdapter.updateDataList(share.imageList);
             workDetailListViewAdapter.updateCommentList(share.commentList);
+        }
+    }
+
+
+    class FollowResponce extends BaseResponceImpl implements FollowUserRequest.IFollowResponce {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+        }
+
+        @Override
+        public void success(String userId, boolean follow) {
         }
     }
 }

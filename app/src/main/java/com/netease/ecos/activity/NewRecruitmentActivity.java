@@ -108,6 +108,7 @@ public class NewRecruitmentActivity extends Activity implements View.OnClickList
         @Override
         public void success(Recruitment recruit) {
             Toast.makeText(NewRecruitmentActivity.this, getResources().getString(R.string.uploadSuccessfully), Toast.LENGTH_SHORT).show();
+            NewRecruitmentActivity.this.finish();
         }
     }
 }

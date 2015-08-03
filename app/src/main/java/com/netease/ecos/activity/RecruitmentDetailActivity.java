@@ -87,6 +87,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
             case R.id.ll_author:
                 intent = new Intent(RecruitmentDetailActivity.this, PersonageDetailActivity.class);
                 bundle.putString(PersonageDetailActivity.UserID, recruitment.userId);
+                bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;

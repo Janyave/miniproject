@@ -1,5 +1,9 @@
 package com.netease.ecos.request.comment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Comment.CommentType;
 import com.netease.ecos.model.Course;
@@ -8,6 +12,7 @@ import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
+import com.netease.ecos.request.MyStringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +20,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /***
@@ -80,35 +86,20 @@ public class CommentListRequest extends BaseRequest{
 	{
 		super.initBaseRequest(commentListRespnce);
 		mCommentListRespnce = commentListRespnce;
-
 		mComment =  comment;
-
-		List<Comment> commentList = getTestCommentList();
-
-		if(mCommentListRespnce!=null)
-		{
-			mCommentListRespnce.success(commentList);
-		}
-		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COMMENT_LIST_URL,  this, this) {  
-	        @Override  
-	        protected Map<String, String> getParams() throws AuthFailureError {  
+		MyStringRequest stringRequest = new MyStringRequest(Request.Method.POST, RequestUrlConstants.GET_COMMENT_LIST_URL,  this, this) {
+	        @Override
+	        protected Map<String, String> getParams() throws AuthFailureError {
 	        	Map<String, String> map = getRequestBasicMap();
-	            
 	        	map.put(COMMENT_TYPE, comment.commentType.getBelongs());
 	        	map.put(COMMENT_TYPE_ID, comment.commentTypeId);
-	        	
-	        	
 	            traceNormal(TAG, map.toString());
 	            traceNormal(TAG, CommentListRequest.this.getUrl(RequestUrlConstants.GET_COMMENT_LIST_URL, map));
-	            return map;  
-	        }  
-	        
-	    }; 
-	    
+	            return map;
+	        }
+	    };
 	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-	    
-	    getQueue().add(stringRequest);*/
-
+	    getQueue().add(stringRequest);
 	}
 
 	@Override

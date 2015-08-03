@@ -6,14 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.CourseCategoryActivity;
-import com.netease.ecos.activity.CourseDetailActivity;
 import com.netease.ecos.activity.CourseTypeActivity;
 import com.netease.ecos.adapter.CourseListViewAdapter;
 import com.netease.ecos.model.Course;
@@ -91,13 +89,6 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
 
     private void initListener() {
         lv_course.setDividerHeight(0);
-        lv_course.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getActivity(), CourseDetailActivity.class));
-
-            }
-        });
 
         sv.setOnTouchListener(new ViewScrollListener(new ViewScrollListener.IOnMotionEvent() {
             @Override

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,7 +46,6 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     LinearLayout ll_sort;
     @InjectView(R.id.btn_floading)
     FloadingButton btn_floading;
-
     @InjectView(R.id.lly_left_action)
     LinearLayout lly_left_action;
     @InjectView(R.id.ll_left)
@@ -220,12 +218,6 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         lv_list.initRefleshTime(this.getClass().getSimpleName());
         lv_list.setPullLoadEnable(true);
         lv_list.setXListViewListener(this);
-        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(CourseCategoryActivity.this, CourseDetailActivity.class));
-            }
-        });
 
         //获取course信息
         request = new CourseListRequest();
