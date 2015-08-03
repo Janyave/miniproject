@@ -103,16 +103,16 @@ public class RequestUrlConstants {
 	/**------------------------------    评论模块    -------------------------------------------*/
 
 	/*** 创建评论 */
-	public static final String CREATE_COMMENT_URL = HOUZHE_HOST + "/m/comment/create?";
+	public static final String CREATE_COMMENT_URL = HOST + "/m/comment/create?";
 
 	/*** 获取评论列表 */
-	public static final String GET_COMMENT_LIST_URL = HOUZHE_HOST + "/m/comment/list?";
+	public static final String GET_COMMENT_LIST_URL = HOST + "/m/comment/list?";
 
 	/*** 获取评论详情 */
-	public static final String GET_COMMENT_DETAIL_URL = HOUZHE_HOST + "/m/comment/detail?";
+	public static final String GET_COMMENT_DETAIL_URL = HOST + "/m/comment/detail?";
 
 	/*** 删除评论*/
-	public static final String DELETE_COMMENT_URL = HOUZHE_HOST + "/m/comment/delete?";
+	public static final String DELETE_COMMENT_URL = HOST + "/m/comment/delete?";
 
 
 
@@ -124,16 +124,16 @@ public class RequestUrlConstants {
 	/**------------------------------    分享模块    -------------------------------------------*/
 
 	/*** 创建分享 */
-	public static final String CREATE_SHARE_URL = HOUZHE_HOST + "/m/share/create?";
+	public static final String CREATE_SHARE_URL = HOST + "/m/share/create?";
 
 	/*** 获取分享列表 */
-	public static final String GET_SHARE_LIST_URL = HOUZHE_HOST + "/m/share/list?";
+	public static final String GET_SHARE_LIST_URL = HOST + "/m/share/list?";
 
 	/*** 获取分享详情 */
-	public static final String GET_SHARE_DETAIL_URL = HOUZHE_HOST + "/m/share/detail?";
+	public static final String GET_SHARE_DETAIL_URL = HOST + "/m/share/detail?";
 
 	/*** 删除分享 */
-	public static final String DELETE_SHARE_URL = HOUZHE_HOST + "/m/share/delete?";
+	public static final String DELETE_SHARE_URL = HOST + "/m/share/delete?";
 
 
 
