@@ -161,6 +161,7 @@
         android:layout_marginLeft="@dimen/margin_40px"
         android:layout_marginRight="@dimen/margin_40px">
         <TextView
+            android:id="@+id/tv_publish"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_btn_big_120px"
             android:background="@drawable/btn_big_pink"
