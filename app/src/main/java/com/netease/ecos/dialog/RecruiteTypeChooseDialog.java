@@ -2,18 +2,20 @@ package com.netease.ecos.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.netease.ecos.R;
+import com.netease.ecos.activity.NewRecruitmentActivity;
 import com.netease.ecos.model.Recruitment;
 
 /**
  * Created by hzjixinyu on 2015/8/3.
  */
-public class RecruiteTypeChooseDialog extends Dialog implements View.OnClickListener{
+public class RecruiteTypeChooseDialog extends Dialog implements View.OnClickListener {
 
     private ImageView makeupBtn, photographyBtn, backstageBtn, costumeBtn, propBtn, othersBtn;
     private LinearLayout ll_main;
@@ -21,10 +23,8 @@ public class RecruiteTypeChooseDialog extends Dialog implements View.OnClickList
     private Context mContext;
 
     public RecruiteTypeChooseDialog(Context context) {
-        super(context,R.style.Dialog_Transparent);
-        this.mContext=context;
-
-
+        super(context, R.style.Dialog_Transparent);
+        this.mContext = context;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class RecruiteTypeChooseDialog extends Dialog implements View.OnClickList
         othersBtn.setOnClickListener(this);
 
         //点击按钮以外地方关闭对话框
-        ll_main=(LinearLayout)findViewById(R.id.ll_main);
+        ll_main = (LinearLayout) findViewById(R.id.ll_main);
         ll_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +56,6 @@ public class RecruiteTypeChooseDialog extends Dialog implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-
         Recruitment.RecruitType recruitType = Recruitment.RecruitType.妆娘;
         switch (v.getId()) {
             case R.id.photography_btn:
@@ -75,11 +74,11 @@ public class RecruiteTypeChooseDialog extends Dialog implements View.OnClickList
                 recruitType = Recruitment.RecruitType.其他;
                 break;
         }
-//        Intent intent = new Intent(mContext, RecruitmentCategoryActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putString(RecruitmentCategoryActivity.TRecruitmentType, recruitType.name());
-//        intent.putExtras(bundle);
-//        mContext.startActivity(intent);
-//        dismiss();
+        Intent intent = new Intent(mContext, NewRecruitmentActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(NewRecruitmentActivity.RecruitmentType, recruitType.getValue());
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
+        dismiss();
     }
 }
