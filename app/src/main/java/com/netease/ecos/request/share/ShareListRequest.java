@@ -227,7 +227,7 @@ public class ShareListRequest extends BaseRequest{
 
                     int commentsLength = commentJA.length();
                     Comment comment;
-                    for(int commentIndex=0;i<commentsLength;i++){
+                    for(int commentIndex=0;commentIndex<commentsLength;commentIndex++){
 
                         JSONObject commentJO = commentJA.getJSONObject(commentIndex);
 
