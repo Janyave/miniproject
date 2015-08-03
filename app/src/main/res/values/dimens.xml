@@ -134,7 +134,8 @@
     <dimen name="height_activity_new_item_140px">42dp</dimen>
 
     <!-- 头像-->
-    <dimen name="circle_icon_108px">35dp</dimen>
+    <dimen name="circle_icon_108px">36dp</dimen>
+    <dimen name="radius_circle_icon_108px">18dp</dimen>
     <dimen name="circle_icon_100px">34dp</dimen>
     <dimen name="circle_icon_80px">28dp</dimen>
     <dimen name="circle_icon_210px">70dp</dimen>
@@ -149,6 +150,7 @@
     <dimen name="icon_big_64px">30dp</dimen>
     <dimen name="icon_little_36px">15dp</dimen>
     <dimen name="icon_return_50px">25dp</dimen>
+    <dimen name="icon_more_36px">15dp</dimen>
     <dimen name="spacing_recruite_detail_26">3dp</dimen>
     
     
@@ -172,11 +174,17 @@
     <dimen name="common_circle_width">3dp</dimen>
     <dimen name="progress_circle_radius">34dp</dimen>
 
-
+    <!--悬浮按钮-->
     <dimen name="fbtn_icon_180px">70dp</dimen>
     <dimen name="fbtn_marginRight_50px">15dp</dimen>
     <dimen name="fbtn_marginBotton_100px">30dp</dimen>
 
 
+    <!-- Title-->
+    <dimen name="height_title">55dp</dimen>
+
+    <!-- 一般高度-->
+    <dimen name="height_item_240px">75dp</dimen>
+    <dimen name="height_item_140px">45dp</dimen>
 
 </resources>

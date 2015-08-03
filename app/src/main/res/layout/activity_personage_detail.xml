@@ -157,7 +157,7 @@
     </FrameLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_personDetail_information_186px"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/bg_white">
         <TextView
@@ -168,13 +168,14 @@
             android:id="@+id/tv_personage_description"
             android:gravity="center"
             android:layout_marginTop="@dimen/margin_30px"
+            android:layout_marginBottom="@dimen/margin_20px"
             style="@style/text_pink_mid"
             android:textColor="@color/bg_red_light_light"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20px"
             android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/margin_50px"
             android:gravity="center">
             <Button
                 android:layout_width="@dimen/width_btn_person_180px"

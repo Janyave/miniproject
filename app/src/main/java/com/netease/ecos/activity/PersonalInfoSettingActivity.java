@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.utils.RoundImageView;
@@ -23,9 +24,9 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     private LinearLayout mReturn;
     private RoundImageView mAvatarImg;
     private ImageView mSetAvatar;
-    private EditText mSetName;
-    private Spinner mSetGender;
-    private EditText mSetIntro;
+    private TextView mSetName;
+    private TextView mSetGender;
+    private TextView mSetIntro;
     private ImageView mSetPwd;
     private Switch mSetMsgAlert;
     private Button mLogOut;
@@ -43,9 +44,9 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         mReturn = (LinearLayout) findViewById(R.id.lly_left_action);
         mAvatarImg = (RoundImageView) findViewById(R.id.personal_info_set_avatar_pic);
         mSetAvatar = (ImageView) findViewById(R.id.personal_info_set_avatar);
-        mSetName = (EditText) findViewById(R.id.personal_info_set_name);
-        mSetGender = (Spinner) findViewById(R.id.personal_info_set_gender);
-        mSetIntro = (EditText) findViewById(R.id.personal_info_set_intro);
+        mSetName = (TextView) findViewById(R.id.personal_info_set_name);
+        mSetGender = (TextView) findViewById(R.id.personal_info_set_gender);
+        mSetIntro = (TextView) findViewById(R.id.personal_info_set_intro);
         mSetPwd = (ImageView) findViewById(R.id.personal_info_set_pwd);
         mSetMsgAlert = (Switch) findViewById(R.id.personal_info_set_Msg_alert);
         mLogOut = (Button) findViewById(R.id.personal_info_logout);
@@ -72,12 +73,6 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                 android.R.layout.simple_spinner_item, gender);
         //设置下拉列表的风格
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //将adapter 添加到spinner中
-        mSetGender.setAdapter(adapter);
-        //添加事件Spinner事件监听
-        mSetGender.setOnItemSelectedListener(new SpinnerSelectedListener());
-        //设置默认值
-        mSetGender.setVisibility(View.VISIBLE);
     }
 
     class ButtonListener implements View.OnClickListener {
