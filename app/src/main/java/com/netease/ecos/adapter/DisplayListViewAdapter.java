@@ -183,6 +183,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             case R.id.ll_author:
                 intent = new Intent(mcontext, PersonageDetailActivity.class);
                 bundle.putString(PersonageDetailActivity.UserID, shareList.get(position).userId);
+                bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;
@@ -190,6 +191,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             case R.id.tv_coverTitle:
                 intent = new Intent(mcontext, DisplayDetailActivity.class);
                 bundle.putString(PersonageDetailActivity.UserID, shareList.get(position).shareId);
+                bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;

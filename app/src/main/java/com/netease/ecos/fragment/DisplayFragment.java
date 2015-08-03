@@ -296,7 +296,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CourseCategoryActivity.RequestCodeForSearch && resultCode == CourseCategoryActivity.ResultCodeForSearch) {
             searchWord = data.getExtras().getString(SearchActivity.SearchWord);
-            shareListRequest.request(getShareListResponse, shareType, searchWord, 0);
+            shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
         }
     }
 

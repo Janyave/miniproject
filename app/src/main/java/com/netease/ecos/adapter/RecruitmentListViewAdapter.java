@@ -115,6 +115,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             case R.id.ll_author:
                 intent = new Intent(mcontext, PersonageDetailActivity.class);
                 bundle.putString(PersonageDetailActivity.UserID, recruitmentArrayList.get(position).userId);
+                bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;

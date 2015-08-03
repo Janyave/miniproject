@@ -153,6 +153,9 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PersonageDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(PersonageDetailActivity.IsOwn, true);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
