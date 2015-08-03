@@ -1,5 +1,6 @@
 package com.netease.ecos.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
-import com.netease.ecos.activity.NewRecruitmentActivity;
 import com.netease.ecos.activity.RecruitmentCategoryActivity;
+import com.netease.ecos.dialog.RecruiteTypeChooseDialog;
 import com.netease.ecos.model.Recruitment;
 
 /**
@@ -84,11 +85,8 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
         releaseRecruitmentTxVw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), NewRecruitmentActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString(NewRecruitmentActivity.RecruitmentType, Recruitment.RecruitType.妆娘.getValue());
-                intent.putExtras(bundle);
-                startActivity(intent);
+                Dialog dialog = new RecruiteTypeChooseDialog(getActivity());
+                dialog.show();
             }
         });
         return mainView;

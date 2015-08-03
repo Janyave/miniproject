@@ -31,7 +31,6 @@
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:text="更多"
             style="@style/text_white_max"
             android:gravity="center" />
     </RelativeLayout>

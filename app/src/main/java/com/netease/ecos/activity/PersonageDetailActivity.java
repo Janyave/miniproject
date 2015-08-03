@@ -21,6 +21,8 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.PersonCourseAdapter;
+import com.netease.ecos.adapter.PersonDisplayAdapter;
+import com.netease.ecos.adapter.RecruitmentDetailWorkAdapter;
 import com.netease.ecos.fragment.PersonageActivityFragment;
 import com.netease.ecos.fragment.PersonageCourseFragment;
 import com.netease.ecos.fragment.PersonageRecruitFragment;
@@ -64,6 +66,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
     private int mCurrentTab = 0;
 
     private PersonCourseAdapter personCourseAdapter;
+    private PersonDisplayAdapter personDisplayAdapter;
     //TODO 其他Adapter
 
 
@@ -112,7 +115,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
                     break;
                 case R.id.radio_2:
                     ((RadioButton)findViewById(R.id.radio_2)).setTextColor(getResources().getColor(R.color.text_red));
-                    Toast.makeText(PersonageDetailActivity.this, "CHANGE ADAPTER", Toast.LENGTH_SHORT).show();
+                    lv_list.setAdapter(personDisplayAdapter);
                     break;
                 case R.id.radio_3:
                     ((RadioButton)findViewById(R.id.radio_3)).setTextColor(getResources().getColor(R.color.text_red));
@@ -167,6 +170,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         //TODO 初始化adapter
         personCourseAdapter=new PersonCourseAdapter(this);
+        personDisplayAdapter=new PersonDisplayAdapter(this);
         lv_list.setAdapter(personCourseAdapter);
 
     }
