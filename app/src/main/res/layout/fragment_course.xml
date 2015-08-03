@@ -77,11 +77,10 @@
 
     <com.netease.ecos.views.FloadingButton
         android:id="@+id/btn_floading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/fbtn_icon_180px"
+        android:layout_height="@dimen/fbtn_icon_180px"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="60dp"
-        android:text="悬浮按钮"/>
+        android:layout_marginRight="@dimen/fbtn_marginRight_50px"
+        android:layout_marginBottom="@dimen/fbtn_marginBotton_100px"/>
 </RelativeLayout>

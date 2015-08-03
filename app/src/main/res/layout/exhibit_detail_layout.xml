@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_white">
 
     <include
         android:id="@+id/include_title"
@@ -19,76 +20,83 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/commentDetaiPaddingLeft"
-            android:paddingRight="@dimen/commentDetaiPaddingLeft"
-            android:paddingTop="@dimen/commentDetaiPaddingTop">
+            android:orientation="vertical">
 
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/exhibitCoverImgVw"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/workDetail_ImgVw_height"
+                android:layout_height="@dimen/height_cover_664px_1000px"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px"
+                android:layout_marginTop="@dimen/margin_40px"
                 android:src="@mipmap/ic_launcher" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/commentDetaiPaddingTop"
-                android:layout_marginTop="@dimen/commentDetaiPaddingTop"
-                android:orientation="horizontal">
+                android:layout_marginBottom="@dimen/margin_50px"
+                android:layout_marginTop="@dimen/margin_50px"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
                 <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/exhibitPersonImgVw"
-                    android:layout_width="@dimen/personImageView_width"
-                    android:layout_height="@dimen/personImageView_height"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginRight="@dimen/commentDetaiPaddingLeft" />
+                    android:layout_width="@dimen/circle_icon_108px"
+                    android:layout_height="@dimen/circle_icon_108px" />
 
                 <TextView
                     android:id="@+id/exhibitPersonNameTxVw"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@id/exhibitPersonImgVw"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/exhibitPersonImgVw"
+                    android:layout_marginLeft="@dimen/margin_20px"
                     android:text="三次元的鸣人"
-                    android:textSize="@dimen/textSize" />
+                    style="@style/text_dark_mid"/>
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
                 <Button
                     android:id="@+id/exhibitFocusBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/workDetailComment_EdTx_height"
-                    android:layout_alignParentRight="true"
-                    android:background="@null"
-                    android:text="关注" />
+                    android:layout_width="@dimen/width_btn_focus_152px"
+                    android:layout_height="@dimen/height_btn_focus_70px"
+                    android:background="@drawable/btn_focus_pink"
+                    android:text="关注"
+                    style="@style/text_white_mid" />
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/exhibitTitleTxVw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/commentDetaiPaddingTop"
+                android:layout_marginBottom="@dimen/margin_50px"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px"
                 android:text="叛逆的鲁鲁修"
                 android:textColor="@color/bg_red"
-                android:textSize="@dimen/textsizeL" />
+                style="@style/text_pink_max" />
 
             <TextView
                 android:id="@+id/exhibitTitleContentTxVw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/commentDetaiPaddingTop"
+                android:layout_marginBottom="@dimen/margin_50px"
                 android:text="最后两张花絮【似乎有两张发不上来？完整版请戳coser路德七世吧】"
-                android:textSize="@dimen/textSize" />
+                style="@style/text_dark_mid"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px"/>
 
             <com.netease.ecos.views.ExtensibleListView
                 android:id="@+id/exhibitLsVw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/commentDetaiPaddingTop"
-                android:divider="#00000000" />
+                android:layout_marginBottom="@dimen/margin_40px"
+                android:divider="@android:color/transparent" />
 
             <include
                 layout="@layout/comment_title"

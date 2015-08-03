@@ -77,7 +77,7 @@
                 android:layout_height="@dimen/height_btn_focus_70px"
                 android:gravity="center"
                 android:text="私信"
-                android:background="@drawable/btn_little_pink"
+                android:background="@drawable/btn_focus_pink"
                 style="@style/text_white_mid"/>
         </LinearLayout>
         <RelativeLayout
@@ -92,11 +92,13 @@
                 android:scaleType="centerCrop"/>
             <TextView
                 android:id="@+id/tv_price"
-                android:layout_width="@dimen/width_btn_price_216px"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/height_btn_price_92px"
                 android:gravity="center"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="@dimen/margin_80px"
+                android:paddingLeft="@dimen/margin_40px"
+                android:paddingRight="@dimen/margin_40px"
                 android:text="$ 60/人"
                 android:background="@drawable/bg_recruition_price"
                 style="@style/text_white_max"/>

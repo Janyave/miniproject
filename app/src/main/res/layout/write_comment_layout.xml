@@ -12,36 +12,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/commentDetaiPaddingLeft"
-        android:paddingLeft="@dimen/commentDetaiPaddingLeft"
-        android:paddingTop="@dimen/commentDetaiPaddingLeft">
+        android:background="@color/bg_gray"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/commentDetaiPaddingLeft"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_40px"
             android:background="@drawable/comment_shape"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/margin_50px"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginTop="@dimen/margin_50px">
 
             <EditText
                 android:id="@+id/workDetailsCommentEdTx"
-                style="@style/text_white_mid"
-                android:layout_width="@dimen/workDetailComment_EdTx_width"
-                android:layout_height="@dimen/workDetailComment_EdTx_height"
-                android:layout_margin="5dp"
+                style="@style/text_dark_mid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:gravity="left|center_vertical"
                 android:hint="@string/comment_hint"
-                android:paddingBottom="@dimen/commentDetaiPaddingTop"
-                android:paddingLeft="@dimen/commentDetaiPaddingLeft"
-                android:paddingTop="@dimen/commentDetaiPaddingLeft"
-                android:textSize="@dimen/commentDetailTextSize" />
+                android:textColorHint="@color/text_gray"
+                android:paddingBottom="@dimen/margin_30px"
+                android:paddingLeft="@dimen/margin_50px"
+                android:paddingTop="@dimen/margin_30px" />
         </LinearLayout>
+        <TextView style="@style/layout_line_gray_v"/>
 
         <Button
             android:id="@+id/favorBtn"
-            android:layout_width="match_parent"
+            android:layout_width="60dp"
             android:layout_height="@dimen/workDetailComment_EdTx_height"
             android:background="@null"
             android:text="@string/favour"

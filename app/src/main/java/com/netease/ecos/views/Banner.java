@@ -79,7 +79,7 @@ public class Banner extends RelativeLayout {
 
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
-                container.addView((View) ViewList.get(position % count));//ï¿½ï¿½ï¿½Ò³ï¿½ï¿?
+                container.addView((View) ViewList.get(position % count));
                 return ViewList.get(position % count);
             }
 

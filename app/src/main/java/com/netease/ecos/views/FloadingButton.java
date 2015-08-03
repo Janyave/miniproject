@@ -3,6 +3,7 @@ package com.netease.ecos.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.netease.ecos.R;
 
@@ -10,7 +11,7 @@ import com.netease.ecos.R;
  * 主页悬浮按钮
  * Created by hzjixinyu on 2015/7/23.
  */
-public class FloadingButton extends Button{
+public class FloadingButton extends TextView{
 
     private Boolean isDisappear=false;
     private Boolean isAppear=true;
