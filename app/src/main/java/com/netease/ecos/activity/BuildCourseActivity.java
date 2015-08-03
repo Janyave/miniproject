@@ -27,6 +27,7 @@ import com.netease.ecos.utils.UploadImageTools;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -129,7 +130,8 @@ public class BuildCourseActivity extends BaseActivity {
         setContentView(R.layout.activity_build_course);
 
         if (getIntent() != null) {
-            mCourseTypeValue = getIntent().getExtras().getString(CourseType);
+            mCourseTypeValue= Course.CourseType.后期.getBelongs();
+//            mCourseTypeValue = getIntent().getExtras().getString(CourseType);
         }
 
         //注解工具初始化
@@ -258,7 +260,22 @@ public class BuildCourseActivity extends BaseActivity {
         savedInstanceState.putString("mCoverLocalPath", mCoverLocalPath);
         savedInstanceState.putString("mCourseTitle", mCourseTitle);
 
-        Log.i("onSaveInstanceState", getCourseByPage().toString());
+        savedInstanceState.putBoolean("isSettingCoverPhoto", isSettingCoverPhoto);
+        savedInstanceState.putBoolean("isSettingCoursePhoto", isSettingCoursePhoto);
+        savedInstanceState.putInt("mCouserStepPosition", mCouserStepPosition);
+
+        Log.i(TAG, "标题:" + mCourseTitle);
+        Log.i(TAG, "封面本地路径:" + mCoverLocalPath);
+
+        for(Course.Step step:mCourseStepAdapter.getStepDataList()){
+            Log.i(TAG, "步骤:" + step.toString());
+        }
+
+        Log.i(TAG, "标题:" + "当前正在设置封面图" + isSettingCoverPhoto);
+        Log.i(TAG,"封面url:" + "当前正在设置步骤" + isSettingCoursePhoto );
+        Log.i(TAG, "标题:" + "当前操作的教程步骤序号" + mCouserStepPosition);
+
+//        Log.i("onSaveInstanceState", getCourseByPage().toString());
         Log.i("onSaveInstanceState", "-------------------->");
     }
 
@@ -281,7 +298,13 @@ public class BuildCourseActivity extends BaseActivity {
         iv_course_cover.setImageBitmap(BitmapFactory.decodeFile(mCoverLocalPath));
         etv_course_title.setText(mCourseTitle);
 
-        Log.i("onSaveInstanceState", getCourseByPage().toString());
+        isSettingCoverPhoto =  savedInstanceState.getBoolean("mConurseTypeValue");
+        isSettingCoursePhoto = savedInstanceState.getBoolean("isSettingCoursePhoto");
+        mCouserStepPosition = savedInstanceState.getInt("isSettingCoursePhoto");
+
+
+
+//        Log.i("onSaveInstanceState", getCourseByPage().toString());
         Log.i("onRestoreInstanceState", "--------------------");
 
     }
@@ -308,17 +331,17 @@ public class BuildCourseActivity extends BaseActivity {
                 case SetPhotoHelper.REQUEST_BEFORE_CROP:
                     //当前是设置封面
                     if (isSettingCoverPhoto) {
-                        mSetPhotoHelper.setmSetPhotoCallBack(
-                                new SetPhotoHelper.SetPhotoCallBack() {
+                        mSetPhotoHelper.setmSetPhotoCallBack(new SetPhotoHelper.SetPhotoCallBack() {
 
                                     @Override
                                     public void success(String imagePath) {
                                         Log.i("裁剪后图片路径", "-----------path:" + imagePath);
+                                        mCoverLocalPath = imagePath;
                                         Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
                                         iv_course_cover.setImageBitmap(bitmap);
+                                        isSettingCoverPhoto = false;
                                     }
                                 });
-                        isSettingCoverPhoto = false;
                         mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_BEFORE_CROP, data);
                         return;
                     }
@@ -340,8 +363,11 @@ public class BuildCourseActivity extends BaseActivity {
                     break;
                 case SetPhotoHelper.REQUEST_AFTER_CROP:
                     mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_AFTER_CROP, data);
+                    isSettingCoverPhoto = false;
                     break;
                 default:
+                    isSettingCoverPhoto = false;
+                    isSettingCoursePhoto = false;
                     Log.e("CLASS_TAG", "onActivityResult() 无对应");
             }
 
@@ -378,48 +404,90 @@ public class BuildCourseActivity extends BaseActivity {
     };
 
     public void createCourse() {
-        Course course = getCourseByPage();
-        CreateCourseRequest request = new CreateCourseRequest();
-        request.request(new CreateCourseResponse(), course);
+
+        showProcessBar("上传图片");
+
+        uploadImages(new UploadFilesCallBack() {
+            /**
+             *
+             * @param course 包含封面图和步骤图片
+             */
+            @Override
+            public void finish(Course course) {
+                dismissProcessBar();
+                getRequestCourseByPage(course);
+                CreateCourseRequest request = new CreateCourseRequest();
+                request.request(new CreateCourseResponse(), course);
+            }
+        });
+
+
     }
 
     /**
-     * 获取页面教程数据
+     * 获取页面数据，用于请求
      *
      * @return
      */
-    public Course getCourseByPage() {
-        final Course course = new Course();
+    public Course getRequestCourseByPage(Course course) {
+
         course.title = etv_course_title.getText().toString();
         course.courseType = Course.CourseType.getCourseType(mCourseTypeValue);
 
+        Log.v(TAG, "发布教程数据:------------" + course.toString());
+        return course;
+    }
+
+
+    public void uploadImages(final UploadFilesCallBack callBack){
+
+        final Course course = new Course();
+        course.stepList = mCourseStepAdapter.getStepDataList();
+
+        final AtomicInteger uploadNumber = new AtomicInteger(1 + course.stepList.size());
         //获取图片
         if (mCoverLocalPath != null && new File(mCoverLocalPath).exists()) {
             UploadImageTools.uploadImageSys(new File(mCoverLocalPath), new UploadImageTools.UploadCallBack() {
 
                 @Override
                 public void success(String originUrl, String thumbUrl) {
+                    Log.e("图片上传", "封面图上传成功");
 
                     course.coverUrl = originUrl;
-                    Log.i("图片上传", "原图路径" + originUrl);
-                    Log.i("图片上传", "缩略图路径" + thumbUrl);
+                    Log.e("图片上传", "原图路径" + originUrl);
+                    Log.e("图片上传", "缩略图路径" + thumbUrl);
+                    int restNum = uploadNumber.decrementAndGet();
+                    Log.e("图片上传","还剩" + restNum + "张图片");
+
+                    if(uploadNumber.get() ==0){
+                        callBack.finish(course);
+                    }
                 }
 
                 @Override
                 public void fail() {
                     Toast.makeText(BuildCourseActivity.this, "上传失败", Toast.LENGTH_LONG).show();
+                    uploadNumber.decrementAndGet();
 
+                    if(uploadNumber.get() ==0){
+                        callBack.finish(course);
+                    }
                 }
 
                 @Override
                 public void onProcess(Object fileParam, long current, long total) {
-                    Log.i("图片上传", "上传数" + total + "  ," + "已上传" + current);
+//                    Log.i("图片上传", "上传数" + total + "  ," + "已上传" + current);
                 }
 
             }, BuildCourseActivity.this, false);
         }
-
-        course.stepList = mCourseStepAdapter.getStepDataList();
+        else{
+            Log.e("图片上传","图片封面为空");
+            uploadNumber.decrementAndGet();
+            if(uploadNumber.get() ==0){
+                callBack.finish(course);
+            }
+        }
 
 
         for (final Course.Step step : course.stepList) {
@@ -428,28 +496,56 @@ public class BuildCourseActivity extends BaseActivity {
 
                     @Override
                     public void success(String originUrl, String thumbUrl) {
+                        Log.e("图片上传", "封面图上传成功");
+                        Log.e("图片上传", "原图路径" + originUrl);
+                        Log.e("图片上传", "缩略图路径" + thumbUrl);
 
                         step.imageUrl = originUrl;
+                        int restNum = uploadNumber.decrementAndGet();
+                        Log.e("图片上传", "还剩" + restNum + "张图片");
+
+                        if(uploadNumber.get() ==0){
+                            callBack.finish(course);
+                        }
                     }
 
                     @Override
                     public void fail() {
+                        int restNum = uploadNumber.decrementAndGet();
+                        Toast.makeText(BuildCourseActivity.this, "上传失败", Toast.LENGTH_LONG).show();
 
+                        if(uploadNumber.get() ==0){
+                            callBack.finish(course);
+                        }
                     }
 
                     @Override
                     public void onProcess(Object fileParam, long current, long total) {
-                        Log.i("图片上传", "上传数" + total + "  ," + "已上传" + current);
+//                        Log.i("图片上传", "上传数" + total + "  ," + "已上传" + current);
                     }
 
                 }, BuildCourseActivity.this, false);
             }
+            else{
+                Log.e("图片上传","序号为" + step.stepIndex + "的图片本地路径为空");
+
+                uploadNumber.decrementAndGet();
+
+                if(uploadNumber.get() ==0){
+                    callBack.finish(course);
+                }
+            }
         }
 
-        Log.v(TAG, "发布教程数据:------------" + course.toString());
-
-        return course;
     }
+
+
+
+    interface UploadFilesCallBack{
+        public void finish(Course course);
+    }
+
+
 
     /**
      * 创建教程响应回调接口

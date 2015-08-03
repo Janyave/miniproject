@@ -1,10 +1,14 @@
 package com.netease.ecos.request.course;
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.model.Course;
+import com.netease.ecos.model.Course.CourseType;
+import com.netease.ecos.model.Course.Step;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
@@ -68,11 +72,39 @@ public class CreateCourseRequest extends BaseRequest{
 
 		try {
 			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
+			JSONObject courseJO = json;
+			Course course = new Course();
+			course.courseId = getString(courseJO, "id");
+
+			course.title = getString(courseJO, "title");
+			course.coverUrl = getString(courseJO, "coverUrl");
+			course.issueTimeStamp = Long.valueOf(getString(courseJO, "publishTime"));
+
+			course.courseType = CourseType.getCourseType( getString(courseJO, "type") );
+			String issueTime =  getString(courseJO, "publishTime");
+
+			String imageUrls = courseJO.getString("imgUrls");
+			JSONArray imageUrlJA = new JSONArray(imageUrls);
+
+			String descriptions = courseJO.getString("descriptions");
+			JSONArray descriptionJA = new JSONArray(descriptions);
+
+			Log.e(TAG, imageUrls);
+			Log.e(TAG, descriptions);
+			int length = imageUrlJA.length();
+
+			for(int i=0;i<length;i++){
+				Step step = new Step(i);
+				step.imageUrl = imageUrlJA.getString(i);
+				step.description = imageUrlJA.getString(i);
+				course.addStep(step);
+			}
+
 
 
 			if(mCreateCourseResponce!=null)
 			{
-				mCreateCourseResponce.success(mCourse);
+				mCreateCourseResponce.success(course);
 			}
 			else
 			{
@@ -123,7 +155,7 @@ public class CreateCourseRequest extends BaseRequest{
 		//		course.coverUrl = "http://img3.cache.netease.com/house/2015/7/3/20150703163657b0237_550.jpg";
 
 		jsonMap.put("title",course.title);
-		jsonMap.put("courseType",course.courseType.getBelongs());
+		jsonMap.put("type",course.courseType.getBelongs());
 		jsonMap.put("coverUrl",course.coverUrl);
 
 		List<String> imageUrls = new ArrayList<String>();
@@ -135,7 +167,7 @@ public class CreateCourseRequest extends BaseRequest{
 			descriptionUrls.add(course.stepList.get(i).description);
 		}
 
-		jsonMap.put("imageUrls", new JSONArray(imageUrls));
+		jsonMap.put("imgUrls", new JSONArray(imageUrls));
 		jsonMap.put("descriptions", new JSONArray(descriptionUrls));
 
 
