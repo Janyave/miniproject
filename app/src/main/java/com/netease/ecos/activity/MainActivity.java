@@ -107,6 +107,11 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         initData();
     }
 
+    @Override
+    public void onStop() {
+        mNavigationDrawerFragment.closeNavigationDrawer();
+        super.onPause();
+    }
 
     /**
      * 初始化数据
@@ -160,7 +165,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
     /**
      * implements NavigationDrawerFragment.NavigationDrawerCallbacks
-     * <p>
+     * <p/>
      * 点击侧滑栏(NavigationDrawerFragment)item时的回掉函数
      *
      * @param position 点击的item序号，从0开始

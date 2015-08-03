@@ -123,11 +123,8 @@
     <string name="notFinished">请填写分享内容:)</string>
     <!-- 发布招募页面-->
     <string name="avgPrice">均价</string>
-    <string name="perHour">/小时</string>
     <string name="recruitmentTitle">设置价格和封面作品</string>
     <string name="auction">挂牌</string>
     <string name="instruction">说明</string>
     <string name="chooseCover">选择封面作品</string>
-    <string name="perPerson">/人</string>
-    <string name="$">$</string>
 </resources>
