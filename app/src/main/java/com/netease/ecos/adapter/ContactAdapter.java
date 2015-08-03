@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.model.Course;
+import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.views.RoungImageView;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.squareup.picasso.Picasso;
 
@@ -30,12 +32,12 @@ public class ContactAdapter extends BaseAdapter{
 
     class ViewHolder {
 
-        private ImageView iv_avatar;
+        private RoundImageView iv_avatar;
         private TextView tv_text;
 
 
         public ViewHolder(View root) {
-            iv_avatar = (ImageView) root.findViewById(R.id.iv_avatar);
+            iv_avatar = (RoundImageView) root.findViewById(R.id.iv_avatar);
             tv_text = (TextView) root.findViewById(R.id.tv_text);
         }
 

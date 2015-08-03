@@ -9,19 +9,40 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.views.HorizontalListView;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 public class EventDetailActivity extends BaseActivity implements View.OnClickListener {
-    private View btn_return;
-    private Button btn_confirm;
+
+    @InjectView(R.id.lly_left_action)
+    View btn_return;
+    @InjectView(R.id.btn_right_action)
+    Button btn_confirm;
+
+
+    @InjectView(R.id.ll_photos)
+    LinearLayout ll_photos; //gone when the activity not begin
+    @InjectView(R.id.hlv_photos)
+    HorizontalListView hlv_photos; //show the photos
+    @InjectView(R.id.tv_publish_photo)
+    TextView tv_publish_photo;
+
+    @InjectView(R.id.tv_wantgo)
+    TextView tv_wantgo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
-        btn_return = findViewById(R.id.lly_left_action);
-        btn_confirm = (Button) findViewById(R.id.btn_right_action);
+        ButterKnife.inject(this);
+
         btn_return.setOnClickListener(this);
         btn_confirm.setVisibility(View.INVISIBLE );
 

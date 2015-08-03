@@ -31,7 +31,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/margin_40px"
                 android:layout_marginBottom="@dimen/margin_50px"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@mipmap/ic_camera"/>
         </RelativeLayout>
         <EditText
             android:id="@+id/etv_course_title"
