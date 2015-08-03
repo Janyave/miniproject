@@ -89,6 +89,9 @@
     <string name="workDescrp_hint">作品描述</string>
     <string name="title_activity_category_display">CategoryDisplayActivity</string>
     <string name="title_activity_personage_detail">PersonageDetailActivity</string>
+    <string name="manyFavor">个赞</string>
+    <string name="manyComment">条评论</string>
+    <string name="page">张</string>
 
 
     <!-- CourseType-->

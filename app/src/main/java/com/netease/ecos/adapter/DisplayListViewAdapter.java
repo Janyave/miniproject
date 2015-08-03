@@ -11,12 +11,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.CommentDetailActivity;
 import com.netease.ecos.activity.DisplayDetailActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.user.FollowUserRequest;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -28,10 +31,14 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
     private Context mcontext;
     private List<Share> shareList;
+    private FollowUserRequest request;
+    private FollowResponce followResponce;
 
     public DisplayListViewAdapter(Context context, List<Share> shareList) {
         this.mcontext = context;
         this.shareList = shareList;
+        request = new FollowUserRequest();
+        followResponce = new FollowResponce();
     }
 
     class ViewHolder {
@@ -89,14 +96,16 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
         public void setData(final int position) {
             Share item = shareList.get(position);
 
-            Picasso.with(mcontext).load(item.avatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
-            Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            if (item.avatarUrl != null)
+                Picasso.with(mcontext).load(item.avatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
+            if (item.coverUrl != null)
+                Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             tv_name.setText(item.nickname);
             tv_coverTitle.setText(item.title);
-            tv_coverNum.setText(item.totalPageNumber + "");
+            tv_coverNum.setText(item.totalPageNumber + mcontext.getResources().getString(R.string.page));
             tv_coverTime.setText(item.getDateDescription());
-            tv_praise.setText(item.praiseNum + "");
-            tv_evaluate.setText(item.commentNum + "");
+            tv_praise.setText(item.praiseNum + mcontext.getResources().getString(R.string.manyFavor));
+            tv_evaluate.setText(item.commentNum + mcontext.getResources().getString(R.string.manyComment));
             //set tag
             ll_author.setTag(position);
             iv_cover.setTag(position);
@@ -127,18 +136,6 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             } else {
                 //TODO 未赞图片
             }
-
-            //评论Adapter
-//            adapter=new DisplayItemEvalutionViewAdapter(mcontext, item.commentList);
-//            lv_evaluation.setAdapter(adapter);
-//            int num=item.commentList.size()>3?3:item.commentList.size();
-//            for (int i=0; i<num; i++){
-//                Comment comment=item.commentList.get(i);
-//                View view=View.inflate(mcontext,R.layout.item_display_item_evalution,null);
-//                ((TextView)view.findViewById(R.id.tv_name)).setText(comment.fromNickName);
-//                ((TextView)view.findViewById(R.id.tv_evaluation)).setText(comment.content);
-//                ll_evaluationList.addView(view);
-//            }
         }
     }
 
@@ -198,9 +195,10 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             case R.id.tv_focus:
                 if (TextUtils.equals(((TextView) v).getText().toString(), "关注")) {
                     ((TextView) v).setText("已关注");
-                    //TODO 关注事件
+                    request.request(followResponce, shareList.get(position).userId, true);
                 } else {
                     ((TextView) v).setText("关注");
+                    request.request(followResponce, shareList.get(position).userId, false);
                 }
                 break;
             case R.id.ll_praise:
@@ -215,6 +213,21 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;
+        }
+    }
+
+    class FollowResponce extends BaseResponceImpl implements FollowUserRequest.IFollowResponce {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+        }
+
+        @Override
+        public void success(String userId, boolean follow) {
         }
     }
 
