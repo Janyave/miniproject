@@ -24,32 +24,14 @@ public class DisplayItemEvalutionViewAdapter extends BaseAdapter {
         this.commentList = commentList;
     }
 
-    class ViewHolder {
-
-        private TextView tv_name;
-        private TextView tv_evaluation;
-
-        public ViewHolder(View root) {
-            tv_name = (TextView) root.findViewById(R.id.tv_name);
-            tv_evaluation = (TextView) root.findViewById(R.id.tv_evaluation);
-        }
-
-        public void setData(int position) {
-            Comment item = commentList.get(position);
-            tv_name.setText(item.fromNickName);
-            tv_evaluation.setText(item.content);
-        }
-    }
 
     @Override
     public int getCount() {
-
         if (commentList.size() > 3) {
             return 3;
         } else {
             return commentList.size();
         }
-//        return 3;
     }
 
 
@@ -77,5 +59,22 @@ public class DisplayItemEvalutionViewAdapter extends BaseAdapter {
         viewHolder.setData(position);
 
         return convertView;
+    }
+
+    class ViewHolder {
+
+        private TextView tv_name;
+        private TextView tv_evaluation;
+
+        public ViewHolder(View root) {
+            tv_name = (TextView) root.findViewById(R.id.tv_name);
+            tv_evaluation = (TextView) root.findViewById(R.id.tv_evaluation);
+        }
+
+        public void setData(int position) {
+            Comment item = commentList.get(position);
+            tv_name.setText(item.fromNickName);
+            tv_evaluation.setText(item.content);
+        }
     }
 }

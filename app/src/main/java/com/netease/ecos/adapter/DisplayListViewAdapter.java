@@ -20,6 +20,7 @@ import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.user.FollowUserRequest;
+import com.netease.ecos.views.ExtensibleListView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -50,23 +51,22 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
         private ImageView iv_cover;
         private TextView tv_coverNum;
-        private LinearLayout ll_coverInformation;
+        //        private LinearLayout ll_coverInformation;
         private TextView tv_coverTitle;
         private TextView tv_coverTime;
 
         private TextView tv_praise;
         private TextView tv_evaluate;
-        private ImageView iv_praise;
-        private ImageView iv_evaluate;
+        //        private ImageView iv_praise;
+//        private ImageView iv_evaluate;
         private LinearLayout ll_praise;
         private LinearLayout ll_evaluate;
 
         private TextView tv_allEvaluation;
 
-        //        private ExtensibleListView lv_evaluation;
+        private ExtensibleListView lv_evaluation;
         private LinearLayout ll_evaluationList;
         private DisplayItemEvalutionViewAdapter adapter;
-
 
         public ViewHolder(View root, int position) {
             ll_author = (LinearLayout) root.findViewById(R.id.ll_author);
@@ -75,19 +75,20 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             tv_focus = (TextView) root.findViewById(R.id.tv_focus);
             iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
             tv_coverNum = (TextView) root.findViewById(R.id.tv_coverNum);
-            ll_coverInformation = (LinearLayout) root.findViewById(R.id.ll_coverInformation);
+//            ll_coverInformation = (LinearLayout) root.findViewById(R.id.ll_coverInformation);
             tv_coverTitle = (TextView) root.findViewById(R.id.tv_coverTitle);
             tv_coverTime = (TextView) root.findViewById(R.id.tv_coverTime);
             tv_praise = (TextView) root.findViewById(R.id.tv_praise);
             tv_evaluate = (TextView) root.findViewById(R.id.tv_evaluation);
-            iv_praise = (ImageView) root.findViewById(R.id.iv_praise);
-            iv_evaluate = (ImageView) root.findViewById(R.id.iv_evaluation);
+//            iv_praise = (ImageView) root.findViewById(R.id.iv_praise);
+//            iv_evaluate = (ImageView) root.findViewById(R.id.iv_evaluation);
             ll_praise = (LinearLayout) root.findViewById(R.id.ll_praise);
             ll_evaluate = (LinearLayout) root.findViewById(R.id.ll_evaluation);
             tv_praise = (TextView) root.findViewById(R.id.tv_praise);
             tv_evaluate = (TextView) root.findViewById(R.id.tv_evaluation);
             ll_evaluationList = (LinearLayout) root.findViewById(R.id.ll_evaluationList);
             tv_allEvaluation = (TextView) root.findViewById(R.id.tv_allEvalution);
+            lv_evaluation = (ExtensibleListView) root.findViewById(R.id.lv_evaluation);
         }
 
         /**
@@ -136,6 +137,9 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             } else {
                 //TODO 未赞图片
             }
+            //set adapter
+            adapter = new DisplayItemEvalutionViewAdapter(mcontext, item.commentList);
+            lv_evaluation.setAdapter(adapter);
         }
     }
 
