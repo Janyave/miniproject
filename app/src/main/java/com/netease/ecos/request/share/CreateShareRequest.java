@@ -84,9 +84,8 @@ public class CreateShareRequest extends BaseRequest{
 			String time = getString(shareJO, "issueTimeStamp");
 			Log.e(TAG, time);
 
-			String imgUrlIAString= shareJO.get("imgUrl");
-			
-			JSONArray imageJA = shareJO.getJSONArray("imgUrl");
+			String imgUrlJAString = shareJO.getString("imgUrl");
+			JSONArray imageJA = new JSONArray(imgUrlJAString);
 			int length = imageJA.length();
 			for(int i=0;i<length;i++){
 				Image image = new Image();
