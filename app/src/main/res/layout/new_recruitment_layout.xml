@@ -46,6 +46,7 @@
                     android:textSize="@dimen/textSize" />
 
                 <EditText
+                    android:id="@+id/priceEdTx"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@id/priceTxVw"
@@ -67,6 +68,7 @@
                 android:textSize="@dimen/textSize" />
 
             <EditText
+                android:id="@+id/descrpEdTx"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginTop="10dp"

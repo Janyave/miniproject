@@ -127,4 +127,6 @@
     <string name="auction">挂牌</string>
     <string name="instruction">说明</string>
     <string name="chooseCover">选择封面作品</string>
+    <string name="notAlreadyFinished">请填写完所有数据;)</string>
+    <string name="uploadSuccessfully">挂牌成功:)</string>
 </resources>
