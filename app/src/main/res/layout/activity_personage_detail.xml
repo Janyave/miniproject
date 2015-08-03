@@ -231,10 +231,12 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
+
                 <RadioButton
                     android:id="@+id/radio_1"
                     style="@style/rb_chat_list_tab"
                     android:layout_width="match_parent"
+                    android:checked="true"
                     android:layout_height="match_parent"
                     android:text="@string/tab_course" />
 
