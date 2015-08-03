@@ -11,32 +11,16 @@ import android.widget.TextView;
 
 import com.netease.ecos.R;
 
-import java.util.ArrayList;
-
 /**
  * Created by Think on 2015/7/31.
  */
 public class NewDisplayListAdater extends BaseAdapter {
     private Context mcontext;
     private LayoutInflater layoutInflater;
-    /**
-     * to record which item is chosen.
-     * if it equals -1, it means no item is chosen.
-     */
-    private int chosenItem = -1;
-
-    /**
-     * to record the list of checkbox
-     */
-    private ArrayList<CheckBox> checkBoxes;
 
     public NewDisplayListAdater(Context context) {
         this.mcontext = context;
         this.layoutInflater = LayoutInflater.from(mcontext);
-    }
-
-    public int getChosenItem() {
-        return chosenItem;
     }
 
     @Override
@@ -65,9 +49,14 @@ public class NewDisplayListAdater extends BaseAdapter {
             viewHolder.favorTxVw = (TextView) convertView.findViewById(R.id.displayFavorTxVw);
             viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.checkbox);
             convertView.setTag(viewHolder);
-        } else
+        } else {
             viewHolder = (DisplayItemViewHolder) convertView.getTag();
+        }
+        setData(viewHolder, position);
         return convertView;
+    }
+
+    void setData(DisplayItemViewHolder viewHolder, int position) {
     }
 
     class DisplayItemViewHolder {

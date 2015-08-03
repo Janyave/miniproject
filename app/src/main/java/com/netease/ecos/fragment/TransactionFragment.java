@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.activity.NewRecruitmentActivity;
 import com.netease.ecos.activity.RecruitmentCategoryActivity;
 import com.netease.ecos.model.Recruitment;
 
@@ -80,6 +81,16 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
         costumeBtn.setOnClickListener(this);
         propBtn.setOnClickListener(this);
         othersBtn.setOnClickListener(this);
+        releaseRecruitmentTxVw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), NewRecruitmentActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(NewRecruitmentActivity.RecruitmentType, Recruitment.RecruitType.妆娘.getValue());
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
         return mainView;
     }
 
@@ -102,6 +113,9 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
                 break;
             case R.id.others_btn:
                 recruitType = Recruitment.RecruitType.其他;
+                break;
+            case R.id.releaseRecruitmentTxVw:
+
                 break;
         }
         intent = new Intent(getActivity(), RecruitmentCategoryActivity.class);

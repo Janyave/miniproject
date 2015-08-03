@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
@@ -17,7 +18,7 @@ import butterknife.InjectView;
 /**
  * Created by Think on 2015/7/31.
  */
-public class NewRecruitmentActivity extends Activity implements AdapterView.OnItemClickListener {
+public class NewRecruitmentActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener {
     private static final String TAG = "Ecos---NewRecruitment";
     public static final String RecruitmentType = "RecruitmentType";
     private Recruitment.RecruitType recruitType;
@@ -26,6 +27,8 @@ public class NewRecruitmentActivity extends Activity implements AdapterView.OnIt
     ExtensibleListView displayLsVw;
     @InjectView(R.id.priceTxVw)
     TextView priceTxVw;
+    @InjectView(R.id.btn_right_action)
+    Button btn_right_action;
     private NewDisplayListAdater newDisplayListAdater;
 
     @Override
@@ -40,10 +43,13 @@ public class NewRecruitmentActivity extends Activity implements AdapterView.OnIt
     void initView() {
         //set the data
         priceTxVw.setText(recruitType.getPriceUnit());
+        btn_right_action.setText(NewRecruitmentActivity.this.getResources().getString(R.string.auction));
         //set adapter
         displayLsVw.setAdapter(newDisplayListAdater);
         //set listener
         displayLsVw.setOnItemClickListener(this);
+        btn_right_action.setOnClickListener(this);
+
     }
 
     void initData() {
@@ -54,6 +60,13 @@ public class NewRecruitmentActivity extends Activity implements AdapterView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //TODO:set checkbox
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_right_action:
+                break;
+        }
     }
 }
