@@ -79,23 +79,29 @@ public class Recruitment {
      */
     public static enum RecruitType
     {
-        妆娘("0"),
-        摄影("1"),
-        后期("2"),
-        服装("3"),
-        道具("4"),
-        其他("5"),
-        个人("6"),;
+        妆娘("0","米/人"),
+        摄影("1","米/小时"),
+        后期("2","米/张"),
+        服装("3","米/套"),
+        道具("4","米/套"),
+        其他("5","米");
 
 
         public String value;
 
-        RecruitType(String _value){
+        public String priceUnit;
+
+        RecruitType(String _value,String _priceUnit){
             value = _value;
+            priceUnit = _priceUnit;
         }
 
         public String getValue(){
             return value;
+        }
+
+        public String getPriceUnit(){
+            return priceUnit;
         }
 
         /***
