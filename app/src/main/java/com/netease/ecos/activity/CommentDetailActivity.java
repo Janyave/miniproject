@@ -19,6 +19,7 @@ import com.netease.ecos.adapter.WorkDetailListViewAdapter;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.comment.CommentListRequest;
+import com.netease.ecos.request.comment.CreateCommentRequest;
 import com.netease.ecos.utils.SDImageCache;
 
 import java.util.List;
@@ -33,6 +34,8 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     private static final String TAG = "Ecos---CommentDetail";
     public static final String FromId = "fromId";
     public static final String CommentType = "commentType";
+    public static final String CommentContent = "CommentContent";
+    private String commentContent = "";
     private String fromId = "";
     private Comment.CommentType commentType;
     @InjectView(R.id.commentLsVw)
@@ -50,8 +53,16 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     static ImageLoader.ImageCache imageCache;
     RequestQueue queue;
     ImageLoader imageLoader;
+    //for request
+    private CommentListRequest commentListRequest;
+    private GetCommentListResponse getCommentListResponse;
 
     private WorkDetailListViewAdapter workDetailListViewAdapter;
+    private CreateCommentRequest createCommentRequest;
+    private CreateCommentRequest.ICreateCommentResponse response;
+
+    public static final int RequestCodeForComment = 1;
+    public static final int ResultCodeForComment = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +71,24 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
         ButterKnife.inject(this);
         initData();
         initView();
+    }
+
+    void initData() {
+        fromId = getIntent().getExtras().getString(FromId);
+        commentType = Comment.CommentType.getCommentTypeByValue(getIntent().getExtras().getString(CommentType));
+        //init the data for NetWorkImageView
+        queue = MyApplication.getRequestQueue();
+        imageCache = new SDImageCache();
+        imageLoader = new ImageLoader(queue, imageCache);
+        //init the adapter
+        workDetailListViewAdapter = new WorkDetailListViewAdapter(this);
+
+        commentListRequest = new CommentListRequest();
+        getCommentListResponse = new GetCommentListResponse();
+        Comment comment = new Comment();
+        comment.commentType = commentType;
+        comment.commentTypeId = fromId;
+        commentListRequest.request(getCommentListResponse, comment);
     }
 
     void initView() {
@@ -75,21 +104,15 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
         backTxVw.setOnClickListener(this);
     }
 
-    void initData() {
-        fromId = getIntent().getExtras().getString(FromId);
-        commentType = Comment.CommentType.getCommentTypeByValue(getIntent().getExtras().getString(CommentType));
-        //init the data for NetWorkImageView
-        queue = MyApplication.getRequestQueue();
-        imageCache = new SDImageCache();
-        imageLoader = new ImageLoader(queue, imageCache);
-        //init the adapter
-        workDetailListViewAdapter = new WorkDetailListViewAdapter(this);
-
-        CommentListRequest request = new CommentListRequest();
-        Comment comment = new Comment();
-        comment.commentType = commentType;
-        comment.commentTypeId = fromId;
-        request.request(new GetCommentListResponse(), comment);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RequestCodeForComment && resultCode == ResultCodeForComment) {
+            String comment = data.getExtras().getString(CommentContent);
+            Comment comment1 = new Comment();
+            comment1.content = comment;
+            createCommentRequest.request(response, comment1);
+        }
     }
 
     @Override
@@ -119,6 +142,24 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
         @Override
         public void success(List<Comment> commentList) {
             workDetailListViewAdapter.updateCommentList(commentList);
+
+        }
+    }
+
+    class UploadCommentResponse extends BaseResponceImpl implements CreateCommentRequest.ICreateCommentResponse {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
+
+        @Override
+        public void success(Comment comment) {
 
         }
     }

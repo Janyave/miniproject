@@ -32,7 +32,6 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
         this.courseList = courseList;
     }
 
-
     class ViewHolder {
 
         private ImageView networkImageView;
@@ -115,6 +114,7 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
             case R.id.imageViewAuthor:
                 intent = new Intent(mcontext, PersonageDetailActivity.class);
                 bundle.putString(PersonageDetailActivity.UserID, courseList.get(position).userId);
+                bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
                 break;
             default:
                 intent = new Intent(mcontext, CourseDetailActivity.class);

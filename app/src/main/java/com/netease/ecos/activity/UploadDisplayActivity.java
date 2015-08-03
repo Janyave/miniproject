@@ -154,7 +154,6 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
                 }
                 File file = new File(coverImagePath);
                 UploadImageTools.uploadImageSys(file, new UploadWorksCallbacks(Image.ImageType.coverImage), UploadDisplayActivity.this, false);
-
                 break;
             case R.id.tv_left:
                 UploadDisplayActivity.this.finish();

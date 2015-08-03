@@ -1,7 +1,6 @@
 package com.netease.ecos.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -114,12 +113,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
         lv_list.initRefleshTime(this.getClass().getSimpleName());
         lv_list.setPullLoadEnable(true);
         lv_list.setXListViewListener(this);
-        lv_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(RecruitmentCategoryActivity.this, CourseDetailActivity.class));
-            }
-        });
+
         //for request
         request = new RecruitmentListRequest();
         recruitmentListResponse = new RecruitmentListResponse();
