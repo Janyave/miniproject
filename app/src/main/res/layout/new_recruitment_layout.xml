@@ -38,18 +38,17 @@
                     android:textSize="@dimen/textSize" />
 
                 <TextView
-                    android:id="@+id/perHourTxVw"
+                    android:id="@+id/priceTxVw"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:text="@string/perHour"
                     android:textSize="@dimen/textSize" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/perHourTxVw"
+                    android:layout_toLeftOf="@id/priceTxVw"
                     android:layout_toRightOf="@id/avgPriceTxVw"
                     android:background="@null" />
 

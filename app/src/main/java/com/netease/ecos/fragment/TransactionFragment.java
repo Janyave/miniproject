@@ -32,7 +32,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
     //all the widget in this page.
     private View mainView;
     private ImageView makeupBtn, photographyBtn, backstageBtn, costumeBtn, propBtn, othersBtn;
-    private TextView tv_publish;
+    private TextView releaseRecruitmentTxVw;
 
     /**
      * Use this factory method to create a new instance of
@@ -75,6 +75,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
         costumeBtn = (ImageView) mainView.findViewById(R.id.costume_btn);
         propBtn = (ImageView) mainView.findViewById(R.id.prop_btn);
         othersBtn = (ImageView) mainView.findViewById(R.id.others_btn);
+        releaseRecruitmentTxVw = (TextView) mainView.findViewById(R.id.releaseRecruitmentTxVw);
         makeupBtn.setOnClickListener(this);
         photographyBtn.setOnClickListener(this);
         backstageBtn.setOnClickListener(this);
@@ -82,8 +83,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
         propBtn.setOnClickListener(this);
         othersBtn.setOnClickListener(this);
 
-        tv_publish=(TextView)mainView.findViewById(R.id.tv_publish);
-        tv_publish.setOnClickListener(new View.OnClickListener() {
+        releaseRecruitmentTxVw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Dialog dialog=new RecruiteTypeChooseDialog(getActivity());
@@ -97,6 +97,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         Recruitment.RecruitType recruitType = Recruitment.RecruitType.妆娘;
+        Intent intent;
         switch (v.getId()) {
             case R.id.photography_btn:
                 recruitType = Recruitment.RecruitType.摄影;
@@ -114,7 +115,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
                 recruitType = Recruitment.RecruitType.其他;
                 break;
         }
-        Intent intent = new Intent(getActivity(), RecruitmentCategoryActivity.class);
+        intent = new Intent(getActivity(), RecruitmentCategoryActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(RecruitmentCategoryActivity.TRecruitmentType, recruitType.name());
         intent.putExtras(bundle);

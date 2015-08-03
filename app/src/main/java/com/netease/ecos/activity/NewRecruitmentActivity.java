@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.NewDisplayListAdater;
+import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.views.ExtensibleListView;
 
 import butterknife.ButterKnife;
@@ -17,9 +19,13 @@ import butterknife.InjectView;
  */
 public class NewRecruitmentActivity extends Activity implements AdapterView.OnItemClickListener {
     private static final String TAG = "Ecos---NewRecruitment";
+    public static final String RecruitmentType = "RecruitmentType";
+    private Recruitment.RecruitType recruitType;
 
     @InjectView(R.id.displayListView)
     ExtensibleListView displayLsVw;
+    @InjectView(R.id.priceTxVw)
+    TextView priceTxVw;
     private NewDisplayListAdater newDisplayListAdater;
 
     @Override
@@ -32,6 +38,8 @@ public class NewRecruitmentActivity extends Activity implements AdapterView.OnIt
     }
 
     void initView() {
+        //set the data
+        priceTxVw.setText(recruitType.getPriceUnit());
         //set adapter
         displayLsVw.setAdapter(newDisplayListAdater);
         //set listener
@@ -39,6 +47,7 @@ public class NewRecruitmentActivity extends Activity implements AdapterView.OnIt
     }
 
     void initData() {
+        recruitType = Recruitment.RecruitType.getRecruitTypeByValue(getIntent().getExtras().getString(RecruitmentType));
         //init the adapter
         newDisplayListAdater = new NewDisplayListAdater(this);
     }
