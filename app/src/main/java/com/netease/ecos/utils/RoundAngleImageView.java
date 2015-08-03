@@ -10,10 +10,17 @@ import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.netease.ecos.R;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
 
 /**
  * Created by hzzhanyawei on 2015/8/2.
@@ -34,6 +41,8 @@ public class RoundAngleImageView extends ImageView{
     private Paint paint2;
 
     private byte angleSwitch = 0x00;
+
+    private Target mTarget;
 
 
     public RoundAngleImageView(Context context, AttributeSet attrs, int defStyle) {
@@ -142,6 +151,7 @@ public class RoundAngleImageView extends ImageView{
         canvas.drawPath(path, paint);
     }
 
+
     private void drawLeftDown(Canvas canvas, int roundWidth, int roundHeight) {
         Path path = new Path();
         path.moveTo(0, getHeight()-roundHeight);
@@ -171,5 +181,32 @@ public class RoundAngleImageView extends ImageView{
         path.close();
         canvas.drawPath(path, paint);
     }
+
+    @Override
+    public void setImageBitmap(Bitmap bm) {
+        super.setImageBitmap(bm);
+    }
+
+    /**此方法需要在onCreateView之前调用*/
+    public void setImageFromUrl(String Url){
+        mTarget = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
+                setImageBitmap(bitmap);
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable drawable) {
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable drawable) {
+
+            }
+        };
+        /**可以在此处增加加载和出错图片*/
+        Picasso.with(this.getContext()).load(Url).into(mTarget);
+    }
+
 
 }

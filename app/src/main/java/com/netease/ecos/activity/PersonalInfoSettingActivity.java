@@ -1,7 +1,13 @@
 package com.netease.ecos.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,7 +21,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+import java.io.PipedInputStream;
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+
 
 public class PersonalInfoSettingActivity extends BaseActivity {
 
@@ -31,6 +45,8 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     private Switch mSetMsgAlert;
     private Button mLogOut;
 
+//    private RoundAngleImageView iv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +54,11 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         setContentView(R.layout.activity_personal_info_setting);
         onBoundView();
         onBoundLinster();
+//        iv = (RoundAngleImageView) findViewById(R.id.picasso_test);
+//        iv.setImageFromUrl("http://pic4.nipic.com/20090803/2618170_095921092_2.jpg");
+
     }
+
 
     private void onBoundView() {
         mReturn = (LinearLayout) findViewById(R.id.lly_left_action);
