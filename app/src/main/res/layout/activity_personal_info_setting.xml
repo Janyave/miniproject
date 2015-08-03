@@ -1,20 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ecos="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
-    tools:context="com.netease.ecos.activity.PersonalInfoSettingActivity">
+    tools:context="com.netease.ecos.activity.PersonalInfoSettingActivity"
+    android:background="@color/bg_gray">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="@dimen/height_title">
 
         <LinearLayout
             android:id="@+id/lly_left_action"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:contentDescription="标题左侧按钮，含图标和按钮，根据需要进行显示和隐藏，并更改名称"
             android:minWidth="80dp"
@@ -45,219 +46,379 @@
             android:textSize="@dimen/tv_title_txsize" />
     </RelativeLayout>
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/bg_gray_dark"
-        android:paddingLeft="20dp"
-        android:paddingTop="5dp"
-        android:text="个人资料" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:text="头像"
-            android:textSize="@dimen/tv_title_txsize" />
-
-        <com.netease.ecos.utils.RoundImageView
-            android:id="@+id/personal_info_set_avatar_pic"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="60dp"
-            android:background="@drawable/img_default" />
-
-        <ImageView
-            android:id="@+id/personal_info_set_avatar"
+        android:layout_height="match_parent">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="100dp"
-            android:padding="10dp"
-            android:src="@drawable/ic_show" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/bg_gray_dark"></View>
-
+            android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="@dimen/height_label_100px"
+        android:background="@color/bg_gray"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/margin_40px"
+        android:paddingRight="@dimen/margin_40px">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:text="昵称"
-            android:textSize="@dimen/tv_title_txsize" />
-
-        <EditText
-            android:id="@+id/personal_info_set_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:background="@android:color/transparent"
-            android:hint="羊蹄甲" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/bg_gray_dark"></View>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:text="性别"
-            android:textSize="@dimen/tv_title_txsize" />
-
-        <Spinner
-            android:id="@+id/personal_info_set_gender"
-            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp" />
-    </LinearLayout>
+            android:orientation="horizontal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/bg_gray_dark"></View>
+            <TextView
+                android:layout_width="4dp"
+                android:layout_height="match_parent"
+                android:background="@color/bg_red" />
+
+            <TextView
+                android:id="@+id/tv_otherWorks"
+                style="@style/text_dark_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:text="个人资料" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/bg_white">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:text="简介"
-            android:textSize="@dimen/tv_title_txsize" />
-
-        <EditText
-            android:id="@+id/personal_info_set_intro"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:background="@android:color/transparent"
-            android:hint="这家伙很懒什么都没留下~" />
-    </LinearLayout>
+            android:layout_height="@dimen/height_item_240px"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_40px"
+            android:paddingRight="@dimen/margin_40px">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="头像"
+                style="@style/text_dark_max" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/bg_gray_dark"
-        android:paddingLeft="20dp"
-        android:paddingTop="5dp"
-        android:text="账号信息" />
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <com.netease.ecos.utils.RoundImageView
+                android:id="@+id/personal_info_set_avatar_pic"
+                android:layout_width="@dimen/circle_icon_108px"
+                android:layout_height="@dimen/circle_icon_108px"
+                android:src="@drawable/img_default"
+                android:scaleType="centerCrop"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
+            <ImageView
+                android:id="@+id/personal_info_set_avatar"
+                android:layout_width="@dimen/icon_more_36px"
+                android:layout_height="@dimen/icon_more_36px"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_more" />
+        </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:text="手机"
-            android:textSize="@dimen/tv_title_txsize" />
+        <View style="@style/layout_line_gray"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"></View>
 
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:hint="15111255215" />
-    </LinearLayout>
+            android:layout_height="@dimen/height_item_140px"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_40px"
+            android:paddingRight="@dimen/margin_40px">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/bg_gray_dark"></View>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="昵称"
+                style="@style/text_dark_max"/>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/personal_info_set_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_gray_mid"
+                android:text="萌萌哒小甜甜"/>
+            <ImageView
+                android:layout_width="@dimen/icon_more_36px"
+                android:layout_height="@dimen/icon_more_36px"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_more" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+        <View style="@style/layout_line_gray"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"></View>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:text="修改密码"
-            android:textSize="@dimen/tv_title_txsize" />
-
-        <ImageView
-            android:id="@+id/personal_info_set_pwd"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="180dp"
-            android:padding="10dp"
-            android:src="@drawable/ic_show" />
+            android:layout_height="@dimen/height_item_140px"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_40px"
+            android:paddingRight="@dimen/margin_40px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="性别"
+                style="@style/text_dark_max" />
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/personal_info_set_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_gray_mid"
+                android:text="女"/>
+            <ImageView
+                android:layout_width="@dimen/icon_more_36px"
+                android:layout_height="@dimen/icon_more_36px"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_more" />
+        </LinearLayout>
+
+        <View style="@style/layout_line_gray"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_40px"
+            android:paddingRight="@dimen/margin_40px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="简介"
+                style="@style/text_dark_max" />
+
+            <TextView
+                android:id="@+id/personal_info_set_intro"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:background="@android:color/transparent"
+                android:hint="这家伙很懒什么都没留下"
+                style="@style/text_gray_mid"
+                android:layout_marginLeft="@dimen/margin_50px"
+                android:layout_marginTop="@dimen/margin_50px"
+                android:layout_marginBottom="@dimen/margin_40px"/>
+            <ImageView
+                android:layout_width="@dimen/icon_more_36px"
+                android:layout_height="@dimen/icon_more_36px"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_more" />
+        </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/bg_gray_dark"
-        android:paddingLeft="20dp"
-        android:paddingTop="5dp"
-        android:text="消息提醒" />
+
+    <View style="@style/layout_line_gray"></View>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="@dimen/height_label_100px"
+        android:background="@color/bg_gray"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/margin_40px"
+        android:paddingRight="@dimen/margin_40px">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingLeft="20dp"
-            android:text="消息提醒"
-            android:textSize="@dimen/tv_title_txsize" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <Switch
-            android:id="@+id/personal_info_set_Msg_alert"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="100dp"
-            android:background="@android:color/transparent"
-            android:checked="false"
-            android:textOff="关"
-            android:textOn="开" />
+            <TextView
+                android:layout_width="4dp"
+                android:layout_height="match_parent"
+                android:background="@color/bg_red" />
+
+            <TextView
+                style="@style/text_dark_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:text="账号信息" />
+        </LinearLayout>
+
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/bg_white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_40px"
+            android:paddingRight="@dimen/margin_40px">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="手机"
+                style="@style/text_dark_max" />
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="18888888888"
+                style="@style/text_gray_mid"
+                android:gravity="right"/>
+
+            <ImageView
+                android:layout_width="@dimen/icon_more_36px"
+                android:layout_height="@dimen/icon_more_36px"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:scaleType="fitCenter"/>
+        </LinearLayout>
+
+        <View style="@style/layout_line_gray"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"></View>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_40px"
+            android:paddingRight="@dimen/margin_40px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="修改密码"
+                style="@style/text_dark_max"/>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/personal_info_set_pwd"
+                android:layout_width="@dimen/icon_more_36px"
+                android:layout_height="@dimen/icon_more_36px"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_more" />
+        </LinearLayout>
+        </LinearLayout>
+
+    <View style="@style/layout_line_gray"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_label_100px"
+        android:background="@color/bg_gray"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/margin_40px"
+        android:paddingRight="@dimen/margin_40px">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="4dp"
+                android:layout_height="match_parent"
+                android:background="@color/bg_red" />
+
+            <TextView
+                style="@style/text_dark_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:text="消息提醒" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/bg_white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_40px"
+            android:paddingRight="@dimen/margin_40px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="消息提醒"
+                style="@style/text_dark_max"/>
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+            <Switch
+                android:id="@+id/personal_info_set_Msg_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+            <View style="@style/layout_line_gray"></View>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:paddingTop="@dimen/margin_80px"
+        android:paddingBottom="@dimen/margin_80px"
+        android:background="@color/bg_gray"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/personal_info_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_btn_big_120px"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"
+            android:background="@drawable/btn_big_green"
+            style="@style/text_white_max"
             android:text="退出登录" />
     </LinearLayout>
-
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

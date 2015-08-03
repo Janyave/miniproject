@@ -1,53 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="130dp">
-
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_campaign_420px"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"
+            android:layout_marginBottom="@dimen/margin_30px"
+            android:background="@drawable/bg_course_item"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_20px"
+            android:gravity="center_vertical">
     <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="@dimen/width_cover_380px_270px"
+        android:layout_height="@dimen/height_cover_380px_270px"
         android:id="@+id/iv_campaign_dis"
-        android:background="#000000"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:scaleType="centerCrop"
-        />
+        android:src="@drawable/img_default"
+        android:scaleType="centerCrop" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="西南Cosplay超级展览"
+                    android:id="@+id/tv_campaign_title"
+                    style="@style/text_pink_max"/>
 
-    <TextView
-        android:textAllCaps="false"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="西南Cosplay超级展览"
-        android:id="@+id/tv_campaign_title"
-        android:layout_alignTop="@+id/iv_campaign_dis"
-        android:layout_toRightOf="@+id/iv_campaign_dis"
-        android:layout_toEndOf="@+id/iv_campaign_dis"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_40px"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="@dimen/icon_little_36px"
+                        android:layout_height="@dimen/icon_little_36px"
+                        android:src="@mipmap/ic_launcher"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2015"
+                        android:layout_marginLeft="@dimen/margin_20px"
+                        android:id="@+id/tv_campaign_time"
+                        style="@style/text_gray_min"/>
+                </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2015"
-        android:id="@+id/tv_campaign_time"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/tv_campaign_title"
-        android:layout_alignLeft="@+id/tv_campaign_title"
-        android:layout_alignStart="@+id/tv_campaign_title" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="成都"
-        android:id="@+id/tv_campaign_location"
-        android:layout_below="@+id/tv_campaign_time"
-        android:layout_alignLeft="@+id/tv_campaign_time"
-        android:layout_alignStart="@+id/tv_campaign_time" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10px"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="@dimen/icon_little_36px"
+                        android:layout_height="@dimen/icon_little_36px"
+                        android:src="@mipmap/ic_launcher"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="成都"
+                        android:layout_marginLeft="@dimen/margin_20px"
+                        android:id="@+id/tv_campaign_location"
+                        style="@style/text_gray_min"/>
+                </LinearLayout>
 
+            </LinearLayout>
+
+
+        </LinearLayout>
+        
+        <TextView
+            android:layout_width="@dimen/width_campaign_150px"
+            android:layout_height="@dimen/height_campaign_54px"
+            android:background="@drawable/bg_campaign_type_1"
+            android:text="主题ONLY"
+            android:gravity="center"
+            style="@style/text_white_mid"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/margin_20px"
+            android:layout_marginRight="@dimen/margin_30px"/>
+    </RelativeLayout>
 
 </RelativeLayout>
