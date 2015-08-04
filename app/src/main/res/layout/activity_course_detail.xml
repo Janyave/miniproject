@@ -195,16 +195,7 @@
                         android:background="@color/bg_white"
                         android:descendantFocusability="afterDescendants" />
                     <!-- 所有图片-->
-                    <Button
-                        android:id="@+id/btn_allWorks"
-                        style="@style/text_dark_max"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/height_btn_big_120px"
-                        android:layout_marginLeft="@dimen/margin_40px"
-                        android:layout_marginRight="@dimen/margin_40px"
-                        android:layout_marginTop="@dimen/margin_50px"
-                        android:background="@drawable/btn_max_gray"
-                        android:text="全部作品" />
+
                 </LinearLayout>
 
                 <!-- 底部按钮-->

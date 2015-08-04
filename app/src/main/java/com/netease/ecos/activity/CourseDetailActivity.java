@@ -69,8 +69,6 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     TextView tv_otherWorks;
     @InjectView(R.id.hlv_otherWorks)
     HorizontalListView hlv_otherWorks;
-    @InjectView(R.id.btn_allWorks)
-    Button btn_allWorks;
     @InjectView(R.id.ll_uploadMyWork)
     LinearLayout ll_updoadMyWork;
     @InjectView(R.id.btn_allEvaluation)
@@ -111,7 +109,6 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
     private void initListener() {
         btn_allEvaluation.setOnClickListener(this);
-        btn_allWorks.setOnClickListener(this);
         ll_updoadMyWork.setOnClickListener(this);
         ll_author.setOnClickListener(this);
         ll_praise.setOnClickListener(this);
@@ -163,11 +160,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
-            case R.id.btn_allWorks:
-                //TODO 所有作品
-//                intent = new Intent(CourseDetailActivity.this, AssignmentDetailActivity.class);
-//                startActivity(intent);
-                break;
+
             case R.id.ll_uploadMyWork:
                 SetPhotoDialog dialog = new SetPhotoDialog(CourseDetailActivity.this, new SetPhotoDialog.ISetPhoto() {
 

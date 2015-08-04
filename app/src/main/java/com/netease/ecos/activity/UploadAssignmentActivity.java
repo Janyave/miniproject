@@ -13,7 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.model.Course;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.course.CreateAssignmentRequest;
 import com.netease.ecos.utils.UploadImageTools;
 
 import java.io.File;
@@ -42,6 +46,11 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
     @InjectView(R.id.uploadWorkEdTx)
     EditText uploadWorkEdTx;
 
+    //for request
+    private CreateAssignmentRequest createAssignmentRequest;
+
+    private CreateAssignmentResponce createAssignmentResponce;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +61,8 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
     }
 
     void initData() {
+        createAssignmentRequest = new CreateAssignmentRequest();
+        createAssignmentResponce = new CreateAssignmentResponce();
         image_path = getIntent().getExtras().getString(ImagePath);
         courseId = getIntent().getExtras().getString(CourseId);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
@@ -78,10 +89,6 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
                     Toast.makeText(UploadAssignmentActivity.this, UploadAssignmentActivity.this.getString(R.string.notFinished), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //TODO:send the content to the server.
-                /*first upload the image to the cloud storage.
-                * if upload success, it will return two urls.
-                */
                 File file = new File(image_path);
                 UploadImageTools.uploadImageSys(file, new UploadWorkCallBack(), UploadAssignmentActivity.this, false);
                 break;
@@ -97,9 +104,11 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
         @Override
         public void success(String originUrl, String thumbUrl) {
             Log.d(TAG, "have got the url already.");
-            String assignmentContent = uploadWorkEdTx.getText().toString();
-            //TODO:upload the information to the server to store it.
-            UploadAssignmentActivity.this.finish();
+            Course.Assignment assignment = new Course.Assignment();
+            assignment.courseId = courseId;
+            assignment.imageUrl = originUrl;
+            assignment.content = uploadWorkEdTx.getText().toString();
+            createAssignmentRequest.request(createAssignmentResponce, assignment);
         }
 
         @Override
@@ -112,6 +121,23 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
             Log.i(TAG, "总数" + total + "  ," + "已上传" + current);
         }
 
+    }
+
+    class CreateAssignmentResponce extends BaseResponceImpl implements CreateAssignmentRequest.ICreateAssignmentResponce {
+
+        @Override
+        public void success(Course.Assignment assignment) {
+            Toast.makeText(UploadAssignmentActivity.this, getResources().getString(R.string.uploadAssignmentSuccessfully), Toast.LENGTH_SHORT).show();
+            UploadAssignmentActivity.this.finish();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+        }
     }
 }
 

@@ -375,7 +375,19 @@
 
                 </LinearLayout>
 
+                <ExpandableListView
+                    android:id="@+id/lv_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_40px"
+                    android:layout_marginRight="@dimen/margin_40px"
+                    android:background="@drawable/bg_course_item"
+                    android:divider="@color/bg_gray_dark"
+                    android:dividerHeight="@dimen/width_line">
+                </ExpandableListView>
+
                 <LinearLayout
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_40px"

@@ -129,6 +129,7 @@
 
     <!-- 个人单个作品上传页面-->
     <string name="notFinished">请填写分享内容:)</string>
+    <string name="uploadAssignmentSuccessfully">上传作品成功;)</string>
     <!-- 发布招募页面-->
     <string name="avgPrice">均价</string>
     <string name="recruitmentTitle">设置价格和封面作品</string>
@@ -148,4 +149,5 @@
     <string name="side_recruite">招募挂牌</string>
     <string name="side_setting">设置</string>
     <string name="side_person">个人中心</string>
+    <string name="notification_attention">关注了你</string>
 </resources>

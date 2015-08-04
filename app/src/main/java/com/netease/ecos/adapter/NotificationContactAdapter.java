@@ -14,6 +14,7 @@ import com.netease.ecos.activity.ContactActivity;
 import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.model.ModelUtils;
+import com.netease.ecos.utils.RoundImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,18 +36,20 @@ public class NotificationContactAdapter extends BaseAdapter{
     class ViewHolder implements View.OnClickListener{
 
         private RelativeLayout rly_main;
-        private ImageView iv_avatar;
+        private RoundImageView iv_avatar;
         private TextView tv_name;
         private TextView tv_recentContact;
         private TextView tv_recentTime;
+        private TextView tv_uncheckNum;
 
 
         public ViewHolder(View root) {
             rly_main=(RelativeLayout)root.findViewById(R.id.rly_main);
-            iv_avatar = (ImageView) root.findViewById(R.id.iv_avatar);
+            iv_avatar = (RoundImageView) root.findViewById(R.id.iv_avatar);
             tv_name = (TextView) root.findViewById(R.id.tv_name);
             tv_recentContact = (TextView) root.findViewById(R.id.tv_recentContact);
             tv_recentTime = (TextView) root.findViewById(R.id.tv_recentTime);
+            tv_uncheckNum=(TextView) root.findViewById(R.id.tv_uncheckNum);
 
             rly_main.setOnClickListener(this);
             iv_avatar.setOnClickListener(this);
@@ -61,6 +64,7 @@ public class NotificationContactAdapter extends BaseAdapter{
             tv_name.setText("TEST");
             tv_recentContact.setText(item.messageContent);
             tv_recentTime.setText(ModelUtils.getDateDetailByTimeStamp(item.time)+"");
+            tv_uncheckNum.setText(item.unreadedNum+"");
         }
 
         @Override
