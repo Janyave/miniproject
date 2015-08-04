@@ -146,4 +146,5 @@
     <string name="side_recruite">招募挂牌</string>
     <string name="side_setting">设置</string>
     <string name="side_person">个人中心</string>
+    <string name="notification_attention">关注了你</string>
 </resources>

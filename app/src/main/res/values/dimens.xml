@@ -89,6 +89,7 @@
     <dimen name="height_item_work_620px">200dp</dimen>
     <dimen name="width_item_work_360px">120dp</dimen>
     <dimen name="width_item_work_540px">135dp</dimen>
+    <dimen name="height_item_notification_contact_222px">80dp</dimen>
 
     <dimen name="height_personDetail_information_186px">68dp</dimen>
     <!--<dimen name="height_item_personInformation_gender_36px">15dp</dimen>-->
@@ -163,6 +164,8 @@
     <dimen name="icon_sidebar_54px">30dp</dimen>
     
     <!-- 图片高度-->
+    <dimen name="height_cover_160px_240dp">50dp</dimen>
+    <dimen name="width_cover_160px_240dp">75dp</dimen>
     <dimen name="height_cover_580px_890px">200dp</dimen>
     <dimen name="height_cover_640px_960px">240dp</dimen>
     <dimen name="height_cover_664px_1000px">245dp</dimen>
@@ -206,5 +209,6 @@
     <dimen name="width_new_activity_text_4">85dp</dimen>
     <dimen name="height_notification_40px">14dp</dimen>
     <dimen name="radius_notification_40px">5dp</dimen>
+    <dimen name="width_notification_contact_new_60px">15dp</dimen>
 
 </resources>
