@@ -1,5 +1,14 @@
 package com.netease.ecos.request.user;
 
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
@@ -14,15 +23,6 @@ import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.MyStringRequest;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.utils.StringUtils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
 
 /***
  *
@@ -74,7 +74,7 @@ public class LoginRequest extends BaseRequest{
 
 	@Override
 	public void responceSuccess(String jstring) {
-		traceNormal(TAG, jstring);
+		//		traceNormal(TAG, jstring);
 
 		try {
 			JSONObject usreJO = new JSONObject(jstring).getJSONObject(KEY_DATA);
@@ -83,6 +83,7 @@ public class LoginRequest extends BaseRequest{
 			User user = new User();
 			user.userId = getString(usreJO,"userId");
 			user.imId = getString(usreJO,"imId");
+			user.imToken = getString(usreJO,"imToken");
 			user.avatarUrl = getString(usreJO,"avatarUrl");
 			user.nickname = getString(usreJO,"nickname");
 
@@ -96,21 +97,23 @@ public class LoginRequest extends BaseRequest{
 				user.gender = Gender.getGender( usreJO.getString("gender") );
 			}
 
-
-
 			if(usreJO.has("roles") && !usreJO.isNull("roles")){
-				JSONArray rolesJA = usreJO.getJSONArray("roles");
+				JSONArray rolesJA = new JSONArray(getString(usreJO, "roles"));
 				Set<RoleType> roleTypeSet = new LinkedHashSet<RoleType>();
 				for(int i=0;i<rolesJA.length();i++){
 					roleTypeSet.add( RoleType.getRoleTypeByValue(rolesJA.getString(i)) );
 				}
+				user.roleTypeSet = roleTypeSet;
 			}
 
 
 			UserDataService.getSingleUserDataService(MyApplication.getContext()).saveUser(user);
-			AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveUserAccId(user.imId);
-			AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveUserId(user.userId);
+			AccountDataService accountService = AccountDataService.getSingleAccountDataService(MyApplication.getContext());
 
+			//保存userId、imId(云信id)、imtoken(云信token)
+			accountService.saveUserAccId(user.userId);
+			accountService.saveUserAccId(user.imId);
+			accountService.saveUserImToken(user.imToken);
 
 
 			if(mNorResponce!=null)
