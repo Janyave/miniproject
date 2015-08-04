@@ -1,30 +1,31 @@
 package com.netease.ecos.request.activity;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.netease.ecos.constants.RequestUrlConstants;
-import com.netease.ecos.model.ActivityModel;
-import com.netease.ecos.model.ActivityModel.ActivityType;
-import com.netease.ecos.request.BaseRequest;
-import com.netease.ecos.request.IBaseResponse;
-import com.netease.ecos.request.MyStringRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request.Method;
+import com.netease.ecos.constants.RequestUrlConstants;
+import com.netease.ecos.model.ActivityModel;
+import com.netease.ecos.model.Course;
+import com.netease.ecos.model.ActivityModel.ActivityType;
+import com.netease.ecos.request.BaseRequest;
+import com.netease.ecos.request.IBaseResponse;
+import com.netease.ecos.request.MyStringRequest;
 
 /***
- * 
-* @ClassName: ActivityListRequest 
-* @Description: 活动列表
-* @author enlizhang
-* @date 2015年7月26日 下午12:58:47 
-*
+ *
+ * @ClassName: ActivityListRequest
+ * @Description: 活动列表
+ * @author enlizhang
+ * @date 2015年7月26日 下午12:58:47
+ *
  */
 public class ActivityListRequest extends BaseRequest{
 
@@ -37,7 +38,7 @@ public class ActivityListRequest extends BaseRequest{
 
 	/***
 	 *
-	 * @param activityListResponse
+	 * @param baseresponce
 	 * @param provinceId 省id
 	 * @param activityType {@link ActivityType}活动类型
 	 * @param pageIndex 请求页数
@@ -48,37 +49,39 @@ public class ActivityListRequest extends BaseRequest{
 		super.initBaseRequest(activityListResponse);
 		mActivityListResponse = activityListResponse;
 
-		mActivityListResponse.success(getTestActivityList());
-		//		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_ACTIVITY_LIST_URL,  this, this) {
-		//	        @Override
-		//	        protected Map<String, String> getParams() throws AuthFailureError {
-		//	        	Map<String, String> map = getRequestBasicMap();
-		//
-		//	        	map.put("provinceId", provinceId);
-		//	        	map.put("activityType", activityType.getValue());
-		//	        	map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
-		//	        	map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
-		//
-		//	            traceNormal(TAG, map.toString());
-		//	            traceNormal(TAG, ActivityListRequest.this.getUrl(RequestUrlConstants.GET_ACTIVITY_LIST_URL, map));
-		//	            return map;
-		//	        }
-		//
-		//	    };
-		//
-		//	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-		//
-		//	    getQueue().add(stringRequest);
+		//		mActivityListResponse.success(getTestActivityList());
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_ACTIVITY_LIST_URL,  this, this) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> map = getRequestBasicMap();
+
+				map.put("isMySelf", "false");
+				map.put("provinceId", provinceId);
+				if(activityType!=null)
+					map.put("activityType", activityType.getValue());
+				map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
+				map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
+
+				traceNormal(TAG, map.toString());
+				traceNormal(TAG, ActivityListRequest.this.getUrl(RequestUrlConstants.GET_ACTIVITY_LIST_URL, map));
+				return map;
+			}
+
+		};
+
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+		getQueue().add(stringRequest);
 
 	}
 
 
 	public static final String VALUE_MY_ACTIVITYS = "6";
+
+
 	/**
 	 * 获取个人活动列表
 	 * @param activityListResponse
-	 * @param provinceId
-	 * @param activityType
 	 * @param pageIndex
 	 */
 	public void requestMySelf(IActivityListResponse activityListResponse,final int pageIndex)
@@ -87,38 +90,44 @@ public class ActivityListRequest extends BaseRequest{
 		mActivityListResponse = activityListResponse;
 
 		mActivityListResponse.success(getTestActivityList());
-//		mActivityListResponse.success(getTestActivityList());
-//		MyStringRequest stringRequest = new MyStringRequest(Request.Method.POST, RequestUrlConstants.GET_ACTIVITY_LIST_URL,  this, this) {
-//			@Override
-//			protected Map<String, String> getParams() throws AuthFailureError {
-//				Map<String, String> map = getRequestBasicMap();
-//
-//				//活动类别为个人
-//				map.put("activityType", VALUE_MY_ACTIVITYS);
-//				map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
-//				map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
-//
-//				traceNormal(TAG, map.toString());
-//				traceNormal(TAG, ActivityListRequest.this.getUrl(RequestUrlConstants.GET_ACTIVITY_LIST_URL, map));
-//				return map;
-//			}
-//
-//		};
-//
-//		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//
-//		getQueue().add(stringRequest);
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_ACTIVITY_LIST_URL,  this, this) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> map = getRequestBasicMap();
+
+				//活动类别为个人
+				map.put("isMySelf", "true");
+				map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
+				map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
+
+				traceNormal(TAG, map.toString());
+				traceNormal(TAG, ActivityListRequest.this.getUrl(RequestUrlConstants.GET_ACTIVITY_LIST_URL, map));
+				return map;
+			}
+
+		};
+
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+		getQueue().add(stringRequest);
 
 	}
+
+
 	@Override
 	public void responceSuccess(String jstring) {
 		traceNormal(TAG, jstring);
 
 		try {
-			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
-			JSONObject activitJO = json;
+			//			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
+			//			JSONObject activitJO = json;
+			//
+			//			JSONArray activityJA = activitJO.getJSONArray("activitys");
 
-			JSONArray activityJA = activitJO.getJSONArray("activitys");
+
+			JSONObject json = new JSONObject(jstring);
+			JSONObject activitJO = json;
+			JSONArray activityJA = activitJO.getJSONArray(KEY_DATA);
 			int length = activityJA.length();
 
 			List<ActivityModel> activityList = new ArrayList<ActivityModel>();
@@ -126,11 +135,12 @@ public class ActivityListRequest extends BaseRequest{
 				JSONObject activityJO = activityJA.getJSONObject(i);
 				ActivityModel acitivty = new ActivityModel();
 				acitivty.activityId = activityJO.getString("activityId");
-				acitivty.coverUrl = activityJO.getString("activityLogoUrl");
+				acitivty.coverUrl = activityJO.getString("logoUrl");
 				acitivty.title = activityJO.getString("title");
+				acitivty.fee = activityJO.getString("fee");
 
-				acitivty.activityTime.startDateStamp = Long.valueOf(activityJO.getString("startTime")).longValue();
-				acitivty.activityTime.endDateStamp = Long.valueOf(activityJO.getString("endTime")).longValue();
+				acitivty.activityTime.startDateStamp = Long.valueOf(activityJO.getString("startDateStamp")).longValue();
+				acitivty.activityTime.endDateStamp = Long.valueOf(activityJO.getString("endDateStamp")).longValue();
 				acitivty.activityTime.dayStartTime = activityJO.getString("dayStartTime");
 				acitivty.activityTime.dayEndTime = activityJO.getString("dayEndTime");
 

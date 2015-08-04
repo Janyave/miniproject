@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 /***
- * 
-* @ClassName: ActivityModel
-* @Description: 活动详情
-* @author enlizhang
-* @date 2015年7月25日 下午11:28:08 
-*
+ *
+ * @ClassName: Activity
+ * @Description: 活动详情
+ * @author enlizhang
+ * @date 2015年7月25日 下午11:28:08
+ *
  */
 public class ActivityModel {
 
@@ -54,7 +54,7 @@ public class ActivityModel {
 	public List<Image> imageList;
 
 	/*** 活动介绍 */
-	public String introductino;
+	public String introduction;
 
 	/*** 费用 */
 	public String fee;
@@ -82,6 +82,9 @@ public class ActivityModel {
 
 	/** 活动是否已经开始，true:是 false:否 */
 	public boolean hasStarted;
+
+	/** 活动是否已经结束，true:是 false:否 */
+	public boolean hasFinshed;
 
 	public ActivityModel(){
 		imageList = new ArrayList<Image>();
@@ -178,7 +181,8 @@ public class ActivityModel {
 		舞台祭("5"),
 		赛事("6"),
 		主题ONLY("7"),
-		派对("8");
+		派对("8"),
+		个人("9");
 
 		private String value;
 
