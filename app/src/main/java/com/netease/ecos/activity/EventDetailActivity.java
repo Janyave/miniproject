@@ -9,11 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.netease.ecos.R;
 import com.netease.ecos.views.HorizontalListView;
+
+import org.w3c.dom.Text;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -35,7 +39,42 @@ public class EventDetailActivity extends BaseActivity implements View.OnClickLis
 
     @InjectView(R.id.tv_wantgo)
     TextView tv_wantgo;
+    @InjectView(R.id.tv_wangoNum)
+    TextView tv_wantgoNum;
+    @InjectView(R.id.ll_wantgo_icons)
+    LinearLayout ll_wantgo_icons;
 
+
+    //data
+    @InjectView(R.id.tv_event_location_detail)
+    TextView tv_location;
+    @InjectView(R.id.tv_event_time_detail)
+    TextView tv_time;
+    @InjectView(R.id.tv_event_contant_detail)
+    TextView tv_detail;
+    @InjectView(R.id.tv_phone)
+    TextView tv_phone;
+    @InjectView(R.id.tv_qq)
+    TextView tv_qq;
+    @InjectView(R.id.tv_weibo)
+    TextView tv_weibo;
+
+    //author
+    @InjectView(R.id.tv_author_name)
+    TextView tv_author_name;
+    @InjectView(R.id.tv_author_time)
+    TextView tv_author_time;
+    @InjectView(R.id.iv_author_avator)
+    ImageView iv_author_avator;
+
+
+    //gone when the data not filled
+    @InjectView(R.id.ll_phone)
+    LinearLayout ll_phone;
+    @InjectView(R.id.ll_qq)
+    LinearLayout ll_qq;
+    @InjectView(R.id.ll_weibo)
+    LinearLayout ll_weibo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,31 +82,20 @@ public class EventDetailActivity extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.activity_event_detail);
         ButterKnife.inject(this);
 
-        btn_return.setOnClickListener(this);
+        initListener();
+        initData();
+    }
+
+    private void initListener() {
         btn_confirm.setVisibility(View.INVISIBLE );
-
+        btn_return.setOnClickListener(this);
+        tv_wantgo.setOnClickListener(this);
+        tv_publish_photo.setOnClickListener(this);
+        iv_author_avator.setOnClickListener(this);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_event_detail, menu);
-        return true;
-    }
+    private void initData() {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -75,8 +103,19 @@ public class EventDetailActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.lly_left_action:
                 finish();
-                //onBackPressed();
-                //onKeyDown(KeyEvent.KEYCODE_BACK, null);
+                break;
+            case R.id.tv_wantgo:
+                tv_wantgo.setEnabled(false);
+                tv_wantgo.setText("已想去");
+                tv_wantgo.setTextColor(getResources().getColor(R.color.text_gray));
+                break;
+            case R.id.tv_publish_photo:
+                //TODO
+                Toast.makeText(EventDetailActivity.this,"publish photo",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.iv_author_avator:
+                //TODO
+                Toast.makeText(EventDetailActivity.this,"person detail",Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
