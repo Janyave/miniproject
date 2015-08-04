@@ -2,6 +2,7 @@ package com.netease.ecos.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -55,6 +56,7 @@ public class WriteContentActivity extends Activity {
                 Comment comment = new Comment();
                 comment.content = content;
                 comment.commentType = commentType;
+                Log.d("test", commentType.getBelongs());
                 comment.commentTypeId = fromId;
 
                 if (createCommentRequest == null)

@@ -1,22 +1,21 @@
 package com.netease.ecos.request.course;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request.Method;
+import com.netease.ecos.constants.RequestUrlConstants;
+import com.netease.ecos.model.Course.Assignment;
+import com.netease.ecos.request.BaseRequest;
+import com.netease.ecos.request.IBaseResponse;
+import com.netease.ecos.request.MyStringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request.Method;
-import com.netease.ecos.constants.RequestUrlConstants;
-import com.netease.ecos.model.Course;
-import com.netease.ecos.model.Course.Assignment;
-import com.netease.ecos.request.BaseRequest;
-import com.netease.ecos.request.IBaseResponse;
-import com.netease.ecos.request.MyStringRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /***
  *
@@ -89,6 +88,7 @@ public class AssignmentListRequest extends BaseRequest{
 				assignment.imageUrl = getString(assignmentJO, "imgUrl");
 				assignment.content = getString(assignmentJO, "description");
 				assignment.issueTimeStamp = Long.valueOf(getString(assignmentJO, "issueTimeStamp")).longValue();
+				assignmentList.add(assignment);
 
 			}
 

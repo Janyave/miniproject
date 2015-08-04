@@ -1029,8 +1029,6 @@ public class ApiTestActivity extends BaseActivity {
         public void success(Course course) {
 
         }
-
-
     }
 
     /***
