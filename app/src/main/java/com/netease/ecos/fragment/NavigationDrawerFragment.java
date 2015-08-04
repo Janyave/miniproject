@@ -24,19 +24,24 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
+import com.netease.ecos.activity.NotificationActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.PersonalInfoSettingActivity;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
+
+import org.w3c.dom.Text;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -47,7 +52,7 @@ import com.netease.ecos.utils.SDImageCache;
 /**
  * 侧滑栏
  */
-public class NavigationDrawerFragment extends Fragment {
+public class NavigationDrawerFragment extends Fragment implements View.OnClickListener{
 
     /**
      * Remember the position of the selected item.
@@ -79,7 +84,7 @@ public class NavigationDrawerFragment extends Fragment {
     /**
      * 侧边栏ListView
      */
-    private ListView mDrawerListView;
+//    private ListView mDrawerListView;
 
 
     /**
@@ -96,12 +101,17 @@ public class NavigationDrawerFragment extends Fragment {
 
     private boolean mUserLearnedDrawer;
 
-    private Button btPersonageDetail = null;
-    private Button btPersonageSetting = null;
+    private TextView btPersonageDetail = null;
+    private TextView btPersonageSetting = null;
 
     private UserDataService mUserDataService;
     private User mUserData;
 
+
+    private LinearLayout ll_notification, ll_contact, ll_course, ll_display, ll_activity, ll_recruite, ll_personcenter;
+    private TextView tv_notificationNum, tv_contactNum, tv_courseNum, tv_displayNum, tv_activityNum, tv_recruiteNum, tv_personcenterNum;
+
+    private LinearLayout ll_person;
 
     public NavigationDrawerFragment() {
     }
@@ -143,13 +153,65 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mDrawerView = (View) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-        mDrawerListView = (ListView) mDrawerView.findViewById(R.id.lv_list);
+//        mDrawerListView = (ListView) mDrawerView.findViewById(R.id.lv_list);
 
 
-        btPersonageDetail = (Button) mDrawerView.findViewById(R.id.bt_personage_name);
-        btPersonageSetting = (Button) mDrawerView.findViewById(R.id.bt_personage_setting);
+        bindView();
 
-        btPersonageDetail.setOnClickListener(new View.OnClickListener() {
+        initListener();
+
+
+
+
+//        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                selectItem(position);
+//            }
+//        });
+//
+//
+//        //给mDrawerListView进行数据绑定
+////        mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar().getThemedContext(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, new String[]{getString(R.string.title_section1), getString(R.string.title_section2), getString(R.string.title_section3), getString(R.string.title_section4),}));
+//        mDrawerListView.setAdapter(new MyAdapter(mDrawerView.getContext()));
+//        //设置侧边栏默认记录的选项
+////        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
+        //初始化用户信息
+        initUserData(mDrawerView);
+
+        return mDrawerView;
+    }
+
+
+
+    private void bindView() {
+        btPersonageDetail = (TextView) mDrawerView.findViewById(R.id.bt_personage_name);
+        btPersonageSetting = (TextView) mDrawerView.findViewById(R.id.bt_personage_setting);
+
+        ll_notification=(LinearLayout)mDrawerView.findViewById(R.id.ll_notification);
+        ll_contact=(LinearLayout)mDrawerView.findViewById(R.id.ll_contact);
+        ll_course=(LinearLayout)mDrawerView.findViewById(R.id.ll_course);
+        ll_display=(LinearLayout)mDrawerView.findViewById(R.id.ll_display);
+        ll_activity=(LinearLayout)mDrawerView.findViewById(R.id.ll_activity);
+        ll_recruite=(LinearLayout)mDrawerView.findViewById(R.id.ll_recruite);
+        ll_personcenter=(LinearLayout)mDrawerView.findViewById(R.id.ll_personcenter);
+
+        tv_notificationNum=(TextView)mDrawerView.findViewById(R.id.tv_notificationNum);
+        tv_contactNum=(TextView)mDrawerView.findViewById(R.id.tv_contactNum);
+        tv_courseNum=(TextView)mDrawerView.findViewById(R.id.tv_courseNum);
+        tv_displayNum=(TextView)mDrawerView.findViewById(R.id.tv_displayNum);
+        tv_activityNum=(TextView)mDrawerView.findViewById(R.id.tv_activityNum);
+        tv_recruiteNum=(TextView)mDrawerView.findViewById(R.id.tv_recruiteNum);
+        tv_personcenterNum=(TextView)mDrawerView.findViewById(R.id.tv_personcenterNum);
+
+        ll_person=(LinearLayout)mDrawerView.findViewById(R.id.ll_person);
+
+    }
+
+    private void initListener() {
+
+        ll_person.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PersonageDetailActivity.class);
@@ -168,25 +230,40 @@ public class NavigationDrawerFragment extends Fragment {
             }
         });
 
-        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectItem(position);
-            }
-        });
-
-
-        //给mDrawerListView进行数据绑定
-//        mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar().getThemedContext(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, new String[]{getString(R.string.title_section1), getString(R.string.title_section2), getString(R.string.title_section3), getString(R.string.title_section4),}));
-        mDrawerListView.setAdapter(new MyAdapter(mDrawerView.getContext()));
-        //设置侧边栏默认记录的选项
-//        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-
-        //初始化用户信息
-        initUserData(mDrawerView);
-
-        return mDrawerView;
+        ll_notification.setOnClickListener(this);
+        ll_contact.setOnClickListener(this);
+        ll_course.setOnClickListener(this);
+        ll_display.setOnClickListener(this);
+        ll_activity.setOnClickListener(this);
+        ll_recruite.setOnClickListener(this);
+        ll_personcenter.setOnClickListener(this);
     }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ll_notification:
+                startActivity(new Intent(getActivity(), NotificationActivity.class));
+                break;
+            case R.id.ll_contact:
+                //TODO
+                break;
+//            case R.id.ll_course:
+//                break;
+//            case R.id.ll_display:
+//                break;
+//            case R.id.ll_activity:
+//                break;
+//            case R.id.ll_recruite:
+//                break;
+            case R.id.ll_personcenter:
+                //TODO
+                startActivity(new Intent(getActivity(), PersonageDetailActivity.class));
+                break;
+        }
+    }
+
 
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
@@ -291,9 +368,9 @@ public class NavigationDrawerFragment extends Fragment {
      */
     private void selectItem(int position) {
         mCurrentSelectedPosition = position;
-        if (mDrawerListView != null) {
-            mDrawerListView.setItemChecked(position, true);
-        }
+//        if (mDrawerListView != null) {
+//            mDrawerListView.setItemChecked(position, true);
+//        }
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
@@ -351,6 +428,8 @@ public class NavigationDrawerFragment extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
     private class MyAdapter extends BaseAdapter {
         private LayoutInflater mInflater = null;
@@ -459,8 +538,8 @@ public class NavigationDrawerFragment extends Fragment {
         mUserData = mUserDataService.getUser();
 
         RoundImageView user_avatar = (RoundImageView) v.findViewById(R.id.iv_personage_portrait);
-        Button user_name = (Button) v.findViewById(R.id.bt_personage_name);
-        RoundImageView user_gender = (RoundImageView) v.findViewById(R.id.riv_personage_gender);
+        TextView user_name = (TextView) v.findViewById(R.id.bt_personage_name);
+        ImageView user_gender = (ImageView) v.findViewById(R.id.riv_personage_gender);
         TextView user_attention = (TextView) v.findViewById(R.id.tv_personage_attention);
         TextView user_fans = (TextView) v.findViewById(R.id.tv_personage_fans);
         TextView user_description = (TextView) v.findViewById(R.id.tv_personage_description);
@@ -476,9 +555,9 @@ public class NavigationDrawerFragment extends Fragment {
 
         user_name.setText(mUserData.nickname);
         if (mUserData.gender == User.Gender.女) {
-            user_gender.setBackgroundResource(R.drawable.img_gender_famale);
+            user_gender.setBackgroundResource(R.mipmap.ic_gender_female);
         } else {
-            user_gender.setBackgroundResource(R.drawable.img_gender_male);
+            user_gender.setBackgroundResource(R.mipmap.ic_gender_male);
         }
         user_attention.setText("关注数：" + mUserData.followOtherNum);
         user_fans.setText("粉丝数：" + mUserData.fansNum);
