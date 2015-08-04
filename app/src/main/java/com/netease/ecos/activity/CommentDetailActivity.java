@@ -19,7 +19,6 @@ import com.netease.ecos.adapter.WorkDetailListViewAdapter;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.comment.CommentListRequest;
-import com.netease.ecos.request.comment.CreateCommentRequest;
 import com.netease.ecos.utils.SDImageCache;
 
 import java.util.List;
@@ -35,7 +34,6 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     public static final String FromId = "fromId";
     public static final String CommentType = "commentType";
     public static final String CommentContent = "CommentContent";
-    private String commentContent = "";
     private String fromId = "";
     private Comment.CommentType commentType;
     @InjectView(R.id.commentLsVw)
@@ -58,8 +56,7 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     private GetCommentListResponse getCommentListResponse;
 
     private WorkDetailListViewAdapter workDetailListViewAdapter;
-    private CreateCommentRequest createCommentRequest;
-    private CreateCommentRequest.ICreateCommentResponse response;
+
 
     public static final int RequestCodeForComment = 1;
     public static final int ResultCodeForComment = 2;
@@ -88,7 +85,7 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
         Comment comment = new Comment();
         comment.commentType = commentType;
         comment.commentTypeId = fromId;
-        commentListRequest.request(getCommentListResponse, comment);
+        commentListRequest.request(getCommentListResponse, comment, 1);
     }
 
     void initView() {
@@ -108,10 +105,10 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RequestCodeForComment && resultCode == ResultCodeForComment) {
-            String comment = data.getExtras().getString(CommentContent);
-            Comment comment1 = new Comment();
-            comment1.content = comment;
-            createCommentRequest.request(response, comment1);
+            Comment comment = new Comment();
+            comment.commentType = commentType;
+            comment.commentTypeId = fromId;
+            commentListRequest.request(getCommentListResponse, comment, 1);
         }
     }
 
@@ -119,7 +116,11 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             Intent intent = new Intent(CommentDetailActivity.this, WriteContentActivity.class);
-            startActivity(intent);
+            Bundle bundle = new Bundle();
+            bundle.putString(CommentType, commentType.getBelongs());
+            bundle.putString(FromId, fromId);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, RequestCodeForComment);
         }
         return false;
     }
@@ -142,25 +143,8 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
         @Override
         public void success(List<Comment> commentList) {
             workDetailListViewAdapter.updateCommentList(commentList);
-
         }
     }
 
-    class UploadCommentResponse extends BaseResponceImpl implements CreateCommentRequest.ICreateCommentResponse {
 
-        @Override
-        public void doAfterFailedResponse(String message) {
-
-        }
-
-        @Override
-        public void onErrorResponse(VolleyError volleyError) {
-
-        }
-
-        @Override
-        public void success(Comment comment) {
-
-        }
-    }
 }

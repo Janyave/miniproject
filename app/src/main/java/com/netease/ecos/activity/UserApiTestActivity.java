@@ -1007,14 +1007,10 @@ public class UserApiTestActivity extends BaseActivity {
 
         @Override
         public void doAfterFailedResponse(String message) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override

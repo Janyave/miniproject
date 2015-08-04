@@ -132,4 +132,7 @@
     <string name="chooseCover">选择封面作品</string>
     <string name="notAlreadyFinished">请填写完所有数据;)</string>
     <string name="uploadSuccessfully">挂牌成功:)</string>
+    <!-- 评论页面-->
+    <string name="noComment">请填写评论;)</string>
+    <string name="commentSuccess">评论发送成功:)</string>
 </resources>

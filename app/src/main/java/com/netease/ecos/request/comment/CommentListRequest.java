@@ -151,9 +151,6 @@ public class CommentListRequest extends BaseRequest{
 					comment.fromNickName = getString(commentJO, KEY_COMMENT_USER_NICKNAME);
 					comment.targetId = getString(commentJO, KEY_COMMENT_PARENT_ID);
 					comment.targetNickname = getString(commentJO, KEY_COMMENT_PARENT_NICKNAME);
-
-
-
 					comment.commitTimeStamp = Long.valueOf(commentJO.getString(KEY_COMMENT_TIME_STAMP)).longValue();
 					commentList.add(comment);
 				}
