@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -251,6 +252,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 //the text color
                 setUnChecked();
                 tv_all.setTextColor(getResources().getColor(R.color.text_red));
+                tv_all.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.所有;
                 //send the request
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
@@ -259,6 +261,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 //the text color
                 setUnChecked();
                 tv_recommend.setTextColor(getResources().getColor(R.color.text_red));
+                tv_recommend.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.推荐;
                 //send the request
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
@@ -267,6 +270,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 //the text color
                 setUnChecked();
                 tv_attention.setTextColor(getResources().getColor(R.color.text_red));
+                tv_attention.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.关注;
                 //send the request
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
@@ -275,6 +279,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 //the text color
                 setUnChecked();
                 tv_new.setTextColor(getResources().getColor(R.color.text_red));
+                tv_new.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.新人;
                 //send the request
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
@@ -289,6 +294,10 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         tv_search.setTextColor(color);
         tv_recommend.setTextColor(color);
         tv_attention.setTextColor(color);
+        tv_all.setBackgroundColor(getResources().getColor(R.color.bg_white));
+        tv_new.setBackgroundColor(getResources().getColor(R.color.bg_white));
+        tv_recommend.setBackgroundColor(getResources().getColor(R.color.bg_white));
+        tv_attention.setBackgroundColor(getResources().getColor(R.color.bg_white));
     }
 
     @Override

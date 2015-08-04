@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/height_item_120px"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -18,12 +18,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="所有" />
+            android:text="全部"
+            android:background="@mipmap/ic_tab_check"/>
 
-        <TextView
-            android:layout_width="2dp"
-            android:layout_height="25dp"
-            android:background="@color/bg_gray_dark" />
+        <TextView style="@style/layout_line_gray_v"
+            android:layout_height="@dimen/height_item_60px"/>
 
         <TextView
             android:id="@+id/tv_recommend"
@@ -34,10 +33,8 @@
             android:gravity="center"
             android:text="精选" />
 
-        <TextView
-            android:layout_width="2dp"
-            android:layout_height="25dp"
-            android:background="@color/bg_gray_dark" />
+        <TextView style="@style/layout_line_gray_v"
+            android:layout_height="@dimen/height_item_60px"/>
 
         <TextView
             android:id="@+id/tv_new"
@@ -48,10 +45,8 @@
             android:gravity="center"
             android:text="新人" />
 
-        <TextView
-            android:layout_width="2dp"
-            android:layout_height="25dp"
-            android:background="@color/bg_gray_dark" />
+        <TextView style="@style/layout_line_gray_v"
+            android:layout_height="@dimen/height_item_60px"/>
 
         <TextView
             android:id="@+id/tv_attention"
@@ -63,11 +58,12 @@
             android:text="关注" />
 
         <TextView
-            android:layout_width="2dp"
-            android:layout_height="25dp"
-            android:background="@color/bg_gray_dark" />
+            android:visibility="gone"
+            style="@style/layout_line_gray_v"
+            android:layout_height="@dimen/height_item_60px"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_search"
             style="@style/text_gray_mid"
             android:layout_width="0dp"
@@ -82,13 +78,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/bg_gray"
         android:orientation="vertical">
 
         <com.netease.ecos.views.XListView
             android:id="@+id/lv_course"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:listSelector="@android:color/transparent"></com.netease.ecos.views.XListView>
+            android:listSelector="@android:color/transparent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"></com.netease.ecos.views.XListView>
 
         <com.netease.ecos.views.FloadingButton
             android:id="@+id/btn_floading"
