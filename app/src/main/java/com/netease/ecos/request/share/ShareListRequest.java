@@ -213,9 +213,12 @@ public class ShareListRequest extends BaseRequest{
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<String,String>();
 
-
-                map.put(KEY_USER_ID,otherUserId);
                 map.put(TYPE, "myself");
+                if(otherUserId==null)
+                    map.put(KEY_USER_ID, getUserId());
+                else
+                    map.put(KEY_USER_ID, otherUserId);
+
 
                 map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
                 map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );

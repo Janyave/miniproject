@@ -44,8 +44,8 @@ public class SetPhotoHelper {
 	private final int IMG_ASPECT_X = 1;
 	private final int IMG_ASPECT_Y = 1;
 	
-	private final int mAspectX = 3;//裁剪框宽度比例
-	private final int mAspectY = 2;//裁剪框高度比例
+	private int mAspectX = 3;//裁剪框宽度比例
+	private int mAspectY = 2;//裁剪框高度比例
 	
 	private int mOutputX = 100;//图片裁剪后的宽
 	private int mOutputY = 100;//图片裁剪后的高
@@ -305,6 +305,12 @@ public class SetPhotoHelper {
 	public void setOutput(int mOutputX, int mOutputY) {
 		this.mOutputX = mOutputX;
 		this.mOutputY = mOutputY;
+	}
+
+
+	public void setAspect(int aspectX, int aspectY){
+		this.mAspectX = aspectX;
+		this.mAspectY = aspectY;
 	}
 	
 }

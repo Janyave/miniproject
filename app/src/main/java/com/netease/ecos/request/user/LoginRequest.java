@@ -1,14 +1,5 @@
 package com.netease.ecos.request.user;
 
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
@@ -23,6 +14,15 @@ import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.MyStringRequest;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.utils.StringUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 
 /***
  *

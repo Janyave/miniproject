@@ -30,9 +30,7 @@ public class SearchHistoryAdapter extends BaseAdapter {
             iv_delete = (ImageView) root.findViewById(R.id.iv_delete);
         }
 
-        /**
-         * ��������δ��
-         */
+
         public void setData(final int position) {
             iv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -40,11 +38,9 @@ public class SearchHistoryAdapter extends BaseAdapter {
                     Toast.makeText(mcontext, "delete " + position, Toast.LENGTH_SHORT).show();
                 }
             });
-            //TODO ������
         }
     }
 
-    //TODO ��������������ģ��Ϊ10��
     @Override
     public int getCount() {
         return 4;
@@ -53,12 +49,12 @@ public class SearchHistoryAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return position;
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override

@@ -79,7 +79,7 @@ public class BuildCourseActivity extends BaseActivity {
     @InjectView(R.id.btn_iss_course)
     Button btn_iss_course;
 
-    public SetPhotoHelper mSetPhotoHelper;
+//    public SetPhotoHelper mSetPhotoHelper;
 
     public String DESCRIPTIONS[] = {"卸妆", "补水", "上霜", "画眼线", "做头发"};
 
