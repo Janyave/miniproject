@@ -127,10 +127,13 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /** 用于关闭活动界面的popupWindow */
+                if (mFragments[TAB_COMMUCITY_INDEX] != null)
+                    ((CommunityFragment) mFragments[TAB_COMMUCITY_INDEX]).execute();
+
                 mNavigationDrawerFragment.openNavigationDrawer();
             }
         });
-
     }
 
     /**
