@@ -85,6 +85,8 @@
     <string name="comment">评论</string>
     <string name="alreadyLastAssignment">已经到最后一个作品！</string>
     <string name="alreadyFirstAssignment">已经到第一个作品！</string>
+    <string name="loadingNextAssignment">即将为你加载下一个作品</string>
+    <string name="loadingLastAssignment">即将为你加载上一个作品</string>
 
     <!-- 个人上传作品页面（多个作品）-->
     <string name="uploadWorks_coverHint">给作品起个名字让别人更容易找到你</string>
@@ -150,4 +152,6 @@
     <string name="side_setting">设置</string>
     <string name="side_person">个人中心</string>
     <string name="notification_attention">关注了你</string>
+    <!--  分享页面-->
+    <string name="noShare">抱歉，还没有该分类的分享，快来分享吧;)</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,11 +76,8 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
     }
 
     void setData(CommentViewHolder viewHolder, int position) {
-        Log.d("test", "commentList.get(position).avatarUrl:" + commentList.get(position).avatarUrl);
         viewHolder.imageView.setImageUrl(commentList.get(position).avatarUrl, imageLoader);
-        Log.d("test", "commentList.get(position).fromNickName:" + commentList.get(position).fromNickName);
         viewHolder.nameTxVw.setText(commentList.get(position).fromNickName);
-        Log.d("test", "commentList.get(position).content:" + commentList.get(position).content);
         viewHolder.commentTxVw.setText(commentList.get(position).content);
     }
 

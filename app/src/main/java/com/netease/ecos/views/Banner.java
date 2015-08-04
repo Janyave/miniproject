@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,11 +28,14 @@ public class Banner extends RelativeLayout {
     private Context mContext;
 
     private TextView tv_currentNum;
+    private ImageView iv_currentNum;
     private ViewPager vp_image;
+
+    private int[] pagerViewIDs=new int[]{R.mipmap.banner1, R.mipmap.banner2,R.mipmap.banner3,R.mipmap.banner4};
 
     private List<String> URLList = new ArrayList<>();
     private List<View> ViewList = new ArrayList<>();
-    private int count = 0;
+    private int count = 4;
     private int delayTime = 3000;
 
     private int pagerViewID = R.layout.item_bannerpager;
@@ -58,7 +62,7 @@ public class Banner extends RelativeLayout {
 
     public void setURLList(List<String> data) {
         this.URLList = data;
-        this.count = data.size();
+//        this.count = data.size();
 
         for (int i = 0; i < count; i++) {
             View v = View.inflate(mContext, pagerViewID, null);
@@ -103,7 +107,9 @@ public class Banner extends RelativeLayout {
             @Override
             public void onPageScrollStateChanged(int state) {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    tv_currentNum.setText(vp_image.getCurrentItem() % count + 1 + "");
+                    int num=vp_image.getCurrentItem() % count;
+                    tv_currentNum.setText(num + 1 + "");
+                    iv_currentNum.setImageResource(pagerViewIDs[num]);
                 }
             }
         });
@@ -117,6 +123,7 @@ public class Banner extends RelativeLayout {
         View.inflate(mContext, R.layout.item_bannerlayout, this);
         vp_image = (ViewPager) findViewById(R.id.vp_image);
         tv_currentNum = (TextView) findViewById(R.id.tv_currentNum);
+        iv_currentNum = (ImageView) findViewById(R.id.iv_currentNum);
         vp_image.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

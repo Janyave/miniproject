@@ -40,7 +40,6 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
         private TextView textViewAmz;
         private TextView textViewAuthor;
 
-
         public ViewHolder(View root) {
             networkImageView = (ImageView) root.findViewById(R.id.pic_dis);
             imageAuthorPic = (ImageView) root.findViewById(R.id.imageViewAuthor);
@@ -55,7 +54,7 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
          */
         public void setData(final int position) {
             Course item = courseList.get(position);
-            if (item.coverUrl != null && !item.coverUrl.equals(""))
+            if (item.coverUrl != null)
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(networkImageView);
             if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals(""))
                 Picasso.with(mcontext).load(item.authorAvatarUrl).placeholder(R.drawable.img_default).into(imageAuthorPic);
@@ -73,8 +72,6 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
         }
     }
 
-
-    //TODO 数据数量【现在模拟为10】
     @Override
     public int getCount() {
         return courseList.size();

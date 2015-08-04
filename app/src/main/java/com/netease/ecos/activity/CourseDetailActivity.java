@@ -285,6 +285,9 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         btn_allEvaluation.setText(course.commentNum + getResources().getString(R.string.manyComment));
         courseDetailStepAdapter = new CourseDetailStepAdapter(this, course.stepList);
         lv_courseStep.setAdapter(courseDetailStepAdapter);
+        //if there is no assignment.
+        if (course.assignmentList.size() == 0)
+            hlv_otherWorks.setVisibility(View.GONE);
         courseDetailOtherWorksHListViewAdapter = new CourseDetailOtherWorksHListViewAdapter(this, course.assignmentList);
         hlv_otherWorks.setAdapter(courseDetailOtherWorksHListViewAdapter);
 

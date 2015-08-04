@@ -101,9 +101,10 @@ public class Comment {
     public static enum CommentType {
 
         教程("0"),
-        作业("1"),
-        分享("2"),
-        招募("3");
+        分享("1"),
+        活动("2"),
+        招募("3"),
+        作业("4");
 
         private String value;
 

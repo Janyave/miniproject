@@ -74,7 +74,7 @@ public class CourseListRequest extends BaseRequest {
     /**
      * 作者昵称
      */
-    public static final String KEY_NICKNAME = "nickname";
+    public static final String KEY_NICKNAME = "author";
 
     /**
      * 作者id
@@ -122,17 +122,7 @@ public class CourseListRequest extends BaseRequest {
             , final String keyWord, final SortRule sortRule, final int pageIndex) {
         super.initBaseRequest(courseListRespnce);
         mCourseListRespnce = courseListRespnce;
-
         mCourseType = courseType;
-
-        //		List<Course> courseList = getTestCourseList();
-        //
-        //		if(mCourseListRespnce!=null)
-        //		{
-        //			mCourseListRespnce.success(courseList);
-        //		}
-
-
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COURSE_LIST_URL, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -209,7 +199,7 @@ public class CourseListRequest extends BaseRequest {
      * 请求其他人教程列表
      *
      * @param courseListRespnce
-     * @param otherUserId 要查看的人的userId
+     * @param otherUserId       要查看的人的userId
      * @param pageIndex
      */
     public void requestOtherCourse(ICourseListResponse courseListRespnce, final String otherUserId, final int pageIndex) {
@@ -239,32 +229,24 @@ public class CourseListRequest extends BaseRequest {
             }
 
         };
-
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
         getQueue().add(stringRequest);
 
     }
 
     @Override
     public void responceSuccess(String jstring) {
-        //		traceNormal(TAG, jstring);
-
         try {
             JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
 
             List<Course> courseList = new ArrayList<Course>();
             if (json.has(JA_COURSE) && !json.isNull(JA_COURSE)) {
                 JSONArray courseJA = json.getJSONArray(JA_COURSE);
-
-                Course course = new Course();
                 for (int i = 0; i < courseJA.length(); i++) {
-
                     JSONObject courseJO = courseJA.getJSONObject(i);
-
+                    Course course = new Course();
                     course.courseId = getString(courseJO, KEY_COURSE_ID);
                     course.userId = getString(courseJO, KEY_USER_ID);
-
                     course.coverUrl = getString(courseJO, KEY_COVER_URL);
                     course.authorAvatarUrl = getString(courseJO, KEY_AVATAR_URL);
                     course.author = getString(courseJO, KEY_NICKNAME);
@@ -273,21 +255,16 @@ public class CourseListRequest extends BaseRequest {
                     course.userId = getString(courseJO, KEY_USER_ID);
                     course.courseType = CourseType.getCourseType(getString(courseJO, KEY_COURSE_TYPE));
                     course.issueTimeStamp = Long.valueOf(getString(courseJO, KEY_ISSUR_TIME_STAMP)).longValue();
-
                     String praiseNum = getString(courseJO, KEY_PRAISE_NUM);
                     course.praiseNum = "".equals(praiseNum) ? 0 : Integer.valueOf(praiseNum);
-
                     courseList.add(course);
                 }
-
             }
             if (mCourseListRespnce != null) {
                 mCourseListRespnce.success(courseList);
             } else {
                 traceError(TAG, "回调接口为null");
             }
-
-
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
