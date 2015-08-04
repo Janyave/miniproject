@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -177,20 +178,51 @@ public class CourseListRequest extends BaseRequest {
         super.initBaseRequest(courseListRespnce);
         mCourseListRespnce = courseListRespnce;
 
-        //		List<Course> courseList = getTestCourseList();
-        //
-        //		if(mCourseListRespnce!=null)
-        //		{
-        //			mCourseListRespnce.success(courseList);
-        //		}
-
-
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COURSE_LIST_URL, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = getRequestBasicMap();
 
                 map.put(TYPE, "myself");
+                map.put(COURSE_TYPE, "");
+                map.put(KEY_WORD, "");
+                map.put(SORT_RULE, "");
+
+                map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
+                map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
+
+                traceNormal(TAG, map.toString());
+                traceNormal(TAG, CourseListRequest.this.getUrl(RequestUrlConstants.GET_COURSE_LIST_URL, map));
+                return map;
+            }
+
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        getQueue().add(stringRequest);
+
+    }
+
+
+    /**
+     * 请求其他人教程列表
+     *
+     * @param courseListRespnce
+     * @param otherUserId 要查看的人的userId
+     * @param pageIndex
+     */
+    public void requestMySelf(ICourseListResponse courseListRespnce, final String otherUserId, final int pageIndex) {
+        super.initBaseRequest(courseListRespnce);
+        mCourseListRespnce = courseListRespnce;
+
+        MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COURSE_LIST_URL, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+
+                map.put(TYPE, "myself");
+                map.put(KEY_USER_ID, otherUserId);
                 map.put(COURSE_TYPE, "");
                 map.put(KEY_WORD, "");
                 map.put(SORT_RULE, "");

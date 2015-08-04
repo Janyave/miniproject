@@ -1,13 +1,5 @@
 package com.netease.ecos.request.share;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
@@ -21,6 +13,15 @@ import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /***
  *
@@ -158,6 +159,12 @@ public class ShareListRequest extends BaseRequest{
 
     }
 
+
+    /**
+     * 请求本人
+     * @param shareListResponse
+     * @param pageIndex
+     */
     public void requestMyShareList(IShareListResponse shareListResponse, final int pageIndex)
     {
         super.initBaseRequest(shareListResponse);
@@ -170,6 +177,44 @@ public class ShareListRequest extends BaseRequest{
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = getRequestBasicMap();
 
+                map.put(TYPE, "myself");
+
+                map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
+                map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
+
+                traceNormal(TAG, map.toString());
+                traceNormal(TAG, ShareListRequest.this.getUrl(RequestUrlConstants.GET_SHARE_LIST_URL, map));
+                return map;
+            }
+
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        getQueue().add(stringRequest);
+
+    }
+
+    /**
+     * 请求其他人分享列表
+     * @param shareListResponse
+     * @param pageIndex
+     * @param otherUserId 要查询对象的userId
+     */
+    public void requestOtherShareList(IShareListResponse shareListResponse, final String otherUserId,final int pageIndex)
+    {
+        super.initBaseRequest(shareListResponse);
+        mShareListResponse = shareListResponse;
+
+        //		shareListResponse.success(getTestShareList());
+
+        MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_SHARE_LIST_URL,  this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String,String>();
+
+
+                map.put(KEY_USER_ID,otherUserId);
                 map.put(TYPE, "myself");
 
                 map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );

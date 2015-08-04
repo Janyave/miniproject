@@ -1,6 +1,7 @@
 package com.netease.ecos.request.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,6 +95,43 @@ public class ActivityListRequest extends BaseRequest{
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
 				Map<String, String> map = getRequestBasicMap();
+
+				//活动类别为个人
+				map.put("isMySelf", "true");
+				map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
+				map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
+
+				traceNormal(TAG, map.toString());
+				traceNormal(TAG, ActivityListRequest.this.getUrl(RequestUrlConstants.GET_ACTIVITY_LIST_URL, map));
+				return map;
+			}
+
+		};
+
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+		getQueue().add(stringRequest);
+
+	}
+
+	/**
+	 * 获取其他人活动列表
+	 * @param activityListResponse
+	 * @param otherUserId 要查询对象的userId
+	 * @param pageIndex
+	 */
+	public void requestOtherActivityList(IActivityListResponse activityListResponse,final String otherUserId, final int pageIndex)
+	{
+		super.initBaseRequest(activityListResponse);
+		mActivityListResponse = activityListResponse;
+
+		mActivityListResponse.success(getTestActivityList());
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_ACTIVITY_LIST_URL,  this, this) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> map = new HashMap<String, String>();
+
+				map.put(KEY_USER_ID, otherUserId);
 
 				//活动类别为个人
 				map.put("isMySelf", "true");
