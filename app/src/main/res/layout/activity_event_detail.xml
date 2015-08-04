@@ -133,7 +133,8 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/margin_40px"
-                        android:paddingRight="@dimen/margin_40px">
+                        android:paddingRight="@dimen/margin_40px"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -179,7 +180,8 @@
                         android:layout_height="@dimen/height_item_work_620px"
                         android:layout_marginBottom="@dimen/margin_30px"
                         android:layout_marginLeft="@dimen/margin_40px"
-                        android:descendantFocusability="afterDescendants" />
+                        android:descendantFocusability="afterDescendants"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_publish_photo"
@@ -190,7 +192,8 @@
                         android:layout_marginRight="@dimen/margin_40px"
                         android:background="@drawable/btn_big_green"
                         android:gravity="center"
-                        android:text="上传场照" />
+                        android:text="上传场照"
+                        android:visibility="gone" />
                 </LinearLayout>
 
 
@@ -303,7 +306,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
-                            android:lines="@integer/line_num_event_detail"
                             android:text="@string/detail_event_detail"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </LinearLayout>

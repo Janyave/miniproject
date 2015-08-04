@@ -194,6 +194,14 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CommentDetailActivity.RequestCodeForComment && resultCode == CommentDetailActivity.ResultCodeForComment) {
+            getShareDetailRequest.request(getShareDetealResponse, shareId);
+        }
+    }
+
     class GetShareDetealResponse extends BaseResponceImpl implements GetShareDetailRequest.IGetShareResponse {
 
         @Override
@@ -207,6 +215,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
         @Override
         public void success(Share share) {
             DisplayDetailActivity.this.share = share;
+
             exhibitCoverImgVw.setImageUrl(share.coverUrl, imageLoader);
             Log.d(TAG, "share.avatarUrl:" + share.avatarUrl);
             exhibitPersonImgVw.setImageUrl(share.avatarUrl, imageLoader);

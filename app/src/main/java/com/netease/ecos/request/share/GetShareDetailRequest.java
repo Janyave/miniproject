@@ -201,6 +201,7 @@ public class GetShareDetailRequest extends BaseRequest {
 
             Share share = new Share();
 
+            share.shareId = getString(shareJO, KEY_SHARE_ID);
             share.coverUrl = getString(shareJO, KEY_COVER_URL);
             share.avatarUrl = getString(shareJO, KEY_AVATAR_URL);
             share.nickname = getString(shareJO, KEY_NICKNAME);
