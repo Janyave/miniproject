@@ -56,6 +56,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
     private CampaignListViewAdapter campaignListViewAdapter;
 
     private String recentLocation, recentCategory;
+    private static int pageIndex = 0;
 
     public static CommunityFragment newInstance(String param1, String param2) {
         CommunityFragment fragment = new CommunityFragment();
@@ -76,7 +77,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mainView = inflater.inflate(R.layout.fragment_community, container, false);
-        recentLocation = "浙江";
+        recentLocation = "01";
         recentCategory = "全部分类";
 
         bindView();
@@ -214,6 +215,9 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
     private void initData() {
         request = new ActivityListRequest();
+        final String strCategory = recentCategory;
+        final String strLocation = recentLocation;
+
         request.request(new ActivityListRequest.IActivityListResponse() {
 
             @Override
@@ -236,11 +240,14 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                 if (campaignListViewAdapter == null) {
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
                     lv_campaign.setAdapter(campaignListViewAdapter);
+                } else if (strCategory.equals(recentCategory) && strLocation.equals(recentLocation)) {  // 判断是否需要更新数据
+                    campaignListViewAdapter.setActivityList(activityList);
+                    campaignListViewAdapter.notifyDataSetChanged();
                 }
             }
             // TODO 省份ID与省份名称未定
             // TODO 全部分类项需要添加
-        }, "12", ActivityModel.ActivityType.LIVE, 0);
+        }, "01", strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), 0);
     }
 
     @Override
@@ -353,7 +360,8 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                             campaignListViewAdapter.notifyDataSetChanged();
                         }
                     }
-                }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
+//                }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
+                }, "01", strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), 0);
 
                 btn_location.setText((CharSequence) msg.obj);
                 popupWindowLocation.dismiss();
@@ -402,7 +410,6 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         final String strCategory = ((Button) v.findViewById(v.getId())).getText().toString();
         final String strLocation = recentLocation;
         recentCategory = strCategory;
-
         request.request(new ActivityListRequest.IActivityListResponse() {
 
             @Override
@@ -430,7 +437,8 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                     campaignListViewAdapter.notifyDataSetChanged();
                 }
             }
-        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
+//        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
+        }, "01", strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), 0);
 
         btn_categary.setText(strCategory);
         int length = 0;
@@ -477,6 +485,10 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         final String strCategory = recentCategory;
         final String strLocation = recentLocation;
 
+        if (campaignListViewAdapter == null)
+            pageIndex = 0;
+        else
+            pageIndex = (campaignListViewAdapter.getActivityList().size() + 9) / 10;
         request.request(new ActivityListRequest.IActivityListResponse() {
 
             @Override
@@ -504,8 +516,8 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                     campaignListViewAdapter.notifyDataSetChanged();
                 }
             }
-        }, strLocation, ActivityModel.ActivityType.主题ONLY, 0);
-
+//        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
+        }, "01", strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), pageIndex);
     }
 
     public static void setPopupWindowTouchModal(PopupWindow popupWindow, boolean touchModal) {
