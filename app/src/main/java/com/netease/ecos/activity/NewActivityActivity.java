@@ -3,6 +3,9 @@ package com.netease.ecos.activity;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -15,16 +18,21 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.ContactListAdapter;
+import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.ActivityModel.ActivityType;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.activity.CreateActivityRequest;
+import com.netease.ecos.utils.SetPhotoHelper;
+import com.netease.ecos.utils.UploadImageTools;
 import com.netease.ecos.views.ExtensibleListView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -88,6 +96,14 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     private ArrayAdapter<ActivityType> activityTypeAdapter;
     private ArrayAdapter<String> provinceAdapter;
     private ArrayAdapter<String> cityAdapter;
+    //choose the photo
+    private SetPhotoHelper mSetPhotoHelper;
+    //record the cover image path
+    private String coverImagePath;
+    //for request
+    private CreateActivityRequest createActivityRequest;
+    private CreateActivityResponce createActivityResponce;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +112,26 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
         ButterKnife.inject(this);
         initData();
         initView();
+    }
+
+    void initData() {
+        //init the adapter
+        contactListAdapter = new ContactListAdapter(this);
+        activityTypeAdapter = new ArrayAdapter<ActivityType>(this, android.R.layout.simple_list_item_1, activityTypes);
+        provinceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"浙江"});
+        cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"杭州"});
+        //send the request
+        CreateActivityRequest request = new CreateActivityRequest();
+        request.testData(new CreateActivityResponce(), new ActivityModel());
+        //init the calendar
+        calendar = Calendar.getInstance();
+        //choose the cover image
+        mSetPhotoHelper = new SetPhotoHelper(this, null);
+        //图片裁剪后输出宽度
+        final int outPutWidth = 450;
+        //图片裁剪后输出高度
+        final int outPutHeight = 300;
+        mSetPhotoHelper.setOutput(outPutWidth, outPutHeight);
     }
 
     void initView() {
@@ -118,37 +154,85 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
         endTimeEdTx.setOnTouchListener(this);
     }
 
-    void initData() {
-        //init the adapter
-        contactListAdapter = new ContactListAdapter(this);
-        activityTypeAdapter = new ArrayAdapter<ActivityType>(this, android.R.layout.simple_list_item_1, activityTypes);
-        provinceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"浙江"});
-        cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"杭州"});
-        //send the request
-        CreateActivityRequest request = new CreateActivityRequest();
-        request.testData(new CreateActivityResponce(), new ActivityModel());
-        //init the calendar
-        calendar = Calendar.getInstance();
-    }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_right_action:
                 //TODO:send the activity information to the server.
                 //get all items in the contact list view.
-
-                NewActivityActivity.this.finish();
+                if (!checkAll()) {
+                    Toast.makeText(NewActivityActivity.this, getResources().getString(R.string.notAlreadyFinished), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                File file = new File(coverImagePath);
+                UploadImageTools.uploadImageSys(file, new UploadWorkCallBack(), NewActivityActivity.this, false);
                 break;
             case R.id.tv_left:
                 NewActivityActivity.this.finish();
                 break;
             case R.id.activityCoverImgVw:
-                //TODO:choose the local picture.
+                SetPhotoDialog dialog = new SetPhotoDialog(NewActivityActivity.this, new SetPhotoDialog.ISetPhoto() {
+                    @Override
+                    public void choosePhotoFromLocal() {
+                        mSetPhotoHelper.choosePhotoFromLocal();
+                    }
+
+                    @Override
+                    public void takePhoto() {
+                        mSetPhotoHelper.takePhoto(true);
+                    }
+                });
+                dialog.showSetPhotoDialog();
                 break;
             case R.id.newIcon:
                 contactListAdapter.addItem(getDataFromListView());
                 break;
+        }
+    }
+
+    boolean checkAll() {
+        if (coverImagePath.equals(""))
+            return false;
+        if (activityNameEdTx.getText().toString().equals(""))
+            return false;
+        if (addressEdTx.getText().toString().equals(""))
+            return false;
+        if (beginDateEdTx.getText().toString().equals(""))
+            return false;
+        if (endDateEdTx.getText().toString().equals(""))
+            return false;
+        if (beginTimeEdTx.getText().toString().equals(""))
+            return false;
+        if (endTimeEdTx.getText().toString().equals(""))
+            return false;
+        if (activityDesrpEdTx.getText().toString().equals(""))
+            return false;
+        if (expenseEdTx.getText().toString().equals(""))
+            return false;
+        return true;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case SetPhotoHelper.REQUEST_BEFORE_CROP:
+                    mSetPhotoHelper.setmSetPhotoCallBack(
+                            new SetPhotoHelper.SetPhotoCallBack() {
+                                @Override
+                                public void success(String imagePath) {
+                                    coverImagePath = imagePath;
+                                    Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                                    coverImgVw.setImageBitmap(bitmap);
+                                }
+                            });
+                    mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_BEFORE_CROP, data);
+                    return;
+                case SetPhotoHelper.REQUEST_AFTER_CROP:
+                    mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_AFTER_CROP, data);
+                    break;
+            }
         }
     }
 
@@ -241,7 +325,47 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
 
         @Override
         public void success(ActivityModel activity) {
-            Log.d(TAG, "create activity successfully.");
+            Toast.makeText(NewActivityActivity.this, getResources().getString(R.string.realiseActivitySuccessfully), Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+    }
+
+    class UploadWorkCallBack implements UploadImageTools.UploadCallBack {
+
+        @Override
+        public void success(String originUrl, String thumbUrl) {
+            //for request
+            createActivityRequest = new CreateActivityRequest();
+            createActivityResponce = new CreateActivityResponce();
+            ActivityModel activityModel = new ActivityModel();
+            activityModel.title = activityNameEdTx.getText().toString();
+            activityModel.coverUrl = originUrl;
+            activityModel.introduction = activityDesrpEdTx.getText().toString();
+            activityModel.fee = expenseEdTx.getText().toString();
+            //TODO: set the date.
+            activityModel.activityTime.startDateStamp = 1111111000;
+            activityModel.activityTime.endDateStamp = 1111111011;
+            activityModel.activityTime.dayStartTime = beginTimeEdTx.getText().toString();
+            activityModel.activityTime.dayEndTime = endTimeEdTx.getText().toString();
+            activityModel.activityType = activityTypes[activityTypeSpinner.getSelectedItemPosition()];
+            activityModel.location.address = addressEdTx.getText().toString();
+            //TODO:set the province and city.
+            activityModel.location.province.provinceName = activityProvinceSpinner.getSelectedItem().toString();
+            activityModel.location.city.cityName = activityCitySpinner.getSelectedItem().toString();
+            //TODO:set the contact way list.
+//            activityModel.contactWayList=
+//            createActivityRequest.request(createActivityResponce, activityModel);
+        }
+
+        @Override
+        public void fail() {
+            Log.e("test", "failed to upload the image.");
+        }
+
+        @Override
+        public void onProcess(Object fileParam, long current, long total) {
+            Log.i(TAG, "总数" + total + "  ," + "已上传" + current);
         }
 
     }
