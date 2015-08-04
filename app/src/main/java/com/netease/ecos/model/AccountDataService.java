@@ -25,9 +25,14 @@ public class AccountDataService {
 	private final static String USER_ID = "userId";
 
 	/****
-	 * 存储{@link User#accid}
+	 * 存储云信id{@link User#accid}
 	 */
 	private final static String USER_ACCID = "accid";
+
+	/***
+	 * 云信token
+	 */
+	private final static String IM_TOKEN = "imToken";
 
 	/****
 	 * 存储token
@@ -90,6 +95,19 @@ public class AccountDataService {
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 
 		editor.putString(USER_ACCID, accid);
+		editor.commit();
+	}
+
+	/***
+	 * 保存云信token
+	 * @param imToken 云信token
+	 */
+	public void saveUserImToken(String imToken)
+	{
+		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,WRITE_MODE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+
+		editor.putString(IM_TOKEN, imToken);
 		editor.commit();
 	}
 
@@ -169,6 +187,17 @@ public class AccountDataService {
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
 
 		return sharedPreferences.getString(USER_ACCID, null);
+	}
+
+	/****
+	 * 获取当前用户云信token
+	 * @return 若无则返回null
+	 */
+	public String getImToken()
+	{
+		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
+
+		return sharedPreferences.getString(IM_TOKEN, null);
 	}
 
 	/****

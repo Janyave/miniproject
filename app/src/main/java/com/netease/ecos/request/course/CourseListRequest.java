@@ -212,7 +212,7 @@ public class CourseListRequest extends BaseRequest {
      * @param otherUserId 要查看的人的userId
      * @param pageIndex
      */
-    public void requestMySelf(ICourseListResponse courseListRespnce, final String otherUserId, final int pageIndex) {
+    public void requestOtherCourse(ICourseListResponse courseListRespnce, final String otherUserId, final int pageIndex) {
         super.initBaseRequest(courseListRespnce);
         mCourseListRespnce = courseListRespnce;
 

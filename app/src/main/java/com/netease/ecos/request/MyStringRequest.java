@@ -56,9 +56,27 @@ public class MyStringRequest extends Request<String>{
 
             Map<String, String> responseHeaders = response.headers;
             String rawCookies = responseHeaders.get("Set-Cookie");
-            Log.e("Cookie-Set", "---------------" + rawCookies);
-            AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveAutocodeCookie(rawCookies);
 
+            Log.e("Cookie-Set", "---------------" + rawCookies);
+
+            if(rawCookies!=null){
+                for(String value:rawCookies.split(";")){
+                    String token = null;
+                    String sessionId = null;
+                    if(value.contains("TOKEN=")){
+                        token = value.substring(6);
+                        AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveToken(token);
+                    }
+                    if(value.contains("SESSIONID=")){
+                        sessionId = value.substring(10);
+                        System.out.println(sessionId);
+                        AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveAutocodeCookie(rawCookies);
+                    }
+
+                    Log.e("TOKEN", "---------------" + token);
+                    Log.e("SESSIONID", "---------------" + sessionId);
+                }
+            }
 
         } catch (UnsupportedEncodingException e) {
             parsed = new String(response.data);
