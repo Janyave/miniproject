@@ -1,11 +1,13 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,9 +16,11 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.request.user.RegistRequest;
+import com.netease.ecos.utils.SetPhotoHelper;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -24,7 +28,7 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/30.
  */
-public class RegistActivity extends Activity implements View.OnClickListener,TextWatcher{
+public class RegistActivity extends BaseActivity implements View.OnClickListener,TextWatcher{
     @InjectView(R.id.et_name)
     EditText et_name;
     @InjectView(R.id.et_password)
@@ -35,6 +39,15 @@ public class RegistActivity extends Activity implements View.OnClickListener,Tex
     TextView tv_complete;
     @InjectView(R.id.iv_return)
     ImageView iv_return;
+
+
+    public SetPhotoHelper mSetPhotoHelper;
+
+    public boolean isSettingAvatart = false;
+
+    public String mAvatarLocalPath = "";
+
+    public String mAvatarUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +68,59 @@ public class RegistActivity extends Activity implements View.OnClickListener,Tex
         iv_return.setOnClickListener(this);
     }
 
+
+
     private void initData() {
 
+        mSetPhotoHelper = new SetPhotoHelper(this, null);
+        //图片裁剪后输出宽度
+        final int outPutWidth = 200;
+        //图片裁剪后输出高度
+        final int outPutHeight = 200;
+        mSetPhotoHelper.setAspect(1, 1);
+        mSetPhotoHelper.setOutput(outPutWidth, outPutHeight);
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case SetPhotoHelper.REQUEST_BEFORE_CROP:
+                    //当前是设置封面
+                    if (isSettingAvatart) {
+                        mSetPhotoHelper.setmSetPhotoCallBack(new SetPhotoHelper.SetPhotoCallBack() {
+
+                            @Override
+                            public void success(String imagePath) {
+                                Log.i("裁剪后图片路径", "-----------path:" + imagePath);
+                                mAvatarLocalPath = imagePath;
+                                Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+                                iv_avatar.setImageBitmap(bitmap);
+                                isSettingAvatart = false;
+                            }
+                        });
+                        mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_BEFORE_CROP, data);
+                        return;
+                    }
+
+
+                    break;
+                case SetPhotoHelper.REQUEST_AFTER_CROP:
+                    mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_AFTER_CROP, data);
+                    break;
+                default:
+                    isSettingAvatart = false;
+                    Log.e("CLASS_TAG", "onActivityResult() 无对应");
+            }
+
+
+        } else {
+            Log.e(CLASS_TAG, "操作取消");
+        }
     }
 
     @Override
@@ -70,7 +134,25 @@ public class RegistActivity extends Activity implements View.OnClickListener,Tex
                 break;
             case R.id.iv_avatar:
                 //TODO 选择头像
-                Toast.makeText(RegistActivity.this, "CHOOSE ICON", Toast.LENGTH_SHORT).show();
+
+                SetPhotoDialog dialog = new SetPhotoDialog(RegistActivity.this,
+                        new SetPhotoDialog.ISetPhoto() {
+
+                            @Override
+                            public void choosePhotoFromLocal() {
+                                Toast.makeText(RegistActivity.this, "选择本地图片", Toast.LENGTH_LONG).show();
+                                mSetPhotoHelper.choosePhotoFromLocal();
+                            }
+
+                            @Override
+                            public void takePhoto() {
+                                Toast.makeText(RegistActivity.this, "拍照", Toast.LENGTH_LONG).show();
+                                mSetPhotoHelper.takePhoto(false);
+
+                            }
+                        });
+                dialog.showSetPhotoDialog();
+
                 break;
             case R.id.iv_return:
                 finish();
