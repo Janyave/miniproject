@@ -59,7 +59,6 @@ public class CampaignListViewAdapter extends BaseAdapter {
         }
 
         viewHolder.setData(position);
-
         return convertView;
     }
 

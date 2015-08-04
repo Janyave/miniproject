@@ -122,7 +122,7 @@ public class ActivityListRequest extends BaseRequest{
 			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
 			JSONObject activitJO = json;
 
-			JSONArray activityJA = activitJO.getJSONArray("activityVOList");
+			JSONArray activityJA = activitJO.getJSONArray("activitys");
 
 			int length = activityJA.length();
 
