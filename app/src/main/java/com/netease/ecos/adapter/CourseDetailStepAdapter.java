@@ -47,9 +47,6 @@ public class CourseDetailStepAdapter extends BaseAdapter {
             gap2.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
 
-        /**
-         * �������δ��
-         */
         public void setData(int position) {
             Course.Step item = stepList.get(position);
             if (item.imagePath != null && !item.imagePath.equals(""))
@@ -59,11 +56,9 @@ public class CourseDetailStepAdapter extends BaseAdapter {
         }
     }
 
-
-    //TODO �������������ģ��Ϊ4��
     @Override
     public int getCount() {
-        return 4;
+        return stepList.size();
     }
 
     @Override

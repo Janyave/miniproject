@@ -92,6 +92,7 @@
     <string name="manyFavor">个赞</string>
     <string name="manyComment">条评论</string>
     <string name="page">张</string>
+    <string name="manyAssignment">个网友作品</string>
 
 
     <!-- CourseType-->
@@ -122,6 +123,7 @@
     <string name="rmb">元</string>
     <string name="title_activity_personage_share_fragment">PersonageShareFragment</string>
     <string name="title_activity_personal_info_setting">PersonalInfoSettingActivity</string>
+    <string name="alreadyGo">已参加</string>
 
     <!-- 个人单个作品上传页面-->
     <string name="notFinished">请填写分享内容:)</string>

@@ -37,6 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class CourseDetailActivity extends ActionBarActivity implements View.OnClickListener {
+    private final String TAG = "Ecos---CourseDetail";
 
     public static final String CourseID = "CourseID";
     //the widget of the title bar
@@ -278,21 +279,19 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
      * @param course
      */
     private void bindData(Course course) {
+        Log.d(TAG, "bind the data for course detail");
         this.course = course;
         tv_title.setText(course.title);
         tv_name.setText(course.author);
-        tv_praiseNum.setText(course.praiseNum + "");
+        tv_praiseNum.setText(course.praiseNum + getResources().getString(R.string.manyFavor));
         if (course.authorAvatarUrl != null && !course.authorAvatarUrl.equals(""))
             Picasso.with(CourseDetailActivity.this).load(course.authorAvatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
         if (course.coverUrl != null && !course.coverUrl.equals(""))
             Picasso.with(CourseDetailActivity.this).load(course.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
-
-        tv_otherWorks.setText(course.assignmentNum + " 个网友作品");
-        btn_allEvaluation.setText("查看全部" + course.commentNum + "条评论");
-
+        tv_otherWorks.setText(course.assignmentNum + getResources().getString(R.string.manyAssignment));
+        btn_allEvaluation.setText(course.commentNum + getResources().getString(R.string.manyComment));
         courseDetailStepAdapter = new CourseDetailStepAdapter(this, course.stepList);
         lv_courseStep.setAdapter(courseDetailStepAdapter);
-
         courseDetailOtherWorksHListViewAdapter = new CourseDetailOtherWorksHListViewAdapter(this, course.assignmentList);
         hlv_otherWorks.setAdapter(courseDetailOtherWorksHListViewAdapter);
 

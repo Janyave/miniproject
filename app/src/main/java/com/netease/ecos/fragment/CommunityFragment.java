@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
-import com.netease.ecos.activity.EventDetailActivity;
+import com.netease.ecos.activity.ActivityDetailActivity;
 import com.netease.ecos.activity.NewActivityActivity;
 import com.netease.ecos.adapter.CampaignListViewAdapter;
 import com.netease.ecos.adapter.CommunityLocationListViewAdapter;
@@ -58,6 +58,8 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
     private String recentLocation, recentCategory;
     private static int pageIndex = 0;
 
+    private List<ActivityModel> activityList;
+
     public static CommunityFragment newInstance(String param1, String param2) {
         CommunityFragment fragment = new CommunityFragment();
         return fragment;
@@ -75,15 +77,12 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         mainView = inflater.inflate(R.layout.fragment_community, container, false);
         recentLocation = "01";
         recentCategory = "全部分类";
-
         bindView();
         initListener();
         initData();
-
         return mainView;
     }
 
@@ -151,7 +150,12 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                     if (popupWindowCategory.isShowing()) {
                         popupWindowCategory.dismiss();
                     }
-                startActivity(new Intent(getActivity(), EventDetailActivity.class));
+                Intent intent = new Intent(getActivity(), ActivityDetailActivity.class);
+                Bundle bundle = new Bundle();
+                Log.d("test", "position:" + position);
+                bundle.putString(ActivityDetailActivity.ActivityID, activityList.get(position).activityId);
+                intent.putExtras(bundle);
+                startActivity(new Intent(getActivity(), ActivityDetailActivity.class));
             }
         });
         lv_campaign.setOnTouchListener(new ListViewListener(new ListViewListener.IOnMotionEvent() {
@@ -237,6 +241,8 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
             @Override
             public void success(List<ActivityModel> activityList) {
+                CommunityFragment.this.activityList = activityList;
+                Log.d("test", "activityList size:" + activityList.size());
                 if (campaignListViewAdapter == null) {
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
                     lv_campaign.setAdapter(campaignListViewAdapter);

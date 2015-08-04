@@ -102,7 +102,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.EventDetailActivity"
+            android:name=".activity.ActivityDetailActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" />
         <activity

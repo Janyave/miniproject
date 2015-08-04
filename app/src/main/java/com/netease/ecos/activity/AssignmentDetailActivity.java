@@ -109,6 +109,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         workID = getIntent().getExtras().getString(Work_ID);
         workList = getIntent().getExtras().getStringArrayList(Work_List);
         workOrder = getIntent().getExtras().getInt(Work_Order);
+
         if (workID == null)
             workID = workList.get(workOrder);
         //code for gesture
