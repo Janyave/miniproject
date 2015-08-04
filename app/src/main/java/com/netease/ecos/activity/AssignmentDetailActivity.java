@@ -7,6 +7,7 @@ import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -107,11 +108,13 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
 
     void initData() {
         workID = getIntent().getExtras().getString(Work_ID);
-        workList = getIntent().getExtras().getStringArrayList(Work_List);
-        workOrder = getIntent().getExtras().getInt(Work_Order);
-
-        if (workID == null)
+        if (workID == null) {
+            workList = getIntent().getExtras().getStringArrayList(Work_List);
+            workOrder = getIntent().getExtras().getInt(Work_Order);
+            for (int i = 0; i < workList.size(); i++)
+                Log.d(TAG, workList.get(i));
             workID = workList.get(workOrder);
+        }
         //code for gesture
         library = GestureLibraries.fromRawResource(this, R.raw.gesture);
         library.load();
@@ -126,6 +129,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         //get the work detail from the server
         request = new GetAssignmentDetailRequest();
         assignmentDetailResponse = new GetAssignmentDetailResponse();
+        Log.d(TAG, "work id:" + workID);
         request.request(assignmentDetailResponse, workID);
 
     }

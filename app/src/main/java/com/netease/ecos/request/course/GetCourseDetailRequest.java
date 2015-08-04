@@ -38,7 +38,7 @@ public class GetCourseDetailRequest extends BaseRequest {
     ICourseDetailResponse mCourseDetailRespnce;
 
 	/*{
-		limg_urls:图片列表(JSON Arrayt)
+        limg_urls:图片列表(JSON Arrayt)
 		descriptions:内容列表(JSON Array)
 		JSON ARRAY
 		{
@@ -73,7 +73,7 @@ public class GetCourseDetailRequest extends BaseRequest {
     /**
      * 作者昵称
      */
-    public static final String KEY_NICKNAME = "nickname";
+    public static final String KEY_NICKNAME = "author";
 
     /**
      * 作者id
@@ -126,7 +126,7 @@ public class GetCourseDetailRequest extends BaseRequest {
     /**
      * 作业id
      */
-    public static final String KEY_AS_ID = "assignmentId";
+    public static final String KEY_AS_ID = "assigmentId";
 
     /**
      * 作业作者id
@@ -243,6 +243,7 @@ public class GetCourseDetailRequest extends BaseRequest {
 
                     assignment = new Assignment();
 
+                    assignment.assignmentId = asJO.getString(KEY_AS_ID);
                     assignment.author = asJO.getString(KEY_AS_NICKNAME);
                     assignment.content = asJO.getString(KEY_AS_CONTENT);
                     assignment.imageUrl = asJO.getString(KEY_AS_IMAGE);

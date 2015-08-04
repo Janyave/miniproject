@@ -60,9 +60,9 @@ public class Banner extends RelativeLayout {
         this.URLList = data;
         this.count = data.size();
 
-        for (int i=0; i<count; i++){
-            View v=View.inflate(mContext, pagerViewID,null);
-            Picasso.with(mContext).load(URLList.get(i)).into((ImageView)v.findViewById(R.id.iv_image));
+        for (int i = 0; i < count; i++) {
+            View v = View.inflate(mContext, pagerViewID, null);
+            Picasso.with(mContext).load(URLList.get(i)).into((ImageView) v.findViewById(R.id.iv_image));
             ViewList.add(v);
         }
 

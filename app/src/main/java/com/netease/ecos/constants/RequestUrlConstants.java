@@ -192,12 +192,12 @@ public class RequestUrlConstants {
 	/**|**/
 	/**------------------------------    招募模块    -------------------------------------------*/
 	/*** 创建招募 */
-	public static final String CREATE_RECRUITMENT_URL = HOST + "/m/activity/photo/create?";
+	public static final String CREATE_RECRUITMENT_URL = HOUZHE_HOST + "/m/recruit/create?";
 
 	/*** 获取招募列表 */
-	public static final String GET_RECRUITMENT_LIST_URL = HOST + "/m/activity/photo/delete?";
+	public static final String GET_RECRUITMENT_LIST_URL = HOUZHE_HOST + "/m/recruit/list?";
 
 	/*** 获取招募详情 */
-	public static final String GET_RECRUITMENT_DETAIL_URL = HOST + "/m/recruit/detail?";
+	public static final String GET_RECRUITMENT_DETAIL_URL = HOUZHE_HOST + "/m/recruit/detail?";
 
 }
