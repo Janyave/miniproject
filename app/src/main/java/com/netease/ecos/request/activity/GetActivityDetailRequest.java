@@ -76,17 +76,17 @@ public class GetActivityDetailRequest extends BaseRequest{
 			activity.coverUrl = activityJO.getString("logoUrl");
 
 
-			activity.activityTime.startDateStamp = Long.valueOf(activityJO.getString("startTime")).longValue();
-			activity.activityTime.endDateStamp = Long.valueOf(activityJO.getString("endTime")).longValue();
+			activity.activityTime.startDateStamp = Long.valueOf(activityJO.getString("startDateStamp")).longValue();
+			activity.activityTime.endDateStamp = Long.valueOf(activityJO.getString("endDateStamp")).longValue();
 			activity.activityTime.dayStartTime = activityJO.getString("dayStartTime");
 			activity.activityTime.dayEndTime = activityJO.getString("dayEndTime");
 
 			activity.issueTimeStamp = Long.valueOf(activityJO.getString("issueTimeStamp")).longValue();
 
-			activity.nickname = activityJO.getString("description");
-			activity.nickname = activityJO.getString("fee");
+			activity.introduction = activityJO.getString("description");
+			activity.fee = activityJO.getString("fee");
 			//发布者头像url
-			activity.nickname = activityJO.getString("avatarUrl");
+			activity.avatarUrl = activityJO.getString("avatarUrl");
 			//发布者姓名
 			activity.nickname = activityJO.getString("nickName");
 
@@ -107,16 +107,23 @@ public class GetActivityDetailRequest extends BaseRequest{
 			}
 			activity.contactWayList = contactWayList;
 
-			JSONArray suAvatarUrls = activityJO.getJSONArray("suAvatarUrls");
-			for(int i=0;i<suAvatarUrls.length();i++){
+			JSONArray signUpUserJA = activityJO.getJSONArray("signUpUsers");
+			for(int i=0;i<signUpUserJA.length();i++){
+
+				JSONObject signUpUserJO = signUpUserJA.getJSONObject(i);
 				User user = new User();
-				user.avatarUrl = suAvatarUrls.getString(i);
+				user.userId = signUpUserJO.getString("userId");
+				user.avatarUrl = signUpUserJO.getString("avatarUrl");
+				user.nickname = signUpUserJO.getString("nickName");
 
 				activity.signUpUseList.add(user);
 			}
 
 			activity.hasSignuped = activityJO.getBoolean("hasSignuped");
 			activity.hasStarted = activityJO.getBoolean("hasStarted");
+			activity.hasFinshed = activityJO.getBoolean("hasFinished");
+
+
 
 			if(mActivityDetailResponse!=null)
 			{
