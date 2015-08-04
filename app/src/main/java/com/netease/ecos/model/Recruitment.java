@@ -18,11 +18,11 @@ public class Recruitment {
     /*** 招募id */
     public String recruitmentId;
 
-    /*** 分享id */
-    public String shareId;
-
     /*** 标题 */
     public String  title;
+
+    /*** 城市码 */
+    public String cityCode;
 
     /*** 介绍 */
     public String description;
@@ -45,7 +45,7 @@ public class Recruitment {
     /*** 均价 */
     public String averagePrice;
 
-    /*** 单位 */
+    /*** 均价单位 */
     public String priceUnit;
 
     /*** 封面图本地路径 */
@@ -63,8 +63,12 @@ public class Recruitment {
     /*** 作品{@link Share}}列表 */
     public List<Share> shareList;
 
+    /*** 招募类别 */
+    public RecruitType recruitType;
+
     public Recruitment(){
         gender = Gender.男;
+        recruitType =RecruitType.妆娘;
         shareList = new ArrayList<Share>();
     }
 
@@ -85,7 +89,6 @@ public class Recruitment {
         服装("3","米/套"),
         道具("4","米/套"),
         其他("5","米");
-
 
         public String value;
 
@@ -119,4 +122,22 @@ public class Recruitment {
             return null;
         }
     }
+
+
+    @Override
+    public String toString() {
+        return "Recruitment [recruitmentId=" + recruitmentId + ", title="
+                + title + ", cityCode=" + cityCode + ", description="
+                + description + ", userId=" + userId + ", nickname=" + nickname
+                + ", imId=" + imId + ", gender=" + gender + ", avatarUrl="
+                + avatarUrl + ", averagePrice=" + averagePrice + ", priceUnit="
+                + priceUnit + ", coverLocalPath=" + coverLocalPath
+                + ", coverUrl=" + coverUrl + ", issueTimeStamp="
+                + issueTimeStamp + ", distanceKM=" + distanceKM
+                + ", shareList=" + shareList + ", recruitType=" + recruitType
+                + "]";
+    }
+
+
+
 }
