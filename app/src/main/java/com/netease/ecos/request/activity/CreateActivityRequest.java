@@ -126,7 +126,7 @@ public class CreateActivityRequest extends BaseRequest{
 		jsonMap.put("dayStartStamp",String.valueOf(activity.activityTime.dayStartTime));
 		jsonMap.put("dayEndStamp",String.valueOf(activity.activityTime.dayEndTime));
 
-		jsonMap.put("description",activity.introductino);
+		jsonMap.put("description",activity.introduction);
 		jsonMap.put("fee",activity.fee);
 
 		JSONObject locationJO = new JSONObject();

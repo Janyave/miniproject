@@ -74,8 +74,11 @@ public class YunXinLoginActivity extends BaseActivity{
 	private AbortableFuture<LoginInfo> loginRequest;
 	
 	public void login(){
-		String account = etv_account.getText().toString();
-		String token = etv_password.getText().toString();
+//		String account = etv_account.getText().toString();
+//		String token = etv_password.getText().toString();
+
+		String account = "2b584d0f3e0243008582579802d28901";
+		String token = "cc7be9877aacd5248b53d2e0b823096f";
 		
 		if (!NetworkUtil.isNetAvailable(this)) {
             Toast.makeText(this, "网络不可用", Toast.LENGTH_LONG).show();
