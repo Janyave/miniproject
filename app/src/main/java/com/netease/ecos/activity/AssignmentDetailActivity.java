@@ -7,7 +7,6 @@ import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -95,6 +94,8 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
     private GetAssignmentDetailRequest request;
     private GetAssignmentDetailResponse assignmentDetailResponse;
 
+    private Course.Assignment assignment;
+
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
@@ -149,49 +150,15 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         gestureOverlayView.addOnGesturePerformedListener(this);
     }
 
-    /**
-     * @ClassName: GetAssignmetnDetailResponse
-     * @Description: 获取作业详情
-     */
-    class GetAssignmentDetailResponse extends BaseResponceImpl implements GetAssignmentDetailRequest.IAssignmentDetailRespnce {
-
-        @Override
-        public void doAfterFailedResponse(String message) {
-        }
-
-        @Override
-        public void onErrorResponse(VolleyError error) {
-        }
-
-        @Override
-        public void success(Course.Assignment assignment, List<Comment> commentList) {
-            //set the work image.
-            Log.d(TAG, "assignment.imageUrl:" + assignment.imageUrl);
-            networkImageView.setImageUrl(assignment.imageUrl, imageLoader);
-            personPicImgView.setImageUrl(assignment.authorAvatarUrl, imageLoader);
-            personNameTxV.setText(assignment.author);
-            workDetailDate.setText(assignment.getDateDescription());
-            workDetailDescpTxVw.setText(assignment.content);
-            workDetailFavorTxVw.setText(assignment.praiseNum + AssignmentDetailActivity.this.getString(R.string.favorCount));
-            workDetailListViewAdapter.updateCommentList(commentList);
-        }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(AssignmentDetailActivity.this, CommentDetailActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.作业.getBelongs());
-        bundle.putString(CommentDetailActivity.FromId, workList.get(workOrder));
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             Intent intent = new Intent(AssignmentDetailActivity.this, WriteContentActivity.class);
-            startActivity(intent);
+            Bundle bundle = new Bundle();
+            bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.作业.getBelongs());
+            bundle.putString(CommentDetailActivity.FromId, assignment.assignmentId);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, CommentDetailActivity.RequestCodeForComment);
         }
         return false;
     }
@@ -207,6 +174,27 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
                 break;
         }
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(AssignmentDetailActivity.this, CommentDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.作业.getBelongs());
+        bundle.putString(CommentDetailActivity.FromId, workList.get(workOrder));
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CommentDetailActivity.RequestCodeForComment && resultCode == CommentDetailActivity.ResultCodeForComment) {
+            Comment comment = new Comment();
+            comment.commentType = Comment.CommentType.作业;
+            comment.commentTypeId = assignment.assignmentId;
+//            commentListRequest.request(getCommentListResponse, comment, 1);
+        }
     }
 
     @Override
@@ -235,5 +223,33 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         }
         workID = workList.get(workOrder);
         request.request(assignmentDetailResponse, workID);
+    }
+
+    /**
+     * @ClassName: GetAssignmetnDetailResponse
+     * @Description: 获取作业详情
+     */
+    class GetAssignmentDetailResponse extends BaseResponceImpl implements GetAssignmentDetailRequest.IAssignmentDetailRespnce {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+        }
+
+        @Override
+        public void success(Course.Assignment assignment, List<Comment> commentList) {
+            AssignmentDetailActivity.this.assignment = assignment;
+            //set the work image.
+            networkImageView.setImageUrl(assignment.imageUrl, imageLoader);
+            personPicImgView.setImageUrl(assignment.authorAvatarUrl, imageLoader);
+            personNameTxV.setText(assignment.author);
+            workDetailDate.setText(assignment.getDateDescription());
+            workDetailDescpTxVw.setText(assignment.content);
+            workDetailFavorTxVw.setText(assignment.praiseNum + AssignmentDetailActivity.this.getString(R.string.favorCount));
+            workDetailListViewAdapter.updateCommentList(commentList);
+        }
     }
 }

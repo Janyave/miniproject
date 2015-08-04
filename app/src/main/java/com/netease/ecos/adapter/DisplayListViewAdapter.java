@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -89,8 +90,10 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             Share item = shareList.get(position);
 
             //bind the data
-            if (item.avatarUrl != null)
+            if (item.avatarUrl != null && !item.avatarUrl.equals(""))
                 Picasso.with(mcontext).load(item.avatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
+            else
+                Log.d("test", "item.avatarUrl is null");
             tv_name.setText(item.nickname);
             tv_focus.setText(item.hasAttention ? "已关注" : "关注");
 
@@ -185,12 +188,10 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             case R.id.iv_cover:
             case R.id.tv_coverTitle:
                 intent = new Intent(mcontext, DisplayDetailActivity.class);
-                bundle.putString(PersonageDetailActivity.UserID, shareList.get(position).shareId);
-                bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
+                bundle.putString(DisplayDetailActivity.ShareId, shareList.get(position).shareId);
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;
-
             case R.id.ll_praise:
                 //TODO:点赞 favor
                 break;

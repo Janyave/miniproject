@@ -62,8 +62,10 @@
     <!-- 个人信息页面 -->
     <string name="bt_personage_name_default">玉生烟</string>
     <string name="tv_personage_gender_default">女</string>
-    <string name="tv_personage_attention_default">关注：632</string>
-    <string name="tv_personage_fans_default">粉丝：535</string>
+    <string name="tv_personage_attention">关注</string>
+    <string name="tv_personage_attention_default">632</string>
+    <string name="tv_personage_fans">粉丝</string>
+    <string name="tv_personage_fans_default">535</string>
     <string name="tv_personage_description_default">妹控什么的冲我来吧</string>
     <string name="bt_personage_setting">设置</string>
     <string name="tv_schedule_set_default">课表集(2)</string>
@@ -104,6 +106,7 @@
     <string name="others">其他</string>
     <string name="experience">心得</string>
     <string name="title_activity_recruitment_detail">RecruitmentDetailActivity</string>
+    <string name="noCourse">抱歉，还没有该分类的教程，快来试试发布教程吧;)</string>
 
 
     <!-- 活动页面-->
@@ -135,4 +138,12 @@
     <!-- 评论页面-->
     <string name="noComment">请填写评论;)</string>
     <string name="commentSuccess">评论发送成功:)</string>
+    <string name="side_notification">我的消息</string>
+    <string name="side_contact">我的私信</string>
+    <string name="side_course">我的教程</string>
+    <string name="side_display">我的分享</string>
+    <string name="side_activity">我的活动</string>
+    <string name="side_recruite">招募挂牌</string>
+    <string name="side_setting">设置</string>
+    <string name="side_person">个人中心</string>
 </resources>

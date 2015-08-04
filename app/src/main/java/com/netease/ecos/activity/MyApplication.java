@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -21,9 +22,12 @@ import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.MyMediaScanner;
 import com.netease.ecos.utils.yunxin.ScreenUtil;
 import com.netease.ecos.utils.yunxin.SystemUtil;
+import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.RequestCallback;
 import com.netease.nimlib.sdk.SDKOptions;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
+import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 
 /**
@@ -69,7 +73,6 @@ public class MyApplication extends Application {
 
         Log.e("初始化", "初始化");
         NIMClient.init(this, getLoginInfo(), getOptions());
-
 
         //模拟存储用户数据.
         saveTestUserData();
@@ -388,4 +391,37 @@ public class MyApplication extends Application {
         public void locationFailed(String message);
     }
     //百度定位---------------------结束
+
+
+    private AbortableFuture<LoginInfo> loginRequest;
+    public void login(){
+        final String account = "2b584d0f3e0243008582579802d28901";
+        final String token = "cc7be9877aacd5248b53d2e0b823096f";
+
+        //用账号和token进行登录
+        loginRequest = NIMClient.getService(AuthService.class).login(new LoginInfo(account, token));
+        loginRequest.setCallback(new RequestCallback<LoginInfo>() {
+            @Override
+            public void onSuccess(LoginInfo param) {
+
+                Log.e("tag","登录成功");
+
+
+            }
+
+            @Override
+            public void onFailed(int code) {
+                if (code == 302 || code == 404) {
+                    Toast.makeText(getContext(), "账号或密码错误", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "login error: " + code, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onException(Throwable exception) {
+                Log.e("登录",exception.toString());
+            }
+        });
+    }
 }

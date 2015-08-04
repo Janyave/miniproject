@@ -57,8 +57,10 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
          */
         public void setData(int position) {
             //set the data for each widget
-            Picasso.with(mcontext).load(recruitmentArrayList.get(position).avatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
-            Picasso.with(mcontext).load(recruitmentArrayList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            if (recruitmentArrayList.get(position).avatarUrl != null && !recruitmentArrayList.get(position).avatarUrl.equals(""))
+                Picasso.with(mcontext).load(recruitmentArrayList.get(position).avatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
+            if (recruitmentArrayList.get(position).coverUrl != null && !recruitmentArrayList.get(position).coverUrl.equals(""))
+                Picasso.with(mcontext).load(recruitmentArrayList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             tv_name.setText(recruitmentArrayList.get(position).nickname);
             tv_distance.setText(recruitmentArrayList.get(position).distanceKM);
             tv_price.setText(recruitmentArrayList.get(position).averagePrice + recruitmentArrayList.get(position).priceUnit);

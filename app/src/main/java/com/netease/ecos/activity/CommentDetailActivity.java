@@ -33,7 +33,6 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     private static final String TAG = "Ecos---CommentDetail";
     public static final String FromId = "fromId";
     public static final String CommentType = "commentType";
-    public static final String CommentContent = "CommentContent";
     private String fromId = "";
     private Comment.CommentType commentType;
     @InjectView(R.id.commentLsVw)

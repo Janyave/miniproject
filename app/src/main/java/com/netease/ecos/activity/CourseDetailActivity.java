@@ -282,8 +282,10 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         tv_title.setText(course.title);
         tv_name.setText(course.author);
         tv_praiseNum.setText(course.praiseNum + "");
-        Picasso.with(CourseDetailActivity.this).load(course.authorAvatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
-        Picasso.with(CourseDetailActivity.this).load(course.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+        if (course.authorAvatarUrl != null && !course.authorAvatarUrl.equals(""))
+            Picasso.with(CourseDetailActivity.this).load(course.authorAvatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
+        if (course.coverUrl != null && !course.coverUrl.equals(""))
+            Picasso.with(CourseDetailActivity.this).load(course.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
 
         tv_otherWorks.setText(course.assignmentNum + " 个网友作品");
         btn_allEvaluation.setText("查看全部" + course.commentNum + "条评论");

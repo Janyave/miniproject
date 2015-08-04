@@ -115,9 +115,9 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         user_name.setText(mUserData.nickname);
         if (mUserData.gender == User.Gender.女) {
-            user_gender.setImageDrawable(getResources().getDrawable(R.drawable.img_gender_famale));
+            user_gender.setImageDrawable(getResources().getDrawable(R.mipmap.ic_gender_female));
         } else {
-            user_gender.setImageDrawable(getResources().getDrawable(R.drawable.img_gender_male));
+            user_gender.setImageDrawable(getResources().getDrawable(R.mipmap.ic_gender_male));
         }
         user_attention.setText("" + mUserData.followOtherNum);
         user_fans.setText("" + mUserData.fansNum);

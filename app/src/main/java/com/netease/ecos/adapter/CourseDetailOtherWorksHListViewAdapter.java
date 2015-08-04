@@ -20,11 +20,11 @@ import java.util.List;
  */
 public class CourseDetailOtherWorksHListViewAdapter extends BaseAdapter {
     private Context mContext;
-    private List<Course.Assignment> assignmentList=new ArrayList<Course.Assignment>();
+    private List<Course.Assignment> assignmentList = new ArrayList<Course.Assignment>();
 
-    public CourseDetailOtherWorksHListViewAdapter(Context c, List<Course.Assignment> assignmentList){
+    public CourseDetailOtherWorksHListViewAdapter(Context c, List<Course.Assignment> assignmentList) {
         mContext = c;
-        this.assignmentList=assignmentList;
+        this.assignmentList = assignmentList;
     }
 
     //TODO 假定数量
@@ -45,38 +45,41 @@ public class CourseDetailOtherWorksHListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder=null;
-		if(convertView==null){
-            convertView=parent.inflate(mContext, R.layout.item_coursedetail_otherworks, null);
-            viewHolder=new ViewHolder(convertView);
-			convertView.setTag(viewHolder);
-		}else{
-			viewHolder=(ViewHolder) convertView.getTag();
-		}
+        ViewHolder viewHolder = null;
+        if (convertView == null) {
+            convertView = parent.inflate(mContext, R.layout.item_coursedetail_otherworks, null);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
 
         viewHolder.setData(position);
 
         return convertView;
     }
-    class ViewHolder{
+
+    class ViewHolder {
         private ImageView iv_image;
         private TextView tv_time;
         private TextView tv_name;
         private ImageView iv_avatar;
         private LinearLayout ll_author;
 
-        ViewHolder(View v){
-            iv_image=(ImageView)v.findViewById(R.id.iv_image);
-            tv_name=(TextView)v.findViewById(R.id.tv_name);
-            iv_avatar=(ImageView)v.findViewById(R.id.iv_avatar);
-            tv_time=(TextView)v.findViewById(R.id.tv_time);
-            ll_author=(LinearLayout)v.findViewById(R.id.ll_author);
+        ViewHolder(View v) {
+            iv_image = (ImageView) v.findViewById(R.id.iv_image);
+            tv_name = (TextView) v.findViewById(R.id.tv_name);
+            iv_avatar = (ImageView) v.findViewById(R.id.iv_avatar);
+            tv_time = (TextView) v.findViewById(R.id.tv_time);
+            ll_author = (LinearLayout) v.findViewById(R.id.ll_author);
         }
 
-        void setData(int position){
-            Course.Assignment item=assignmentList.get(position);
-            Picasso.with(mContext).load(item.imageUrl).placeholder(R.drawable.img_default).into(iv_image);
-            Picasso.with(mContext).load(item.authorAvatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
+        void setData(int position) {
+            Course.Assignment item = assignmentList.get(position);
+            if (item.imageUrl != null && !item.imageUrl.equals(""))
+                Picasso.with(mContext).load(item.imageUrl).placeholder(R.drawable.img_default).into(iv_image);
+            if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals(""))
+                Picasso.with(mContext).load(item.authorAvatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
             tv_name.setText(item.author);
             tv_time.setText(item.getDateDescription());
         }
