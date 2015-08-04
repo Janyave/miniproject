@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.R.id;
-import com.netease.ecos.R.layout;
 import com.netease.ecos.database.ContactDBService;
 import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.ModelUtils;
@@ -45,7 +44,7 @@ public class YunXinApiActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(layout.yunxin_api_test_layout);
+		setContentView(R.layout.yunxin_api_test_layout);
 		
 		etv_accid = (EditText) findViewById(id.etv_accid);
 		etv_content = (EditText) findViewById(id.etv_content);
@@ -116,8 +115,7 @@ public class YunXinApiActivity extends Activity{
 	    	        		contact.time = msg.getTime();
 	    	        		contact.unreadedNum = msg.getUnreadCount();
 	    	        		ContactDBService.getInstance(YunXinApiActivity.this).addContact(contact);
-	    	        		
-	    	        		
+
 	    	        		Log.e("最近会话信息", "联系人id：" + msg.getContactId());
 	    	                Log.e("最近会话信息", "会话内容：" + msg.getContent());
 	    	                Log.e("最近会话信息", "会话账号：" + msg.getFromAccount());
@@ -306,7 +304,7 @@ public class YunXinApiActivity extends Activity{
            	 Log.e("拉取信息", "拉去信息的条数" + msgList.size());
            	 
            	Log.e("历史信息", "聊天------");
-           	 for(int i=0;i<10;i++){
+           	 /*for(int i=0;i<10;i++){
            		 
            		IMMessage message = msgList.get(i);
            		
@@ -315,7 +313,7 @@ public class YunXinApiActivity extends Activity{
            		tv_message_history.append(ModelUtils.getDateDetailByTimeStamp(message.getTime()));
            		tv_message_history.append("\n");
            		
-           	 }
+           	 }*/
            		 
             }
 

@@ -212,7 +212,10 @@ public class CourseListRequest extends BaseRequest {
                 Map<String, String> map = new HashMap<String, String>();
 
                 map.put(TYPE, "myself");
-                map.put(KEY_USER_ID, otherUserId);
+                if(otherUserId==null)
+                    map.put(KEY_USER_ID, getUserId());
+                else
+                    map.put(KEY_USER_ID, otherUserId);
                 map.put(COURSE_TYPE, "");
                 map.put(KEY_WORD, "");
                 map.put(SORT_RULE, "");

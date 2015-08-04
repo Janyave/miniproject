@@ -131,7 +131,10 @@ public class ActivityListRequest extends BaseRequest{
 			protected Map<String, String> getParams() throws AuthFailureError {
 				Map<String, String> map = new HashMap<String, String>();
 
-				map.put(KEY_USER_ID, otherUserId);
+				if(otherUserId==null)
+					map.put(KEY_USER_ID, getUserId());
+				else
+					map.put(KEY_USER_ID, otherUserId);
 
 				//活动类别为个人
 				map.put("isMySelf", "true");
