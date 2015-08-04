@@ -73,7 +73,7 @@ public class CourseListRequest extends BaseRequest {
     /**
      * 作者昵称
      */
-    public static final String KEY_NICKNAME = "nickname";
+    public static final String KEY_NICKNAME = "author";
 
     /**
      * 作者id
@@ -121,17 +121,7 @@ public class CourseListRequest extends BaseRequest {
             , final String keyWord, final SortRule sortRule, final int pageIndex) {
         super.initBaseRequest(courseListRespnce);
         mCourseListRespnce = courseListRespnce;
-
         mCourseType = courseType;
-
-        //		List<Course> courseList = getTestCourseList();
-        //
-        //		if(mCourseListRespnce!=null)
-        //		{
-        //			mCourseListRespnce.success(courseList);
-        //		}
-
-
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COURSE_LIST_URL, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -176,15 +166,6 @@ public class CourseListRequest extends BaseRequest {
     public void requestMySelf(ICourseListResponse courseListRespnce, final int pageIndex) {
         super.initBaseRequest(courseListRespnce);
         mCourseListRespnce = courseListRespnce;
-
-        //		List<Course> courseList = getTestCourseList();
-        //
-        //		if(mCourseListRespnce!=null)
-        //		{
-        //			mCourseListRespnce.success(courseList);
-        //		}
-
-
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COURSE_LIST_URL, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -213,8 +194,6 @@ public class CourseListRequest extends BaseRequest {
 
     @Override
     public void responceSuccess(String jstring) {
-        //		traceNormal(TAG, jstring);
-
         try {
             JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
 

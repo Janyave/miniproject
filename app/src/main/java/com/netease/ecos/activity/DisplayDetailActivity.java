@@ -69,7 +69,6 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
     @InjectView(R.id.favorBtn)
     Button favorBtn;
 
-
     private ExhibitListViewAdapter exhibitListViewAdapter;
     private WorkDetailListViewAdapter workDetailListViewAdapter;
     //for NetWorkImageView
@@ -108,6 +107,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
         backTxVw.setOnClickListener(this);
         exhibitCommentLsVwLsVw.setOnItemClickListener(this);
         exhibitFocusBtn.setOnClickListener(this);
+        exhibitPersonImgVw.setOnClickListener(this);
         //always hide the keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
@@ -155,7 +155,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
             bundle.putString(CommentDetailActivity.FromId, share.shareId);
             bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.分享.getBelongs());
             intent.putExtras(bundle);
-            startActivity(intent);
+            startActivityForResult(intent, CommentDetailActivity.RequestCodeForComment);
         }
         return false;
     }

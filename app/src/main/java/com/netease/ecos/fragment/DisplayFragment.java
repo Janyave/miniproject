@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -246,7 +245,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
         switch (v.getId()) {
             case R.id.tv_search:
-                startActivityForResult(new Intent(getActivity(), SearchActivity.class),CourseCategoryActivity.RequestCodeForSearch);
+                startActivityForResult(new Intent(getActivity(), SearchActivity.class), CourseCategoryActivity.RequestCodeForSearch);
                 break;
             case R.id.tv_all:
                 //the text color
@@ -304,7 +303,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CourseCategoryActivity.RequestCodeForSearch && resultCode == CourseCategoryActivity.ResultCodeForSearch) {
-            Log.d("test","searchWord:"+searchWord);
+            Log.d("test", "searchWord:" + searchWord);
             searchWord = data.getExtras().getString(SearchActivity.SearchWord);
             shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
         }
@@ -314,7 +313,8 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
         @Override
         public void success(List<Share> shareList) {
-            Log.d(TAG, "sharelist.size:" + shareList.size());
+            if (shareList.size() == 0)
+                Toast.makeText(getActivity(), getResources().getString(R.string.noShare), Toast.LENGTH_SHORT).show();
             displayListViewAdapter = new DisplayListViewAdapter(getActivity(), shareList);
             lv_course.setAdapter(displayListViewAdapter);
         }

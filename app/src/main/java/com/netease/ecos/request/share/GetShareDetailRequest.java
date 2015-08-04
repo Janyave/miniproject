@@ -117,7 +117,7 @@ public class GetShareDetailRequest extends BaseRequest {
     /**
      * 评论者头像url
      */
-    public static final String KEY_COMMENT_AVATAR_URL = "authorAvatarUrl";
+    public static final String KEY_COMMENT_AVATAR_URL = "avatarUrl";
 
     /**
      * 评论内容
@@ -173,9 +173,7 @@ public class GetShareDetailRequest extends BaseRequest {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = getRequestBasicMap();
-
                 map.put(SHARE_ID, shareId);
-
                 traceNormal(TAG, map.toString());
                 traceNormal(TAG, GetShareDetailRequest.this.getUrl(RequestUrlConstants.GET_SHARE_DETAIL_URL, map));
                 return map;
