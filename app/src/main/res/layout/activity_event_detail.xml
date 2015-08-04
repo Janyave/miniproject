@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,12 +9,16 @@
     android:orientation="vertical"
     tools:context="com.netease.ecos.activity.EventDetailActivity">
 
+
+
+
     <include
         android:id="@+id/include_title"
         layout="@layout/component_title" />
 
 
     <ScrollView
+        android:id="@+id/sv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_gray">
@@ -218,6 +225,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/height_activity_show_item_90px"
                     android:orientation="horizontal"
+                    android:gravity="center_vertical"
                     android:padding="@dimen/margin_20px">
                     <ImageView
                         android:layout_width="@dimen/icon_little_36px"
@@ -238,12 +246,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/height_activity_show_item_90px"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_20px">
                     <ImageView
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
-                        android:src="@mipmap/ic_position_pink"
+                        android:src="@mipmap/ic_time_pink"
                         android:layout_marginRight="@dimen/margin_20px"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -259,12 +268,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/height_activity_show_item_90px"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_20px">
                     <ImageView
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
-                        android:src="@mipmap/ic_position_pink"
+                        android:src="@mipmap/ic_detail_pink"
                         android:layout_marginRight="@dimen/margin_20px"/>
                     <TextView
                         android:layout_width="match_parent"
@@ -294,12 +304,14 @@
                         style="@style/text_pink_max"
                         android:gravity="center"/>
                     <LinearLayout
+                        android:id="@+id/ll_wantgo_icons"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="@dimen/circle_icon_100px"
                         android:orientation="horizontal">
                     </LinearLayout>
                     <TextView
+                        android:id="@+id/tv_wangoNum"
                         android:layout_width="@dimen/circle_icon_100px"
                         android:layout_height="@dimen/circle_icon_100px"
                         android:background="@drawable/bg_activty_wantgo_unable"
@@ -347,17 +359,24 @@
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px">
                 <LinearLayout
+                    android:id="@+id/ll_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/height_activity_show_item_90px"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_20px">
                     <ImageView
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
-                        android:src="@mipmap/ic_position_pink"
+                        android:src="@mipmap/ic_phone_pink"
                         android:layout_marginRight="@dimen/margin_20px"/>
                     <TextView
+                        android:id="@+id/tv_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -365,19 +384,27 @@
                         style="@style/text_dark_mid"/>
                 </LinearLayout>
                 <TextView style="@style/layout_line_gray"/>
+                </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/ll_qq"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/height_activity_show_item_90px"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_20px">
                     <ImageView
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
-                        android:src="@mipmap/ic_position_pink"
+                        android:src="@mipmap/ic_qq_pink"
                         android:layout_marginRight="@dimen/margin_20px"/>
                     <TextView
+                        android:id="@+id/tv_qq"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -385,20 +412,23 @@
                         style="@style/text_dark_mid"/>
                 </LinearLayout>
                 <TextView style="@style/layout_line_gray"/>
-
+                </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ll_weibo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/height_activity_show_item_90px"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_20px">
                     <ImageView
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
-                        android:src="@mipmap/ic_position_pink"
+                        android:src="@mipmap/ic_weibo_pink"
                         android:layout_marginRight="@dimen/margin_20px"/>
                     <TextView
+                        android:id="@+id/tv_weibo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -448,6 +478,7 @@
                 android:layout_marginRight="@dimen/margin_40px"
                 android:layout_marginBottom="@dimen/margin_40px">
                 <com.netease.ecos.utils.RoundImageView
+                    android:id="@+id/iv_author_avator"
                     android:layout_width="@dimen/circle_icon_108px"
                     android:layout_height="@dimen/circle_icon_108px"
                     android:src="@drawable/img_default"/>
@@ -457,11 +488,13 @@
                     android:layout_marginLeft="@dimen/margin_40px"
                     android:orientation="vertical">
                     <TextView
+                        android:id="@+id/tv_author_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="萌萌哒小章鱼"
                         style="@style/text_dark_mid"/>
                     <TextView
+                        android:id="@+id/tv_author_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_10px"
@@ -480,3 +513,5 @@
 
 
 </LinearLayout>
+
+    </ScrollView>
