@@ -39,7 +39,6 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
     private TextView tv_recommend;
     private TextView tv_new;
     private TextView tv_attention;
-    private TextView tv_search;
 
     private DisplayListViewAdapter displayListViewAdapter;
 
@@ -79,8 +78,6 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         tv_recommend = (TextView) mainView.findViewById(R.id.tv_recommend);
         tv_new = (TextView) mainView.findViewById(R.id.tv_new);
         tv_attention = (TextView) mainView.findViewById(R.id.tv_attention);
-        tv_search = (TextView) mainView.findViewById(R.id.tv_search);
-
         lv_course = (XListView) mainView.findViewById(R.id.lv_course);
         lv_course.setDividerHeight(0);
         btn_floading = (FloadingButton) mainView.findViewById(R.id.btn_floading);
@@ -97,7 +94,6 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
     private void initListener() {
         tv_all.setOnClickListener(this);
-        tv_search.setOnClickListener(this);
         tv_attention.setOnClickListener(this);
         tv_recommend.setOnClickListener(this);
         tv_new.setOnClickListener(this);
@@ -244,9 +240,6 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.tv_search:
-                startActivityForResult(new Intent(getActivity(), SearchActivity.class), CourseCategoryActivity.RequestCodeForSearch);
-                break;
             case R.id.tv_all:
                 //the text color
                 setUnChecked();
@@ -290,7 +283,6 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         int color = getResources().getColor(R.color.text_gray);
         tv_all.setTextColor(color);
         tv_new.setTextColor(color);
-        tv_search.setTextColor(color);
         tv_recommend.setTextColor(color);
         tv_attention.setTextColor(color);
         tv_all.setBackgroundColor(getResources().getColor(R.color.bg_white));
@@ -321,12 +313,10 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
         @Override
         public void doAfterFailedResponse(String message) {
-
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-
         }
     }
 }

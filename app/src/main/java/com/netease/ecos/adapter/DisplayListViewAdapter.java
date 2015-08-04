@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.CommentDetailActivity;
-import com.netease.ecos.activity.CourseCategoryActivity;
 import com.netease.ecos.activity.DisplayDetailActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.SearchActivity;
@@ -23,11 +22,8 @@ import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.user.FollowUserRequest;
-import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.views.ExtensibleListView;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -142,7 +138,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
     @Override
     public int getCount() {
-        return shareList.size()+1;
+        return shareList.size() + 1;
     }
 
 
@@ -159,9 +155,9 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
-        if (position==0){
-            convertView=parent.inflate(mcontext, R.layout.item_display_search, null);
-            ((TextView)convertView.findViewById(R.id.tv_search)).setOnClickListener(new View.OnClickListener() {
+        if (position == 0) {
+            convertView = parent.inflate(mcontext, R.layout.item_display_search, null);
+            ((TextView) convertView.findViewById(R.id.tv_search)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mcontext.startActivity(new Intent(mcontext, SearchActivity.class));
@@ -169,7 +165,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             });
             convertView.setTag(false);
             return convertView;
-        }else {
+        } else {
 
 
             if (convertView == null || convertView.getTag() instanceof Boolean) {
@@ -179,7 +175,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            viewHolder.setData(position-1);
+            viewHolder.setData(position - 1);
             return convertView;
         }
     }

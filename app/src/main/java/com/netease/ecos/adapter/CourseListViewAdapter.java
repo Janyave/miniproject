@@ -3,7 +3,6 @@ package com.netease.ecos.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -55,17 +54,12 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
          */
         public void setData(final int position) {
             Course item = courseList.get(position);
-            Log.d("test", "item.coverUrl:" + item.coverUrl);
             if (item.coverUrl != null)
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(networkImageView);
-            Log.d("test", "item.authorAvatarUrl:" + item.authorAvatarUrl);
             if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals(""))
                 Picasso.with(mcontext).load(item.authorAvatarUrl).placeholder(R.drawable.img_default).into(imageAuthorPic);
-            Log.d("test", "item.title:" + item.title);
             textViewTitle.setText(item.title);
-            Log.d("test", "item.praiseNum:" + item.praiseNum);
             textViewAmz.setText(item.praiseNum + "");
-            Log.d("test", "item.author:" + item.author);
             textViewAuthor.setText(item.author);
             //set position tag
             imageAuthorPic.setTag(position);

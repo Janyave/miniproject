@@ -214,6 +214,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
                         Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.alreadyFirstAssignment), Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.loadingLastAssignment), Toast.LENGTH_SHORT).show();
                     workOrder--;
                     titleTxVw.setText((workOrder + 1) + "/" + workList.size());
                 } else if (LEFT.equals(prediction.name)) {
@@ -221,6 +222,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
                         Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.alreadyLastAssignment), Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.loadingNextAssignment), Toast.LENGTH_SHORT).show();
                     workOrder++;
                     titleTxVw.setText((workOrder + 1) + "/" + workList.size());
                 }
