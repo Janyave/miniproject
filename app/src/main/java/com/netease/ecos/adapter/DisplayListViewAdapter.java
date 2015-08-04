@@ -15,14 +15,19 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.CommentDetailActivity;
+import com.netease.ecos.activity.CourseCategoryActivity;
 import com.netease.ecos.activity.DisplayDetailActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
+import com.netease.ecos.activity.SearchActivity;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.user.FollowUserRequest;
+import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.views.ExtensibleListView;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -96,6 +101,8 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 Log.d("test", "item.avatarUrl is null");
             tv_name.setText(item.nickname);
             tv_focus.setText(item.hasAttention ? "已关注" : "关注");
+            tv_focus.setTextColor(mcontext.getResources().getColor(item.hasAttention ? R.color.text_gray : R.color.text_white));
+            tv_focus.setBackgroundResource(item.hasAttention ? R.drawable.btn_focus_gray : R.drawable.btn_focus_pink);
 
             if (item.coverUrl != null)
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
@@ -135,7 +142,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
     @Override
     public int getCount() {
-        return shareList.size();
+        return shareList.size()+1;
     }
 
 
@@ -152,15 +159,29 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
-        if (convertView == null) {
-            convertView = parent.inflate(mcontext, R.layout.item_display, null);
-            viewHolder = new ViewHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ViewHolder) convertView.getTag();
+        if (position==0){
+            convertView=parent.inflate(mcontext, R.layout.item_display_search, null);
+            ((TextView)convertView.findViewById(R.id.tv_search)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mcontext.startActivity(new Intent(mcontext, SearchActivity.class));
+                }
+            });
+            convertView.setTag(false);
+            return convertView;
+        }else {
+
+
+            if (convertView == null || convertView.getTag() instanceof Boolean) {
+                convertView = parent.inflate(mcontext, R.layout.item_display, null);
+                viewHolder = new ViewHolder(convertView);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) convertView.getTag();
+            }
+            viewHolder.setData(position-1);
+            return convertView;
         }
-        viewHolder.setData(position);
-        return convertView;
     }
 
     @Override
@@ -179,9 +200,13 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             case R.id.tv_focus:
                 if (TextUtils.equals(((TextView) v).getText().toString(), "关注")) {
                     ((TextView) v).setText("已关注");
+                    ((TextView) v).setTextColor(mcontext.getResources().getColor(R.color.text_gray));
+                    ((TextView) v).setBackgroundResource(R.drawable.btn_focus_gray);
                     request.request(followResponce, shareList.get(position).userId, true);
                 } else {
                     ((TextView) v).setText("关注");
+                    ((TextView) v).setTextColor(mcontext.getResources().getColor(R.color.text_white));
+                    ((TextView) v).setBackgroundResource(R.drawable.btn_focus_pink);
                     request.request(followResponce, shareList.get(position).userId, false);
                 }
                 break;

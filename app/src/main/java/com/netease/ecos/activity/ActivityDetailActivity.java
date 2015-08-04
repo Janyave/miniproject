@@ -2,6 +2,7 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -11,13 +12,19 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.ActivityPhotoHListViewAdapter;
+import com.netease.ecos.adapter.EventContactWayAdapter;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.activity.GetActivityDetailRequest;
 import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
+import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.HorizontalListView;
 import com.squareup.picasso.Picasso;
 
@@ -60,12 +67,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     TextView tv_wantgo;
     @InjectView(R.id.tv_wangoNum)
     TextView tv_wangoNum;
-    @InjectView(R.id.tv_phone)
-    TextView tv_phone;
-    @InjectView(R.id.tv_qq)
-    TextView tv_qq;
-    @InjectView(R.id.tv_weibo)
-    TextView tv_weibo;
+    @InjectView(R.id.lv_list)
+    ExtensibleListView lv_list;
     @InjectView(R.id.iv_author_avator)
     RoundImageView iv_author_avator;
     @InjectView(R.id.tv_author_name)
@@ -74,10 +77,15 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     TextView tv_author_time;
 
     private ActivityPhotoHListViewAdapter activityPhotoHListViewAdapter;
+    private EventContactWayAdapter contactWayAdapter;
     //for request
     private GetActivityDetailRequest getActivityDetailRequest;
     private GetActivityDetailResponse getActivityDetailResponse;
-
+    //for network image
+    //for NetWorkImageView
+    static ImageLoader.ImageCache imageCache;
+    private RequestQueue queue;
+    private ImageLoader imageLoader;
     private ActivityModel activityModel;
 
     @Override
@@ -96,9 +104,9 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         getActivityDetailRequest = new GetActivityDetailRequest();
         getActivityDetailResponse = new GetActivityDetailResponse();
         getActivityDetailRequest.request(getActivityDetailResponse, activityID);
-        //set adapter
-        activityPhotoHListViewAdapter = new ActivityPhotoHListViewAdapter(this);
-        hlv_photos.setAdapter(activityPhotoHListViewAdapter);
+        queue = Volley.newRequestQueue(this);
+        imageCache = new SDImageCache();
+        imageLoader = new ImageLoader(queue, imageCache);
     }
 
     private void initView() {
@@ -162,7 +170,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             tv_event_title.setText(activity.title);
             tv_event_location.setText(activity.location.province.provinceName);
             tv_event_price.setText(activity.fee);
-            //TODO: hlv_photos;
+
             tv_event_location_detail.setText(activity.location.toString());
             tv_event_time_detail.setText(activity.activityTime.toString());
             tv_event_content_detail.setText(activity.introduction);
@@ -171,10 +179,19 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
                 tv_wantgo.setText(getResources().getString(R.string.alreadyGo));
                 tv_wantgo.setTextColor(getResources().getColor(R.color.text_gray));
             }
-            tv_wangoNum.setText(activity.loveNums);
-            //TODO:set the contact way
-            if (activity.avatarUrl != null && !activity.avatarUrl.equals(""))
-                Picasso.with(ActivityDetailActivity.this).load(activity.avatarUrl).placeholder(R.drawable.img_default).into(iv_author_avator);
+            tv_wangoNum.setText(activity.signUpUseList.size() + "");
+
+            contactWayAdapter = new EventContactWayAdapter(ActivityDetailActivity.this, activityModel.contactWayList);
+            lv_list.setAdapter(contactWayAdapter);
+
+            Log.d(TAG, "activity.avatarUrl :" + activity.avatarUrl);
+            if (activity.avatarUrl != null) {
+                iv_author_avator.setImageUrl("http://image.tianjimedia.com/uploadImages/upload/20140912/upload/201409/w4qlbtkmqrapng.png", imageLoader);
+                //init the data for NetWorkImageView
+                iv_author_avator.setDefaultImageResId(R.drawable.img_default);
+                //设置加载出错图片
+                iv_author_avator.setErrorImageResId(R.drawable.img_default);
+            }
             tv_author_name.setText(activity.nickname);
             tv_author_time.setText(activity.getDateDescription());
         }

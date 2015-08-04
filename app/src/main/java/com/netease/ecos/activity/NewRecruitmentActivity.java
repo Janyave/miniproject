@@ -88,7 +88,7 @@ public class NewRecruitmentActivity extends Activity implements View.OnClickList
                 recruitment.priceUnit = recruitType.getPriceUnit();
                 recruitment.description = descrp;
                 //TODO:share id
-                recruitment.shareId = "" + 1;
+                recruitment.recruitmentId = "" + 1;
                 recruitment.issueTimeStamp = System.currentTimeMillis() - 1 * 24 * 60 * 60 * 1000;
                 request.request(responce, recruitment);
                 break;

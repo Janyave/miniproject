@@ -211,4 +211,5 @@
     <dimen name="radius_notification_40px">5dp</dimen>
     <dimen name="width_notification_contact_new_60px">15dp</dimen>
 
+
 </resources>

@@ -152,10 +152,9 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                     }
                 Intent intent = new Intent(getActivity(), ActivityDetailActivity.class);
                 Bundle bundle = new Bundle();
-                Log.d("test", "position:" + position);
-                bundle.putString(ActivityDetailActivity.ActivityID, activityList.get(position).activityId);
+                bundle.putString(ActivityDetailActivity.ActivityID, activityList.get(position - 1).activityId);
                 intent.putExtras(bundle);
-                startActivity(new Intent(getActivity(), ActivityDetailActivity.class));
+                startActivity(intent);
             }
         });
         lv_campaign.setOnTouchListener(new ListViewListener(new ListViewListener.IOnMotionEvent() {

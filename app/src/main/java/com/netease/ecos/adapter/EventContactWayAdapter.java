@@ -1,8 +1,6 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,30 +8,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
-import com.netease.ecos.activity.CourseDetailActivity;
-import com.netease.ecos.activity.PersonageDetailActivity;
-import com.netease.ecos.model.Course;
-import com.squareup.picasso.Picasso;
+import com.netease.ecos.model.ActivityModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by hzjixinyu on 2015/8/4.
  */
-public class EventContactWayAdapter extends BaseAdapter{
+public class EventContactWayAdapter extends BaseAdapter {
     private Context mcontext;
+    private List<ActivityModel.ContactWay> contactWayList;
 
-    public EventContactWayAdapter(Context context) {
+    public EventContactWayAdapter(Context context, List<ActivityModel.ContactWay> contactWayList) {
         this.mcontext = context;
+        this.contactWayList = contactWayList;
     }
 
 
     class ViewHolder {
-
-        //R.mipmap.ic_phone_pink
-        //R.mipmap.ic_qq_pink
-        //R.mipmap.ic_weibo_pink
         private ImageView iv_type;
         private TextView tv_detail;
 
@@ -47,15 +39,19 @@ public class EventContactWayAdapter extends BaseAdapter{
          * 传入数据未定
          */
         public void setData(final int position) {
-
+            ActivityModel.ContactWay contactWay = contactWayList.get(position);
+            if (contactWay == ActivityModel.ContactWay.QQ || contactWay == ActivityModel.ContactWay.QQ群)
+                iv_type.setImageResource(R.mipmap.ic_qq_pink);
+            else if (contactWay == ActivityModel.ContactWay.电话)
+                iv_type.setImageResource(R.mipmap.ic_phone_pink);
+            else
+                iv_type.setImageResource(R.mipmap.ic_weibo_pink);
+            tv_detail.setText(contactWay.getValue());
         }
     }
 
-
-    //TODO 数据数量【现在模拟为10】
-    @Override
     public int getCount() {
-        return 4;
+        return contactWayList.size();
     }
 
     @Override

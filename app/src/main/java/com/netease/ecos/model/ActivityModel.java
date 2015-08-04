@@ -297,7 +297,7 @@ public class ActivityModel {
 
         @Override
         public String toString() {
-            return province.provinceName + " " + city.cityName;
+            return province.provinceName + " " + city.cityName + " " + address;
         }
     }
 

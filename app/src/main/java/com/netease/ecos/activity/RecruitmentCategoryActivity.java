@@ -117,8 +117,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
         //for request
         request = new RecruitmentListRequest();
         recruitmentListResponse = new RecruitmentListResponse();
-        //请求妆娘招募类别，城市id为12，排序方式为最受欢迎的招募列表的第0页数据
-        request.request(recruitmentListResponse, Recruitment.RecruitType.妆娘, "12", RecruitmentListRequest.SortRule.最受欢迎, 0);
+        request.request(recruitmentListResponse, Recruitment.RecruitType.妆娘, "12", RecruitmentListRequest.SortRule.智能排序, 1);
     }
 
     @Override

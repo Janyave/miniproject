@@ -22,7 +22,8 @@ import butterknife.InjectView;
 /**
  * Created by Think on 2015/7/23.
  */
-public class WriteContentActivity extends Activity {
+public class WriteContentActivity extends Activity implements View.OnClickListener {
+    private static String TAG = "Ecos---WriteContent";
     @InjectView(R.id.tv_title)
     TextView titleTxVw;
     @InjectView(R.id.btn_right_action)
@@ -42,21 +43,37 @@ public class WriteContentActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.write_content_layout);
         ButterKnife.inject(this);
+        initData();
+        initView();
+    }
+
+    void initData() {
+        commentType = Comment.CommentType.getCommentTypeByValue(getIntent().getExtras().getString(CommentDetailActivity.CommentType));
+        fromId = getIntent().getExtras().getString(CommentDetailActivity.FromId);
+        Log.d(TAG, "fromtId:" + fromId);
+
+    }
+
+    void initView() {
         //implementation on the title bar
         titleTxVw.setText("添加评论");
         rightButton.setText("发送");
-        commentType = Comment.CommentType.getCommentTypeByValue(getIntent().getExtras().getString(CommentDetailActivity.CommentType));
-        fromId = getIntent().getExtras().getString(CommentDetailActivity.FromId);
-        rightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        //set listener
+        rightButton.setOnClickListener(this);
+        backTxVw.setOnClickListener(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_right_action:
                 String content = commentEdTx.getText().toString();
                 if (content.equals(""))
                     Toast.makeText(WriteContentActivity.this, getResources().getString(R.string.noComment), Toast.LENGTH_SHORT).show();
                 Comment comment = new Comment();
                 comment.content = content;
                 comment.commentType = commentType;
-                Log.d("test", commentType.getBelongs());
                 comment.commentTypeId = fromId;
 
                 if (createCommentRequest == null)
@@ -64,16 +81,15 @@ public class WriteContentActivity extends Activity {
                 if (response == null)
                     response = new UploadCommentResponse();
                 createCommentRequest.request(response, comment);
-            }
-        });
-        backTxVw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.tv_left:
                 finish();
-            }
-        });
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                break;
+        }
+
     }
+
+
 
     class UploadCommentResponse extends BaseResponceImpl implements CreateCommentRequest.ICreateCommentResponse {
 
