@@ -115,6 +115,7 @@
     <dimen name="radius_btn_person_80px">12dp</dimen>
     <dimen name="height_btn_big_120px">42dp</dimen>
     <dimen name="radius_btn_big_120px">21dp</dimen>
+    <dimen name="width_btn_wantgo_220px">80dp</dimen>
 
     <dimen name="height_item_evaluationAndPraise_92px">35dp</dimen>
     <dimen name="height_item_workInformation_190px">65dp</dimen>
@@ -130,12 +131,12 @@
     <dimen name="height_tag_36px">16dp</dimen>
     <dimen name="width_tag_100px">40dp</dimen>
     <dimen name="radius_tag_36px">8dp</dimen>
-    <dimen name="height_campaign_54px">20dp</dimen>
-    <dimen name="width_campaign_150px">68dp</dimen>
-    <dimen name="radius_campaign_54px">2dp</dimen>
+    <dimen name="height_campaign_type_54px">20dp</dimen>
+    <dimen name="width_campaign_type_150px">68dp</dimen>
+    <dimen name="radius_campaign_type_54px">2dp</dimen>
 
     <!-- 活动详情内容item高度等-->
-    <dimen name="height_activity_show_item_90px">27dp</dimen>
+    <dimen name="height_activity_show_item_90px">30dp</dimen>
     <dimen name="height_activity_new_item_140px">42dp</dimen>
 
     <!-- 头像-->
@@ -145,7 +146,7 @@
     <dimen name="circle_icon_80px">28dp</dimen>
     <dimen name="circle_icon_210px">70dp</dimen>
     <dimen name="circle_icon_50px">17dp</dimen>
-
+    <dimen name="radius_circle_icon_100px">17dp</dimen>
 
     <dimen name="text_size_44">17sp</dimen>
     <dimen name="text_size_36">13sp</dimen>
@@ -198,6 +199,11 @@
     <dimen name="height_item_140px">45dp</dimen>
     <dimen name="height_item_120px">40dp</dimen>
     <dimen name="height_item_60px">20dp</dimen>
+
+
+    <!-- TextView-->
+    <dimen name="width_new_activity_text_4">85dp</dimen>
+
 
 
 </resources>

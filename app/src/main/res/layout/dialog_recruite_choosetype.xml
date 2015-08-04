@@ -29,7 +29,7 @@
                     android:id="@+id/makeuper_btn"
                     android:layout_width="@dimen/icon_big_260px"
                     android:layout_height="@dimen/icon_big_260px"
-                    android:background="@drawable/icon_button"
+                    android:background="@mipmap/ic_recuite_full_cosmatic"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -51,7 +51,7 @@
                     android:id="@+id/prop_btn"
                     android:layout_width="@dimen/icon_big_260px"
                     android:layout_height="@dimen/icon_big_260px"
-                    android:background="@drawable/icon_button"
+                    android:background="@mipmap/ic_recuite_full_property"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -81,7 +81,7 @@
                     android:id="@+id/photography_btn"
                     android:layout_width="@dimen/icon_big_260px"
                     android:layout_height="@dimen/icon_big_260px"
-                    android:background="@drawable/icon_button"
+                    android:background="@mipmap/ic_recuite_full_camera"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -103,7 +103,7 @@
                     android:id="@+id/backstage_btn"
                     android:layout_width="@dimen/icon_big_260px"
                     android:layout_height="@dimen/icon_big_260px"
-                    android:background="@drawable/icon_button"
+                    android:background="@mipmap/ic_recuite_full_effect"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -133,7 +133,7 @@
                     android:id="@+id/costume_btn"
                     android:layout_width="@dimen/icon_big_260px"
                     android:layout_height="@dimen/icon_big_260px"
-                    android:background="@drawable/icon_button"
+                    android:background="@mipmap/ic_recuite_full_cloth"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -155,7 +155,7 @@
                     android:id="@+id/others_btn"
                     android:layout_width="@dimen/icon_big_260px"
                     android:layout_height="@dimen/icon_big_260px"
-                    android:background="@drawable/icon_button"
+                    android:background="@mipmap/ic_recuite_full_other"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -180,7 +180,7 @@
             <ImageView
                 android:layout_width="@dimen/icon_big_64px"
                 android:layout_height="@dimen/icon_big_64px"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_recruite_close" />
         </LinearLayout>
 
     </LinearLayout>

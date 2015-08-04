@@ -80,8 +80,8 @@
         </LinearLayout>
         
         <TextView
-            android:layout_width="@dimen/width_campaign_150px"
-            android:layout_height="@dimen/height_campaign_54px"
+            android:layout_width="@dimen/width_campaign_type_150px"
+            android:layout_height="@dimen/height_campaign_type_54px"
             android:background="@drawable/bg_campaign_type_1"
             android:text="主题ONLY"
             android:gravity="center"
