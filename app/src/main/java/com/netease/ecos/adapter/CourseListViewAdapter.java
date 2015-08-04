@@ -124,5 +124,4 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
         intent.putExtras(bundle);
         mcontext.startActivity(intent);
     }
-
 }
