@@ -297,8 +297,9 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
         //get the list of assignment id
         workList = new ArrayList<String>();
-        for (int i = 0; i < course.assignmentNum; i++) {
+        for (int i = 0; i < course.assignmentList.size(); i++) {
             workList.add(course.assignmentList.get(i).assignmentId);
+            Log.d(TAG, "worklist " + i + ":" + course.assignmentList.get(i).assignmentId);
         }
     }
 
@@ -314,8 +315,6 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
         @Override
         public void success(String userId, boolean follow) {
-//            tv_display.append("操作对象userId:" + userId + "\n");
-//            tv_display.append("关注状态:" + follow + "\n");
         }
     }
 }
