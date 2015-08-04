@@ -152,7 +152,7 @@
     <dimen name="text_size_36">13sp</dimen>
     <dimen name="text_size_24">10sp</dimen>
 
-    <dimen name="icon_big_260px">75dp</dimen>
+    <dimen name="icon_big_260px">85dp</dimen>
     <dimen name="icon_big_200px">60dp</dimen>
     <dimen name="icon_big_64px">30dp</dimen>
     <dimen name="icon_little_36px">15dp</dimen>

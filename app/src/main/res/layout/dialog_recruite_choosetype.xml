@@ -180,6 +180,7 @@
             <ImageView
                 android:layout_width="@dimen/icon_big_64px"
                 android:layout_height="@dimen/icon_big_64px"
+                android:padding="@dimen/margin_10px"
                 android:src="@mipmap/ic_recruite_close" />
         </LinearLayout>
 

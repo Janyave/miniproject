@@ -7,14 +7,18 @@ import android.text.Layout;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.netease.ecos.R;
+import com.netease.ecos.adapter.ActivityPhotoHListViewAdapter;
+import com.netease.ecos.adapter.CampaignListViewAdapter;
 import com.netease.ecos.views.HorizontalListView;
 
 import org.w3c.dom.Text;
@@ -29,6 +33,9 @@ public class EventDetailActivity extends BaseActivity implements View.OnClickLis
     @InjectView(R.id.btn_right_action)
     Button btn_confirm;
 
+    @InjectView(R.id.sv)
+    ScrollView sv;
+
 
     @InjectView(R.id.ll_photos)
     LinearLayout ll_photos; //gone when the activity not begin
@@ -36,6 +43,9 @@ public class EventDetailActivity extends BaseActivity implements View.OnClickLis
     HorizontalListView hlv_photos; //show the photos
     @InjectView(R.id.tv_publish_photo)
     TextView tv_publish_photo;
+
+    ActivityPhotoHListViewAdapter activityPhotoHListViewAdapter;
+
 
     @InjectView(R.id.tv_wantgo)
     TextView tv_wantgo;
@@ -84,6 +94,17 @@ public class EventDetailActivity extends BaseActivity implements View.OnClickLis
 
         initListener();
         initData();
+        initView();
+    }
+
+    private void initView() {
+        hlv_photos.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                sv.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
     }
 
     private void initListener() {
@@ -95,7 +116,8 @@ public class EventDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initData() {
-
+        activityPhotoHListViewAdapter=new ActivityPhotoHListViewAdapter(this);
+        hlv_photos.setAdapter(activityPhotoHListViewAdapter);
     }
 
     @Override
