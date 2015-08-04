@@ -375,7 +375,7 @@
 
                 </LinearLayout>
 
-                <ExpandableListView
+                <com.netease.ecos.views.ExtensibleListView
                     android:id="@+id/lv_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -383,107 +383,8 @@
                     android:layout_marginRight="@dimen/margin_40px"
                     android:background="@drawable/bg_course_item"
                     android:divider="@color/bg_gray_dark"
-                    android:dividerHeight="@dimen/width_line">
-                </ExpandableListView>
+                    android:dividerHeight="@dimen/width_line" />
 
-                <LinearLayout
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_40px"
-                    android:layout_marginRight="@dimen/margin_40px"
-                    android:background="@drawable/bg_course_item"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:id="@+id/ll_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:minHeight="@dimen/height_activity_show_item_90px"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/margin_20px">
-
-                            <ImageView
-                                android:layout_width="@dimen/icon_little_36px"
-                                android:layout_height="@dimen/icon_little_36px"
-                                android:layout_marginRight="@dimen/margin_20px"
-                                android:src="@mipmap/ic_phone_pink" />
-
-                            <TextView
-                                android:id="@+id/tv_phone"
-                                style="@style/text_dark_mid"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/detail_location_event_detail"
-                                android:textAppearance="?android:attr/textAppearanceMedium" />
-                        </LinearLayout>
-
-                        <TextView style="@style/layout_line_gray" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_qq"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:minHeight="@dimen/height_activity_show_item_90px"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/margin_20px">
-
-                            <ImageView
-                                android:layout_width="@dimen/icon_little_36px"
-                                android:layout_height="@dimen/icon_little_36px"
-                                android:layout_marginRight="@dimen/margin_20px"
-                                android:src="@mipmap/ic_qq_pink" />
-
-                            <TextView
-                                android:id="@+id/tv_qq"
-                                style="@style/text_dark_mid"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/QQ_event_detail"
-                                android:textAppearance="?android:attr/textAppearanceMedium" />
-                        </LinearLayout>
-
-                        <TextView style="@style/layout_line_gray" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_weibo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:minHeight="@dimen/height_activity_show_item_90px"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/margin_20px">
-
-                        <ImageView
-                            android:layout_width="@dimen/icon_little_36px"
-                            android:layout_height="@dimen/icon_little_36px"
-                            android:layout_marginRight="@dimen/margin_20px"
-                            android:src="@mipmap/ic_weibo_pink" />
-
-                        <TextView
-                            android:id="@+id/tv_weibo"
-                            style="@style/text_dark_mid"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/weibo_event_detail"
-                            android:textAppearance="?android:attr/textAppearanceMedium" />
-                    </LinearLayout>
-
-                </LinearLayout>
                 <!-- 间隔 -->
                 <LinearLayout
                     android:layout_width="match_parent"

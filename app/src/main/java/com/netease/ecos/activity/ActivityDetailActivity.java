@@ -14,10 +14,12 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.ActivityPhotoHListViewAdapter;
+import com.netease.ecos.adapter.EventContactWayAdapter;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.activity.GetActivityDetailRequest;
 import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.HorizontalListView;
 import com.squareup.picasso.Picasso;
 
@@ -60,12 +62,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     TextView tv_wantgo;
     @InjectView(R.id.tv_wangoNum)
     TextView tv_wangoNum;
-    @InjectView(R.id.tv_phone)
-    TextView tv_phone;
-    @InjectView(R.id.tv_qq)
-    TextView tv_qq;
-    @InjectView(R.id.tv_weibo)
-    TextView tv_weibo;
+    @InjectView(R.id.lv_list)
+    ExtensibleListView lv_list;
     @InjectView(R.id.iv_author_avator)
     RoundImageView iv_author_avator;
     @InjectView(R.id.tv_author_name)
@@ -74,6 +72,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     TextView tv_author_time;
 
     private ActivityPhotoHListViewAdapter activityPhotoHListViewAdapter;
+    private EventContactWayAdapter contactWayAdapter;
     //for request
     private GetActivityDetailRequest getActivityDetailRequest;
     private GetActivityDetailResponse getActivityDetailResponse;
@@ -99,6 +98,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         //set adapter
         activityPhotoHListViewAdapter = new ActivityPhotoHListViewAdapter(this);
         hlv_photos.setAdapter(activityPhotoHListViewAdapter);
+        contactWayAdapter = new EventContactWayAdapter(ActivityDetailActivity.this, activityModel.contactWayList);
+        lv_list.setAdapter(contactWayAdapter);
     }
 
     private void initView() {

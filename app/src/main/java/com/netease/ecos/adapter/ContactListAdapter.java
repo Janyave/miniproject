@@ -22,7 +22,7 @@ public class ContactListAdapter extends BaseAdapter {
     private Context mcontext;
     private LayoutInflater layoutInflater;
     private ArrayList<ActivityModel.ContactWay> contactWaysList;
-    public static ActivityModel.ContactWay[] contactWays = new ActivityModel.ContactWay[]{ActivityModel.ContactWay.QQ, ActivityModel.ContactWay.微信, ActivityModel.ContactWay.电话};
+    public static ActivityModel.ContactWay[] contactWays = new ActivityModel.ContactWay[]{ActivityModel.ContactWay.QQ, ActivityModel.ContactWay.QQ群, ActivityModel.ContactWay.微信, ActivityModel.ContactWay.电话};
 
     public ContactListAdapter(Context context) {
         this.mcontext = context;
