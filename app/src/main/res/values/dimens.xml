@@ -108,7 +108,7 @@
     <dimen name="margin_10px">5dp</dimen>
 
     <dimen name="height_btn_focus_70px">24dp</dimen>
-    <dimen name="width_btn_focus_152px">50dp</dimen>
+    <dimen name="width_btn_focus_152px">55dp</dimen>
     <dimen name="radius_btn_focus_70px">12dp</dimen>
     <dimen name="height_btn_price_92px">34dp</dimen>
     <dimen name="width_btn_price_216px">75dp</dimen>
@@ -125,6 +125,7 @@
     <dimen name="height_item_workInforamtion_200px">68dp</dimen>
     <dimen name="height_item_courseInformation_person_106px">40dp</dimen>
     <dimen name="height_item_campaign_420px">150dp</dimen>
+    <dimen name="height_item_wantgo_266px">95dp</dimen>
 
     <dimen name="height_btn_150px">55dp</dimen>
 
@@ -142,6 +143,7 @@
     <dimen name="height_activity_new_item_140px">42dp</dimen>
 
     <!-- 头像-->
+    <dimen name="circle_icon_140px">52dp</dimen>
     <dimen name="circle_icon_108px">36dp</dimen>
     <dimen name="radius_circle_icon_108px">18dp</dimen>
     <dimen name="circle_icon_100px">34dp</dimen>
@@ -210,6 +212,7 @@
     <dimen name="height_notification_40px">14dp</dimen>
     <dimen name="radius_notification_40px">5dp</dimen>
     <dimen name="width_notification_contact_new_60px">15dp</dimen>
+
 
 
 </resources>

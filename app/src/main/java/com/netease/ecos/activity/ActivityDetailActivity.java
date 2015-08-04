@@ -28,6 +28,8 @@ import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.HorizontalListView;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -75,6 +77,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     TextView tv_author_name;
     @InjectView(R.id.tv_author_time)
     TextView tv_author_time;
+    @InjectView(R.id.ll_wantgo_icons)
+    LinearLayout ll_wantgo_icons;
 
     private ActivityPhotoHListViewAdapter activityPhotoHListViewAdapter;
     private EventContactWayAdapter contactWayAdapter;
@@ -126,6 +130,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         tv_wantgo.setOnClickListener(this);
         iv_author_avator.setOnClickListener(this);
         tv_author_name.setOnClickListener(this);
+        ll_wantgo_icons.setOnClickListener(this);
+        tv_wangoNum.setOnClickListener(this);
     }
 
     @Override
@@ -154,6 +160,13 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
+            case R.id.ll_wantgo_icons:
+            case R.id.tv_wangoNum:
+                Intent intent1=new Intent(ActivityDetailActivity.this, NormalListViewActivity.class);
+                Bundle bundle1=new Bundle();
+                bundle1.putInt(NormalListViewActivity.LISTVIEW_TYPE,NormalListViewActivity.TYPE_EVENT_WANTGO);
+                intent1.putExtras(bundle1);
+                startActivity(intent1);
             default:
                 break;
         }
