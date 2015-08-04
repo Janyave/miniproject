@@ -1,8 +1,6 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,9 +11,6 @@ import com.netease.ecos.R;
 import com.netease.ecos.model.ActivityModel;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.List;
 
 public class CampaignListViewAdapter extends BaseAdapter {
@@ -90,7 +85,8 @@ public class CampaignListViewAdapter extends BaseAdapter {
         public void setData(int position) {
             //TODO 绑定数据
             // 设置封面
-            Picasso.with(mcontext).load(activityList.get(position).coverUrl).placeholder(R.drawable.img_default).into(viewHolder.imageTitlePic);
+            if (activityList.get(position).coverUrl != null && !activityList.get(position).coverUrl.equals(""))
+                Picasso.with(mcontext).load(activityList.get(position).coverUrl).placeholder(R.drawable.img_default).into(viewHolder.imageTitlePic);
 
             viewHolder.textViewTitle.setText(activityList.get(position).title);
 

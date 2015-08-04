@@ -16,13 +16,13 @@ import java.util.List;
 /**
  * Created by hzjixinyu on 2015/7/28.
  */
-public class CourseDetailStepAdapter extends BaseAdapter{
+public class CourseDetailStepAdapter extends BaseAdapter {
     private Context mcontext;
     private List<Course.Step> stepList;
 
     public CourseDetailStepAdapter(Context context, List<Course.Step> stepList) {
         this.mcontext = context;
-        this.stepList=stepList;
+        this.stepList = stepList;
     }
 
 
@@ -36,7 +36,7 @@ public class CourseDetailStepAdapter extends BaseAdapter{
 
 
         public ViewHolder(View root) {
-           iv_stepImage = (ImageView) root.findViewById(R.id.iv_stepImage);
+            iv_stepImage = (ImageView) root.findViewById(R.id.iv_stepImage);
 
             tv_stepNum = (TextView) root.findViewById(R.id.tv_stepNum);
             tv_stepText = (TextView) root.findViewById(R.id.tv_stepText);
@@ -50,12 +50,12 @@ public class CourseDetailStepAdapter extends BaseAdapter{
         /**
          * �������δ��
          */
-        public void setData(int position){
-            Course.Step item=stepList.get(position);
-
-            Picasso.with(mcontext).load(item.imagePath).placeholder(R.drawable.img_default).into(iv_stepImage);
+        public void setData(int position) {
+            Course.Step item = stepList.get(position);
+            if (item.imagePath != null && !item.imagePath.equals(""))
+                Picasso.with(mcontext).load(item.imagePath).placeholder(R.drawable.img_default).into(iv_stepImage);
             tv_stepText.setText(item.description);
-            tv_stepNum.setText(position+1+"");
+            tv_stepNum.setText(position + 1 + "");
         }
     }
 
@@ -78,13 +78,13 @@ public class CourseDetailStepAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder=null;
-        if (convertView==null){
-            convertView=parent.inflate(mcontext,R.layout.item_course_detail_step,null);
-            viewHolder=new ViewHolder(convertView);
+        ViewHolder viewHolder = null;
+        if (convertView == null) {
+            convertView = parent.inflate(mcontext, R.layout.item_course_detail_step, null);
+            viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder=(ViewHolder)convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
         viewHolder.setData(position);

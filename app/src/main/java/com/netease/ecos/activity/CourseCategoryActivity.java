@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,7 +33,7 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/27.
  */
-public class CourseCategoryActivity extends Activity implements View.OnClickListener, XListView.IXListViewListener {
+public class CourseCategoryActivity extends Activity implements View.OnClickListener, XListView.IXListViewListener, AdapterView.OnItemSelectedListener {
 
     private static final String TAG = "Ecos---CourseCategory";
     public static final String CourseCategory = "CourseCategory";
@@ -73,9 +75,121 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_type);
         ButterKnife.inject(this);
-
         initListener();
         initData();
+    }
+
+    private void initData() {
+        //get the extras from intent
+        courseType = Course.CourseType.getCourseType(getIntent().getExtras().getString(CourseCategory));
+        tv_left.setText(courseType.name());
+        //设置下拉菜单选项
+        spAdapter = new ArrayAdapter<CourseListRequest.SortRule>(this, R.layout.text_spinner_course_type, SORT_RULES);
+        spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp_sortType.setAdapter(spAdapter);
+        sp_sortType.setOnItemSelectedListener(this);
+
+        //设置列表Adapter
+        lv_list.initRefleshTime(this.getClass().getSimpleName());
+        lv_list.setPullLoadEnable(true);
+        lv_list.setXListViewListener(this);
+
+        //获取course信息
+        request = new CourseListRequest();
+        courseListResponse = new CourseListResponse();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        switch (v.getId()) {
+            case R.id.iv_search:
+                intent = new Intent(CourseCategoryActivity.this, SearchActivity.class);
+                startActivityForResult(intent, RequestCodeForSearch);
+                break;
+            case R.id.ll_left:
+                //TODO 左上角类型选择事件
+                break;
+            case R.id.lly_left_action:
+                finish();
+                break;
+            case R.id.btn_floading:
+                intent = new Intent(CourseCategoryActivity.this, BuildCourseActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(BuildCourseActivity.CourseType, courseType.getBelongs());
+                intent.putExtras(bundle);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        request.request(courseListResponse, CourseListRequest.Type.筛选,
+                courseType, searchWords, SORT_RULES[position], 0);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
+
+    @Override
+    public void onRefresh() {
+        Toast.makeText(CourseCategoryActivity.this, "下拉刷新", Toast.LENGTH_SHORT).show();
+        //1秒后关闭刷新
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                lv_list.stopRefresh();
+            }
+        }, 1000);
+    }
+
+    @Override
+    public void onLoadMore() {
+        Toast.makeText(CourseCategoryActivity.this, "上拉加载", Toast.LENGTH_SHORT).show();
+
+        //1秒后关闭加载
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                lv_list.stopLoadMore();
+            }
+        }, 1000);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RequestCodeForSearch && resultCode == ResultCodeForSearch) {
+            searchWords = data.getExtras().getString(SearchActivity.SearchWord);
+            request.request(courseListResponse, CourseListRequest.Type.筛选,
+                    courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], 0);
+        }
+    }
+
+    class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse {
+
+        @Override
+        public void success(List<Course> courseList) {
+            Log.d(TAG, "CourseListResponse.success()");
+            if (courseList.size() == 0) {
+                Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.noCourse), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            courseTypeListViewAdapter = new CourseListViewAdapter(CourseCategoryActivity.this, courseList);
+            lv_list.setAdapter(courseTypeListViewAdapter);
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+        }
     }
 
     private void initListener() {
@@ -83,7 +197,6 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         ll_left.setOnClickListener(this);
         lly_left_action.setOnClickListener(this);
         btn_floading.setOnClickListener(this);
-
         lv_list.setOnTouchListener(new ListViewListener(new ListViewListener.IOnMotionEvent() {
             @Override
             public void doInDown() {
@@ -179,107 +292,5 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 //                lvIndext = nowIndext;
 //            }
 //        });
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent intent;
-        switch (v.getId()) {
-            case R.id.iv_search:
-                intent = new Intent(CourseCategoryActivity.this, SearchActivity.class);
-                startActivityForResult(intent, RequestCodeForSearch);
-                break;
-            case R.id.ll_left:
-                //TODO 左上角类型选择事件
-                break;
-            case R.id.lly_left_action:
-                finish();
-                break;
-            case R.id.btn_floading:
-                intent = new Intent(CourseCategoryActivity.this, BuildCourseActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString(BuildCourseActivity.CourseType, courseType.getBelongs());
-                intent.putExtras(bundle);
-                startActivity(intent);
-                break;
-        }
-    }
-
-    private void initData() {
-        //get the extras from intent
-        courseType = Course.CourseType.getCourseType(getIntent().getExtras().getString(CourseCategory));
-        tv_left.setText(courseType.name());
-        //设置下拉菜单选项
-        spAdapter = new ArrayAdapter<CourseListRequest.SortRule>(this, R.layout.text_spinner_course_type, SORT_RULES);
-        spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_sortType.setAdapter(spAdapter);
-
-        //设置列表Adapter
-        lv_list.initRefleshTime(this.getClass().getSimpleName());
-        lv_list.setPullLoadEnable(true);
-        lv_list.setXListViewListener(this);
-
-        //获取course信息
-        request = new CourseListRequest();
-        courseListResponse = new CourseListResponse();
-        request.request(courseListResponse, CourseListRequest.Type.筛选,
-                courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], 0);
-    }
-
-
-    @Override
-    public void onRefresh() {
-        Toast.makeText(CourseCategoryActivity.this, "下拉刷新", Toast.LENGTH_SHORT).show();
-        //1秒后关闭刷新
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                lv_list.stopRefresh();
-            }
-        }, 1000);
-    }
-
-    @Override
-    public void onLoadMore() {
-        Toast.makeText(CourseCategoryActivity.this, "上拉加载", Toast.LENGTH_SHORT).show();
-
-        //1秒后关闭加载
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                lv_list.stopLoadMore();
-            }
-        }, 1000);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RequestCodeForSearch && resultCode == ResultCodeForSearch) {
-            searchWords = data.getExtras().getString(SearchActivity.SearchWord);
-            request.request(courseListResponse, CourseListRequest.Type.筛选,
-                    courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], 0);
-        }
-    }
-
-    class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse {
-
-        @Override
-        public void success(List<Course> courseList) {
-            courseTypeListViewAdapter = new CourseListViewAdapter(CourseCategoryActivity.this, courseList);
-            lv_list.setAdapter(courseTypeListViewAdapter);
-        }
-
-        @Override
-        public void doAfterFailedResponse(String message) {
-
-        }
-
-        @Override
-        public void onErrorResponse(VolleyError volleyError) {
-
-        }
     }
 }

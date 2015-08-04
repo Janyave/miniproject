@@ -26,22 +26,22 @@
                 android:id="@+id/exhibitCoverImgVw"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_cover_664px_1000px"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px"
                 android:layout_marginTop="@dimen/margin_40px"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:src="@mipmap/ic_launcher" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_50px"
-                android:layout_marginTop="@dimen/margin_50px"
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:layout_marginTop="@dimen/margin_50px"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <com.android.volley.toolbox.NetworkImageView
                     android:id="@+id/exhibitPersonImgVw"
@@ -50,48 +50,44 @@
 
                 <TextView
                     android:id="@+id/exhibitPersonNameTxVw"
+                    style="@style/text_dark_mid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_20px"
-                    android:text="三次元的鸣人"
-                    style="@style/text_dark_mid"/>
+                    android:layout_marginLeft="@dimen/margin_20px" />
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/exhibitFocusBtn"
+                    style="@style/text_white_mid"
                     android:layout_width="@dimen/width_btn_focus_152px"
                     android:layout_height="@dimen/height_btn_focus_70px"
-                    android:gravity="center"
-                    android:text="关注"
                     android:background="@drawable/btn_focus_pink"
-                    style="@style/text_white_mid"/>
+                    android:gravity="center" />
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/exhibitTitleTxVw"
+                style="@style/text_pink_max"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_50px"
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px"
-                android:text="叛逆的鲁鲁修"
-                android:textColor="@color/bg_red"
-                style="@style/text_pink_max" />
+                android:textColor="@color/bg_red" />
 
             <TextView
                 android:id="@+id/exhibitTitleContentTxVw"
+                style="@style/text_dark_mid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_50px"
-                android:text="最后两张花絮【似乎有两张发不上来？完整版请戳coser路德七世吧】"
-                style="@style/text_dark_mid"
                 android:layout_marginLeft="@dimen/margin_40px"
-                android:layout_marginRight="@dimen/margin_40px"/>
+                android:layout_marginRight="@dimen/margin_40px" />
 
             <com.netease.ecos.views.ExtensibleListView
                 android:id="@+id/exhibitLsVw"

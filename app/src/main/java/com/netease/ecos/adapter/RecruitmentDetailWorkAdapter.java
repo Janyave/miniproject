@@ -62,7 +62,8 @@ public class RecruitmentDetailWorkAdapter extends BaseAdapter implements View.On
          * 传入数据未定
          */
         public void setData(int position) {
-            Picasso.with(mcontext).load(shareList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            if (shareList.get(position).coverUrl != null && !shareList.get(position).coverUrl.equals(""))
+                Picasso.with(mcontext).load(shareList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             tv_coverNum.setText(shareList.get(position).totalPageNumber + "");
             tv_coverTitle.setText(shareList.get(position).title);
             tv_coverTime.setText(shareList.get(position).getDateDescription() + "");
