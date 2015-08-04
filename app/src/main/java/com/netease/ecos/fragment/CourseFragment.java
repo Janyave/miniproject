@@ -46,6 +46,11 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
 
     private CourseListViewAdapter courseListViewAdapter;
 
+    private GetBannerRequest requestBanner;
+    private GetBannerResponse getBannerResponse;
+    private CourseListRequest courseListRequest;
+    private GetCourseResponse getCourseResponse;
+
     public static CourseFragment newInstance() {
         CourseFragment fragment = new CourseFragment();
         return fragment;
@@ -63,11 +68,9 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mainView = inflater.inflate(R.layout.fragment_course, container, false);
-
         bindView();
         initListener();
         initData();
-
         return mainView;
     }
 
@@ -87,9 +90,69 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    private void initData() {
+        /**获取banner信息**/
+        requestBanner = new GetBannerRequest();
+        getBannerResponse = new GetBannerResponse();
+        requestBanner.request(getBannerResponse);
+
+        courseListRequest = new CourseListRequest();
+        getCourseResponse = new GetCourseResponse();
+        courseListRequest.request(getCourseResponse, CourseListRequest.Type.推荐, null, null, null, 0);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_floading) {
+            Intent intent = new Intent(CourseFragment.this.getActivity(), CourseTypeActivity.class);
+            startActivity(intent);
+            return;
+        }
+        Course.CourseType courseType = Course.CourseType.化妆;
+        switch (v.getId()) {
+            case R.id.tv_type_1:
+                courseType = Course.CourseType.化妆;
+                break;
+            case R.id.tv_type_2:
+                courseType = Course.CourseType.道具;
+                break;
+            case R.id.tv_type_3:
+                courseType = Course.CourseType.摄影;
+                break;
+            case R.id.tv_type_4:
+                courseType = Course.CourseType.后期;
+                break;
+            case R.id.tv_type_5:
+                courseType = Course.CourseType.假发;
+                break;
+            case R.id.tv_type_6:
+                courseType = Course.CourseType.服装;
+                break;
+            case R.id.tv_type_7:
+                courseType = Course.CourseType.心得;
+                break;
+            case R.id.tv_type_8:
+                courseType = Course.CourseType.其他;
+                break;
+        }
+        Intent intent = new Intent(getActivity(), CourseCategoryActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(CourseCategoryActivity.CourseCategory, courseType.getBelongs());
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        banner.setFocusable(true);
+        banner.setFocusableInTouchMode(true);
+        btn_floading.reset();
+    }
+
     private void initListener() {
         lv_course.setDividerHeight(0);
-
         sv.setOnTouchListener(new ViewScrollListener(new ViewScrollListener.IOnMotionEvent() {
             @Override
             public void doInDown() {
@@ -140,14 +203,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
             }
         }));
 
-        btn_floading.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CourseFragment.this.getActivity(), CourseTypeActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        btn_floading.setOnClickListener(this);
         tv_type_1.setOnClickListener(this);
         tv_type_2.setOnClickListener(this);
         tv_type_3.setOnClickListener(this);
@@ -157,61 +213,6 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
         tv_type_7.setOnClickListener(this);
         tv_type_8.setOnClickListener(this);
 
-    }
-
-    private void initData() {
-        /**获取banner信息**/
-        GetBannerRequest requestBanner = new GetBannerRequest();
-        requestBanner.request(new GetBannerResponse());
-
-        CourseListRequest requestCourse = new CourseListRequest();
-        requestCourse.request(new GetCourseResponse(), CourseListRequest.Type.推荐, null, null, null, 0);
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        Course.CourseType courseType = Course.CourseType.化妆;
-        switch (v.getId()) {
-            case R.id.tv_type_1:
-                courseType = Course.CourseType.化妆;
-                break;
-            case R.id.tv_type_2:
-                courseType = Course.CourseType.道具;
-                break;
-            case R.id.tv_type_3:
-                courseType = Course.CourseType.摄影;
-                break;
-            case R.id.tv_type_4:
-                courseType = Course.CourseType.后期;
-                break;
-            case R.id.tv_type_5:
-                courseType = Course.CourseType.假发;
-                break;
-            case R.id.tv_type_6:
-                courseType = Course.CourseType.服装;
-                break;
-            case R.id.tv_type_7:
-                courseType = Course.CourseType.心得;
-                break;
-            case R.id.tv_type_8:
-                courseType = Course.CourseType.其他;
-                break;
-        }
-        Intent intent = new Intent(getActivity(), CourseCategoryActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(CourseCategoryActivity.CourseCategory, courseType.getBelongs());
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        banner.setFocusable(true);
-        banner.setFocusableInTouchMode(true);
-
-        btn_floading.reset();
     }
 
     class GetBannerResponse extends BaseResponceImpl implements GetBannerRequest.IGetBannerResponse {

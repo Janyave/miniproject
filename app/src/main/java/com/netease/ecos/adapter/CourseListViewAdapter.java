@@ -55,9 +55,10 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
          */
         public void setData(final int position) {
             Course item = courseList.get(position);
-
-            Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(networkImageView);
-            Picasso.with(mcontext).load(item.authorAvatarUrl).placeholder(R.drawable.img_default).into(imageAuthorPic);
+            if (item.coverUrl != null && !item.coverUrl.equals(""))
+                Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(networkImageView);
+            if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals(""))
+                Picasso.with(mcontext).load(item.authorAvatarUrl).placeholder(R.drawable.img_default).into(imageAuthorPic);
             textViewTitle.setText(item.title);
             textViewAmz.setText(item.praiseNum + "");
             textViewAuthor.setText(item.author);

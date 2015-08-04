@@ -104,6 +104,7 @@
     <string name="others">其他</string>
     <string name="experience">心得</string>
     <string name="title_activity_recruitment_detail">RecruitmentDetailActivity</string>
+    <string name="noCourse">抱歉，还没有该分类的教程，快来试试发布教程吧;)</string>
 
 
     <!-- 活动页面-->

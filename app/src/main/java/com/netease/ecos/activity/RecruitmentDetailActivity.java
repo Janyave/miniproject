@@ -126,7 +126,8 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
         @Override
         public void success(Recruitment recruit) {
             recruitment = recruit;
-            Picasso.with(RecruitmentDetailActivity.this).load(recruit.avatarUrl).placeholder(R.drawable.img_default).into(iv_avator);
+            if (recruit.avatarUrl != null && !recruit.avatarUrl.equals(""))
+                Picasso.with(RecruitmentDetailActivity.this).load(recruit.avatarUrl).placeholder(R.drawable.img_default).into(iv_avator);
             tv_name.setText(recruit.nickname);
             tv_distance.setText(recruit.distanceKM);
             tv_price.setText(recruit.averagePrice);
