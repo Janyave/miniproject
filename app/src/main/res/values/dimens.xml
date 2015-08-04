@@ -97,6 +97,7 @@
     <dimen name="length_80px">24dp</dimen>
 
 
+    <dimen name="margin_110px">33dp</dimen>
     <dimen name="margin_80px">23dp</dimen>
     <dimen name="margin_60px">17dp</dimen>
     <dimen name="margin_50px">14dp</dimen>
@@ -159,7 +160,7 @@
     <dimen name="icon_return_50px">25dp</dimen>
     <dimen name="icon_more_36px">15dp</dimen>
     <dimen name="spacing_recruite_detail_26">3dp</dimen>
-    
+    <dimen name="icon_sidebar_54px">30dp</dimen>
     
     <!-- 图片高度-->
     <dimen name="height_cover_580px_890px">200dp</dimen>
@@ -203,7 +204,7 @@
 
     <!-- TextView-->
     <dimen name="width_new_activity_text_4">85dp</dimen>
-
-
+    <dimen name="height_notification_40px">14dp</dimen>
+    <dimen name="radius_notification_40px">5dp</dimen>
 
 </resources>
