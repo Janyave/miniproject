@@ -504,8 +504,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                     campaignListViewAdapter.notifyDataSetChanged();
                 }
             }
-        }, strLocation, ActivityModel.ActivityType.主题ONLY, 0);
-
+        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
     }
 
     public static void setPopupWindowTouchModal(PopupWindow popupWindow, boolean touchModal) {
