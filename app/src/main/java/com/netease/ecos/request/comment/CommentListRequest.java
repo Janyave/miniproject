@@ -1,5 +1,9 @@
 package com.netease.ecos.request.comment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request.Method;
+import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Comment.CommentType;
 import com.netease.ecos.model.Course;
@@ -8,6 +12,7 @@ import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
+import com.netease.ecos.request.MyStringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +20,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /***
@@ -76,38 +82,41 @@ public class CommentListRequest extends BaseRequest{
 
 	Comment mComment;
 
-	public void request(ICommentListResponse commentListRespnce, final Comment comment)
+	public void request(ICommentListResponse commentListRespnce, final Comment comment,final int pages)
 	{
 		super.initBaseRequest(commentListRespnce);
 		mCommentListRespnce = commentListRespnce;
-
 		mComment =  comment;
 
-		List<Comment> commentList = getTestCommentList();
-
+		/*List<Comment> commentList = getTestCommentList();
+		
 		if(mCommentListRespnce!=null)
 		{
 			mCommentListRespnce.success(commentList);
-		}
-		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COMMENT_LIST_URL,  this, this) {  
-	        @Override  
-	        protected Map<String, String> getParams() throws AuthFailureError {  
-	        	Map<String, String> map = getRequestBasicMap();
-	            
-	        	map.put(COMMENT_TYPE, comment.commentType.getBelongs());
-	        	map.put(COMMENT_TYPE_ID, comment.commentTypeId);
-	        	
-	        	
-	            traceNormal(TAG, map.toString());
-	            traceNormal(TAG, CommentListRequest.this.getUrl(RequestUrlConstants.GET_COMMENT_LIST_URL, map));
-	            return map;  
-	        }  
-	        
-	    }; 
-	    
-	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-	    
-	    getQueue().add(stringRequest);*/
+		}*/
+
+
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COMMENT_LIST_URL,  this, this) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> map = getRequestBasicMap();
+
+				map.put(COMMENT_TYPE, comment.commentType.getBelongs());
+				map.put(COMMENT_TYPE_ID, comment.commentTypeId);
+
+				map.put(KEY_PAGE_INDEX, String.valueOf(pages));
+				map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
+
+				traceNormal(TAG, map.toString());
+				traceNormal(TAG, CommentListRequest.this.getUrl(RequestUrlConstants.GET_COMMENT_LIST_URL, map));
+				return map;
+			}
+
+		};
+
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+		getQueue().add(stringRequest);
 
 	}
 
@@ -142,9 +151,6 @@ public class CommentListRequest extends BaseRequest{
 					comment.fromNickName = getString(commentJO, KEY_COMMENT_USER_NICKNAME);
 					comment.targetId = getString(commentJO, KEY_COMMENT_PARENT_ID);
 					comment.targetNickname = getString(commentJO, KEY_COMMENT_PARENT_NICKNAME);
-
-
-
 					comment.commitTimeStamp = Long.valueOf(commentJO.getString(KEY_COMMENT_TIME_STAMP)).longValue();
 					commentList.add(comment);
 				}

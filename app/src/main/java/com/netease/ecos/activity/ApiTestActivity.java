@@ -276,7 +276,7 @@ public class ApiTestActivity extends BaseActivity {
         //评论对应的作业id是1
         comment.commentTypeId = "1";
 
-        request.request(new GetCommentListResponse(), comment);
+        request.request(new GetCommentListResponse(), comment,1);
     }
 
     /***

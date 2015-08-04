@@ -1,263 +1,293 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ecos="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.netease.ecos.activity.PersonageDetailActivity">
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_personDetail_640px_1080px">
-        <ImageView
-            android:id="@+id/iv_return"
-            android:layout_width="@dimen/icon_return_50px"
-            android:layout_height="@dimen/icon_return_50px"
-            android:src="@mipmap/ic_launcher"
-            android:focusableInTouchMode="true"
-            android:focusable="true"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center">
-
-                <com.netease.ecos.utils.RoundImageView
-                    android:id="@+id/iv_personage_portrait"
-                    android:layout_width="@dimen/circle_icon_210px"
-                    android:layout_height="@dimen/circle_icon_210px"
-                    android:layout_marginTop="@dimen/margin_80px"
-                    android:layout_centerHorizontal="true"
-                    android:src="@mipmap/ic_launcher"
-                    ecos:showable="true"
-                    ecos:circle_color="@color/bg_red"
-                    ecos:line_width="2.0"/>
-                <ImageView
-                    android:layout_width="@dimen/circle_icon_50px"
-                    android:layout_height="@dimen/circle_icon_50px"
-                    android:id="@+id/riv_personage_gender"
-                    android:src="@drawable/img_gender_famale"
-                    android:padding="3dp"
-                    android:background="@drawable/bg_circle_pink"
-                    android:layout_alignBottom="@id/iv_personage_portrait"
-                    android:layout_alignRight="@id/iv_personage_portrait"
-                    android:layout_marginBottom="5dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/iv_personage_portrait"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/margin_50px"
-                    android:id="@+id/ll_personage_name"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/bt_personage_name_default"
-                        style="@style/text_dark_max"
-                        android:textStyle="bold"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:id="@+id/bt_personage_name" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_tag_36px"
-                    android:layout_below="@id/ll_personage_name"
-                    android:layout_marginTop="@dimen/margin_50px"
-                    android:id="@+id/ll_personage_tag"
-                    android:gravity="center">
-                    <TextView
-                        android:layout_width="@dimen/width_tag_100px"
-                        android:layout_height="@dimen/height_tag_36px"
-                        android:background="@drawable/bg_tag"
-                        android:gravity="center"
-                        android:text="@string/tv_personage_tag1"
-                        style="@style/text_white_min"
-                        android:layout_marginRight="@dimen/margin_30px"/>
-                    <TextView
-                        android:layout_width="@dimen/width_tag_100px"
-                        android:layout_height="@dimen/height_tag_36px"
-                        android:gravity="center"
-                        android:background="@drawable/bg_tag"
-                        android:text="@string/tv_personage_tag2"
-                        style="@style/text_white_min"
-                        android:layout_marginRight="@dimen/margin_30px"/>
-                    <TextView
-                        android:layout_width="@dimen/width_tag_100px"
-                        android:layout_height="@dimen/height_tag_36px"
-                        android:gravity="center"
-                        android:background="@drawable/bg_tag"
-                        android:text="@string/tv_personage_tag4"
-                        style="@style/text_white_min"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/ll_personage_tag"
-                    android:layout_marginTop="@dimen/margin_50px"
-                    android:gravity="center"
-                    android:id="@+id/ll_personage_attention"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="关注："
-                        style="@style/text_gray_mid"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="324"
-                        style="@style/text_pink_mid"
-                        android:id="@+id/tv_personage_attention" />
-
-                    <TextView
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/bg_gray_dark"
-                        android:layout_marginLeft="@dimen/margin_20px"
-                        android:layout_marginRight="@dimen/margin_20px"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="粉丝："
-                        style="@style/text_gray_mid"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="234"
-                        style="@style/text_pink_mid"
-                        android:id="@+id/tv_personage_fans" />
-                </LinearLayout>
-
-
-                <!--<Button-->
-                <!--android:layout_width="70dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/bt_personage_return"-->
-                <!--android:id="@+id/bt_personage_return"-->
-                <!--android:background="#ddddff88"-->
-                <!--android:layout_alignTop="@+id/iv_personage_portrait"-->
-                <!--android:layout_alignParentLeft="true"-->
-                <!--android:layout_alignParentStart="true" />-->
-            </RelativeLayout>
-
-        </LinearLayout>
-    </FrameLayout>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_personDetail_information_186px"
-        android:orientation="vertical"
-        android:background="@color/bg_white">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/tv_personage_description_default"
-            android:id="@+id/tv_personage_description"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/margin_30px"
-            style="@style/text_pink_mid"
-            android:textColor="@color/bg_red_light_light"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20px"
-            android:orientation="horizontal"
-            android:gravity="center">
-            <Button
-                android:layout_width="@dimen/width_btn_person_180px"
-                android:layout_height="@dimen/height_btn_person_80px"
-                android:id="@+id/btn_attention"
-                android:background="@drawable/bg_person_pink"
-                android:text="@string/bt_personage_attention"
-                android:gravity="center"
-                style="@style/text_white_mid"/>
-            <Button
-                android:layout_width="@dimen/width_btn_person_180px"
-                android:layout_height="@dimen/height_btn_person_80px"
-                android:id="@+id/btn_contact"
-                android:background="@drawable/bg_person_white"
-                android:text="私信"
-                android:gravity="center"
-                style="@style/text_pink_mid"
-                android:layout_marginLeft="@dimen/margin_60px"/>
-
-        </LinearLayout>
-    </LinearLayout>
-    <TextView style="@style/layout_line_gray"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_label_100px"
-        android:background="@color/bg_gray"
-        android:orientation="horizontal">
-        <RadioGroup
-            android:id="@+id/radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radio_1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/tab_course"
-                style="@style/rb_chat_list_tab"/>
-
-            <TextView
-                style="@style/layout_line_gray_v"
-                android:layout_marginTop="@dimen/margin_20px"
-                android:layout_marginBottom="@dimen/margin_20px"/>
-            <RadioButton
-                android:id="@+id/radio_2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/tab_community"
-                style="@style/rb_chat_list_tab"/>
-
-            <TextView
-                style="@style/layout_line_gray_v"
-                android:layout_marginTop="@dimen/margin_20px"
-                android:layout_marginBottom="@dimen/margin_20px"/>
-            <RadioButton
-                android:id="@+id/radio_3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/tab_transaction"
-                style="@style/rb_chat_list_tab"/>
-            <TextView
-                style="@style/layout_line_gray_v"
-                android:layout_marginTop="@dimen/margin_20px"
-                android:layout_marginBottom="@dimen/margin_20px"/>
-            <RadioButton
-                android:id="@+id/radio_4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/tab_display"
-                style="@style/rb_chat_list_tab"/>
-        </RadioGroup>
-    </LinearLayout>
-    <TextView style="@style/layout_line_gray"/>
-
-    <com.netease.ecos.views.ExtensibleListView
-        android:id="@+id/lv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="0px"
-        android:divider="@android:color/transparent"
-        android:listSelector="@android:color/transparent"
-        android:layout_marginTop="@dimen/margin_40px"/>
+        android:orientation="vertical"
+        tools:context="com.netease.ecos.activity.PersonageDetailActivity">
 
-</LinearLayout>
-    </ScrollView>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_personDetail_640px_1080px">
+
+            <ImageView
+                android:id="@+id/iv_return"
+                android:layout_width="@dimen/icon_return_50px"
+                android:layout_height="@dimen/icon_return_50px"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:src="@mipmap/ic_launcher" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <com.netease.ecos.utils.RoundImageView
+                        android:id="@+id/iv_personage_portrait"
+                        android:layout_width="@dimen/circle_icon_210px"
+                        android:layout_height="@dimen/circle_icon_210px"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/margin_80px"
+                        android:src="@mipmap/ic_launcher"
+                        ecos:circle_color="@color/bg_red"
+                        ecos:line_width="2.0"
+                        ecos:showable="true" />
+
+                    <ImageView
+                        android:id="@+id/riv_personage_gender"
+                        android:layout_width="@dimen/circle_icon_50px"
+                        android:layout_height="@dimen/circle_icon_50px"
+                        android:layout_alignBottom="@id/iv_personage_portrait"
+                        android:layout_alignRight="@id/iv_personage_portrait"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/bg_circle_pink"
+                        android:padding="3dp"
+                        android:src="@drawable/img_gender_famale" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_personage_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/iv_personage_portrait"
+                        android:layout_marginTop="@dimen/margin_50px"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/bt_personage_name"
+                            style="@style/text_dark_max"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/bt_personage_name_default"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_personage_tag"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_tag_36px"
+                        android:layout_below="@id/ll_personage_name"
+                        android:layout_marginTop="@dimen/margin_50px"
+                        android:gravity="center">
+
+                        <TextView
+                            style="@style/text_white_min"
+                            android:layout_width="@dimen/width_tag_100px"
+                            android:layout_height="@dimen/height_tag_36px"
+                            android:layout_marginRight="@dimen/margin_30px"
+                            android:background="@drawable/bg_tag"
+                            android:gravity="center"
+                            android:text="@string/tv_personage_tag1" />
+
+                        <TextView
+                            style="@style/text_white_min"
+                            android:layout_width="@dimen/width_tag_100px"
+                            android:layout_height="@dimen/height_tag_36px"
+                            android:layout_marginRight="@dimen/margin_30px"
+                            android:background="@drawable/bg_tag"
+                            android:gravity="center"
+                            android:text="@string/tv_personage_tag2" />
+
+                        <TextView
+                            style="@style/text_white_min"
+                            android:layout_width="@dimen/width_tag_100px"
+                            android:layout_height="@dimen/height_tag_36px"
+                            android:background="@drawable/bg_tag"
+                            android:gravity="center"
+                            android:text="@string/tv_personage_tag4" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_personage_attention"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ll_personage_tag"
+                        android:layout_marginTop="@dimen/margin_50px"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/text_gray_mid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="关注："
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <TextView
+                            android:id="@+id/tv_personage_attention"
+                            style="@style/text_pink_mid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="324"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <TextView
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/margin_20px"
+                            android:layout_marginRight="@dimen/margin_20px"
+                            android:background="@color/bg_gray_dark" />
+
+                        <TextView
+                            style="@style/text_gray_mid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="粉丝："
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <TextView
+                            android:id="@+id/tv_personage_fans"
+                            style="@style/text_pink_mid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="234"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+                    </LinearLayout>
+
+
+                    <!--<Button-->
+                    <!--android:layout_width="70dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="@string/bt_personage_return"-->
+                    <!--android:id="@+id/bt_personage_return"-->
+                    <!--android:background="#ddddff88"-->
+                    <!--android:layout_alignTop="@+id/iv_personage_portrait"-->
+                    <!--android:layout_alignParentLeft="true"-->
+                    <!--android:layout_alignParentStart="true" />-->
+                </RelativeLayout>
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bg_white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_personage_description"
+                style="@style/text_pink_mid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_20px"
+                android:layout_marginTop="@dimen/margin_30px"
+                android:gravity="center"
+                android:text="@string/tv_personage_description_default"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/bg_red_light_light" />
+
+            <LinearLayout
+                android:id="@+id/contactLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_50px"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_attention"
+                    style="@style/text_white_mid"
+                    android:layout_width="@dimen/width_btn_person_180px"
+                    android:layout_height="@dimen/height_btn_person_80px"
+                    android:background="@drawable/bg_person_pink"
+                    android:gravity="center"
+                    android:text="@string/bt_personage_attention" />
+
+                <Button
+                    android:id="@+id/btn_contact"
+                    style="@style/text_pink_mid"
+                    android:layout_width="@dimen/width_btn_person_180px"
+                    android:layout_height="@dimen/height_btn_person_80px"
+                    android:layout_marginLeft="@dimen/margin_60px"
+                    android:background="@drawable/bg_person_white"
+                    android:gravity="center"
+                    android:text="私信" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView style="@style/layout_line_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_label_100px"
+            android:background="@color/bg_gray"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+
+                <RadioButton
+                    android:id="@+id/radio_1"
+                    style="@style/rb_chat_list_tab"
+                    android:layout_width="match_parent"
+                    android:checked="true"
+                    android:layout_height="match_parent"
+                    android:text="@string/tab_course" />
+
+                <TextView
+                    style="@style/layout_line_gray_v"
+                    android:layout_marginBottom="@dimen/margin_20px"
+                    android:layout_marginTop="@dimen/margin_20px" />
+
+                <RadioButton
+                    android:id="@+id/radio_2"
+                    style="@style/rb_chat_list_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/tab_community" />
+
+                <TextView
+                    style="@style/layout_line_gray_v"
+                    android:layout_marginBottom="@dimen/margin_20px"
+                    android:layout_marginTop="@dimen/margin_20px" />
+
+                <RadioButton
+                    android:id="@+id/radio_3"
+                    style="@style/rb_chat_list_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/tab_transaction" />
+
+                <TextView
+                    style="@style/layout_line_gray_v"
+                    android:layout_marginBottom="@dimen/margin_20px"
+                    android:layout_marginTop="@dimen/margin_20px" />
+
+                <RadioButton
+                    android:id="@+id/radio_4"
+                    style="@style/rb_chat_list_tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/tab_display" />
+            </RadioGroup>
+        </LinearLayout>
+
+        <TextView style="@style/layout_line_gray" />
+
+        <com.netease.ecos.views.ExtensibleListView
+            android:id="@+id/lv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_40px"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0px"
+            android:listSelector="@android:color/transparent" />
+
+    </LinearLayout>
+</ScrollView>

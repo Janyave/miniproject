@@ -87,6 +87,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
             case R.id.ll_author:
                 intent = new Intent(RecruitmentDetailActivity.this, PersonageDetailActivity.class);
                 bundle.putString(PersonageDetailActivity.UserID, recruitment.userId);
+                bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -129,7 +130,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
             tv_name.setText(recruit.nickname);
             tv_distance.setText(recruit.distanceKM);
             tv_price.setText(recruit.averagePrice);
-            tv_detail.setText(recruit.decription);
+            tv_detail.setText(recruit.description);
             recruitmentDetailWorkAdapter = new RecruitmentDetailWorkAdapter(RecruitmentDetailActivity.this, recruitment.shareList);
             lv_list.setAdapter(recruitmentDetailWorkAdapter);
         }

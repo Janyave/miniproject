@@ -1,7 +1,13 @@
 package com.netease.ecos.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,9 +18,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+import java.io.PipedInputStream;
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+
 
 public class PersonalInfoSettingActivity extends BaseActivity {
 
@@ -23,12 +38,14 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     private LinearLayout mReturn;
     private RoundImageView mAvatarImg;
     private ImageView mSetAvatar;
-    private EditText mSetName;
-    private Spinner mSetGender;
-    private EditText mSetIntro;
+    private TextView mSetName;
+    private TextView mSetGender;
+    private TextView mSetIntro;
     private ImageView mSetPwd;
     private Switch mSetMsgAlert;
     private Button mLogOut;
+
+//    private RoundAngleImageView iv;
 
 
     @Override
@@ -37,15 +54,19 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         setContentView(R.layout.activity_personal_info_setting);
         onBoundView();
         onBoundLinster();
+//        iv = (RoundAngleImageView) findViewById(R.id.picasso_test);
+//        iv.setImageFromUrl("http://pic4.nipic.com/20090803/2618170_095921092_2.jpg");
+
     }
+
 
     private void onBoundView() {
         mReturn = (LinearLayout) findViewById(R.id.lly_left_action);
         mAvatarImg = (RoundImageView) findViewById(R.id.personal_info_set_avatar_pic);
         mSetAvatar = (ImageView) findViewById(R.id.personal_info_set_avatar);
-        mSetName = (EditText) findViewById(R.id.personal_info_set_name);
-        mSetGender = (Spinner) findViewById(R.id.personal_info_set_gender);
-        mSetIntro = (EditText) findViewById(R.id.personal_info_set_intro);
+        mSetName = (TextView) findViewById(R.id.personal_info_set_name);
+        mSetGender = (TextView) findViewById(R.id.personal_info_set_gender);
+        mSetIntro = (TextView) findViewById(R.id.personal_info_set_intro);
         mSetPwd = (ImageView) findViewById(R.id.personal_info_set_pwd);
         mSetMsgAlert = (Switch) findViewById(R.id.personal_info_set_Msg_alert);
         mLogOut = (Button) findViewById(R.id.personal_info_logout);
@@ -72,12 +93,6 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                 android.R.layout.simple_spinner_item, gender);
         //设置下拉列表的风格
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //将adapter 添加到spinner中
-        mSetGender.setAdapter(adapter);
-        //添加事件Spinner事件监听
-        mSetGender.setOnItemSelectedListener(new SpinnerSelectedListener());
-        //设置默认值
-        mSetGender.setVisibility(View.VISIBLE);
     }
 
     class ButtonListener implements View.OnClickListener {

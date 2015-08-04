@@ -1,83 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/bg_course_item"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_course_item"
+        android:orientation="vertical">
 
         <!--头像姓名关注 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
             <LinearLayout
                 android:id="@+id/ll_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
+
                 <ImageView
                     android:id="@+id/iv_avatar"
                     android:layout_width="@dimen/course_item_avatar_width"
                     android:layout_height="40dp"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@mipmap/ic_launcher" />
+
                 <TextView
                     android:id="@+id/tv_name"
+                    style="@style/text_dark_mid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text="NAME"
-                    style="@style/text_dark_mid"/>
+                    android:layout_marginLeft="8dp" />
             </LinearLayout>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
+
             <TextView
                 android:id="@+id/tv_focus"
+                style="@style/text_white_mid"
                 android:layout_width="64dp"
                 android:layout_height="30dp"
-                android:gravity="center"
-                android:text="关注"
                 android:background="@drawable/btn_focus_pink"
-                style="@style/text_white_mid"/>
+                android:gravity="center"
+                android:text="关注" />
         </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="235dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp">
+
             <ImageView
                 android:id="@+id/iv_cover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/img_default"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_default" />
+
             <TextView
                 android:id="@+id/tv_coverNum"
+                style="@style/text_white_min"
                 android:layout_width="35dp"
                 android:layout_height="20dp"
-                android:gravity="center"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginRight="16dp"
+                android:layout_alignParentRight="true"
                 android:layout_marginBottom="16dp"
-                android:text="5P"
+                android:layout_marginRight="16dp"
                 android:background="@drawable/bg_pagenum"
-                style="@style/text_white_min"/>
+                android:gravity="center"
+                android:text="5P" />
 
         </RelativeLayout>
 
@@ -86,101 +93,100 @@
             android:id="@+id/ll_coverInformation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:gravity="center_vertical">
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_coverTitle"
+                style="@style/text_pink_max"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TITLE"
-                style="@style/text_pink_max"/>
+                android:layout_height="wrap_content" />
+
             <TextView
                 android:id="@+id/tv_coverTime"
+                style="@style/text_gray_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                style="@style/text_gray_min"
-                android:text="2011年11月11日"/>
+                android:layout_marginTop="8dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal">
+
                 <LinearLayout
                     android:id="@+id/ll_praise"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="30dp"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:background="@drawable/bg_radius_red_trans"
+                    android:gravity="center"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/iv_praise"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@mipmap/ic_praise" />
+
                     <TextView
                         android:id="@+id/tv_praise"
+                        style="@style/text_pink_mid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        style="@style/text_pink_mid"
-                        android:text="56"/>
+                        android:layout_marginLeft="8dp" />
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="10dp"
                     android:layout_height="wrap_content" />
+
                 <LinearLayout
                     android:id="@+id/ll_evaluation"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="30dp"
-                    android:gravity="center"
+                    android:layout_weight="1"
                     android:background="@drawable/bg_radius_red_trans"
+                    android:gravity="center"
                     android:orientation="horizontal">
+
                     <ImageView
                         android:id="@+id/iv_evaluation"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@mipmap/ic_launcher" />
+
                     <TextView
                         android:id="@+id/tv_evaluation"
+                        style="@style/text_pink_mid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        style="@style/text_pink_mid"
-                        android:text="120"/>
+                        android:layout_marginLeft="8dp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-        <TextView style="@style/layout_line_gray"/>
+
+        <TextView style="@style/layout_line_gray" />
 
         <LinearLayout
             android:id="@+id/ll_evaluationList"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="12dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:background="@color/bg_white"
             android:orientation="vertical">
-        </LinearLayout>
-        <TextView style="@style/layout_line_gray"/>
 
-        <TextView
-            android:id="@+id/tv_allEvalution"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="查看全部120条评论"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            style="@style/text_pink_mid"
-            android:gravity="center"/>
+            <com.netease.ecos.views.ExtensibleListView
+                android:id="@+id/lv_evaluation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

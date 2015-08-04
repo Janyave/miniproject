@@ -7,13 +7,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp"
+        android:padding="@dimen/margin_40px"
         android:gravity="center_vertical">
-       <ImageView
+       <com.netease.ecos.utils.RoundImageView
            android:id="@+id/iv_avatar"
            android:layout_width="@dimen/contact_avatar_width"
            android:layout_height="@dimen/contact_avatar_width"
-           android:layout_marginRight="16dp"
+           android:layout_marginRight="@dimen/margin_40px"
            android:src="@drawable/img_default"
            android:scaleType="fitXY"/>
         <TextView
@@ -24,9 +24,9 @@
             android:text="我是聊天内容啦啦啦啦啦啦"
             style="@style/text_gray_max"
             android:background="@drawable/bg_contact_other"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"/>
+            android:paddingTop="@dimen/margin_40px"
+            android:paddingBottom="@dimen/margin_40px"
+            android:paddingLeft="@dimen/margin_50px"
+            android:paddingRight="@dimen/margin_50px"/>
     </LinearLayout>
 </LinearLayout>

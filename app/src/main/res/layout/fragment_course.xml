@@ -60,7 +60,7 @@
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
                         android:layout_marginLeft="@dimen/margin_20px"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@mipmap/ic_more"/>
                 </LinearLayout>
 
             </LinearLayout>

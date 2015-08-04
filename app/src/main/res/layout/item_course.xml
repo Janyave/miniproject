@@ -77,7 +77,7 @@
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
                         android:layout_gravity="right|bottom"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@mipmap/ic_praise" />
 
                     <TextView
                         android:id="@+id/textViewAmz"

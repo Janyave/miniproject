@@ -53,7 +53,7 @@
     <string name="price_event_detail">¥45</string>
     <string name="detail_location_event_detail">成都 武侯区 动漫广场1号展厅</string>
     <integer name="line_num_event_detail">3</integer>
-    <string name="time_event_detail">2015年7月20日-2015年7月24日\n 10:00-14:00</string>
+    <string name="time_event_detail">2015年7月20日-2015年7月24日 10:00-14:00</string>
     <string name="detail_event_detail">我是一段关于本次活动的说明，我有很多字，我一定要超过三行，一定的啊，要不然界面会显得空旷啊，所以我要加油，誓要超越三行</string>
     <string name="contact_event_detail">联系方式</string>
     <string name="QQ_event_detail">企鹅群：970020010</string>
@@ -89,6 +89,9 @@
     <string name="workDescrp_hint">作品描述</string>
     <string name="title_activity_category_display">CategoryDisplayActivity</string>
     <string name="title_activity_personage_detail">PersonageDetailActivity</string>
+    <string name="manyFavor">个赞</string>
+    <string name="manyComment">条评论</string>
+    <string name="page">张</string>
 
 
     <!-- CourseType-->
@@ -113,7 +116,7 @@
     <string name="expense">费用</string>
     <string name="contact">添加联系方式</string>
     <string name="contactDetail">联系号码</string>
-    <string name="activity_description">请填写活动介绍:)</string>
+    <string name="activity_description">活动简介</string>
     <string name="to">至</string>
     <string name="rmb">元</string>
     <string name="title_activity_personage_share_fragment">PersonageShareFragment</string>
@@ -123,11 +126,13 @@
     <string name="notFinished">请填写分享内容:)</string>
     <!-- 发布招募页面-->
     <string name="avgPrice">均价</string>
-    <string name="perHour">/小时</string>
     <string name="recruitmentTitle">设置价格和封面作品</string>
     <string name="auction">挂牌</string>
     <string name="instruction">说明</string>
     <string name="chooseCover">选择封面作品</string>
-    <string name="perPerson">/人</string>
-    <string name="$">$</string>
+    <string name="notAlreadyFinished">请填写完所有数据;)</string>
+    <string name="uploadSuccessfully">挂牌成功:)</string>
+    <!-- 评论页面-->
+    <string name="noComment">请填写评论;)</string>
+    <string name="commentSuccess">评论发送成功:)</string>
 </resources>

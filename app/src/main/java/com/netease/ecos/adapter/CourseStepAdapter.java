@@ -300,6 +300,9 @@ public class CourseStepAdapter extends BaseAdapter {
 
             @Override
             public void afterTextChanged(Editable s) {
+                if(positionOfEtv >= getCount()){
+                    return ;
+                }
                 mStepsList.get(positionOfEtv).description = s.toString();
             }
         }

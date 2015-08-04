@@ -61,7 +61,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             Picasso.with(mcontext).load(recruitmentArrayList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             tv_name.setText(recruitmentArrayList.get(position).nickname);
             tv_distance.setText(recruitmentArrayList.get(position).distanceKM);
-            tv_price.setText(mcontext.getResources().getString(R.string.$) + recruitmentArrayList.get(position).averagePrice + mcontext.getResources().getString(R.string.perPerson));
+            tv_price.setText(recruitmentArrayList.get(position).averagePrice + recruitmentArrayList.get(position).priceUnit);
             //set tag
             ll_author.setTag(position);
             tv_talk.setTag(position);
@@ -115,6 +115,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             case R.id.ll_author:
                 intent = new Intent(mcontext, PersonageDetailActivity.class);
                 bundle.putString(PersonageDetailActivity.UserID, recruitmentArrayList.get(position).userId);
+                bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;

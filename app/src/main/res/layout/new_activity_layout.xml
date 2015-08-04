@@ -3,252 +3,329 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <include
         android:id="@+id/include_title"
         layout="@layout/component_title" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="wrap_content"
+        android:background="@color/bg_gray">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_course_item"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/margin_40px">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/activityCoverImgVw"
-                    android:layout_width="@dimen/uploadWork_Img_width"
-                    android:layout_height="@dimen/uploadWork_Img_height"
-                    android:src="@mipmap/ic_launcher" />
+                    android:layout_width="@dimen/width_cover_380px_270px"
+                    android:layout_height="@dimen/height_cover_380px_270px"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_marginTop="@dimen/margin_30px"
+                    android:layout_marginBottom="@dimen/margin_30px"
+                    android:background="@drawable/bg_course_item"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <EditText
-                        android:id="@+id/activityNameEdTx"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/activity_name" />
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/margin_40px"
+                    android:layout_marginRight="@dimen/margin_40px">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
+                        android:layout_height="@dimen/height_item_140px"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/width_new_activity_text_4"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/type" />
+                            android:text="@string/activity_name"
+                            style="@style/text_dark_max"/>
+                        <EditText
+                            android:id="@+id/activityNameEdTx"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            style="@style/text_gray_mid"
+                            android:textColorHint="@color/text_gray"
+                            android:hint="@string/activity_name"
+                            android:background="@null"/>
+                    </LinearLayout>
 
+                    <TextView
+                        style="@style/layout_line_gray"
+                        android:layout_marginLeft="@dimen/width_new_activity_text_4"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_item_140px"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:layout_width="@dimen/width_new_activity_text_4"
+                            android:layout_height="wrap_content"
+                            android:text="@string/type"
+                            style="@style/text_dark_max"/>
                         <Spinner
                             android:id="@+id/activityTypeSpinner"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:background="@android:color/transparent" />
                     </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/divider_height"
-                        android:background="@color/bg_gray_dark" />
+                    <TextView
+                        style="@style/layout_line_gray"
+                        android:layout_marginLeft="@dimen/width_new_activity_text_4"/>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
+                        android:layout_height="@dimen/height_item_140px"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/width_new_activity_text_4"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/location" />
+                            android:text="@string/location"
+                            style="@style/text_dark_max"/>
 
                         <Spinner
                             android:id="@+id/activityProvinceSpinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:background="@android:color/transparent"
+                            style="@style/text_dark_mid"/>
 
                         <Spinner
                             android:id="@+id/activityCitySpinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:background="@android:color/transparent"/>
                     </LinearLayout>
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/divider_height"
-                        android:background="@color/bg_gray_dark" />
+                    <TextView
+                        style="@style/layout_line_gray"
+                        android:layout_marginLeft="@dimen/width_new_activity_text_4"/>
 
-                    <EditText
-                        android:id="@+id/addressEdTx"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_item_140px"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:layout_width="@dimen/width_new_activity_text_4"
+                            android:layout_height="wrap_content"
+                            android:text="@string/address"
+                            style="@style/text_dark_max"/>
+                        <EditText
+                            android:id="@+id/addressEdTx"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            style="@style/text_gray_mid"
+                            android:textColorHint="@color/text_gray"
+                            android:hint="@string/address"
+                            android:background="@null"/>
+                    </LinearLayout>
+                    <TextView
+                        style="@style/layout_line_gray"
+                        android:layout_marginLeft="@dimen/width_new_activity_text_4"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_item_140px"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="@dimen/width_new_activity_text_4"
+                            android:layout_height="wrap_content"
+                            android:text="@string/day"
+                            style="@style/text_dark_max"/>
+
+                        <EditText
+                            android:id="@+id/beginDateEdTx"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="2015/7/02"
+                            android:gravity="center"
+                            style="@style/text_gray_mid"
+                            android:textColorHint="@color/text_gray"
+                            android:background="@android:color/transparent"
+                            android:editable="false" />
+
+                        <EditText
+                            android:id="@+id/endDateEdTx"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="2015/7/03"
+                            android:gravity="center"
+                            style="@style/text_gray_mid"
+                            android:textColorHint="@color/text_gray"
+                            android:background="@android:color/transparent"
+                            android:editable="false" />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        style="@style/layout_line_gray"
+                        android:layout_marginLeft="@dimen/width_new_activity_text_4"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_item_140px"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="@dimen/width_new_activity_text_4"
+                            android:layout_height="wrap_content"
+                            android:text="@string/time"
+                            style="@style/text_dark_max"/>
+
+                        <EditText
+                            android:id="@+id/beginTimeEdTx"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="9:00"
+                            android:gravity="center"
+                            style="@style/text_gray_mid"
+                            android:textColorHint="@color/text_gray"
+                            android:background="@android:color/transparent"
+                            android:editable="false" />
+
+                        <EditText
+                            android:id="@+id/endTimeEdTx"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="16:00"
+                            android:gravity="center"
+                            style="@style/text_gray_mid"
+                            android:textColorHint="@color/text_gray"
+                            android:background="@android:color/transparent"
+                            android:editable="false" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/layout_line_gray"
+                        android:layout_marginLeft="@dimen/width_new_activity_text_4"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/height_item_140px"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/expense"
+                            android:layout_width="@dimen/width_new_activity_text_4"
+                            android:layout_height="wrap_content"
+                            style="@style/text_dark_max"
+                            android:text="@string/expense" />
+                        <EditText
+                            android:id="@+id/expenseEdTx"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:gravity="center"
+                            android:hint="100"
+                            style="@style/text_gray_mid"
+                            android:textColorHint="@color/text_gray"
+                            android:singleLine="true" />
+                        <TextView
+                            android:id="@+id/rmb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/text_dark_max"
+                            android:text="@string/rmb" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        style="@style/layout_line_gray"
+                        android:layout_marginLeft="@dimen/width_new_activity_text_4"/>
+
+
+
+                    <com.netease.ecos.views.ExtensibleListView
+                        android:id="@+id/contactListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:dividerHeight="0dp"
+                        android:listSelector="@android:color/transparent"
+                        android:divider="@android:color/transparent"/>
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/address" />
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/margin_30px"
+                        android:gravity="center">
 
+                        <ImageView
+                            android:id="@+id/newIcon"
+                            android:layout_width="@dimen/icon_big_64px"
+                            android:layout_height="@dimen/icon_big_64px"
+                            android:src="@drawable/new_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/text_gray_mid"
+                            android:layout_marginLeft="@dimen/margin_20px"
+                            android:text="@string/contact" />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/day" />
-
-                <EditText
-                    android:id="@+id/beginDateEdTx"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:editable="false" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/to" />
-
-                <EditText
-                    android:id="@+id/endDateEdTx"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:editable="false" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/divider_height"
-                android:background="@color/bg_gray_dark" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/time" />
-
-                <EditText
-                    android:id="@+id/beginTimeEdTx"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:editable="false" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/to" />
-
-                <EditText
-                    android:id="@+id/endTimeEdTx"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:editable="false" />
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/divider_height"
-                android:background="@color/bg_gray_dark" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/expense"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/expense" />
-
-                <TextView
-                    android:id="@+id/rmb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="@string/rmb" />
-
-                <EditText
-                    android:id="@+id/expenseEdTx"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/rmb"
-                    android:layout_toRightOf="@id/expense"
-                    android:background="@null"
-                    android:singleLine="true" />
-
-            </RelativeLayout>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/divider_height"
-                android:background="@color/bg_gray_dark" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/newIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/new_icon" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@id/newIcon"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/newIcon"
-                    android:text="@string/contact" />
-            </RelativeLayout>
-
-            <com.netease.ecos.views.ExtensibleListView
-                android:id="@+id/contactListView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:dividerHeight="@dimen/divider_height"
-                android:listSelector="#e7e7e7" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/divider_height"
-                android:background="@color/bg_gray_dark" />
-
+                android:text="@string/activity_description"
+                style="@style/text_dark_max"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginTop="@dimen/margin_40px"/>
             <EditText
                 android:id="@+id/activityDesrpEdTx"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/uploadWork_Img_height"
+                android:layout_height="wrap_content"
+                android:minLines="3"
+                android:background="@drawable/bg_course_item"
+                android:layout_margin="@dimen/margin_40px"
+                android:padding="@dimen/margin_40px"
                 android:gravity="top|left"
+                style="@style/text_gray_mid"
                 android:hint="@string/activity_description" />
 
         </LinearLayout>
 
+        </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

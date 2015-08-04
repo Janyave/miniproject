@@ -13,7 +13,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bg_gray">
         <!-- 正式内容 -->
         <LinearLayout
             android:id="@+id/container"
@@ -21,92 +22,250 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="160dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_40px">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_item_campaign_420px"
+                    android:layout_marginLeft="@dimen/margin_40px"
+                    android:layout_marginRight="@dimen/margin_40px"
+                    android:layout_marginBottom="@dimen/margin_30px"
+                    android:background="@drawable/bg_course_item"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_20px"
+                    android:gravity="center_vertical">
+                    <ImageView
+                        android:layout_width="@dimen/width_cover_380px_270px"
+                        android:layout_height="@dimen/height_cover_380px_270px"
+                        android:id="@+id/iv_event_cover"
+                        android:src="@drawable/img_default"
+                        android:scaleType="centerCrop" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_40px"
+                        android:layout_marginRight="@dimen/margin_40px"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="西南Cosplay超级展览"
+                            android:id="@+id/tv_event_title"
+                            style="@style/text_pink_max"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10px"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <ImageView
+                                android:layout_width="@dimen/icon_little_36px"
+                                android:layout_height="@dimen/icon_little_36px"
+                                android:src="@mipmap/ic_position_gray"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="成都"
+                                android:layout_marginLeft="@dimen/margin_20px"
+                                android:id="@+id/tv_event_location"
+                                style="@style/text_gray_min"/>
+                        </LinearLayout>
 
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="130dp"
-                    android:id="@+id/iv_event_cover"
-                    android:src="@drawable/event_detail_cover"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="15dp"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_50px"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:id="@+id/tv_event_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="￥ 100"
+                                style="@style/text_pink_max"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:id="@+id/tv_event_coverTag"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginLeft="100dp"
+                    android:layout_width="@dimen/width_campaign_type_150px"
+                    android:layout_height="@dimen/height_campaign_type_54px"
+                    android:background="@drawable/bg_campaign_type_1"
+                    android:text="主题ONLY"
                     android:gravity="center"
-                    android:text="@string/tag_event_detail"/>
+                    style="@style/text_white_mid"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/margin_20px"
+                    android:layout_marginRight="@dimen/margin_30px"/>
+            </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="@string/title_event_detail"
-                    android:id="@+id/tv_event_title"
-                    android:layout_marginLeft="150dp"
-                    android:layout_marginTop="40dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/location_event_detail"
-                    android:id="@+id/tv_event_location"
-                    android:layout_marginLeft="180dp"
-                    android:layout_marginTop="80dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/price_event_detail"
-                    android:id="@+id/tv_event_price"
-                    android:layout_marginLeft="180dp"
-                    android:layout_marginTop="110dp" />
-            </FrameLayout>
-            <!-- 间隔 -->
-            <View
+            <LinearLayout
+                android:id="@+id/ll_photos"
                 android:layout_width="match_parent"
-                android:layout_height="5dp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/margin_20px">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_label_100px"
+                    android:background="@color/bg_gray"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/margin_40px"
+                    android:paddingRight="@dimen/margin_40px">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="4dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/bg_red"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_40px"
+                            style="@style/text_dark_max"
+                            android:text="场照"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="全部"
+                            style="@style/text_gray_mid"/>
+                        <ImageView
+                            android:layout_width="@dimen/icon_little_36px"
+                            android:layout_height="@dimen/icon_little_36px"
+                            android:layout_marginLeft="@dimen/margin_20px"
+                            android:src="@mipmap/ic_more"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- 图片展示-->
+                <com.netease.ecos.views.HorizontalListView
+                    android:id="@+id/hlv_photos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/height_item_work_620px"
+                    android:layout_marginLeft="@dimen/margin_40px"
+                    android:layout_marginBottom="@dimen/margin_30px"
+                    android:descendantFocusability="afterDescendants" />
+                <TextView
+                    android:id="@+id/tv_publish_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_btn_big_120px"
+                    android:background="@drawable/btn_big_green"
+                    android:layout_marginLeft="@dimen/margin_40px"
+                    android:layout_marginRight="@dimen/margin_40px"
+                    android:text="上传场照"
+                    style="@style/text_white_max"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+
+            <!-- 间隔 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_label_100px"
+                android:background="@color/bg_gray"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/margin_40px"
+                android:paddingRight="@dimen/margin_40px">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/bg_red" />
+
+                    <TextView
+                        style="@style/text_dark_max"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_40px"
+                        android:text="展览信息" />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <!-- 详细信息区 -->
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="130dp"
-                android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_course_item"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px"
+                android:orientation="vertical">
                 <!-- 左侧间隔 -->
-                <View
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent" />
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/height_activity_show_item_90px"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_20px">
+                    <ImageView
+                        android:layout_width="@dimen/icon_little_36px"
+                        android:layout_height="@dimen/icon_little_36px"
+                        android:src="@mipmap/ic_position_pink"
+                        android:layout_marginRight="@dimen/margin_20px"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_event_location_detail"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/detail_location_event_detail"/>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/line_grey"/>
+                        android:text="@string/detail_location_event_detail"
+                        style="@style/text_dark_mid"/>
+                </LinearLayout>
+                <TextView style="@style/layout_line_gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/height_activity_show_item_90px"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_20px">
+                    <ImageView
+                        android:layout_width="@dimen/icon_little_36px"
+                        android:layout_height="@dimen/icon_little_36px"
+                        android:src="@mipmap/ic_position_pink"
+                        android:layout_marginRight="@dimen/margin_20px"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_event_time_detail"
-                        android:text="@string/time_event_detail"/>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/line_grey"/>
+                        android:text="@string/time_event_detail"
+                        style="@style/text_dark_mid"/>
+                </LinearLayout>
+                <TextView style="@style/layout_line_gray"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/height_activity_show_item_90px"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_20px">
+                    <ImageView
+                        android:layout_width="@dimen/icon_little_36px"
+                        android:layout_height="@dimen/icon_little_36px"
+                        android:src="@mipmap/ic_position_pink"
+                        android:layout_marginRight="@dimen/margin_20px"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -114,79 +273,210 @@
                         android:lines="@integer/line_num_event_detail"
                         android:layout_gravity="start"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/detail_event_detail"/>
-
+                        android:text="@string/detail_event_detail"
+                        style="@style/text_dark_mid"/>
                 </LinearLayout>
-                <!-- 右侧间隔 -->
-                <View
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent" />
+                <TextView style="@style/layout_line_gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/height_activity_show_item_90px"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/margin_20px">
+                    <TextView
+                        android:id="@+id/tv_wantgo"
+                        android:layout_width="@dimen/width_btn_wantgo_220px"
+                        android:layout_height="@dimen/circle_icon_100px"
+                        android:background="@drawable/btn_activity_wantgo"
+                        android:text="想去"
+                        style="@style/text_pink_max"
+                        android:gravity="center"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/circle_icon_100px"
+                        android:orientation="horizontal">
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="@dimen/circle_icon_100px"
+                        android:layout_height="@dimen/circle_icon_100px"
+                        android:background="@drawable/bg_activty_wantgo_unable"
+                        android:text="1020"
+                        style="@style/text_gray_min"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 间隔 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_label_100px"
+                android:background="@color/bg_gray"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/margin_40px"
+                android:paddingRight="@dimen/margin_40px">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/bg_red" />
+
+                    <TextView
+                        style="@style/text_dark_max"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_40px"
+                        android:text="联系方式" />
+                </LinearLayout>
 
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_event_contact"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/contact_event_detail"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/line_cyan"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <!-- 左侧间隔 -->
-                <View
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/tv_event_non_left"/>
+                android:orientation="vertical"
+                android:background="@drawable/bg_course_item"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px">
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
-
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/height_activity_show_item_90px"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_20px">
+                    <ImageView
+                        android:layout_width="@dimen/icon_little_36px"
+                        android:layout_height="@dimen/icon_little_36px"
+                        android:src="@mipmap/ic_position_pink"
+                        android:layout_marginRight="@dimen/margin_20px"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/detail_location_event_detail"/>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/line_grey"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/QQ_event_detail"/>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/line_grey"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="@string/weibo_event_detail"/>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/line_grey"/>
-
+                        android:text="@string/detail_location_event_detail"
+                        style="@style/text_dark_mid"/>
                 </LinearLayout>
-                <!-- 右侧间隔 -->
-                <View
-                    android:layout_width="40dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/tv_event_non_right"/>
+                <TextView style="@style/layout_line_gray"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/height_activity_show_item_90px"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_20px">
+                    <ImageView
+                        android:layout_width="@dimen/icon_little_36px"
+                        android:layout_height="@dimen/icon_little_36px"
+                        android:src="@mipmap/ic_position_pink"
+                        android:layout_marginRight="@dimen/margin_20px"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/QQ_event_detail"
+                        style="@style/text_dark_mid"/>
+                </LinearLayout>
+                <TextView style="@style/layout_line_gray"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/height_activity_show_item_90px"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_20px">
+                    <ImageView
+                        android:layout_width="@dimen/icon_little_36px"
+                        android:layout_height="@dimen/icon_little_36px"
+                        android:src="@mipmap/ic_position_pink"
+                        android:layout_marginRight="@dimen/margin_20px"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="@string/weibo_event_detail"
+                        style="@style/text_dark_mid"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <!-- 间隔 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_label_100px"
+                android:background="@color/bg_gray"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/margin_40px"
+                android:paddingRight="@dimen/margin_40px">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/bg_red" />
+
+                    <TextView
+                        style="@style/text_dark_max"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_40px"
+                        android:text="发布者" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/margin_40px"
+                android:background="@drawable/bg_course_item"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px"
+                android:layout_marginBottom="@dimen/margin_40px">
+                <com.netease.ecos.utils.RoundImageView
+                    android:layout_width="@dimen/circle_icon_108px"
+                    android:layout_height="@dimen/circle_icon_108px"
+                    android:src="@drawable/img_default"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_40px"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="萌萌哒小章鱼"
+                        style="@style/text_dark_mid"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10px"
+                        android:text="2013/12/12"
+                        style="@style/text_dark_mid"/>
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
+
+
+
+
 
 </LinearLayout>

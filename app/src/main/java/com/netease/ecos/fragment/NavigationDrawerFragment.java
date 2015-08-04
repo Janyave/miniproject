@@ -21,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,8 +28,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.PersonalInfoSettingActivity;
@@ -39,15 +38,13 @@ import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 
-import java.util.zip.Inflater;
-
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
 
-/***
+/**
  * 侧滑栏
  */
 public class NavigationDrawerFragment extends Fragment {
@@ -74,21 +71,25 @@ public class NavigationDrawerFragment extends Fragment {
     private ActionBarDrawerToggle mDrawerToggle;
 
     private DrawerLayout mDrawerLayout;  //父控件
-    /***
+    /**
      * 侧边栏Layout
      */
     private View mDrawerView;
 
-    /***
+    /**
      * 侧边栏ListView
      */
     private ListView mDrawerListView;
 
 
-    /*** 父控件的FragmentContainer */
+    /**
+     * 父控件的FragmentContainer
+     */
     private View mFragmentContainerView;
 
-    /*** 当前选中的item的序号，从0开始 */
+    /**
+     * 当前选中的item的序号，从0开始
+     */
     private int mCurrentSelectedPosition = 0;
 
     private boolean mFromSavedInstanceState;
@@ -132,6 +133,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     /**
      * 侧边栏Layout
+     *
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -140,8 +142,8 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mDrawerView=(View)inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-        mDrawerListView = (ListView)mDrawerView.findViewById(R.id.lv_list);
+        mDrawerView = (View) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        mDrawerListView = (ListView) mDrawerView.findViewById(R.id.lv_list);
 
 
         btPersonageDetail = (Button) mDrawerView.findViewById(R.id.bt_personage_name);
@@ -151,6 +153,9 @@ public class NavigationDrawerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PersonageDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(PersonageDetailActivity.IsOwn, true);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
@@ -266,7 +271,7 @@ public class NavigationDrawerFragment extends Fragment {
      * 设置隐藏ActionBar
      * 因此增加此接口
      */
-    public void openNavigationDrawer(){
+    public void openNavigationDrawer() {
         //打开NavigationDrawer
         mDrawerLayout.openDrawer(GravityCompat.START);
     }
@@ -274,13 +279,14 @@ public class NavigationDrawerFragment extends Fragment {
     /**
      * 外部接口关闭NavigationDrawer
      */
-    public void closeNavigationDrawer(){
+    public void closeNavigationDrawer() {
         //关闭NavigationDrawer
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
     /**
      * 点击之后关闭侧边栏，回调父类接口
+     *
      * @param position
      */
     private void selectItem(int position) {
@@ -346,10 +352,10 @@ public class NavigationDrawerFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private class MyAdapter extends BaseAdapter{
+    private class MyAdapter extends BaseAdapter {
         private LayoutInflater mInflater = null;
 
-        public MyAdapter(Context context){
+        public MyAdapter(Context context) {
             this.mInflater = LayoutInflater.from(context);
         }
 
@@ -382,7 +388,7 @@ public class NavigationDrawerFragment extends Fragment {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            switch (position){
+            switch (position) {
                 case 0:
                     holder.icon.setImageResource(R.drawable.img_setting_default);
                     holder.title.setText(R.string.title_section1);
@@ -448,7 +454,7 @@ public class NavigationDrawerFragment extends Fragment {
         void onNavigationDrawerItemSelected(int position);
     }
 
-    private void initUserData(View v){
+    private void initUserData(View v) {
         mUserDataService = UserDataService.getSingleUserDataService(v.getContext());
         mUserData = mUserDataService.getUser();
 
@@ -469,9 +475,9 @@ public class NavigationDrawerFragment extends Fragment {
         user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
 
         user_name.setText(mUserData.nickname);
-        if(mUserData.gender == User.Gender.女) {
+        if (mUserData.gender == User.Gender.女) {
             user_gender.setBackgroundResource(R.drawable.img_gender_famale);
-        }else {
+        } else {
             user_gender.setBackgroundResource(R.drawable.img_gender_male);
         }
         user_attention.setText("关注数：" + mUserData.followOtherNum);

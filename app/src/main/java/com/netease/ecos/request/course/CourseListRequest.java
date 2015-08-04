@@ -1,9 +1,14 @@
 package com.netease.ecos.request.course;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request.Method;
+import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.model.Course.CourseType;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
+import com.netease.ecos.request.MyStringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,14 +16,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /***
- * 
-* @ClassName: CourseListRequest 
-* @Description: 获取教程列表
-* @author enlizhang
-* @date 2015年7月26日 上午11:01:18 
-*
+ *
+ * @ClassName: CourseListRequest
+ * @Description: 获取教程列表
+ * @author enlizhang
+ * @date 2015年7月26日 上午11:01:18
+ *
  */
 public class CourseListRequest extends BaseRequest{
 
@@ -27,13 +33,13 @@ public class CourseListRequest extends BaseRequest{
 	public static final String TYPE = "type";
 
 	/** 教程类型{@link Course.CourseType} (仅在{@link #TYPE}为推荐时有效) */
-	public static final String COURSE_TYPE = "filter_type";
+	public static final String COURSE_TYPE = "filterType";
 
 	/** 关键字(仅在{@link #TYPE}为推荐时有效) */
-	public static final String KEY_WORD = "key_word";
+	public static final String KEY_WORD = "keyWord";
 
 	/** 排序规则{@link SortRule}，包括时间、被关注数、被点赞数, (仅在{@link #TYPE}为推荐时有效) */
-	public static final String SORT_RULE = "sort_rule";
+	public static final String SORT_RULE = "sortRule";
 
 	//响应参数键
 	ICourseListResponse mCourseListRespnce;
@@ -66,7 +72,7 @@ public class CourseListRequest extends BaseRequest{
 	public static final String KEY_PRAISE_NUM = "praiseNum";
 
 	/** 发布时间时间戳 */
-	public static final String KEY_ISSUR_TIME_STAMP = "issueTimeStamp";
+	public static final String KEY_ISSUR_TIME_STAMP = "courseIssueTimeStamp";
 
 	/** 步骤图片JA,其顺序与步骤序号一致 */
 	public static final String KEY_IMG_URLS = "imgUrls";
@@ -90,41 +96,46 @@ public class CourseListRequest extends BaseRequest{
 
 		mCourseType = courseType;
 
-		List<Course> courseList = getTestCourseList();
+		//		List<Course> courseList = getTestCourseList();
+		//
+		//		if(mCourseListRespnce!=null)
+		//		{
+		//			mCourseListRespnce.success(courseList);
+		//		}
 
-		if(mCourseListRespnce!=null)
-		{
-			mCourseListRespnce.success(courseList);
-		}
 
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COURSE_LIST_URL,  this, this) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> map = getRequestBasicMap();
 
-		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COURSE_LIST_URL,  this, this) {
-	        @Override
-	        protected Map<String, String> getParams() throws AuthFailureError {
-	        	Map<String, String> map = getRequestBasicMap();
+				map.put(TYPE, type.getValue());
 
-	        	map.put(TYPE, type.getValue());
+				//如果当前获取方式是筛选
+				if(type == Type.筛选){
+					map.put(COURSE_TYPE, courseType.getBelongs());
+					map.put(KEY_WORD, keyWord);
+					map.put(SORT_RULE, sortRule.getValue());
+				}
+				else{
+					map.put(COURSE_TYPE, "");
+					map.put(KEY_WORD, "");
+					map.put(SORT_RULE, "");
+				}
 
-	        	//如果当前获取方式是筛选
-	        	if(type == Type.筛选){
-	        		map.put(COURSE_TYPE, courseType.getBelongs());
-		        	map.put(KEY_WORD, keyWord);
-		        	map.put(SORT_RULE, sortRule.getValue());
-	        	}
+				map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
+				map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
 
-	        	map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
-	        	map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
+				traceNormal(TAG, map.toString());
+				traceNormal(TAG, CourseListRequest.this.getUrl(RequestUrlConstants.GET_COURSE_LIST_URL, map));
+				return map;
+			}
 
-	            traceNormal(TAG, map.toString());
-	            traceNormal(TAG, CourseListRequest.this.getUrl(RequestUrlConstants.GET_COURSE_LIST_URL, map));
-	            return map;
-	        }
+		};
 
-	    };
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-	    getQueue().add(stringRequest);*/
+		getQueue().add(stringRequest);
 
 	}
 
@@ -139,43 +150,43 @@ public class CourseListRequest extends BaseRequest{
 		super.initBaseRequest(courseListRespnce);
 		mCourseListRespnce = courseListRespnce;
 
+		//		List<Course> courseList = getTestCourseList();
+		//
+		//		if(mCourseListRespnce!=null)
+		//		{
+		//			mCourseListRespnce.success(courseList);
+		//		}
 
-		List<Course> courseList = getTestCourseList();
-
-		if(mCourseListRespnce!=null)
-		{
-			mCourseListRespnce.success(courseList);
-		}
-		/*
 
 		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COURSE_LIST_URL,  this, this) {
-	        @Override
-	        protected Map<String, String> getParams() throws AuthFailureError {
-	        	Map<String, String> map = getRequestBasicMap();
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> map = getRequestBasicMap();
 
-	        	map.put(TYPE, type.getValue());
+				map.put(TYPE, "myself");
+				map.put(COURSE_TYPE, "");
+				map.put(KEY_WORD, "");
+				map.put(SORT_RULE, "");
 
-	        	map.put(COURSE_TYPE, "mySelf");
+				map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
+				map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
 
-	        	map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
-	        	map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
+				traceNormal(TAG, map.toString());
+				traceNormal(TAG, CourseListRequest.this.getUrl(RequestUrlConstants.GET_COURSE_LIST_URL, map));
+				return map;
+			}
 
-	            traceNormal(TAG, map.toString());
-	            traceNormal(TAG, CourseListRequest.this.getUrl(RequestUrlConstants.GET_COURSE_LIST_URL, map));
-	            return map;
-	        }
+		};
 
-	    };
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-	    getQueue().add(stringRequest);*/
+		getQueue().add(stringRequest);
 
 	}
 
 	@Override
 	public void responceSuccess(String jstring) {
-		traceNormal(TAG, jstring);
+		//		traceNormal(TAG, jstring);
 
 		try {
 			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
