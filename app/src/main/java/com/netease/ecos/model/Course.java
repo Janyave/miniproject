@@ -115,7 +115,7 @@ public class Course {
         public String courseId;
 
         /** 用户id */
-        public String usreId;
+        public String userId;
 
         /** 作业id */
         public String assignmentId;
@@ -151,7 +151,7 @@ public class Course {
 
         @Override
         public String toString() {
-            return "Assignment [courseId=" + courseId + ", usreId=" + usreId
+            return "Assignment [courseId=" + courseId + ", userId=" + userId
                     + ", assignmentId=" + assignmentId + ", authorAvatarUrl="
                     + authorAvatarUrl + ", author=" + author + ", issueTimeStamp="
                     + issueTimeStamp + ", imageUrl=" + imageUrl + ", content="

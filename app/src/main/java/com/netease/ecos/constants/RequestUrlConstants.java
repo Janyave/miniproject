@@ -67,31 +67,31 @@ public class RequestUrlConstants {
 	/**|**/
 	/**------------------------------    教程模块    -------------------------------------------*/
 	/*** 获取营销banner*/
-	public static final String GET_BANNER=HOST + "/m/course/banner?";
+	public static final String GET_BANNER=HOST_COURSE + "/m/course/banner?";
 
 	/*** 创建教程*/
-	public static final String CREATE_COURSE_URL=HOST + "/m/course/create?";
+	public static final String CREATE_COURSE_URL=HOST_COURSE + "/m/course/create?";
 
 	/*** 获取教程列表*/
-	public static final String GET_COURSE_LIST_URL=HOST + "/m/course/list?";
+	public static final String GET_COURSE_LIST_URL=HOST_COURSE + "/m/course/list?";
 
 	/*** 获取教程详情 */
-	public static final String GET_COURSE_DETAIL_URL=HOST + "/m/course/detail?";
+	public static final String GET_COURSE_DETAIL_URL=HOST_COURSE + "/m/course/detail?";
 
 	/*** 删除教程*/
-	public static final String DELETE_COURSE_URL=HOST + "/m/course/delete?";
+	public static final String DELETE_COURSE_URL=HOST_COURSE + "/m/course/delete?";
 
 	/*** 创建教程作业*/
-	public static final String CREATE_ASSIGNMENT_URL=HOST + "/m/course/assignment/create?";
+	public static final String CREATE_ASSIGNMENT_URL=HOST_COURSE + "/m/course/assignment/create?";
 
 	/*** 获取教程作业列表*/
-	public static final String GET_ASSIGNMENT_LIST_URL=HOST + "/m/course/assignment/list?";
+	public static final String GET_ASSIGNMENT_LIST_URL=HOST_COURSE + "/m/course/assignment/list?";
 
 	/*** 获取教程作业详情 */
-	public static final String GET_ASSIGNMENT_DETAIL_URL=HOST + "/m/course/assignment/detail?";
+	public static final String GET_ASSIGNMENT_DETAIL_URL=HOST_COURSE + "/m/course/assignment/detail?";
 
 	/*** 删除教程作业*/
-	public static final String DELETE_ASSIGNMENT_URL=HOST + "/m/course/assignment/delete?";
+	public static final String DELETE_ASSIGNMENT_URL=HOST_COURSE + "/m/course/assignment/delete?";
 
 
 
