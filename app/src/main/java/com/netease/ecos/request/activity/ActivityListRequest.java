@@ -119,15 +119,11 @@ public class ActivityListRequest extends BaseRequest{
 		traceNormal(TAG, jstring);
 
 		try {
-			//			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
-			//			JSONObject activitJO = json;
-			//
-			//			JSONArray activityJA = activitJO.getJSONArray("activitys");
-
-
-			JSONObject json = new JSONObject(jstring);
+			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
 			JSONObject activitJO = json;
-			JSONArray activityJA = activitJO.getJSONArray(KEY_DATA);
+
+			JSONArray activityJA = activitJO.getJSONArray("activityVOList");
+
 			int length = activityJA.length();
 
 			List<ActivityModel> activityList = new ArrayList<ActivityModel>();
