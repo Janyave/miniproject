@@ -16,19 +16,40 @@
         android:paddingTop="8dp">
 
         <LinearLayout
+            android:id="@+id/ll_searchType"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/tv_searchType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全部"
+                style="@style/text_white_max"/>
+            <ImageView
+                android:id="@+id/iv_searchType"
+                android:layout_width="@dimen/icon_big_64px"
+                android:layout_height="@dimen/icon_big_64px"
+                android:src="@mipmap/ic_choose_up_down"/>
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/bg_search_pink"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/margin_10px">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="5dp"
-                android:src="@drawable/ic_search" />
+                android:layout_width="@dimen/icon_big_64px"
+                android:layout_height="@dimen/icon_big_64px"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_search_gray_white" />
 
             <EditText
                 android:id="@+id/et_search"
@@ -44,12 +65,12 @@
 
         <TextView
             android:id="@+id/tv_confirm"
-            style="@style/text_white_mid"
+            style="@style/text_white_max"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="@dimen/margin_40px"
             android:gravity="center"
-            android:text="确定" />
+            android:text="取消" />
     </LinearLayout>
 
     <TextView style="@style/layout_line_gray" />
@@ -65,7 +86,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_white"
-        android:listSelector="@android:color/transparent">
+        android:listSelector="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp">
 
     </ListView>
 

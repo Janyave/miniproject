@@ -6,19 +6,32 @@
     android:orientation="horizontal"
     android:gravity="center_vertical">
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_40px"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="4dp"
-            android:layout_height="match_parent"
-            android:background="@color/bg_red" />
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_label_100px"
+        android:background="@color/bg_gray"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/margin_40px"
+        android:paddingRight="@dimen/margin_40px">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_40px"
-            android:text="@string/comment" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="4dp"
+                android:layout_height="match_parent"
+                android:background="@color/bg_red" />
+
+            <TextView
+                android:id="@+id/tv_otherWorks"
+                style="@style/text_dark_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:text="评论" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

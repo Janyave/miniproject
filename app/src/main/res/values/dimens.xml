@@ -175,6 +175,8 @@
     <dimen name="height_cover_1500px_960px">500dp</dimen>
     <dimen name="height_cover_380px_270px">135dp</dimen>
     <dimen name="width_cover_380px_270px">90dp</dimen>
+    <dimen name="width_cover_480px_320px">100dp</dimen>
+    <dimen name="height_cover_480px_320px">150dp</dimen>
     <dimen name="height_banner_610px_1080px">210dp</dimen>
     <dimen name="height_personDetail_640px_1080px">230dp</dimen> //should not change
 

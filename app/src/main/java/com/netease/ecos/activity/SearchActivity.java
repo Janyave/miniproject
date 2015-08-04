@@ -5,10 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.netease.ecos.R;
+import com.netease.ecos.adapter.CourseListViewAdapter;
+import com.netease.ecos.adapter.DisplayListViewAdapter;
 import com.netease.ecos.adapter.SearchHistoryAdapter;
 
 import butterknife.ButterKnife;
@@ -29,7 +34,18 @@ public class SearchActivity extends Activity {
     @InjectView(R.id.lv_searchHistory)
     ListView lv_searchHistory;
 
+    @InjectView(R.id.ll_searchType)
+    LinearLayout ll_searchType;
+    @InjectView(R.id.tv_searchType)
+    TextView tv_searchType;
+    @InjectView(R.id.iv_searchType)
+    ImageView iv_searchType;
+
     private SearchHistoryAdapter searchHistoryAdapter;
+
+    //result adapter
+    private CourseListViewAdapter courseListViewAdapter;
+    private DisplayListViewAdapter displayListViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +79,18 @@ public class SearchActivity extends Activity {
                 finish();
             }
         });
+
+        ll_searchType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO
+                Toast.makeText(SearchActivity.this, "choose Dialog", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initData() {
         searchHistoryAdapter = new SearchHistoryAdapter(this);
         lv_searchHistory.setAdapter(searchHistoryAdapter);
-        lv_searchHistory.setDividerHeight(1);
     }
 }

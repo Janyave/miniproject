@@ -7,6 +7,7 @@ import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,7 +82,11 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
     @InjectView(R.id.workDetailsCommentEdTx)
     EditText commentEdTx;
     @InjectView(R.id.favorBtn)
-    Button favorBtn;
+    LinearLayout favorBtn;
+    @InjectView(R.id.iv_favor)
+    ImageView iv_favor;
+    @InjectView(R.id.tv_favor)
+    TextView tv_favor;
 
     private WorkDetailListViewAdapter workDetailListViewAdapter;
     private GestureLibrary library;
@@ -173,6 +180,15 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         switch (v.getId()) {
             case R.id.favorBtn:
                 //TODO:send the favor message to the server.
+
+                if (TextUtils.equals(tv_favor.getText().toString(),"点赞")){
+                    tv_favor.setText("已点赞");
+                    iv_favor.setImageResource(R.mipmap.ic_praise_fill);
+                }else {
+                    tv_favor.setText("点赞");
+                    iv_favor.setImageResource(R.mipmap.ic_praise_block);
+                }
+
                 break;
             case R.id.tv_left:
                 AssignmentDetailActivity.this.finish();
