@@ -19,6 +19,9 @@ public class User {
 	/*** 云信id */
 	public String imId;
 
+	/*** 云信id */
+	public String imToken;
+
 	/** 手机号 */
 	public String phone;
 
@@ -113,7 +116,7 @@ public class User {
 					return gender;
 			}
 
-			return 男;
+			return null;
 		}
 
 	}
