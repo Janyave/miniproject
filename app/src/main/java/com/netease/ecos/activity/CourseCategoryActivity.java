@@ -5,11 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,14 +23,17 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.CourseListViewAdapter;
+import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.activity.ActivityListRequest;
 import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.FloadingButton;
 import com.netease.ecos.views.ListViewListener;
 import com.netease.ecos.views.XListView;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -55,6 +64,15 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     @InjectView(R.id.tv_left)
     TextView tv_left;
 
+    @InjectView(R.id.ll_sortType)
+    LinearLayout ll_sortType;
+    @InjectView(R.id.tv_sortText)
+    TextView tv_sortText;
+    @InjectView(R.id.iv_sortIcon)
+    ImageView iv_sortIcon;
+
+    private PopupWindow popupSortType;
+
     private ArrayAdapter<CourseListRequest.SortRule> spAdapter;
     private static final CourseListRequest.SortRule[] SORT_RULES = {CourseListRequest.SortRule.时间, CourseListRequest.SortRule.被关注数, CourseListRequest.SortRule.被点赞数};
 
@@ -69,6 +87,8 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     //for request.
     private CourseListRequest request;
     private CourseListResponse courseListResponse;
+
+    private int pageIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +136,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
             case R.id.btn_floading:
                 intent = new Intent(CourseCategoryActivity.this, BuildCourseActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString(BuildCourseActivity.CourseType, courseType.getBelongs());
+                bundle.putString(BuildCourseActivity.COURSE_TYPE, courseType.getBelongs());
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -144,6 +164,38 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                 lv_list.stopRefresh();
             }
         }, 1000);
+
+        request.request(new CourseListRequest.ICourseListResponse() {
+
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void success(List<Course> courseList) {
+                if (courseTypeListViewAdapter == null) {
+                    courseTypeListViewAdapter = new CourseListViewAdapter(CourseCategoryActivity.this, courseList);
+                    lv_list.setAdapter(courseTypeListViewAdapter);
+                } else {
+                    courseTypeListViewAdapter.setCourseList(courseList); // 添加ListView的内容
+                    courseTypeListViewAdapter.notifyDataSetChanged();
+                    lv_list.smoothScrollToPosition(0);  // ListView回到顶部
+                    pageIndex = 0;
+                }
+            }
+        }, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], 0);
     }
 
     @Override
@@ -158,6 +210,44 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                 lv_list.stopLoadMore();
             }
         }, 1000);
+
+        if (courseTypeListViewAdapter == null)
+            pageIndex = 0;
+        pageIndex++;
+        request.request(new CourseListRequest.ICourseListResponse() {
+
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void success(List<Course> courseList) {
+                if (courseTypeListViewAdapter == null) {
+                    courseTypeListViewAdapter = new CourseListViewAdapter(CourseCategoryActivity.this, courseList);
+                    lv_list.setAdapter(courseTypeListViewAdapter);
+                } else {
+                    if (courseList.size() == 0) {
+                        Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.nothingLeft), Toast.LENGTH_SHORT).show();
+                        pageIndex--;
+                    } else {
+                        courseTypeListViewAdapter.getCourseList().addAll(courseList); // 添加ListView的内容
+                        courseTypeListViewAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        }, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], pageIndex);
     }
 
     @Override
@@ -192,6 +282,23 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     }
 
     private void initListener() {
+        ll_sortType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (popupSortType == null) {
+                    showSortTypePopupWindow(v);
+                    iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_up);
+                } else if (popupSortType.isShowing()) {
+                    popupSortType.dismiss();
+                    iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);
+                } else {
+                    showSortTypePopupWindow(v);
+                    iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_up);
+                }
+            }
+        });
+
+
         iv_search.setOnClickListener(this);
         ll_left.setOnClickListener(this);
         lly_left_action.setOnClickListener(this);
@@ -291,5 +398,60 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 //                lvIndext = nowIndext;
 //            }
 //        });
+    }
+
+    private void showSortTypePopupWindow(final View view) {
+
+        // 一个自定义的布局，作为显示的内容
+        View contentView = LayoutInflater.from(this).inflate(R.layout.popup_course_sort, null);
+        // 设置按钮的点击事件
+        RadioGroup rg=(RadioGroup) contentView.findViewById(R.id.rg_sort);
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                popupSortType.dismiss();
+//                iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);
+            }
+        });
+
+        popupSortType = new PopupWindow(contentView,ll_sortType.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT, true);
+
+        popupSortType.setTouchable(true);
+        setPopupWindowTouchModal(popupSortType, false);// 使得popupWindow在显示的时候，popupWindow外部的控件也能够获得焦点
+        popupSortType.setTouchInterceptor(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                Log.i("mengdd", "onTouch : ");
+
+                return false;
+                // 这里如果返回true的话，touch事件将被拦截
+                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+            }
+        });
+
+        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+        // 我觉得这里是API的一个bug
+//        popupSortType.setBackgroundDrawable(getResources().getDrawable(
+//                R.drawable.bg_popup_frame));
+//        popupSortType.setBackgroundDrawable(getResources().getColor(android.R.color.transparent));
+
+        // 设置好参数之后再show
+        popupSortType.showAsDropDown(view);
+    }
+
+    public static void setPopupWindowTouchModal(PopupWindow popupWindow, boolean touchModal) {
+        if (null == popupWindow) {
+            return;
+        }
+        Method method;
+        try {
+            method = PopupWindow.class.getDeclaredMethod("setTouchModal", boolean.class);
+            method.setAccessible(true);
+            method.invoke(popupWindow, touchModal);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,17 +1,53 @@
 package com.netease.ecos.model;
 
-/**
- * @author enlizhang
- * @Title: Province.java
- * @Description: 省份
- * @date 2015年7月25日 下午11:26:54
- */
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
+/***
+ *
+ * @ClassName: Province
+ * @Description: TODO(省数据)
+ * @author enlizhang
+ * @date 2015年1月24日 下午2:03:47
+ *
+ */
+@DatabaseTable(tableName = "province_info")
 public class Province {
-    /*** 省份码 */
+
+    @DatabaseField(id = true)
+    /*** 省id */
     public String provinceCode;
 
-    /*** 省份名称 */
+    @DatabaseField
+    /*** 省名称 */
     public String provinceName;
-}
 
+    public Province()
+    {
+
+    }
+
+    public String getProvinceCode() {
+        return provinceCode;
+    }
+
+    public void setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
+    }
+
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
+    @Override
+    public String toString() {
+        return "Province{" +
+                "provinceCode='" + provinceCode + '\'' +
+                ", provinceName='" + provinceName + '\'' +
+                '}';
+    }
+}

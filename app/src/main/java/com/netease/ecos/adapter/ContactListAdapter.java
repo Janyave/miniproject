@@ -21,7 +21,7 @@ public class ContactListAdapter extends BaseAdapter {
 
     private Context mcontext;
     private LayoutInflater layoutInflater;
-    private ArrayList<ActivityModel.ContactWay> contactWaysList;
+    private ArrayList<ActivityModel.Contact> contactWaysList;
     public static ActivityModel.ContactWay[] contactWays = new ActivityModel.ContactWay[]{ActivityModel.ContactWay.QQ, ActivityModel.ContactWay.QQ群, ActivityModel.ContactWay.微信, ActivityModel.ContactWay.电话};
 
     public ContactListAdapter(Context context) {
@@ -30,14 +30,15 @@ public class ContactListAdapter extends BaseAdapter {
         contactWaysList = new ArrayList<>();
     }
 
-    public void addItem(ArrayList<ActivityModel.ContactWay> contactWayArrayList) {
+    public void addItem(ArrayList<ActivityModel.Contact> contactWayArrayList) {
         /*then, add a new contactWay in the list.
          * at last, execute the adapter.notifyDataSetChanged();
          */
         this.contactWaysList = contactWayArrayList;
-        ActivityModel.ContactWay contactWay = ActivityModel.ContactWay.QQ;
-        contactWay.setValue("");
-        this.contactWaysList.add(contactWay);
+        ActivityModel.Contact contact = new ActivityModel.Contact();
+        contact.contactWay = ActivityModel.ContactWay.QQ;
+        contact.value = "";
+        this.contactWaysList.add(contact);
         notifyDataSetChanged();
     }
 
@@ -64,9 +65,9 @@ public class ContactListAdapter extends BaseAdapter {
             contactViewHolder = (ContactViewHolder) convertView.getTag();
         ArrayAdapter<ActivityModel.ContactWay> adapter = new ArrayAdapter<ActivityModel.ContactWay>(mcontext, android.R.layout.simple_list_item_1, contactWays);
         contactViewHolder.typeSpinner.setAdapter(adapter);
-        contactViewHolder.detailEditText.setText(contactWaysList.get(position).getValue());
+        contactViewHolder.detailEditText.setText(contactWaysList.get(position).value);
         for (int i = 0; i < contactWays.length; i++) {
-            if (contactWaysList.get(position) == contactWays[i]) {
+            if (contactWaysList.get(position).contactWay == contactWays[i]) {
                 contactViewHolder.typeSpinner.setSelection(i);
                 break;
             }

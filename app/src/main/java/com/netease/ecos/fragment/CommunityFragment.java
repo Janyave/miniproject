@@ -44,6 +44,8 @@ import java.util.List;
  */
 public class CommunityFragment extends Fragment implements View.OnClickListener, XListView.IXListViewListener, CommunityCallBack {
 
+    private static final String TAG = "Ecos---CommunityF";
+
     private View mainView;
     private Button btn_location, btn_categary;
     private FloadingButton btn_floading;
@@ -56,7 +58,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
     private CampaignListViewAdapter campaignListViewAdapter;
 
     private String recentLocation, recentCategory;
-    private static int pageIndex = 0;
+    private int pageIndex = 0;
 
     private List<ActivityModel> activityList;
 
@@ -210,6 +212,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         btn_floading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "onclick");
                 Intent intent = new Intent(CommunityFragment.this.getActivity(), NewActivityActivity.class);
                 startActivity(intent);
             }
@@ -363,6 +366,8 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                         } else if (strCategory.equals(recentCategory) && strLocation.equals(recentLocation)) {  // 判断是否需要更新数据
                             campaignListViewAdapter.setActivityList(activityList);
                             campaignListViewAdapter.notifyDataSetChanged();
+                            lv_campaign.smoothScrollToPosition(0);  // ListView回到顶部
+                            pageIndex = 0;
                         }
                     }
 //                }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
@@ -440,6 +445,8 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                 } else if (strCategory.equals(recentCategory) && strLocation.equals(recentLocation)) {
                     campaignListViewAdapter.setActivityList(activityList);
                     campaignListViewAdapter.notifyDataSetChanged();
+                    lv_campaign.smoothScrollToPosition(0);  // ListView回到顶部
+                    pageIndex = 0;
                 }
             }
 //        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
@@ -472,28 +479,10 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                 lv_campaign.stopRefresh();
             }
         }, 1000);
-    }
-
-    @Override
-    public void onLoadMore() {
-        Toast.makeText(getActivity(), "上拉加载", Toast.LENGTH_SHORT).show();
-
-        //1秒后关闭加载
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                lv_campaign.stopLoadMore();
-            }
-        }, 1000);
 
         final String strCategory = recentCategory;
         final String strLocation = recentLocation;
 
-        if (campaignListViewAdapter == null)
-            pageIndex = 0;
-        else
-            pageIndex = (campaignListViewAdapter.getActivityList().size() + 9) / 10;
         request.request(new ActivityListRequest.IActivityListResponse() {
 
             @Override
@@ -517,12 +506,69 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
                     lv_campaign.setAdapter(campaignListViewAdapter);
                 } else if (strCategory.equals(recentCategory) && strLocation.equals(recentLocation)) {
-                    campaignListViewAdapter.getActivityList().addAll(activityList); // 添加ListView的内容
+                    campaignListViewAdapter.setActivityList(activityList);
                     campaignListViewAdapter.notifyDataSetChanged();
+                    lv_campaign.smoothScrollToPosition(0);  // ListView回到顶部
+                    pageIndex = 0;
+                }
+            }
+        }, "01", strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), 0);
+    }
+
+    @Override
+    public void onLoadMore() {
+        Toast.makeText(getActivity(), "上拉加载", Toast.LENGTH_SHORT).show();
+
+        //1秒后关闭加载
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                lv_campaign.stopLoadMore();
+            }
+        }, 1000);
+
+        final String strCategory = recentCategory;
+        final String strLocation = recentLocation;
+
+        if (campaignListViewAdapter == null)
+            pageIndex = 0;
+        pageIndex++;
+        request.request(new ActivityListRequest.IActivityListResponse() {
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void success(List<ActivityModel> activityList) {
+                if (campaignListViewAdapter == null) {
+                    campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
+                    lv_campaign.setAdapter(campaignListViewAdapter);
+                } else if (strCategory.equals(recentCategory) && strLocation.equals(recentLocation)) {
+                    if (activityList.size() == 0) {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.nothingLeft), Toast.LENGTH_SHORT).show();
+                        pageIndex--;
+                    } else {
+                        campaignListViewAdapter.getActivityList().addAll(activityList); // 添加ListView的内容
+                        campaignListViewAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 //        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
         }, "01", strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), pageIndex);
+        System.out.println("pageIndex " + pageIndex);
     }
 
     public static void setPopupWindowTouchModal(PopupWindow popupWindow, boolean touchModal) {
@@ -538,7 +584,6 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
             e.printStackTrace();
         }
     }
-
 
     private int[] locationCommunityCount = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 

@@ -44,66 +44,75 @@
             android:textStyle="bold"
             android:layout_marginTop="@dimen/margin_30px"
             android:background="@android:color/transparent"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/margin_20px"
-            android:gravity="center_vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_personage_attention"
-                style="@style/text_gray_mid"
-                android:layout_marginRight="@dimen/margin_10px"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/tv_personage_attention_default"
-                style="@style/text_pink_mid"
-                android:id="@+id/tv_personage_attention" />
-            <TextView
-                android:layout_width="1dp"
-                android:layout_height="@dimen/margin_30px"
-                android:background="@color/bg_gray_dark"
-                android:layout_marginLeft="@dimen/margin_20px"
-                android:layout_marginRight="@dimen/margin_20px"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tv_personage_fans"
-                style="@style/text_gray_mid"
-                android:layout_marginRight="@dimen/margin_10px"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/tv_personage_fans_default"
-                style="@style/text_pink_mid"
-                android:id="@+id/tv_personage_fans"/>
-        </LinearLayout>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_40px"
+            android:layout_marginBottom="@dimen/margin_80px"
             android:text="@string/tv_personage_description_default"
             android:id="@+id/tv_personage_description"
             style="@style/text_pink_mid"
             android:textColor="@color/bg_red_light"/>
+        <TextView style="@style/layout_line_gray"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_110px"
-            android:gravity="bottom|center_horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <LinearLayout
+                android:id="@+id/ll_attention"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/ll_white"
+                android:layout_height="@dimen/height_item_140px"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_personage_attention"
+                    android:layout_marginRight="@dimen/margin_20px"
+                    style="@style/text_gray_mid"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/tv_personage_attention_default"
+                    style="@style/text_pink_mid"
+                    android:textStyle="bold"
+                    android:id="@+id/tv_personage_attention" />
+            </LinearLayout>
+
             <TextView
-                android:layout_width="@dimen/margin_30px"
-                android:layout_height="@dimen/margin_30px"
-                android:background="@drawable/icon_person_special_triangle"
-                android:rotationX="90"/>
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/bg_gray_dark"/>
+
+            <LinearLayout
+                android:id="@+id/ll_fans"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/ll_white"
+                android:layout_height="@dimen/height_item_140px"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_personage_fans"
+                    style="@style/text_gray_mid"
+                    android:layout_marginRight="@dimen/margin_10px"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="@string/tv_personage_fans_default"
+                    style="@style/text_pink_mid"
+                    android:textStyle="bold"
+                    android:id="@+id/tv_personage_fans"/>
+            </LinearLayout>
         </LinearLayout>
+        <TextView style="@style/layout_line_gray"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -117,6 +126,7 @@
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:background="@drawable/ll_pink"
             android:paddingLeft="@dimen/margin_50px"
             android:paddingRight="@dimen/margin_30px">
             <ImageView
@@ -156,6 +166,7 @@
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:background="@drawable/ll_pink"
             android:paddingLeft="@dimen/margin_50px"
             android:paddingRight="@dimen/margin_30px">
             <ImageView
@@ -196,6 +207,7 @@
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:background="@drawable/ll_pink"
             android:paddingLeft="@dimen/margin_50px"
             android:paddingRight="@dimen/margin_30px">
             <ImageView
@@ -397,14 +409,17 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_block"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
         <TextView style="@style/layout_line_gray"/>
         <LinearLayout
+            android:id="@+id/ll_setting"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_140px"
+            android:background="@drawable/ll_pink"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingRight="@dimen/margin_50px">

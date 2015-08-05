@@ -99,7 +99,7 @@
                 android:listSelector="@android:color/transparent"/>
 
             <include
-                layout="@layout/comment_title"
+                layout="@layout/item_comment_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

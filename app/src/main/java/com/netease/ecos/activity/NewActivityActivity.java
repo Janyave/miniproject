@@ -26,6 +26,7 @@ import com.netease.ecos.adapter.ContactListAdapter;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.ActivityModel.ActivityType;
+import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.activity.CreateActivityRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
@@ -99,7 +100,7 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     //choose the photo
     private SetPhotoHelper mSetPhotoHelper;
     //record the cover image path
-    private String coverImagePath;
+    private String coverImagePath = "";
     //for request
     private CreateActivityRequest createActivityRequest;
     private CreateActivityResponce createActivityResponce;
@@ -120,9 +121,6 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
         activityTypeAdapter = new ArrayAdapter<ActivityType>(this, android.R.layout.simple_list_item_1, activityTypes);
         provinceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"浙江"});
         cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"杭州"});
-        //send the request
-        CreateActivityRequest request = new CreateActivityRequest();
-        request.testData(new CreateActivityResponce(), new ActivityModel());
         //init the calendar
         calendar = Calendar.getInstance();
         //choose the cover image
@@ -158,8 +156,6 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_right_action:
-                //TODO:send the activity information to the server.
-                //get all items in the contact list view.
                 if (!checkAll()) {
                     Toast.makeText(NewActivityActivity.this, getResources().getString(R.string.notAlreadyFinished), Toast.LENGTH_SHORT).show();
                     return;
@@ -294,21 +290,27 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     }
 
 
-    ArrayList<ActivityModel.ContactWay> getDataFromListView() {
+    ArrayList<ActivityModel.Contact> getDataFromListView() {
         /*clear all the data in the contactWaysList;
         * read the data from the listview and add them in the contactWayList.
         */
         View view;
-        ArrayList<ActivityModel.ContactWay> contactWayArrayList = new ArrayList<>();
+        ArrayList<ActivityModel.Contact> contactWayArrayList = new ArrayList<>();
         for (int i = 0; i < contactListAdapter.getCount(); i++) {
             view = contactListView.getChildAt(i);
             Spinner spinner = (Spinner) view.findViewById(R.id.contactTypeSpinner);
             EditText editText = (EditText) view.findViewById(R.id.contactDetailEdTx);
-            Log.d("test", "spinner " + i + ":" + spinner.getSelectedItemId());
-            Log.d("test", "edittext:" + editText.getText());
-            ActivityModel.ContactWay contactWay = ContactListAdapter.contactWays[(int) spinner.getSelectedItemId()];
-            contactWay.setValue(editText.getText().toString());
-            contactWayArrayList.add(contactWay);
+            ActivityModel.Contact contact = new ActivityModel.Contact();
+            if (spinner.getSelectedItemPosition() == 0)
+                contact.contactWay = ActivityModel.ContactWay.QQ;
+            else if (spinner.getSelectedItemPosition() == 1)
+                contact.contactWay = ActivityModel.ContactWay.QQ群;
+            else if (spinner.getSelectedItemPosition() == 2)
+                contact.contactWay = ActivityModel.ContactWay.微信;
+            else
+                contact.contactWay = ActivityModel.ContactWay.电话;
+            contact.value = editText.getText().toString();
+            contactWayArrayList.add(contact);
         }
         return contactWayArrayList;
     }
@@ -343,19 +345,22 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
             activityModel.coverUrl = originUrl;
             activityModel.introduction = activityDesrpEdTx.getText().toString();
             activityModel.fee = expenseEdTx.getText().toString();
-            //TODO: set the date.
-            activityModel.activityTime.startDateStamp = 1111111000;
-            activityModel.activityTime.endDateStamp = 1111111011;
+            //set the date
+            String date[] = beginDateEdTx.getText().toString().split("-");
+            activityModel.activityTime.startDateStamp = ModelUtils.getTimeStampByDate(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+            date = endDateEdTx.getText().toString().split("-");
+            activityModel.activityTime.endDateStamp = ModelUtils.getTimeStampByDate(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+            //set the time
             activityModel.activityTime.dayStartTime = beginTimeEdTx.getText().toString();
             activityModel.activityTime.dayEndTime = endTimeEdTx.getText().toString();
             activityModel.activityType = activityTypes[activityTypeSpinner.getSelectedItemPosition()];
             activityModel.location.address = addressEdTx.getText().toString();
             //TODO:set the province and city.
-            activityModel.location.province.provinceName = activityProvinceSpinner.getSelectedItem().toString();
-            activityModel.location.city.cityName = activityCitySpinner.getSelectedItem().toString();
-            //TODO:set the contact way list.
-//            activityModel.contactWayList=
-//            createActivityRequest.request(createActivityResponce, activityModel);
+            activityModel.location.province.provinceCode = "1";
+            activityModel.location.city.cityCode = "1";
+            //set the contact way list
+            activityModel.contactWayList = getDataFromListView();
+            createActivityRequest.request(createActivityResponce, activityModel);
         }
 
         @Override

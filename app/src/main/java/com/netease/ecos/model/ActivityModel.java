@@ -108,7 +108,7 @@ public class ActivityModel {
     /**
      * 联系方式列表
      */
-    public List<ContactWay> contactWayList;
+    public List<Contact> contactWayList;
 
     /**
      * 想去的人的用户列表
@@ -134,7 +134,7 @@ public class ActivityModel {
         imageList = new ArrayList<Image>();
         activityType = ActivityType.同人展;
         location = new Location();
-        contactWayList = new ArrayList<ContactWay>();
+        contactWayList = new ArrayList<Contact>();
         signUpUseList = new ArrayList<User>();
         activityTime = new ActivityTime();
     }
@@ -302,6 +302,21 @@ public class ActivityModel {
     }
 
     /**
+     * 联系方式包装对象
+     */
+    public static class Contact{
+
+        public ContactWay contactWay;
+
+        public String value;
+
+        public Contact(){
+            contactWay = ContactWay.QQ;
+            value = "";
+        }
+    }
+
+    /**
      * @author enlizhang
      * @ClassName: ContactWays
      * @Description: 联系方式，包括QQ、QQ群、电话
@@ -319,10 +334,6 @@ public class ActivityModel {
          */
         private String type;
 
-        /**
-         * 值
-         */
-        private String value;
 
         private ContactWay(String _type) {
             this.type = _type;
@@ -330,15 +341,6 @@ public class ActivityModel {
 
         public String getType() {
             return type;
-        }
-
-        public void setValue(String _value) {
-            value = _value;
-        }
-
-
-        public String getValue() {
-            return value;
         }
 
         public static ContactWay getContactWayByValue(String type) {

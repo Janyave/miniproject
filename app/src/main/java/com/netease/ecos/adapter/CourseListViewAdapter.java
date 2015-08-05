@@ -54,7 +54,7 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
          */
         public void setData(final int position) {
             Course item = courseList.get(position);
-            if (item.coverUrl != null)
+            if (item.coverUrl != null && !item.coverUrl.equals(""))
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(networkImageView);
             if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals(""))
                 Picasso.with(mcontext).load(item.authorAvatarUrl).placeholder(R.drawable.img_default).into(imageAuthorPic);
@@ -121,5 +121,13 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
         }
         intent.putExtras(bundle);
         mcontext.startActivity(intent);
+    }
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
     }
 }

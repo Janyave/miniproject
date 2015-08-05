@@ -228,6 +228,9 @@ public class CourseStepAdapter extends BaseAdapter {
                     break;
                 //删除当前步骤
                 case R.id.iv_delete:
+                    //不能删除第0项
+                    if(position==0)
+                        return;
                     position = (int) view.getTag();
                     mStepsList.remove(position);
                     for(int i=position;i<getCount();i++){
