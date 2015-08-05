@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -145,6 +146,8 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // not use
+        //now use in popupWindow
         request.request(courseListResponse, CourseListRequest.Type.筛选,
                 courseType, searchWords, SORT_RULES[position], 0);
     }
@@ -405,12 +408,29 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(this).inflate(R.layout.popup_course_sort, null);
         // 设置按钮的点击事件
-        RadioGroup rg=(RadioGroup) contentView.findViewById(R.id.rg_sort);
+        final RadioGroup rg=(RadioGroup) contentView.findViewById(R.id.rg_sort);
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                popupSortType.dismiss();
-//                iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);
+                //use
+                int type=0;
+                switch (group.getCheckedRadioButtonId()){
+                    case R.id.rbtn1:
+                        type=0;
+                        break;
+                    case R.id.rbtn2:
+                        type=1;
+                        break;
+                    case R.id.rbtn3:
+                        type=2;
+                        break;
+                }
+                tv_sortText.setText(((RadioButton)rg.getChildAt(type)).getText().toString());
+                ((RadioButton)rg.getChildAt(type)).setTextColor(getResources().getColor(R.color.text_red));
+                request.request(courseListResponse, CourseListRequest.Type.筛选,
+                        courseType, searchWords, SORT_RULES[type], 0);
+                iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);
+                popupSortType.dismiss();
             }
         });
 

@@ -1,6 +1,7 @@
 package com.netease.ecos.adapter;
 
-import android.content.Context;
+import
+        android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,81 +9,85 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
-import com.netease.ecos.model.Course;
+import com.netease.ecos.model.ActivityModel;
+import com.netease.ecos.model.Share;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by hzjixinyu on 2015/8/2.
+ * Created by hzzhanyawei on 2015/8/5.
+ * Email hzzhanyawei@corp.netease.com
  */
-public class PersonCourseAdapter extends BaseAdapter{
+public class PersonActivityAdapter extends BaseAdapter {
     private Context mcontext;
-    private List<Course> courseList;
+    private List<ActivityModel> activityList;
 
-    public PersonCourseAdapter(Context context) {
+    public PersonActivityAdapter(Context context) {
         this.mcontext = context;
     }
-
-    public PersonCourseAdapter(Context context, List<Course> courseList) {
+    public PersonActivityAdapter(Context context, List<ActivityModel> activityList) {
         this.mcontext = context;
-        this.courseList = courseList;
+        this.activityList = activityList;
     }
 
-    public void SetCourseList(List<Course> courseList){
-        this.courseList = courseList;
+
+    public void setActivityList(List<ActivityModel> activityList) {
+        this.activityList = activityList;
     }
 
-    public List<Course> getCourseList() {
-        return courseList;
+    public List<ActivityModel> getActivityList() {
+        return this.activityList;
+    }
+
+    public Context getMcontext() {
+        return mcontext;
     }
 
     class ViewHolder {
 
         private ImageView iv_cover;
-        private TextView tv_praiseNum;
+        private TextView tv_tag;
         private TextView tv_title;
         private TextView tv_time;
+        private TextView tv_location;
 
 
         public ViewHolder(View root) {
             iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
-
-            tv_praiseNum = (TextView) root.findViewById(R.id.tv_praiseNum);
+            tv_tag = (TextView) root.findViewById(R.id.tv_tag);
             tv_title = (TextView) root.findViewById(R.id.tv_title);
             tv_time = (TextView) root.findViewById(R.id.tv_time);
+            tv_location = (TextView) root.findViewById(R.id.tv_location);
         }
 
         /**
-         * 传入数据未定
+         * 传入数据
          */
         public void setData(final int position) {
-            Course item = courseList.get(position);
+            ActivityModel item = activityList.get(position);
 
             Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             tv_title.setText(item.title);
-            tv_praiseNum.setText(item.praiseNum + "");
+            tv_tag.setText(item.activityType + "");
             tv_time.setText(item.issueTimeStamp+"");
+            tv_location.setText(item.location+"");
 
         }
     }
 
-
-    //TODO 数据数量【现在模拟为10】
     @Override
     public int getCount() {
-        if (courseList == null){
-            return 0;
-        }else{
-            return courseList.size();
+        if (activityList != null){
+            return activityList.size();
         }
-
+        return 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return position;
+        return activityList.get(position);
     }
 
     @Override
@@ -94,7 +99,7 @@ public class PersonCourseAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
-            convertView = parent.inflate(mcontext, R.layout.item_personage_course, null);
+            convertView = parent.inflate(mcontext, R.layout.item_activity_personal, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {

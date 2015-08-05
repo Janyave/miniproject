@@ -23,7 +23,7 @@ import java.util.List;
 public class PersonDisplayAdapter extends BaseAdapter implements View.OnClickListener {
 
     private Context mcontext;
-//    private List<Share> shareList;
+    private List<Share> shareList;
 
     public PersonDisplayAdapter(Context context) {
         this.mcontext = context;
@@ -31,7 +31,15 @@ public class PersonDisplayAdapter extends BaseAdapter implements View.OnClickLis
 
     public PersonDisplayAdapter(Context context, List<Share> shareList) {
         this.mcontext = context;
-//        this.shareList = shareList;
+        this.shareList = shareList;
+    }
+
+    public void setShareList(List<Share> shareList) {
+        this.shareList = shareList;
+    }
+
+    public List<Share> getShareList() {
+        return shareList;
     }
 
     class ViewHolder {
@@ -66,26 +74,29 @@ public class PersonDisplayAdapter extends BaseAdapter implements View.OnClickLis
          * 传入数据未定
          */
         public void setData(int position) {
-//            Picasso.with(mcontext).load(shareList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
-//            tv_coverNum.setText(shareList.get(position).totalPageNumber + "");
-//            tv_coverTitle.setText(shareList.get(position).title);
-//            tv_coverTime.setText(shareList.get(position).getDateDescription() + "");
-//            tv_praise.setText(shareList.get(position).praiseNum + "");
-//            tv_evaluate.setText(shareList.get(position).commentNum + "");
+            Picasso.with(mcontext).load(shareList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            tv_coverNum.setText(shareList.get(position).totalPageNumber + "");
+            tv_coverTitle.setText(shareList.get(position).title);
+            tv_coverTime.setText(shareList.get(position).getDateDescription() + "");
+            tv_praise.setText(shareList.get(position).praiseNum + "");
+            tv_evaluate.setText(shareList.get(position).commentNum + "");
         }
     }
 
     @Override
     public int getCount() {
-//        return shareList.size();
-        return 3;
+        if (shareList == null){
+            return 0;
+        }else {
+            return shareList.size();
+        }
     }
 
 
     @Override
     public Object getItem(int position) {
-//        return shareList.get(position);
-        return position;
+        return shareList.get(position);
+
     }
 
 
