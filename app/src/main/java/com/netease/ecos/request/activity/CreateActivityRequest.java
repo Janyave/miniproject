@@ -140,8 +140,8 @@ public class CreateActivityRequest extends BaseRequest{
 
 			for(int i=0;i<contactWayList.size();i++){
 				JSONObject contactWayJO = new JSONObject();
-				contactWayJO.put("contactType", activity.contactWayList.get(i).getType());
-				contactWayJO.put("contactValue", activity.contactWayList.get(i).getValue());
+				contactWayJO.put("contactType", activity.contactWayList.get(i).contactWay.getType());
+				contactWayJO.put("contactValue", activity.contactWayList.get(i).value);
 				contactWayList.add(contactWayJO);
 			}
 			jsonMap.put("contacts", new JSONArray(contactWayList));

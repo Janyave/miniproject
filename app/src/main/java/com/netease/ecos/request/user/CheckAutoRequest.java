@@ -1,22 +1,15 @@
 package com.netease.ecos.request.user;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.util.Log;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.netease.ecos.constants.RequestUrlConstants;
-import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
-import com.netease.ecos.request.user.SendAutocodeRequest.ActionType;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**   
  * @Title: CheckAutoRequest.java 
@@ -54,14 +47,14 @@ public class CheckAutoRequest extends BaseRequest{
 		
 		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.AUTO_CODE_URL,  this, this) {  
 	       
-			public Map<String, String> getHeaders() throws AuthFailureError {  
+			/*public Map<String, String> getHeaders() throws AuthFailureError {
 	            HashMap localHashMap = new HashMap();  
 	            String cookie = AccountDataService.getSingleAccountDataService(getContext()).getAutocodeCookie();
 	            Log.e(TAG, "cookieHead---------"  + cookie);
 	            
 	            localHashMap.put("Cookie", cookie);  
 	            return localHashMap;  
-	        }
+	        }*/
 			
 			@Override  
 	        protected Map<String, String> getParams() throws AuthFailureError {  
