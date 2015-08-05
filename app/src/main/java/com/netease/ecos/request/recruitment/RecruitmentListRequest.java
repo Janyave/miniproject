@@ -163,6 +163,47 @@ public class RecruitmentListRequest extends BaseRequest {
 
     }
 
+    /**
+     * 请求其他人招募列表
+     *
+     * @param recruitmentListResponse
+     * @param otherUserId       要查看的人的userId
+     * @param pageIndex
+     */
+    public void requestSomeone(IRecruitmentListResponse recruitmentListResponse, final String otherUserId, final int pageIndex) {
+        super.initBaseRequest(recruitmentListResponse);
+        mRecruitmentListResponse = recruitmentListResponse;
+
+        recruitmentListResponse.success(getTestRecruitmentList());
+
+        MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_RECRUITMENT_LIST_URL, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = getRequestBasicMap();
+
+                map.put("isMyself", "true");
+                if(otherUserId==null)
+                    map.put(KEY_USER_ID, getUserId());
+                else
+                    map.put(KEY_USER_ID, otherUserId);
+                map.put(KEY_RECRUITMENT_TYPE, "");
+
+                map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
+                map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
+
+                traceNormal(TAG, map.toString());
+                traceNormal(TAG, RecruitmentListRequest.this.getUrl(RequestUrlConstants.GET_RECRUITMENT_LIST_URL, map));
+                return map;
+            }
+
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        getQueue().add(stringRequest);
+
+    }
+
     @Override
     public void responceSuccess(String jstring) {
         traceNormal(TAG, jstring);

@@ -116,7 +116,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
             case R.id.btn_floading:
                 intent = new Intent(CourseCategoryActivity.this, BuildCourseActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString(BuildCourseActivity.CourseType, courseType.getBelongs());
+                bundle.putString(BuildCourseActivity.COURSE_TYPE, courseType.getBelongs());
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;

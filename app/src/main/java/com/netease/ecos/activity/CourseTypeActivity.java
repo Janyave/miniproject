@@ -81,7 +81,7 @@ public class CourseTypeActivity extends Activity implements View.OnClickListener
         }
         Intent intent = new Intent(CourseTypeActivity.this, BuildCourseActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(BuildCourseActivity.CourseType, courseType.getBelongs());
+        bundle.putString(BuildCourseActivity.COURSE_TYPE, courseType.getBelongs());
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
