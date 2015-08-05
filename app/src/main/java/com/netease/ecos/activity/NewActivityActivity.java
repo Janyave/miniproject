@@ -290,27 +290,27 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     }
 
 
-    ArrayList<ActivityModel.ContactWay> getDataFromListView() {
+    ArrayList<ActivityModel.Contact> getDataFromListView() {
         /*clear all the data in the contactWaysList;
         * read the data from the listview and add them in the contactWayList.
         */
         View view;
-        ArrayList<ActivityModel.ContactWay> contactWayArrayList = new ArrayList<>();
+        ArrayList<ActivityModel.Contact> contactWayArrayList = new ArrayList<>();
         for (int i = 0; i < contactListAdapter.getCount(); i++) {
             view = contactListView.getChildAt(i);
             Spinner spinner = (Spinner) view.findViewById(R.id.contactTypeSpinner);
             EditText editText = (EditText) view.findViewById(R.id.contactDetailEdTx);
-            ActivityModel.ContactWay contactWay;
+            ActivityModel.Contact contact = new ActivityModel.Contact();
             if (spinner.getSelectedItemPosition() == 0)
-                contactWay = ActivityModel.ContactWay.QQ;
+                contact.contactWay = ActivityModel.ContactWay.QQ;
             else if (spinner.getSelectedItemPosition() == 1)
-                contactWay = ActivityModel.ContactWay.QQ群;
+                contact.contactWay = ActivityModel.ContactWay.QQ群;
             else if (spinner.getSelectedItemPosition() == 2)
-                contactWay = ActivityModel.ContactWay.微信;
+                contact.contactWay = ActivityModel.ContactWay.微信;
             else
-                contactWay = ActivityModel.ContactWay.电话;
-            contactWay.setValue(editText.getText().toString());
-            contactWayArrayList.add(contactWay);
+                contact.contactWay = ActivityModel.ContactWay.电话;
+            contact.value = editText.getText().toString();
+            contactWayArrayList.add(contact);
         }
         return contactWayArrayList;
     }
@@ -359,9 +359,8 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
             activityModel.location.province.provinceCode = "1";
             activityModel.location.city.cityCode = "1";
             //set the contact way list
-            ArrayList<ActivityModel.ContactWay> contactWays = getDataFromListView();
-            activityModel.contactWayList = contactWays;
-//            createActivityRequest.request(createActivityResponce, activityModel);
+            activityModel.contactWayList = getDataFromListView();
+            createActivityRequest.request(createActivityResponce, activityModel);
         }
 
         @Override

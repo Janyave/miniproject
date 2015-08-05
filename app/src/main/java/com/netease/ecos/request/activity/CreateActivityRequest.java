@@ -1,8 +1,13 @@
 package com.netease.ecos.request.activity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
+import com.netease.ecos.request.MyStringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,25 +60,25 @@ public class CreateActivityRequest extends BaseRequest {
         super.initBaseRequest(createActivityResponce);
         mCreateActivityResponce = createActivityResponce;
         mActivity = activity;
-        mCreateActivityResponce.success(mActivity);
+//        mCreateActivityResponce.success(mActivity);
 
-		/*MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.CREATE_ACTIVITY_URL,  this, this) {
+        MyStringRequest stringRequest = new MyStringRequest(Request.Method.POST, RequestUrlConstants.CREATE_ACTIVITY_URL, this, this) {
             @Override
-	        protected Map<String, String> getParams() throws AuthFailureError {
-	        	Map<String, String> map = getRequestBasicMap();
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = getRequestBasicMap();
 
-	        	map.put(ACTIVITY_JSON, getRequestActivityJSon(activity));
+                map.put(ACTIVITY_JSON, getRequestActivityJSon(activity));
 
-	            traceNormal(TAG, map.toString());
-	            traceNormal(TAG, CreateActivityRequest.this.getUrl(RequestUrlConstants.CREATE_ACTIVITY_URL, map));
-	            return map;
-	        }
+                traceNormal(TAG, map.toString());
+                traceNormal(TAG, CreateActivityRequest.this.getUrl(RequestUrlConstants.CREATE_ACTIVITY_URL, map));
+                return map;
+            }
 
-	    };
+        };
 
-	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-	    getQueue().add(stringRequest);*/
+        getQueue().add(stringRequest);
 
     }
 
@@ -124,16 +129,15 @@ public class CreateActivityRequest extends BaseRequest {
         jsonMap.put("description", activity.introduction);
         jsonMap.put("fee", activity.fee);
 
-        JSONObject locationJO = new JSONObject();
+
+        jsonMap.put("provinceCode", activity.location.province.provinceCode);
+        jsonMap.put("cityCode", activity.location.city.cityCode);
+        jsonMap.put("address", activity.location.address);
         try {
-            locationJO.put("provinceCode", activity.location.province.provinceCode);
-            locationJO.put("cityCode", activity.location.city.cityCode);
-            locationJO.put("address", activity.location.address);
-            jsonMap.put("location", locationJO);
 
             List<Object> contactWayList = new ArrayList<Object>();
 
-            for (int i = 0; i < contactWayList.size(); i++) {
+            for (int i = 0; i < activity.contactWayList.size(); i++) {
                 JSONObject contactWayJO = new JSONObject();
                 contactWayJO.put("contactType", activity.contactWayList.get(i).contactWay.getType());
                 contactWayJO.put("contactValue", activity.contactWayList.get(i).value);
@@ -147,7 +151,7 @@ public class CreateActivityRequest extends BaseRequest {
             e.printStackTrace();
         }
 
-        return jsonMap.toString();
+        return new JSONObject(jsonMap).toString();
     }
 
 
