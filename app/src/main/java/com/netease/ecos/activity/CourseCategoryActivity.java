@@ -287,17 +287,14 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
             public void onClick(View v) {
                 if (popupSortType == null) {
                     showSortTypePopupWindow(v);
+                    iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_up);
                 } else if (popupSortType.isShowing()) {
                     popupSortType.dismiss();
-//                    iv_show_flag_category.setImageResource(R.drawable.ic_unpress_next_step);
+                    iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);
                 } else {
                     showSortTypePopupWindow(v);
+                    iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_up);
                 }
-                if (popupSortType != null)
-                    if (popupSortType.isShowing()) {
-                        popupSortType.dismiss();
-//                        iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
-                    }
             }
         });
 
@@ -412,11 +409,12 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-
+//                popupSortType.dismiss();
+//                iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);
             }
         });
 
-        popupSortType = new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupSortType = new PopupWindow(contentView,ll_sortType.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
         popupSortType.setTouchable(true);
         setPopupWindowTouchModal(popupSortType, false);// 使得popupWindow在显示的时候，popupWindow外部的控件也能够获得焦点
@@ -435,8 +433,9 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
         // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
         // 我觉得这里是API的一个bug
-        popupSortType.setBackgroundDrawable(getResources().getDrawable(
-                R.drawable.bg_popup_frame));
+//        popupSortType.setBackgroundDrawable(getResources().getDrawable(
+//                R.drawable.bg_popup_frame));
+//        popupSortType.setBackgroundDrawable(getResources().getColor(android.R.color.transparent));
 
         // 设置好参数之后再show
         popupSortType.showAsDropDown(view);
