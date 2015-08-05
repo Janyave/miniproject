@@ -280,4 +280,11 @@ public class RequestUrlConstants {
      * 点赞教程、分享
      */
     public static final String PRAISE_URL = HOST + "/m/course/praise?";
+
+    /*** 获取省份列表 */
+    public static final String PROVINCE_LIST_URL = HOST + "/m/activity/province/list";
+
+    /*** 获取城市列表 */
+    public static final String CITY_LIST_URL = HOST + "/m/activity/city/list";
+
 }
