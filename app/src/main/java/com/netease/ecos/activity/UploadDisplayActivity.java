@@ -67,7 +67,6 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
     /**
      * 当前正在设置第(couserStepPosition+1)步的教程图片
      */
-    private int mCouserStepPosition = -1;
     public SetPhotoHelper mSetPhotoHelper;
     private String PhotoId;
     //for request

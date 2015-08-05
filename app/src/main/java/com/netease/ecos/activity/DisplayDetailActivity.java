@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -67,7 +68,11 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
     @InjectView(R.id.workDetailsCommentEdTx)
     EditText commentEdTx;
     @InjectView(R.id.favorBtn)
-    Button favorBtn;
+    LinearLayout favorBtn;
+    @InjectView(R.id.iv_favor)
+    ImageView iv_favor;
+    @InjectView(R.id.tv_favor)
+    TextView tv_favor;
 
     private ExhibitListViewAdapter exhibitListViewAdapter;
     private WorkDetailListViewAdapter workDetailListViewAdapter;
@@ -176,6 +181,15 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
                 break;
             case R.id.favorBtn:
                 //TODO:send the favor information to the server.
+
+                if (TextUtils.equals(tv_favor.getText().toString(),"点赞")){
+                    tv_favor.setText("已点赞");
+                    iv_favor.setImageResource(R.mipmap.ic_praise_fill);
+                }else {
+                    tv_favor.setText("点赞");
+                    iv_favor.setImageResource(R.mipmap.ic_praise_block);
+                }
+
                 break;
             case R.id.exhibitFocusBtn:
                 if (followUserRequest == null)

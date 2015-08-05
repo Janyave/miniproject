@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/bg_white">
 
     <include
         android:id="@+id/include_title"
@@ -12,33 +13,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/commentDetaiPaddingTop"
-        android:paddingLeft="@dimen/commentDetaiPaddingLeft"
-        android:paddingTop="@dimen/commentDetaiPaddingLeft">
+        android:paddingBottom="@dimen/margin_50px"
+        android:paddingLeft="@dimen/margin_40px"
+        android:paddingTop="@dimen/margin_40px">
 
         <ImageView
             android:id="@+id/uploadWorkImgVw"
-            android:layout_width="@dimen/uploadWork_Img_width"
-            android:layout_height="@dimen/uploadWork_Img_height"
-            android:layout_marginRight="@dimen/commentDetaiPaddingTop"
+            android:layout_width="@dimen/width_cover_480px_320px"
+            android:layout_height="@dimen/height_cover_480px_320px"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/img_default" />
 
         <EditText
             android:id="@+id/uploadWorkEdTx"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/uploadWork_Img_height"
-            android:background="@null"
-            android:gravity="top|left"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"
+            style="@style/text_dark_max"
+            android:textColorHint="@color/text_gray"
+            android:background="@android:color/transparent"
             android:hint="@string/work_hint"
             android:inputType="textMultiLine" />
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/divider_height"
-        android:scaleType="fitXY"
-        android:src="@drawable/divider" />
+    <TextView style="@style/layout_line_gray"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,20 +46,44 @@
         android:padding="10dp"
         android:paddingTop="@dimen/commentDetaiPaddingTop">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_btn_big_120px"
+            android:layout_marginRight="@dimen/margin_40px"
             android:layout_weight="1"
-            android:background="@null"
-            android:text="微信" />
+            android:background="@drawable/bg_btn_big_gray"
+            android:text="微信"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="@dimen/icon_big_64px"
+                android:layout_height="@dimen/icon_big_64px"
+                android:src="@mipmap/ic_share_1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分享到微信"
+                android:layout_marginLeft="@dimen/margin_20px"
+                style="@style/text_gray_mid"/>
+        </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/height_btn_big_120px"
             android:layout_weight="1"
-            android:background="@null"
-            android:text="易信" />
+            android:background="@drawable/bg_btn_big_gray"
+            android:text="微信"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="@dimen/icon_big_64px"
+                android:layout_height="@dimen/icon_big_64px"
+                android:src="@mipmap/ic_share_2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分享到朋友圈"
+                android:layout_marginLeft="@dimen/margin_20px"
+                style="@style/text_gray_mid"/>
+        </LinearLayout>
 
     </LinearLayout>
 

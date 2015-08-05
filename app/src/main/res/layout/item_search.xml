@@ -28,5 +28,6 @@
             android:layout_height="20dp"
             android:src="@mipmap/ic_launcher"/>
     </LinearLayout>
+    <TextView style="@style/layout_line_gray"/>
 
 </LinearLayout>
