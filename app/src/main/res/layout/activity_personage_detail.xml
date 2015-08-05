@@ -10,7 +10,7 @@
         android:orientation="vertical"
         tools:context="com.netease.ecos.activity.PersonageDetailActivity">
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_personDetail_640px_1080px">
 
@@ -34,7 +34,7 @@
                         android:layout_marginTop="@dimen/margin_80px"
                         android:src="@mipmap/ic_launcher"
                         ecos:circle_color="@color/bg_red"
-                        ecos:line_width="2.0"
+                        ecos:line_width="0.0"
                         ecos:showable="true" />
 
                     <ImageView
@@ -168,17 +168,38 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:src="@mipmap/ic_return_red"
-                android:layout_marginTop="@dimen/margin_60px"
-                android:layout_marginLeft="@dimen/margin_20px"
+                android:layout_marginTop="@dimen/margin_30px"
                 android:padding="@dimen/margin_20px"
                 android:scaleType="centerCrop"/>
-        </FrameLayout>
+            <LinearLayout
+                android:id="@+id/ll_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:orientation="horizontal"
+                android:layout_alignTop="@id/iv_return"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="编辑"
+                    style="@style/text_pink_max"/>
+                <ImageView
+                    android:layout_width="@dimen/icon_big_64px"
+                    android:layout_height="@dimen/icon_big_64px"
+                    android:src="@mipmap/ic_edit"
+                    android:padding="6dp"/>
+            </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/ll_signature_attention"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/bg_white"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="@dimen/margin_30px">
 
             <TextView
                 android:id="@+id/tv_personage_description"
@@ -186,7 +207,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_20px"
-                android:layout_marginTop="@dimen/margin_30px"
                 android:gravity="center"
                 android:text="@string/tv_personage_description_default"
                 android:textAppearance="?android:attr/textAppearanceMedium"
