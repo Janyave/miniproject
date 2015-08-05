@@ -15,7 +15,7 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/8/5.
  */
-public class PersonSetInformationNormal extends BaseActivity implements View.OnClickListener{
+public class PersonSetInformationNormalActivity extends BaseActivity implements View.OnClickListener{
 
     @InjectView(R.id.lly_left_action)
     LinearLayout title_left;
