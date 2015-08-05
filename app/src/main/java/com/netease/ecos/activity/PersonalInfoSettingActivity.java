@@ -1,49 +1,51 @@
 package com.netease.ecos.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.netease.ecos.R;
-import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
-import java.io.PipedInputStream;
-import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 
 public class PersonalInfoSettingActivity extends BaseActivity {
 
     private static final String[] gender = {"男", "女", "保密"};
 
+    //show
     private LinearLayout mReturn;
     private RoundImageView mAvatarImg;
     private ImageView mSetAvatar;
     private TextView mSetName;
     private TextView mSetGender;
     private TextView mSetIntro;
-    private ImageView mSetPwd;
     private Switch mSetMsgAlert;
     private Button mLogOut;
+    private LinearLayout ll_tagsList;
+
+    //click
+    @InjectView(R.id.ll_name)
+    LinearLayout ll_name;
+    @InjectView(R.id.ll_gender)
+    LinearLayout ll_gender;
+    @InjectView(R.id.ll_signature)
+    LinearLayout ll_signature;
+    @InjectView(R.id.ll_password)
+    LinearLayout ll_password;
+    @InjectView(R.id.ll_tags)
+    LinearLayout ll_tags;
 
 //    private RoundAngleImageView iv;
 
@@ -52,6 +54,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_info_setting);
+        ButterKnife.inject(this);
         onBoundView();
         onBoundLinster();
 //        iv = (RoundAngleImageView) findViewById(R.id.picasso_test);
@@ -67,9 +70,9 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         mSetName = (TextView) findViewById(R.id.personal_info_set_name);
         mSetGender = (TextView) findViewById(R.id.personal_info_set_gender);
         mSetIntro = (TextView) findViewById(R.id.personal_info_set_intro);
-        mSetPwd = (ImageView) findViewById(R.id.personal_info_set_pwd);
         mSetMsgAlert = (Switch) findViewById(R.id.personal_info_set_Msg_alert);
         mLogOut = (Button) findViewById(R.id.personal_info_logout);
+        ll_tagsList=(LinearLayout) findViewById(R.id.ll_tagsList);  //add tags in this layout
     }
 
     private void onBoundLinster() {
@@ -78,8 +81,13 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         mReturn.setOnClickListener(listener);
         mSetAvatar.setOnClickListener(listener);
         mAvatarImg.setOnClickListener(listener);
-        mSetPwd.setOnClickListener(listener);
         mLogOut.setOnClickListener(listener);
+
+        ll_name.setOnClickListener(listener);
+        ll_gender.setOnClickListener(listener);
+        ll_signature.setOnClickListener(listener);
+        ll_password.setOnClickListener(listener);
+        ll_tags.setOnClickListener(listener);
 
         //bound spinner linster
         bonudSpinner();
@@ -103,13 +111,37 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                 case R.id.lly_left_action:
                     finish();
                     break;
-
                 case R.id.personal_info_set_avatar_pic:
                 case R.id.personal_info_set_avatar:
                     //TODO set avatar
                     break;
-                case R.id.personal_info_set_pwd:
-                    //TODO set pwd
+                case R.id.ll_name:
+                    Intent intent2=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormalActivity.class);
+                    Bundle bundle2=new Bundle();
+                    bundle2.putInt(PersonSetInformationNormalActivity.ACTICITY_TYPE, PersonSetInformationNormalActivity.TYPE_NAME);
+                    intent2.putExtras(bundle2);
+                    startActivity(intent2);
+                    break;
+                case R.id.ll_gender:
+                    //TODO gender
+                    Toast.makeText(PersonalInfoSettingActivity.this,"wait!",Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.ll_tags:
+                    startActivity(new Intent(PersonalInfoSettingActivity.this, PersonSetTagsActivity.class));
+                    break;
+                case R.id.ll_signature:
+                    Intent intent3=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormalActivity.class);
+                    Bundle bundle3=new Bundle();
+                    bundle3.putInt(PersonSetInformationNormalActivity.ACTICITY_TYPE, PersonSetInformationNormalActivity.TYPE_SIGNATURE);
+                    intent3.putExtras(bundle3);
+                    startActivity(intent3);
+                    break;
+                case R.id.ll_password:
+                    Intent intent1=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormalActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putInt(PersonSetInformationNormalActivity.ACTICITY_TYPE, PersonSetInformationNormalActivity.TYPE_PASSWORD);
+                    intent1.putExtras(bundle);
+                    startActivity(intent1);
                     break;
                 case R.id.personal_info_logout:
                     Intent intent=new Intent(PersonalInfoSettingActivity.this,SplashActivity.class);

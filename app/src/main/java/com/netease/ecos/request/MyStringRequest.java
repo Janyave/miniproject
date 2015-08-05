@@ -2,6 +2,7 @@ package com.netease.ecos.request;
 
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -12,6 +13,7 @@ import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.model.AccountDataService;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class MyStringRequest extends Request<String>{
@@ -49,6 +51,27 @@ public class MyStringRequest extends Request<String>{
     }
 
     @Override
+    public Map<String, String> getHeaders() throws AuthFailureError {
+        HashMap localHashMap = new HashMap();
+        String value="";
+        String token = AccountDataService.getSingleAccountDataService(MyApplication.getContext()).getToken();
+        Log.e("MyStringRequest", "token---------"  + token);
+        if(token!=null){
+            value = value+"TOKEN=" + token + ";" ;
+        }
+
+        String sessionId = AccountDataService.getSingleAccountDataService(MyApplication.getContext()).getAutocodeCookie();
+        Log.e("MyStringRequest", "sessionId---------"  + sessionId);
+        if(sessionId!=null){
+            value = value+"SESSIONID=" + sessionId + ";" ;
+        }
+
+        localHashMap.put("Cookie", value);
+        Log.e("MyStringRequest", "COOKIE VALUE---------" + value);
+        return localHashMap;
+    }
+
+    @Override
     protected Response<String> parseNetworkResponse(NetworkResponse response) {
         String parsed;
         try {
@@ -70,7 +93,7 @@ public class MyStringRequest extends Request<String>{
                     if(value.contains("SESSIONID=")){
                         sessionId = value.substring(10);
                         System.out.println(sessionId);
-                        AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveAutocodeCookie(rawCookies);
+                        AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveAutocodeCookie(sessionId);
                     }
 
                     Log.e("TOKEN", "---------------" + token);

@@ -23,12 +23,12 @@
 
             <com.netease.ecos.utils.RoundImageView
                 android:id="@+id/btn_open"
-                android:layout_width="@dimen/circle_icon_140px"
-                android:layout_height="@dimen/circle_icon_140px"
+                android:layout_width="@dimen/circle_icon_108px"
+                android:layout_height="@dimen/circle_icon_108px"
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:scaleType="fitCenter"
                 ecos:circle_color="@color/bg_red_light_light"
-                ecos:line_width="2.0"
+                ecos:line_width="5.0"
                 ecos:showable="true" />
             <TextView
                 android:layout_width="0dp"
@@ -112,6 +112,7 @@
 
 
         </LinearLayout>
+        <TextView style="@style/layout_line_gray"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
