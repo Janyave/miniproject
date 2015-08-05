@@ -117,6 +117,7 @@
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:background="@drawable/ll_pink"
             android:paddingLeft="@dimen/margin_50px"
             android:paddingRight="@dimen/margin_30px">
             <ImageView
@@ -156,6 +157,7 @@
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:background="@drawable/ll_pink"
             android:paddingLeft="@dimen/margin_50px"
             android:paddingRight="@dimen/margin_30px">
             <ImageView
@@ -196,6 +198,7 @@
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
             android:gravity="center_vertical"
+            android:background="@drawable/ll_pink"
             android:paddingLeft="@dimen/margin_50px"
             android:paddingRight="@dimen/margin_30px">
             <ImageView
@@ -397,14 +400,17 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_block"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
 
         <TextView style="@style/layout_line_gray"/>
         <LinearLayout
+            android:id="@+id/ll_setting"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_140px"
+            android:background="@drawable/ll_pink"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingRight="@dimen/margin_50px">

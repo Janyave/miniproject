@@ -108,8 +108,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     private User mUserData;
 
 
-    private LinearLayout ll_notification, ll_contact, ll_course, ll_display, ll_activity, ll_recruite, ll_personcenter;
-    private TextView tv_notificationNum, tv_contactNum, tv_courseNum, tv_displayNum, tv_activityNum, tv_recruiteNum, tv_personcenterNum;
+    private LinearLayout ll_notification, ll_contact, ll_course, ll_display, ll_activity, ll_recruite, ll_personcenter,ll_setting;
+    private TextView tv_notificationNum, tv_contactNum, tv_courseNum, tv_displayNum, tv_activityNum, tv_recruiteNum, tv_personcenterNum, tv_block;
 
     private LinearLayout ll_person;
 
@@ -196,6 +196,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         ll_activity=(LinearLayout)mDrawerView.findViewById(R.id.ll_activity);
         ll_recruite=(LinearLayout)mDrawerView.findViewById(R.id.ll_recruite);
         ll_personcenter=(LinearLayout)mDrawerView.findViewById(R.id.ll_personcenter);
+        ll_setting=(LinearLayout)mDrawerView.findViewById(R.id.ll_setting);
 
         tv_notificationNum=(TextView)mDrawerView.findViewById(R.id.tv_notificationNum);
         tv_contactNum=(TextView)mDrawerView.findViewById(R.id.tv_contactNum);
@@ -204,6 +205,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         tv_activityNum=(TextView)mDrawerView.findViewById(R.id.tv_activityNum);
         tv_recruiteNum=(TextView)mDrawerView.findViewById(R.id.tv_recruiteNum);
         tv_personcenterNum=(TextView)mDrawerView.findViewById(R.id.tv_personcenterNum);
+        tv_block=(TextView)mDrawerView.findViewById(R.id.tv_block);
 
         ll_person=(LinearLayout)mDrawerView.findViewById(R.id.ll_person);
 
@@ -237,6 +239,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         ll_activity.setOnClickListener(this);
         ll_recruite.setOnClickListener(this);
         ll_personcenter.setOnClickListener(this);
+        ll_setting.setOnClickListener(this);
+        tv_block.setOnClickListener(this);
     }
 
 
@@ -249,6 +253,10 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             case R.id.ll_contact:
                 //TODO
                 break;
+            case R.id.ll_setting:
+                Intent intent = new Intent(getActivity(), PersonalInfoSettingActivity.class);
+                startActivity(intent);
+                break;
 //            case R.id.ll_course:
 //                break;
 //            case R.id.ll_display:
@@ -258,7 +266,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 //            case R.id.ll_recruite:
 //                break;
             case R.id.ll_personcenter:
-                //TODO
+                //TODO error
                 startActivity(new Intent(getActivity(), PersonageDetailActivity.class));
                 break;
         }
