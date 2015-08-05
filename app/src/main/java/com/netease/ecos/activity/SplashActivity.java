@@ -116,7 +116,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
         if(mInitialRequestList.size()==0)
         {
             initialDataLoaded = true;
-//            startLoginActivity();
+            startActivity(new Intent(this,MainActivity.class));
         }
     }
 
