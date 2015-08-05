@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import com.netease.ecos.R;
 
+import org.w3c.dom.Text;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 

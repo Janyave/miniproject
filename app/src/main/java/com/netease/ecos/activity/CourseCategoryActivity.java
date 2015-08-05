@@ -417,7 +417,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                 switch (group.getCheckedRadioButtonId()){
                     case R.id.rbtn1:
                         type=0;
-                        tv_sortText.setText(((RadioButton)rg.getChildAt(type)).getText().toString());
+                        break;
                     case R.id.rbtn2:
                         type=1;
                         break;
@@ -425,6 +425,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                         type=2;
                         break;
                 }
+                tv_sortText.setText(((RadioButton)rg.getChildAt(type)).getText().toString());
                 ((RadioButton)rg.getChildAt(type)).setTextColor(getResources().getColor(R.color.text_red));
                 request.request(courseListResponse, CourseListRequest.Type.筛选,
                         courseType, searchWords, SORT_RULES[type], 0);
