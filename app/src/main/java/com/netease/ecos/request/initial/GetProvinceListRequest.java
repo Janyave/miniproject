@@ -9,6 +9,7 @@ import com.android.volley.VolleyError;
 import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.database.ProvinceDBService;
+import com.netease.ecos.model.ConfigurationService;
 import com.netease.ecos.model.Province;
 import com.netease.ecos.request.MyStringRequest;
 import com.netease.ecos.activity.SplashActivity.InitialInfoResponse;
@@ -97,6 +98,7 @@ public class GetProvinceListRequest extends InitialRequest implements ErrorListe
 			
 			final List<Province> provinceList = getProvinceList(provinceArray);
 			ProvinceDBService.getProvinceDBServiceInstance(MyApplication.getContext()).addProvince(provinceList);
+			ConfigurationService.getConfigurationService(getContext()).setProvinceDataDownloaded();
 			if(mInitialInfoResponse!=null)
 			{
 				mInitialInfoResponse.doAfterResponse();

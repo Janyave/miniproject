@@ -255,7 +255,7 @@
                     style="@style/rb_center_list_tab"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/tab_community" />
+                    android:text="@string/tab_display" />
 
                 <TextView
                     style="@style/layout_line_gray_v"
@@ -267,7 +267,7 @@
                     style="@style/rb_center_list_tab"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/tab_transaction" />
+                    android:text="@string/tab_community" />
 
                 <TextView
                     style="@style/layout_line_gray_v"
@@ -279,7 +279,7 @@
                     style="@style/rb_center_list_tab"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/tab_display" />
+                    android:text="@string/tab_transaction" />
             </RadioGroup>
         </LinearLayout>
 

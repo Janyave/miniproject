@@ -9,6 +9,7 @@ import com.android.volley.VolleyError;
 import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.database.CityDBService;
 import com.netease.ecos.model.City;
+import com.netease.ecos.model.ConfigurationService;
 import com.netease.ecos.request.MyStringRequest;
 import com.netease.ecos.activity.SplashActivity.InitialInfoResponse;
 
@@ -98,7 +99,9 @@ private final String TAG = "GetGeographyRequest";
 			
 			final List<City> cityList = getCityList(cityArray);
 			CityDBService.getCityDBServiceInstance(getContext()).addCity(cityList);
-			
+			ConfigurationService.getConfigurationService(getContext()).setCityDataDownloaded();
+
+
 			if(mInitialInfoResponse!=null)
 			{
 				mInitialInfoResponse.doAfterResponse();

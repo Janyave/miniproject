@@ -1,8 +1,10 @@
 package com.netease.ecos.activity;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,16 +19,28 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
+import com.netease.ecos.adapter.PersonActivityAdapter;
 import com.netease.ecos.adapter.PersonCourseAdapter;
 import com.netease.ecos.adapter.PersonDisplayAdapter;
+import com.netease.ecos.model.ActivityModel;
+import com.netease.ecos.model.Course;
+import com.netease.ecos.model.Recruitment;
+import com.netease.ecos.model.Share;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.activity.ActivityListRequest;
+import com.netease.ecos.request.course.CourseListRequest;
+import com.netease.ecos.request.recruitment.RecruitmentListRequest;
+import com.netease.ecos.request.share.ShareListRequest;
 import com.netease.ecos.request.user.FollowUserRequest;
 import com.netease.ecos.request.user.GetUserInfoRequest;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.views.ExtensibleListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -36,7 +50,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
     public static final String UserID = "UserID";
     public static final String IsOwn = "IsOwn";
     private boolean isOwn;
-    private String userID = "";
+    private String userID = null;
     @InjectView(R.id.iv_personage_portrait)
     RoundImageView user_avatar;
     @InjectView(R.id.radio_group)
@@ -69,19 +83,36 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
     private GetuserInfoResponse getuserInfoResponse;
     private FollowUserRequest followUserRequest;
     private FollowResponce followResponce;
+    //course
+    private CourseListRequest courseListRequest;
+    private CourseListResponse courseListResponce;
+    private List<Course> mCourse = null;
+    private int mCoursePageIndex = 0;
+    //share
+    private ShareListRequest shareListRequest;
+    private ShareListResponse shareListResponse;
+    private List<Share> mShare;
+    private int mSharePageIndex = 1;
+    //activity
+    private ActivityListRequest activityListRequest;
+    private ActivityListResponse activityListResponse;
+    private List<ActivityModel> mActivity;
+    private int mActivityPageIndex = 0;
+    //recruit
+    private RecruitmentListRequest recruitmentListRequest;
+    private RecruitmentListResponse recruitmentListResponse;
+    private List<Recruitment> mRecruitment;
+    private int mRecruitmentPageIndex = 1;
 
-
-    public static final int TAB_COURSE_INDEX = 0;
-    public static final int TAB_COMMUCITY_INDEX = 1;
-    public static final int TAB_TRANSACTION_INDEX = 2;
-    public static final int TAB_DISPLAY_INDEX = 3;
 
 
     private int mCurrentTab = 0;
 
     private PersonCourseAdapter personCourseAdapter;
     private PersonDisplayAdapter personDisplayAdapter;
+    private PersonActivityAdapter personActivityAdapter;
     //TODO 其他Adapter
+    //private PersonRecruitAdapter personRecruitAdapter;
 
 
     @Override
@@ -89,8 +120,25 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personage_detail);
         ButterKnife.inject(this);
-        initViews();
+        initRequest();
         initUserData();
+        initViews();
+    }
+
+    private void initRequest(){
+        courseListRequest = new CourseListRequest();
+        courseListResponce = new CourseListResponse();
+        shareListRequest = new ShareListRequest();
+        shareListResponse = new ShareListResponse();
+        activityListRequest = new ActivityListRequest();
+        activityListResponse = new ActivityListResponse();
+        recruitmentListRequest = new RecruitmentListRequest();
+        recruitmentListResponse = new RecruitmentListResponse();
+
+        mCourse = new ArrayList<Course>();
+        mShare = new ArrayList<Share>();
+        mActivity = new ArrayList<ActivityModel>();
+        mRecruitment = new ArrayList<Recruitment>();
     }
 
     private void initUserData() {
@@ -98,6 +146,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         if (isOwn) {
             mUserDataService = UserDataService.getSingleUserDataService(this);
             mUserData = mUserDataService.getUser();
+            userID = null;
             setData();
         } else {
             getUserInfoRequest = new GetUserInfoRequest();
@@ -105,6 +154,10 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
             userID = getIntent().getExtras().getString(UserID);
             getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, userID);
         }
+        courseListRequest.requestOtherCourse(courseListResponce, userID, mCoursePageIndex);
+        shareListRequest.requestOtherShareList(shareListResponse, userID, mSharePageIndex);
+        activityListRequest.requestOtherActivityList(activityListResponse, userID, mActivityPageIndex);
+        //recruitmentListRequest.requestSomeone(recruitmentListResponse, userID, mRecruitmentPageIndex);
     }
 
     void setData() {
@@ -135,7 +188,15 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         user_avatar.setErrorImageResId(R.drawable.img_default);
         personCourseAdapter = new PersonCourseAdapter(this);
         personDisplayAdapter = new PersonDisplayAdapter(this);
+        personActivityAdapter = new PersonActivityAdapter(this);
+        //TODO  personRecuritmentAdapter.
+        //personRecruitAdapter = new PersonRecruitAdapter(this);
+
+        personCourseAdapter.SetCourseList(mCourse);
+        personDisplayAdapter.setShareList(mShare);
+        personActivityAdapter.setActivityList(mActivity);
         lv_list.setAdapter(personCourseAdapter);
+
         //set checked
         ((RadioButton) mRadioGroup.getChildAt(mCurrentTab)).setChecked(true);
         //set listener
@@ -196,11 +257,12 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
                     break;
                 case R.id.radio_3:
                     ((RadioButton) findViewById(R.id.radio_3)).setTextColor(getResources().getColor(R.color.text_red));
-                    Toast.makeText(PersonageDetailActivity.this, "CHANGE ADAPTER", Toast.LENGTH_SHORT).show();
+                    lv_list.setAdapter(personActivityAdapter);
                     break;
                 case R.id.radio_4:
                     ((RadioButton) findViewById(R.id.radio_4)).setTextColor(getResources().getColor(R.color.text_red));
                     Toast.makeText(PersonageDetailActivity.this, "CHANGE ADAPTER", Toast.LENGTH_SHORT).show();
+                    //lv_list.setAdapter(personRecruitAdapter);
                     break;
             }
         }
@@ -246,6 +308,96 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         public void success(String userId, boolean follow) {
 //            tv_display.append("操作对象userId:" + userId + "\n");
 //            tv_display.append("关注状态:" + follow + "\n");
+        }
+    }
+
+    class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse{
+
+        @Override
+        public void success(List<Course> courseList) {
+            //prevent gc
+            if (personCourseAdapter == null){
+                personCourseAdapter = new PersonCourseAdapter(PersonageDetailActivity.this);
+                personCourseAdapter.SetCourseList(mCourse);
+            }
+            personCourseAdapter.getCourseList().addAll(courseList);
+            personCourseAdapter.notifyDataSetChanged();
+//            if(courseList.size() >= 10){
+//                courseListRequest.requestOtherCourse(courseListResponse, userID, ++mCoursePageIndex);
+//            }
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
+
+    }
+    class ShareListResponse extends BaseResponceImpl implements ShareListRequest.IShareListResponse{
+        @Override
+        public void success(List<Share> shareList) {
+            //prevent gc
+            if (personDisplayAdapter == null){
+                personDisplayAdapter = new PersonDisplayAdapter(PersonageDetailActivity.this);
+                personDisplayAdapter.setShareList(mShare);
+            }
+            personDisplayAdapter.getShareList().addAll(shareList);
+            personDisplayAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
+    }
+    class ActivityListResponse extends BaseResponceImpl implements ActivityListRequest.IActivityListResponse{
+        @Override
+        public void success(List<ActivityModel> activityList) {
+            //prevent gc
+            if (personActivityAdapter == null){
+                personActivityAdapter = new PersonActivityAdapter(PersonageDetailActivity.this);
+                personActivityAdapter.setActivityList(mActivity);
+            }
+            personActivityAdapter.getActivityList().addAll(activityList);
+            personActivityAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
+    }
+    class RecruitmentListResponse extends BaseResponceImpl implements RecruitmentListRequest.IRecruitmentListResponse{
+        @Override
+        public void success(List<Recruitment> recruitmentList) {
+            //TODO recruitment success response.
+            //personRecruitAdapter.getActivityList().addAll(recruitmentList);
+            //personRecruitAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
         }
     }
 }
