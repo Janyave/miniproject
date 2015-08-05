@@ -160,7 +160,7 @@
     <dimen name="icon_big_200px">60dp</dimen>
     <dimen name="icon_big_64px">30dp</dimen>
     <dimen name="icon_little_36px">15dp</dimen>
-    <dimen name="icon_return_50px">25dp</dimen>
+    <dimen name="icon_return_50px">48dp</dimen>
     <dimen name="icon_more_36px">15dp</dimen>
     <dimen name="spacing_recruite_detail_26">3dp</dimen>
     <dimen name="icon_sidebar_54px">30dp</dimen>

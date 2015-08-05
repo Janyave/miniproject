@@ -79,7 +79,7 @@
 
     <!-- 按钮点击效果-->
     <color name="btn_red_press">#e62d69</color>
-    <color name="btn_white_press">#ebebeb</color>
+    <color name="btn_white_press">#f6f6f6</color>
     <color name="btn_red_disable">#bebebe</color>
 
     <!-- login & regist input text color-->
