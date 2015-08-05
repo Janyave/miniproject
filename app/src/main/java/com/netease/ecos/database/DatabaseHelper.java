@@ -1,7 +1,5 @@
 package com.netease.ecos.database;
 
-import java.sql.SQLException;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -11,7 +9,11 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.netease.ecos.model.City;
 import com.netease.ecos.model.Contact;
+import com.netease.ecos.model.Province;
+
+import java.sql.SQLException;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper
 {
@@ -21,6 +23,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper
     
     // 数据库version
     private static final int DATABASE_VERSION = 1;
+
+
+    /*** 省数据操作Dao */
+    private RuntimeExceptionDao<Province, String> mProvinceDao = null;
+
+    /*** 城市数据操作Dao */
+    private RuntimeExceptionDao<City, String> mCityDao = null;
 
     /*** 联系人数据操作Dao */
     private RuntimeExceptionDao<Contact, String> mContactDao = null;
@@ -49,11 +58,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper
     	Log.d(TAG, "oncreate database");
         try
         {
-            //建立User表
+            TableUtils.createTable(connectionSource, Province.class);
+            TableUtils.createTable(connectionSource, City.class);
         	TableUtils.createTable(connectionSource, Contact.class);
             
             
             //初始化DAO
+            mProvinceDao = getProvinceDao();
+            mCityDao = getCityDao();
         	mContactDao = getContactDao();
         }
         catch (SQLException e)
@@ -69,8 +81,24 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper
     {
     }
 
-    
-    
+
+    public RuntimeExceptionDao<Province, String> getProvinceDao()
+    {
+        if (mProvinceDao == null)
+        {
+            mProvinceDao = getRuntimeExceptionDao(Province.class);
+        }
+        return mProvinceDao;
+    }
+
+    public RuntimeExceptionDao<City, String> getCityDao()
+    {
+        if (mCityDao == null)
+        {
+            mCityDao = getRuntimeExceptionDao(City.class);
+        }
+        return mCityDao;
+    }
     public RuntimeExceptionDao<Contact, String> getContactDao()
     {
         if (mContactDao == null)
@@ -88,6 +116,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper
     public void close() {
         super.close();
         mContactDao = null;
+        mProvinceDao = null;
+        mCityDao = null;
     }
 
 }
