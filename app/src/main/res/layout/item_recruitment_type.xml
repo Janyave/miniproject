@@ -56,6 +56,7 @@
                             android:text="NAME" />
 
                         <ImageView
+                            android:id="@+id/genderImVw"
                             android:layout_width="@dimen/icon_little_36px"
                             android:layout_height="@dimen/icon_little_36px"
                             android:layout_marginLeft="12dp"

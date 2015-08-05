@@ -28,8 +28,6 @@ import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.HorizontalListView;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -151,7 +149,6 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
                 Toast.makeText(ActivityDetailActivity.this, "publish photo", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.iv_author_avator:
-                //TODO
                 Toast.makeText(ActivityDetailActivity.this, "person detail", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ActivityDetailActivity.this, PersonageDetailActivity.class);
                 Bundle bundle = new Bundle();

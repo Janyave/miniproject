@@ -221,6 +221,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 intent = new Intent(mcontext, CommentDetailActivity.class);
                 bundle.putString(CommentDetailActivity.FromId, shareList.get(position).shareId);
                 bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.分享.getBelongs());
+                bundle.putBoolean(CommentDetailActivity.IsPraised, shareList.get(position).hasPraised);
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;

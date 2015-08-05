@@ -3,7 +3,6 @@ package com.netease.ecos.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +24,7 @@ import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.GetCourseDetailRequest;
+import com.netease.ecos.request.course.PraiseRequest;
 import com.netease.ecos.request.user.FollowUserRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
 import com.netease.ecos.views.ExtensibleListView;
@@ -93,21 +93,30 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
     private ArrayList<String> workList;
     private String courseId = "";
     private Course course;
+    //for request
     private GetCourseDetailRequest getCourseDetailRequest;
     private GetCourseDetailResponse getCourseDetailResponse;
-
+    private PraiseRequest praiseRequest;
+    private PraiseResponse praiseResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_detail);
         ButterKnife.inject(this);
-        initListener();
         initData();
+        initView();
         getSupportActionBar().hide();
     }
 
-    private void initListener() {
+    private void initData() {
+        courseId = getIntent().getExtras().getString(CourseID);
+        getCourseDetailRequest = new GetCourseDetailRequest();
+        getCourseDetailResponse = new GetCourseDetailResponse();
+        getCourseDetailRequest.request(getCourseDetailResponse, courseId);
+    }
+
+    private void initView() {
         btn_allEvaluation.setOnClickListener(this);
         ll_updoadMyWork.setOnClickListener(this);
         ll_author.setOnClickListener(this);
@@ -181,24 +190,18 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                 bundle = new Bundle();
                 bundle.putString(CommentDetailActivity.FromId, courseId);
                 bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.教程.getBelongs());
+                bundle.putBoolean(CommentDetailActivity.IsPraised, course.hasPraised);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
             case R.id.ll_praise:
-                if (TextUtils.equals(tv_praise.getText().toString(), "点赞")) {
-                    tv_praise.setText("已赞");
-                } else {
-                    tv_praise.setText("点赞");
-                }
+                if (praiseRequest == null)
+                    praiseRequest = new PraiseRequest();
+                if (praiseResponse == null)
+                    praiseResponse = new PraiseResponse();
+                praiseRequest.praiseCourse(praiseResponse, course.courseId, !course.hasPraised);
                 break;
         }
-    }
-
-    private void initData() {
-        courseId = getIntent().getExtras().getString(CourseID);
-        getCourseDetailRequest = new GetCourseDetailRequest();
-        getCourseDetailResponse = new GetCourseDetailResponse();
-        getCourseDetailRequest.request(getCourseDetailResponse, courseId);
     }
 
     @Override
@@ -231,7 +234,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                                     bundle.putString(UploadAssignmentActivity.CourseId, courseId);
                                     bundle.putString(UploadAssignmentActivity.ImagePath, imagePath);
                                     intent.putExtras(bundle);
-                                    startActivity(intent);
+                                    startActivityForResult(intent, UploadAssignmentActivity.REQUEST_CODE_FOR_UPLOAD_ASSIGNMENT);
                                 }
                             });
                     mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_BEFORE_CROP, data);
@@ -242,6 +245,8 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                 default:
                     Log.e("CLASS_TAG", "onActivityResult() 无对应");
             }
+        } else if (requestCode == UploadAssignmentActivity.REQUEST_CODE_FOR_UPLOAD_ASSIGNMENT && resultCode == UploadAssignmentActivity.RESULT_CODE_FOR_UPLOAD_ASSIGNMENT) {
+            getCourseDetailRequest.request(getCourseDetailResponse, courseId);
         }
     }
 
@@ -277,6 +282,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         tv_title.setText(course.title);
         tv_name.setText(course.author);
         tv_praiseNum.setText(course.praiseNum + getResources().getString(R.string.manyFavor));
+        setPraiseLayout();
         if (course.authorAvatarUrl != null && !course.authorAvatarUrl.equals(""))
             Picasso.with(CourseDetailActivity.this).load(course.authorAvatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
         if (course.coverUrl != null && !course.coverUrl.equals(""))
@@ -299,6 +305,16 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         }
     }
 
+    private void setPraiseLayout() {
+        if (course.hasPraised) {
+            tv_praise.setText(getResources().getString(R.string.cancelFavor));
+            iv_praise.setImageResource(R.mipmap.ic_praise_fill);
+        } else {
+            tv_praise.setText(getResources().getString(R.string.favour));
+            iv_praise.setImageResource(R.mipmap.ic_praise_block);
+        }
+    }
+
     class FollowResponce extends BaseResponceImpl implements FollowUserRequest.IFollowResponce {
 
         @Override
@@ -311,6 +327,25 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
         @Override
         public void success(String userId, boolean follow) {
+        }
+    }
+
+    class PraiseResponse extends BaseResponceImpl implements PraiseRequest.IPraiseResponce {
+
+        @Override
+        public void success(String userId, boolean praise) {
+            course.hasPraised = !course.hasPraised;
+            setPraiseLayout();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
         }
     }
 }

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ import com.netease.ecos.adapter.WorkDetailListViewAdapter;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.comment.CommentListRequest;
+import com.netease.ecos.request.course.PraiseRequest;
 import com.netease.ecos.utils.SDImageCache;
 
 import java.util.List;
@@ -33,8 +36,10 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     private static final String TAG = "Ecos---CommentDetail";
     public static final String FromId = "fromId";
     public static final String CommentType = "commentType";
+    public static final String IsPraised = "IsPraised";
     private String fromId = "";
     private Comment.CommentType commentType;
+    private boolean isPraised;
     @InjectView(R.id.commentLsVw)
     ListView commentListView;
     @InjectView(R.id.workDetailsCommentEdTx)
@@ -45,6 +50,12 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     Button rightButton;
     @InjectView(R.id.tv_left)
     TextView backTxVw;
+    @InjectView(R.id.favorBtn)
+    LinearLayout favorBtn;
+    @InjectView(R.id.iv_favor)
+    ImageView iv_favor;
+    @InjectView(R.id.tv_favor)
+    TextView tv_favor;
 
     //for NetWorkImageView
     static ImageLoader.ImageCache imageCache;
@@ -53,6 +64,8 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     //for request
     private CommentListRequest commentListRequest;
     private GetCommentListResponse getCommentListResponse;
+    private PraiseRequest praiseRequest;
+    private PraiseResponse praiseResponse;
 
     private WorkDetailListViewAdapter workDetailListViewAdapter;
 
@@ -72,6 +85,7 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     void initData() {
         fromId = getIntent().getExtras().getString(FromId);
         commentType = Comment.CommentType.getCommentTypeByValue(getIntent().getExtras().getString(CommentType));
+        isPraised = getIntent().getExtras().getBoolean(IsPraised);
         //init the data for NetWorkImageView
         queue = MyApplication.getRequestQueue();
         imageCache = new SDImageCache();
@@ -98,6 +112,12 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
         //set listener
         commentEdTx.setOnTouchListener(this);
         backTxVw.setOnClickListener(this);
+        //if it already is praised
+        if (isPraised) {
+            tv_favor.setText(getResources().getString(R.string.cancelFavor));
+            iv_favor.setImageResource(R.mipmap.ic_praise_fill);
+        }
+        favorBtn.setOnClickListener(this);
     }
 
     @Override
@@ -126,7 +146,24 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
 
     @Override
     public void onClick(View v) {
-        CommentDetailActivity.this.finish();
+        switch (v.getId()) {
+            case R.id.favorBtn:
+                if (praiseRequest == null)
+                    praiseRequest = new PraiseRequest();
+                if (praiseResponse == null)
+                    praiseResponse = new PraiseResponse();
+                if (commentType == Comment.CommentType.教程) {
+                    praiseRequest.praiseCourse(praiseResponse, fromId, !isPraised);
+                } else if (commentType == Comment.CommentType.分享) {
+                    praiseRequest.praiseShare(praiseResponse, fromId, !isPraised);
+                } else if (commentType == Comment.CommentType.作业) {
+//                    praiseRequest.praiseCourse(praiseResponse, fromId, !isPraised);
+                }
+                break;
+            case R.id.tv_left:
+                CommentDetailActivity.this.finish();
+                break;
+        }
     }
 
     class GetCommentListResponse extends BaseResponceImpl implements CommentListRequest.ICommentListResponse {
@@ -142,6 +179,29 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
         @Override
         public void success(List<Comment> commentList) {
             workDetailListViewAdapter.updateCommentList(commentList);
+        }
+    }
+
+    class PraiseResponse extends BaseResponceImpl implements PraiseRequest.IPraiseResponce {
+
+        @Override
+        public void success(String userId, boolean praise) {
+            isPraised = !isPraised;
+            if (isPraised) {
+                tv_favor.setText(getResources().getString(R.string.cancelFavor));
+                iv_favor.setImageResource(R.mipmap.ic_praise_fill);
+            } else {
+                tv_favor.setText(getResources().getString(R.string.favour));
+                iv_favor.setImageResource(R.mipmap.ic_praise_block);
+            }
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
         }
     }
 

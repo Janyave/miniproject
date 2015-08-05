@@ -203,6 +203,8 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         Bundle bundle = new Bundle();
         bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.作业.getBelongs());
         bundle.putString(CommentDetailActivity.FromId, workList.get(workOrder));
+        //TODO:add the attribute in the assignment
+        bundle.putBoolean(CommentDetailActivity.IsPraised,false);
         intent.putExtras(bundle);
         startActivity(intent);
     }
