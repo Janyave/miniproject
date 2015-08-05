@@ -129,6 +129,7 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_name"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
@@ -165,6 +166,7 @@
             android:layout_marginRight="@dimen/margin_40px"></View>
 
         <LinearLayout
+            android:id="@+id/ll_gender"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
@@ -201,6 +203,7 @@
             android:layout_marginRight="@dimen/margin_40px"></View>
 
         <LinearLayout
+            android:id="@+id/ll_signature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -310,6 +313,7 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_password"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
