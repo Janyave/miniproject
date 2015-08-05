@@ -17,8 +17,10 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.CourseListViewAdapter;
+import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.activity.ActivityListRequest;
 import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.FloadingButton;
@@ -69,6 +71,8 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     //for request.
     private CourseListRequest request;
     private CourseListResponse courseListResponse;
+
+    private int pageIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +148,38 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                 lv_list.stopRefresh();
             }
         }, 1000);
+
+        request.request(new CourseListRequest.ICourseListResponse() {
+
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void success(List<Course> courseList) {
+                if (courseTypeListViewAdapter == null) {
+                    courseTypeListViewAdapter = new CourseListViewAdapter(CourseCategoryActivity.this, courseList);
+                    lv_list.setAdapter(courseTypeListViewAdapter);
+                } else {
+                    courseTypeListViewAdapter.setCourseList(courseList); // 添加ListView的内容
+                    courseTypeListViewAdapter.notifyDataSetChanged();
+                    lv_list.smoothScrollToPosition(0);  // ListView回到顶部
+                    pageIndex = 0;
+                }
+            }
+        }, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], 0);
     }
 
     @Override
@@ -158,6 +194,44 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                 lv_list.stopLoadMore();
             }
         }, 1000);
+
+        if (courseTypeListViewAdapter == null)
+            pageIndex = 0;
+        pageIndex++;
+        request.request(new CourseListRequest.ICourseListResponse() {
+
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void success(List<Course> courseList) {
+                if (courseTypeListViewAdapter == null) {
+                    courseTypeListViewAdapter = new CourseListViewAdapter(CourseCategoryActivity.this, courseList);
+                    lv_list.setAdapter(courseTypeListViewAdapter);
+                } else {
+                    if (courseList.size() == 0) {
+                        Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.nothingLeft), Toast.LENGTH_SHORT).show();
+                        pageIndex--;
+                    } else {
+                        courseTypeListViewAdapter.getCourseList().addAll(courseList); // 添加ListView的内容
+                        courseTypeListViewAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        }, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], pageIndex);
     }
 
     @Override
