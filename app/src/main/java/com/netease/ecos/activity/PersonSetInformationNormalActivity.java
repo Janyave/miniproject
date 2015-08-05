@@ -2,7 +2,9 @@ package com.netease.ecos.activity;
 
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,6 +41,8 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
     EditText et_inputPassword2;
     @InjectView(R.id.ll_inputPassword)
     LinearLayout ll_inputPassword;
+    @InjectView(R.id.btn_right_action)
+    Button btn_right_action;
 
     private int TYPE=0;
 
@@ -89,27 +93,34 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
     private void initPasswordData() {
         ll_inputPassword.setVisibility(View.VISIBLE);
         et_input.setHint("请输入旧密码");
-        et_input.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        et_input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         et_inputPassword.setHint("请输入新密码");
         et_inputPassword2.setHint("请再次输入新密码");
     }
 
     @Override
     public void onClick(View v) {
+        Log.w("xuyun", TYPE + "");
         switch (v.getId()){
             case R.id.lly_left_action:
                 finish();
                 break;
             case R.id.lly_right_action:
+
                 //TODO change
                 switch (TYPE){
                     case TYPE_NAME:
+                        System.out.println("TYPE_NAME " + et_input.getText());
                         //TODO
                         break;
                     case TYPE_SIGNATURE:
+                        System.out.println("TYPE_SIGNATURE " + et_input.getText());
                         //TODO
                         break;
                     case TYPE_PASSWORD:
+                        System.out.println("TYPE_PASSWORD " + et_input.getText());
+                        System.out.println("TYPE_PASSWORD " + et_inputPassword.getText());
+                        System.out.println("TYPE_PASSWORD " + et_inputPassword.getText());
                         //TODO
                         break;
                 }
