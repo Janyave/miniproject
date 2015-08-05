@@ -124,7 +124,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
         shareId = getIntent().getExtras().getString(ShareId);
         //init the adapter
         exhibitListViewAdapter = new ExhibitListViewAdapter(this);
-        workDetailListViewAdapter = new WorkDetailListViewAdapter(this);
+        workDetailListViewAdapter = new WorkDetailListViewAdapter(this, false);
         //for NetWorkImageView
         queue = MyApplication.getRequestQueue();
         imageCache = new SDImageCache();
@@ -141,7 +141,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
         Display display = getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         width -= 80;
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, width * 4 / 3);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, width * 2 / 3);
         exhibitCoverImgVw.setLayoutParams(params);
     }
 
@@ -249,6 +249,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
             exhibitTitleContentTxVw.setText(share.content);
             Log.d(TAG, "share.imageList:" + share.imageList.size());
             exhibitListViewAdapter.updateDataList(share.imageList);
+            workDetailListViewAdapter.setCommentCount(share.commentNum);
             workDetailListViewAdapter.updateCommentList(share.commentList);
             setFavorBtn();
         }

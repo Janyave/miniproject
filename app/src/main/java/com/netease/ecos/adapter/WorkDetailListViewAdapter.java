@@ -22,26 +22,32 @@ import java.util.List;
  * Created by Think on 2015/7/22.
  */
 public class WorkDetailListViewAdapter extends BaseAdapter {
+    private boolean isDetail = false;
     private Context mcontext;
     private List<Comment> commentList;
     //for NetWorkImageView
     static ImageLoader.ImageCache imageCache;
     RequestQueue queue;
     ImageLoader imageLoader;
+    private int commentCount = 0;
 
-    public WorkDetailListViewAdapter(Context context) {
+    public WorkDetailListViewAdapter(Context context, boolean isDetail) {
         this.mcontext = context;
         //init the data for NetWorkImageView
         commentList = new ArrayList<>();
         queue = MyApplication.getRequestQueue();
         imageCache = new SDImageCache();
         imageLoader = new ImageLoader(queue, imageCache);
-
+        this.isDetail = isDetail;
     }
 
     public void updateCommentList(List<Comment> commentList) {
         this.commentList = commentList;
         notifyDataSetChanged();
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
     @Override
@@ -68,6 +74,7 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
             viewHolder.setImageView((RoundImageView) convertView.findViewById(R.id.commentPersonImgVw));
             viewHolder.setNameTxVw((TextView) convertView.findViewById(R.id.commentPersonNameTxVw));
             viewHolder.setCommentTxVw((TextView) convertView.findViewById(R.id.commentContentTxVw));
+            viewHolder.setAllCommentTxVw((TextView) convertView.findViewById(R.id.all_commentTxVw));
             convertView.setTag(viewHolder);
         } else
             viewHolder = (CommentViewHolder) convertView.getTag();
@@ -79,11 +86,16 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
         viewHolder.imageView.setImageUrl(commentList.get(position).avatarUrl, imageLoader);
         viewHolder.nameTxVw.setText(commentList.get(position).fromNickName);
         viewHolder.commentTxVw.setText(commentList.get(position).content);
+        if (position == 0 && !isDetail) {
+            viewHolder.all_commentTxVw.setVisibility(View.VISIBLE);
+            viewHolder.all_commentTxVw.setText(mcontext.getResources().getString(R.string.allComment) + commentCount + mcontext.getResources().getString(R.string.manyComment));
+        }
     }
 
     private static class CommentViewHolder {
         RoundImageView imageView;
         TextView nameTxVw, commentTxVw;
+        TextView all_commentTxVw;
 
         public void setImageView(RoundImageView imageView) {
             this.imageView = imageView;
@@ -95,6 +107,10 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
 
         public void setCommentTxVw(TextView commentTxVw) {
             this.commentTxVw = commentTxVw;
+        }
+
+        public void setAllCommentTxVw(TextView all_commentTxVw) {
+            this.all_commentTxVw = all_commentTxVw;
         }
     }
 }

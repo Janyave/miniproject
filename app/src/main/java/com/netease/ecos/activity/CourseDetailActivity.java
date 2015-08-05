@@ -193,7 +193,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                 bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.教程.getBelongs());
                 bundle.putBoolean(CommentDetailActivity.IsPraised, course.hasPraised);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForResult(intent, UploadAssignmentActivity.REQUEST_CODE_FOR_UPLOAD_ASSIGNMENT);
                 break;
             case R.id.ll_praise:
                 if (praiseRequest == null)
@@ -246,7 +246,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                 default:
                     Log.e("CLASS_TAG", "onActivityResult() 无对应");
             }
-        } else if (requestCode == UploadAssignmentActivity.REQUEST_CODE_FOR_UPLOAD_ASSIGNMENT && resultCode == UploadAssignmentActivity.RESULT_CODE_FOR_UPLOAD_ASSIGNMENT) {
+        } else if (requestCode == UploadAssignmentActivity.REQUEST_CODE_FOR_UPLOAD_ASSIGNMENT) {
             getCourseDetailRequest.request(getCourseDetailResponse, courseId);
         }
     }
@@ -289,7 +289,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         if (course.coverUrl != null && !course.coverUrl.equals(""))
             Picasso.with(CourseDetailActivity.this).load(course.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
         tv_otherWorks.setText(course.assignmentNum + getResources().getString(R.string.manyAssignment));
-        btn_allEvaluation.setText(course.commentNum + getResources().getString(R.string.manyComment));
+//        btn_allEvaluation.setText(course.commentNum + getResources().getString(R.string.manyComment));
         courseDetailStepAdapter = new CourseDetailStepAdapter(this, course.stepList);
         lv_courseStep.setAdapter(courseDetailStepAdapter);
         //if there is no assignment.
