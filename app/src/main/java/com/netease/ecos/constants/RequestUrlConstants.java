@@ -275,4 +275,9 @@ public class RequestUrlConstants {
      */
     public static final String GET_RECRUITMENT_DETAIL_URL = HOUZHE_HOST + "/m/recruit/detail?";
 
+
+    /**
+     * 点赞教程、分享
+     */
+    public static final String PRAISE_URL = HOST + "/m/course/praise?";
 }

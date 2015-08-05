@@ -26,6 +26,7 @@ import com.netease.ecos.adapter.ContactListAdapter;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.ActivityModel.ActivityType;
+import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.activity.CreateActivityRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
@@ -340,19 +341,22 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
             activityModel.coverUrl = originUrl;
             activityModel.introduction = activityDesrpEdTx.getText().toString();
             activityModel.fee = expenseEdTx.getText().toString();
-            //TODO: set the date.
-            activityModel.activityTime.startDateStamp = 1111111000;
-            activityModel.activityTime.endDateStamp = 1111111011;
+            //set the date
+            String date[] = beginDateEdTx.getText().toString().split("-");
+            activityModel.activityTime.startDateStamp = ModelUtils.getTimeStampByDate(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+            date = endDateEdTx.getText().toString().split("-");
+            activityModel.activityTime.endDateStamp = ModelUtils.getTimeStampByDate(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]));
+            //set the time
             activityModel.activityTime.dayStartTime = beginTimeEdTx.getText().toString();
             activityModel.activityTime.dayEndTime = endTimeEdTx.getText().toString();
             activityModel.activityType = activityTypes[activityTypeSpinner.getSelectedItemPosition()];
             activityModel.location.address = addressEdTx.getText().toString();
             //TODO:set the province and city.
-            activityModel.location.province.provinceName = activityProvinceSpinner.getSelectedItem().toString();
-            activityModel.location.city.cityName = activityCitySpinner.getSelectedItem().toString();
-            //TODO:set the contact way list.
-//            activityModel.contactWayList=
-//            createActivityRequest.request(createActivityResponce, activityModel);
+            activityModel.location.province.provinceCode = "1";
+            activityModel.location.city.cityCode = "2";
+            //set the contact way list
+            activityModel.contactWayList = getDataFromListView();
+            createActivityRequest.request(createActivityResponce, activityModel);
         }
 
         @Override
