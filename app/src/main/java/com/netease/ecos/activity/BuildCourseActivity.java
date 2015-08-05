@@ -8,9 +8,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,7 +81,7 @@ public class BuildCourseActivity extends BaseActivity {
     @InjectView(R.id.btn_iss_course)
     Button btn_iss_course;
 
-//    public SetPhotoHelper mSetPhotoHelper;
+    public SetPhotoHelper mSetPhotoHelper;
 
     public String DESCRIPTIONS[] = {"卸妆", "补水", "上霜", "画眼线", "做头发"};
 
@@ -137,6 +139,7 @@ public class BuildCourseActivity extends BaseActivity {
         //注解工具初始化
         ButterKnife.inject(this);
         initData();
+        initView();
     }
 
     private void initData() {
@@ -235,6 +238,25 @@ public class BuildCourseActivity extends BaseActivity {
     }
 
 
+    public void initView(){
+
+        iv_course_cover.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener(){
+
+            @Override
+            public void onGlobalLayout() {
+
+                int width = getResources().getDisplayMetrics().widthPixels;
+                int height = getResources().getDisplayMetrics().heightPixels;
+
+                RelativeLayout.LayoutParams coverParam = (RelativeLayout.LayoutParams) iv_course_cover.getLayoutParams();
+                coverParam.height = width*2/3;
+                iv_course_cover.setLayoutParams(coverParam);
+                iv_course_cover.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+            }
+        });
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -272,7 +294,7 @@ public class BuildCourseActivity extends BaseActivity {
         }
 
         Log.i(TAG, "标题:" + "当前正在设置封面图" + isSettingCoverPhoto);
-        Log.i(TAG,"封面url:" + "当前正在设置步骤" + isSettingCoursePhoto );
+        Log.i(TAG, "封面url:" + "当前正在设置步骤" + isSettingCoursePhoto);
         Log.i(TAG, "标题:" + "当前操作的教程步骤序号" + mCouserStepPosition);
 
 //        Log.i("onSaveInstanceState", getCourseByPage().toString());
@@ -396,6 +418,20 @@ public class BuildCourseActivity extends BaseActivity {
                 //发布教程
                 case R.id.btn_iss_course:
 //                    startActivity(new Intent(BuildCourseActivity.this, MainActivity.class));
+                    if(mCoverLocalPath==null || "".equals(mCoverLocalPath)){
+                        Toast.makeText(BuildCourseActivity.this, "请上传封面图", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    if("".equals(etv_course_title.getText().toString())){
+                        Toast.makeText(BuildCourseActivity.this, "请填写教程名称", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    if (mCourseStepAdapter.isSomeEmpty()) {
+                        Toast.makeText(BuildCourseActivity.this, "请将步骤补充完整再进行添加", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     createCourse();
 
                     break;

@@ -11,13 +11,13 @@
     <LinearLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:orientation="horizontal" >
+	    android:orientation="vertical" >
 	    <EditText
 	        android:id="@+id/etv_accid"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:hint="请输入accid"
-	        android:text="test2" />
+	        android:text="2255be0951400e260832c85c5d191247" />
 	
 	    <EditText
 	        android:id="@+id/etv_content"

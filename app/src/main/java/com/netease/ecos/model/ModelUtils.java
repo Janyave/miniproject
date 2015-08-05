@@ -46,5 +46,22 @@ public class ModelUtils {
 		return sd;
 	}
 
+	/***
+	 * 根据日期获取时间戳
+	 * @param year 年纷
+	 * @param month 月份，从1开始
+	 * @param day 日，从1开始
+	 * @return
+	 */
+	public static Date getTimeStampByDate(int year,int month, int day){
+		Date date = new Date();
+		date.setYear(year-1900);
+		date.setMonth(month-1);
+		date.setDate(day);
+
+		return date;
+
+	}
+
 }
 

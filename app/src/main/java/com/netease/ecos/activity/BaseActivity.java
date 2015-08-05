@@ -80,7 +80,7 @@ public class BaseActivity extends ActionBarActivity {
 
         if (mProgressDialog == null) {
             //mMyProgressDialog初始化
-            mProgressDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE).setTitleText("Loading");
+            mProgressDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE).setTitleText(title);
             mProgressDialog.setCancelable(false);
             mProgressDialog.setCanceledOnTouchOutside(false);
         }

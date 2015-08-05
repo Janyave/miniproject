@@ -21,6 +21,9 @@ import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.request.user.RegistRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
+import com.netease.ecos.utils.UploadImageTools;
+
+import java.io.File;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -101,6 +104,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                                 Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
                                 iv_avatar.setImageBitmap(bitmap);
                                 isSettingAvatart = false;
+
                             }
                         });
                         mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_BEFORE_CROP, data);
@@ -128,9 +132,40 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         switch (v.getId()){
             case R.id.tv_complete:
                 //TODO 注册
-                RegistRequest request = new RegistRequest();
-                request.request(new RegistResponse(), getIntent().getStringExtra("phone"), et_password.getText().toString(), et_name.getText().toString(),
-                        "http://img5.imgtn.bdimg.com/it/u=3692347433,431191650&fm=21&gp=0.jpg");
+
+                showProcessBar("注册...");
+                //先上传文件
+                if(mAvatarLocalPath!=null && !"".equals(mAvatarLocalPath)){
+                    UploadImageTools.uploadImageSys(new File(mAvatarLocalPath),new UploadImageTools.UploadCallBack(){
+
+                        @Override
+                        public void success(String originUrl, String thumbUrl) {
+                            Log.e(TAG,"图片url:" + originUrl);
+
+                            RegistRequest request = new RegistRequest();
+                            request.request(new RegistResponse(), getIntent().getStringExtra("phone"), et_password.getText().toString(), et_name.getText().toString(),
+                                    originUrl);
+                            dismissProcessBar();
+                        }
+
+                        @Override
+                        public void fail() {
+                            dismissProcessBar();
+                        }
+
+                        @Override
+                        public void onProcess(Object fileParam, long current, long total) {
+
+                        }
+                    },RegistActivity.this,false);
+                }
+                else{
+                    RegistRequest request = new RegistRequest();
+                    request.request(new RegistResponse(), getIntent().getStringExtra("phone"),
+                            et_password.getText().toString(), et_name.getText().toString(),"");
+                    dismissProcessBar();
+                }
+
                 break;
             case R.id.iv_avatar:
                 //TODO 选择头像
@@ -142,12 +177,14 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                             public void choosePhotoFromLocal() {
                                 Toast.makeText(RegistActivity.this, "选择本地图片", Toast.LENGTH_LONG).show();
                                 mSetPhotoHelper.choosePhotoFromLocal();
+                                isSettingAvatart = true;
                             }
 
                             @Override
                             public void takePhoto() {
                                 Toast.makeText(RegistActivity.this, "拍照", Toast.LENGTH_LONG).show();
                                 mSetPhotoHelper.takePhoto(false);
+                                isSettingAvatart = true;
 
                             }
                         });
