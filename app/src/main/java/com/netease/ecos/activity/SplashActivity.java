@@ -8,9 +8,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.netease.ecos.R;
+import com.netease.ecos.database.CityDBService;
+import com.netease.ecos.database.ProvinceDBService;
+import com.netease.ecos.model.City;
 import com.netease.ecos.model.ConfigurationService;
+import com.netease.ecos.model.Province;
 import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.initial.GetCityListRequest;
+import com.netease.ecos.request.initial.GetProvinceListRequest;
 import com.netease.ecos.request.initial.InitialRequest;
 
 import java.util.ArrayList;
@@ -48,10 +53,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initData() {
-
         requestInitialData();
-
-
     }
 
     @Override
@@ -85,7 +87,19 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 
         mInitialRequestList = new ArrayList<InitialRequest>();
 
-        if(!ConfigurationService.getConfigurationService(this).getGrographyDataDownloaded())
+        if(!ConfigurationService.getConfigurationService(this).getProvinceDataDownloaded())
+        {
+            GetProvinceListRequest getProvinceListRequest = new GetProvinceListRequest();
+            mInitialRequestList.add(getProvinceListRequest);
+            getProvinceListRequest.requestCityList(responseCallBack);
+
+        }
+        else
+        {
+            Log.i(TAG, "省市数据已经加载过了");
+        }
+
+        if(!ConfigurationService.getConfigurationService(this).getCityDataDownloaded())
         {
             GetCityListRequest getCitysRequest = new GetCityListRequest();
             mInitialRequestList.add(getCitysRequest);
@@ -133,6 +147,20 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
         }
 
         initialDataLoaded = true;
+
+        List<City> cityList = CityDBService.getCityDBServiceInstance(MyApplication.getContext())
+                .getCityList();
+
+        for(City city:cityList){
+            Log.e("城市", city.toString());
+        }
+
+        List<Province> provinceList = ProvinceDBService.getProvinceDBServiceInstance(MyApplication.getContext())
+                .getProvinceList();
+
+        for(Province province:provinceList){
+            Log.e("省", province.toString());
+        }
     }
 
     /**
