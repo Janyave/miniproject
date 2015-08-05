@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark_trans">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/width_line">
+        <RadioGroup
+            android:id="@+id/rg_sort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_popup_frame">
+        <RadioButton
+            android:id="@+id/rbtn1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:button="@android:color/transparent"
+            android:paddingLeft="@dimen/margin_40px"
+            android:text="按发布时间排序"
+            style="@style/text_gray_mid"
+            android:textColor="@color/radio_sort_text"/>
+            <TextView style="@style/layout_line_gray"/>
+        </RadioGroup>
+    </LinearLayout>
+
+</LinearLayout>

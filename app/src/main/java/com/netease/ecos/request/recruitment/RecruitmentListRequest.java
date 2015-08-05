@@ -182,10 +182,7 @@ public class RecruitmentListRequest extends BaseRequest {
                 Map<String, String> map = getRequestBasicMap();
 
                 map.put("isMyself", "true");
-                if(otherUserId==null)
-                    map.put(KEY_USER_ID, getUserId());
-                else
-                    map.put(KEY_USER_ID, otherUserId);
+
                 map.put(KEY_RECRUITMENT_TYPE, "");
 
                 map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));

@@ -21,6 +21,19 @@
         <item name="android:layout_weight">1.0</item>
     </style>
 
+    <!-- 个人中心tab按钮样式-->
+    <style name="rb_center_list_tab">
+        <item name="android:background">@drawable/radio_bg_gray</item>        
+        <item name="android:textSize">@dimen/text_size_36</item>
+        <item name="android:textColor">@color/txt_color_center_tab_selector</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:gravity">center</item>  
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:button">@null</item>  
+        <item name="android:layout_weight">1.0</item>
+    </style>
+
     <!-- 自定义对话框样式-->
     <style name="customDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>

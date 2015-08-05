@@ -5,11 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +34,7 @@ import com.netease.ecos.views.FloadingButton;
 import com.netease.ecos.views.ListViewListener;
 import com.netease.ecos.views.XListView;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -56,6 +64,15 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     LinearLayout ll_left;
     @InjectView(R.id.tv_left)
     TextView tv_left;
+
+    @InjectView(R.id.ll_sortType)
+    LinearLayout ll_sortType;
+    @InjectView(R.id.tv_sortText)
+    TextView tv_sortText;
+    @InjectView(R.id.iv_sortIcon)
+    ImageView iv_sortIcon;
+
+    private PopupWindow popupSortType;
 
     private ArrayAdapter<CourseListRequest.SortRule> spAdapter;
     private static final CourseListRequest.SortRule[] SORT_RULES = {CourseListRequest.SortRule.时间, CourseListRequest.SortRule.被关注数, CourseListRequest.SortRule.被点赞数};
@@ -129,6 +146,8 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // not use
+        //now use in popupWindow
         request.request(courseListResponse, CourseListRequest.Type.筛选,
                 courseType, searchWords, SORT_RULES[position], 0);
     }
@@ -266,6 +285,23 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     }
 
     private void initListener() {
+        ll_sortType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (popupSortType == null) {
+                    showSortTypePopupWindow(v);
+                    iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_up);
+                } else if (popupSortType.isShowing()) {
+                    popupSortType.dismiss();
+                    iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);
+                } else {
+                    showSortTypePopupWindow(v);
+                    iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_up);
+                }
+            }
+        });
+
+
         iv_search.setOnClickListener(this);
         ll_left.setOnClickListener(this);
         lly_left_action.setOnClickListener(this);
@@ -365,5 +401,77 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 //                lvIndext = nowIndext;
 //            }
 //        });
+    }
+
+    private void showSortTypePopupWindow(final View view) {
+
+        // 一个自定义的布局，作为显示的内容
+        View contentView = LayoutInflater.from(this).inflate(R.layout.popup_course_sort, null);
+        // 设置按钮的点击事件
+        final RadioGroup rg=(RadioGroup) contentView.findViewById(R.id.rg_sort);
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                //use
+                int type=0;
+                switch (group.getCheckedRadioButtonId()){
+                    case R.id.rbtn1:
+                        type=0;
+                        break;
+                    case R.id.rbtn2:
+                        type=1;
+                        break;
+                    case R.id.rbtn3:
+                        type=2;
+                        break;
+                }
+                tv_sortText.setText(((RadioButton)rg.getChildAt(type)).getText().toString());
+                ((RadioButton)rg.getChildAt(type)).setTextColor(getResources().getColor(R.color.text_red));
+                request.request(courseListResponse, CourseListRequest.Type.筛选,
+                        courseType, searchWords, SORT_RULES[type], 0);
+                iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);
+                popupSortType.dismiss();
+            }
+        });
+
+        popupSortType = new PopupWindow(contentView,ll_sortType.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT, true);
+
+        popupSortType.setTouchable(true);
+        setPopupWindowTouchModal(popupSortType, false);// 使得popupWindow在显示的时候，popupWindow外部的控件也能够获得焦点
+        popupSortType.setTouchInterceptor(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                Log.i("mengdd", "onTouch : ");
+
+                return false;
+                // 这里如果返回true的话，touch事件将被拦截
+                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+            }
+        });
+
+        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
+        // 我觉得这里是API的一个bug
+//        popupSortType.setBackgroundDrawable(getResources().getDrawable(
+//                R.drawable.bg_popup_frame));
+//        popupSortType.setBackgroundDrawable(getResources().getColor(android.R.color.transparent));
+
+        // 设置好参数之后再show
+        popupSortType.showAsDropDown(view);
+    }
+
+    public static void setPopupWindowTouchModal(PopupWindow popupWindow, boolean touchModal) {
+        if (null == popupWindow) {
+            return;
+        }
+        Method method;
+        try {
+            method = PopupWindow.class.getDeclaredMethod("setTouchModal", boolean.class);
+            method.setAccessible(true);
+            method.invoke(popupWindow, touchModal);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

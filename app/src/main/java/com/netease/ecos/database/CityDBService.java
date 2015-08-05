@@ -98,14 +98,14 @@ public class CityDBService implements ICityService{
 		
 		List<City> cityList=mCityDAO.queryForMatchingArgs(city);
 		
-		return cityList.size()>0?cityList.get(0).getId():"-1";
+		return cityList.size()>0?cityList.get(0).getCityCode():"-1";
 	}
 
 
 	@Override
 	public String getCityName(String cityId) {
 		City city = new City();
-		city.setId(cityId);
+		city.setCityCode(cityId);
 		
 		List<City> cityList=mCityDAO.queryForMatchingArgs(city);
 		

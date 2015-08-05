@@ -70,6 +70,7 @@
     <color name="bg_red">#f2457d</color>
     <color name="bg_red_light_light">#fba1bd</color>
     <color name="bg_gray_transparent">#99000000</color>
+    <color name="bg_dark_trans">#eff1f0</color>
 
     <!-- 搜索框填充色-->
     <color name="bg_red_light">#f6759e</color>
@@ -79,7 +80,7 @@
 
     <!-- 按钮点击效果-->
     <color name="btn_red_press">#e62d69</color>
-    <color name="btn_white_press">#ebebeb</color>
+    <color name="btn_white_press">#f6f6f6</color>
     <color name="btn_red_disable">#bebebe</color>
 
     <!-- login & regist input text color-->

@@ -14,8 +14,11 @@ public class ConfigurationService {
 	private final int WRITE_MODE = Context.MODE_WORLD_WRITEABLE;
 	
 	
-	/*** 省、市数据是否加载过，true:加载过；false:未加载过。 只需加载一次 */
-	private final static String IS_GROGRAPHY_DATA_DOWNLOADED = "isGrographyDataDownloaded";
+	/*** 省分份数据是否加载过，true:加载过；false:未加载过。 只需加载一次 */
+	private final static String IS_PROVINCE_DATA_DOWNLOADED = "ispRrovinceDataDownloaded";
+
+	/*** 城市数据是否加载过，true:加载过；false:未加载过。 只需加载一次 */
+	private final static String IS_CITY_DATA_DOWNLOADED = "isCityDataDownloaded";
 	
 	/*** 是否有新报名 */
 	private final static String IS_THERE_NEW_APPLICATION = "isThereNewApplication";
@@ -69,14 +72,14 @@ public class ConfigurationService {
 	
 	
 	/***
-	 * 标志省市数据已经加载过了
+	 * 标志省数据已经加载过了
 	 */
-	public void setGrographyDataDownloaded()
+	public void setProvinceDataDownloaded()
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,WRITE_MODE);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		
-		editor.putBoolean(IS_GROGRAPHY_DATA_DOWNLOADED, true);
+		editor.putBoolean(IS_PROVINCE_DATA_DOWNLOADED, true);
 		editor.commit();
 	}
 	
@@ -85,12 +88,37 @@ public class ConfigurationService {
 	 * 省市数据是否已经加载
 	 * @return true 已经加载；false 为加载；
 	 */
-	public boolean getGrographyDataDownloaded()
+	public boolean getProvinceDataDownloaded()
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
-		Log.e(TAG, "identity:"+sharedPreferences.getBoolean(IS_GROGRAPHY_DATA_DOWNLOADED, false));
+		Log.e(TAG, "identity:"+sharedPreferences.getBoolean(IS_PROVINCE_DATA_DOWNLOADED, false));
 		
-		return sharedPreferences.getBoolean(IS_GROGRAPHY_DATA_DOWNLOADED, false);
+		return sharedPreferences.getBoolean(IS_PROVINCE_DATA_DOWNLOADED, false);
+	}
+
+	/***
+	 * 标志城市数据已经加载过了
+	 */
+	public void setCityDataDownloaded()
+	{
+		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,WRITE_MODE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+
+		editor.putBoolean(IS_CITY_DATA_DOWNLOADED, true);
+		editor.commit();
+	}
+
+
+	/****
+	 * 城市市数据是否已经加载
+	 * @return true 已经加载；false 为加载；
+	 */
+	public boolean getCityDataDownloaded()
+	{
+		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
+		Log.e(TAG, "identity:"+sharedPreferences.getBoolean(IS_CITY_DATA_DOWNLOADED, false));
+
+		return sharedPreferences.getBoolean(IS_CITY_DATA_DOWNLOADED, false);
 	}
 	
 	
