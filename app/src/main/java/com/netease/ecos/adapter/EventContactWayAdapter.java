@@ -17,9 +17,9 @@ import java.util.List;
  */
 public class EventContactWayAdapter extends BaseAdapter {
     private Context mcontext;
-    private List<ActivityModel.ContactWay> contactWayList;
+    private List<ActivityModel.Contact> contactWayList;
 
-    public EventContactWayAdapter(Context context, List<ActivityModel.ContactWay> contactWayList) {
+    public EventContactWayAdapter(Context context, List<ActivityModel.Contact> contactWayList) {
         this.mcontext = context;
         this.contactWayList = contactWayList;
     }
@@ -39,14 +39,14 @@ public class EventContactWayAdapter extends BaseAdapter {
          * 传入数据未定
          */
         public void setData(final int position) {
-            ActivityModel.ContactWay contactWay = contactWayList.get(position);
+            ActivityModel.ContactWay contactWay = contactWayList.get(position).contactWay;
             if (contactWay == ActivityModel.ContactWay.QQ || contactWay == ActivityModel.ContactWay.QQ群)
                 iv_type.setImageResource(R.mipmap.ic_qq_pink);
             else if (contactWay == ActivityModel.ContactWay.电话)
                 iv_type.setImageResource(R.mipmap.ic_phone_pink);
             else
                 iv_type.setImageResource(R.mipmap.ic_weibo_pink);
-            tv_detail.setText(contactWay.getValue());
+            tv_detail.setText(contactWayList.get(position).value);
         }
     }
 

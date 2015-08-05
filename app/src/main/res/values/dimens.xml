@@ -144,7 +144,7 @@
 
     <!-- 头像-->
     <dimen name="circle_icon_140px">52dp</dimen>
-    <dimen name="circle_icon_108px">36dp</dimen>
+    <dimen name="circle_icon_108px">44dp</dimen>
     <dimen name="radius_circle_icon_108px">18dp</dimen>
     <dimen name="circle_icon_100px">34dp</dimen>
     <dimen name="circle_icon_80px">28dp</dimen>
@@ -218,7 +218,9 @@
     <dimen name="height_notification_40px">14dp</dimen>
     <dimen name="radius_notification_40px">5dp</dimen>
     <dimen name="width_notification_contact_new_60px">15dp</dimen>
-
+    <dimen name="width_tag_226px">85dp</dimen>
+    <dimen name="height_tag_80px">32dp</dimen>
+    <dimen name="radius_tag_80px">16dp</dimen>
 
 
 </resources>

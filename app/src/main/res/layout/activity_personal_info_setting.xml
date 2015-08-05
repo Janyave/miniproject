@@ -130,6 +130,7 @@
 
         <LinearLayout
             android:id="@+id/ll_name"
+            android:background="@drawable/ll_white"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
@@ -167,6 +168,7 @@
 
         <LinearLayout
             android:id="@+id/ll_gender"
+            android:background="@drawable/ll_white"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
@@ -203,8 +205,49 @@
             android:layout_marginRight="@dimen/margin_40px"></View>
 
         <LinearLayout
+            android:id="@+id/ll_tags"
+            android:background="@drawable/ll_white"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_40px"
+            android:paddingRight="@dimen/margin_40px">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="标签"
+                style="@style/text_dark_max" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <LinearLayout
+                android:id="@+id/ll_tagsList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical|right">
+                <include layout="@layout/item_tag"/>
+            </LinearLayout>
+            <ImageView
+                android:layout_width="@dimen/icon_more_36px"
+                android:layout_height="@dimen/icon_more_36px"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_more" />
+        </LinearLayout>
+
+        <View style="@style/layout_line_gray"
+            android:layout_marginLeft="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_40px"></View>
+
+        <LinearLayout
             android:id="@+id/ll_signature"
             android:layout_width="match_parent"
+            android:background="@drawable/ll_white"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
@@ -317,6 +360,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
+            android:background="@drawable/ll_white"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/margin_40px"
             android:paddingRight="@dimen/margin_40px">
