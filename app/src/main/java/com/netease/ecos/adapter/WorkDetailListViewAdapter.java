@@ -64,7 +64,7 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
         CommentViewHolder viewHolder;
         if (convertView == null) {
             viewHolder = new CommentViewHolder();
-            convertView = LayoutInflater.from(mcontext).inflate(R.layout.comment_detail_layout, null);
+            convertView = LayoutInflater.from(mcontext).inflate(R.layout.item_comment_detail_more, null);
             viewHolder.setImageView((RoundImageView) convertView.findViewById(R.id.commentPersonImgVw));
             viewHolder.setNameTxVw((TextView) convertView.findViewById(R.id.commentPersonNameTxVw));
             viewHolder.setCommentTxVw((TextView) convertView.findViewById(R.id.commentContentTxVw));
