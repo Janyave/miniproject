@@ -44,6 +44,8 @@ import java.util.List;
  */
 public class CommunityFragment extends Fragment implements View.OnClickListener, XListView.IXListViewListener, CommunityCallBack {
 
+    private static final String TAG = "Ecos---CommunityF";
+
     private View mainView;
     private Button btn_location, btn_categary;
     private FloadingButton btn_floading;
@@ -210,6 +212,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         btn_floading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "onclick");
                 Intent intent = new Intent(CommunityFragment.this.getActivity(), NewActivityActivity.class);
                 startActivity(intent);
             }

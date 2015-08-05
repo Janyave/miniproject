@@ -120,9 +120,6 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
         activityTypeAdapter = new ArrayAdapter<ActivityType>(this, android.R.layout.simple_list_item_1, activityTypes);
         provinceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"浙江"});
         cityAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, new String[]{"杭州"});
-        //send the request
-        CreateActivityRequest request = new CreateActivityRequest();
-        request.testData(new CreateActivityResponce(), new ActivityModel());
         //init the calendar
         calendar = Calendar.getInstance();
         //choose the cover image
