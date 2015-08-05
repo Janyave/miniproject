@@ -53,13 +53,13 @@ public class ModelUtils {
 	 * @param day 日，从1开始
 	 * @return
 	 */
-	public static Date getTimeStampByDate(int year,int month, int day){
+	public static long getTimeStampByDate(int year,int month, int day){
 		Date date = new Date();
 		date.setYear(year-1900);
 		date.setMonth(month-1);
 		date.setDate(day);
 
-		return date;
+		return date.getTime();
 
 	}
 
