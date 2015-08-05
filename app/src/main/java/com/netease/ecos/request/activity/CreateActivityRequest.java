@@ -129,12 +129,11 @@ public class CreateActivityRequest extends BaseRequest {
         jsonMap.put("description", activity.introduction);
         jsonMap.put("fee", activity.fee);
 
-        JSONObject locationJO = new JSONObject();
+
+        jsonMap.put("provinceCode", activity.location.province.provinceCode);
+        jsonMap.put("cityCode", activity.location.city.cityCode);
+        jsonMap.put("address", activity.location.address);
         try {
-            locationJO.put("provinceCode", activity.location.province.provinceCode);
-            locationJO.put("cityCode", activity.location.city.cityCode);
-            locationJO.put("address", activity.location.address);
-            jsonMap.put("location", locationJO);
 
             List<Object> contactWayList = new ArrayList<Object>();
 
