@@ -19,6 +19,7 @@ import com.netease.ecos.model.LocationData;
 import com.netease.ecos.model.LocationDataService;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.request.user.SendLocationRequest;
 import com.netease.ecos.utils.MyMediaScanner;
 import com.netease.ecos.utils.yunxin.ScreenUtil;
 import com.netease.ecos.utils.yunxin.SystemUtil;
@@ -298,6 +299,9 @@ public class MyApplication extends Application {
 
                 }
                 LocationDataService.getBDLocationDataService(getApplicationContext()).save(locationData);
+
+                new SendLocationRequest().request(null,String.valueOf(location.getLatitude()),
+                        String.valueOf(location.getLongitude()));
             }
             else
             {

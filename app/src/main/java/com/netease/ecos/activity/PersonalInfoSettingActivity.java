@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.netease.ecos.R;
 import com.netease.ecos.utils.RoundAngleImageView;
@@ -30,20 +31,33 @@ import java.io.PipedInputStream;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 
 public class PersonalInfoSettingActivity extends BaseActivity {
 
     private static final String[] gender = {"男", "女", "保密"};
 
+    //show
     private LinearLayout mReturn;
     private RoundImageView mAvatarImg;
     private ImageView mSetAvatar;
     private TextView mSetName;
     private TextView mSetGender;
     private TextView mSetIntro;
-    private ImageView mSetPwd;
     private Switch mSetMsgAlert;
     private Button mLogOut;
+
+    //click
+    @InjectView(R.id.ll_name)
+    LinearLayout ll_name;
+    @InjectView(R.id.ll_gender)
+    LinearLayout ll_gender;
+    @InjectView(R.id.ll_signature)
+    LinearLayout ll_signature;
+    @InjectView(R.id.ll_password)
+    LinearLayout ll_password;
 
 //    private RoundAngleImageView iv;
 
@@ -52,6 +66,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_info_setting);
+        ButterKnife.inject(this);
         onBoundView();
         onBoundLinster();
 //        iv = (RoundAngleImageView) findViewById(R.id.picasso_test);
@@ -67,7 +82,6 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         mSetName = (TextView) findViewById(R.id.personal_info_set_name);
         mSetGender = (TextView) findViewById(R.id.personal_info_set_gender);
         mSetIntro = (TextView) findViewById(R.id.personal_info_set_intro);
-        mSetPwd = (ImageView) findViewById(R.id.personal_info_set_pwd);
         mSetMsgAlert = (Switch) findViewById(R.id.personal_info_set_Msg_alert);
         mLogOut = (Button) findViewById(R.id.personal_info_logout);
     }
@@ -78,8 +92,12 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         mReturn.setOnClickListener(listener);
         mSetAvatar.setOnClickListener(listener);
         mAvatarImg.setOnClickListener(listener);
-        mSetPwd.setOnClickListener(listener);
         mLogOut.setOnClickListener(listener);
+
+        ll_name.setOnClickListener(listener);
+        ll_gender.setOnClickListener(listener);
+        ll_signature.setOnClickListener(listener);
+        ll_password.setOnClickListener(listener);
 
         //bound spinner linster
         bonudSpinner();
@@ -103,13 +121,34 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                 case R.id.lly_left_action:
                     finish();
                     break;
-
                 case R.id.personal_info_set_avatar_pic:
                 case R.id.personal_info_set_avatar:
                     //TODO set avatar
                     break;
-                case R.id.personal_info_set_pwd:
-                    //TODO set pwd
+                case R.id.ll_name:
+                    Intent intent2=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormal.class);
+                    Bundle bundle2=new Bundle();
+                    bundle2.putInt(PersonSetInformationNormal.ACTICITY_TYPE,PersonSetInformationNormal.TYPE_NAME);
+                    intent2.putExtras(bundle2);
+                    startActivity(intent2);
+                    break;
+                case R.id.ll_gender:
+                    //TODO gender
+                    Toast.makeText(PersonalInfoSettingActivity.this,"wait!",Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.ll_signature:
+                    Intent intent3=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormal.class);
+                    Bundle bundle3=new Bundle();
+                    bundle3.putInt(PersonSetInformationNormal.ACTICITY_TYPE,PersonSetInformationNormal.TYPE_SIGNATURE);
+                    intent3.putExtras(bundle3);
+                    startActivity(intent3);
+                    break;
+                case R.id.ll_password:
+                    Intent intent1=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormal.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putInt(PersonSetInformationNormal.ACTICITY_TYPE,PersonSetInformationNormal.TYPE_PASSWORD);
+                    intent1.putExtras(bundle);
+                    startActivity(intent1);
                     break;
                 case R.id.personal_info_logout:
                     Intent intent=new Intent(PersonalInfoSettingActivity.this,SplashActivity.class);

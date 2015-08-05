@@ -158,10 +158,7 @@ public class Course {
                     + content + ", praiseNum=" + praiseNum + "]";
         }
 
-
     }
-
-
 
 
     /**
@@ -248,7 +245,6 @@ public class Course {
                     + ", imageUrl=" + imageUrl + ", description=" + description
                     + "]";
         }
-
 
     }
 
