@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -41,6 +42,16 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
     @InjectView(R.id.pager)
     ViewPager mViewPager;
+
+
+    @InjectView(R.id.iv_tag1)
+    ImageView iv_tag1;
+    @InjectView(R.id.iv_tag2)
+    ImageView iv_tag2;
+    @InjectView(R.id.iv_tag3)
+    ImageView iv_tag3;
+    @InjectView(R.id.iv_tag4)
+    ImageView iv_tag4;
 
 
     /**
@@ -219,6 +230,26 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         if (mViewPager != null && (index >= 0 && index <= 3)) {
             mViewPager.setCurrentItem(index);
             mCurrentTab = index;
+        }
+
+        iv_tag1.setImageResource(R.mipmap.ic_crouse);
+        iv_tag2.setImageResource(R.mipmap.ic_share);
+        iv_tag3.setImageResource(R.mipmap.ic_activity);
+        iv_tag4.setImageResource(R.mipmap.ic_recruite);
+
+        switch (index){
+            case TAB_COURSE_INDEX:
+                iv_tag1.setImageResource(R.mipmap.ic_crouse_check);
+                break;
+            case TAB_DISPLAY_INDEX:
+                iv_tag2.setImageResource(R.mipmap.ic_share_check);
+                break;
+            case TAB_COMMUCITY_INDEX:
+                iv_tag3.setImageResource(R.mipmap.ic_activity_check);
+                break;
+            case TAB_TRANSACTION_INDEX:
+                iv_tag4.setImageResource(R.mipmap.ic_recruite_check);
+                break;
         }
     }
 

@@ -105,7 +105,7 @@
                 </LinearLayout>
 
                 <include
-                    layout="@layout/comment_title" />
+                    layout="@layout/item_comment_title" />
 
                 <com.netease.ecos.views.ExtensibleListView
                     android:id="@+id/workDetailsLsVw"
