@@ -1,35 +1,20 @@
 package com.netease.ecos.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.netease.ecos.R;
-import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-
-import java.io.PipedInputStream;
-import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -48,6 +33,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     private TextView mSetIntro;
     private Switch mSetMsgAlert;
     private Button mLogOut;
+    private LinearLayout ll_tagsList;
 
     //click
     @InjectView(R.id.ll_name)
@@ -58,6 +44,8 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     LinearLayout ll_signature;
     @InjectView(R.id.ll_password)
     LinearLayout ll_password;
+    @InjectView(R.id.ll_tags)
+    LinearLayout ll_tags;
 
 //    private RoundAngleImageView iv;
 
@@ -84,6 +72,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         mSetIntro = (TextView) findViewById(R.id.personal_info_set_intro);
         mSetMsgAlert = (Switch) findViewById(R.id.personal_info_set_Msg_alert);
         mLogOut = (Button) findViewById(R.id.personal_info_logout);
+        ll_tagsList=(LinearLayout) findViewById(R.id.ll_tagsList);  //add tags in this layout
     }
 
     private void onBoundLinster() {
@@ -98,6 +87,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         ll_gender.setOnClickListener(listener);
         ll_signature.setOnClickListener(listener);
         ll_password.setOnClickListener(listener);
+        ll_tags.setOnClickListener(listener);
 
         //bound spinner linster
         bonudSpinner();
@@ -126,9 +116,9 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     //TODO set avatar
                     break;
                 case R.id.ll_name:
-                    Intent intent2=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormal.class);
+                    Intent intent2=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormalActivity.class);
                     Bundle bundle2=new Bundle();
-                    bundle2.putInt(PersonSetInformationNormal.ACTICITY_TYPE,PersonSetInformationNormal.TYPE_NAME);
+                    bundle2.putInt(PersonSetInformationNormalActivity.ACTICITY_TYPE, PersonSetInformationNormalActivity.TYPE_NAME);
                     intent2.putExtras(bundle2);
                     startActivity(intent2);
                     break;
@@ -136,17 +126,20 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     //TODO gender
                     Toast.makeText(PersonalInfoSettingActivity.this,"wait!",Toast.LENGTH_SHORT).show();
                     break;
+                case R.id.ll_tags:
+                    startActivity(new Intent(PersonalInfoSettingActivity.this, PersonSetTagsActivity.class));
+                    break;
                 case R.id.ll_signature:
-                    Intent intent3=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormal.class);
+                    Intent intent3=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormalActivity.class);
                     Bundle bundle3=new Bundle();
-                    bundle3.putInt(PersonSetInformationNormal.ACTICITY_TYPE,PersonSetInformationNormal.TYPE_SIGNATURE);
+                    bundle3.putInt(PersonSetInformationNormalActivity.ACTICITY_TYPE, PersonSetInformationNormalActivity.TYPE_SIGNATURE);
                     intent3.putExtras(bundle3);
                     startActivity(intent3);
                     break;
                 case R.id.ll_password:
-                    Intent intent1=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormal.class);
+                    Intent intent1=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormalActivity.class);
                     Bundle bundle=new Bundle();
-                    bundle.putInt(PersonSetInformationNormal.ACTICITY_TYPE,PersonSetInformationNormal.TYPE_PASSWORD);
+                    bundle.putInt(PersonSetInformationNormalActivity.ACTICITY_TYPE, PersonSetInformationNormalActivity.TYPE_PASSWORD);
                     intent1.putExtras(bundle);
                     startActivity(intent1);
                     break;
