@@ -22,14 +22,15 @@
         android:layout_height="match_parent"
         android:src="@drawable/img_default"
         android:scaleType="centerCrop"/>
-        <CheckBox
+        <ImageView
             android:id="@+id/checkbox"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/icon_big_64px"
+            android:layout_height="@dimen/icon_big_64px"
+            android:scaleType="centerCrop"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/margin_50px"
             android:layout_marginRight="@dimen/margin_50px"
-            android:button="@drawable/checkbox"/>
+            android:src="@mipmap/ic_choose_false"/>
     </RelativeLayout>
 
         <LinearLayout

@@ -47,7 +47,7 @@ public class NewDisplayListAdater extends BaseAdapter {
             viewHolder.coverImgVw = (ImageView) convertView.findViewById(R.id.displayCoverImVw);
             viewHolder.titleTxVw = (TextView) convertView.findViewById(R.id.displayTitleTxVw);
             viewHolder.favorTxVw = (TextView) convertView.findViewById(R.id.displayFavorTxVw);
-            viewHolder.checkBox = (CheckBox) convertView.findViewById(R.id.checkbox);
+            viewHolder.checkBox = (ImageView) convertView.findViewById(R.id.checkbox);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (DisplayItemViewHolder) convertView.getTag();
@@ -57,11 +57,14 @@ public class NewDisplayListAdater extends BaseAdapter {
     }
 
     void setData(DisplayItemViewHolder viewHolder, int position) {
+
+//        viewHolder.checkBox.setImageResource(R.mipmap.ic_choose_false);
+//        viewHolder.checkBox.setImageResource(R.mipmap.ic_choose_true);
     }
 
     class DisplayItemViewHolder {
         ImageView coverImgVw;
         TextView titleTxVw, favorTxVw;
-        CheckBox checkBox;
+        ImageView checkBox;
     }
 }

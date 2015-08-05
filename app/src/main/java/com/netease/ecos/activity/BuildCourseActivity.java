@@ -41,7 +41,7 @@ import butterknife.InjectView;
 public class BuildCourseActivity extends BaseActivity {
 
     private final String TAG = "Ecos---BuildCourse";
-    public static final String CourseType = "courseType";
+    public static final String COURSE_TYPE = "courseType";
 
     @InjectView(R.id.tv_title)
     TextView titleTxVw;
@@ -104,7 +104,7 @@ public class BuildCourseActivity extends BaseActivity {
     /**
      * 当前正在设置第(couserStepPosition+1)步的教程图片
      */
-    public int mCouserStepPosition = -1;
+    public int mCouserStepPosition = 0;
 
 
     CourseStepAdapter mCourseStepAdapter;
@@ -132,8 +132,8 @@ public class BuildCourseActivity extends BaseActivity {
         setContentView(R.layout.activity_build_course);
 
         if (getIntent() != null) {
-            mCourseTypeValue= Course.CourseType.后期.getBelongs();
-//            mCourseTypeValue = getIntent().getExtras().getString(CourseType);
+//            mCourseTypeValue= Course.CourseType.后期.getBelongs();
+            mCourseTypeValue = getIntent().getExtras().getString(COURSE_TYPE);
         }
 
         //注解工具初始化
@@ -251,7 +251,7 @@ public class BuildCourseActivity extends BaseActivity {
                 RelativeLayout.LayoutParams coverParam = (RelativeLayout.LayoutParams) iv_course_cover.getLayoutParams();
                 coverParam.height = width*2/3;
                 iv_course_cover.setLayoutParams(coverParam);
-                iv_course_cover.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                iv_course_cover.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
     }
@@ -286,16 +286,19 @@ public class BuildCourseActivity extends BaseActivity {
         savedInstanceState.putBoolean("isSettingCoursePhoto", isSettingCoursePhoto);
         savedInstanceState.putInt("mCouserStepPosition", mCouserStepPosition);
 
+        Log.i(TAG, "教程类型:" + mCourseTypeValue);
         Log.i(TAG, "标题:" + mCourseTitle);
         Log.i(TAG, "封面本地路径:" + mCoverLocalPath);
+
 
         for(Course.Step step:mCourseStepAdapter.getStepDataList()){
             Log.i(TAG, "步骤:" + step.toString());
         }
 
-        Log.i(TAG, "标题:" + "当前正在设置封面图" + isSettingCoverPhoto);
-        Log.i(TAG, "封面url:" + "当前正在设置步骤" + isSettingCoursePhoto);
-        Log.i(TAG, "标题:" + "当前操作的教程步骤序号" + mCouserStepPosition);
+
+        Log.i(TAG, "设置封面图:" + "当前正在设置封面图" + isSettingCoverPhoto);
+        Log.i(TAG, "在设置步骤:" + "当前正在设置步骤" + isSettingCoursePhoto);
+        Log.i(TAG, "当前操作的教程步骤序号:" + "当前操作的教程步骤序号" + mCouserStepPosition);
 
 //        Log.i("onSaveInstanceState", getCourseByPage().toString());
         Log.i("onSaveInstanceState", "-------------------->");
@@ -331,7 +334,7 @@ public class BuildCourseActivity extends BaseActivity {
 
     }
 
-    public static void releaseImageViewResouce(ImageView imageView) {
+    public static synchronized void releaseImageViewResouce(ImageView imageView) {
         if (imageView == null) return;
         Drawable drawable = imageView.getDrawable();
         if (drawable != null && drawable instanceof BitmapDrawable) {

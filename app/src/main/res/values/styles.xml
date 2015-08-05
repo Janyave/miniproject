@@ -3,17 +3,18 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <!-- ...and here we setting appcompat’s color theming attrs -->
     </style>
 
 
     <!-- 主页面tab按钮样式-->
     <style name="rb_chat_list_tab">
-                
+        <item name="android:background">@color/bg_red</item>        
         <item name="android:textSize">@dimen/text_size_36</item>
-        <item name="android:textColor">@color/text_gray</item>
+        <item name="android:textColor">@color/txt_color_tab_selector</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:gravity">center</item>  
-        <item name="android:background">@drawable/btn_tab_selector</item>
+
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:button">@null</item>  
