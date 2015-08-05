@@ -100,7 +100,7 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     //choose the photo
     private SetPhotoHelper mSetPhotoHelper;
     //record the cover image path
-    private String coverImagePath;
+    private String coverImagePath = "";
     //for request
     private CreateActivityRequest createActivityRequest;
     private CreateActivityResponce createActivityResponce;
@@ -156,8 +156,6 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_right_action:
-                //TODO:send the activity information to the server.
-                //get all items in the contact list view.
                 if (!checkAll()) {
                     Toast.makeText(NewActivityActivity.this, getResources().getString(R.string.notAlreadyFinished), Toast.LENGTH_SHORT).show();
                     return;
@@ -302,9 +300,15 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
             view = contactListView.getChildAt(i);
             Spinner spinner = (Spinner) view.findViewById(R.id.contactTypeSpinner);
             EditText editText = (EditText) view.findViewById(R.id.contactDetailEdTx);
-            Log.d("test", "spinner " + i + ":" + spinner.getSelectedItemId());
-            Log.d("test", "edittext:" + editText.getText());
-            ActivityModel.ContactWay contactWay = ContactListAdapter.contactWays[(int) spinner.getSelectedItemId()];
+            ActivityModel.ContactWay contactWay;
+            if (spinner.getSelectedItemPosition() == 0)
+                contactWay = ActivityModel.ContactWay.QQ;
+            else if (spinner.getSelectedItemPosition() == 1)
+                contactWay = ActivityModel.ContactWay.QQ群;
+            else if (spinner.getSelectedItemPosition() == 2)
+                contactWay = ActivityModel.ContactWay.微信;
+            else
+                contactWay = ActivityModel.ContactWay.电话;
             contactWay.setValue(editText.getText().toString());
             contactWayArrayList.add(contactWay);
         }
@@ -353,10 +357,11 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
             activityModel.location.address = addressEdTx.getText().toString();
             //TODO:set the province and city.
             activityModel.location.province.provinceCode = "1";
-            activityModel.location.city.cityCode = "2";
+            activityModel.location.city.cityCode = "1";
             //set the contact way list
-            activityModel.contactWayList = getDataFromListView();
-            createActivityRequest.request(createActivityResponce, activityModel);
+            ArrayList<ActivityModel.ContactWay> contactWays = getDataFromListView();
+            activityModel.contactWayList = contactWays;
+//            createActivityRequest.request(createActivityResponce, activityModel);
         }
 
         @Override
