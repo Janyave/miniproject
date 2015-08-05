@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
+import com.netease.ecos.R;
+import com.netease.ecos.views.SystemBarTintManager;
 import com.netease.ecos.views.sweet_alert_dialog.SweetAlertDialog;
 
 
