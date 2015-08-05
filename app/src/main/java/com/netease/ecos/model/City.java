@@ -15,13 +15,10 @@ public class City {
 
     // 主键 id
     @DatabaseField(id = true)
-    public String id;
+    public String cityCode;
 
     @DatabaseField
     public String cityName;
-
-    @DatabaseField
-    public String cityCode;
 
     @DatabaseField(canBeNull = false)
     public String provinceId;
@@ -31,9 +28,6 @@ public class City {
 
     }
 
-    public String getId() {
-        return id;
-    }
 
     public String getCityName() {
         return cityName;
@@ -47,9 +41,6 @@ public class City {
         return provinceId;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public void setCityName(String cityName) {
         this.cityName = cityName;
@@ -66,8 +57,7 @@ public class City {
     @Override
     public String toString() {
         return "City{" +
-                "id='" + id + '\'' +
-                ", cityName='" + cityName + '\'' +
+                " cityName='" + cityName + '\'' +
                 ", cityCode='" + cityCode + '\'' +
                 ", provinceId='" + provinceId + '\'' +
                 '}';
