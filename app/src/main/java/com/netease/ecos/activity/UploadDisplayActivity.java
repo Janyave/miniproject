@@ -64,9 +64,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
     to record the returned image urls responding to different types of image, such as cover or details.
      */
     private ArrayList<Image> imagesArraylist;
-    /**
-     * 当前正在设置第(couserStepPosition+1)步的教程图片
-     */
+
     public SetPhotoHelper mSetPhotoHelper;
     private String PhotoId;
     //for request
@@ -91,6 +89,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
         //图片裁剪后输出高度
         final int outPutHeight = 300;
         mSetPhotoHelper.setOutput(outPutWidth, outPutHeight);
+        mSetPhotoHelper.setAspect(3, 2);
         request = new CreateShareRequest();
         response = new CreateShareResponse();
         share = new Share();

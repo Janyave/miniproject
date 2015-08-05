@@ -85,9 +85,9 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
     private SetPhotoHelper mSetPhotoHelper;
     //图片裁剪后输出宽度
-    private final int outPutWidth = 450;
+    private final int outPutWidth = 300;
     //图片裁剪后输出高度
-    private final int outPutHeight = 300;
+    private final int outPutHeight = 450;
 
     //record the list of assignment id.
     private ArrayList<String> workList;
@@ -145,6 +145,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         });
         mSetPhotoHelper = new SetPhotoHelper(this, null);
         mSetPhotoHelper.setOutput(outPutWidth, outPutHeight);
+        mSetPhotoHelper.setAspect(2, 3);
         //implementation on the title bar
         titleTxVw.setText("教程详情");
         rightButton.setVisibility(View.INVISIBLE);

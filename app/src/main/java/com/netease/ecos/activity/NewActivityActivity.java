@@ -126,10 +126,11 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
         //choose the cover image
         mSetPhotoHelper = new SetPhotoHelper(this, null);
         //图片裁剪后输出宽度
-        final int outPutWidth = 450;
+        final int outPutWidth = 300;
         //图片裁剪后输出高度
-        final int outPutHeight = 300;
+        final int outPutHeight = 450;
         mSetPhotoHelper.setOutput(outPutWidth, outPutHeight);
+        mSetPhotoHelper.setAspect(2, 3);
     }
 
     void initView() {
