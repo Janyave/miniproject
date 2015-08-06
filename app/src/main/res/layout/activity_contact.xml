@@ -2,39 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tv_title_height"
-        android:background="@color/bg_red"
-        android:gravity="center_vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
-        <ImageView
-            android:id="@+id/title_left"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_back"/>
-        <TextView
-            android:id="@+id/title_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="樱桃小丸子"
-            style="@style/text_white_max"/>
-
-        <TextView
-            android:id="@+id/title_right"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            style="@style/text_white_max"
-            android:gravity="center" />
-    </RelativeLayout>
-    <TextView style="@style/layout_line_gray"/>
+    <include layout="@layout/component_title_normal_righttext"/>
 
     <ListView
         android:id="@+id/lv_list"

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,12 +44,14 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
     private String userId = "", userName = "", userAvatar = "";
 
-    @InjectView(R.id.title_left)
-    ImageView title_left;
-    @InjectView(R.id.title_name)
-    TextView title_name;
-    @InjectView(R.id.title_right)
-    TextView title_right;
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
+    @InjectView(R.id.tv_title)
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
 
     @InjectView(R.id.lv_list)
     ListView lv_list;
@@ -75,10 +78,18 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
         regeisterObserver();
 
+        initTitle();
         initListener();
         initData();
 
 
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(this);
+        title_right.setVisibility(View.INVISIBLE);
+        title_right_text.setText("评论");
+        title_text.setText("xxxNAME");
     }
 
 
@@ -96,19 +107,13 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     }
 
     private void initListener() {
-        title_left.setOnClickListener(this);
-        title_name.setOnClickListener(this);
-        title_right.setOnClickListener(this);
         tv_send.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.title_right:
-                Toast.makeText(ContactActivity.this, "MORE", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.title_left:
+            case R.id.lly_left_action:
                 finish();
                 break;
             case R.id.tv_send:

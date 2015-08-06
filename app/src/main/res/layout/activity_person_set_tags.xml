@@ -3,13 +3,22 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_white">
-    <include layout="@layout/component_title"/>
-    <LinearLayout
+    <include layout="@layout/component_title_normal_righttext"/>
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:layout_height="match_parent">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:src="@mipmap/img_girl"
+            android:layout_height="280dp"
+            android:layout_alignParentBottom="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
         <ImageView
             android:layout_width="200dp"
             android:layout_height="100dp"
@@ -99,6 +108,6 @@
                 android:gravity="center"/>
             <TextView style="@style/layout_0dp_width"/>
         </LinearLayout>
-
-    </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

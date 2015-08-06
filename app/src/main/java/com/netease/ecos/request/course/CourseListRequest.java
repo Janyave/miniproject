@@ -257,6 +257,7 @@ public class CourseListRequest extends BaseRequest {
                     course.issueTimeStamp = Long.valueOf(getString(courseJO, KEY_ISSUR_TIME_STAMP)).longValue();
                     String praiseNum = getString(courseJO, KEY_PRAISE_NUM);
                     course.praiseNum = "".equals(praiseNum) ? 0 : Integer.valueOf(praiseNum);
+                    course.hasPraised = courseJO.getBoolean("hasPraised");
                     courseList.add(course);
                 }
             }
@@ -305,8 +306,8 @@ public class CourseListRequest extends BaseRequest {
      */
     public static enum SortRule {
         时间("time"),
-        被关注数("praised"),
-        被点赞数("followed");
+        被关注数("followed"),
+        被点赞数("praised");
 
         public String rule;
 

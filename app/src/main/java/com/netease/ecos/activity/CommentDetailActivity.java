@@ -44,12 +44,14 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     ListView commentListView;
     @InjectView(R.id.workDetailsCommentEdTx)
     EditText commentEdTx;
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
     @InjectView(R.id.tv_title)
-    TextView titleTxVw;
-    @InjectView(R.id.btn_right_action)
-    Button rightButton;
-    @InjectView(R.id.tv_left)
-    TextView backTxVw;
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
     @InjectView(R.id.favorBtn)
     LinearLayout favorBtn;
     @InjectView(R.id.iv_favor)
@@ -82,6 +84,13 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
         initView();
     }
 
+    private void initTitle() {
+        title_left.setOnClickListener(this);
+        title_right.setVisibility(View.INVISIBLE);
+        title_right_text.setText("");
+        title_text.setText("评论");
+    }
+
     void initData() {
         fromId = getIntent().getExtras().getString(FromId);
         commentType = Comment.CommentType.getCommentTypeByValue(getIntent().getExtras().getString(CommentType));
@@ -103,15 +112,12 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
 
     void initView() {
         //implementation on the title bar
-        titleTxVw.setText("评论");
-        rightButton.setVisibility(View.INVISIBLE);
         //always hide the keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //set adapter
         commentListView.setAdapter(workDetailListViewAdapter);
         //set listener
         commentEdTx.setOnTouchListener(this);
-        backTxVw.setOnClickListener(this);
         //if it already is praised
         if (isPraised) {
             tv_favor.setText(getResources().getString(R.string.cancelFavor));
@@ -160,7 +166,7 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
 //                    praiseRequest.praiseCourse(praiseResponse, fromId, !isPraised);
                 }
                 break;
-            case R.id.tv_left:
+            case R.id.lly_right_action:
                 CommentDetailActivity.this.finish();
                 break;
         }

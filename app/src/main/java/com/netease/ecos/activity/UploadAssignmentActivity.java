@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +39,14 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
 
     private String courseId = "";
     private String image_path = "";
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
     @InjectView(R.id.tv_title)
-    TextView titleTxVw;
-    @InjectView(R.id.btn_right_action)
-    Button rightButton;
-    @InjectView(R.id.tv_left)
-    TextView backTxVw;
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
     @InjectView(R.id.uploadWorkImgVw)
     ImageView imageView;
     @InjectView(R.id.uploadWorkEdTx)
@@ -59,8 +62,17 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.upload_work_layout);
         ButterKnife.inject(this);
+
+        initTitle();
         initData();
         initView();
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(this);
+        title_right.setOnClickListener(this);
+        title_right_text.setText("等待");
+        title_text.setText("");
     }
 
     void initData() {
@@ -77,17 +89,12 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
             Log.d(TAG, "bitmap is null");
         imageView.setImageBitmap(bitmap);
         //implementation on the title bar
-        titleTxVw.setVisibility(View.INVISIBLE);
-        rightButton.setText("发布");
-        //set listener
-        rightButton.setOnClickListener(this);
-        backTxVw.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_right_action:
+            case R.id.lly_right_action:
                 if (uploadWorkEdTx.getText().toString().equals("")) {
                     Toast.makeText(UploadAssignmentActivity.this, UploadAssignmentActivity.this.getString(R.string.notFinished), Toast.LENGTH_SHORT).show();
                     return;
@@ -95,7 +102,7 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
                 File file = new File(image_path);
                 UploadImageTools.uploadImageSys(file, new UploadWorkCallBack(), UploadAssignmentActivity.this, false);
                 break;
-            case R.id.tv_left:
+            case R.id.lly_left_action:
                 UploadAssignmentActivity.this.finish();
                 break;
         }

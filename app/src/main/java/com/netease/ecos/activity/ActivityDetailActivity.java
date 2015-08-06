@@ -28,6 +28,8 @@ import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.HorizontalListView;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -41,10 +43,14 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     private String activityID = "";
     @InjectView(R.id.sv)
     ScrollView sv;
-    @InjectView(R.id.btn_right_action)
-    Button btn_right_action;
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
+    @InjectView(R.id.tv_title)
+    TextView title_text;
     @InjectView(R.id.lly_left_action)
-    LinearLayout lly_left_action;
+    LinearLayout title_left;
     @InjectView(R.id.iv_event_cover)
     ImageView iv_event_cover;
     @InjectView(R.id.tv_event_title)
@@ -97,9 +103,17 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
         ButterKnife.inject(this);
+        initTitle();
         initListener();
         initData();
         initView();
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(this);
+        title_right.setOnClickListener(this);
+        title_right_text.setText("评论");
+        title_text.setText("");
     }
 
     private void initData() {
@@ -124,8 +138,6 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     }
 
     private void initListener() {
-        btn_right_action.setVisibility(View.INVISIBLE);
-        lly_left_action.setOnClickListener(this);
         tv_publish_photo.setOnClickListener(this);
         tv_wantgo.setOnClickListener(this);
         iv_author_avator.setOnClickListener(this);

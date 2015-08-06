@@ -7,11 +7,12 @@
 
     <include
         android:id="@+id/include_title"
-        layout="@layout/component_title" />
+        layout="@layout/component_title_normal_righttext" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,12 +94,20 @@
                     android:text="选择封面作品"
                     style="@style/text_dark_max" />
             </LinearLayout>
-            <com.netease.ecos.views.ExtensibleListView
+            <!--<com.netease.ecos.views.ExtensibleListView
                 android:id="@+id/displayListView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent" />-->
         </LinearLayout>
 
     </ScrollView>
+    <com.netease.ecos.views.XListView
+        android:id="@+id/displayListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:descendantFocusability="afterDescendants"
+        />
+
 
 </LinearLayout>

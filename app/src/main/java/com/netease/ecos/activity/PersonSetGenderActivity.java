@@ -23,12 +23,14 @@ import butterknife.InjectView;
  * Created by hzjixinyu on 2015/8/5.
  */
 public class PersonSetGenderActivity extends BaseActivity implements View.OnClickListener{
-    @InjectView(R.id.lly_left_action)
-    LinearLayout title_left;
-    @InjectView(R.id.tv_title)
-    TextView title_text;
     @InjectView(R.id.lly_right_action)
     LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
+    @InjectView(R.id.tv_title)
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
 
     @InjectView(R.id.ll_male)
     LinearLayout ll_male;
@@ -48,9 +50,17 @@ public class PersonSetGenderActivity extends BaseActivity implements View.OnClic
         setContentView(R.layout.activity_person_set_gender);
         ButterKnife.inject(this);
 
+        initTitle();
         initView();
         initListener();
         initData();
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(this);
+        title_right.setOnClickListener(this);
+        title_right_text.setText("确定");
+        title_text.setText("性别");
     }
 
     private void initView() {

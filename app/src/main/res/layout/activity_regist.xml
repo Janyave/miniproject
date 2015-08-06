@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/iv_return"
-        android:layout_width="@dimen/splash_return_height"
-        android:layout_height="@dimen/splash_return_height"
-        android:src="@mipmap/ic_launcher"/>
+    android:layout_height="match_parent"
+
+    android:background="@mipmap/img_splath_g">
+    <include layout="@layout/item_splash_return"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,10 +16,11 @@
             android:id="@+id/iv_avatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/img_default_portrait"/>
+            android:src="@mipmap/ic_choose_icon"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_30px"
             style="@style/text_splash_white"
             android:text="设置你的头像，让好友更容易找到你"/>
     </LinearLayout>

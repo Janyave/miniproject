@@ -2,8 +2,8 @@ package com.netease.ecos.activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +15,7 @@ import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.recruitment.CreateRecruitmentRequest;
 import com.netease.ecos.request.share.ShareListRequest;
-import com.netease.ecos.views.ExtensibleListView;
+import com.netease.ecos.views.XListView;
 
 import java.util.List;
 
@@ -25,17 +25,23 @@ import butterknife.InjectView;
 /**
  * Created by Think on 2015/7/31.
  */
-public class NewRecruitmentActivity extends BaseActivity implements View.OnClickListener {
+public class NewRecruitmentActivity extends BaseActivity implements View.OnClickListener,XListView.IXListViewListener{
     private static final String TAG = "Ecos---NewRecruitment";
     public static final String RecruitmentType = "RecruitmentType";
     private Recruitment.RecruitType mRecruitType;
 
     @InjectView(R.id.displayListView)
-    ExtensibleListView displayLsVw;
+    XListView displayLsVw;
     @InjectView(R.id.priceTxVw)
     TextView priceTxVw;
-    @InjectView(R.id.btn_right_action)
-    Button btn_right_action;
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
+    @InjectView(R.id.tv_title)
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
     @InjectView(R.id.priceEdTx)
     EditText priceEdTx;
     @InjectView(R.id.descrpEdTx)
@@ -51,20 +57,29 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_recruitment_layout);
         ButterKnife.inject(this);
+        initTitle();
         initData();
         initView();
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(this);
+        title_right.setOnClickListener(this);
+        title_right_text.setText(R.string.auction);
+        title_text.setText("设置价格和封面作品");
     }
 
     void initView() {
         //set the data
         priceTxVw.setText(mRecruitType.getPriceUnit());
-        btn_right_action.setText(NewRecruitmentActivity.this.getResources().getString(R.string.auction));
         //set adapter
         displayLsVw.setAdapter(newDisplayListAdater);
         //set listener
-        btn_right_action.setOnClickListener(this);
 
-
+        displayLsVw.initRefleshTime(this.getClass().getSimpleName());
+        displayLsVw.setPullRefreshEnable(false);
+        displayLsVw.setPullLoadEnable(true);
+        displayLsVw.setXListViewListener(this);
     }
 
     void initData() {
@@ -77,16 +92,23 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
 
         getPersonalShareList();
 
+
+
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_right_action:
+            case R.id.lly_left_action:
+                finish();
+                break;
+            case R.id.lly_right_action:
                 String price = priceEdTx.getText().toString();
                 String descrp = descrpEdTx.getText().toString();
                 //TODO：get the chosen cover.
-                if (price.equals("") || descrp.equals("")) {
+//                if (price.equals("") || descrp.equals("")) {
+                if(newDisplayListAdater.isTopViewEmpty()){
                     Toast.makeText(NewRecruitmentActivity.this, this.getResources().getString(R.string.notAlreadyFinished), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -108,6 +130,7 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
                 request.request(new CreateRecruitmentResponce(), recruitment);
                 break;
         }
+
     }
 
     class CreateRecruitmentResponce extends BaseResponceImpl implements CreateRecruitmentRequest.ICreateRecruitmentResponce {
@@ -142,7 +165,7 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
         ShareListRequest request =  new ShareListRequest();
         Share.Tag tags = Share.Tag.getTagByRecruitType(mRecruitType);
 
-        request.requestMyShareWithTag(new ShareListResponse(), tags,1);
+        request.requestSomeOneShareWithTag(new ShareListResponse(), null, tags,(newDisplayListAdater.getCount()-1)/5+1);
 
     }
 
@@ -159,23 +182,39 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
         @Override
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
+            displayLsVw.stopLoadMore();
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
             dismissProcessBar();
+            displayLsVw.stopLoadMore();
         }
 
         @Override
         public void success(List<Share> shareList) {
             newDisplayListAdater.reflesh(shareList);
             dismissProcessBar();
+            displayLsVw.stopLoadMore();
 
-            if(shareList.size()==0){
+            if((newDisplayListAdater.getCount()-1)==0){
                 Toast.makeText(NewRecruitmentActivity.this,"你目前没有分享",Toast.LENGTH_LONG).show();
                 finish();
             }
         }
+    }
+
+
+    @Override
+    public void onRefresh() {
+
+
+    }
+
+    @Override
+    public void onLoadMore()
+    {
+        getPersonalShareList();
     }
 
 }

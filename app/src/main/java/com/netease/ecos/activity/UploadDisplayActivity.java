@@ -6,10 +6,11 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,13 +35,15 @@ import butterknife.InjectView;
 /**
  * Created by Think on 2015/8/1.
  */
-public class UploadDisplayActivity extends BaseActivity implements View.OnClickListener {
+public class UploadDisplayActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private final String TAG = "Ecos---UploadWorks";
     @InjectView(R.id.tv_title)
     TextView titleTxVw;
-    @InjectView(R.id.btn_right_action)
-    Button rightButton;
+    @InjectView(R.id.tv_right_text)
+    TextView tv_right_text;
+    @InjectView(R.id.lly_right_action)
+    LinearLayout lly_right_action;
     @InjectView(R.id.tv_left)
     TextView backTxVw;
     @InjectView(R.id.uploadWorksLsVw)
@@ -79,7 +82,6 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
     private ArrayList<Image> imagesArraylist;
 
     public SetPhotoHelper mSetPhotoHelper;
-    private String PhotoId;
     //for request
     private CreateShareRequest request;
     private CreateShareResponse response;
@@ -112,13 +114,20 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
     void initView() {
         //implementation on the title bar
         titleTxVw.setText("新建作品");
-        rightButton.setText("发布");
-        rightButton.setOnClickListener(this);
-        backTxVw.setOnClickListener(this);
+        tv_right_text.setText("发布");
         imagePaths = getIntent().getExtras().getStringArrayList("paths");
         uploadWorksListAdapter = new UploadWorksListAdapter(this, imagePaths);
         worksLsVw.setAdapter(uploadWorksListAdapter);
+        //set listener
         coverImgView.setOnClickListener(this);
+        lly_right_action.setOnClickListener(this);
+        backTxVw.setOnClickListener(this);
+        makeuper_cb.setOnCheckedChangeListener(this);
+        prop_cb.setOnCheckedChangeListener(this);
+        photography_cb.setOnCheckedChangeListener(this);
+        costume_cb.setOnCheckedChangeListener(this);
+        other_cb.setOnCheckedChangeListener(this);
+        backstage_cb.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -148,7 +157,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_right_action:
+            case R.id.lly_right_action:
                 if (coverImagePath.equals("")
                         || uploadWorksCoverEdTx.getText().toString().equals("")
                         || uploadWorksDescrpEdTx.getText().toString().equals("")) {
@@ -194,6 +203,35 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
      */
     private Integer count = 0;
 
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        Log.d(TAG, "is checked:" + isChecked);
+        switch (buttonView.getId()) {
+            case R.id.makeuper_btn:
+                share.tags.isMakeup = isChecked;
+                break;
+            case R.id.prop_cb:
+                if (share == null)
+                    Log.d(TAG, "share is null");
+                if (share.tags == null)
+                    Log.d(TAG, "share's tag is null");
+                share.tags.isProperty = isChecked;
+                break;
+            case R.id.backstage_cb:
+                share.tags.isLater = isChecked;
+                break;
+            case R.id.costume_cb:
+                share.tags.isCloth = isChecked;
+                break;
+            case R.id.other_cb:
+                share.tags.isCoser = isChecked;
+                break;
+            case R.id.photography_cb:
+                share.tags.isPhoto = isChecked;
+                break;
+        }
+    }
+
     class UploadWorksCallbacks implements UploadImageTools.UploadCallBack {
         private Image.ImageType imageType;
 
@@ -227,7 +265,6 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
                 if (count == (imagePaths.size() + 1)) {
                     Log.d(TAG, "all the images has been uploaded successfully.");
                     share.imageList = imagesArraylist;
-                    //TODO:需要设置分享标签，request接口需要修改
                     request.request(response, share);
                 }
             }

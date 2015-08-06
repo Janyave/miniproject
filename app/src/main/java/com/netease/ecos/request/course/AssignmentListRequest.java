@@ -88,6 +88,7 @@ public class AssignmentListRequest extends BaseRequest{
 				assignment.imageUrl = getString(assignmentJO, "imgUrl");
 				assignment.content = getString(assignmentJO, "description");
 				assignment.issueTimeStamp = Long.valueOf(getString(assignmentJO, "issueTimeStamp")).longValue();
+				assignment.hasPraised = assignmentJO.getBoolean("hasPraised");
 				assignmentList.add(assignment);
 
 			}

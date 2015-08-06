@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
@@ -40,13 +41,17 @@ import butterknife.InjectView;
  */
 public class NotificationActivity extends BaseActivity implements View.OnClickListener {
 
-    @InjectView(R.id.tv_reply)
-    TextView tv_reply; //回复
-    @InjectView(R.id.tv_contact)
-    TextView tv_contact; //私信
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
+    @InjectView(R.id.tv_title)
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
 
-    @InjectView(R.id.tv_notice)
-    TextView tv_notice; //通知
+//    @InjectView(R.id.tv_notice)
+//    TextView tv_notice; //通知
     @InjectView(R.id.lv_list)
     XListView lv_list; //显示列表
 
@@ -67,8 +72,16 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
                 SessionTypeEnum.None
         );
 
+        initTitle();
         initListener();
         initData();
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(this);
+        title_right.setVisibility(View.INVISIBLE);
+        title_right_text.setText("");
+        title_text.setText("我的评论");
     }
 
     @Override
@@ -92,10 +105,6 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void initListener() {
-        tv_contact.setOnClickListener(this);
-        tv_notice.setOnClickListener(this);
-        tv_reply.setOnClickListener(this);
-
         lv_list.setDividerHeight(0);
     }
 
@@ -122,14 +131,8 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_reply:
-                //回复
-                break;
-            case R.id.tv_contact:
-                //私信
-                break;
-            case R.id.tv_notice:
-                //通知
+            case R.id.lly_left_action:
+                finish();
                 break;
         }
     }

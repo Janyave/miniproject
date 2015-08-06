@@ -1,50 +1,14 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ecos="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/bg_gray"
-    android:orientation="vertical"
-    tools:context="com.netease.ecos.activity.PersonalInfoSettingActivity">
+﻿<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:ecos="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_gray"
+              android:orientation="vertical"
+              tools:context="com.netease.ecos.activity.PersonalInfoSettingActivity">
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_title">
-
-        <LinearLayout
-            android:id="@+id/lly_left_action"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:contentDescription="标题左侧按钮，含图标和按钮，根据需要进行显示和隐藏，并更改名称"
-            android:minWidth="80dp"
-            android:orientation="horizontal">
-
-            <include
-                android:id="@+id/iv_left"
-                layout="@layout/component_left_arrow" />
-
-            <TextView
-                android:id="@+id/tv_left"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@id/iv_left"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:paddingLeft="5dp"
-                android:text="返回"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="设 置"
-            android:textSize="@dimen/tv_title_txsize" />
-    </RelativeLayout>
+   <include layout="@layout/component_title_normal_righttext"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -112,7 +76,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1" />
 
-                    <com.netease.ecos.utils.RoundImageView
+                    <com.netease.ecos.views.RoundedNetworkImageView
                         android:id="@+id/personal_info_set_avatar_pic"
                         android:layout_width="@dimen/circle_icon_108px"
                         android:layout_height="@dimen/circle_icon_108px"
