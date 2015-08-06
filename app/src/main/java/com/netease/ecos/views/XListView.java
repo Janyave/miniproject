@@ -2,6 +2,7 @@ package com.netease.ecos.views;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
@@ -395,6 +396,12 @@ public class XListView extends ListView implements OnScrollListener {
 				//			System.out.println("数据监测：" + getFirstVisiblePosition() + "---->"
 				//					+ getLastVisiblePosition());
 				//下拉刷新
+
+				//上拉加载
+				Log.e("XListView", "getLastVisiblePosition():" + getLastVisiblePosition());
+				Log.e("XListView", "mTotalItemCount-1:" + (mTotalItemCount - 1));
+				Log.e("XListView", "mFooterView.getBottomMargin():" + (mFooterView.getBottomMargin()));
+				Log.e("XListView", "deltaY:" + (deltaY));
 				if (getFirstVisiblePosition() == 0
 						&& (mHeaderView.getVisiableHeight() > 0 || deltaY > 0)) {
 					// the first item is showing, header has shown or pull down.
@@ -407,7 +414,6 @@ public class XListView extends ListView implements OnScrollListener {
 						isRefleshing = true;
 					}
 				}
-				//上拉加载
 				else if (getLastVisiblePosition() == mTotalItemCount - 1
 						&& (mFooterView.getBottomMargin() > 0 || deltaY < 0)) {
 					// last item, already pulled up or want to pull up.

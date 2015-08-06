@@ -3,6 +3,7 @@ package com.netease.ecos.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -20,16 +21,21 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.adapter.CampaignListViewAdapter;
 import com.netease.ecos.adapter.CourseListViewAdapter;
 import com.netease.ecos.adapter.DisplayListViewAdapter;
 import com.netease.ecos.adapter.SearchHistoryAdapter;
+import com.netease.ecos.database.ProvinceDBService;
 import com.netease.ecos.fragment.DisplayFragment;
+import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.activity.ActivityListRequest;
 import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.request.share.ShareListRequest;
 import com.netease.ecos.views.PopupHelper;
+import com.netease.ecos.views.XListView;
 
 import java.util.List;
 
@@ -39,7 +45,7 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/27.
  */
-public class SearchActivity extends Activity {
+public class SearchActivity extends Activity implements XListView.IXListViewListener {
 
     private static final String TAG = "Ecos---Search";
     public static final String SearchWord = "SearchWord";
@@ -58,7 +64,7 @@ public class SearchActivity extends Activity {
     @InjectView(R.id.lv_searchHistory)
     ListView lv_searchHistory;  //历史记录
     @InjectView(R.id.lv_searchList)
-    ListView lv_searchList;   //搜索结果
+    XListView lv_searchList;   //搜索结果
 
     @InjectView(R.id.ll_searchType)
     LinearLayout ll_searchType;
@@ -125,6 +131,7 @@ public class SearchActivity extends Activity {
         tv_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pageIndex = 0;
                 searchWord = et_search.getText().toString();
                 if (searchWord.equals("")) {
                     Toast.makeText(SearchActivity.this, getResources().getString(R.string.noContent), Toast.LENGTH_SHORT).show();
@@ -158,6 +165,18 @@ public class SearchActivity extends Activity {
                 lv_searchList.setVisibility(View.GONE);
             }
         });
+
+        lv_searchList.setDividerHeight(2);
+        lv_searchList.initRefleshTime(this.getClass().getSimpleName());
+        lv_searchList.setPullLoadEnable(true);
+        lv_searchList.setXListViewListener(this);
+        lv_searchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+
         lv_searchHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -203,6 +222,106 @@ public class SearchActivity extends Activity {
                 inputMethodManager.showSoftInput(et_search, InputMethodManager.SHOW_FORCED);
             }
         });
+    }
+
+    @Override
+    public void onRefresh() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                lv_searchList.stopRefresh();
+            }
+        }, 1000);
+    }
+
+    @Override
+    public void onLoadMore() {
+        Toast.makeText(this, "上拉加载", Toast.LENGTH_SHORT).show();
+        //1秒后关闭加载
+        if (TYPE == TYPE_COURSE) {
+
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    lv_searchList.stopLoadMore();
+                }
+            }, 1000);
+        }
+
+        if (TYPE == TYPE_COURSE) {
+
+            if (courseListViewAdapter == null)
+                pageIndex = 0;
+            pageIndex++;
+            courseListRequest.request(new CourseListRequest.ICourseListResponse() {
+
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+
+                }
+
+                @Override
+                public void doAfterFailedResponse(String message) {
+
+                }
+
+                @Override
+                public void responseNoGrant() {
+
+                }
+
+                @Override
+                public void success(List<Course> courseList) {
+                    Log.d(TAG, "CourseListResponse.success()");
+                    if (courseList.size() == 0) {
+                        Toast.makeText(SearchActivity.this, getResources().getString(R.string.nothingLeft), Toast.LENGTH_SHORT).show();
+                        pageIndex--;
+                    }
+                    else {
+                        courseListViewAdapter.getCourseList().addAll(courseList); // 添加ListView的内容
+                        courseListViewAdapter.notifyDataSetChanged();
+                    }
+                }
+            },CourseListRequest.Type.筛选, CourseCategoryActivity.courseTypes[selectPosition], searchWord, CourseListRequest.SortRule.时间, pageIndex);
+
+        } else {
+
+            if (displayListViewAdapter == null)
+                pageIndex = 0;
+            pageIndex++;
+            shareListRequest.request(new ShareListRequest.IShareListResponse(){
+
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+
+                }
+
+                @Override
+                public void doAfterFailedResponse(String message) {
+
+                }
+
+                @Override
+                public void responseNoGrant() {
+
+                }
+
+                @Override
+                public void success(List<Share> shareList) {
+                    Log.d(TAG, "CourseListResponse.success()");
+                    if (shareList.size() == 0) {
+                        Toast.makeText(SearchActivity.this, getResources().getString(R.string.nothingLeft), Toast.LENGTH_SHORT).show();
+                        pageIndex--;
+                    }
+                    else {
+                        displayListViewAdapter.getShareList().addAll(shareList); // 添加ListView的内容
+                        displayListViewAdapter.notifyDataSetChanged();
+                    }
+                }
+            }, DisplayFragment.shareTypes[selectPosition], searchWord, pageIndex);
+        }
     }
 
     class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse {
