@@ -94,7 +94,7 @@ public class CampaignListViewAdapter extends BaseAdapter {
             viewHolder.textViewTime.setText(activityTime.dayStartTime + "-" + activityTime.dayEndTime);
 
             ActivityModel.Location location = activityList.get(position).location;  // 设置地点
-            viewHolder.textViewLocation.setText(location.province.provinceName + "/" + location.city + "/" + location.address);
+            viewHolder.textViewLocation.setText(location.province.provinceName + "/" + location.city.cityName + "/" + location.address);
         }
     }
 }
