@@ -130,6 +130,7 @@ public class SearchActivity extends Activity {
                     Toast.makeText(SearchActivity.this, getResources().getString(R.string.noContent), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                lv_searchHistory.setVisibility(View.GONE);
                 if (TYPE == TYPE_COURSE) {
                     courseListRequest.request(courseListResponse, CourseListRequest.Type.筛选, CourseCategoryActivity.courseTypes[selectPosition], searchWord, CourseListRequest.SortRule.时间, 0);
                 } else {
@@ -150,6 +151,13 @@ public class SearchActivity extends Activity {
             }
         });
 
+        et_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lv_searchHistory.setVisibility(View.VISIBLE);
+                lv_searchList.setVisibility(View.GONE);
+            }
+        });
         lv_searchHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -206,6 +214,7 @@ public class SearchActivity extends Activity {
                 Toast.makeText(SearchActivity.this, getResources().getString(R.string.noCourse), Toast.LENGTH_SHORT).show();
             }
             courseListViewAdapter = new CourseListViewAdapter(SearchActivity.this, courseList);
+            lv_searchList.setVisibility(View.VISIBLE);
             lv_searchList.setAdapter(courseListViewAdapter);
             pageIndex = 0;
         }
@@ -226,6 +235,7 @@ public class SearchActivity extends Activity {
             if (shareList.size() == 0)
                 Toast.makeText(SearchActivity.this, getResources().getString(R.string.noShare), Toast.LENGTH_SHORT).show();
             displayListViewAdapter = new DisplayListViewAdapter(SearchActivity.this, shareList);
+            lv_searchList.setVisibility(View.VISIBLE);
             lv_searchList.setAdapter(displayListViewAdapter);
             pageIndex = 0;
         }

@@ -5,8 +5,8 @@ public class RequestUrlConstants {
 
     private static final String HOST = "http://223.252.223.141:80";
 
-//    private static final String HOST_COURSE = "http://223.252.223.141:80";
-    private static final String HOST_COURSE = "http://10.240.34.181:8080/ecos-mainsite-web";
+    private static final String HOST_COURSE = "http://223.252.223.141:80";
+//    private static final String HOST_COURSE = "http://10.240.34.181:8080/ecos-mainsite-web";
 
     private static final String HOST_USER = HOST;
 
@@ -280,7 +280,7 @@ public class RequestUrlConstants {
     /**
      * 点赞教程、分享
      */
-    public static final String PRAISE_URL = HOST_COURSE + "/m/course/praise?";
+    public static final String PRAISE_URL = HOST_COURSE + "m/praise/create?";
 
     /**
      * 获取省份列表
