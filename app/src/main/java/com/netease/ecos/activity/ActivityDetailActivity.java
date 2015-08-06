@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -184,9 +183,11 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             tv_event_time_detail.setText(activity.activityTime.toString());
             tv_event_content_detail.setText(activity.introduction);
             if (activity.hasSignuped) {
-                tv_wantgo.setEnabled(false);
                 tv_wantgo.setText(getResources().getString(R.string.alreadyGo));
                 tv_wantgo.setTextColor(getResources().getColor(R.color.text_gray));
+            } else {
+                tv_wantgo.setText(getResources().getString(R.string.notGo));
+                tv_wantgo.setTextColor(getResources().getColor(R.color.text_red));
             }
             tv_wangoNum.setText(activity.signUpUseList.size() + "");
 
@@ -218,13 +219,14 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void success(String activityId, SingupActivityRequest.SignupType signupType) {
+            Log.d(TAG, "SignUpActivityResponse: success");
             //it means it want to cancel signing up
             if (signupType == SingupActivityRequest.SignupType.报名) {
-                tv_wantgo.setText(getResources().getString(R.string.notGo));
-                tv_wantgo.setTextColor(getResources().getColor(R.color.text_red));
-            } else {
                 tv_wantgo.setText(getResources().getString(R.string.alreadyGo));
                 tv_wantgo.setTextColor(getResources().getColor(R.color.text_gray));
+            } else {
+                tv_wantgo.setText(getResources().getString(R.string.notGo));
+                tv_wantgo.setTextColor(getResources().getColor(R.color.text_red));
             }
             activityModel.hasSignuped = !activityModel.hasSignuped;
         }

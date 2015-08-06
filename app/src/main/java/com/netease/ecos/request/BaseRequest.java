@@ -34,7 +34,7 @@ public abstract class BaseRequest implements Listener<String>,ErrorListener{
 	protected final static String KEY_PAGE_INDEX = "pages";
 
 	/*** 默认一页数据条数 */
-	protected final static int DEFAULT_PAGE_SIZE = 15;
+	protected final static int DEFAULT_PAGE_SIZE = 5;
 
 	//响应参数键
 	protected String KEY_CODE = "code";
