@@ -236,6 +236,52 @@ public class ShareListRequest extends BaseRequest{
 
     }
 
+
+    /***
+     * 根据tags进行请求自己的shareList，根据tags中选中的进行筛选
+     * @param shareListResponse
+     * @param tags
+     * @param shareType
+     * @param keyWord
+     * @param pageIndex
+     */
+    public void requestMyShareWithTag(IShareListResponse shareListResponse, final Share.Tag tags,final int pageIndex)
+    {
+        super.initBaseRequest(shareListResponse);
+        mShareListResponse = shareListResponse;
+
+        //		shareListResponse.success(getTestShareList());
+
+        MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_SHARE_LIST_URL,  this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = getRequestBasicMap();
+
+                map.put(KEY_USER_ID, getUserId());
+                map.put(TYPE, "myself");
+                map.put(KEY_PAGE_SIZE, String.valueOf(5) );
+                map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
+                map.put("tag", String.valueOf(tags.getTagValues()));
+
+
+
+
+                traceNormal(TAG, map.toString());
+                traceNormal(TAG, ShareListRequest.this.getUrl(RequestUrlConstants.GET_SHARE_LIST_URL, map));
+                return map;
+            }
+
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        getQueue().add(stringRequest);
+
+    }
+
+
+
+
     @Override
     public void responceSuccess(String jstring) {
         //		traceNormal(TAG, jstring);

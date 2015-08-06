@@ -1,26 +1,20 @@
 package com.netease.ecos.request.recruitment;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.netease.ecos.constants.RequestUrlConstants;
-import com.netease.ecos.model.Course;
-import com.netease.ecos.model.Course.Assignment;
-import com.netease.ecos.model.Course.CourseType;
 import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.model.Recruitment.RecruitType;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /***
  *
@@ -117,11 +111,11 @@ public class CreateRecruitmentRequest extends BaseRequest{
 	public String getRequestRecruitJson(Recruitment recruitment){
 		Map<Object,Object> jsonMap = new HashMap<Object,Object>();
 
+		jsonMap.put("title", "xxx");
 		jsonMap.put("price", recruitment.averagePrice);
 		jsonMap.put("priceUnit", recruitment.priceUnit);
 		jsonMap.put("description", recruitment.description);
 		jsonMap.put("coverUrl", recruitment.coverUrl);
-		jsonMap.put("title", recruitment.title);
 		jsonMap.put("recruitType", recruitment.recruitType.getValue());
 
 		return new JSONObject(jsonMap).toString();
