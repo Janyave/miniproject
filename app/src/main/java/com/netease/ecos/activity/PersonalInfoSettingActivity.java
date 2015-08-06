@@ -1,7 +1,10 @@
 package com.netease.ecos.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,10 +16,17 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.request.NorResponce;
+import com.netease.ecos.request.user.UpdateUserInfoRequest;
 import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SetPhotoHelper;
+
+import java.io.File;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -48,9 +58,18 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     LinearLayout ll_password;
     @InjectView(R.id.ll_tags)
     LinearLayout ll_tags;
+    @InjectView(R.id.personal_info_set_pic)
+    LinearLayout personal_info_set_pic;
+    @InjectView(R.id.personal_info_set_avatar_pic)
+    RoundImageView personal_info_set_avatar_pic;
+    @InjectView(R.id.tv_tag)
+    TextView tv_tag;
 
 //    private RoundAngleImageView iv;
 
+    private SetPhotoHelper mSetPhotoHelper;
+    private User user;
+    private UpdateUserInfoRequest request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +78,10 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         ButterKnife.inject(this);
         onBoundView();
         onBoundLinster();
+
+        mSetPhotoHelper = new SetPhotoHelper(this, null);
+        user = UserDataService.getSingleUserDataService(this).getUser();
+        request = new UpdateUserInfoRequest();
 //        iv = (RoundAngleImageView) findViewById(R.id.picasso_test);
 //        iv.setImageFromUrl("http://pic4.nipic.com/20090803/2618170_095921092_2.jpg");
 
@@ -67,22 +90,18 @@ public class PersonalInfoSettingActivity extends BaseActivity {
 
     private void onBoundView() {
         mReturn = (LinearLayout) findViewById(R.id.lly_left_action);
-        mAvatarImg = (RoundImageView) findViewById(R.id.personal_info_set_avatar_pic);
-        mSetAvatar = (ImageView) findViewById(R.id.personal_info_set_avatar);
         mSetName = (TextView) findViewById(R.id.personal_info_set_name);
         mSetGender = (TextView) findViewById(R.id.personal_info_set_gender);
         mSetIntro = (TextView) findViewById(R.id.personal_info_set_intro);
         mSetMsgAlert = (Switch) findViewById(R.id.personal_info_set_Msg_alert);
         mLogOut = (Button) findViewById(R.id.personal_info_logout);
-        ll_tagsList=(LinearLayout) findViewById(R.id.ll_tagsList);  //add tags in this layout
+        ll_tagsList = (LinearLayout) findViewById(R.id.ll_tagsList);  //add tags in this layout
     }
 
     private void onBoundLinster() {
         //bound button linster
         ButtonListener listener = new ButtonListener();
         mReturn.setOnClickListener(listener);
-        mSetAvatar.setOnClickListener(listener);
-        mAvatarImg.setOnClickListener(listener);
         mLogOut.setOnClickListener(listener);
 
         ll_name.setOnClickListener(listener);
@@ -90,6 +109,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         ll_signature.setOnClickListener(listener);
         ll_password.setOnClickListener(listener);
         ll_tags.setOnClickListener(listener);
+        personal_info_set_pic.setOnClickListener(listener);
 
         //bound spinner linster
         bonudSpinner();
@@ -105,6 +125,37 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case SetPhotoHelper.REQUEST_BEFORE_CROP:
+                    mSetPhotoHelper.setmSetPhotoCallBack(new SetPhotoHelper.SetPhotoCallBack() {
+
+                        @Override
+                        public void success(String imagePath) {
+                            user.avatarUrl = imagePath;
+                            sendUser(user);
+                            Log.w("picture_path", imagePath);
+                        }
+                    });
+                    mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_BEFORE_CROP, data);
+                    return;
+
+                case SetPhotoHelper.REQUEST_AFTER_CROP:
+                    mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_AFTER_CROP, data);
+                    break;
+                default:
+                    Log.e("CLASS_TAG", "onActivityResult() 无对应");
+            }
+
+
+        } else {
+            Log.e(CLASS_TAG, "操作取消");
+        }
+    }
+
     class ButtonListener implements View.OnClickListener {
 
         @Override
@@ -113,13 +164,27 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                 case R.id.lly_left_action:
                     finish();
                     break;
-                case R.id.personal_info_set_avatar_pic:
-                case R.id.personal_info_set_avatar:
-                    //TODO set avatar
+                case R.id.personal_info_set_pic:
+                    //TODO 调出相册和相机
+                    SetPhotoDialog dialog = new SetPhotoDialog(PersonalInfoSettingActivity.this, new SetPhotoDialog.ISetPhoto() {
+
+                        @Override
+                        public void choosePhotoFromLocal() {
+                            mSetPhotoHelper.choosePhotoFromLocal();
+                        }
+
+                        @Override
+                        public void takePhoto() {
+                            mSetPhotoHelper.takePhoto(true);
+                        }
+                    });
+                    dialog.showSetPhotoDialog();
+                    mSetPhotoHelper.setAspect(1, 1);
+                    mSetPhotoHelper.setOutput(300, 300);
                     break;
                 case R.id.ll_name:
-                    Intent intent2=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormalActivity.class);
-                    Bundle bundle2=new Bundle();
+                    Intent intent2 = new Intent(PersonalInfoSettingActivity.this, PersonSetInformationNormalActivity.class);
+                    Bundle bundle2 = new Bundle();
                     bundle2.putInt(PersonSetInformationNormalActivity.ACTICITY_TYPE, PersonSetInformationNormalActivity.TYPE_NAME);
                     intent2.putExtras(bundle2);
                     startActivity(intent2);
@@ -131,21 +196,21 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     startActivity(new Intent(PersonalInfoSettingActivity.this, PersonSetTagsActivity.class));
                     break;
                 case R.id.ll_signature:
-                    Intent intent3=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormalActivity.class);
-                    Bundle bundle3=new Bundle();
+                    Intent intent3 = new Intent(PersonalInfoSettingActivity.this, PersonSetInformationNormalActivity.class);
+                    Bundle bundle3 = new Bundle();
                     bundle3.putInt(PersonSetInformationNormalActivity.ACTICITY_TYPE, PersonSetInformationNormalActivity.TYPE_SIGNATURE);
                     intent3.putExtras(bundle3);
                     startActivity(intent3);
                     break;
                 case R.id.ll_password:
-                    Intent intent1=new Intent(PersonalInfoSettingActivity.this,PersonSetInformationNormalActivity.class);
-                    Bundle bundle=new Bundle();
+                    Intent intent1 = new Intent(PersonalInfoSettingActivity.this, PersonSetInformationNormalActivity.class);
+                    Bundle bundle = new Bundle();
                     bundle.putInt(PersonSetInformationNormalActivity.ACTICITY_TYPE, PersonSetInformationNormalActivity.TYPE_PASSWORD);
                     intent1.putExtras(bundle);
                     startActivity(intent1);
                     break;
                 case R.id.personal_info_logout:
-                    Intent intent=new Intent(PersonalInfoSettingActivity.this,SplashActivity.class);
+                    Intent intent = new Intent(PersonalInfoSettingActivity.this, SplashActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
@@ -175,5 +240,46 @@ public class PersonalInfoSettingActivity extends BaseActivity {
             }
         }
     }
+
+    private void sendUser(User user) {
+        request.request(new NorResponce() {
+            @Override
+            public void success() {
+                setUserData();
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+                Toast.makeText(PersonalInfoSettingActivity.this, "网络异常，个人信息更新失败", Toast.LENGTH_LONG);
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        }, user);
+    }
+
+    private void setUserData() {
+        User SetUser = UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this).getUser();
+        Bitmap bitmap = null;
+        bitmap = BitmapFactory.decodeFile(SetUser.avatarUrl);
+        if (bitmap != null)
+            personal_info_set_avatar_pic.setImageBitmap(bitmap);
+
+        mSetName.setText(SetUser.nickname);
+        mSetGender.setText(SetUser.gender.getValue());
+
+        for (User.RoleType roleType : SetUser.roleTypeSet)
+            System.out.println(roleType.getBelongs());
+
+        mSetIntro.setText(SetUser.characterSignature);
+    }
+
 
 }

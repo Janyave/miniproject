@@ -6,7 +6,14 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.request.NorResponce;
+import com.netease.ecos.request.user.UpdateUserInfoRequest;
+
+import java.util.Set;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -36,6 +43,11 @@ public class PersonSetTagsActivity extends BaseActivity implements View.OnClickL
     @InjectView(R.id.checkbox6)
     CheckBox checkBox6;
 
+    private User user;
+    private UpdateUserInfoRequest request;
+
+    private Set<User.RoleType> roleTypes;
+    private User.RoleType roleType;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -50,6 +62,9 @@ public class PersonSetTagsActivity extends BaseActivity implements View.OnClickL
 
     private void initView() {
         title_text.setText("设置");
+        user = UserDataService.getSingleUserDataService(this).getUser();
+        request = new UpdateUserInfoRequest();
+
     }
 
     private void initListener() {
@@ -71,7 +86,64 @@ public class PersonSetTagsActivity extends BaseActivity implements View.OnClickL
             case R.id.lly_right_action:
                 //checkbox state check
                 //TODO
+                if (checkBox1.isChecked())
+                {
+                    roleType = User.RoleType.getRoleTypeByValue("Coser");
+                    roleTypes.add(roleType);
+                }
+                if (checkBox2.isChecked())
+                {
+                    roleType = User.RoleType.getRoleTypeByValue("妆娘");
+                    roleTypes.add(roleType);
+                }
+                if (checkBox3.isChecked())
+                {
+                    roleType = User.RoleType.getRoleTypeByValue("摄影");
+                    roleTypes.add(roleType);
+                }
+                if (checkBox4.isChecked())
+                {
+                    roleType = User.RoleType.getRoleTypeByValue("后期");
+                    roleTypes.add(roleType);
+                }
+                if (checkBox5.isChecked())
+                {
+                    roleType = User.RoleType.getRoleTypeByValue("裁缝");
+                    roleTypes.add(roleType);
+                }
+                if (checkBox6.isChecked())
+                {
+                    roleType = User.RoleType.getRoleTypeByValue("道具");
+                    roleTypes.add(roleType);
+                }
+                user.roleTypeSet = roleTypes;
+                sendUser(user);
+                finish();
                 break;
         }
+    }
+
+    void sendUser(User user) {
+        request.request(new NorResponce() {
+            @Override
+            public void success() {
+
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        }, user);
     }
 }
