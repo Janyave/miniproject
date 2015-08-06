@@ -160,7 +160,11 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             ((TextView) convertView.findViewById(R.id.tv_search)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mcontext.startActivity(new Intent(mcontext, SearchActivity.class));
+                    Intent intent1 = new Intent(mcontext, SearchActivity.class);
+                    Bundle bundle1=new Bundle();
+                    bundle1.putInt(SearchActivity.SEARCH_TYPE, SearchActivity.TYPE_SHARE);
+                    intent1.putExtras(bundle1);
+                    mcontext.startActivity(intent1);
                 }
             });
             convertView.setTag(false);

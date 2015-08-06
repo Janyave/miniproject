@@ -29,6 +29,7 @@ import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.FloadingButton;
 import com.netease.ecos.views.ListViewListener;
+import com.netease.ecos.views.PopupHelper;
 import com.netease.ecos.views.XListView;
 
 import java.lang.reflect.Method;
@@ -70,6 +71,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     ImageView iv_sortIcon;
 
     private PopupWindow popupSortType;
+    private PopupWindow popupSixType=new PopupWindow();
 
     private ArrayAdapter<CourseListRequest.SortRule> spAdapter;
     private static final CourseListRequest.SortRule[] SORT_RULES = {CourseListRequest.SortRule.时间, CourseListRequest.SortRule.被关注数, CourseListRequest.SortRule.被点赞数};
@@ -123,11 +125,26 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         Intent intent;
         switch (v.getId()) {
             case R.id.iv_search:
-                intent = new Intent(CourseCategoryActivity.this, SearchActivity.class);
-                startActivityForResult(intent, RequestCodeForSearch);
+                Intent intent1 = new Intent(CourseCategoryActivity.this, SearchActivity.class);
+                Bundle bundle1=new Bundle();
+                bundle1.putInt(SearchActivity.SEARCH_TYPE, SearchActivity.TYPE_COURSE);
+                intent1.putExtras(bundle1);
+                startActivity(intent1);
                 break;
             case R.id.ll_left:
-                //TODO 左上角类型选择事件
+                if (popupSixType.isShowing()){
+                    popupSixType.dismiss();
+                }else {
+                    popupSixType = PopupHelper.newSixTypePopupWindow(CourseCategoryActivity.this);
+                    PopupHelper.showSixTypePopupWindow(popupSixType, CourseCategoryActivity.this, v, new PopupHelper.IPopupListner() {
+                        @Override
+                        public void clickListner(int type, View v, PopupWindow popupWindow) {
+                            //TODO  左上角选择类型事件 为类型
+                            Toast.makeText(CourseCategoryActivity.this, "click " + type, Toast.LENGTH_SHORT).show();
+                            tv_left.setText(((RadioButton)v).getText().toString());
+                        }
+                    });
+                }
                 break;
             case R.id.lly_left_action:
                 finish();
