@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -45,12 +46,14 @@ import butterknife.InjectView;
  */
 public class NewActivityActivity extends Activity implements View.OnClickListener, View.OnTouchListener {
     private final String TAG = "Ecos---NewActivity";
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
     @InjectView(R.id.tv_title)
-    TextView titleTxVw;
-    @InjectView(R.id.btn_right_action)
-    Button rightButton;
-    @InjectView(R.id.tv_left)
-    TextView backTxVw;
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
     @InjectView(R.id.activityCoverImgVw)
     ImageView coverImgVw;
     @InjectView(R.id.activityNameEdTx)
@@ -111,8 +114,16 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_activity_layout);
         ButterKnife.inject(this);
+        initTitle();
         initData();
         initView();
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(this);
+        title_right.setOnClickListener(this);
+        title_right_text.setText("发布");
+        title_text.setText("发布活动");
     }
 
     void initData() {
@@ -134,17 +145,12 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     }
 
     void initView() {
-        titleTxVw.setText("发布活动");
-        rightButton.setText("发布");
-        backTxVw.setText("取消");
         //set adapter
         contactListView.setAdapter(contactListAdapter);
         activityTypeSpinner.setAdapter(activityTypeAdapter);
         activityProvinceSpinner.setAdapter(provinceAdapter);
         activityCitySpinner.setAdapter(cityAdapter);
         //set listener
-        backTxVw.setOnClickListener(this);
-        rightButton.setOnClickListener(this);
         coverImgVw.setOnClickListener(this);
         newIcon.setOnClickListener(this);
         beginDateEdTx.setOnTouchListener(this);
@@ -156,7 +162,7 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_right_action:
+            case R.id.lly_right_action:
                 if (!checkAll()) {
                     Toast.makeText(NewActivityActivity.this, getResources().getString(R.string.notAlreadyFinished), Toast.LENGTH_SHORT).show();
                     return;
@@ -164,7 +170,7 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
                 File file = new File(coverImagePath);
                 UploadImageTools.uploadImageSys(file, new UploadWorkCallBack(), NewActivityActivity.this, false);
                 break;
-            case R.id.tv_left:
+            case R.id.lly_left_action:
                 NewActivityActivity.this.finish();
                 break;
             case R.id.activityCoverImgVw:

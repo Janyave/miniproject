@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +35,14 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
     ExtensibleListView displayLsVw;
     @InjectView(R.id.priceTxVw)
     TextView priceTxVw;
-    @InjectView(R.id.btn_right_action)
-    Button btn_right_action;
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
+    @InjectView(R.id.tv_title)
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
     @InjectView(R.id.priceEdTx)
     EditText priceEdTx;
     @InjectView(R.id.descrpEdTx)
@@ -51,20 +58,24 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_recruitment_layout);
         ButterKnife.inject(this);
+        initTitle();
         initData();
         initView();
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(this);
+        title_right.setOnClickListener(this);
+        title_right_text.setText(R.string.auction);
+        title_text.setText("设置价格和封面作品");
     }
 
     void initView() {
         //set the data
         priceTxVw.setText(mRecruitType.getPriceUnit());
-        btn_right_action.setText(NewRecruitmentActivity.this.getResources().getString(R.string.auction));
         //set adapter
         displayLsVw.setAdapter(newDisplayListAdater);
         //set listener
-        btn_right_action.setOnClickListener(this);
-
-
     }
 
     void initData() {
@@ -82,7 +93,10 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_right_action:
+            case R.id.lly_left_action:
+                finish();
+                break;
+            case R.id.lly_right_action:
                 String price = priceEdTx.getText().toString();
                 String descrp = descrpEdTx.getText().toString();
                 //TODO：get the chosen cover.

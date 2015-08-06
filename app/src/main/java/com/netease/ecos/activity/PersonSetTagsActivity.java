@@ -23,12 +23,14 @@ import butterknife.InjectView;
  */
 public class PersonSetTagsActivity extends BaseActivity implements View.OnClickListener{
 
-    @InjectView(R.id.lly_left_action)
-    LinearLayout title_left;
     @InjectView(R.id.lly_right_action)
     LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
     @InjectView(R.id.tv_title)
     TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
 
     @InjectView(R.id.checkbox1)
     CheckBox checkBox1;
@@ -55,13 +57,18 @@ public class PersonSetTagsActivity extends BaseActivity implements View.OnClickL
         setContentView(R.layout.activity_person_set_tags);
         ButterKnife.inject(this);
 
+        initTitle();
         initView();
         initListener();
         initData();
     }
 
+    private void initTitle() {
+        title_right_text.setText("确定");
+        title_text.setText("标签");
+    }
+
     private void initView() {
-        title_text.setText("设置");
         user = UserDataService.getSingleUserDataService(this).getUser();
         request = new UpdateUserInfoRequest();
 

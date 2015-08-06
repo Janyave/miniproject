@@ -41,12 +41,14 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
     public static final String CourseID = "CourseID";
     //the widget of the title bar
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
     @InjectView(R.id.tv_title)
-    TextView titleTxVw;
-    @InjectView(R.id.btn_right_action)
-    Button rightButton;
-    @InjectView(R.id.tv_left)
-    TextView backTxVw;
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
     @InjectView(R.id.iv_cover)
     ImageView iv_cover;
     @InjectView(R.id.ll_praise)
@@ -104,9 +106,21 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_detail);
         ButterKnife.inject(this);
+        initTitle();
         initData();
         initView();
         getSupportActionBar().hide();
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CourseDetailActivity.this.finish();
+            }
+        });
+        title_right.setVisibility(View.INVISIBLE);
+        title_text.setText("教程详情");
     }
 
     private void initData() {
@@ -146,15 +160,6 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         mSetPhotoHelper = new SetPhotoHelper(this, null);
         mSetPhotoHelper.setOutput(outPutWidth, outPutHeight);
         mSetPhotoHelper.setAspect(2, 3);
-        //implementation on the title bar
-        titleTxVw.setText("教程详情");
-        rightButton.setVisibility(View.INVISIBLE);
-        backTxVw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CourseDetailActivity.this.finish();
-            }
-        });
     }
 
     @Override

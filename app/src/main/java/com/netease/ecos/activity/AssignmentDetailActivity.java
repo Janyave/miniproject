@@ -58,12 +58,14 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
     @InjectView(R.id.gestureView)
     GestureOverlayView gestureOverlayView;
     //widget in the title bar
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
     @InjectView(R.id.tv_title)
-    TextView titleTxVw;
-    @InjectView(R.id.btn_right_action)
-    Button rightButton;
-    @InjectView(R.id.tv_left)
-    TextView backTxVw;
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
     //widget in details
     @InjectView(R.id.workDetailImgVw)
     NetworkImageView networkImageView;
@@ -109,8 +111,15 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         super.onCreate(arg0);
         setContentView(R.layout.work_detail_layout);
         ButterKnife.inject(this);
+        initTitle();
         initData();
         initView();
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(this);
+        title_right.setVisibility(View.INVISIBLE);
+        title_text.setText("");
     }
 
     void initData() {
@@ -143,8 +152,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
 
     void initView() {
         //implementation on the title bar
-        titleTxVw.setText((workOrder + 1) + "/" + workList.size());
-        rightButton.setVisibility(View.INVISIBLE);
+        title_text.setText((workOrder + 1) + "/" + workList.size());
 
         //set the default image for NetWorkImageView
         networkImageView.setDefaultImageResId(R.mipmap.ic_launcher);
@@ -157,7 +165,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         //add listener
         commentListView.setOnItemClickListener(this);
         commentEdTx.setOnTouchListener(this);
-        backTxVw.setOnClickListener(this);
+        title_left.setOnClickListener(this);
         favorBtn.setOnClickListener(this);
         gestureOverlayView.addOnGesturePerformedListener(this);
     }
@@ -190,7 +198,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
                 }
 
                 break;
-            case R.id.tv_left:
+            case R.id.lly_left_action:
                 AssignmentDetailActivity.this.finish();
                 break;
         }
@@ -234,7 +242,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
                     }
                     Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.loadingLastAssignment), Toast.LENGTH_SHORT).show();
                     workOrder--;
-                    titleTxVw.setText((workOrder + 1) + "/" + workList.size());
+                    title_text.setText((workOrder + 1) + "/" + workList.size());
                 } else if (LEFT.equals(prediction.name)) {
                     if (workOrder == workList.size() - 1) {
                         Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.alreadyLastAssignment), Toast.LENGTH_SHORT).show();
@@ -242,7 +250,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
                     }
                     Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.loadingNextAssignment), Toast.LENGTH_SHORT).show();
                     workOrder++;
-                    titleTxVw.setText((workOrder + 1) + "/" + workList.size());
+                    title_text.setText((workOrder + 1) + "/" + workList.size());
                 }
             }
         }

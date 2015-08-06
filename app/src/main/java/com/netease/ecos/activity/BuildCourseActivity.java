@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,12 +44,14 @@ public class BuildCourseActivity extends BaseActivity {
     private final String TAG = "Ecos---BuildCourse";
     public static final String COURSE_TYPE = "courseType";
 
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
     @InjectView(R.id.tv_title)
-    TextView titleTxVw;
-    @InjectView(R.id.btn_right_action)
-    Button rightButton;
-    @InjectView(R.id.tv_left)
-    TextView backTxVw;
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
 
     /**
      * 教程名称
@@ -138,15 +141,19 @@ public class BuildCourseActivity extends BaseActivity {
 
         //注解工具初始化
         ButterKnife.inject(this);
+        initTitle();
         initData();
         initView();
     }
 
-    private void initData() {
-        //implementation on the title bar
-        titleTxVw.setText("新建教程");
-        rightButton.setText("发布");
-        rightButton.setOnClickListener(new View.OnClickListener() {
+    private void initTitle() {
+        title_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BuildCourseActivity.this.finish();
+            }
+        });
+        title_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO:send the content to the server.
@@ -154,12 +161,12 @@ public class BuildCourseActivity extends BaseActivity {
                 BuildCourseActivity.this.finish();
             }
         });
-        backTxVw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BuildCourseActivity.this.finish();
-            }
-        });
+        title_right_text.setText("发布");
+        title_text.setText("新建教程");
+    }
+
+    private void initData() {
+
 
         List<Course.Step> stepsList = new ArrayList<Course.Step>();
 

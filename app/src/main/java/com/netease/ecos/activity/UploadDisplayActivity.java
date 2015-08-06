@@ -39,8 +39,8 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
     private final String TAG = "Ecos---UploadWorks";
     @InjectView(R.id.tv_title)
     TextView titleTxVw;
-    @InjectView(R.id.btn_right_action)
-    Button rightButton;
+    @InjectView(R.id.tv_right_text)
+    TextView rightButton;
     @InjectView(R.id.tv_left)
     TextView backTxVw;
     @InjectView(R.id.uploadWorksLsVw)

@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/include_title"
-        layout="@layout/component_title" />
+        layout="@layout/component_title_normal_righttext" />
 
     <ScrollView
         android:id="@+id/course_detail_scrollveiw"
