@@ -17,14 +17,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.request.user.UpdateUserInfoRequest;
 import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.utils.SetPhotoHelper;
+import com.netease.ecos.utils.UploadImageTools;
+import com.netease.ecos.views.RoundedNetworkImageView;
 
 import java.io.File;
 
@@ -58,16 +63,26 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     LinearLayout ll_password;
     @InjectView(R.id.ll_tags)
     LinearLayout ll_tags;
-    @InjectView(R.id.personal_info_set_pic)
-    LinearLayout personal_info_set_pic;
-    @InjectView(R.id.personal_info_set_avatar_pic)
-    RoundImageView personal_info_set_avatar_pic;
+
+//    @InjectView(R.id.niv_personal_user_avatar)
+//    LinearLayout niv_personal_user_avatar;
+
+    @InjectView(R.id.niv_personal_user_avatar)
+    RoundedNetworkImageView niv_personal_user_avatar;
+
     @InjectView(R.id.tv_tag)
     TextView tv_tag;
 
 //    private RoundAngleImageView iv;
 
     private SetPhotoHelper mSetPhotoHelper;
+
+    public boolean isSettingAvatart = false;
+
+    public String mAvatarLocalPath = "";
+
+    public String mAvatarUrl = "";
+
     private User user;
     private UpdateUserInfoRequest request;
 
@@ -80,10 +95,24 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         onBoundLinster();
 
         mSetPhotoHelper = new SetPhotoHelper(this, null);
+        //图片裁剪后输出宽度
+        final int outPutWidth = 200;
+        //图片裁剪后输出高度
+        final int outPutHeight = 200;
+        mSetPhotoHelper.setAspect(1, 1);
+        mSetPhotoHelper.setOutput(outPutWidth, outPutHeight);
+
         user = UserDataService.getSingleUserDataService(this).getUser();
         request = new UpdateUserInfoRequest();
 //        iv = (RoundAngleImageView) findViewById(R.id.picasso_test);
 //        iv.setImageFromUrl("http://pic4.nipic.com/20090803/2618170_095921092_2.jpg");
+
+        if(user.avatarUrl!=null)
+        {
+            mAvatarUrl = user.avatarUrl;
+            ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
+            niv_personal_user_avatar.setImageUrl(mAvatarUrl,imageLoader);
+        }
 
     }
 
@@ -96,6 +125,9 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         mSetMsgAlert = (Switch) findViewById(R.id.personal_info_set_Msg_alert);
         mLogOut = (Button) findViewById(R.id.personal_info_logout);
         ll_tagsList = (LinearLayout) findViewById(R.id.ll_tagsList);  //add tags in this layout
+
+
+
     }
 
     private void onBoundLinster() {
@@ -109,7 +141,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         ll_signature.setOnClickListener(listener);
         ll_password.setOnClickListener(listener);
         ll_tags.setOnClickListener(listener);
-        personal_info_set_pic.setOnClickListener(listener);
+        niv_personal_user_avatar.setOnClickListener(listener);
 
         //bound spinner linster
         bonudSpinner();
@@ -125,28 +157,38 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case SetPhotoHelper.REQUEST_BEFORE_CROP:
-                    mSetPhotoHelper.setmSetPhotoCallBack(new SetPhotoHelper.SetPhotoCallBack() {
+                    //当前是设置封面
+                    if (isSettingAvatart) {
+                        mSetPhotoHelper.setmSetPhotoCallBack(new SetPhotoHelper.SetPhotoCallBack() {
 
-                        @Override
-                        public void success(String imagePath) {
-                            user.avatarUrl = imagePath;
-                            sendUser(user);
-                            Log.w("picture_path", imagePath);
-                        }
-                    });
-                    mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_BEFORE_CROP, data);
-                    return;
+                            @Override
+                            public void success(String imagePath) {
+                                Log.i("裁剪后图片路径", "-----------path:" + imagePath);
+                                mAvatarLocalPath = imagePath;
+                                isSettingAvatart = false;
 
+                                setAndUpdateAvatar();
+
+                            }
+                        });
+                        mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_BEFORE_CROP, data);
+                        return;
+                    }
+
+
+                    break;
                 case SetPhotoHelper.REQUEST_AFTER_CROP:
                     mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_AFTER_CROP, data);
                     break;
                 default:
+                    isSettingAvatart = false;
                     Log.e("CLASS_TAG", "onActivityResult() 无对应");
             }
 
@@ -164,23 +206,27 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                 case R.id.lly_left_action:
                     finish();
                     break;
-                case R.id.personal_info_set_pic:
+                case R.id.niv_personal_user_avatar:
                     //TODO 调出相册和相机
-                    SetPhotoDialog dialog = new SetPhotoDialog(PersonalInfoSettingActivity.this, new SetPhotoDialog.ISetPhoto() {
+                    SetPhotoDialog dialog = new SetPhotoDialog(PersonalInfoSettingActivity.this,
+                            new SetPhotoDialog.ISetPhoto() {
 
-                        @Override
-                        public void choosePhotoFromLocal() {
-                            mSetPhotoHelper.choosePhotoFromLocal();
-                        }
+                                @Override
+                                public void choosePhotoFromLocal() {
+                                    Toast.makeText(PersonalInfoSettingActivity.this, "选择本地图片", Toast.LENGTH_LONG).show();
+                                    mSetPhotoHelper.choosePhotoFromLocal();
+                                    isSettingAvatart = true;
+                                }
 
-                        @Override
-                        public void takePhoto() {
-                            mSetPhotoHelper.takePhoto(true);
-                        }
-                    });
+                                @Override
+                                public void takePhoto() {
+                                    Toast.makeText(PersonalInfoSettingActivity.this, "拍照", Toast.LENGTH_LONG).show();
+                                    mSetPhotoHelper.takePhoto(false);
+                                    isSettingAvatart = true;
+
+                                }
+                            });
                     dialog.showSetPhotoDialog();
-                    mSetPhotoHelper.setAspect(1, 1);
-                    mSetPhotoHelper.setOutput(300, 300);
                     break;
                 case R.id.ll_name:
                     Intent intent2 = new Intent(PersonalInfoSettingActivity.this, PersonSetInformationNormalActivity.class);
@@ -269,8 +315,8 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         User SetUser = UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this).getUser();
         Bitmap bitmap = null;
         bitmap = BitmapFactory.decodeFile(SetUser.avatarUrl);
-        if (bitmap != null)
-            personal_info_set_avatar_pic.setImageBitmap(bitmap);
+//        if (bitmap != null)
+//            personal_info_set_avatar_pic.setImageBitmap(bitmap);
 
         mSetName.setText(SetUser.nickname);
         mSetGender.setText(SetUser.gender.getValue());
@@ -282,4 +328,55 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     }
 
 
+    /***
+     * 设置并上传头像
+     */
+    public void setAndUpdateAvatar(){
+        if(mAvatarLocalPath!=null && !"".equals(mAvatarLocalPath)){
+            UploadImageTools.uploadImageSys(new File(mAvatarLocalPath), new UploadImageTools.UploadCallBack() {
+
+                @Override
+                public void success(String originUrl, String thumbUrl) {
+                    Log.e(TAG, "图片url:" + originUrl);
+                    ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
+                    niv_personal_user_avatar.setImageUrl(originUrl, imageLoader);
+
+
+                    UpdateUserInfoRequest request = new UpdateUserInfoRequest();
+                    User user = UserDataService.getSingleUserDataService(MyApplication.getContext()).getUser();
+                    user.avatarUrl = originUrl;
+                    request.request(new UpdateUserInfoResponse(),user);
+                }
+
+                @Override
+                public void fail() {
+                    dismissProcessBar();
+                }
+
+                @Override
+                public void onProcess(Object fileParam, long current, long total) {
+
+                }
+            }, PersonalInfoSettingActivity.this, false);
+        }
+    }
+
+
+    class UpdateUserInfoResponse extends BaseResponceImpl implements NorResponce{
+
+        @Override
+        public void success() {
+
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
+    }
 }

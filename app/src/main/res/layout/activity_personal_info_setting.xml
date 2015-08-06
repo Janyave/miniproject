@@ -89,30 +89,37 @@
         android:orientation="vertical"
         android:background="@color/bg_white">
 
+
+        <!--android:layout_height="@dimen/height_item_240px"-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/height_item_240px"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingLeft="@dimen/margin_40px"
-            android:paddingRight="@dimen/margin_40px">
+            android:paddingRight="@dimen/margin_40px"
+            android:paddingTop="@dimen/margin_10px"
+            android:paddingBottom="@dimen/margin_10px">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="头像"
-                style="@style/text_dark_max" />
-
+                style="@style/text_dark_max"/>
             <TextView
                 android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:layout_weight="1"/>
-            <com.netease.ecos.utils.RoundImageView
+            <com.netease.ecos.views.RoundedNetworkImageView
+                android:id="@+id/niv_personal_user_avatar"
+                android:layout_width="@dimen/circle_icon_140px"
+                android:layout_height="@dimen/circle_icon_140px" />
+            <!--<com.netease.ecos.utils.RoundImageView
                 android:id="@+id/personal_info_set_avatar_pic"
                 android:layout_width="@dimen/circle_icon_108px"
                 android:layout_height="@dimen/circle_icon_108px"
                 android:src="@drawable/img_default"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"/>-->
 
             <ImageView
                 android:id="@+id/personal_info_set_avatar"
