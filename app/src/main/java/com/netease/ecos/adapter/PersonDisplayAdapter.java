@@ -80,6 +80,11 @@ public class PersonDisplayAdapter extends BaseAdapter implements View.OnClickLis
             tv_coverTime.setText(shareList.get(position).getDateDescription() + "");
             tv_praise.setText(shareList.get(position).praiseNum + "");
             tv_evaluate.setText(shareList.get(position).commentNum + "");
+
+            iv_cover.setTag(position);
+            tv_coverTitle.setTag(position);
+            iv_cover.setOnClickListener(PersonDisplayAdapter.this);
+            tv_coverTitle.setOnClickListener(PersonDisplayAdapter.this);
         }
     }
 
@@ -121,9 +126,10 @@ public class PersonDisplayAdapter extends BaseAdapter implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        int position = (int) v.getTag();
         Intent intent = new Intent(mcontext, DisplayDetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(DisplayDetailActivity.ShareId, "1");
+        bundle.putString(DisplayDetailActivity.ShareId, shareList.get(position).shareId);
         intent.putExtras(bundle);
         mcontext.startActivity(intent);
     }

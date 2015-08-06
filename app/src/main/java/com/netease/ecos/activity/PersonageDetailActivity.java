@@ -1,7 +1,6 @@
 package com.netease.ecos.activity;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -165,6 +164,8 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
             userID = getIntent().getExtras().getString(UserID);
             getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, userID);
         }
+        Log.d("ZYW_1234567890","My user id is "+userID);
+        Toast.makeText(this,"userId is "+userID,Toast.LENGTH_SHORT).show();
         courseListRequest.requestOtherCourse(courseListResponce, userID, mCoursePageIndex);
         shareListRequest.requestOtherShareList(shareListResponse, userID, mSharePageIndex);
         activityListRequest.requestOtherActivityList(activityListResponse, userID, mActivityPageIndex);
@@ -176,6 +177,20 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         ImageLoader.ImageCache imageCache = new SDImageCache();
         ImageLoader imageLoader = new ImageLoader(queue, imageCache);
         user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
+        if(mUserData.roleTypeSet.isEmpty()){
+            ll_personage_tag.setVisibility(View.GONE);
+        }else {
+            ll_personage_tag.removeAllViews();
+            for(User.RoleType type:mUserData.roleTypeSet){
+                View v=View.inflate(this, R.layout.item_tag, null);
+                ((TextView)v.findViewById(R.id.tv_tag)).setText(type+"");
+                ll_personage_tag.addView(v);
+            }
+        }
+        if (mUserData.characterSignature == null){
+            ll_signature_attention.setVisibility(isOwn ? View.GONE : View.VISIBLE);
+            user_description.setVisibility(View.GONE);
+        }
 
         user_name.setText(mUserData.nickname);
         if (mUserData.gender == User.Gender.女) {
@@ -295,15 +310,6 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void success(User user) {
-//            tv_display.append("用户id: " + user.userId + "\n");
-//            tv_display.append("  云信id: " + user.imId + "\n");
-//            tv_display.append("  头像url: " + user.avatarUrl + "\n");
-//            tv_display.append("  昵称: " + user.nickname + "\n");
-//            tv_display.append("  个性签名: " + user.characterSignature + "\n");
-//            tv_display.append("  封面图: " + user.coverUrl + "\n");
-//            tv_display.append("  粉丝数: " + user.fansNum + "\n");
-//            tv_display.append("  性别: " + user.gender.name() + "\n");
-//            tv_display.append("  角色: " + user.roleTypeSet + "\n");
             mUserData = user;
             setData();
         }

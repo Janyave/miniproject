@@ -2,6 +2,8 @@ package com.netease.ecos.adapter;
 
 import
         android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.activity.ActivityDetailActivity;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.Share;
 import com.squareup.picasso.Picasso;
@@ -20,7 +23,7 @@ import java.util.List;
  * Created by hzzhanyawei on 2015/8/5.
  * Email hzzhanyawei@corp.netease.com
  */
-public class PersonActivityAdapter extends BaseAdapter {
+public class PersonActivityAdapter extends BaseAdapter implements View.OnClickListener {
     private Context mcontext;
     private List<ActivityModel> activityList;
 
@@ -44,6 +47,8 @@ public class PersonActivityAdapter extends BaseAdapter {
     public Context getMcontext() {
         return mcontext;
     }
+
+
 
     class ViewHolder {
 
@@ -71,9 +76,13 @@ public class PersonActivityAdapter extends BaseAdapter {
             Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             tv_title.setText(item.title);
             tv_tag.setText(item.activityType + "");
-            tv_time.setText(item.issueTimeStamp+"");
+            tv_time.setText(item.issueTimeStamp + "");
             tv_location.setText(item.location+"");
 
+            iv_cover.setTag(position);
+            tv_title.setTag(position);
+            iv_cover.setOnClickListener(PersonActivityAdapter.this);
+            tv_title.setOnClickListener(PersonActivityAdapter.this);
         }
     }
 
@@ -109,5 +118,15 @@ public class PersonActivityAdapter extends BaseAdapter {
         viewHolder.setData(position);
 
         return convertView;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int position = (int) v.getTag();
+        Intent intent = new Intent(mcontext, ActivityDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(ActivityDetailActivity.ActivityID, activityList.get(position).activityId);
+        intent.putExtras(bundle);
+        mcontext.startActivity(intent);
     }
 }
