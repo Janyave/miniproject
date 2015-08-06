@@ -24,11 +24,12 @@
         android:id="@+id/iv_last_step"
         android:layout_width="@dimen/icon_big_64px"
         android:layout_height="@dimen/icon_big_64px"
+        android:src="@mipmap/ic_course_up"
         android:layout_alignParentRight="true"
         android:padding="2dp"
         android:layout_marginRight="@dimen/margin_40px"
         android:layout_marginLeft="@dimen/margin_40px"
-        android:src="@mipmap/ic_course_up"/>
+        />
 
     <ImageView
         android:contentDescription="点击将当前步骤置为下一步"
@@ -76,7 +77,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/margin_20px"
         android:layout_alignBottom="@id/niv_course_photo"
-
         android:src="@mipmap/ic_course_delete"/>
 
     <View style="@style/layout_line_gray"

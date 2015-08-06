@@ -109,7 +109,6 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
 
     @Override
     public void onClick(View v) {
-        Log.w("xuyun", TYPE + "");
         switch (v.getId()) {
             case R.id.lly_left_action:
                 finish();
@@ -121,14 +120,12 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
                         user.nickname = et_input.getText().toString();
                         sendUser(user);
                         Log.w("User", et_input.getText().toString());
-                        finish();
                         //TODO
                         break;
                     case TYPE_SIGNATURE:
                         user.characterSignature = et_input.getText().toString();
                         sendUser(user);
                         Log.w("User", et_input.getText().toString());
-                        finish();
                         //TODO
                         break;
                     case TYPE_PASSWORD:
@@ -149,7 +146,6 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
                             et_inputPassword2.setText("");
                         }
                         Log.w("User", et_input.getText().toString());
-                        finish();
                         //TODO
                         break;
                 }
@@ -161,7 +157,8 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
         request.request(new NorResponce() {
             @Override
             public void success() {
-
+                Toast.makeText(PersonSetInformationNormalActivity.this, "success", Toast.LENGTH_LONG).show();
+                finish();
             }
 
             @Override

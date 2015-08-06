@@ -49,15 +49,16 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
             textViewAuthor = (TextView) root.findViewById(R.id.textViewAuthor);
         }
 
-        /**
-         * 传入数据未定
-         */
         public void setData(final int position) {
             Course item = courseList.get(position);
             if (item.coverUrl != null && !item.coverUrl.equals(""))
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(networkImageView);
+            else
+                networkImageView.setImageResource(R.drawable.img_default);
             if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals(""))
                 Picasso.with(mcontext).load(item.authorAvatarUrl).placeholder(R.drawable.img_default).into(imageAuthorPic);
+            else
+                imageAuthorPic.setImageResource(R.drawable.img_default);
             textViewTitle.setText(item.title);
             textViewAmz.setText(item.praiseNum + "");
             textViewAuthor.setText(item.author);

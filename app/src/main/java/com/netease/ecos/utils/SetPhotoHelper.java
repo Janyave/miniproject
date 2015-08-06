@@ -151,8 +151,7 @@ public class SetPhotoHelper {
 	
 	public void handleActivityResult(int requestCode, Intent data)
 	{
-		System.out.println("xuyun");
-		switch (requestCode) {		
+		switch (requestCode) {
 		case REQUEST_BEFORE_CROP://拍照或者选择本地图片
 			if (data != null) {
 				File picturePath = ImageTools.getPathFromData(data, mContext);
