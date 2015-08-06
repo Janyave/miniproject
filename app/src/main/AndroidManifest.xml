@@ -157,7 +157,13 @@
             android:label="@string/app_name" />
         <activity
             android:name=".activity.LoginActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name" >
+            <!--<intent-filter>-->
+               <!--<action android:name="android.intent.action.MAIN" />-->
+
+               <!--<category android:name="android.intent.category.LAUNCHER" />-->
+           <!--</intent-filter>-->
+        </activity>
         <activity
             android:name=".activity.ResetPasswordActivity"
             android:label="@string/app_name" />
@@ -166,9 +172,24 @@
             android:label="@string/app_name" />
         <activity
             android:name=".activity.SplashActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.NewRecruitmentActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activity.PersonSetInformationNormalActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activity.PersonSetTagsActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activity.PersonSetGenderActivity"
             android:label="@string/app_name" />
         <!-- 云信开始-->
         <meta-data
