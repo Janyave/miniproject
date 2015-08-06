@@ -80,7 +80,7 @@
                         style="@style/text_pink_maxmax"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="我是标题 TITLE" />
+                        android:text="TITLE" />
                     <!-- 赞-->
                     <ImageView
                         android:id="@+id/iv_praiseIcon"
@@ -97,7 +97,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginLeft="@dimen/margin_20px"
                         android:layout_toRightOf="@id/iv_praiseIcon"
-                        android:text="56" />
+                        android:text="praise number" />
 
                     <LinearLayout
                         android:id="@+id/ll_author"
@@ -181,7 +181,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/margin_40px"
-                                android:text="200个网友作品" />
+                                android:text="个网友作品" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -193,7 +193,8 @@
                         android:layout_marginLeft="@dimen/margin_40px"
                         android:layout_marginTop="@dimen/margin_50px"
                         android:background="@color/bg_white"
-                        android:descendantFocusability="afterDescendants" />
+                        android:descendantFocusability="afterDescendants"
+                        android:visibility="gone" />
                     <!-- 所有图片-->
 
                 </LinearLayout>

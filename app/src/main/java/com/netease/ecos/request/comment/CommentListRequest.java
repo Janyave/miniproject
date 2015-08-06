@@ -105,7 +105,7 @@ public class CommentListRequest extends BaseRequest{
 				map.put(COMMENT_TYPE_ID, comment.commentTypeId);
 
 				map.put(KEY_PAGE_INDEX, String.valueOf(pages));
-				map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
+				map.put(KEY_PAGE_SIZE, "1000");
 
 				traceNormal(TAG, map.toString());
 				traceNormal(TAG, CommentListRequest.this.getUrl(RequestUrlConstants.GET_COMMENT_LIST_URL, map));

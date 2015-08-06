@@ -12,8 +12,8 @@ public class RequestUrlConstants {
 
     public static final String TEST_TOKEN = "e5daf20fc3b64b9cb85ccb38a08d8f19";
 
-    public static final String HOUZHE_HOST = "http://10.240.34.189:8080/ecos-mainsite-web";
-//    public static final String HOUZHE_HOST = "http://223.252.223.141:80";
+//    public static final String HOUZHE_HOST = "http://10.240.34.189:8080/ecos-mainsite-web";
+    public static final String HOUZHE_HOST = "http://223.252.223.141:80";
 
 
     /**------------------------------    通用模块    -------------------------------------------*/
@@ -280,7 +280,7 @@ public class RequestUrlConstants {
     /**
      * 点赞教程、分享
      */
-    public static final String PRAISE_URL = HOST + "/m/course/praise?";
+    public static final String PRAISE_URL = HOST_COURSE + "/m/course/praise?";
 
     /**
      * 获取省份列表

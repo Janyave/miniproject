@@ -293,8 +293,8 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         courseDetailStepAdapter = new CourseDetailStepAdapter(this, course.stepList);
         lv_courseStep.setAdapter(courseDetailStepAdapter);
         //if there is no assignment.
-        if (course.assignmentList.size() == 0)
-            hlv_otherWorks.setVisibility(View.GONE);
+        if (course.assignmentList.size() != 0)
+            hlv_otherWorks.setVisibility(View.VISIBLE);
         courseDetailOtherWorksHListViewAdapter = new CourseDetailOtherWorksHListViewAdapter(this, course.assignmentList);
         hlv_otherWorks.setAdapter(courseDetailOtherWorksHListViewAdapter);
 
