@@ -2,7 +2,6 @@ package com.netease.ecos.activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,7 +15,7 @@ import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.recruitment.CreateRecruitmentRequest;
 import com.netease.ecos.request.share.ShareListRequest;
-import com.netease.ecos.views.ExtensibleListView;
+import com.netease.ecos.views.XListView;
 
 import java.util.List;
 
@@ -26,13 +25,13 @@ import butterknife.InjectView;
 /**
  * Created by Think on 2015/7/31.
  */
-public class NewRecruitmentActivity extends BaseActivity implements View.OnClickListener {
+public class NewRecruitmentActivity extends BaseActivity implements View.OnClickListener,XListView.IXListViewListener{
     private static final String TAG = "Ecos---NewRecruitment";
     public static final String RecruitmentType = "RecruitmentType";
     private Recruitment.RecruitType mRecruitType;
 
     @InjectView(R.id.displayListView)
-    ExtensibleListView displayLsVw;
+    XListView displayLsVw;
     @InjectView(R.id.priceTxVw)
     TextView priceTxVw;
     @InjectView(R.id.lly_right_action)
@@ -76,6 +75,11 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
         //set adapter
         displayLsVw.setAdapter(newDisplayListAdater);
         //set listener
+
+        displayLsVw.initRefleshTime(this.getClass().getSimpleName());
+        displayLsVw.setPullRefreshEnable(false);
+        displayLsVw.setPullLoadEnable(true);
+        displayLsVw.setXListViewListener(this);
     }
 
     void initData() {
@@ -87,6 +91,9 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
 //        responce = new ICreateRecruitmentResponce();
 
         getPersonalShareList();
+
+
+
 
     }
 
@@ -100,7 +107,8 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
                 String price = priceEdTx.getText().toString();
                 String descrp = descrpEdTx.getText().toString();
                 //TODO：get the chosen cover.
-                if (price.equals("") || descrp.equals("")) {
+//                if (price.equals("") || descrp.equals("")) {
+                if(newDisplayListAdater.isTopViewEmpty()){
                     Toast.makeText(NewRecruitmentActivity.this, this.getResources().getString(R.string.notAlreadyFinished), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -122,6 +130,7 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
                 request.request(new CreateRecruitmentResponce(), recruitment);
                 break;
         }
+
     }
 
     class CreateRecruitmentResponce extends BaseResponceImpl implements CreateRecruitmentRequest.ICreateRecruitmentResponce {
@@ -156,7 +165,7 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
         ShareListRequest request =  new ShareListRequest();
         Share.Tag tags = Share.Tag.getTagByRecruitType(mRecruitType);
 
-        request.requestMyShareWithTag(new ShareListResponse(), tags,1);
+        request.requestSomeOneShareWithTag(new ShareListResponse(), null, tags,(newDisplayListAdater.getCount()-1)/5+1);
 
     }
 
@@ -173,23 +182,39 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
         @Override
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
+            displayLsVw.stopLoadMore();
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
             dismissProcessBar();
+            displayLsVw.stopLoadMore();
         }
 
         @Override
         public void success(List<Share> shareList) {
             newDisplayListAdater.reflesh(shareList);
             dismissProcessBar();
+            displayLsVw.stopLoadMore();
 
-            if(shareList.size()==0){
+            if((newDisplayListAdater.getCount()-1)==0){
                 Toast.makeText(NewRecruitmentActivity.this,"你目前没有分享",Toast.LENGTH_LONG).show();
                 finish();
             }
         }
+    }
+
+
+    @Override
+    public void onRefresh() {
+
+
+    }
+
+    @Override
+    public void onLoadMore()
+    {
+        getPersonalShareList();
     }
 
 }

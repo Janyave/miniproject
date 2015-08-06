@@ -1,26 +1,23 @@
 package com.netease.ecos.request.user;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.util.Log;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.netease.ecos.constants.RequestUrlConstants;
-import com.netease.ecos.model.Course;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.User.RoleType;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseRequest;
-import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
 import com.netease.ecos.request.NorResponce;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /***
  *
@@ -39,11 +36,13 @@ public class UpdateUserInfoRequest extends BaseRequest{
 	//响应参数键
 	NorResponce mNorResponce;
 
+	User mUser;
 
 	public void request(NorResponce norResponce, final User user)
 	{
 		super.initBaseRequest(norResponce);
 		mNorResponce = norResponce;
+		mUser = user;
 		//		Log.i("修改的个人信息json", getUserJSonDescription(user));
 		//		mNorResponce.success();
 
@@ -74,6 +73,8 @@ public class UpdateUserInfoRequest extends BaseRequest{
 
 		try {
 			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
+
+			UserDataService.getSingleUserDataService(getContext()).saveUser(mUser);
 
 			if(mNorResponce!=null)
 			{

@@ -26,9 +26,9 @@
     <dimen name="workDetailComment_EdTx_width">280dp</dimen>
     <dimen name="workDetailComment_EdTx_height">42dp</dimen>
     <dimen name="workDetailCommentLayoutHeight">58dp</dimen>
-    <dimen name="textsizeS">11sp</dimen>
-    <dimen name="textsizeM">16sp</dimen>
-    <dimen name="textsizeL">19sp</dimen>
+    <!--<dimen name="textsizeS">11sp</dimen>-->
+    <!--<dimen name="textsizeM">16sp</dimen>-->
+    <!--<dimen name="textsizeL">19sp</dimen>-->
     <dimen name="ExhibitListItemMargin">4dp</dimen>
 
     <!-- text size-->
@@ -158,8 +158,8 @@
     <dimen name="radius_circle_icon_100px">17dp</dimen>
 
     <dimen name="text_size_44">17sp</dimen>
-    <dimen name="text_size_36">13sp</dimen>
-    <dimen name="text_size_24">10sp</dimen>
+    <dimen name="text_size_36">14sp</dimen>
+    <dimen name="text_size_24">12sp</dimen>
 
     <dimen name="icon_big_260px">85dp</dimen>
     <dimen name="icon_big_200px">60dp</dimen>
@@ -168,7 +168,7 @@
     <dimen name="icon_return_50px">48dp</dimen>
     <dimen name="icon_more_36px">15dp</dimen>
     <dimen name="spacing_recruite_detail_26">3dp</dimen>
-    <dimen name="icon_sidebar_54px">30dp</dimen>
+    <dimen name="icon_sidebar_54px">18dp</dimen>
     
     <!-- 图片高度-->
     <dimen name="height_cover_160px_240dp">50dp</dimen>
@@ -187,7 +187,9 @@
     <dimen name="height_banner_610px_1080px">210dp</dimen>
     <dimen name="height_personDetail_640px_1080px">230dp</dimen> //should not change
 
-    <dimen name="height_main_type_636px">240dp</dimen>
+    <!-- 首页类型栏高度-->
+    <dimen name="height_main_type_636px">210dp</dimen>
+    <!-- 首页类型栏Icon大小-->
     <dimen name="height_main_type_item_144px">55dp</dimen>
 
 
@@ -228,12 +230,13 @@
 
     <!-- TextView-->
     <dimen name="width_new_activity_text_4">85dp</dimen>
-    <dimen name="height_notification_40px">14dp</dimen>
+    <dimen name="height_notification_40px">15dp</dimen>
     <dimen name="radius_notification_40px">5dp</dimen>
     <dimen name="width_notification_contact_new_60px">15dp</dimen>
     <dimen name="width_tag_226px">85dp</dimen>
     <dimen name="height_tag_80px">32dp</dimen>
     <dimen name="radius_tag_80px">16dp</dimen>
+    <dimen name="height_person_navigation_636px">190dp</dimen>
 
 
 </resources>

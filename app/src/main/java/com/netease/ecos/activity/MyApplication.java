@@ -1,6 +1,5 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
@@ -62,7 +61,6 @@ public class MyApplication extends Application {
 
     private static boolean firstTime = true;
 
-    public static Activity currentActivity;
     public static LocationCallBack mLocationCallBack;
     //百度定位---------------------结束
 

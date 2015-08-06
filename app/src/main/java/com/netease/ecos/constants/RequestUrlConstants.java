@@ -171,22 +171,22 @@ public class RequestUrlConstants {
     /**
      * 创建分享
      */
-    public static final String CREATE_SHARE_URL = HOUZHE_HOST + "/m/share/create?";
+    public static final String CREATE_SHARE_URL = HOST + "/m/share/create?";
 
     /**
      * 获取分享列表
      */
-    public static final String GET_SHARE_LIST_URL = HOUZHE_HOST + "/m/share/list?";
+    public static final String GET_SHARE_LIST_URL = HOST + "/m/share/list?";
 
     /**
      * 获取分享详情
      */
-    public static final String GET_SHARE_DETAIL_URL = HOUZHE_HOST + "/m/share/detail?";
+    public static final String GET_SHARE_DETAIL_URL = HOST + "/m/share/detail?";
 
     /**
      * 删除分享
      */
-    public static final String DELETE_SHARE_URL = HOUZHE_HOST + "/m/share/delete?";
+    public static final String DELETE_SHARE_URL = HOST + "/m/share/delete?";
 
 
     /**------------------------------    活动模块    -------------------------------------------*/
@@ -264,17 +264,17 @@ public class RequestUrlConstants {
     /**
      * 创建招募
      */
-    public static final String CREATE_RECRUITMENT_URL = HOUZHE_HOST + "/m/recruit/create?";
+    public static final String CREATE_RECRUITMENT_URL = HOST + "/m/recruit/create?";
 
     /**
      * 获取招募列表
      */
-    public static final String GET_RECRUITMENT_LIST_URL = HOUZHE_HOST + "/m/recruit/list?";
+    public static final String GET_RECRUITMENT_LIST_URL = HOST + "/m/recruit/list?";
 
     /**
      * 获取招募详情
      */
-    public static final String GET_RECRUITMENT_DETAIL_URL = HOUZHE_HOST + "/m/recruit/detail?";
+    public static final String GET_RECRUITMENT_DETAIL_URL = HOST + "/m/recruit/detail?";
 
 
     /**

@@ -2,8 +2,13 @@ package com.netease.ecos.request;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 
+import com.netease.ecos.activity.LoginActivity;
 import com.netease.ecos.activity.MyApplication;
+import com.netease.ecos.model.AccountDataService;
+import com.netease.ecos.views.sweet_alert_dialog.SweetAlertDialog;
 
 public abstract class BaseResponceImpl implements IBaseResponse{
 
@@ -30,25 +35,27 @@ public abstract class BaseResponceImpl implements IBaseResponse{
 	@Override
 	public void responseNoGrant()
 	{
-		/*AccountDataService.getSingleAccountDataService(mContext).clearAllDataExceptUsername();
-		
-		LittleMessageDialog2 dialog = new LittleMessageDialog2(DemoApplication.currentActivity);
-		dialog.setOnDismissListener(new MyOnDismissListener(){
+		AccountDataService.getSingleAccountDataService(mContext).clearAllDataExceptUsername();
+
+		SweetAlertDialog dialog = new SweetAlertDialog(MyApplication.getCurrentActivity(), SweetAlertDialog.NORMAL_TYPE);
+		dialog.setTitleText("请重新登录");
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+		dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
 			@Override
-			public void dismissDo() {
+			public void onDismiss(DialogInterface dialog) {
 				Intent intent = new Intent();
-				intent.setClass(DemoApplication.currentActivity, LoginActivity.class);
-				
+				intent.setClass(MyApplication.getCurrentActivity(), LoginActivity.class);
+
 				//清除所有activity后开启LoginActivity
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-				DemoApplication.currentActivity.startActivity(intent);
-				DemoApplication.currentActivity.finish();
-				
+				MyApplication.getCurrentActivity().startActivity(intent);
+				MyApplication.getCurrentActivity().finish();
 			}
-			
+
 		});
-		dialog.showProblemDialog("账号已经在其他地方登录，请重新登陆");*/
+		dialog.show();
 	}
 	
 }

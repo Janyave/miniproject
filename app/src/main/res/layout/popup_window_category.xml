@@ -9,57 +9,61 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/bg_white">
 
         <Button
             android:id="@+id/btn_all_category"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="@dimen/height_item_140px"
             android:layout_weight="1"
-            android:background="#ffffff"
             android:text="全部分类"
-            style="@style/text_gray_mid"/>
+            android:background="@drawable/ll_white"
+            style="@style/text_gray_mid"
+            android:textColor="@color/radio_sort_text"/>
 
         <ImageView
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
             android:id="@+id/imageView5"
+            android:layout_width="@dimen/width_line"
+            android:layout_height="match_parent"
             android:layout_weight="0"
-            android:src="@drawable/vertical_divider" />
+            android:background="@color/bg_gray_dark"
+            android:textColor="@color/radio_sort_text"/>
 
         <Button
             android:id="@+id/btn_same_people_show"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_weight="1"
-            android:background="#ffffff"
             android:text="同人展"
-            style="@style/text_gray_mid"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:layout_weight="1"
+            android:background="@drawable/ll_white"
+            style="@style/text_gray_mid"
+            android:textColor="@color/radio_sort_text"/>
 
         <ImageView
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
             android:id="@+id/imageView6"
+            android:layout_width="@dimen/width_line"
+            android:layout_height="match_parent"
             android:layout_weight="0"
-            android:src="@drawable/vertical_divider" />
+            android:background="@color/bg_gray_dark"
+            android:textColor="@color/radio_sort_text"/>
 
         <Button
             android:id="@+id/btn_movie_festival"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_weight="1"
-            android:background="#ffffff"
             android:text="动漫节"
-            style="@style/text_gray_mid"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:layout_weight="1"
+            android:background="@drawable/ll_white"
+            style="@style/text_gray_mid"
+            android:textColor="@color/radio_sort_text"/>
 
     </LinearLayout>
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/imageView2"
-        android:src="@drawable/divider"
-        android:scaleType="fitXY" />
+        android:layout_height="@dimen/width_line"
+        android:id="@+id/imageView2" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,47 +72,49 @@
 
         <Button
             android:id="@+id/btn_official_activities"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_weight="1"
-            android:background="#ffffff"
             android:text="官方活动"
-            style="@style/text_gray_mid"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:layout_weight="1"
+            android:background="@drawable/ll_white"
+            style="@style/text_gray_mid"
+            android:textColor="@color/radio_sort_text"/>
         <ImageView
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
             android:id="@+id/imageView7"
-            android:layout_weight="0"
-            android:src="@drawable/vertical_divider" />
+            android:layout_width="@dimen/width_line"
+            android:layout_height="match_parent"
+            android:background="@color/bg_gray_dark"
+            android:textColor="@color/radio_sort_text"/>
         <Button
             android:id="@+id/btn_category_live"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_weight="1"
-            android:background="#ffffff"
             android:text="LIVE"
-            style="@style/text_gray_mid"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:layout_weight="1"
+            android:background="@drawable/ll_white"
+            style="@style/text_gray_mid"
+            android:textColor="@color/radio_sort_text"/>
         <ImageView
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
             android:id="@+id/imageView8"
-            android:layout_weight="0"
-            android:src="@drawable/vertical_divider" />
+            android:layout_width="@dimen/width_line"
+            android:layout_height="match_parent"
+            android:background="@color/bg_gray_dark"
+            android:textColor="@color/radio_sort_text"/>
         <Button
             android:id="@+id/btn_category_stage"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_weight="1"
-            android:background="#ffffff"
             android:text="舞台祭"
-            style="@style/text_gray_mid"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:layout_weight="1"
+            android:background="@drawable/ll_white"
+            style="@style/text_gray_mid"
+            android:textColor="@color/radio_sort_text"/>
     </LinearLayout>
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/width_line"
         android:id="@+id/imageView3"
-        android:src="@drawable/divider"
         android:scaleType="fitXY"
         android:layout_gravity="center_horizontal" />
 
@@ -119,48 +125,51 @@
 
         <Button
             android:id="@+id/btn_category_match"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_weight="1"
-            android:background="#ffffff"
             android:text="赛事"
-            style="@style/text_gray_mid"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:layout_weight="1"
+            android:background="@drawable/ll_white"
+            style="@style/text_gray_mid"
+            android:textColor="@color/radio_sort_text"/>
         <ImageView
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
             android:id="@+id/imageView9"
+            android:layout_width="@dimen/width_line"
+            android:layout_height="match_parent"
             android:layout_weight="0"
-            android:src="@drawable/vertical_divider" />
+            android:background="@color/bg_gray_dark"
+            android:textColor="@color/radio_sort_text"/>
         <Button
             android:id="@+id/btn_theme_only"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_weight="1"
-            android:background="#ffffff"
             android:text="主题ONLY"
-            style="@style/text_gray_mid"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:layout_weight="1"
+            android:background="@drawable/ll_white"
+            style="@style/text_gray_mid"
+            android:textColor="@color/radio_sort_text"/>
         <ImageView
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
             android:id="@+id/imageView10"
+            android:layout_width="@dimen/width_line"
+            android:layout_height="match_parent"
             android:layout_weight="0"
-            android:src="@drawable/vertical_divider" />
+            android:background="@color/bg_gray_dark"
+            android:textColor="@color/radio_sort_text"/>
         <Button
             android:id="@+id/btn_category_party"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_weight="1"
-            android:background="#ffffff"
             android:text="派对"
-            style="@style/text_gray_mid"/>
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:layout_weight="1"
+            android:background="@drawable/ll_white"
+            style="@style/text_gray_mid"
+            android:textColor="@color/radio_sort_text"/>
     </LinearLayout>
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
         android:id="@+id/imageView4"
-        android:src="@drawable/divider"
-        android:scaleType="fitXY"
-        android:layout_gravity="center_horizontal" />
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width_line"
+        android:background="@color/bg_gray_dark"/>
 
 </LinearLayout>

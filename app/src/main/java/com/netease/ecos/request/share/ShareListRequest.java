@@ -58,7 +58,7 @@ public class ShareListRequest extends BaseRequest{
     public static final String KEY_NICKNAME = "nickname";
 
     /** 作者id */
-    public static final String KEY_USER_ID = "authorId";
+    public static final String KEY_USER_ID = "userId";
 
     /** 是否已评论，true:是 false:否 */
     public static final String KEY_HAS_FOLLOWED= "hasFollowed";
@@ -245,7 +245,8 @@ public class ShareListRequest extends BaseRequest{
      * @param keyWord
      * @param pageIndex
      */
-    public void requestMyShareWithTag(IShareListResponse shareListResponse, final Share.Tag tags,final int pageIndex)
+    public void requestSomeOneShareWithTag(IShareListResponse shareListResponse, final String otherUserId,
+                                           final Share.Tag tags,final int pageIndex)
     {
         super.initBaseRequest(shareListResponse);
         mShareListResponse = shareListResponse;
@@ -257,8 +258,12 @@ public class ShareListRequest extends BaseRequest{
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = getRequestBasicMap();
 
-                map.put(KEY_USER_ID, getUserId());
                 map.put(TYPE, "myself");
+                if(otherUserId==null)
+                    map.put(KEY_USER_ID, getUserId());
+                else
+                    map.put(KEY_USER_ID, otherUserId);
+
                 map.put(KEY_PAGE_SIZE, String.valueOf(5) );
                 map.put(KEY_PAGE_INDEX, String.valueOf( pageIndex ) );
                 map.put("tag", String.valueOf(tags.getTagValues()));

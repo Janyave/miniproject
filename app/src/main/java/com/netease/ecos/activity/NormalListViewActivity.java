@@ -31,6 +31,8 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
     public static String LISTVIEW_TYPE="type";
 
     public final static int TYPE_EVENT_WANTGO=0;
+    public final static int TYPE_EVENT_FANS=1;
+    public final static int TYPE_EVENT_STTENTION=2;
 
 
 
