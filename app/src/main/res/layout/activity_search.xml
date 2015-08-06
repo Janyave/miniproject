@@ -19,30 +19,32 @@
             android:id="@+id/ll_searchType"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/tv_searchType"
+                style="@style/text_white_max"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="全 部"
-                style="@style/text_white_max"/>
+                android:text="@string/makeuper" />
+
             <ImageView
                 android:id="@+id/iv_searchType"
                 android:layout_width="@dimen/icon_big_64px"
                 android:layout_height="@dimen/icon_big_64px"
-                android:src="@mipmap/ic_choose_up_down"/>
+                android:src="@mipmap/ic_choose_up_down" />
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_10px"
             android:layout_weight="1"
             android:background="@drawable/bg_search_pink"
             android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/margin_10px">
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="@dimen/icon_big_64px"
@@ -58,11 +60,11 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:background="@android:color/transparent"
-                android:imeOptions="actionDone"
                 android:ellipsize="end"
-                android:singleLine="true"
                 android:gravity="left|center_vertical"
                 android:hint="搜索你喜爱的动漫和角色"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
                 android:textColorHint="@color/text_red_light" />
         </LinearLayout>
 
@@ -82,28 +84,27 @@
         android:layout_width="match_parent"
         android:layout_height="12dp"
         android:background="@color/bg_gray"
-        android:gravity="center_vertical"
         android:focusable="true"
-        android:focusableInTouchMode="true"/>
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical" />
 
     <ListView
         android:id="@+id/lv_searchHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_white"
-        android:listSelector="@android:color/transparent"
         android:divider="@android:color/transparent"
-        android:dividerHeight="0dp">
-    </ListView>
+        android:dividerHeight="0dp"
+        android:listSelector="@android:color/transparent"></ListView>
 
     <ListView
-        android:visibility="gone"
         android:id="@+id/lv_searchList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:listSelector="@android:color/transparent"
         android:divider="@android:color/transparent"
-        android:dividerHeight="0dp">
+        android:dividerHeight="0dp"
+        android:listSelector="@android:color/transparent"
+        android:visibility="gone">
 
     </ListView>
 

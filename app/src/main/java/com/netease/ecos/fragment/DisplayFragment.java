@@ -29,7 +29,7 @@ import java.util.List;
 
 public class DisplayFragment extends Fragment implements XListView.IXListViewListener, View.OnClickListener {
     private static final String TAG = "Ecos---DisplayF";
-
+    public static ShareListRequest.ShareType shareTypes[] = {ShareListRequest.ShareType.所有, ShareListRequest.ShareType.推荐, ShareListRequest.ShareType.新人, ShareListRequest.ShareType.关注};
     private View mainView;
     private FloadingButton btn_floading;
     private XListView lv_course;

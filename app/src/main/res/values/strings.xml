@@ -132,7 +132,7 @@
     <string name="title_activity_personage_share_fragment">PersonageShareFragment</string>
     <string name="title_activity_personal_info_setting">PersonalInfoSettingActivity</string>
     <string name="alreadyGo">已参加</string>
-    <string name="notGo">未参加</string>
+    <string name="notGo">想参加</string>
     <string name="realiseActivitySuccessfully">发布活动成功:)</string>
     <string name="beginDate">开始日期</string>
     <string name="endDate">结束日期</string>
@@ -169,6 +169,8 @@
 
     <!--  分享页面-->
     <string name="noShare">抱歉，还没有该分类的分享，快来分享吧;)</string>
+    <!-- 搜索页面-->
+    <string name="noContent">请输入搜索关键字:)</string>
     <string name="title_upload_title">标题</string>
     <string name="title_upload_detail">简介</string>
 </resources>

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.netease.cloud.nos.android.utils.LogUtil;
 import com.netease.ecos.R;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.User;
@@ -27,6 +28,8 @@ import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SetPhotoHelper;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.Set;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -62,8 +65,18 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     LinearLayout personal_info_set_pic;
     @InjectView(R.id.personal_info_set_avatar_pic)
     RoundImageView personal_info_set_avatar_pic;
-    @InjectView(R.id.tv_tag)
-    TextView tv_tag;
+    @InjectView(R.id.tv_tag1)
+    TextView tv_tag1;
+    @InjectView(R.id.tv_tag2)
+    TextView tv_tag2;
+    @InjectView(R.id.tv_tag3)
+    TextView tv_tag3;
+    @InjectView(R.id.tv_tag4)
+    TextView tv_tag4;
+    @InjectView(R.id.tv_tag5)
+    TextView tv_tag5;
+    @InjectView(R.id.tv_tag6)
+    TextView tv_tag6;
 
 //    private RoundAngleImageView iv;
 
@@ -87,6 +100,11 @@ public class PersonalInfoSettingActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUserData();
+    }
 
     private void onBoundView() {
         mReturn = (LinearLayout) findViewById(R.id.lly_left_action);
@@ -245,12 +263,12 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         request.request(new NorResponce() {
             @Override
             public void success() {
-                setUserData();
+                Toast.makeText(PersonalInfoSettingActivity.this, "success", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void doAfterFailedResponse(String message) {
-                Toast.makeText(PersonalInfoSettingActivity.this, "网络异常，个人信息更新失败", Toast.LENGTH_LONG);
+                Toast.makeText(PersonalInfoSettingActivity.this, "网络异常，个人信息更新失败", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -266,20 +284,60 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     }
 
     private void setUserData() {
-        User SetUser = UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this).getUser();
+        User setUser = UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this).getUser();
         Bitmap bitmap = null;
-        bitmap = BitmapFactory.decodeFile(SetUser.avatarUrl);
-        if (bitmap != null)
+        bitmap = BitmapFactory.decodeFile(setUser.avatarUrl);
+        if (bitmap != null) {
             personal_info_set_avatar_pic.setImageBitmap(bitmap);
+        }
 
-        mSetName.setText(SetUser.nickname);
-        mSetGender.setText(SetUser.gender.getValue());
+        Log.w("nickname", setUser.nickname);
 
-        for (User.RoleType roleType : SetUser.roleTypeSet)
-            System.out.println(roleType.getBelongs());
+        mSetName.setText(setUser.nickname);
+        if (setUser.gender.getValue().equals("0"))
+            mSetGender.setText("暂无");
+        else if (setUser.gender.getValue().equals("1"))
+            mSetGender.setText("男");
+        else if (setUser.gender.getValue().equals("2"))
+            mSetGender.setText("女");
 
-        mSetIntro.setText(SetUser.characterSignature);
+        setTagVisiable(user.roleTypeSet);
+
+        mSetIntro.setText(setUser.characterSignature);
     }
 
+    void setTagVisiable(Set<User.RoleType> roleTypeSet){
+        Log.w("roleType Size", roleTypeSet.size() + "");
+        tv_tag1.setVisibility(View.GONE);
+        tv_tag2.setVisibility(View.GONE);
+        tv_tag3.setVisibility(View.GONE);
+        tv_tag4.setVisibility(View.GONE);
+        tv_tag5.setVisibility(View.GONE);
+        tv_tag6.setVisibility(View.GONE);
+
+        for (User.RoleType roleType : roleTypeSet){
+            switch (roleType.getBelongs()){
+                case "0":
+                    tv_tag1.setVisibility(View.VISIBLE);
+                    break;
+                case "1":
+                    tv_tag2.setVisibility(View.VISIBLE);
+                    break;
+                case "2":
+                    tv_tag3.setVisibility(View.VISIBLE);
+                    break;
+                case "3":
+                    tv_tag4.setVisibility(View.VISIBLE);
+                    break;
+                case "4":
+                    tv_tag5.setVisibility(View.VISIBLE);
+                    break;
+                case "5":
+                    tv_tag6.setVisibility(View.VISIBLE);
+                    break;
+            }
+            Log.w("roleType", roleType.getBelongs());
+        }
+    }
 
 }
