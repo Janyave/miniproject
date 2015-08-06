@@ -173,4 +173,5 @@
     <string name="noContent">请输入搜索关键字:)</string>
     <string name="title_upload_title">标题</string>
     <string name="title_upload_detail">简介</string>
+    <string name="loadMore">正在为你努力加载内容哦，亲:)</string>
 </resources>
