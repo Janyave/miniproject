@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/bg_white">
 
     <include
         android:id="@+id/include_title"
@@ -21,84 +22,115 @@
             <ImageView
                 android:id="@+id/uploadWorksCoverImgVw"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/workDetail_ImgVw_height"
+                android:layout_height="@dimen/height_cover_670px_1080px"
                 android:src="@mipmap/ic_launcher" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tag" />
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="@dimen/margin_80px"
+                android:layout_marginTop="@dimen/margin_50px"
+                android:layout_marginBottom="@dimen/margin_50px"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:src="@mipmap/img_new_display"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px">
 
                 <CheckBox
                     android:id="@+id/makeuper_cb"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/checkbox_tag"
                     android:text="@string/makeuper" />
-
+                <TextView style="@style/layout_0dp_width"/>
                 <CheckBox
                     android:id="@+id/prop_cb"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/checkbox_tag"
                     android:text="@string/prop" />
-
+                <TextView style="@style/layout_0dp_width"/>
                 <CheckBox
                     android:id="@+id/photography_cb"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/checkbox_tag"
                     android:text="@string/photography" />
-
+                <TextView style="@style/layout_0dp_width"/>
                 <CheckBox
                     android:id="@+id/backstage_cb"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/checkbox_tag"
                     android:text="@string/backstage" />
-
+                <TextView style="@style/layout_0dp_width"/>
                 <CheckBox
                     android:id="@+id/costume_cb"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/checkbox_tag"
                     android:text="@string/costume" />
-
+                <TextView style="@style/layout_0dp_width"/>
                 <CheckBox
                     android:id="@+id/other_cb"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/checkbox_tag"
                     android:text="@string/others" />
-
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/uploadWorksCoverEdTx"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="@string/uploadWorks_coverHint"
-                android:textSize="@dimen/textSize" />
+                android:layout_height="@dimen/height_item_140px"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/margin_40px"
+                android:paddingRight="@dimen/margin_40px"
+                android:gravity="bottom">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="bottom"
+                    style="@style/text_dark_max"
+                    android:text="@string/title_upload_title"
+                    android:layout_marginRight="@dimen/margin_40px"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                <EditText
+                    android:id="@+id/uploadWorksCoverEdTx"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:hint="@string/uploadWorks_coverHint"
+                    style="@style/text_dark_mid"
+                    android:textColorHint="@color/text_gray"
+                    android:singleLine="true"
+                    android:background="@null"
+                    android:paddingBottom="2dp"/>
+                    <TextView style="@style/layout_line_gray"/>
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/height_item_140px"
+                android:text="@string/title_upload_detail"
+                style="@style/text_dark_max"
+                android:gravity="bottom"
+                android:layout_marginLeft="@dimen/margin_40px"/>
 
             <EditText
                 android:id="@+id/uploadWorksDescrpEdTx"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/margin_20px"
+                android:background="@drawable/bg_course_item"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px"
+                android:minLines="3"
+                android:padding="@dimen/margin_20px"
                 android:hint="@string/workDescrp_hint"
-                android:textSize="@dimen/textSize" />
+                style="@style/text_dark_mid"
+                android:textColorHint="@color/text_gray" />
 
             <com.netease.ecos.views.ExtensibleListView
                 android:id="@+id/uploadWorksLsVw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:paddingTop="@dimen/margin_30px"
                 android:dividerHeight="@dimen/divider_height" />
 
         </LinearLayout>

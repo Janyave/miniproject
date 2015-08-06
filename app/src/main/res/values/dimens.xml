@@ -134,6 +134,9 @@
     <dimen name="height_tag_36px">16dp</dimen>
     <dimen name="width_tag_100px">40dp</dimen>
     <dimen name="radius_tag_36px">8dp</dimen>
+    <dimen name="height_tag_54px">24dp</dimen>
+    <dimen name="width_tag_150px">52dp</dimen>
+    <dimen name="radius_tag_54px">12dp</dimen>
     <dimen name="height_campaign_type_54px">20dp</dimen>
     <dimen name="width_campaign_type_150px">68dp</dimen>
     <dimen name="radius_campaign_type_54px">2dp</dimen>
@@ -179,6 +182,8 @@
     <dimen name="width_cover_380px_270px">90dp</dimen>
     <dimen name="width_cover_480px_320px">100dp</dimen>
     <dimen name="height_cover_480px_320px">150dp</dimen>
+    <dimen name="width_cover_552px_870px">300dp</dimen>
+    <dimen name="height_cover_552px_870px">200dp</dimen>
     <dimen name="height_banner_610px_1080px">210dp</dimen>
     <dimen name="height_personDetail_640px_1080px">230dp</dimen> //should not change
 
