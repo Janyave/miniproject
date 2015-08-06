@@ -43,12 +43,14 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
     private final String TAG = "Ecos---ExhibitDetail";
     public static final String ShareId = "shareId";
     //widget in the title bar
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
     @InjectView(R.id.tv_title)
-    TextView titleTxVw;
-    @InjectView(R.id.btn_right_action)
-    Button rightButton;
-    @InjectView(R.id.tv_left)
-    TextView backTxVw;
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
     //widget in detail
     @InjectView(R.id.exhibitCoverImgVw)
     NetworkImageView exhibitCoverImgVw;
@@ -97,22 +99,25 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exhibit_detail_layout);
         ButterKnife.inject(this);
+        initTitle();
         initData();
         initView();
     }
 
+    private void initTitle() {
+        title_left.setOnClickListener(this);
+        title_right.setOnClickListener(this);
+        title_right_text.setText("评论");
+        title_text.setText("");
+    }
+
     void initView() {
-        //implementation on the title bar
-        titleTxVw.setVisibility(View.INVISIBLE);
-        rightButton.setText("99+评论");
         //set adapter
         exhibitListView.setAdapter(exhibitListViewAdapter);
         exhibitCommentLsVwLsVw.setAdapter(workDetailListViewAdapter);
         //set listener
         commentEdTx.setOnTouchListener(this);
         favorBtn.setOnClickListener(this);
-        rightButton.setOnClickListener(this);
-        backTxVw.setOnClickListener(this);
         exhibitCommentLsVwLsVw.setOnItemClickListener(this);
         exhibitFocusBtn.setOnClickListener(this);
         exhibitPersonImgVw.setOnClickListener(this);
@@ -172,7 +177,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_right_action:
+            case R.id.lly_right_action:
                 Intent intent = new Intent(DisplayDetailActivity.this, CommentDetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(CommentDetailActivity.FromId, shareId);
@@ -181,7 +186,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
-            case R.id.tv_left:
+            case R.id.lly_left_action:
                 DisplayDetailActivity.this.finish();
                 break;
             case R.id.favorBtn:

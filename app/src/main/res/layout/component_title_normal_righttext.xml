@@ -2,9 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rly_title_bar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/tv_title_height"
-    android:background="@color/theme"
-    android:paddingRight="10dp">
+    android:layout_height="@dimen/height_title_normal"
+    android:background="@color/bg_red"
+    >
 
     <LinearLayout
         android:id="@+id/lly_left_action"
@@ -12,13 +12,16 @@
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:contentDescription="标题左侧按钮，含图标和按钮，根据需要进行显示和隐藏，并更改名称"
+        android:gravity="center_vertical"
         android:minWidth="80dp"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp">
+        android:orientation="horizontal">
 
-        <include
+        <ImageView
             android:id="@+id/iv_left"
-            layout="@layout/component_left_arrow" />
+            android:layout_width="@dimen/icon_title_return"
+            android:layout_height="@dimen/icon_title_return"
+            android:layout_marginLeft="@dimen/margin_30px"
+            android:src="@mipmap/ic_return_white"/>
 
         <TextView
             android:id="@+id/tv_left"
@@ -28,9 +31,8 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:paddingLeft="5dp"
-            android:text="返回"
-            android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:text=""
+            style="@style/text_white_max" />
     </LinearLayout>
 
     <TextView
@@ -41,34 +43,43 @@
         android:contentDescription="标题，每次初始化页面时需要修改成对应的名称"
         android:gravity="center_vertical"
         android:text="标题"
-        android:textColor="@color/tv_title"
-        android:textSize="@dimen/tv_title_txsize" />
+        style="@style/text_white_max" />
 
     <LinearLayout
         android:id="@+id/lly_right_action"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true">
-    <Button
-        android:id="@+id/btn_right_action"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:background="@null"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical|right">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingRight="@dimen/margin_40px">
+    <TextView
+        android:clickable="false"
+        android:id="@+id/tv_right_text"
+        android:layout_width="@dimen/width_title_right_text_160px"
+        android:layout_height="@dimen/height_title_right_text_80px"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/btn_title_right_text"
+        android:layout_centerVertical="true"
         android:contentDescription="标题右侧按钮，根据需要进行显示或者隐藏，并更改名称"
-        android:paddingLeft="5dp"
-        android:paddingRight="10dp"
         android:text="确定"
-        android:textColor="#ffffff"
-        android:textSize="16sp"
-        android:clickable="false"/>
+        style="@style/text_white_mid"
+        android:textColor="@color/txt_title"/>/>
     <ImageView
+        android:visibility="gone"
         android:id="@+id/iv_right_icon"
-        android:layout_width="22dp"
-        android:layout_height="match_parent"
-        android:layout_toLeftOf="@id/btn_right_action"
+        android:layout_width="@dimen/icon_title_right_img"
+        android:layout_height="@dimen/icon_title_right_img"
+        android:src="@mipmap/ic_title_set"
         android:clickable="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:contentDescription="标题右侧按钮对应的图标" />
+        </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
