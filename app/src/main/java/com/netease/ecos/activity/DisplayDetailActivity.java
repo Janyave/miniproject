@@ -26,6 +26,7 @@ import com.netease.ecos.adapter.WorkDetailListViewAdapter;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.course.PraiseRequest;
 import com.netease.ecos.request.share.GetShareDetailRequest;
 import com.netease.ecos.request.user.FollowUserRequest;
 import com.netease.ecos.utils.SDImageCache;
@@ -88,6 +89,8 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
 
     private String shareId = "";
     private Share share;
+    private PraiseRequest praiseRequest;
+    private PraiseResponse praiseResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +124,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
         shareId = getIntent().getExtras().getString(ShareId);
         //init the adapter
         exhibitListViewAdapter = new ExhibitListViewAdapter(this);
-        workDetailListViewAdapter = new WorkDetailListViewAdapter(this);
+        workDetailListViewAdapter = new WorkDetailListViewAdapter(this, false);
         //for NetWorkImageView
         queue = MyApplication.getRequestQueue();
         imageCache = new SDImageCache();
@@ -138,7 +141,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
         Display display = getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         width -= 80;
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, width * 4 / 3);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, width * 2 / 3);
         exhibitCoverImgVw.setLayoutParams(params);
     }
 
@@ -148,6 +151,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
         Bundle bundle = new Bundle();
         bundle.putString(CommentDetailActivity.FromId, shareId);
         bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.分享.getBelongs());
+        bundle.putBoolean(CommentDetailActivity.IsPraised, share.hasPraised);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -173,6 +177,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
                 Bundle bundle = new Bundle();
                 bundle.putString(CommentDetailActivity.FromId, shareId);
                 bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.分享.getBelongs());
+                bundle.putBoolean(CommentDetailActivity.IsPraised, share.hasPraised);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
@@ -180,16 +185,11 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
                 DisplayDetailActivity.this.finish();
                 break;
             case R.id.favorBtn:
-                //TODO:send the favor information to the server.
-
-                if (TextUtils.equals(tv_favor.getText().toString(),"点赞")){
-                    tv_favor.setText("已点赞");
-                    iv_favor.setImageResource(R.mipmap.ic_praise_fill);
-                }else {
-                    tv_favor.setText("点赞");
-                    iv_favor.setImageResource(R.mipmap.ic_praise_block);
-                }
-
+                if (praiseRequest == null)
+                    praiseRequest = new PraiseRequest();
+                if (praiseResponse == null)
+                    praiseResponse = new PraiseResponse();
+                praiseRequest.praiseShare(praiseResponse, share.shareId, !share.hasPraised);
                 break;
             case R.id.exhibitFocusBtn:
                 if (followUserRequest == null)
@@ -205,6 +205,16 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
                 }
                 followUserRequest.request(followResponce, share.userId, true);
                 break;
+        }
+    }
+
+    void setFavorBtn() {
+        if (share.hasPraised) {
+            tv_favor.setText("已点赞");
+            iv_favor.setImageResource(R.mipmap.ic_praise_fill);
+        } else {
+            tv_favor.setText("点赞");
+            iv_favor.setImageResource(R.mipmap.ic_praise_block);
         }
     }
 
@@ -239,7 +249,9 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
             exhibitTitleContentTxVw.setText(share.content);
             Log.d(TAG, "share.imageList:" + share.imageList.size());
             exhibitListViewAdapter.updateDataList(share.imageList);
+            workDetailListViewAdapter.setCommentCount(share.commentNum);
             workDetailListViewAdapter.updateCommentList(share.commentList);
+            setFavorBtn();
         }
     }
 
@@ -256,6 +268,25 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
 
         @Override
         public void success(String userId, boolean follow) {
+        }
+    }
+
+    class PraiseResponse extends BaseResponceImpl implements PraiseRequest.IPraiseResponce {
+
+        @Override
+        public void success(String userId, boolean praise) {
+            share.hasPraised = !share.hasPraised;
+            setFavorBtn();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
         }
     }
 }

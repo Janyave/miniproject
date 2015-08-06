@@ -25,7 +25,7 @@
                 android:id="@+id/tv_searchType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="全部"
+                android:text="全 部"
                 style="@style/text_white_max"/>
             <ImageView
                 android:id="@+id/iv_searchType"
@@ -58,6 +58,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:background="@android:color/transparent"
+                android:imeOptions="actionDone"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:gravity="left|center_vertical"
                 android:hint="搜索你喜爱的动漫和角色"
                 android:textColorHint="@color/text_red_light" />
@@ -70,7 +73,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin_40px"
             android:gravity="center"
-            android:text="取消" />
+            android:text="确定" />
     </LinearLayout>
 
     <TextView style="@style/layout_line_gray" />
@@ -79,13 +82,25 @@
         android:layout_width="match_parent"
         android:layout_height="12dp"
         android:background="@color/bg_gray"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:focusable="true"
+        android:focusableInTouchMode="true"/>
 
     <ListView
         android:id="@+id/lv_searchHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg_white"
+        android:listSelector="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp">
+    </ListView>
+
+    <ListView
+        android:visibility="gone"
+        android:id="@+id/lv_searchList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:listSelector="@android:color/transparent"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp">

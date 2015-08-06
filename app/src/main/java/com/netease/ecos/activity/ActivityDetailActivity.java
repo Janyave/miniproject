@@ -22,13 +22,12 @@ import com.netease.ecos.adapter.EventContactWayAdapter;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.activity.GetActivityDetailRequest;
+import com.netease.ecos.request.activity.SingupActivityRequest;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.HorizontalListView;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -91,6 +90,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     private RequestQueue queue;
     private ImageLoader imageLoader;
     private ActivityModel activityModel;
+    private SingupActivityRequest singupActivityRequest;
+    private SignUpActivityResponse signUpActivityResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,18 +142,13 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
                 finish();
                 break;
             case R.id.tv_wantgo:
-                tv_wantgo.setEnabled(false);
-                tv_wantgo.setText(getResources().getString(R.string.alreadyGo));
-                tv_wantgo.setTextColor(getResources().getColor(R.color.text_gray));
-                //TODO:send the request to go.
-                break;
-            case R.id.tv_publish_photo:
-                //TODO
-                Toast.makeText(ActivityDetailActivity.this, "publish photo", Toast.LENGTH_SHORT).show();
+                if (singupActivityRequest == null)
+                    singupActivityRequest = new SingupActivityRequest();
+                if (signUpActivityResponse == null)
+                    signUpActivityResponse = new SignUpActivityResponse();
+                singupActivityRequest.request(signUpActivityResponse, activityID, activityModel.hasSignuped ? SingupActivityRequest.SignupType.取消报名 : SingupActivityRequest.SignupType.报名);
                 break;
             case R.id.iv_author_avator:
-                //TODO
-                Toast.makeText(ActivityDetailActivity.this, "person detail", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ActivityDetailActivity.this, PersonageDetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
@@ -162,9 +158,9 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.ll_wantgo_icons:
             case R.id.tv_wangoNum:
-                Intent intent1=new Intent(ActivityDetailActivity.this, NormalListViewActivity.class);
-                Bundle bundle1=new Bundle();
-                bundle1.putInt(NormalListViewActivity.LISTVIEW_TYPE,NormalListViewActivity.TYPE_EVENT_WANTGO);
+                Intent intent1 = new Intent(ActivityDetailActivity.this, NormalListViewActivity.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt(NormalListViewActivity.LISTVIEW_TYPE, NormalListViewActivity.TYPE_EVENT_WANTGO);
                 intent1.putExtras(bundle1);
                 startActivity(intent1);
             default:
@@ -207,6 +203,30 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             }
             tv_author_name.setText(activity.nickname);
             tv_author_time.setText(activity.getDateDescription());
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+        }
+    }
+
+    class SignUpActivityResponse extends BaseResponceImpl implements SingupActivityRequest.ISignupResponse {
+
+        @Override
+        public void success(String activityId, SingupActivityRequest.SignupType signupType) {
+            //it means it want to cancel signing up
+            if (signupType == SingupActivityRequest.SignupType.报名) {
+                tv_wantgo.setText(getResources().getString(R.string.notGo));
+                tv_wantgo.setTextColor(getResources().getColor(R.color.text_red));
+            } else {
+                tv_wantgo.setText(getResources().getString(R.string.alreadyGo));
+                tv_wantgo.setTextColor(getResources().getColor(R.color.text_gray));
+            }
+            activityModel.hasSignuped = !activityModel.hasSignuped;
         }
 
         @Override

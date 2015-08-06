@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,6 +51,18 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
     EditText uploadWorksCoverEdTx;
     @InjectView(R.id.uploadWorksDescrpEdTx)
     EditText uploadWorksDescrpEdTx;
+    @InjectView(R.id.makeuper_cb)
+    CheckBox makeuper_cb;
+    @InjectView(R.id.prop_cb)
+    CheckBox prop_cb;
+    @InjectView(R.id.photography_cb)
+    CheckBox photography_cb;
+    @InjectView(R.id.backstage_cb)
+    CheckBox backstage_cb;
+    @InjectView(R.id.other_cb)
+    CheckBox other_cb;
+    @InjectView(R.id.costume_cb)
+    CheckBox costume_cb;
 
     private UploadWorksListAdapter uploadWorksListAdapter;
     /*
@@ -64,9 +77,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
     to record the returned image urls responding to different types of image, such as cover or details.
      */
     private ArrayList<Image> imagesArraylist;
-    /**
-     * 当前正在设置第(couserStepPosition+1)步的教程图片
-     */
+
     public SetPhotoHelper mSetPhotoHelper;
     private String PhotoId;
     //for request
@@ -91,6 +102,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
         //图片裁剪后输出高度
         final int outPutHeight = 300;
         mSetPhotoHelper.setOutput(outPutWidth, outPutHeight);
+        mSetPhotoHelper.setAspect(3, 2);
         request = new CreateShareRequest();
         response = new CreateShareResponse();
         share = new Share();
@@ -215,6 +227,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
                 if (count == (imagePaths.size() + 1)) {
                     Log.d(TAG, "all the images has been uploaded successfully.");
                     share.imageList = imagesArraylist;
+                    //TODO:需要设置分享标签，request接口需要修改
                     request.request(response, share);
                 }
             }

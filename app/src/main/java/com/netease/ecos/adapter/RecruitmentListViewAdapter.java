@@ -15,6 +15,7 @@ import com.netease.ecos.activity.ContactActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.RecruitmentDetailActivity;
 import com.netease.ecos.model.Recruitment;
+import com.netease.ecos.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
         private TextView tv_talk;
         private ImageView iv_cover;
         private LinearLayout ll_author;
+        private ImageView genderImVw;
 
         public ViewHolder(View root) {
             iv_avatar = (ImageView) root.findViewById(R.id.iv_avatar);
@@ -50,6 +52,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             tv_talk = (TextView) root.findViewById(R.id.tv_talk);
             iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
             ll_author = (LinearLayout) root.findViewById(R.id.ll_author);
+            genderImVw = (ImageView) root.findViewById(R.id.genderImVw);
         }
 
         /**
@@ -64,6 +67,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             tv_name.setText(recruitmentArrayList.get(position).nickname);
             tv_distance.setText(recruitmentArrayList.get(position).distanceKM);
             tv_price.setText(recruitmentArrayList.get(position).averagePrice + recruitmentArrayList.get(position).priceUnit);
+            genderImVw.setImageResource(recruitmentArrayList.get(position).gender == User.Gender.男 ? R.mipmap.ic_gender_male : R.mipmap.ic_gender_female);
             //set tag
             ll_author.setTag(position);
             tv_talk.setTag(position);
@@ -75,7 +79,6 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
         }
     }
 
-    //TODO 数据数量【现在模拟为10】
     @Override
     public int getCount() {
         return recruitmentArrayList.size();

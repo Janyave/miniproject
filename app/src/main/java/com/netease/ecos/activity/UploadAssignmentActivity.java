@@ -33,6 +33,9 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
     private final String TAG = "Ecos---UploadWork";
     public static final String CourseId = "courseId";
     public static final String ImagePath = "image_path";
+    public static int REQUEST_CODE_FOR_UPLOAD_ASSIGNMENT = 1;
+    public static int RESULT_CODE_FOR_UPLOAD_ASSIGNMENT = 2;
+
     private String courseId = "";
     private String image_path = "";
     @InjectView(R.id.tv_title)
@@ -128,7 +131,8 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
         @Override
         public void success(Course.Assignment assignment) {
             Toast.makeText(UploadAssignmentActivity.this, getResources().getString(R.string.uploadAssignmentSuccessfully), Toast.LENGTH_SHORT).show();
-            UploadAssignmentActivity.this.finish();
+            setResult(RESULT_CODE_FOR_UPLOAD_ASSIGNMENT);
+            finish();
         }
 
         @Override

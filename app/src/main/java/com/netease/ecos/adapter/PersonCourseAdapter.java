@@ -8,23 +8,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.model.Course;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hzjixinyu on 2015/8/2.
  */
 public class PersonCourseAdapter extends BaseAdapter{
     private Context mcontext;
-//    private List<Course> courseList = new ArrayList<Course>();
+    private List<Course> courseList;
 
     public PersonCourseAdapter(Context context) {
         this.mcontext = context;
     }
 
-//    public PersonCourseAdapter(Context context, List<Course> courseList) {
-//        this.mcontext = context;
-//        this.courseList = courseList;
-//    }
+    public PersonCourseAdapter(Context context, List<Course> courseList) {
+        this.mcontext = context;
+        this.courseList = courseList;
+    }
 
+    public void SetCourseList(List<Course> courseList){
+        this.courseList = courseList;
+    }
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
 
     class ViewHolder {
 
@@ -46,12 +58,12 @@ public class PersonCourseAdapter extends BaseAdapter{
          * 传入数据未定
          */
         public void setData(final int position) {
-//            Course item = courseList.get(position);
+            Course item = courseList.get(position);
 
-//            Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
-//            tv_title.setText(item.title);
-//            tv_praiseNum.setText(item.praiseNum + "");
-//            tv_time.setText(item.time);
+            Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            tv_title.setText(item.title);
+            tv_praiseNum.setText(item.praiseNum + "");
+            tv_time.setText(item.issueTimeStamp+"");
 
         }
     }
@@ -60,7 +72,12 @@ public class PersonCourseAdapter extends BaseAdapter{
     //TODO 数据数量【现在模拟为10】
     @Override
     public int getCount() {
-        return 3;
+        if (courseList == null){
+            return 0;
+        }else{
+            return courseList.size();
+        }
+
     }
 
     @Override

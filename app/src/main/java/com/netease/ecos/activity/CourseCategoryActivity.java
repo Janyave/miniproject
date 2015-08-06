@@ -11,10 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,14 +23,13 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.CourseListViewAdapter;
-import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
-import com.netease.ecos.request.activity.ActivityListRequest;
 import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.FloadingButton;
 import com.netease.ecos.views.ListViewListener;
+import com.netease.ecos.views.PopupHelper;
 import com.netease.ecos.views.XListView;
 
 import java.lang.reflect.Method;
@@ -72,6 +71,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     ImageView iv_sortIcon;
 
     private PopupWindow popupSortType;
+    private PopupWindow popupSixType=new PopupWindow();
 
     private ArrayAdapter<CourseListRequest.SortRule> spAdapter;
     private static final CourseListRequest.SortRule[] SORT_RULES = {CourseListRequest.SortRule.时间, CourseListRequest.SortRule.被关注数, CourseListRequest.SortRule.被点赞数};
@@ -117,6 +117,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         //获取course信息
         request = new CourseListRequest();
         courseListResponse = new CourseListResponse();
+        request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], 0);
     }
 
     @Override
@@ -124,11 +125,26 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         Intent intent;
         switch (v.getId()) {
             case R.id.iv_search:
-                intent = new Intent(CourseCategoryActivity.this, SearchActivity.class);
-                startActivityForResult(intent, RequestCodeForSearch);
+                Intent intent1 = new Intent(CourseCategoryActivity.this, SearchActivity.class);
+                Bundle bundle1=new Bundle();
+                bundle1.putInt(SearchActivity.SEARCH_TYPE, SearchActivity.TYPE_COURSE);
+                intent1.putExtras(bundle1);
+                startActivity(intent1);
                 break;
             case R.id.ll_left:
-                //TODO 左上角类型选择事件
+                if (popupSixType.isShowing()){
+                    popupSixType.dismiss();
+                }else {
+                    popupSixType = PopupHelper.newSixTypePopupWindow(CourseCategoryActivity.this);
+                    PopupHelper.showSixTypePopupWindow(popupSixType, CourseCategoryActivity.this, v, new PopupHelper.IPopupListner() {
+                        @Override
+                        public void clickListner(int type, View v, PopupWindow popupWindow) {
+                            //TODO  左上角选择类型事件 为类型
+                            Toast.makeText(CourseCategoryActivity.this, "click " + type, Toast.LENGTH_SHORT).show();
+                            tv_left.setText(((RadioButton)v).getText().toString());
+                        }
+                    });
+                }
                 break;
             case R.id.lly_left_action:
                 finish();
@@ -145,6 +161,8 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // not use
+        //now use in popupWindow
         request.request(courseListResponse, CourseListRequest.Type.筛选,
                 courseType, searchWords, SORT_RULES[position], 0);
     }
@@ -352,52 +370,6 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                 });
             }
         }));
-//        lv_list.setOnScrollListener(new AbsListView.OnScrollListener() {
-//            int lvIndext = 0; //当前listView显示的首个Item的Index
-//            String state = "up"; //当前ListView动作状态 up or down
-//            Boolean isAnim = false; //是否正在动画
-//
-//            @Override
-//            public void onScrollStateChanged(AbsListView view, int scrollState) {
-//            }
-//
-//            @Override
-//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//
-//                /***当前滑动状态，与记录的lvIndex作比较，发生变化触发动画*/
-//                String nowstate = state;
-//                /***当前可见Item的首个Index*/
-//                int nowIndext = firstVisibleItem;
-//                /***nowIndex大于lvIndex，ListView下滑*/
-//                if (nowIndext > lvIndext && !isAnim) {
-//                    nowstate = "down";
-//                    if (!TextUtils.equals(nowstate, state)) {
-//                        btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
-//                            @Override
-//                            public void doAfterAnimation() {
-//                                isAnim = false;
-//                            }
-//                        });
-//                        isAnim = true;
-//                    }
-//                }
-//                /***nowIndex小于lvIndex，ListView下滑*/
-//                if (nowIndext < lvIndext && !isAnim) {
-//                    nowstate = "up";
-//                    if (!TextUtils.equals(nowstate, state)) {
-//                        btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
-//                            @Override
-//                            public void doAfterAnimation() {
-//                                isAnim = false;
-//                            }
-//                        });
-//                        isAnim = true;
-//                    }
-//                }
-//                state = nowstate;
-//                lvIndext = nowIndext;
-//            }
-//        });
     }
 
     private void showSortTypePopupWindow(final View view) {
@@ -405,16 +377,33 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(this).inflate(R.layout.popup_course_sort, null);
         // 设置按钮的点击事件
-        RadioGroup rg=(RadioGroup) contentView.findViewById(R.id.rg_sort);
+        final RadioGroup rg = (RadioGroup) contentView.findViewById(R.id.rg_sort);
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                popupSortType.dismiss();
-//                iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);
+                //use
+                int type = 0;
+                switch (group.getCheckedRadioButtonId()) {
+                    case R.id.rbtn1:
+                        type = 0;
+                        break;
+                    case R.id.rbtn2:
+                        type = 1;
+                        break;
+                    case R.id.rbtn3:
+                        type = 2;
+                        break;
+                }
+                tv_sortText.setText(((RadioButton) rg.getChildAt(type)).getText().toString());
+                ((RadioButton) rg.getChildAt(type)).setTextColor(getResources().getColor(R.color.text_red));
+                request.request(courseListResponse, CourseListRequest.Type.筛选,
+                        courseType, searchWords, SORT_RULES[type], 0);
+                iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);
+                popupSortType.dismiss();
             }
         });
 
-        popupSortType = new PopupWindow(contentView,ll_sortType.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupSortType = new PopupWindow(contentView, ll_sortType.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT, true);
 
         popupSortType.setTouchable(true);
         setPopupWindowTouchModal(popupSortType, false);// 使得popupWindow在显示的时候，popupWindow外部的控件也能够获得焦点

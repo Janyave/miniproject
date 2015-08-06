@@ -123,8 +123,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     startActivity(intent2);
                     break;
                 case R.id.ll_gender:
-                    //TODO gender
-                    Toast.makeText(PersonalInfoSettingActivity.this,"wait!",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(PersonalInfoSettingActivity.this, PersonSetGenderActivity.class));
                     break;
                 case R.id.ll_tags:
                     startActivity(new Intent(PersonalInfoSettingActivity.this, PersonSetTagsActivity.class));

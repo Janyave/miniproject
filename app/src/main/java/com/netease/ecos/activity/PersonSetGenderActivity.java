@@ -1,0 +1,88 @@
+package com.netease.ecos.activity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.netease.ecos.R;
+
+import org.w3c.dom.Text;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
+/**
+ * Created by hzjixinyu on 2015/8/5.
+ */
+public class PersonSetGenderActivity extends BaseActivity implements View.OnClickListener{
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
+    @InjectView(R.id.tv_title)
+    TextView title_text;
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+
+    @InjectView(R.id.ll_male)
+    LinearLayout ll_male;
+    @InjectView(R.id.ll_female)
+    LinearLayout ll_female;
+    @InjectView(R.id.iv_male)
+    ImageView iv_male;
+    @InjectView(R.id.iv_female)
+    ImageView iv_female;
+
+    @Override
+    protected void onCreate(Bundle arg0) {
+        super.onCreate(arg0);
+        setContentView(R.layout.activity_person_set_gender);
+        ButterKnife.inject(this);
+
+        initView();
+        initListener();
+        initData();
+    }
+
+    private void initView() {
+        title_text.setText("性别");
+    }
+
+    private void initData() {
+        //TODO
+        if (true){  //if male
+            iv_male.setVisibility(View.VISIBLE);
+            iv_female.setVisibility(View.GONE);
+        }else{   //if femlale
+            iv_male.setVisibility(View.GONE);
+            iv_female.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void initListener() {
+        title_left.setOnClickListener(this);
+        title_right.setOnClickListener(this);
+        ll_male.setOnClickListener(this);
+        ll_female.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.lly_left_action:
+                finish();
+                break;
+            case R.id.lly_right_action:
+                //TODO change 确定事件
+                break;
+            case R.id.ll_male:
+                iv_male.setVisibility(View.VISIBLE);
+                iv_female.setVisibility(View.GONE);
+                break;
+            case R.id.ll_female:
+                iv_male.setVisibility(View.GONE);
+                iv_female.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
+}
