@@ -25,6 +25,16 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
 
     private static final String TAG = "Ecos---RecruitmentDet";
     public static final String RecruitID = "RecruitID";
+
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
+    @InjectView(R.id.tv_title)
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
+
     @InjectView(R.id.ll_author)
     LinearLayout ll_author;
     @InjectView(R.id.iv_avatar)
@@ -58,9 +68,17 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
         setContentView(R.layout.activity_recruitment_detail);
         ButterKnife.inject(this);
 
+        initTitle();
         initListener();
         initData();
         getSupportActionBar().hide();
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(this);
+        title_right.setVisibility(View.INVISIBLE);
+        title_right_text.setText("评论");
+        title_text.setText("招募详情");
     }
 
 
@@ -83,6 +101,9 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
         Intent intent;
         Bundle bundle = new Bundle();
         switch (v.getId()) {
+            case R.id.lly_left_action:
+                finish();
+                break;
             case R.id.ll_author:
                 intent = new Intent(RecruitmentDetailActivity.this, PersonageDetailActivity.class);
                 bundle.putString(PersonageDetailActivity.UserID, recruitment.userId);

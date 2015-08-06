@@ -25,12 +25,14 @@ import butterknife.InjectView;
  */
 public class PersonSetInformationNormalActivity extends BaseActivity implements View.OnClickListener {
 
-    @InjectView(R.id.lly_left_action)
-    LinearLayout title_left;
-    @InjectView(R.id.tv_title)
-    TextView title_text;
     @InjectView(R.id.lly_right_action)
     LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
+    @InjectView(R.id.tv_title)
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
 
     public static String ACTICITY_TYPE = "type";
 
@@ -61,6 +63,7 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
         user = UserDataService.getSingleUserDataService(this).getUser();
         request = new UpdateUserInfoRequest();
 
+        initTitle();
         initListener();
 
         try {
@@ -82,6 +85,11 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
             finish();
         }
 
+    }
+
+    private void initTitle() {
+        title_right_text.setText("确定");
+        title_text.setText("");
     }
 
     private void initListener() {

@@ -2,74 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:id="@+id/rly_title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tv_title_height"
-        android:background="@color/theme"
-        android:paddingRight="10dp">
-
-        <LinearLayout
-            android:id="@+id/lly_left_action"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:contentDescription="标题左侧按钮，含图标和按钮，根据需要进行显示和隐藏，并更改名称"
-            android:minWidth="80dp"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp">
-            <include
-                android:id="@+id/iv_left"
-                layout="@layout/component_left_arrow" />
-
-            <TextView
-                android:id="@+id/tv_left"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@id/iv_left"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:paddingLeft="5dp"
-                android:text="返回"
-                android:textColor="#ffffff"
-                android:textSize="16sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tv_reply"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                style="@style/text_white_max"
-                android:text="回复"/>
-            <TextView
-                android:layout_width="30dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/tv_contact"
-            android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-            style="@style/text_white_max"
-            android:text="私信"/>
-            <TextView
-                android:layout_width="30dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/tv_notice"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:gravity="center"
-                style="@style/text_white_max"
-                android:text="通知"/>
-        </LinearLayout>
-    </RelativeLayout>
+    <include layout="@layout/component_title_normal_righttext"/>
 
     <com.netease.ecos.views.XListView
         android:id="@+id/lv_list"

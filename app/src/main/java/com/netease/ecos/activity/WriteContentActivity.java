@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +27,8 @@ public class WriteContentActivity extends Activity implements View.OnClickListen
     private static String TAG = "Ecos---WriteContent";
     @InjectView(R.id.tv_title)
     TextView titleTxVw;
-    @InjectView(R.id.btn_right_action)
-    Button rightButton;
+    @InjectView(R.id.lly_right_action)
+    LinearLayout rightButton;
     @InjectView(R.id.tv_left)
     TextView backTxVw;
     @InjectView(R.id.commentEdTx)
@@ -57,7 +58,7 @@ public class WriteContentActivity extends Activity implements View.OnClickListen
     void initView() {
         //implementation on the title bar
         titleTxVw.setText("添加评论");
-        rightButton.setText("发送");
+//        rightButton.setText("发送");
         //set listener
         rightButton.setOnClickListener(this);
         backTxVw.setOnClickListener(this);
@@ -67,7 +68,7 @@ public class WriteContentActivity extends Activity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_right_action:
+            case R.id.lly_right_action:
                 String content = commentEdTx.getText().toString();
                 if (content.equals(""))
                     Toast.makeText(WriteContentActivity.this, getResources().getString(R.string.noComment), Toast.LENGTH_SHORT).show();
