@@ -34,7 +34,6 @@ public class UploadWorksListAdapter extends BaseAdapter implements View.OnClickL
         for (int i = 0; paths != null && i < paths.size(); i++) {
             Course.Step step = new Course.Step(getCount() + 1);
             step.imagePath = paths.get(i);
-            Log.d("test", "imagepath:" + step.imagePath);
             mStepsList.add(step);
         }
         mInflater = LayoutInflater.from(mContext);
