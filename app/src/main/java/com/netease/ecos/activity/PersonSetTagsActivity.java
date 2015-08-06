@@ -1,7 +1,6 @@
 package com.netease.ecos.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -16,18 +15,13 @@ import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.request.user.UpdateUserInfoRequest;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
  * Created by hzjixinyu on 2015/8/5.
  */
-public class PersonSetTagsActivity extends BaseActivity implements View.OnClickListener{
+public class PersonSetTagsActivity extends BaseActivity implements View.OnClickListener {
 
     @InjectView(R.id.lly_right_action)
     LinearLayout title_right;
@@ -91,45 +85,39 @@ public class PersonSetTagsActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.lly_left_action:
                 finish();
                 break;
             case R.id.lly_right_action:
                 //TODO
                 user = UserDataService.getSingleUserDataService(this).getUser();
-                if (checkBox1.isChecked())
-                {
+                if (checkBox1.isChecked()) {
                     roleType = User.RoleType.coser;
                     user.roleTypeSet.add(roleType);
-                    Log.w("inTag","coser");
+                    Log.w("inTag", "coser");
                 }
-                if (checkBox2.isChecked())
-                {
+                if (checkBox2.isChecked()) {
                     roleType = User.RoleType.妆娘;
                     user.roleTypeSet.add(roleType);
                     Log.w("inTag", "妆娘");
                 }
-                if (checkBox3.isChecked())
-                {
+                if (checkBox3.isChecked()) {
                     roleType = User.RoleType.摄影;
                     user.roleTypeSet.add(roleType);
                     Log.w("inTag", "摄影");
                 }
-                if (checkBox4.isChecked())
-                {
+                if (checkBox4.isChecked()) {
                     roleType = User.RoleType.后期;
                     user.roleTypeSet.add(roleType);
                     Log.w("inTag", "后期");
                 }
-                if (checkBox5.isChecked())
-                {
+                if (checkBox5.isChecked()) {
                     roleType = User.RoleType.裁缝;
                     user.roleTypeSet.add(roleType);
                     Log.w("inTag", "裁缝");
                 }
-                if (checkBox6.isChecked())
-                {
+                if (checkBox6.isChecked()) {
                     roleType = User.RoleType.道具;
                     user.roleTypeSet.add(roleType);
                     Log.w("inTag", "道具");
@@ -150,7 +138,7 @@ public class PersonSetTagsActivity extends BaseActivity implements View.OnClickL
 
             @Override
             public void doAfterFailedResponse(String message) {
-
+                Toast.makeText(PersonSetTagsActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override

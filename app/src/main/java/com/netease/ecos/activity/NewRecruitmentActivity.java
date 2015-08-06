@@ -106,8 +106,6 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
             case R.id.lly_right_action:
                 String price = priceEdTx.getText().toString();
                 String descrp = descrpEdTx.getText().toString();
-                //TODO：get the chosen cover.
-//                if (price.equals("") || descrp.equals("")) {
                 if(newDisplayListAdater.isTopViewEmpty()){
                     Toast.makeText(NewRecruitmentActivity.this, this.getResources().getString(R.string.notAlreadyFinished), Toast.LENGTH_SHORT).show();
                     return;

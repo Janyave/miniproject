@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
@@ -161,7 +162,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 @Override
                 public void onClick(View v) {
                     Intent intent1 = new Intent(mcontext, SearchActivity.class);
-                    Bundle bundle1=new Bundle();
+                    Bundle bundle1 = new Bundle();
                     bundle1.putInt(SearchActivity.SEARCH_TYPE, SearchActivity.TYPE_SHARE);
                     intent1.putExtras(bundle1);
                     mcontext.startActivity(intent1);
@@ -236,6 +237,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(mcontext, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

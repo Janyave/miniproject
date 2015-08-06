@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
@@ -38,7 +39,7 @@ import butterknife.InjectView;
 
 public class CourseDetailActivity extends ActionBarActivity implements View.OnClickListener {
     private final String TAG = "Ecos---CourseDetail";
-
+    public static final int RESULT_CODE_COURSEDETAIL = 1;
     public static final String CourseID = "CourseID";
     //the widget of the title bar
     @InjectView(R.id.lly_right_action)
@@ -152,7 +153,6 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         hlv_otherWorks.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View arg0, MotionEvent arg1) {
-                // TODO Auto-generated method stub
                 scrollView.requestDisallowInterceptTouchEvent(true);
                 return false;
             }
@@ -268,7 +268,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(CourseDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -324,6 +324,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(CourseDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -345,7 +346,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(CourseDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

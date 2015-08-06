@@ -151,6 +151,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(RecruitmentCategoryActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

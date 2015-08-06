@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -171,7 +170,7 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
 
             @Override
             public void doAfterFailedResponse(String message) {
-
+                Toast.makeText(PersonSetInformationNormalActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override

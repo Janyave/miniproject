@@ -21,17 +21,13 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
-import com.netease.ecos.adapter.CampaignListViewAdapter;
 import com.netease.ecos.adapter.CourseListViewAdapter;
 import com.netease.ecos.adapter.DisplayListViewAdapter;
 import com.netease.ecos.adapter.SearchHistoryAdapter;
-import com.netease.ecos.database.ProvinceDBService;
 import com.netease.ecos.fragment.DisplayFragment;
-import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
-import com.netease.ecos.request.activity.ActivityListRequest;
 import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.request.share.ShareListRequest;
 import com.netease.ecos.views.PopupHelper;
@@ -264,7 +260,7 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
 
                 @Override
                 public void doAfterFailedResponse(String message) {
-
+                    Toast.makeText(SearchActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -278,20 +274,19 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
                     if (courseList.size() == 0) {
                         Toast.makeText(SearchActivity.this, getResources().getString(R.string.nothingLeft), Toast.LENGTH_SHORT).show();
                         pageIndex--;
-                    }
-                    else {
+                    } else {
                         courseListViewAdapter.getCourseList().addAll(courseList); // 添加ListView的内容
                         courseListViewAdapter.notifyDataSetChanged();
                     }
                 }
-            },CourseListRequest.Type.筛选, CourseCategoryActivity.courseTypes[selectPosition], searchWord, CourseListRequest.SortRule.时间, pageIndex);
+            }, CourseListRequest.Type.筛选, CourseCategoryActivity.courseTypes[selectPosition], searchWord, CourseListRequest.SortRule.时间, pageIndex);
 
         } else {
 
             if (displayListViewAdapter == null)
                 pageIndex = 0;
             pageIndex++;
-            shareListRequest.request(new ShareListRequest.IShareListResponse(){
+            shareListRequest.request(new ShareListRequest.IShareListResponse() {
 
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
@@ -300,7 +295,7 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
 
                 @Override
                 public void doAfterFailedResponse(String message) {
-
+                    Toast.makeText(SearchActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -314,8 +309,7 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
                     if (shareList.size() == 0) {
                         Toast.makeText(SearchActivity.this, getResources().getString(R.string.nothingLeft), Toast.LENGTH_SHORT).show();
                         pageIndex--;
-                    }
-                    else {
+                    } else {
                         displayListViewAdapter.getShareList().addAll(shareList); // 添加ListView的内容
                         displayListViewAdapter.notifyDataSetChanged();
                     }
@@ -340,6 +334,7 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(SearchActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -361,6 +356,7 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(SearchActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

@@ -135,7 +135,6 @@ public class BuildCourseActivity extends BaseActivity {
         setContentView(R.layout.activity_build_course);
 
         if (getIntent() != null) {
-//            mCourseTypeValue= Course.CourseType.后期.getBelongs();
             mCourseTypeValue = getIntent().getExtras().getString(COURSE_TYPE);
         }
 
@@ -153,14 +152,7 @@ public class BuildCourseActivity extends BaseActivity {
                 BuildCourseActivity.this.finish();
             }
         });
-        title_right.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO:send the content to the server.
-                //TODO:check if it has finish the contents.
-                BuildCourseActivity.this.finish();
-            }
-        });
+        title_right.setVisibility(View.INVISIBLE);
         title_right_text.setText("发布");
         title_text.setText("新建教程");
     }
@@ -251,7 +243,6 @@ public class BuildCourseActivity extends BaseActivity {
                 RelativeLayout.LayoutParams coverParam = (RelativeLayout.LayoutParams) iv_course_cover.getLayoutParams();
                 coverParam.height = width * 2 / 3;
                 iv_course_cover.setLayoutParams(coverParam);
-//                iv_course_cover.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             }
         });
     }
@@ -594,7 +585,7 @@ public class BuildCourseActivity extends BaseActivity {
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(BuildCourseActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

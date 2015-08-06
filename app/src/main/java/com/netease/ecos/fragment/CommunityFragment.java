@@ -24,7 +24,6 @@ import com.netease.ecos.activity.ActivityDetailActivity;
 import com.netease.ecos.activity.NewActivityActivity;
 import com.netease.ecos.adapter.CampaignListViewAdapter;
 import com.netease.ecos.adapter.CommunityLocationListViewAdapter;
-import com.netease.ecos.database.CityDBService;
 import com.netease.ecos.database.ProvinceDBService;
 import com.netease.ecos.interfaces.CommunityCallBack;
 import com.netease.ecos.model.ActivityModel;
@@ -237,7 +236,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
             @Override
             public void doAfterFailedResponse(String message) {
-
+                Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -356,7 +355,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
                     @Override
                     public void doAfterFailedResponse(String message) {
-
+                        Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -437,7 +436,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
             @Override
             public void doAfterFailedResponse(String message) {
-
+                Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -502,7 +501,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
             @Override
             public void doAfterFailedResponse(String message) {
-
+                Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -555,7 +554,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
             @Override
             public void doAfterFailedResponse(String message) {
-
+                Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override

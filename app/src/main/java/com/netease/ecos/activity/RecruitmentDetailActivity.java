@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
@@ -30,6 +31,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
     private static final String TAG = "Ecos---RecruitmentDet";
     public static final String RecruitID = "RecruitID";
     public static final String RecruitType = "RecruitType";
+    public static final String UserId = "UserId";
 
     @InjectView(R.id.lly_right_action)
     LinearLayout title_right;
@@ -63,6 +65,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
     private String recruitID = "";
     private Recruitment recruitment;
     private Recruitment.RecruitType recruitType;
+    private String userId = "";
 
     //for request
     private GetRecruitmentDetailRequest request;
@@ -100,6 +103,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
     private void initData() {
         recruitID = getIntent().getExtras().getString(RecruitID);
         recruitType = Recruitment.RecruitType.getRecruitTypeByValue(getIntent().getExtras().getString(RecruitType));
+        userId = getIntent().getExtras().getString(UserId);
         request = new GetRecruitmentDetailRequest();
         response = new GetRecruitmentLDetailResponse();
         shareListRequest = new ShareListRequest();
@@ -117,7 +121,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
             tag.isLater = true;
         else if (recruitType == Recruitment.RecruitType.道具)
             tag.isLater = true;
-        shareListRequest.requestMyShareWithTag(shareListResponse, tag, 1);
+        shareListRequest.requestSomeOneShareWithTag(shareListResponse, userId, tag, 1);
         request.request(response, recruitID);
     }
 
@@ -160,7 +164,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(RecruitmentDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -186,7 +190,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
         @Override
         public void success(List<Share> shareList) {
             if (shareList.size() == 0) {
-//                Toast.makeText(RecruitmentDetailActivity.this,getResources().getString(R.string.favour))
+                Toast.makeText(RecruitmentDetailActivity.this, getResources().getString(R.string.noOtherShare), Toast.LENGTH_SHORT).show();
             }
             recruitmentDetailWorkAdapter = new RecruitmentDetailWorkAdapter(RecruitmentDetailActivity.this, shareList);
             lv_list.setAdapter(recruitmentDetailWorkAdapter);
@@ -194,7 +198,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(RecruitmentDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
