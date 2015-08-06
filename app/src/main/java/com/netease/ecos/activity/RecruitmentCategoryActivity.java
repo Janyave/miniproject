@@ -3,7 +3,6 @@ package com.netease.ecos.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -161,8 +160,6 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
         @Override
         public void success(List<Recruitment> recruitList) {
             //获取recruit信息
-            Log.d(TAG, "========================================================================");
-            Log.d(TAG, "recruitment list size:" + recruitList.size());
             recruitmentListViewAdapter = new RecruitmentListViewAdapter(RecruitmentCategoryActivity.this, recruitList);
             lv_list.setAdapter(recruitmentListViewAdapter);
         }

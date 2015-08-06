@@ -128,6 +128,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
                 intent = new Intent(mcontext, RecruitmentDetailActivity.class);
                 intent.putExtras(bundle);
                 bundle.putString(RecruitmentDetailActivity.RecruitID, recruitmentArrayList.get(position).recruitmentId);
+                bundle.putString(RecruitmentDetailActivity.RecruitType, recruitmentArrayList.get(position).recruitType.getValue());
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;
