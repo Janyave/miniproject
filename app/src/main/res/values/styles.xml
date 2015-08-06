@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -32,6 +32,17 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:button">@null</item>  
         <item name="android:layout_weight">1.0</item>
+    </style>
+
+    <!-- 个人中心tab按钮样式-->
+    <style name="checkbox_tag">
+        <item name="android:layout_width">@dimen/width_tag_150px</item>
+        <item name="android:layout_height">@dimen/height_tag_54px</item>
+        <item name="android:background">@drawable/checkbox_tag_150px</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/checkbox_tag</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize">@dimen/text_size_36</item>
     </style>
 
     <!-- 自定义对话框样式-->

@@ -46,6 +46,8 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     private static final String TAG = "Ecos---CourseCategory";
     public static final String CourseCategory = "CourseCategory";
     private Course.CourseType courseType;
+    public static Course.CourseType courseTypes[] = {Course.CourseType.化妆, Course.CourseType.后期, Course.CourseType.摄影,
+            Course.CourseType.服装, Course.CourseType.道具, Course.CourseType.假发, Course.CourseType.心得, Course.CourseType.其他,};
     @InjectView(R.id.sp_sortType)
     Spinner sp_sortType;
     @InjectView(R.id.iv_search)
@@ -71,7 +73,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     ImageView iv_sortIcon;
 
     private PopupWindow popupSortType;
-    private PopupWindow popupSixType=new PopupWindow();
+    private PopupWindow popupSixType = new PopupWindow();
 
     private ArrayAdapter<CourseListRequest.SortRule> spAdapter;
     private static final CourseListRequest.SortRule[] SORT_RULES = {CourseListRequest.SortRule.时间, CourseListRequest.SortRule.被关注数, CourseListRequest.SortRule.被点赞数};
@@ -126,22 +128,22 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         switch (v.getId()) {
             case R.id.iv_search:
                 Intent intent1 = new Intent(CourseCategoryActivity.this, SearchActivity.class);
-                Bundle bundle1=new Bundle();
+                Bundle bundle1 = new Bundle();
                 bundle1.putInt(SearchActivity.SEARCH_TYPE, SearchActivity.TYPE_COURSE);
                 intent1.putExtras(bundle1);
                 startActivity(intent1);
                 break;
             case R.id.ll_left:
-                if (popupSixType.isShowing()){
+                if (popupSixType.isShowing()) {
                     popupSixType.dismiss();
-                }else {
+                } else {
                     popupSixType = PopupHelper.newSixTypePopupWindow(CourseCategoryActivity.this);
                     PopupHelper.showSixTypePopupWindow(popupSixType, CourseCategoryActivity.this, v, new PopupHelper.IPopupListner() {
                         @Override
                         public void clickListner(int type, View v, PopupWindow popupWindow) {
-                            //TODO  左上角选择类型事件 为类型
-                            Toast.makeText(CourseCategoryActivity.this, "click " + type, Toast.LENGTH_SHORT).show();
-                            tv_left.setText(((RadioButton)v).getText().toString());
+                            tv_left.setText(((RadioButton) v).getText().toString());
+                            courseType = courseTypes[type];
+                            request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], 0);
                         }
                     });
                 }
@@ -268,16 +270,6 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         }, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], pageIndex);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RequestCodeForSearch && resultCode == ResultCodeForSearch) {
-            searchWords = data.getExtras().getString(SearchActivity.SearchWord);
-            request.request(courseListResponse, CourseListRequest.Type.筛选,
-                    courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], 0);
-        }
-    }
-
     class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse {
 
         @Override
@@ -288,6 +280,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
             }
             courseTypeListViewAdapter = new CourseListViewAdapter(CourseCategoryActivity.this, courseList);
             lv_list.setAdapter(courseTypeListViewAdapter);
+            pageIndex = 0;
         }
 
         @Override

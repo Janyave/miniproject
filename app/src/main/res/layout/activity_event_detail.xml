@@ -327,7 +327,7 @@
                             android:layout_height="@dimen/circle_icon_100px"
                             android:background="@drawable/btn_activity_wantgo"
                             android:gravity="center"
-                            android:text="想去" />
+                            android:text="@string/notGo" />
 
                         <LinearLayout
                             android:id="@+id/ll_wantgo_icons"
