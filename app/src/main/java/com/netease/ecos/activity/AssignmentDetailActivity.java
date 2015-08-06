@@ -7,7 +7,6 @@ import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
 import android.gesture.Prediction;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,7 +28,9 @@ import com.netease.ecos.adapter.WorkDetailListViewAdapter;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.comment.CommentListRequest;
 import com.netease.ecos.request.course.GetAssignmentDetailRequest;
+import com.netease.ecos.request.course.PraiseRequest;
 import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.views.ExtensibleListView;
 
@@ -103,6 +104,10 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
     //request
     private GetAssignmentDetailRequest request;
     private GetAssignmentDetailResponse assignmentDetailResponse;
+    private CommentListRequest commentListRequest;
+    private CommentListResponse commentListResponse;
+    private PraiseRequest praiseRequest;
+    private PraiseResponse praiseResponse;
 
     private Course.Assignment assignment;
 
@@ -145,9 +150,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         //get the work detail from the server
         request = new GetAssignmentDetailRequest();
         assignmentDetailResponse = new GetAssignmentDetailResponse();
-        Log.d(TAG, "work id:" + workID);
         request.request(assignmentDetailResponse, workID);
-
     }
 
     void initView() {
@@ -170,6 +173,16 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         gestureOverlayView.addOnGesturePerformedListener(this);
     }
 
+    private void setPraiseLayout() {
+        if (assignment.hasPraised) {
+            tv_favor.setText(getResources().getString(R.string.cancelFavor));
+            iv_favor.setImageResource(R.mipmap.ic_praise_fill);
+        } else {
+            tv_favor.setText(getResources().getString(R.string.favour));
+            iv_favor.setImageResource(R.mipmap.ic_praise_block);
+        }
+    }
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -187,22 +200,16 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.favorBtn:
-                //TODO:send the favor message to the server.
-
-                if (TextUtils.equals(tv_favor.getText().toString(), "点赞")) {
-                    tv_favor.setText("已点赞");
-                    iv_favor.setImageResource(R.mipmap.ic_praise_fill);
-                } else {
-                    tv_favor.setText("点赞");
-                    iv_favor.setImageResource(R.mipmap.ic_praise_block);
-                }
-
+                if (praiseRequest == null)
+                    praiseRequest = new PraiseRequest();
+                if (praiseResponse == null)
+                    praiseResponse = new PraiseResponse();
+                praiseRequest.praiseAssignment(praiseResponse, assignment.assignmentId, !assignment.hasPraised);
                 break;
             case R.id.lly_left_action:
                 AssignmentDetailActivity.this.finish();
                 break;
         }
-
     }
 
     @Override
@@ -224,7 +231,11 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
             Comment comment = new Comment();
             comment.commentType = Comment.CommentType.作业;
             comment.commentTypeId = assignment.assignmentId;
-//            commentListRequest.request(getCommentListResponse, comment, 1);
+            if (commentListRequest == null)
+                commentListRequest = new CommentListRequest();
+            if (commentListResponse == null)
+                commentListResponse = new CommentListResponse();
+            commentListRequest.request(commentListResponse, comment, 1);
         }
     }
 
@@ -284,6 +295,43 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
             workDetailFavorTxVw.setText(assignment.praiseNum + AssignmentDetailActivity.this.getString(R.string.favorCount));
             workDetailListViewAdapter.setCommentCount(assignment.commentNum);
             workDetailListViewAdapter.updateCommentList(commentList);
+            setPraiseLayout();
+        }
+    }
+
+    class CommentListResponse extends BaseResponceImpl implements CommentListRequest.ICommentListResponse {
+
+        @Override
+        public void success(List<Comment> commentList) {
+            workDetailListViewAdapter.updateCommentList(commentList);
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+        }
+    }
+
+    class PraiseResponse extends BaseResponceImpl implements PraiseRequest.IPraiseResponce {
+
+        @Override
+        public void success(String userId, boolean praise) {
+            assignment.hasPraised = !assignment.hasPraised;
+            setPraiseLayout();
+
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
         }
     }
 }

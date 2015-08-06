@@ -15,6 +15,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.activity.CourseCategoryActivity;
 import com.netease.ecos.activity.PhotoAlbumActivity;
 import com.netease.ecos.activity.SearchActivity;
+import com.netease.ecos.adapter.CampaignListViewAdapter;
 import com.netease.ecos.adapter.DisplayListViewAdapter;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
@@ -49,6 +50,8 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
     private ShareListRequest.ShareType shareType;
     private String searchWord;
 
+    private int pageIndex = 1;
+
 
     public static DisplayFragment newInstance() {
         DisplayFragment fragment = new DisplayFragment();
@@ -61,6 +64,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        pageIndex = 1;
     }
 
     @Override
@@ -88,6 +92,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         shareListRequest = new ShareListRequest();
         getShareListResponse = new GetShareListResponse();
         shareType = ShareListRequest.ShareType.所有;
+        Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
         shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
     }
 
@@ -219,6 +224,8 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 lv_course.stopRefresh();
             }
         }, 1000);
+
+        shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
     }
 
     @Override
@@ -233,6 +240,36 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 lv_course.stopLoadMore();
             }
         }, 1000);
+
+        pageIndex++;
+        shareListRequest.request(new ShareListRequest.IShareListResponse() {
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void success(List<Share> shareList) {
+                if (shareList.size() == 0) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.nothingLeft), Toast.LENGTH_SHORT).show();
+                    pageIndex--;
+                } else {
+                    displayListViewAdapter.getShareList().addAll(shareList); // 添加ListView的内容
+                    displayListViewAdapter.notifyDataSetChanged();
+                }
+            }
+        }, shareType, searchWord, pageIndex);
     }
 
     @Override
@@ -246,7 +283,9 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_all.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.所有;
                 //send the request
+                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
+                pageIndex = 1;
                 break;
             case R.id.tv_recommend:
                 //the text color
@@ -255,7 +294,9 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_recommend.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.推荐;
                 //send the request
+                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
+                pageIndex = 1;
                 break;
             case R.id.tv_attention:
                 //the text color
@@ -264,7 +305,9 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_attention.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.关注;
                 //send the request
+                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
+                pageIndex = 1;
                 break;
             case R.id.tv_new:
                 //the text color
@@ -273,7 +316,9 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_new.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.新人;
                 //send the request
+                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
+                pageIndex = 1;
                 break;
         }
     }

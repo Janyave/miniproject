@@ -305,8 +305,8 @@ public class CourseListRequest extends BaseRequest {
      */
     public static enum SortRule {
         时间("time"),
-        被关注数("praised"),
-        被点赞数("followed");
+        被关注数("followed"),
+        被点赞数("praised");
 
         public String rule;
 

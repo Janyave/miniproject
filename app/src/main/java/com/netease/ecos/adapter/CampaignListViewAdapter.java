@@ -1,7 +1,6 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -69,7 +68,7 @@ public class CampaignListViewAdapter extends BaseAdapter {
         private TextView textViewTitle;
         private TextView textViewTime;
         private TextView textViewLocation;
-
+        private TextView activityTypeTxVw;
 
         public ViewHolder(View root) {
             imageTitlePic = (ImageView) root.findViewById(R.id.iv_campaign_dis);
@@ -77,24 +76,23 @@ public class CampaignListViewAdapter extends BaseAdapter {
             textViewTitle = (TextView) root.findViewById(R.id.tv_campaign_title);
             textViewTime = (TextView) root.findViewById(R.id.tv_campaign_time);
             textViewLocation = (TextView) root.findViewById(R.id.tv_campaign_location);
+            activityTypeTxVw = (TextView) root.findViewById(R.id.activityTypeTxVw);
         }
 
-        /**
-         * 传入数据未定
-         */
         public void setData(int position) {
-            //TODO 绑定数据
             // 设置封面
             if (activityList.get(position).coverUrl != null && !activityList.get(position).coverUrl.equals(""))
                 Picasso.with(mcontext).load(activityList.get(position).coverUrl).placeholder(R.drawable.img_default).into(viewHolder.imageTitlePic);
+            else
+                viewHolder.imageTitlePic.setImageResource(R.drawable.img_default);
 
             viewHolder.textViewTitle.setText(activityList.get(position).title);
 
-            ActivityModel.ActivityTime activityTime = activityList.get(position).activityTime;  // 设置时间
-            viewHolder.textViewTime.setText(activityTime.dayStartTime + "-" + activityTime.dayEndTime);
+            viewHolder.textViewTime.setText(activityList.get(position).activityTime.toString());
 
-            ActivityModel.Location location = activityList.get(position).location;  // 设置地点
-            viewHolder.textViewLocation.setText(location.province.provinceName + "/" + location.city.cityName + "/" + location.address);
+            viewHolder.textViewLocation.setText(activityList.get(position).location.toString());
+
+            viewHolder.activityTypeTxVw.setText(activityList.get(position).activityType.name());
         }
     }
 }

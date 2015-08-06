@@ -9,14 +9,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,15 +39,13 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/27.
  */
-public class CourseCategoryActivity extends Activity implements View.OnClickListener, XListView.IXListViewListener, AdapterView.OnItemSelectedListener {
+public class CourseCategoryActivity extends Activity implements View.OnClickListener, XListView.IXListViewListener {
 
     private static final String TAG = "Ecos---CourseCategory";
     public static final String CourseCategory = "CourseCategory";
     private Course.CourseType courseType;
     public static Course.CourseType courseTypes[] = {Course.CourseType.化妆, Course.CourseType.后期, Course.CourseType.摄影,
             Course.CourseType.服装, Course.CourseType.道具, Course.CourseType.假发, Course.CourseType.心得, Course.CourseType.其他,};
-    @InjectView(R.id.sp_sortType)
-    Spinner sp_sortType;
     @InjectView(R.id.iv_search)
     ImageView iv_search;
     @InjectView(R.id.lv_list)
@@ -74,9 +70,11 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
     private PopupWindow popupSortType;
     private PopupWindow popupSixType = new PopupWindow();
+    //to record which item is selected in  pop window
+    private int selectPosition = 0;
 
     private ArrayAdapter<CourseListRequest.SortRule> spAdapter;
-    private static final CourseListRequest.SortRule[] SORT_RULES = {CourseListRequest.SortRule.时间, CourseListRequest.SortRule.被关注数, CourseListRequest.SortRule.被点赞数};
+    private static final CourseListRequest.SortRule[] SORT_RULES = {CourseListRequest.SortRule.时间, CourseListRequest.SortRule.被点赞数};
 
 
     private CourseListViewAdapter courseTypeListViewAdapter;
@@ -105,11 +103,6 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         //get the extras from intent
         courseType = Course.CourseType.getCourseType(getIntent().getExtras().getString(CourseCategory));
         tv_left.setText(courseType.name());
-        //设置下拉菜单选项
-        spAdapter = new ArrayAdapter<CourseListRequest.SortRule>(this, R.layout.text_spinner_course_type, SORT_RULES);
-        spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_sortType.setAdapter(spAdapter);
-        sp_sortType.setOnItemSelectedListener(this);
 
         //设置列表Adapter
         lv_list.initRefleshTime(this.getClass().getSimpleName());
@@ -119,7 +112,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         //获取course信息
         request = new CourseListRequest();
         courseListResponse = new CourseListResponse();
-        request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], 0);
+        request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[selectPosition], 0);
     }
 
     @Override
@@ -143,7 +136,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                         public void clickListner(int type, View v, PopupWindow popupWindow) {
                             tv_left.setText(((RadioButton) v).getText().toString());
                             courseType = courseTypes[type];
-                            request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], 0);
+                            request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[selectPosition], 0);
                         }
                     });
                 }
@@ -159,18 +152,6 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                 startActivity(intent);
                 break;
         }
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // not use
-        //now use in popupWindow
-        request.request(courseListResponse, CourseListRequest.Type.筛选,
-                courseType, searchWords, SORT_RULES[position], 0);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
     }
 
     @Override
@@ -215,7 +196,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                     pageIndex = 0;
                 }
             }
-        }, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], 0);
+        }, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[selectPosition], 0);
     }
 
     @Override
@@ -267,7 +248,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                     }
                 }
             }
-        }, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[sp_sortType.getSelectedItemPosition()], pageIndex);
+        }, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[selectPosition], pageIndex);
     }
 
     class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse {
@@ -366,7 +347,6 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
     }
 
     private void showSortTypePopupWindow(final View view) {
-
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(this).inflate(R.layout.popup_course_sort, null);
         // 设置按钮的点击事件
@@ -375,22 +355,19 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 //use
-                int type = 0;
+                selectPosition = 0;
                 switch (group.getCheckedRadioButtonId()) {
                     case R.id.rbtn1:
-                        type = 0;
-                        break;
-                    case R.id.rbtn2:
-                        type = 1;
+                        selectPosition = 0;
                         break;
                     case R.id.rbtn3:
-                        type = 2;
+                        selectPosition = 1;
                         break;
                 }
-                tv_sortText.setText(((RadioButton) rg.getChildAt(type)).getText().toString());
-                ((RadioButton) rg.getChildAt(type)).setTextColor(getResources().getColor(R.color.text_red));
-                request.request(courseListResponse, CourseListRequest.Type.筛选,
-                        courseType, searchWords, SORT_RULES[type], 0);
+                tv_sortText.setText(((RadioButton) rg.getChildAt(selectPosition)).getText().toString());
+                ((RadioButton) rg.getChildAt(selectPosition)).setTextColor(getResources().getColor(R.color.text_red));
+                Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
+                request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[selectPosition], 0);
                 iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);
                 popupSortType.dismiss();
             }
