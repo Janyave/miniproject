@@ -221,6 +221,7 @@ public class GetAssignmentDetailRequest extends BaseRequest {
             String commentNum = getString(asJO, KEY_AS_COMMENT_NUM);
             assignment.commentNum = "".equals(commentNum) ? 0 : Integer.valueOf(commentNum);
 
+            assignment.hasPraised = asJO.getBoolean("hasPraised");
 //			assignment.issueTimeStamp = Long.valueOf(asJO.getString(KEY_AS_ISSUE_TIMES)).longValue();
 
 

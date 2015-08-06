@@ -215,6 +215,7 @@ public class GetCourseDetailRequest extends BaseRequest {
             String praiseNum = getString(courseJO, KEY_PRAISE_NUM);
             course.praiseNum = "".equals(praiseNum) ? 0 : Integer.valueOf(praiseNum);
 
+            course.hasPraised = courseJO.getBoolean("hasPraised");
 
             List<String> stepImageList = new ArrayList<String>();
 
