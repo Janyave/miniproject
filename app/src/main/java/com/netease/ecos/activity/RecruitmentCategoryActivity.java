@@ -7,7 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +20,9 @@ import com.netease.ecos.R;
 import com.netease.ecos.adapter.RecruitmentListViewAdapter;
 import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.request.recruitment.RecruitmentListRequest;
+import com.netease.ecos.views.PopupHelper;
 import com.netease.ecos.views.XListView;
 
 import java.util.List;
@@ -42,12 +47,24 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
     LinearLayout lly_left_action;
     @InjectView(R.id.ll_left)
     LinearLayout ll_left;
+    @InjectView(R.id.tv_left)
+    TextView tv_left;
     @InjectView(R.id.tv_location)
     TextView tv_location;
     @InjectView(R.id.ll_location)
     LinearLayout ll_location;
     @InjectView(R.id.tv_left)
     TextView recruitmentTypeTxVw;
+
+    @InjectView(R.id.ll_sortType)
+    LinearLayout ll_sortType;
+    @InjectView(R.id.tv_sortText)
+    TextView tv_sortText;
+    @InjectView(R.id.iv_sortIcon)
+    ImageView iv_sortIcon;
+
+    private PopupWindow popupSortType;
+    private PopupWindow popupSixType;
 
     private ArrayAdapter<RecruitmentListRequest.SortRule> spAdapter;
     private RecruitmentListRequest.SortRule sortRules[] = {RecruitmentListRequest.SortRule.智能排序,
@@ -85,13 +102,42 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
         ll_left.setOnClickListener(this);
         lly_left_action.setOnClickListener(this);
         ll_location.setOnClickListener(this);
+
+        //排序事件
+        ll_sortType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (popupSortType.isShowing()) {
+                    popupSortType.dismiss();
+                } else {
+                    PopupHelper.showRecruiteSortTypePopupWindow(popupSortType, RecruitmentCategoryActivity.this, v, new PopupHelper.IPopupListner() {
+                        @Override
+                        public void clickListner(int type, View v, PopupWindow popupWindow) {
+                            tv_sortText.setText(((RadioButton) v).getText().toString());
+                            //TODO 下拉选择事件 type
+                        }
+                    });
+                }
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_left:
-                //TODO 左上角类型选择事件
+                if (popupSixType.isShowing()) {
+                    popupSixType.dismiss();
+                } else {
+                    popupSixType = PopupHelper.newSixTypePopupWindow(RecruitmentCategoryActivity.this);
+                    PopupHelper.showSixTypePopupWindow(popupSixType, RecruitmentCategoryActivity.this, v, new PopupHelper.IPopupListner() {
+                        @Override
+                        public void clickListner(int type, View v, PopupWindow popupWindow) {
+                            tv_left.setText(((RadioButton) v).getText().toString());
+                            //TODO 八种下拉选择事件 type
+                        }
+                    });
+                }
                 break;
             case R.id.lly_left_action:
                 finish();
@@ -103,6 +149,10 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
     }
 
     private void initData() {
+        //下拉菜单
+        popupSortType = PopupHelper.newRecruiteSortTypePopupWindow(RecruitmentCategoryActivity.this);
+        popupSixType = PopupHelper.newSixTypePopupWindow(RecruitmentCategoryActivity.this);
+
         recruitment_type = getIntent().getExtras().getString(TRecruitmentType);
         recruitmentTypeTxVw.setText(recruitment_type);
         //设置下拉菜单选项

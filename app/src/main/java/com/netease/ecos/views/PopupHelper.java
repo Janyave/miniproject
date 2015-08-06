@@ -156,7 +156,7 @@ public class PopupHelper {
 
     public static void showRecruiteSortTypePopupWindow(final PopupWindow popupWindow, Context context,View view, final IPopupListner listner) {
 
-        final RadioGroup rg = (RadioGroup) popupWindow.getContentView().findViewById(R.id.rg_type);
+        final RadioGroup rg = (RadioGroup) popupWindow.getContentView().findViewById(R.id.rg_sort);
         final PopupWindow finalPopupWindow = popupWindow;
         rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -209,7 +209,7 @@ public class PopupHelper {
 
     public  static PopupWindow newRecruiteSortTypePopupWindow(Context context){
         View contentView = LayoutInflater.from(context).inflate(R.layout.popup_recruite_sort, null);
-        return  new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        return  new PopupWindow(contentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
     }
 
 
