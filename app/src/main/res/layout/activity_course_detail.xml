@@ -243,7 +243,7 @@
                         android:layout_height="@dimen/height_btn_150px"
                         android:background="@color/bg_white"
                         android:gravity="center"
-                        android:text="200个评论" />
+                        android:text="@string/seeAllComment" />
 
                     <TextView
                         android:layout_width="match_parent"

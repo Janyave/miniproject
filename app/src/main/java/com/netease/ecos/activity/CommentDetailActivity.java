@@ -91,7 +91,7 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
         imageCache = new SDImageCache();
         imageLoader = new ImageLoader(queue, imageCache);
         //init the adapter
-        workDetailListViewAdapter = new WorkDetailListViewAdapter(this);
+        workDetailListViewAdapter = new WorkDetailListViewAdapter(this, true);
 
         commentListRequest = new CommentListRequest();
         getCommentListResponse = new GetCommentListResponse();
