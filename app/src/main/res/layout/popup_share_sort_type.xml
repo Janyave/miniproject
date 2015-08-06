@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_140px"
             android:button="@null"
-            android:text="化 妆"
+            android:text="全 部"
             android:gravity="right|center_vertical"
             android:paddingRight="@dimen/paddingLeft_popup_six_type"
             style="@style/text_gray_max"
@@ -39,77 +39,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_item_140px"
                 android:button="@android:color/transparent"
-                android:text="后 期"
+                android:text="精 选"
                 android:gravity="right|center_vertical"
                 android:paddingRight="@dimen/paddingLeft_popup_six_type"
                 style="@style/text_gray_max"
                 android:textColor="@color/radio_six_type"/>
+            <TextView style="@style/layout_line_gray"/>
             <TextView style="@style/layout_line_gray"/>
             <RadioButton
                 android:id="@+id/rbtn3"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_item_140px"
                 android:button="@null"
-                android:text="摄 影"
+                android:text="新 人"
                 android:gravity="right|center_vertical"
                 android:paddingRight="@dimen/paddingLeft_popup_six_type"
                 style="@style/text_gray_max"
                 android:textColor="@color/radio_six_type"/>
+            <TextView style="@style/layout_line_gray"/>
             <TextView style="@style/layout_line_gray"/>
             <RadioButton
                 android:id="@+id/rbtn4"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_item_140px"
                 android:button="@null"
-                android:text="服 装"
+                android:text="关 注"
                 android:gravity="right|center_vertical"
                 android:paddingRight="@dimen/paddingLeft_popup_six_type"
                 style="@style/text_gray_max"
                 android:textColor="@color/radio_six_type"/>
             <TextView style="@style/layout_line_gray"/>
-            <RadioButton
-                android:id="@+id/rbtn5"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_item_140px"
-                android:button="@null"
-                android:text="道 具"
-                android:gravity="right|center_vertical"
-                android:paddingRight="@dimen/paddingLeft_popup_six_type"
-                style="@style/text_gray_max"
-                android:textColor="@color/radio_six_type"/>
             <TextView style="@style/layout_line_gray"/>
-            <RadioButton
-                android:id="@+id/rbtn6"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_item_140px"
-                android:button="@null"
-                android:text="假 发"
-                android:gravity="right|center_vertical"
-                android:paddingRight="@dimen/paddingLeft_popup_six_type"
-                style="@style/text_gray_max"
-                android:textColor="@color/radio_six_type"/>
-            <TextView style="@style/layout_line_gray"/>
-            <RadioButton
-                android:id="@+id/rbtn7"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_item_140px"
-                android:button="@null"
-                android:text="心 得"
-                android:gravity="right|center_vertical"
-                android:paddingRight="@dimen/paddingLeft_popup_six_type"
-                style="@style/text_gray_max"
-                android:textColor="@color/radio_six_type"/>
-            <TextView style="@style/layout_line_gray"/>
-            <RadioButton
-                android:id="@+id/rbtn8"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_item_140px"
-                android:button="@null"
-                android:text="其 他"
-                android:gravity="right|center_vertical"
-                android:paddingRight="@dimen/paddingLeft_popup_six_type"
-                style="@style/text_gray_max"
-                android:textColor="@color/radio_six_type"/>
+
         </RadioGroup>
     </LinearLayout>
     </LinearLayout>
