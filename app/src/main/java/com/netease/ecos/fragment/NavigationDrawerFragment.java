@@ -20,12 +20,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,16 +30,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
-import com.netease.ecos.activity.NormalListViewActivity;
-import com.netease.ecos.activity.NotificationActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.PersonalInfoSettingActivity;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
-
-import org.w3c.dom.Text;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -53,7 +46,7 @@ import org.w3c.dom.Text;
 /**
  * 侧滑栏
  */
-public class NavigationDrawerFragment extends Fragment implements View.OnClickListener{
+public class NavigationDrawerFragment extends Fragment implements View.OnClickListener {
 
     /**
      * Remember the position of the selected item.
@@ -109,7 +102,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     private User mUserData;
 
 
-    private LinearLayout ll_notification, ll_contact, ll_course, ll_display, ll_activity, ll_recruite, ll_personcenter,ll_setting;
+    private LinearLayout ll_notification, ll_contact, ll_course, ll_display, ll_activity, ll_recruite, ll_personcenter, ll_setting;
     private TextView tv_notificationNum, tv_contactNum, tv_courseNum, tv_displayNum, tv_activityNum, tv_recruiteNum, tv_personcenterNum, tv_block;
 
     private LinearLayout ll_attention, ll_fans;
@@ -164,8 +157,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         initListener();
 
 
-
-
 //        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -187,32 +178,31 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     }
 
 
-
     private void bindView() {
         btPersonageDetail = (TextView) mDrawerView.findViewById(R.id.bt_personage_name);
         btPersonageSetting = (TextView) mDrawerView.findViewById(R.id.bt_personage_setting);
 
-        ll_notification=(LinearLayout)mDrawerView.findViewById(R.id.ll_notification);
-        ll_contact=(LinearLayout)mDrawerView.findViewById(R.id.ll_contact);
-        ll_course=(LinearLayout)mDrawerView.findViewById(R.id.ll_course);
-        ll_display=(LinearLayout)mDrawerView.findViewById(R.id.ll_display);
-        ll_activity=(LinearLayout)mDrawerView.findViewById(R.id.ll_activity);
-        ll_recruite=(LinearLayout)mDrawerView.findViewById(R.id.ll_recruite);
-        ll_personcenter=(LinearLayout)mDrawerView.findViewById(R.id.ll_personcenter);
-        ll_setting=(LinearLayout)mDrawerView.findViewById(R.id.ll_setting);
+        ll_notification = (LinearLayout) mDrawerView.findViewById(R.id.ll_notification);
+        ll_contact = (LinearLayout) mDrawerView.findViewById(R.id.ll_contact);
+        ll_course = (LinearLayout) mDrawerView.findViewById(R.id.ll_course);
+        ll_display = (LinearLayout) mDrawerView.findViewById(R.id.ll_display);
+        ll_activity = (LinearLayout) mDrawerView.findViewById(R.id.ll_activity);
+        ll_recruite = (LinearLayout) mDrawerView.findViewById(R.id.ll_recruite);
+        ll_personcenter = (LinearLayout) mDrawerView.findViewById(R.id.ll_personcenter);
+        ll_setting = (LinearLayout) mDrawerView.findViewById(R.id.ll_setting);
 
-        tv_notificationNum=(TextView)mDrawerView.findViewById(R.id.tv_notificationNum);
-        tv_contactNum=(TextView)mDrawerView.findViewById(R.id.tv_contactNum);
-        tv_courseNum=(TextView)mDrawerView.findViewById(R.id.tv_courseNum);
-        tv_displayNum=(TextView)mDrawerView.findViewById(R.id.tv_displayNum);
-        tv_activityNum=(TextView)mDrawerView.findViewById(R.id.tv_activityNum);
-        tv_recruiteNum=(TextView)mDrawerView.findViewById(R.id.tv_recruiteNum);
-        tv_personcenterNum=(TextView)mDrawerView.findViewById(R.id.tv_personcenterNum);
-        tv_block=(TextView)mDrawerView.findViewById(R.id.tv_block);
+        tv_notificationNum = (TextView) mDrawerView.findViewById(R.id.tv_notificationNum);
+        tv_contactNum = (TextView) mDrawerView.findViewById(R.id.tv_contactNum);
+        tv_courseNum = (TextView) mDrawerView.findViewById(R.id.tv_courseNum);
+        tv_displayNum = (TextView) mDrawerView.findViewById(R.id.tv_displayNum);
+        tv_activityNum = (TextView) mDrawerView.findViewById(R.id.tv_activityNum);
+        tv_recruiteNum = (TextView) mDrawerView.findViewById(R.id.tv_recruiteNum);
+        tv_personcenterNum = (TextView) mDrawerView.findViewById(R.id.tv_personcenterNum);
+        tv_block = (TextView) mDrawerView.findViewById(R.id.tv_block);
 
-        ll_person=(LinearLayout)mDrawerView.findViewById(R.id.ll_person);
-        ll_attention=(LinearLayout)mDrawerView.findViewById(R.id.ll_attention);
-        ll_fans=(LinearLayout)mDrawerView.findViewById(R.id.ll_fans);
+        ll_person = (LinearLayout) mDrawerView.findViewById(R.id.ll_person);
+        ll_attention = (LinearLayout) mDrawerView.findViewById(R.id.ll_attention);
+        ll_fans = (LinearLayout) mDrawerView.findViewById(R.id.ll_fans);
 
     }
 
@@ -254,44 +244,28 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        Intent intent;
+        Bundle bundle;
+        switch (v.getId()) {
             case R.id.ll_notification:
-                startActivity(new Intent(getActivity(), NotificationActivity.class));
-                break;
             case R.id.ll_contact:
-                //TODO
-                break;
-            case R.id.ll_setting:
-                Intent intent = new Intent(getActivity(), PersonalInfoSettingActivity.class);
-                startActivity(intent);
-                break;
-//            case R.id.ll_course:
-//                break;
-//            case R.id.ll_display:
-//                break;
-//            case R.id.ll_activity:
-//                break;
-//            case R.id.ll_recruite:
-//                break;
-            case R.id.ll_personcenter:
-                //TODO error
-                startActivity(new Intent(getActivity(), PersonageDetailActivity.class));
-                break;
             case R.id.ll_attention:
-                Intent intent1=new Intent(getActivity(), NormalListViewActivity.class);
-                Bundle bundle1=new Bundle();
-                //TODO
-                intent1.putExtras(bundle1);
-                startActivity(intent1);
-                break;
             case R.id.ll_fans:
-                Intent intent2=new Intent(getActivity(), NormalListViewActivity.class);
-                Bundle bundle2=new Bundle();
-                //TODO
-                intent2.putExtras(bundle2);
-                startActivity(intent2);
+                Toast.makeText(getActivity(), getResources().getString(R.string.noPage), Toast.LENGTH_SHORT).show();
+                return;
+            case R.id.ll_setting:
+                intent = new Intent(getActivity(), PersonalInfoSettingActivity.class);
                 break;
+            case R.id.ll_personcenter:
+                intent = new Intent(getActivity(), PersonageDetailActivity.class);
+                bundle = new Bundle();
+                bundle.putBoolean(PersonageDetailActivity.IsOwn, true);
+                intent.putExtras(bundle);
+                break;
+            default:
+                intent = new Intent();
         }
+        startActivity(intent);
     }
 
 
@@ -458,7 +432,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
     private class MyAdapter extends BaseAdapter {

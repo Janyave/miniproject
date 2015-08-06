@@ -21,6 +21,7 @@
     <string name="title_section4">我的作品</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="noPage">小编还没写出该页面哦，亲:)</string>
     <!-- 侧滑栏结束 -->
 
     <!-- xListView(下拉上拉控件)开始-->

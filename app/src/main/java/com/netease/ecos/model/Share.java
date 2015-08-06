@@ -65,6 +65,8 @@ public class Share {
 	/*** 内容 */
 	public String content;
 
+	/*** 分享标签，如果属于某一标签则置为true */
+	public Tag tags;
 
 	/***
 	 * 根据{@link #issueTimeStamp}获取发布时间描述
@@ -86,5 +88,96 @@ public class Share {
 	}
 
 
+	public static class Tag{
 
+		/*** 是否是妆娘 */
+		public boolean isMakeup = false;
+
+		/*** 是否是摄影 */
+		public boolean isPhoto = false;
+
+		/*** 是否是后期 */
+		public boolean isLater = false;
+
+		/*** 是否是服装 */
+		public boolean isCloth = false;
+
+		/*** 是否是道具 */
+		public boolean isProperty = false;
+
+		/*** 是否是coser */
+		public boolean isCoser = false;
+
+		/*0 不选
+		1 妆娘
+		2 摄影
+		4 后期
+		8 服装
+		16  道具
+		32  coser
+		*/
+
+		public int getTagValues(){
+			int tagValues = 0;
+
+			if(isMakeup)
+				tagValues+=1;
+			if(isPhoto)
+				tagValues+=2;
+			if(isLater)
+				tagValues+=4;
+			if(isCloth)
+				tagValues+=8;
+			if(isProperty)
+				tagValues+=16;
+			if(isCoser)
+				tagValues+=32;
+
+			return tagValues;
+		}
+
+
+		public static Tag getTagByRecruitType(Recruitment.RecruitType recruitType){
+
+			Tag tags =new Tag();
+
+			if(recruitType== Recruitment.RecruitType.妆娘)
+				tags.isMakeup = true;
+			if(recruitType== Recruitment.RecruitType.摄影)
+				tags.isPhoto = true;
+			if(recruitType== Recruitment.RecruitType.后期)
+				tags.isLater = true;
+			if(recruitType== Recruitment.RecruitType.服装)
+				tags.isCloth = true;
+			if(recruitType== Recruitment.RecruitType.道具)
+				tags.isProperty = true;
+			if(recruitType== Recruitment.RecruitType.其他)
+				tags.isCoser = true;
+
+			return tags;
+
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Share{" +
+				"shareId='" + shareId + '\'' +
+				", title='" + title + '\'' +
+				", userId='" + userId + '\'' +
+				", nickname='" + nickname + '\'' +
+				", avatarUrl='" + avatarUrl + '\'' +
+				", totalPageNumber=" + totalPageNumber +
+				", praiseNum=" + praiseNum +
+				", commentNum=" + commentNum +
+				", hasAttention=" + hasAttention +
+				", hasPraised=" + hasPraised +
+				", issueTimeStamp=" + issueTimeStamp +
+				", coverLocalPath='" + coverLocalPath + '\'' +
+				", coverUrl='" + coverUrl + '\'' +
+				", imageList=" + imageList +
+				", commentList=" + commentList +
+				", content='" + content + '\'' +
+				'}';
+	}
 }

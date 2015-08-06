@@ -29,8 +29,7 @@
             android:scaleType="centerCrop"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/margin_50px"
-            android:layout_marginRight="@dimen/margin_50px"
-            android:src="@mipmap/ic_choose_false"/>
+            android:layout_marginRight="@dimen/margin_50px"/>
     </RelativeLayout>
 
         <LinearLayout

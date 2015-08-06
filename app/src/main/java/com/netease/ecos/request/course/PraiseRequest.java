@@ -1,11 +1,5 @@
 package com.netease.ecos.request.course;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
@@ -13,7 +7,8 @@ import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
-import com.netease.ecos.request.NorResponce;
+
+import java.util.Map;
 
 /***
  * 
@@ -41,74 +36,74 @@ public class PraiseRequest extends BaseRequest{
 	
 	/***
 	 * 点赞或取消点赞教程
-	 * @param baseresponce
-	 * @param toUserId
-	 * @param follow true：关注  false:取消关注
+	 * @param praiseResponce
+	 * @param refId
+	 * @param praise true：点赞  false:取消点赞
 	 */
 	public void praiseCourse(IPraiseResponce praiseResponce, final String refId, final boolean praise)
 	{
-		super.initBaseRequest(praiseResponce);
-		mPraiseResponce  = praiseResponce;
-		mRefId = refId;
-		mpraise = praise;
-		
-		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.PRAISE_URL,  this, this) {  
-	        @Override  
-	        protected Map<String, String> getParams() throws AuthFailureError {  
-	        	Map<String, String> map = getRequestBasicMap();
-	            
-	        	map.put(REF_ID, refId);
-	        	map.put(TYPE, praise?"praise":"cancel");
-	        	map.put("praiseType", "0");
-	        	
-	            traceNormal(TAG, map.toString());
-	            traceNormal(TAG, PraiseRequest.this.getUrl(RequestUrlConstants.PRAISE_URL, map));
-	            return map;  
-	        }  
-	        
-	    }; 
-	    
-	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-	    
-	    getQueue().add(stringRequest);
-	    
+		praise(praiseResponce, "0", refId, praise);
 	}
-	
+
 	/***
 	 * 点赞或取消点赞作品
-	 * @param baseresponce
-	 * @param toUserId
-	 * @param follow true：关注  false:取消关注
+	 * @param praiseResponce
+	 * @param refId
+	 * @param praise true：点赞  false:取消点赞
 	 */
 	public void praiseShare(IPraiseResponce praiseResponce, final String refId, final boolean praise)
+	{
+		praise(praiseResponce, "1", refId, praise);
+	}
+
+	/***
+	 * 点赞或取消点赞作品
+	 * @param praiseResponce
+	 * @param refId
+	 * @param praise true：点赞  false:取消点赞
+	 */
+	public void praiseAssignment(IPraiseResponce praiseResponce, final String refId, final boolean praise)
+	{
+		praise(praiseResponce, "4", refId, praise);
+	}
+
+	/*0:教程,
+	1:分享,
+	2:活动,
+	3:招募,
+	4:教程作业*/
+
+	public void praise(IPraiseResponce praiseResponce,final String praiseType, final String refId, final boolean praise)
 	{
 		super.initBaseRequest(praiseResponce);
 		mPraiseResponce  = praiseResponce;
 		mRefId = refId;
 		mpraise = praise;
-		
-		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.PRAISE_URL,  this, this) {  
-	        @Override  
-	        protected Map<String, String> getParams() throws AuthFailureError {  
-	        	Map<String, String> map = getRequestBasicMap();
-	            
-	        	map.put(REF_ID, refId);
-	        	map.put(TYPE, praise?"praise":"cancel");
-	        	map.put("praiseType", "1");
-	        	
-	            traceNormal(TAG, map.toString());
-	            traceNormal(TAG, PraiseRequest.this.getUrl(RequestUrlConstants.PRAISE_URL, map));
-	            return map;  
-	        }  
-	        
-	    }; 
-	    
-	    stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-	    
-	    getQueue().add(stringRequest);
-	    
+
+		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.PRAISE_URL,  this, this) {
+			@Override
+			protected Map<String, String> getParams() throws AuthFailureError {
+				Map<String, String> map = getRequestBasicMap();
+
+				map.put(REF_ID, refId);
+				map.put(TYPE, praise?"praise":"cancel");
+				map.put("praiseType", praiseType);
+
+				traceNormal(TAG, map.toString());
+				traceNormal(TAG, PraiseRequest.this.getUrl(RequestUrlConstants.PRAISE_URL, map));
+				return map;
+			}
+
+		};
+
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+		getQueue().add(stringRequest);
+
 	}
-	
+
+
+
 	@Override
 	public void responceSuccess(String jstring) {
 		

@@ -6,7 +6,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.request.NorResponce;
+import com.netease.ecos.request.user.UpdateUserInfoRequest;
 
 import org.w3c.dom.Text;
 
@@ -33,6 +38,9 @@ public class PersonSetGenderActivity extends BaseActivity implements View.OnClic
     @InjectView(R.id.iv_female)
     ImageView iv_female;
 
+    private User user;
+    private UpdateUserInfoRequest request;
+
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
@@ -45,6 +53,9 @@ public class PersonSetGenderActivity extends BaseActivity implements View.OnClic
     }
 
     private void initView() {
+
+        user = UserDataService.getSingleUserDataService(this).getUser();
+        request = new UpdateUserInfoRequest();
         title_text.setText("性别");
     }
 
@@ -74,15 +85,42 @@ public class PersonSetGenderActivity extends BaseActivity implements View.OnClic
                 break;
             case R.id.lly_right_action:
                 //TODO change 确定事件
+                sendUser(user);
+                finish();
                 break;
             case R.id.ll_male:
                 iv_male.setVisibility(View.VISIBLE);
                 iv_female.setVisibility(View.GONE);
+                user.gender = User.Gender.getGender("男");
                 break;
             case R.id.ll_female:
                 iv_male.setVisibility(View.GONE);
                 iv_female.setVisibility(View.VISIBLE);
+                user.gender = User.Gender.getGender("女");
                 break;
         }
+    }
+    void sendUser(User user) {
+        request.request(new NorResponce() {
+            @Override
+            public void success() {
+
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        }, user);
     }
 }

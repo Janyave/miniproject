@@ -41,7 +41,8 @@
                     android:gravity="center"
                     android:background="@null"
                     style="@style/text_dark_mid"
-                    android:hint="100"
+                    android:inputType="numberDecimal"
+                    android:hint="请输入"
                     android:textColorHint="@color/text_gray"/>
 
                 <TextView
