@@ -247,4 +247,11 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
         }
     }
 
+    public List<Share> getShareList() {
+        return shareList;
+    }
+
+    public void setShareList(List<Share> shareList) {
+        this.shareList = shareList;
+    }
 }

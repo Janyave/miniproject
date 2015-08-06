@@ -131,6 +131,7 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
         tv_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pageIndex = 0;
                 searchWord = et_search.getText().toString();
                 if (searchWord.equals("")) {
                     Toast.makeText(SearchActivity.this, getResources().getString(R.string.noContent), Toast.LENGTH_SHORT).show();
@@ -249,11 +250,77 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
             }, 1000);
         }
 
-        pageIndex++;
         if (TYPE == TYPE_COURSE) {
-            courseListRequest.request(courseListResponse, CourseListRequest.Type.筛选, CourseCategoryActivity.courseTypes[selectPosition], searchWord, CourseListRequest.SortRule.时间, pageIndex);
+
+            if (courseListViewAdapter == null)
+                pageIndex = 0;
+            pageIndex++;
+            courseListRequest.request(new CourseListRequest.ICourseListResponse() {
+
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+
+                }
+
+                @Override
+                public void doAfterFailedResponse(String message) {
+
+                }
+
+                @Override
+                public void responseNoGrant() {
+
+                }
+
+                @Override
+                public void success(List<Course> courseList) {
+                    Log.d(TAG, "CourseListResponse.success()");
+                    if (courseList.size() == 0) {
+                        Toast.makeText(SearchActivity.this, getResources().getString(R.string.nothingLeft), Toast.LENGTH_SHORT).show();
+                        pageIndex--;
+                    }
+                    else {
+                        courseListViewAdapter.getCourseList().addAll(courseList); // 添加ListView的内容
+                        courseListViewAdapter.notifyDataSetChanged();
+                    }
+                }
+            },CourseListRequest.Type.筛选, CourseCategoryActivity.courseTypes[selectPosition], searchWord, CourseListRequest.SortRule.时间, pageIndex);
+
         } else {
-            shareListRequest.request(getShareListResponse, DisplayFragment.shareTypes[selectPosition], searchWord, pageIndex);
+
+            if (displayListViewAdapter == null)
+                pageIndex = 0;
+            pageIndex++;
+            shareListRequest.request(new ShareListRequest.IShareListResponse(){
+
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+
+                }
+
+                @Override
+                public void doAfterFailedResponse(String message) {
+
+                }
+
+                @Override
+                public void responseNoGrant() {
+
+                }
+
+                @Override
+                public void success(List<Share> shareList) {
+                    Log.d(TAG, "CourseListResponse.success()");
+                    if (shareList.size() == 0) {
+                        Toast.makeText(SearchActivity.this, getResources().getString(R.string.nothingLeft), Toast.LENGTH_SHORT).show();
+                        pageIndex--;
+                    }
+                    else {
+                        displayListViewAdapter.getShareList().addAll(shareList); // 添加ListView的内容
+                        displayListViewAdapter.notifyDataSetChanged();
+                    }
+                }
+            }, DisplayFragment.shareTypes[selectPosition], searchWord, pageIndex);
         }
     }
 
