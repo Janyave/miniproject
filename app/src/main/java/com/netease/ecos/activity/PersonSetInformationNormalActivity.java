@@ -2,12 +2,20 @@ package com.netease.ecos.activity;
 
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.request.NorResponce;
+import com.netease.ecos.request.user.UpdateUserInfoRequest;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -15,7 +23,7 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/8/5.
  */
-public class PersonSetInformationNormalActivity extends BaseActivity implements View.OnClickListener{
+public class PersonSetInformationNormalActivity extends BaseActivity implements View.OnClickListener {
 
     @InjectView(R.id.lly_left_action)
     LinearLayout title_left;
@@ -24,11 +32,11 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
     @InjectView(R.id.lly_right_action)
     LinearLayout title_right;
 
-    public static String ACTICITY_TYPE="type";
+    public static String ACTICITY_TYPE = "type";
 
-    public final static int TYPE_NAME=1;
-    public final static int TYPE_SIGNATURE=2;
-    public final static int TYPE_PASSWORD=3;
+    public final static int TYPE_NAME = 1;
+    public final static int TYPE_SIGNATURE = 2;
+    public final static int TYPE_PASSWORD = 3;
 
 
     @InjectView(R.id.et_input)
@@ -40,7 +48,9 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
     @InjectView(R.id.ll_inputPassword)
     LinearLayout ll_inputPassword;
 
-    private int TYPE=0;
+    private int TYPE = 0;
+    private User user;
+    private UpdateUserInfoRequest request;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -48,12 +58,15 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
         setContentView(R.layout.activity_change_information_normal);
         ButterKnife.inject(this);
 
+        user = UserDataService.getSingleUserDataService(this).getUser();
+        request = new UpdateUserInfoRequest();
+
         initListener();
 
-        try{
-            TYPE=getIntent().getExtras().getInt(ACTICITY_TYPE);
+        try {
+            TYPE = getIntent().getExtras().getInt(ACTICITY_TYPE);
 
-            switch (TYPE){
+            switch (TYPE) {
                 case TYPE_NAME:
                     initNameData();
                     break;
@@ -64,7 +77,7 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
                     initPasswordData();
                     break;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             finish();
         }
@@ -89,31 +102,82 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
     private void initPasswordData() {
         ll_inputPassword.setVisibility(View.VISIBLE);
         et_input.setHint("请输入旧密码");
-        et_input.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        et_input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         et_inputPassword.setHint("请输入新密码");
         et_inputPassword2.setHint("请再次输入新密码");
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        Log.w("xuyun", TYPE + "");
+        switch (v.getId()) {
             case R.id.lly_left_action:
                 finish();
                 break;
             case R.id.lly_right_action:
                 //TODO change
-                switch (TYPE){
+                switch (TYPE) {
                     case TYPE_NAME:
+                        user.nickname = et_input.getText().toString();
+                        sendUser(user);
+                        Log.w("User", et_input.getText().toString());
+                        finish();
                         //TODO
                         break;
                     case TYPE_SIGNATURE:
+                        user.characterSignature = et_input.getText().toString();
+                        sendUser(user);
+                        Log.w("User", et_input.getText().toString());
+                        finish();
                         //TODO
                         break;
                     case TYPE_PASSWORD:
+                        if (user.password.equals(et_input.getText().toString())) {
+                            if (et_inputPassword.getText().toString().equals(et_inputPassword2.getText().toString())) {
+                                user.password = et_inputPassword.getText().toString();
+                                sendUser(user);
+                            } else {
+                                Toast.makeText(this, "密码输入不一致", Toast.LENGTH_LONG);
+                                et_input.setText("");
+                                et_inputPassword.setText("");
+                                et_inputPassword2.setText("");
+                            }
+                        } else {
+                            Toast.makeText(this, "密码输入错误", Toast.LENGTH_LONG);
+                            et_input.setText("");
+                            et_inputPassword.setText("");
+                            et_inputPassword2.setText("");
+                        }
+                        Log.w("User", et_input.getText().toString());
+                        finish();
                         //TODO
                         break;
                 }
                 break;
         }
+    }
+
+    void sendUser(User user) {
+        request.request(new NorResponce() {
+            @Override
+            public void success() {
+
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        }, user);
     }
 }

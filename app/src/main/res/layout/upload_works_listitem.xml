@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="170dp"
-    android:padding="10dp">
-
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_cover_552px_870px"
+        android:paddingLeft="@dimen/margin_40px"
+        android:paddingRight="@dimen/margin_40px"
+        android:paddingBottom="@dimen/margin_30px">
     <ImageView
         android:id="@+id/last_step"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/tv_index"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:contentDescription="点击将当前步骤置为上一步"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:src="@drawable/ic_selector_btn_last_step" />
+        android:layout_width="@dimen/icon_big_64px"
+        android:layout_height="@dimen/icon_big_64px"
+        android:padding="2dp"
+        android:src="@mipmap/ic_course_up" />
 
     <ImageView
         android:id="@+id/next_step"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/tv_index"
-        android:layout_below="@id/iv_last_step"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="40dp"
-        android:contentDescription="点击将当前步骤置为下一步"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:src="@drawable/ic_selector_btn_next_step" />
+        android:layout_below="@id/last_step"
+        android:layout_width="@dimen/icon_big_64px"
+        android:layout_height="@dimen/icon_big_64px"
+        android:src="@mipmap/ic_course_down"
+        android:padding="2dp"
+        android:layout_marginTop="@dimen/margin_30px"
+        android:contentDescription="点击将当前步骤置为下一步"/>
 
 
     <ImageView
         android:id="@+id/item_photo"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_alignTop="@id/tv_index"
-        android:layout_marginLeft="5dp"
+        android:layout_width="@dimen/width_cover_552px_870px"
+        android:layout_height="@dimen/height_cover_552px_870px"
         android:layout_toLeftOf="@id/iv_last_step"
         android:layout_toRightOf="@id/tv_index"
         android:contentDescription="教程步骤图片"
         android:scaleType="centerCrop" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignLeft="@id/niv_course_photo"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="6dp"
-        android:background="#000000" />
+        <ImageView
+            android:contentDescription="删除当前步骤"
+            android:id="@+id/iv_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/item_photo"
+            android:src="@mipmap/ic_course_delete"/>
+
+    </RelativeLayout>
 </RelativeLayout>

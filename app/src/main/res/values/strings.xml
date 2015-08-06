@@ -171,5 +171,6 @@
     <string name="noShare">抱歉，还没有该分类的分享，快来分享吧;)</string>
     <!-- 搜索页面-->
     <string name="noContent">请输入搜索关键字:)</string>
-
+    <string name="title_upload_title">标题</string>
+    <string name="title_upload_detail">简介</string>
 </resources>
