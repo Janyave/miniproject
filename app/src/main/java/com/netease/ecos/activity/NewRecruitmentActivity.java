@@ -165,7 +165,7 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
         ShareListRequest request =  new ShareListRequest();
         Share.Tag tags = Share.Tag.getTagByRecruitType(mRecruitType);
 
-        request.requestMyShareWithTag(new ShareListResponse(), tags,(newDisplayListAdater.getCount()-1)/5+1);
+        request.requestSomeOneShareWithTag(new ShareListResponse(), null, tags,(newDisplayListAdater.getCount()-1)/5+1);
 
     }
 
