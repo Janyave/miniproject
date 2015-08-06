@@ -353,52 +353,6 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                 });
             }
         }));
-//        lv_list.setOnScrollListener(new AbsListView.OnScrollListener() {
-//            int lvIndext = 0; //当前listView显示的首个Item的Index
-//            String state = "up"; //当前ListView动作状态 up or down
-//            Boolean isAnim = false; //是否正在动画
-//
-//            @Override
-//            public void onScrollStateChanged(AbsListView view, int scrollState) {
-//            }
-//
-//            @Override
-//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//
-//                /***当前滑动状态，与记录的lvIndex作比较，发生变化触发动画*/
-//                String nowstate = state;
-//                /***当前可见Item的首个Index*/
-//                int nowIndext = firstVisibleItem;
-//                /***nowIndex大于lvIndex，ListView下滑*/
-//                if (nowIndext > lvIndext && !isAnim) {
-//                    nowstate = "down";
-//                    if (!TextUtils.equals(nowstate, state)) {
-//                        btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
-//                            @Override
-//                            public void doAfterAnimation() {
-//                                isAnim = false;
-//                            }
-//                        });
-//                        isAnim = true;
-//                    }
-//                }
-//                /***nowIndex小于lvIndex，ListView下滑*/
-//                if (nowIndext < lvIndext && !isAnim) {
-//                    nowstate = "up";
-//                    if (!TextUtils.equals(nowstate, state)) {
-//                        btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
-//                            @Override
-//                            public void doAfterAnimation() {
-//                                isAnim = false;
-//                            }
-//                        });
-//                        isAnim = true;
-//                    }
-//                }
-//                state = nowstate;
-//                lvIndext = nowIndext;
-//            }
-//        });
     }
 
     private void showSortTypePopupWindow(final View view) {
