@@ -14,7 +14,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:background="@color/bg_white">
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_person_navigation_636px"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@mipmap/img_person_back">
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,6 +61,7 @@
             android:id="@+id/tv_personage_description"
             style="@style/text_pink_mid"
             android:textColor="@color/bg_red_light"/>
+        </LinearLayout>
         <TextView style="@style/layout_line_gray"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -118,7 +127,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/bg_red"
+        android:background="@color/bg_white"
         android:paddingTop="@dimen/margin_50px">
         <LinearLayout
             android:id="@+id/ll_personcenter"
@@ -126,20 +135,20 @@
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="@drawable/ll_pink"
+            android:background="@drawable/ll_white"
             android:paddingLeft="@dimen/margin_50px"
             android:paddingRight="@dimen/margin_30px">
             <ImageView
                 android:layout_width="@dimen/icon_sidebar_54px"
                 android:layout_height="@dimen/icon_sidebar_54px"
-                android:src="@mipmap/ic_side_center"
+                android:src="@mipmap/ic_side_center_gray"
                 android:scaleType="fitCenter"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:text="@string/side_person"
-                style="@style/text_white_mid"/>
+                style="@style/text_gray_mid"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -152,13 +161,13 @@
                 android:gravity="center"
                 android:text="11"
                 android:background="@drawable/bg_side_notification"
-                style="@style/text_pink_min"
+                style="@style/text_white_min"
                 android:layout_marginRight="@dimen/margin_20px"/>
             <ImageView
                 android:layout_width="@dimen/icon_big_64px"
                 android:layout_height="@dimen/icon_big_64px"
-                android:src="@mipmap/ic_more_white"
-                android:padding="2dp"/>
+                android:src="@mipmap/ic_more"
+                android:padding="5dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ll_notification"
@@ -166,20 +175,20 @@
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="@drawable/ll_pink"
+            android:background="@drawable/ll_white"
             android:paddingLeft="@dimen/margin_50px"
             android:paddingRight="@dimen/margin_30px">
             <ImageView
                 android:layout_width="@dimen/icon_sidebar_54px"
                 android:layout_height="@dimen/icon_sidebar_54px"
-                android:src="@mipmap/ic_side_notification"
+                android:src="@mipmap/ic_side_notification_gray"
                 android:scaleType="fitCenter"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:text="@string/side_notification"
-                style="@style/text_white_mid"/>
+                style="@style/text_gray_mid"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -192,13 +201,13 @@
                 android:gravity="center"
                 android:text="11"
                 android:background="@drawable/bg_side_notification"
-                style="@style/text_pink_min"
+                style="@style/text_white_min"
                 android:layout_marginRight="@dimen/margin_20px"/>
             <ImageView
                 android:layout_width="@dimen/icon_big_64px"
                 android:layout_height="@dimen/icon_big_64px"
-                android:src="@mipmap/ic_more_white"
-                android:padding="2dp"/>
+                android:src="@mipmap/ic_more"
+                android:padding="5dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -207,20 +216,20 @@
             android:layout_height="@dimen/height_item_140px"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="@drawable/ll_pink"
+            android:background="@drawable/ll_white"
             android:paddingLeft="@dimen/margin_50px"
             android:paddingRight="@dimen/margin_30px">
             <ImageView
                 android:layout_width="@dimen/icon_sidebar_54px"
                 android:layout_height="@dimen/icon_sidebar_54px"
-                android:src="@mipmap/ic_side_contact"
+                android:src="@mipmap/ic_side_contact_gray"
                 android:scaleType="fitCenter"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:text="@string/side_contact"
-                style="@style/text_white_mid"/>
+                style="@style/text_gray_mid"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -233,13 +242,13 @@
                 android:gravity="center"
                 android:text="11"
                 android:background="@drawable/bg_side_notification"
-                style="@style/text_pink_min"
+                style="@style/text_white_min"
                 android:layout_marginRight="@dimen/margin_20px"/>
             <ImageView
                 android:layout_width="@dimen/icon_big_64px"
                 android:layout_height="@dimen/icon_big_64px"
-                android:src="@mipmap/ic_more_white"
-                android:padding="2dp"/>
+                android:src="@mipmap/ic_more"
+                android:padding="5dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -419,7 +428,7 @@
             android:id="@+id/ll_setting"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_140px"
-            android:background="@drawable/ll_pink"
+            android:background="@drawable/ll_white"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:paddingRight="@dimen/margin_50px">
@@ -430,7 +439,7 @@
             <ImageView
                 android:layout_width="@dimen/icon_sidebar_54px"
                 android:layout_height="@dimen/icon_sidebar_54px"
-                android:src="@mipmap/ic_side_setting"
+                android:src="@mipmap/ic_side_setting_gray"
                 android:scaleType="fitCenter"/>
             <TextView
                 android:id="@+id/bt_personage_setting"
@@ -438,7 +447,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:text="@string/side_setting"
-                style="@style/text_white_mid"/>
+                style="@style/text_gray_mid"/>
         </LinearLayout>
 
 

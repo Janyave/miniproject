@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ImageView
-        android:id="@+id/iv_return"
-        android:layout_width="@dimen/splash_return_height"
-        android:layout_height="@dimen/splash_return_height"
-        android:src="@mipmap/ic_launcher"/>
-
+    android:layout_height="match_parent"
+    android:background="@mipmap/img_splath_g">
+    <include layout="@layout/item_splash_return"/>
     <include layout="@layout/view_aplash_icon"/>
 
 
@@ -40,7 +36,7 @@
         android:layout_width="@dimen/login_item_width"
         android:layout_gravity="center_horizontal"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:gravity="center_horizontal">
         <TextView
             android:id="@+id/tv_notice"

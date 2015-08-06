@@ -39,6 +39,16 @@ public class PersonalInfoSettingActivity extends BaseActivity {
 
     private static final String[] gender = {"男", "女", "保密"};
 
+    //title
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
+    @InjectView(R.id.tv_title)
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
+
     //show
     private LinearLayout mReturn;
     private RoundImageView mAvatarImg;
@@ -89,6 +99,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_info_setting);
         ButterKnife.inject(this);
+        initTitle();
         onBoundView();
         onBoundLinster();
 
@@ -98,6 +109,18 @@ public class PersonalInfoSettingActivity extends BaseActivity {
 //        iv = (RoundAngleImageView) findViewById(R.id.picasso_test);
 //        iv.setImageFromUrl("http://pic4.nipic.com/20090803/2618170_095921092_2.jpg");
 
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        title_right.setVisibility(View.INVISIBLE);
+        title_right_text.setText("发布");
+        title_text.setText("设置");
     }
 
     @Override
@@ -229,7 +252,6 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     break;
                 case R.id.personal_info_logout:
                     Intent intent = new Intent(PersonalInfoSettingActivity.this, SplashActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
                     break;
