@@ -38,6 +38,9 @@ public class CreateShareRequest extends BaseRequest{
 	ICreateShareResponse mCreateShareResponse;
 
 
+
+
+
 	public void request(ICreateShareResponse createShareResponse, final Share share)
 	{
 		super.initBaseRequest(createShareResponse);
@@ -63,6 +66,10 @@ public class CreateShareRequest extends BaseRequest{
 		getQueue().add(stringRequest);
 
 	}
+
+
+
+
 
 	@Override
 	public void responceSuccess(String jstring) {
@@ -141,6 +148,7 @@ public class CreateShareRequest extends BaseRequest{
 		jsonMap.put("coverUrl",share.coverUrl);
 		jsonMap.put("description",share.content);
 		jsonMap.put("totalImages",share.totalPageNumber);
+		jsonMap.put("type",share.tags.getTagValues());
 
 
 		List<String> imageList = new ArrayList<String>();
@@ -153,6 +161,9 @@ public class CreateShareRequest extends BaseRequest{
 
 		return new JSONObject(jsonMap).toString();
 	}
+
+
+
 
 }
 

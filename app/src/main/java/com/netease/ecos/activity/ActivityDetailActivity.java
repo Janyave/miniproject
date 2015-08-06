@@ -149,7 +149,6 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
                 singupActivityRequest.request(signUpActivityResponse, activityID, activityModel.hasSignuped ? SingupActivityRequest.SignupType.取消报名 : SingupActivityRequest.SignupType.报名);
                 break;
             case R.id.iv_author_avator:
-                Toast.makeText(ActivityDetailActivity.this, "person detail", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ActivityDetailActivity.this, PersonageDetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putBoolean(PersonageDetailActivity.IsOwn, false);

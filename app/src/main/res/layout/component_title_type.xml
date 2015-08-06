@@ -43,7 +43,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:paddingLeft="5dp"
-            android:text="妆娘"
+            android:text="妆 娘"
             style="@style/text_white_max"/>
         <ImageView
             android:layout_width="15dp"
