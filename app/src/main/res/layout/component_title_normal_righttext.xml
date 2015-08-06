@@ -69,7 +69,7 @@
         android:contentDescription="标题右侧按钮，根据需要进行显示或者隐藏，并更改名称"
         android:text="确定"
         style="@style/text_white_mid"
-        android:textColor="@color/txt_title"/>
+        android:textColor="@color/txt_title"/>/>
     <ImageView
         android:visibility="gone"
         android:id="@+id/iv_right_icon"

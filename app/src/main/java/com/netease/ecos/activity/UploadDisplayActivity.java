@@ -148,7 +148,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_right_action:
+            case R.id.lly_right_action:
                 if (coverImagePath.equals("")
                         || uploadWorksCoverEdTx.getText().toString().equals("")
                         || uploadWorksDescrpEdTx.getText().toString().equals("")) {

@@ -88,14 +88,13 @@ public class CampaignListViewAdapter extends BaseAdapter {
             if (activityList.get(position).coverUrl != null && !activityList.get(position).coverUrl.equals(""))
                 Picasso.with(mcontext).load(activityList.get(position).coverUrl).placeholder(R.drawable.img_default).into(viewHolder.imageTitlePic);
 
-            Log.w("xuyun",activityList.get(position).coverUrl);
             viewHolder.textViewTitle.setText(activityList.get(position).title);
 
             ActivityModel.ActivityTime activityTime = activityList.get(position).activityTime;  // 设置时间
             viewHolder.textViewTime.setText(activityTime.dayStartTime + "-" + activityTime.dayEndTime);
 
             ActivityModel.Location location = activityList.get(position).location;  // 设置地点
-            viewHolder.textViewLocation.setText(location.province.provinceName + "/" + location.city + "/" + location.address);
+            viewHolder.textViewLocation.setText(location.province.provinceName + "/" + location.city.cityName + "/" + location.address);
         }
     }
 }

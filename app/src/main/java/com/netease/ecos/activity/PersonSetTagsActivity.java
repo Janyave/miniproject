@@ -1,10 +1,13 @@
 package com.netease.ecos.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
@@ -13,6 +16,9 @@ import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.request.user.UpdateUserInfoRequest;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import butterknife.ButterKnife;
@@ -48,7 +54,6 @@ public class PersonSetTagsActivity extends BaseActivity implements View.OnClickL
     private User user;
     private UpdateUserInfoRequest request;
 
-    private Set<User.RoleType> roleTypes;
     private User.RoleType roleType;
 
     @Override
@@ -70,8 +75,8 @@ public class PersonSetTagsActivity extends BaseActivity implements View.OnClickL
 
     private void initView() {
         user = UserDataService.getSingleUserDataService(this).getUser();
+        title_text.setText("设置");
         request = new UpdateUserInfoRequest();
-
     }
 
     private void initListener() {
@@ -91,41 +96,46 @@ public class PersonSetTagsActivity extends BaseActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.lly_right_action:
-                //checkbox state check
                 //TODO
+                user = UserDataService.getSingleUserDataService(this).getUser();
                 if (checkBox1.isChecked())
                 {
-                    roleType = User.RoleType.getRoleTypeByValue("Coser");
-                    roleTypes.add(roleType);
+                    roleType = User.RoleType.coser;
+                    user.roleTypeSet.add(roleType);
+                    Log.w("inTag","coser");
                 }
                 if (checkBox2.isChecked())
                 {
-                    roleType = User.RoleType.getRoleTypeByValue("妆娘");
-                    roleTypes.add(roleType);
+                    roleType = User.RoleType.妆娘;
+                    user.roleTypeSet.add(roleType);
+                    Log.w("inTag", "妆娘");
                 }
                 if (checkBox3.isChecked())
                 {
-                    roleType = User.RoleType.getRoleTypeByValue("摄影");
-                    roleTypes.add(roleType);
+                    roleType = User.RoleType.摄影;
+                    user.roleTypeSet.add(roleType);
+                    Log.w("inTag", "摄影");
                 }
                 if (checkBox4.isChecked())
                 {
-                    roleType = User.RoleType.getRoleTypeByValue("后期");
-                    roleTypes.add(roleType);
+                    roleType = User.RoleType.后期;
+                    user.roleTypeSet.add(roleType);
+                    Log.w("inTag", "后期");
                 }
                 if (checkBox5.isChecked())
                 {
-                    roleType = User.RoleType.getRoleTypeByValue("裁缝");
-                    roleTypes.add(roleType);
+                    roleType = User.RoleType.裁缝;
+                    user.roleTypeSet.add(roleType);
+                    Log.w("inTag", "裁缝");
                 }
                 if (checkBox6.isChecked())
                 {
-                    roleType = User.RoleType.getRoleTypeByValue("道具");
-                    roleTypes.add(roleType);
+                    roleType = User.RoleType.道具;
+                    user.roleTypeSet.add(roleType);
+                    Log.w("inTag", "道具");
                 }
-                user.roleTypeSet = roleTypes;
+                Log.w("roleType---Size", user.roleTypeSet.size() + "");
                 sendUser(user);
-                finish();
                 break;
         }
     }
@@ -134,7 +144,8 @@ public class PersonSetTagsActivity extends BaseActivity implements View.OnClickL
         request.request(new NorResponce() {
             @Override
             public void success() {
-
+                Toast.makeText(PersonSetTagsActivity.this, "success", Toast.LENGTH_LONG).show();
+                finish();
             }
 
             @Override

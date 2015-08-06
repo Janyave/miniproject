@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
@@ -96,17 +97,16 @@ public class PersonSetGenderActivity extends BaseActivity implements View.OnClic
             case R.id.lly_right_action:
                 //TODO change 确定事件
                 sendUser(user);
-                finish();
                 break;
             case R.id.ll_male:
                 iv_male.setVisibility(View.VISIBLE);
                 iv_female.setVisibility(View.GONE);
-                user.gender = User.Gender.getGender("男");
+                user.gender = User.Gender.男;
                 break;
             case R.id.ll_female:
                 iv_male.setVisibility(View.GONE);
                 iv_female.setVisibility(View.VISIBLE);
-                user.gender = User.Gender.getGender("女");
+                user.gender = User.Gender.女;
                 break;
         }
     }
@@ -114,7 +114,8 @@ public class PersonSetGenderActivity extends BaseActivity implements View.OnClic
         request.request(new NorResponce() {
             @Override
             public void success() {
-
+                Toast.makeText(PersonSetGenderActivity.this, "success", Toast.LENGTH_LONG).show();
+                finish();
             }
 
             @Override
