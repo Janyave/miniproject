@@ -260,6 +260,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     break;
                 case R.id.personal_info_logout:
                     Intent intent = new Intent(PersonalInfoSettingActivity.this, SplashActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                     break;
