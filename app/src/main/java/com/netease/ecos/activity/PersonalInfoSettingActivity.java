@@ -1,8 +1,6 @@
 package com.netease.ecos.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,18 +15,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.netease.cloud.nos.android.utils.LogUtil;
+import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.request.user.UpdateUserInfoRequest;
 import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.utils.SetPhotoHelper;
+import com.netease.ecos.utils.UploadImageTools;
+import com.netease.ecos.views.RoundedNetworkImageView;
 
 import java.io.File;
-import java.util.Iterator;
 import java.util.Set;
 
 import butterknife.ButterKnife;
@@ -74,7 +75,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     @InjectView(R.id.personal_info_set_pic)
     LinearLayout personal_info_set_pic;
     @InjectView(R.id.personal_info_set_avatar_pic)
-    RoundImageView personal_info_set_avatar_pic;
+    RoundedNetworkImageView personal_info_set_avatar_pic;
     @InjectView(R.id.tv_tag1)
     TextView tv_tag1;
     @InjectView(R.id.tv_tag2)
@@ -93,6 +94,13 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     private SetPhotoHelper mSetPhotoHelper;
     private User user;
     private UpdateUserInfoRequest request;
+
+
+    public boolean isSettingAvatart = false;
+
+    public String mAvatarLocalPath = "";
+
+    public String mAvatarUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +160,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         ll_tags.setOnClickListener(listener);
         personal_info_set_pic.setOnClickListener(listener);
 
+
         //bound spinner linster
         bonudSpinner();
         //bound swith linster
@@ -176,9 +185,8 @@ public class PersonalInfoSettingActivity extends BaseActivity {
 
                         @Override
                         public void success(String imagePath) {
-                            user.avatarUrl = imagePath;
-                            sendUser(user);
-                            Log.w("picture_path", imagePath);
+                            mAvatarLocalPath = imagePath;
+                            setAndUploadAvatar();
                         }
                     });
                     mSetPhotoHelper.handleActivityResult(SetPhotoHelper.REQUEST_BEFORE_CROP, data);
@@ -221,7 +229,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     });
                     dialog.showSetPhotoDialog();
                     mSetPhotoHelper.setAspect(1, 1);
-                    mSetPhotoHelper.setOutput(300, 300);
+                    mSetPhotoHelper.setOutput(200, 200);
                     break;
                 case R.id.ll_name:
                     Intent intent2 = new Intent(PersonalInfoSettingActivity.this, PersonSetInformationNormalActivity.class);
@@ -307,10 +315,16 @@ public class PersonalInfoSettingActivity extends BaseActivity {
 
     private void setUserData() {
         User setUser = UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this).getUser();
-        Bitmap bitmap = null;
-        bitmap = BitmapFactory.decodeFile(setUser.avatarUrl);
-        if (bitmap != null) {
-            personal_info_set_avatar_pic.setImageBitmap(bitmap);
+//        Bitmap bitmap = null;
+//        bitmap = BitmapFactory.decodeFile(setUser.avatarUrl);
+//        if (bitmap != null) {
+//            personal_info_set_avatar_pic.setImageBitmap(bitmap);
+//        }
+        mAvatarUrl = setUser.avatarUrl;
+        if(mAvatarUrl!=null)
+        {
+            ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
+            personal_info_set_avatar_pic.setImageUrl(mAvatarUrl,imageLoader);
         }
 
         Log.w("nickname", setUser.nickname);
@@ -362,4 +376,64 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         }
     }
 
+
+    /***
+     * 设置并上传头像
+     */
+    public void setAndUploadAvatar( ){
+
+        if(mAvatarLocalPath!=null && !"".equals(mAvatarLocalPath)){
+            UploadImageTools.uploadImageSys(new File(mAvatarLocalPath), new UploadImageTools.UploadCallBack() {
+
+                @Override
+                public void success(String originUrl, String thumbUrl) {
+                    Log.e(TAG, "图片url:" + originUrl);
+
+                    mAvatarUrl = originUrl;
+                    User user = UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this)
+                            .getUser();
+                    user.avatarUrl = originUrl;
+
+                    UpdateUserInfoRequest request = new UpdateUserInfoRequest();
+                    request.request(new UpdateAvatarResponse(),user);
+
+                }
+
+                @Override
+                public void fail() {
+                    dismissProcessBar();
+                }
+
+                @Override
+                public void onProcess(Object fileParam, long current, long total) {
+
+                }
+            }, PersonalInfoSettingActivity.this, false);
+        }
+
+    }
+
+
+    class UpdateAvatarResponse extends BaseResponceImpl implements NorResponce{
+
+        @Override
+        public void success() {
+            if(mAvatarUrl!=null)
+            {
+                ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
+                personal_info_set_avatar_pic.setImageUrl(mAvatarUrl,imageLoader);
+            }
+
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
+    }
 }

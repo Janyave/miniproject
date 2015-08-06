@@ -6,11 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.netease.ecos.R;
+import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.model.Share;
+import com.netease.ecos.utils.SDImageCache;
 
 import java.util.List;
 
@@ -32,7 +37,7 @@ public class NewDisplayListAdater extends BaseAdapter {
     /***
      * 分享列表
      */
-    List<Share> mShareList;
+    public List<Share> mShareList;
 
 
     /*** 标志某个分享是否被选中，与{@link #mShareList}一一对应*/
@@ -46,11 +51,9 @@ public class NewDisplayListAdater extends BaseAdapter {
         resetCheckState();
     }
 
-
-
     @Override
     public int getCount() {
-        return (mShareList==null)?0: mShareList.size();
+        return (mShareList==null)?1: mShareList.size()+1;
     }
 
     @Override
@@ -63,23 +66,40 @@ public class NewDisplayListAdater extends BaseAdapter {
         return position;
     }
 
+    View vTop=null;
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        DisplayItemViewHolder viewHolder;
-        if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.item_new_display_list, null);
+        DisplayItemViewHolder viewHolder = null;
+        if(position==0){
+            if(vTop==null)
+            {
+                convertView = layoutInflater.inflate(R.layout.item_new_recruitment_top, null);
+                vTop = convertView;
+            }
+            else{
+                convertView = vTop;
+            }
+        }
+        else{
             viewHolder = new DisplayItemViewHolder();
-            viewHolder.iv_cover = (ImageView) convertView.findViewById(R.id.displayCoverImVw);
-            viewHolder.tv_title = (TextView) convertView.findViewById(R.id.displayTitleTxVw);
-            viewHolder.tv_praise_num = (TextView) convertView.findViewById(R.id.displayFavorTxVw);
-            viewHolder.iv_choose = (ImageView) convertView.findViewById(R.id.checkbox);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (DisplayItemViewHolder) convertView.getTag();
+            if (convertView == null || convertView.getTag()==null) {
+
+                convertView = layoutInflater.inflate(R.layout.item_new_display_list, null);
+                viewHolder.iv_cover = (NetworkImageView) convertView.findViewById(R.id.displayCoverImVw);
+                viewHolder.tv_title = (TextView) convertView.findViewById(R.id.displayTitleTxVw);
+                viewHolder.tv_praise_num = (TextView) convertView.findViewById(R.id.displayFavorTxVw);
+                viewHolder.iv_choose = (ImageView) convertView.findViewById(R.id.checkbox);
+
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (DisplayItemViewHolder) convertView.getTag();
+            }
+
+            viewHolder.iv_choose.setTag(position - 1);
+            setData(viewHolder, position-1);
         }
 
-        viewHolder.iv_choose.setTag( position );
-        setData(viewHolder, position);
         return convertView;
     }
 
@@ -87,6 +107,12 @@ public class NewDisplayListAdater extends BaseAdapter {
 
         Share share = mShareList.get(position);
         Log.e("tag",share.toString());
+
+        if(share.coverUrl!=null)
+        {
+            ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
+            viewHolder.iv_cover.setImageUrl(share.coverUrl, imageLoader);
+        }
 
         viewHolder.tv_title.setText(share.title);
         Log.e("tag",String.valueOf(share.praiseNum));
@@ -113,8 +139,21 @@ public class NewDisplayListAdater extends BaseAdapter {
         });
     }
 
+
+
+    TopViewHolder mTopViewHolder = new TopViewHolder();
+
+    class TopViewHolder {
+        /** 价格 */
+        EditText priceEdTx;
+
+        /** 描述 */
+        EditText descrpEdTx;
+    }
+
+
     class DisplayItemViewHolder {
-        ImageView iv_cover;
+        NetworkImageView iv_cover;
         TextView tv_title, tv_praise_num;
 
         ImageView iv_choose;
@@ -132,7 +171,28 @@ public class NewDisplayListAdater extends BaseAdapter {
     }
 
     public void reflesh(List<Share> shareList){
-        mShareList = shareList;
+        if(mShareList==null)
+            mShareList = shareList;
+        else {
+
+            int length = mShareList.size();
+
+            for(Share newShare:shareList){
+
+                boolean same=false;
+                for(int i=0;i<length;i++)
+                {
+                    Share existedShare = mShareList.get(i);
+
+                    if(newShare.shareId.equals(existedShare.shareId)) {
+                        same=true;
+                    }
+                }
+
+                if(!same)
+                    mShareList.add(newShare);
+            }
+        }
         resetCheckState();
         notifyDataSetChanged();
     }
@@ -163,6 +223,18 @@ public class NewDisplayListAdater extends BaseAdapter {
             }
         }
 
+        return false;
+    }
+
+
+    public boolean isTopViewEmpty(){
+
+       EditText price = (EditText) vTop.findViewById(R.id.priceEdTx);
+       EditText descrpEdTx = (EditText) vTop.findViewById(R.id.descrpEdTx);
+
+        if("".equals(price.getText().toString()) || "".equals(descrpEdTx.getText().toString())){
+            return true;
+        }
         return false;
     }
 }

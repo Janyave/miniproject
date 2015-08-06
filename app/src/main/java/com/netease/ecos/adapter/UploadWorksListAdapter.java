@@ -2,7 +2,6 @@ package com.netease.ecos.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,6 @@ public class UploadWorksListAdapter extends BaseAdapter implements View.OnClickL
         for (int i = 0; paths != null && i < paths.size(); i++) {
             Course.Step step = new Course.Step(getCount() + 1);
             step.imagePath = paths.get(i);
-            Log.d("test", "imagepath:" + step.imagePath);
             mStepsList.add(step);
         }
         mInflater = LayoutInflater.from(mContext);

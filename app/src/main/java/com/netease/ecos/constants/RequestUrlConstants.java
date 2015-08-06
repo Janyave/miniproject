@@ -5,15 +5,15 @@ public class RequestUrlConstants {
 
     private static final String HOST = "http://223.252.223.141:80";
 
-//    private static final String HOST_COURSE = "http://223.252.223.141:80";
-    private static final String HOST_COURSE = "http://10.240.34.181:8080/ecos-mainsite-web";
+    private static final String HOST_COURSE = "http://223.252.223.141:80";
+//    private static final String HOST_COURSE = "http://10.240.34.181:8080/ecos-mainsite-web";
 
     private static final String HOST_USER = HOST;
 
     public static final String TEST_TOKEN = "e5daf20fc3b64b9cb85ccb38a08d8f19";
 
-    public static final String HOUZHE_HOST = "http://10.240.34.189:8080/ecos-mainsite-web";
-//    public static final String HOUZHE_HOST = "http://223.252.223.141:80";
+//    public static final String HOUZHE_HOST = "http://10.240.34.189:8080/ecos-mainsite-web";
+    public static final String HOUZHE_HOST = "http://223.252.223.141:80";
 
 
     /**------------------------------    通用模块    -------------------------------------------*/
@@ -171,22 +171,22 @@ public class RequestUrlConstants {
     /**
      * 创建分享
      */
-    public static final String CREATE_SHARE_URL = HOUZHE_HOST + "/m/share/create?";
+    public static final String CREATE_SHARE_URL = HOST + "/m/share/create?";
 
     /**
      * 获取分享列表
      */
-    public static final String GET_SHARE_LIST_URL = HOUZHE_HOST + "/m/share/list?";
+    public static final String GET_SHARE_LIST_URL = HOST + "/m/share/list?";
 
     /**
      * 获取分享详情
      */
-    public static final String GET_SHARE_DETAIL_URL = HOUZHE_HOST + "/m/share/detail?";
+    public static final String GET_SHARE_DETAIL_URL = HOST + "/m/share/detail?";
 
     /**
      * 删除分享
      */
-    public static final String DELETE_SHARE_URL = HOUZHE_HOST + "/m/share/delete?";
+    public static final String DELETE_SHARE_URL = HOST + "/m/share/delete?";
 
 
     /**------------------------------    活动模块    -------------------------------------------*/
@@ -264,23 +264,23 @@ public class RequestUrlConstants {
     /**
      * 创建招募
      */
-    public static final String CREATE_RECRUITMENT_URL = HOUZHE_HOST + "/m/recruit/create?";
+    public static final String CREATE_RECRUITMENT_URL = HOST + "/m/recruit/create?";
 
     /**
      * 获取招募列表
      */
-    public static final String GET_RECRUITMENT_LIST_URL = HOUZHE_HOST + "/m/recruit/list?";
+    public static final String GET_RECRUITMENT_LIST_URL = HOST + "/m/recruit/list?";
 
     /**
      * 获取招募详情
      */
-    public static final String GET_RECRUITMENT_DETAIL_URL = HOUZHE_HOST + "/m/recruit/detail?";
+    public static final String GET_RECRUITMENT_DETAIL_URL = HOST + "/m/recruit/detail?";
 
 
     /**
      * 点赞教程、分享
      */
-    public static final String PRAISE_URL = HOST + "/m/course/praise?";
+    public static final String PRAISE_URL = HOST_COURSE + "m/praise/create?";
 
     /**
      * 获取省份列表

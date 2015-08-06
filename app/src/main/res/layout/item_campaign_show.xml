@@ -1,56 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_campaign_420px"
+            android:layout_marginBottom="@dimen/margin_30px"
             android:layout_marginLeft="@dimen/margin_40px"
             android:layout_marginRight="@dimen/margin_40px"
-            android:layout_marginBottom="@dimen/margin_30px"
             android:background="@drawable/bg_course_item"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="@dimen/margin_20px"
-            android:gravity="center_vertical">
-    <ImageView
-        android:layout_width="@dimen/width_cover_380px_270px"
-        android:layout_height="@dimen/height_cover_380px_270px"
-        android:id="@+id/iv_campaign_dis"
-        android:src="@drawable/img_default"
-        android:scaleType="centerCrop" />
+            android:padding="@dimen/margin_20px">
+
+            <ImageView
+                android:id="@+id/iv_campaign_dis"
+                android:layout_width="@dimen/width_cover_380px_270px"
+                android:layout_height="@dimen/height_cover_380px_270px"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_default" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px"
                 android:orientation="vertical">
+
                 <TextView
+                    android:id="@+id/tv_campaign_title"
+                    style="@style/text_pink_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="西南Cosplay超级展览"
-                    android:id="@+id/tv_campaign_title"
-                    style="@style/text_pink_max"/>
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_40px"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@mipmap/ic_time_pink" />
+
                     <TextView
+                        android:id="@+id/tv_campaign_time"
+                        style="@style/text_gray_min"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2015"
                         android:layout_marginLeft="@dimen/margin_20px"
-                        android:id="@+id/tv_campaign_time"
-                        style="@style/text_gray_min"/>
+                        android:text="2015" />
                 </LinearLayout>
 
 
@@ -58,37 +66,40 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10px"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
                     <ImageView
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@mipmap/ic_position_pink" />
+
                     <TextView
+                        android:id="@+id/tv_campaign_location"
+                        style="@style/text_gray_min"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="成都"
                         android:layout_marginLeft="@dimen/margin_20px"
-                        android:id="@+id/tv_campaign_location"
-                        style="@style/text_gray_min"/>
+                        android:text="成都"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
                 </LinearLayout>
 
             </LinearLayout>
 
 
         </LinearLayout>
-        
+
         <TextView
+            android:id="@+id/activityTypeTxVw"
+            style="@style/text_white_mid"
             android:layout_width="@dimen/width_campaign_type_150px"
             android:layout_height="@dimen/height_campaign_type_54px"
-            android:background="@drawable/bg_campaign_type_1"
-            android:text="主题ONLY"
-            android:gravity="center"
-            style="@style/text_white_mid"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_30px"
             android:layout_marginTop="@dimen/margin_20px"
-            android:layout_marginRight="@dimen/margin_30px"/>
+            android:background="@drawable/bg_campaign_type_1"
+            android:gravity="center"
+            android:text="主题ONLY" />
     </RelativeLayout>
 
 </RelativeLayout>

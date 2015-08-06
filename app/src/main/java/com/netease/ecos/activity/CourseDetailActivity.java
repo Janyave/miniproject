@@ -293,13 +293,12 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
             Picasso.with(CourseDetailActivity.this).load(course.authorAvatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
         if (course.coverUrl != null && !course.coverUrl.equals(""))
             Picasso.with(CourseDetailActivity.this).load(course.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
-        tv_otherWorks.setText(course.assignmentNum + getResources().getString(R.string.manyAssignment));
-//        btn_allEvaluation.setText(course.commentNum + getResources().getString(R.string.manyComment));
+        tv_otherWorks.setText(course.assignmentList.size() + getResources().getString(R.string.manyAssignment));
         courseDetailStepAdapter = new CourseDetailStepAdapter(this, course.stepList);
         lv_courseStep.setAdapter(courseDetailStepAdapter);
         //if there is no assignment.
-        if (course.assignmentList.size() == 0)
-            hlv_otherWorks.setVisibility(View.GONE);
+        if (course.assignmentList.size() != 0)
+            hlv_otherWorks.setVisibility(View.VISIBLE);
         courseDetailOtherWorksHListViewAdapter = new CourseDetailOtherWorksHListViewAdapter(this, course.assignmentList);
         hlv_otherWorks.setAdapter(courseDetailOtherWorksHListViewAdapter);
 

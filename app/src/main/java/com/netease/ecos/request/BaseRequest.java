@@ -45,7 +45,7 @@ public abstract class BaseRequest implements Listener<String>,ErrorListener{
 	public final static String RETURN_CODE_SUCCESS = "0";
 
 	/*** token失效返回码 */
-	protected final static String RETURN_CODE_TOEKN_INVALID = "4004";
+	protected final static int RETURN_CODE_TOEKN_INVALID = 8001;
 
 
 	public IBaseResponse mBaseResponse;
@@ -86,7 +86,7 @@ public abstract class BaseRequest implements Listener<String>,ErrorListener{
 			//请求失败
 			if(!RETURN_CODE_SUCCESS.equals(json.getString(KEY_CODE)))
 			{
-				if(!isTokenValid(json.get(KEY_CODE))){
+				if(isTokenInValid(json.getInt(KEY_CODE))){
 					mBaseResponse.responseNoGrant();
 					return ;
 				}
@@ -152,8 +152,10 @@ public abstract class BaseRequest implements Listener<String>,ErrorListener{
 	 * @param errCode 响应码
 	 * @return true:未失效;false：失效
 	 */
-	public boolean isTokenValid(Object errCode){
-		return !RETURN_CODE_TOEKN_INVALID.equals(errCode);
+	public boolean isTokenInValid(int errCode){
+
+		Log.e("token", "---------"+errCode+"----------");
+		return RETURN_CODE_TOEKN_INVALID==errCode;
 	}
 
 	
