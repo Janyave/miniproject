@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,7 +39,7 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/27.
  */
-public class CourseCategoryActivity extends Activity implements View.OnClickListener, XListView.IXListViewListener, AdapterView.OnItemSelectedListener {
+public class CourseCategoryActivity extends Activity implements View.OnClickListener, XListView.IXListViewListener {
 
     private static final String TAG = "Ecos---CourseCategory";
     public static final String CourseCategory = "CourseCategory";
@@ -153,18 +152,6 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                 startActivity(intent);
                 break;
         }
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // not use
-        //now use in popupWindow
-        request.request(courseListResponse, CourseListRequest.Type.筛选,
-                courseType, searchWords, SORT_RULES[position], 0);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
     }
 
     @Override
@@ -379,6 +366,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                 }
                 tv_sortText.setText(((RadioButton) rg.getChildAt(selectPosition)).getText().toString());
                 ((RadioButton) rg.getChildAt(selectPosition)).setTextColor(getResources().getColor(R.color.text_red));
+                Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[selectPosition], 0);
                 iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);
                 popupSortType.dismiss();

@@ -88,6 +88,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         shareListRequest = new ShareListRequest();
         getShareListResponse = new GetShareListResponse();
         shareType = ShareListRequest.ShareType.所有;
+        Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
         shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
     }
 
@@ -246,6 +247,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_all.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.所有;
                 //send the request
+                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 break;
             case R.id.tv_recommend:
@@ -255,6 +257,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_recommend.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.推荐;
                 //send the request
+                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 break;
             case R.id.tv_attention:
@@ -264,6 +267,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_attention.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.关注;
                 //send the request
+                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 break;
             case R.id.tv_new:
@@ -273,6 +277,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_new.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.新人;
                 //send the request
+                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 break;
         }
