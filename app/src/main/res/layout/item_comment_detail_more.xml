@@ -35,7 +35,7 @@
                     android:id="@+id/commentPersonNameTxVw"
                     style="@style/text_dark_mid"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -54,15 +54,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_20px"
-                android:singleLine="false"/>
+                android:singleLine="false" />
 
             <TextView
+                android:id="@+id/all_commentTxVw"
                 style="@style/text_pink_mid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_20px"
                 android:singleLine="true"
-                android:text="全部200条评论..."/>
+                android:text="全部200条评论..."
+                android:visibility="gone" />
 
             <TextView
                 style="@style/layout_line_gray"

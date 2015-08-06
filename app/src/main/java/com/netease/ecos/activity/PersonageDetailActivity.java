@@ -75,6 +75,17 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
     ExtensibleListView lv_list;
     @InjectView(R.id.contactLayout)
     LinearLayout contactLayout;
+    @InjectView(R.id.ll_signature_attention)  //help show
+    LinearLayout ll_signature_attention;
+    @InjectView(R.id.ll_edit)
+    LinearLayout ll_edit;
+    @InjectView(R.id.ll_personage_tag) //tag
+    LinearLayout ll_personage_tag;
+
+    //无标签 隐藏 ll_personage_tag
+    //无签名 隐藏 user_description
+    //自己界面无关注和私信 隐藏 contactLayout
+    //签名和  关注私信都没有  需要另外隐藏 ll_signature_attention
 
     private UserDataService mUserDataService;
     private User mUserData;
@@ -204,6 +215,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         iv_return.setOnClickListener(this);
         btn_attention.setOnClickListener(this);
         btn_contact.setOnClickListener(this);
+        ll_edit.setOnClickListener(this);
     }
 
     private void setUnChecked() {
@@ -235,6 +247,9 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
             case R.id.btn_contact:
                 Intent intent = new Intent(PersonageDetailActivity.this, ContactActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.ll_edit:
+                startActivity(new Intent(PersonageDetailActivity.this, PersonalInfoSettingActivity.class));
                 break;
         }
     }

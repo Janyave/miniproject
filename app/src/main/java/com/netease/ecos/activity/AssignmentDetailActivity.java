@@ -128,7 +128,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         //always hide the keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //init the adapter
-        workDetailListViewAdapter = new WorkDetailListViewAdapter(this);
+        workDetailListViewAdapter = new WorkDetailListViewAdapter(this, false);
         //init the data for NetWorkImageView
         queue = MyApplication.getRequestQueue();
         imageCache = new SDImageCache();
@@ -181,10 +181,10 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
             case R.id.favorBtn:
                 //TODO:send the favor message to the server.
 
-                if (TextUtils.equals(tv_favor.getText().toString(),"点赞")){
+                if (TextUtils.equals(tv_favor.getText().toString(), "点赞")) {
                     tv_favor.setText("已点赞");
                     iv_favor.setImageResource(R.mipmap.ic_praise_fill);
-                }else {
+                } else {
                     tv_favor.setText("点赞");
                     iv_favor.setImageResource(R.mipmap.ic_praise_block);
                 }
@@ -203,6 +203,8 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         Bundle bundle = new Bundle();
         bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.作业.getBelongs());
         bundle.putString(CommentDetailActivity.FromId, workList.get(workOrder));
+        //TODO:add the attribute in the assignment
+        bundle.putBoolean(CommentDetailActivity.IsPraised, false);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -272,6 +274,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
             workDetailDate.setText(assignment.getDateDescription());
             workDetailDescpTxVw.setText(assignment.content);
             workDetailFavorTxVw.setText(assignment.praiseNum + AssignmentDetailActivity.this.getString(R.string.favorCount));
+            workDetailListViewAdapter.setCommentCount(assignment.commentNum);
             workDetailListViewAdapter.updateCommentList(commentList);
         }
     }

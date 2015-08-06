@@ -48,7 +48,7 @@ public class RecruitmentListRequest extends BaseRequest {
     /**
      * 招募列表JSONArray,内含JSONObject
      */
-    public static final String JA_RECRUITMENTS = "recruitments";
+    public static final String JA_RECRUITMENTS = "recruitList";
 
     /**
      * 招募id
@@ -208,11 +208,11 @@ public class RecruitmentListRequest extends BaseRequest {
         try {
             JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
 
-
+            List<Recruitment> recruitmentList = new ArrayList<Recruitment>();
             if (json.has(JA_RECRUITMENTS) && !json.isNull(JA_RECRUITMENTS)) {
 
                 JSONArray recruitJA = json.getJSONArray(JA_RECRUITMENTS);
-                List<Recruitment> recruitmentList = new ArrayList<Recruitment>();
+
 
                 for (int i = 0; i < recruitJA.length(); i++) {
                     JSONObject recruitJO = recruitJA.getJSONObject(i);
@@ -236,9 +236,16 @@ public class RecruitmentListRequest extends BaseRequest {
                     recruit.nickname = getString(recruitJO, "nickname");
                     recruit.gender = Gender.getGender(getString(recruitJO, "gender"));
 
+                    recruitmentList.add(recruit);
+
                 }
             }
 
+
+            if(mRecruitmentListResponse!=null)
+            {
+                mRecruitmentListResponse.success(recruitmentList);
+            }
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

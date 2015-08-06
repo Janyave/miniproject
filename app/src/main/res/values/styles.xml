@@ -23,7 +23,7 @@
 
     <!-- 个人中心tab按钮样式-->
     <style name="rb_center_list_tab">
-        <item name="android:background">@color/bg_gray</item>        
+        <item name="android:background">@drawable/radio_bg_gray</item>        
         <item name="android:textSize">@dimen/text_size_36</item>
         <item name="android:textColor">@color/txt_color_center_tab_selector</item>
         <item name="android:ellipsize">marquee</item>

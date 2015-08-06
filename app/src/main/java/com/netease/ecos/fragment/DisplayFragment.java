@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -295,7 +294,6 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CourseCategoryActivity.RequestCodeForSearch && resultCode == CourseCategoryActivity.ResultCodeForSearch) {
-            Log.d("test", "searchWord:" + searchWord);
             searchWord = data.getExtras().getString(SearchActivity.SearchWord);
             shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
         }

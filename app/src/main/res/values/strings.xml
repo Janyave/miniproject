@@ -37,6 +37,7 @@
     <!-- 个人作品详情页面-->
     <string name="comment_hint">请写下你的评论吧:)</string>
     <string name="favour">点赞</string>
+    <string name="cancelFavor">已赞</string>
     <string name="favorCount">个赞</string>
     <string name="focus">取消关注</string>
     <string name="notFocus">关注</string>
@@ -97,6 +98,7 @@
     <string name="manyComment">条评论</string>
     <string name="page">张</string>
     <string name="manyAssignment">个网友作品</string>
+    <string name="tag">作品标签</string>
 
 
     <!-- CourseType-->
@@ -129,6 +131,7 @@
     <string name="title_activity_personage_share_fragment">PersonageShareFragment</string>
     <string name="title_activity_personal_info_setting">PersonalInfoSettingActivity</string>
     <string name="alreadyGo">已参加</string>
+    <string name="notGo">未参加</string>
     <string name="realiseActivitySuccessfully">发布活动成功:)</string>
     <string name="beginDate">开始日期</string>
     <string name="endDate">结束日期</string>
@@ -147,6 +150,7 @@
     <string name="chooseCover">选择封面作品</string>
     <string name="notAlreadyFinished">请填写完所有数据;)</string>
     <string name="uploadSuccessfully">挂牌成功:)</string>
+    <string name="KM">千米</string>
     <!-- 评论页面-->
     <string name="noComment">请填写评论;)</string>
     <string name="commentSuccess">评论发送成功:)</string>
@@ -159,6 +163,9 @@
     <string name="side_setting">设置</string>
     <string name="side_person">个人中心</string>
     <string name="notification_attention">关注了你</string>
+    <string name="allComment">全部评论</string>
+    <string name="seeAllComment">查看全部评论</string>
+
     <!--  分享页面-->
     <string name="noShare">抱歉，还没有该分类的分享，快来分享吧;)</string>
 </resources>

@@ -24,6 +24,60 @@
                 android:layout_height="@dimen/workDetail_ImgVw_height"
                 android:src="@mipmap/ic_launcher" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tag" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/makeuper_cb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/makeuper" />
+
+                <CheckBox
+                    android:id="@+id/prop_cb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/prop" />
+
+                <CheckBox
+                    android:id="@+id/photography_cb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/photography" />
+
+                <CheckBox
+                    android:id="@+id/backstage_cb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/backstage" />
+
+                <CheckBox
+                    android:id="@+id/costume_cb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/costume" />
+
+                <CheckBox
+                    android:id="@+id/other_cb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/others" />
+
+            </LinearLayout>
+
             <EditText
                 android:id="@+id/uploadWorksCoverEdTx"
                 android:layout_width="match_parent"

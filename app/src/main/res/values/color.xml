@@ -70,6 +70,7 @@
     <color name="bg_red">#f2457d</color>
     <color name="bg_red_light_light">#fba1bd</color>
     <color name="bg_gray_transparent">#99000000</color>
+    <color name="bg_dark_trans">#eff1f0</color>
 
     <!-- 搜索框填充色-->
     <color name="bg_red_light">#f6759e</color>

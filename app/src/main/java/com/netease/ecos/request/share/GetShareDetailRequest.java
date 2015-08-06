@@ -62,7 +62,7 @@ public class GetShareDetailRequest extends BaseRequest {
     /**
      * 作者id
      */
-    public static final String KEY_USER_ID = "userId";
+    public static final String KEY_USER_ID = "authorId";
 
     /**
      * 是否已评论，true:是 false:否
@@ -205,6 +205,7 @@ public class GetShareDetailRequest extends BaseRequest {
             share.nickname = getString(shareJO, KEY_NICKNAME);
             share.hasAttention = Boolean.valueOf(getString(shareJO, KEY_HAS_FOLLOWED));
             share.hasPraised = Boolean.valueOf(getString(shareJO, KEY_HAS_Praised));
+            share.userId = getString(shareJO, KEY_USER_ID);
 
             share.title = getString(shareJO, KEY_TITLE);
             share.content = getString(shareJO, KEY_DESCRIPTION);

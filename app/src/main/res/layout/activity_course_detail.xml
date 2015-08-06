@@ -52,7 +52,7 @@
                             android:id="@+id/iv_praise"
                             android:layout_width="@dimen/icon_big_64px"
                             android:layout_height="@dimen/icon_big_64px"
-                            android:src="@mipmap/ic_launcher" />
+                            android:src="@mipmap/ic_praise_block" />
 
                         <TextView
                             android:id="@+id/tv_praise"
@@ -62,7 +62,7 @@
                             android:layout_marginTop="@dimen/margin_20px"
                             android:background="@drawable/bg_gray_half"
                             android:gravity="center"
-                            android:text="点赞" />
+                            android:text="@string/favour" />
                     </LinearLayout>
                 </FrameLayout>
 
@@ -243,7 +243,7 @@
                         android:layout_height="@dimen/height_btn_150px"
                         android:background="@color/bg_white"
                         android:gravity="center"
-                        android:text="200个评论" />
+                        android:text="@string/seeAllComment" />
 
                     <TextView
                         android:layout_width="match_parent"

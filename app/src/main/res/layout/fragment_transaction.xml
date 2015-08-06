@@ -42,7 +42,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/photography_btn"
+                android:id="@+id/prop_btn"
                 android:layout_width="@dimen/icon_big_200px"
                 android:layout_height="@dimen/icon_big_200px"
                 android:background="@mipmap/ic_recuite_property"
@@ -75,7 +75,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/backstage_btn"
+                android:id="@+id/photography_btn"
                 android:layout_width="@dimen/icon_big_200px"
                 android:layout_height="@dimen/icon_big_200px"
                 android:background="@mipmap/ic_recuite_camera"
@@ -99,7 +99,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/costume_btn"
+                android:id="@+id/backstage_btn"
                 android:layout_width="@dimen/icon_big_200px"
                 android:layout_height="@dimen/icon_big_200px"
                 android:background="@mipmap/ic_recuite_effect"
@@ -132,7 +132,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/prop_btn"
+                android:id="@+id/costume_btn"
                 android:layout_width="@dimen/icon_big_200px"
                 android:layout_height="@dimen/icon_big_200px"
                 android:background="@mipmap/ic_recuite_cloth"
