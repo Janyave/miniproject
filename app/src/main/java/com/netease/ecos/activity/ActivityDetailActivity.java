@@ -120,6 +120,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         //for request
         getActivityDetailRequest = new GetActivityDetailRequest();
         getActivityDetailResponse = new GetActivityDetailResponse();
+        showProcessBar(getResources().getString(R.string.loading));;
         getActivityDetailRequest.request(getActivityDetailResponse, activityID);
         queue = Volley.newRequestQueue(this);
         imageCache = new SDImageCache();
@@ -173,6 +174,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void success(ActivityModel activity) {
+            dismissProcessBar();
             activityModel = activity;
             if (activity.coverUrl != null && !activity.coverUrl.equals(""))
                 Picasso.with(ActivityDetailActivity.this).load(activity.coverUrl).placeholder(R.drawable.img_default).into(iv_event_cover);
@@ -210,11 +212,13 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(ActivityDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
+            dismissProcessBar();
         }
     }
 

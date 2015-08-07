@@ -245,7 +245,7 @@
     <dimen name="height_tag_80px">32dp</dimen>
     <dimen name="radius_tag_80px">16dp</dimen>
     <dimen name="height_person_navigation_636px">190dp</dimen>
-
+    <dimen name="radius_contact">18dp</dimen>
 
 
 </resources>

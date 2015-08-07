@@ -15,6 +15,7 @@ import com.netease.ecos.adapter.NotificationContactAdapter;
 import com.netease.ecos.database.ContactDBService;
 import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.ModelUtils;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.views.XListView;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -75,13 +76,15 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
         initTitle();
         initListener();
         initData();
+
+        Log.v("contact","MyID" +UserDataService.getSingleUserDataService(this).getUser().imId);
     }
 
     private void initTitle() {
         title_left.setOnClickListener(this);
         title_right.setVisibility(View.INVISIBLE);
         title_right_text.setText("");
-        title_text.setText("我的评论");
+        title_text.setText("我的私信");
     }
 
     @Override
@@ -111,6 +114,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
     private void initData() {
 //        contactAdapter=new NotificationContactAdapter(this);
 //        lv_list.setAdapter(contactAdapter);
+
 
         contactList = ContactDBService.getInstance(NotificationActivity.this).getContactList();
         for (Contact contact : contactList) {
@@ -365,7 +369,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 
 //                        tv_message_history.setText("");
 
-                    testMessageHistory("test2");
+//                    testMessageHistory(MyUserIMID);
                 }
             };
 
@@ -382,7 +386,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
                         Log.e("拉取信息", "拉去信息的条数" + msgList.size());
 
                         Log.e("历史信息", "聊天------");
-                        for (int i = 0; i < 10; i++) {
+                        for (int i = 0; i < msgList.size(); i++) {
 
                             IMMessage message = msgList.get(i);
 

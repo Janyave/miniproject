@@ -1,6 +1,5 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -28,7 +27,7 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/27.
  */
-public class RecruitmentCategoryActivity extends Activity implements View.OnClickListener, XListView.IXListViewListener {
+public class RecruitmentCategoryActivity extends BaseActivity implements View.OnClickListener, XListView.IXListViewListener {
 
     private static final String TAG = "Ecos---Recruitment";
     public static final String TRecruitmentType = "recruitmentType";
@@ -41,8 +40,6 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
     LinearLayout ll_left;
     @InjectView(R.id.tv_left)
     TextView tv_left;
-    @InjectView(R.id.tv_location)
-    TextView tv_location;
     @InjectView(R.id.ll_location)
     LinearLayout ll_location;
     @InjectView(R.id.tv_left)
@@ -101,7 +98,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                             tv_sortText.setText(((RadioButton) v).getText().toString());
                             selectedSortRule = type;
                             pageIndex = 1;
-                            Toast.makeText(RecruitmentCategoryActivity.this, getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
+                            showProcessBar(getResources().getString(R.string.loading));
                             request.request(recruitmentListResponse, recruitment_type, "", sortRules[selectedSortRule], pageIndex);
                         }
                     });
@@ -126,7 +123,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                             selectRecruitType = type;
                             pageIndex = 1;
                             recruitment_type = recruitTypes[selectRecruitType];
-                            Toast.makeText(RecruitmentCategoryActivity.this, getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
+                            showProcessBar(getResources().getString(R.string.loading));
                             request.request(recruitmentListResponse, recruitment_type, "", sortRules[selectedSortRule], pageIndex);
                         }
                     });
@@ -160,6 +157,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
         //for request
         request = new RecruitmentListRequest();
         recruitmentListResponse = new RecruitmentListResponse();
+        showProcessBar(getResources().getString(R.string.loading));
         request.request(recruitmentListResponse, recruitment_type, "", RecruitmentListRequest.SortRule.智能排序, pageIndex);
     }
 
@@ -236,6 +234,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
 
         @Override
         public void success(List<Recruitment> recruitList) {
+            dismissProcessBar();
             //获取recruit信息
             if (recruitList.size() == 0)
                 Toast.makeText(RecruitmentCategoryActivity.this, getResources().getString(R.string.noRecruit), Toast.LENGTH_SHORT).show();

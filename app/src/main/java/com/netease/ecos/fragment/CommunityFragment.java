@@ -6,7 +6,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -43,7 +42,7 @@ import java.util.List;
  * *
  * 社区页面
  */
-public class CommunityFragment extends Fragment implements View.OnClickListener, XListView.IXListViewListener, CommunityCallBack {
+public class CommunityFragment extends BaseFragment implements View.OnClickListener, XListView.IXListViewListener, CommunityCallBack {
 
     private static final String TAG = "Ecos---CommunityF";
 
@@ -343,6 +342,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
 
+                showProcessBar(getResources().getString(R.string.loading));
                 final String strLocation = (String) msg.obj;
                 final String strCategory = recentCategory;  // 记录当前状态下的地点和分类
 
@@ -372,6 +372,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
                     @Override
                     public void success(List<ActivityModel> activityList) {
+                        dismissProcessBar();
                         if (campaignListViewAdapter == null) {
                             campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
                             lv_campaign.setAdapter(campaignListViewAdapter);
@@ -424,6 +425,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onClick(View v) {
+        showProcessBar(getResources().getString(R.string.loading));
         final String strCategory = ((Button) v.findViewById(v.getId())).getText().toString();
         final String strLocation = recentLocation;
         recentCategory = strCategory;
@@ -452,6 +454,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
             @Override
             public void success(List<ActivityModel> activityList) {
+                dismissProcessBar();
                 if (campaignListViewAdapter == null) {
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
                     lv_campaign.setAdapter(campaignListViewAdapter);

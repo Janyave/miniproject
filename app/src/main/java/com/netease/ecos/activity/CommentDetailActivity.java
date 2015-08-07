@@ -1,6 +1,5 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -32,7 +31,7 @@ import butterknife.InjectView;
 /**
  * Created by Think on 2015/7/23.
  */
-public class CommentDetailActivity extends Activity implements View.OnTouchListener, View.OnClickListener {
+public class CommentDetailActivity extends BaseActivity implements View.OnTouchListener, View.OnClickListener {
     private static final String TAG = "Ecos---CommentDetail";
     public static final String FromId = "fromId";
     public static final String CommentType = "commentType";
@@ -109,6 +108,7 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
         Comment comment = new Comment();
         comment.commentType = commentType;
         comment.commentTypeId = fromId;
+        showProcessBar(getResources().getString(R.string.loading));
         commentListRequest.request(getCommentListResponse, comment, 1);
         //set listener
         iv_left.setOnClickListener(this);
@@ -137,6 +137,7 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
             Comment comment = new Comment();
             comment.commentType = commentType;
             comment.commentTypeId = fromId;
+            showProcessBar(getResources().getString(R.string.loading));
             commentListRequest.request(getCommentListResponse, comment, 1);
         }
     }
@@ -181,15 +182,18 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(CommentDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
+            dismissProcessBar();
         }
 
         @Override
         public void success(List<Comment> commentList) {
+            dismissProcessBar();
             workDetailListViewAdapter.updateCommentList(commentList);
         }
     }

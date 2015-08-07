@@ -3,7 +3,6 @@ package com.netease.ecos.fragment;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import com.netease.ecos.model.Recruitment;
 /**
  * 交易页面
  */
-public class TransactionFragment extends Fragment implements View.OnClickListener {
+public class TransactionFragment extends BaseFragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

@@ -69,7 +69,7 @@
     <color name="bg_white">#ffffff</color>
     <color name="bg_red">#f2457d</color>
     <color name="bg_red_light_light">#fba1bd</color>
-    <color name="bg_gray_transparent">#99000000</color>
+    <color name="bg_gray_transparent">#b9000000</color>
     <color name="bg_dark_trans">#bf333333</color>
 
     <!-- 搜索框填充色-->

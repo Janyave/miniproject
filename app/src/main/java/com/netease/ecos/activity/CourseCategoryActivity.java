@@ -1,6 +1,5 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,7 +38,7 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/27.
  */
-public class CourseCategoryActivity extends Activity implements View.OnClickListener, XListView.IXListViewListener {
+public class CourseCategoryActivity extends BaseActivity implements View.OnClickListener, XListView.IXListViewListener {
 
     private static final String TAG = "Ecos---CourseCategory";
     public static final String CourseCategory = "CourseCategory";
@@ -112,6 +111,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         //获取course信息
         request = new CourseListRequest();
         courseListResponse = new CourseListResponse();
+        showProcessBar(getResources().getString(R.string.loading));
         request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[selectPosition], 0);
     }
 
@@ -138,6 +138,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                             pageIndex = 0;
                             tv_left.setText(((RadioButton) v).getText().toString());
                             courseType = courseTypes[type];
+                            showProcessBar(getResources().getString(R.string.loading));
                             request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[selectPosition], 0);
                         }
                     });
@@ -257,6 +258,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
         @Override
         public void success(List<Course> courseList) {
+            dismissProcessBar();
             Log.d(TAG, "CourseListResponse.success()");
             if (courseList.size() == 0) {
                 Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.noCourse), Toast.LENGTH_SHORT).show();
@@ -268,11 +270,13 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(CourseCategoryActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
+            dismissProcessBar();
         }
     }
 
@@ -370,7 +374,8 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                 pageIndex = 0;
                 tv_sortText.setText(((RadioButton) rg.getChildAt(selectPosition)).getText().toString());
                 ((RadioButton) rg.getChildAt(selectPosition)).setTextColor(getResources().getColor(R.color.text_red));
-                Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
+                showProcessBar(getResources().getString(R.string.loading));
                 request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[selectPosition], 0);
                 iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);
                 popupSortType.dismiss();

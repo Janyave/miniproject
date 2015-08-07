@@ -14,6 +14,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.NorResponce;
+import com.netease.ecos.request.user.ModifyPasswordRequest;
 import com.netease.ecos.request.user.UpdateUserInfoRequest;
 
 import butterknife.ButterKnife;
@@ -52,6 +53,7 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
     private int TYPE = 0;
     private User user;
     private UpdateUserInfoRequest request;
+    private ModifyPasswordRequest modifyPasswordRequest;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -61,6 +63,7 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
 
         user = UserDataService.getSingleUserDataService(this).getUser();
         request = new UpdateUserInfoRequest();
+        modifyPasswordRequest = new ModifyPasswordRequest();
 
         initTitle();
         initListener();
@@ -141,18 +144,10 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
                         //TODO
                         break;
                     case TYPE_PASSWORD:
-                        if (user.password.equals(et_input.getText().toString())) {
-                            if (et_inputPassword.getText().toString().equals(et_inputPassword2.getText().toString())) {
-                                user.password = et_inputPassword.getText().toString();
-                                sendUser(user);
-                            } else {
-                                Toast.makeText(this, "密码输入不一致", Toast.LENGTH_LONG).show();
-                                et_input.setText("");
-                                et_inputPassword.setText("");
-                                et_inputPassword2.setText("");
-                            }
+                        if (et_inputPassword.getText().toString().equals(et_inputPassword2.getText().toString())) {
+                            checkPassword(et_input.getText().toString(), et_inputPassword.getText().toString());
                         } else {
-                            Toast.makeText(this, "密码输入错误", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, "密码输入不一致", Toast.LENGTH_LONG).show();
                             et_input.setText("");
                             et_inputPassword.setText("");
                             et_inputPassword2.setText("");
@@ -191,5 +186,36 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
                 finish();
             }
         }, user);
+    }
+
+    void checkPassword(String oldPwd, String newPwd) {
+        modifyPasswordRequest.request(new NorResponce() {
+            @Override
+            public void success() {
+                Toast.makeText(PersonSetInformationNormalActivity.this, "success", Toast.LENGTH_LONG).show();
+                et_input.setText("");
+                et_inputPassword.setText("");
+                et_inputPassword2.setText("");
+                finish();
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+                Toast.makeText(PersonSetInformationNormalActivity.this, "密码输入错误", Toast.LENGTH_LONG).show();
+                et_input.setText("");
+                et_inputPassword.setText("");
+                et_inputPassword2.setText("");
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+        }, oldPwd, newPwd);
     }
 }

@@ -86,14 +86,6 @@ public class BuildCourseActivity extends BaseActivity {
 
     public SetPhotoHelper mSetPhotoHelper;
 
-    public String DESCRIPTIONS[] = {"卸妆", "补水", "上霜", "画眼线", "做头发"};
-
-    public String URLS[] = {"http://g.hiphotos.baidu.com/image/pic/item/3801213fb80e7bec52f541e02d2eb9389b506b87.jpg"
-            , "http://g.hiphotos.baidu.com/image/pic/item/9825bc315c6034a8a0a41671c8134954082376f8.jpg"
-            , "http://g.hiphotos.baidu.com/image/pic/item/0b55b319ebc4b745e5fed681ccfc1e178a82153a.jpg"
-            , "http://h.hiphotos.baidu.com/image/pic/item/0823dd54564e9258067578999e82d158ccbf4e00.jpg"
-            , "http://b.hiphotos.baidu.com/image/w%3D230/sign=eed34f0f0846f21fc9345950c6256b31/a044ad345982b2b7e9bb383033adcbef76099b19.jpg"};
-
     /**
      * 当前正在设置封面的图片
      */
@@ -318,8 +310,6 @@ public class BuildCourseActivity extends BaseActivity {
         isSettingCoursePhoto = savedInstanceState.getBoolean("isSettingCoursePhoto");
         mCouserStepPosition = savedInstanceState.getInt("isSettingCoursePhoto");
 
-
-//        Log.i("onSaveInstanceState", getCourseByPage().toString());
         Log.i("onRestoreInstanceState", "--------------------");
 
     }

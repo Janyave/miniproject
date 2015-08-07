@@ -34,6 +34,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.NormalListViewActivity;
+import com.netease.ecos.activity.NotificationActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.PersonalInfoSettingActivity;
 import com.netease.ecos.model.User;
@@ -253,8 +254,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         Bundle bundle;
         switch (v.getId()) {
             case R.id.ll_notification:
-                Toast.makeText(getActivity(), getResources().getString(R.string.noPage), Toast.LENGTH_SHORT).show();
-                return;
+                intent=new Intent(getActivity(), NotificationActivity.class);
+                break;
             case R.id.ll_contact:
                 Toast.makeText(getActivity(), getResources().getString(R.string.noPage), Toast.LENGTH_SHORT).show();
                 return;
