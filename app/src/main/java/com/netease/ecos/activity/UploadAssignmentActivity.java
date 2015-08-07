@@ -70,7 +70,7 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
     private void initTitle() {
         title_left.setOnClickListener(this);
         title_right.setOnClickListener(this);
-        title_right_text.setText("等待");
+        title_right_text.setText("上传");
         title_text.setText("");
     }
 
