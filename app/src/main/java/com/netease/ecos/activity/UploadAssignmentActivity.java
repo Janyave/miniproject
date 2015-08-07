@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -71,7 +70,7 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
     private void initTitle() {
         title_left.setOnClickListener(this);
         title_right.setOnClickListener(this);
-        title_right_text.setText("等待");
+        title_right_text.setText("上传");
         title_text.setText("");
     }
 
@@ -144,6 +143,7 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(UploadAssignmentActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

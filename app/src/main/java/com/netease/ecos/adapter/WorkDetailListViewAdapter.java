@@ -42,6 +42,7 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
     }
 
     public void updateCommentList(List<Comment> commentList) {
+        this.commentList.clear();
         this.commentList = commentList;
         notifyDataSetChanged();
     }
@@ -89,6 +90,8 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
         if (position == 0 && !isDetail) {
             viewHolder.all_commentTxVw.setVisibility(View.VISIBLE);
             viewHolder.all_commentTxVw.setText(mcontext.getResources().getString(R.string.allComment) + commentCount + mcontext.getResources().getString(R.string.manyComment));
+        } else {
+            viewHolder.all_commentTxVw.setVisibility(View.GONE);
         }
     }
 

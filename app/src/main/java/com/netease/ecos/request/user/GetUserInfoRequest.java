@@ -1,14 +1,5 @@
 package com.netease.ecos.request.user;
 
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
@@ -16,12 +7,21 @@ import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.User;
-import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.model.User.Gender;
 import com.netease.ecos.model.User.RoleType;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 /***
  *
  * @ClassName: GetUserInfoRequest
@@ -121,7 +121,7 @@ public class GetUserInfoRequest extends BaseRequest{
 			}
 
 			if(usreJO.has("roles") && !usreJO.isNull("roles")){
-				JSONArray rolesJA = usreJO.getJSONArray("roles");
+				JSONArray rolesJA = new JSONArray(getString(usreJO,"roles"));
 				Set<RoleType> roleTypeSet = new LinkedHashSet<RoleType>();
 				for(int i=0;i<rolesJA.length();i++){
 					roleTypeSet.add( RoleType.getRoleTypeByValue(rolesJA.getString(i)) );

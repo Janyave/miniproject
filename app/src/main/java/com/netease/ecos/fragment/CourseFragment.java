@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
@@ -219,7 +220,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -244,7 +245,7 @@ public class CourseFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

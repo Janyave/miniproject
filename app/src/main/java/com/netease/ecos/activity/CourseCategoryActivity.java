@@ -115,6 +115,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
         request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[selectPosition], 0);
     }
 
+
     @Override
     public void onClick(View v) {
         Intent intent;
@@ -176,7 +177,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
             @Override
             public void doAfterFailedResponse(String message) {
-
+                Toast.makeText(CourseCategoryActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -225,7 +226,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
             @Override
             public void doAfterFailedResponse(String message) {
-
+                Toast.makeText(CourseCategoryActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -266,6 +267,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(CourseCategoryActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

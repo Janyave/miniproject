@@ -3,50 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_gray">
+
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/ll_personage_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ll_personage_item"
-        android:background="@drawable/bg_course_item"
+        android:layout_marginBottom="@dimen/margin_30px"
         android:layout_marginLeft="@dimen/margin_40px"
         android:layout_marginRight="@dimen/margin_40px"
-        android:layout_marginBottom="@dimen/margin_30px">
+        android:background="@drawable/bg_course_item"
+        android:orientation="vertical">
         <!-- 图片-->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_cover_640px_960px">
 
-            <ImageView
+            <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/iv_cover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/margin_20px"
                 android:layout_marginRight="@dimen/margin_20px"
                 android:layout_marginTop="@dimen/margin_20px"
-                android:gravity="center"
                 android:adjustViewBounds="true"
-                android:src="@drawable/img_default"
-                android:scaleType="centerCrop"/>
+                android:gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/img_default" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:layout_marginBottom="@dimen/margin_50px"
                 android:layout_marginRight="@dimen/margin_40px"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="@dimen/course_item_focus_width"
                     android:layout_height="@dimen/course_item_focus_width"
-                    android:src="@mipmap/ic_praise"/>
+                    android:src="@mipmap/ic_praise" />
+
                 <TextView
+                    android:id="@+id/tv_praiseNum"
+                    style="@style/text_dark_min"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="25"
-                    style="@style/text_dark_min"
                     android:layout_marginLeft="@dimen/margin_20px"
-                    android:id="@+id/tv_praiseNum"/>
+                    android:text="25" />
 
             </LinearLayout>
 
@@ -60,25 +64,28 @@
             android:layout_marginLeft="@dimen/margin_20px"
             android:layout_marginRight="@dimen/margin_20px"
             android:orientation="horizontal">
+
             <TextView
+                android:id="@+id/tv_title"
+                style="@style/text_pink_max"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="大圣归来"
-                android:id="@+id/tv_title"
-                style="@style/text_pink_max"/>
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
             <TextView
+                android:id="@+id/tv_time"
+                style="@style/text_gray_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="2015年7月28日"
-                style="@style/text_gray_min"
-                android:id="@+id/tv_time"/>
+                android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
     </LinearLayout>

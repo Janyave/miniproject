@@ -548,9 +548,9 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         TextView user_description = (TextView) v.findViewById(R.id.tv_personage_description);
 
         //设置默认图片
-        user_avatar.setDefaultImageResId(R.drawable.img_default);
+        user_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
         //设置加载出错图片
-        user_avatar.setErrorImageResId(R.drawable.img_default);
+        user_avatar.setErrorImageResId(R.mipmap.bg_female_default);
         RequestQueue queue = Volley.newRequestQueue(v.getContext());
         ImageLoader.ImageCache imageCache = new SDImageCache();
         ImageLoader imageLoader = new ImageLoader(queue, imageCache);

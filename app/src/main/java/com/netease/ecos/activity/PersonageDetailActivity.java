@@ -3,7 +3,6 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -76,11 +75,11 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
     @InjectView(R.id.contactLayout)
     LinearLayout contactLayout;
     @InjectView(R.id.ll_signature_attention)  //help show
-    LinearLayout ll_signature_attention;
+            LinearLayout ll_signature_attention;
     @InjectView(R.id.ll_edit)
     LinearLayout ll_edit;
     @InjectView(R.id.ll_personage_tag) //tag
-    LinearLayout ll_personage_tag;
+            LinearLayout ll_personage_tag;
 
     //无标签 隐藏 ll_personage_tag
     //无签名 隐藏 user_description
@@ -116,7 +115,6 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
     private int mRecruitmentPageIndex = 1;
 
 
-
     private int mCurrentTab = 0;
 
     private PersonCourseAdapter personCourseAdapter;
@@ -136,7 +134,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         initViews();
     }
 
-    private void initRequest(){
+    private void initRequest() {
         courseListRequest = new CourseListRequest();
         courseListResponce = new CourseListResponse();
         shareListRequest = new ShareListRequest();
@@ -209,9 +207,9 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
      */
     private void initViews() {
         //设置默认图片
-        user_avatar.setDefaultImageResId(R.drawable.img_default);
+        user_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
         //设置加载出错图片
-        user_avatar.setErrorImageResId(R.drawable.img_default);
+        user_avatar.setErrorImageResId(R.mipmap.bg_female_default);
         personCourseAdapter = new PersonCourseAdapter(this);
         personDisplayAdapter = new PersonDisplayAdapter(this);
         personActivityAdapter = new PersonActivityAdapter(this);
@@ -302,6 +300,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(PersonageDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -319,6 +318,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(PersonageDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -332,12 +332,12 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         }
     }
 
-    class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse{
+    class CourseListResponse extends BaseResponceImpl implements CourseListRequest.ICourseListResponse {
 
         @Override
         public void success(List<Course> courseList) {
             //prevent gc
-            if (personCourseAdapter == null){
+            if (personCourseAdapter == null) {
                 personCourseAdapter = new PersonCourseAdapter(PersonageDetailActivity.this);
                 personCourseAdapter.SetCourseList(mCourse);
             }
@@ -350,7 +350,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(PersonageDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -359,11 +359,12 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         }
 
     }
-    class ShareListResponse extends BaseResponceImpl implements ShareListRequest.IShareListResponse{
+
+    class ShareListResponse extends BaseResponceImpl implements ShareListRequest.IShareListResponse {
         @Override
         public void success(List<Share> shareList) {
             //prevent gc
-            if (personDisplayAdapter == null){
+            if (personDisplayAdapter == null) {
                 personDisplayAdapter = new PersonDisplayAdapter(PersonageDetailActivity.this);
                 personDisplayAdapter.setShareList(mShare);
             }
@@ -373,7 +374,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(PersonageDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -381,11 +382,12 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         }
     }
-    class ActivityListResponse extends BaseResponceImpl implements ActivityListRequest.IActivityListResponse{
+
+    class ActivityListResponse extends BaseResponceImpl implements ActivityListRequest.IActivityListResponse {
         @Override
         public void success(List<ActivityModel> activityList) {
             //prevent gc
-            if (personActivityAdapter == null){
+            if (personActivityAdapter == null) {
                 personActivityAdapter = new PersonActivityAdapter(PersonageDetailActivity.this);
                 personActivityAdapter.setActivityList(mActivity);
             }
@@ -395,7 +397,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(PersonageDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -403,7 +405,8 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         }
     }
-    class RecruitmentListResponse extends BaseResponceImpl implements RecruitmentListRequest.IRecruitmentListResponse{
+
+    class RecruitmentListResponse extends BaseResponceImpl implements RecruitmentListRequest.IRecruitmentListResponse {
         @Override
         public void success(List<Recruitment> recruitmentList) {
             //TODO recruitment success response.
@@ -417,7 +420,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(PersonageDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

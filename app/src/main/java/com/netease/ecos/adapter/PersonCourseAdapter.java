@@ -15,13 +15,14 @@ import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.model.Course;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by hzjixinyu on 2015/8/2.
  */
+
 public class PersonCourseAdapter extends BaseAdapter implements View.OnClickListener {
+
     private Context mcontext;
     private List<Course> courseList;
 
@@ -34,7 +35,7 @@ public class PersonCourseAdapter extends BaseAdapter implements View.OnClickList
         this.courseList = courseList;
     }
 
-    public void SetCourseList(List<Course> courseList){
+    public void SetCourseList(List<Course> courseList) {
         this.courseList = courseList;
     }
 
@@ -58,16 +59,13 @@ public class PersonCourseAdapter extends BaseAdapter implements View.OnClickList
             tv_time = (TextView) root.findViewById(R.id.tv_time);
         }
 
-        /**
-         * 传入数据未定
-         */
         public void setData(final int position) {
             Course item = courseList.get(position);
-
-            Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            if (item.coverUrl != null && !item.coverUrl.equals(""))
+                Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             tv_title.setText(item.title);
             tv_praiseNum.setText(item.praiseNum + "");
-            tv_time.setText(item.issueTimeStamp+"");
+            tv_time.setText(item.issueTimeStamp + "");
 
             iv_cover.setTag(position);
             tv_title.setTag(position);
@@ -78,13 +76,11 @@ public class PersonCourseAdapter extends BaseAdapter implements View.OnClickList
         }
     }
 
-
-    //TODO 数据数量【现在模拟为10】
     @Override
     public int getCount() {
-        if (courseList == null){
+        if (courseList == null) {
             return 0;
-        }else{
+        } else {
             return courseList.size();
         }
 
