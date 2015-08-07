@@ -293,8 +293,12 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         @Override
         public void success(String userId, boolean praise) {
             assignment.hasPraised = !assignment.hasPraised;
+            if (assignment.hasPraised)
+                assignment.praiseNum++;
+            else
+                assignment.praiseNum--;
+            workDetailFavorTxVw.setText(assignment.praiseNum + AssignmentDetailActivity.this.getString(R.string.favorCount));
             setPraiseLayout();
-
         }
 
         @Override
