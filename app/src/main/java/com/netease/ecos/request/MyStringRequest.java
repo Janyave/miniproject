@@ -62,7 +62,7 @@ public class MyStringRequest extends Request<String>{
 
         String sessionId = AccountDataService.getSingleAccountDataService(MyApplication.getContext()).getAutocodeCookie();
         Log.e("MyStringRequest", "sessionId---------"  + sessionId);
-        if(sessionId!=null && !"".equals(sessionId)){
+        if(sessionId!=null && "".equals(token)){
             value = value+"SESSIONID=" + sessionId + ";" ;
         }
 

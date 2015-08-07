@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,9 +15,15 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.request.user.LoginRequest;
+import com.netease.nimlib.sdk.AbortableFuture;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.auth.AuthService;
+import com.netease.nimlib.sdk.auth.LoginInfo;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -103,9 +109,43 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
 
         @Override
         public void success() {
-            Toast.makeText(LoginActivity.this,"LOGIN SUCCESS",Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
+
+            String imId = AccountDataService.getSingleAccountDataService(LoginActivity.this).getUserAccId();
+            String imtoken = AccountDataService.getSingleAccountDataService(LoginActivity.this).getImToken();
+
+            Log.e("云信登录","imId:" + imId);
+            Log.e("云信令牌","imtoken:" + imtoken);
+
+            AbortableFuture<LoginInfo> loginRequest;
+            loginRequest = NIMClient.getService(AuthService.class).login(new LoginInfo(imId, imtoken));
+            loginRequest.setCallback(new RequestCallback<LoginInfo>() {
+                @Override
+                public void onSuccess(LoginInfo param) {
+
+                    Toast.makeText(LoginActivity.this, "LOGIN SUCCESS", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, YunXinApiActivity.class));
+                    finish();
+
+                }
+
+                @Override
+                public void onFailed(int code) {
+                    Log.i("登录", "登录失败");
+                    if (code == 302 || code == 404) {
+                        Toast.makeText(LoginActivity.this, "帐号或密码错误", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "login error: " + code, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onException(Throwable exception) {
+                    Log.i("登录", "登录异常");
+                }
+
+            });
+
+
         }
 
         @Override
