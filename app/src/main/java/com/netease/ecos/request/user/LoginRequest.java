@@ -111,7 +111,7 @@ public class LoginRequest extends BaseRequest{
 			AccountDataService accountService = AccountDataService.getSingleAccountDataService(MyApplication.getContext());
 
 			//保存userId、imId(云信id)、imtoken(云信token)
-			accountService.saveUserAccId(user.userId);
+			accountService.saveUserId(user.userId);
 			accountService.saveUserAccId(user.imId);
 			accountService.saveUserImToken(user.imToken);
 
