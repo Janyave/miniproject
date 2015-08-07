@@ -109,6 +109,7 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
             courseListRequest = new CourseListRequest();
             courseListResponse = new CourseListResponse();
         } else {
+            tv_searchType.setText("全部");
             shareListRequest = new ShareListRequest();
             getShareListResponse = new GetShareListResponse();
         }
@@ -137,7 +138,7 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
                 if (TYPE == TYPE_COURSE) {
                     courseListRequest.request(courseListResponse, CourseListRequest.Type.筛选, CourseCategoryActivity.courseTypes[selectPosition], searchWord, CourseListRequest.SortRule.时间, 0);
                 } else {
-                    shareListRequest.request(getShareListResponse, DisplayFragment.shareTypes[selectPosition], searchWord, 0);
+                    shareListRequest.request(getShareListResponse, DisplayFragment.shareTypes[selectPosition], searchWord, 1);
                 }
             }
         });

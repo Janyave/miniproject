@@ -302,11 +302,10 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         courseDetailOtherWorksHListViewAdapter = new CourseDetailOtherWorksHListViewAdapter(this, course.assignmentList);
         hlv_otherWorks.setAdapter(courseDetailOtherWorksHListViewAdapter);
 
-        //get the list of assignment id
         workList = new ArrayList<String>();
         for (int i = 0; i < course.assignmentList.size(); i++) {
             workList.add(course.assignmentList.get(i).assignmentId);
-            Log.d(TAG, "worklist " + i + ":" + course.assignmentList.get(i).assignmentId);
+
         }
     }
 

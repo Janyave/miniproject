@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.dialog.SetPhotoDialog;
+import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseResponceImpl;
@@ -259,6 +260,10 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     startActivity(intent1);
                     break;
                 case R.id.personal_info_logout:
+
+                    AccountDataService.getSingleAccountDataService(PersonalInfoSettingActivity.this).clearAllDataExceptUsername();
+
+
                     Intent intent = new Intent(PersonalInfoSettingActivity.this, SplashActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
