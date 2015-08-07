@@ -143,8 +143,7 @@ public abstract class BaseRequest implements Listener<String>,ErrorListener{
 
 	protected String getToken()
 	{
-		return "1";
-		//		return AccountDataService.getSingleAccountDataService(getContext()).getToken();
+		return AccountDataService.getSingleAccountDataService(getContext()).getToken();
 	}
 
 
@@ -196,7 +195,6 @@ public abstract class BaseRequest implements Listener<String>,ErrorListener{
 	 */
 	protected String getUserId()
 	{
-//		return "125";
 		return AccountDataService.getSingleAccountDataService(getContext()).getUserId();
 	}
 

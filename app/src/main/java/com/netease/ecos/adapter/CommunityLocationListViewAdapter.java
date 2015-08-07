@@ -21,12 +21,10 @@ public class CommunityLocationListViewAdapter extends BaseAdapter {
 
     private Context mcontext;
     private Handler handler;
-    ArrayList<int[]> locationCommunityCountList;
 
-    public CommunityLocationListViewAdapter(Context context, Handler handler, ArrayList<int[]> locationCommunityCountList) {
+    public CommunityLocationListViewAdapter(Context context, Handler handler) {
         this.mcontext = context;
         this.handler = handler;
-        this.locationCommunityCountList = locationCommunityCountList;
     }
 
     //TODO 省份块的数量是5
@@ -83,7 +81,7 @@ public class CommunityLocationListViewAdapter extends BaseAdapter {
          */
         public void setData(int position) {
             textViewScope.setText(strings[position]);
-            gv_location.setAdapter(new CommunityLocationGridViewAdapter(mcontext, arrayListLocation.get(position), locationCommunityCountList.get(position)));
+            gv_location.setAdapter(new CommunityLocationGridViewAdapter(mcontext, arrayListLocation.get(position)));
             gv_location.setTag("CommunityGridView" + position);
             gv_location.setSelector(new ColorDrawable(Color.TRANSPARENT));  // 设置GridView在被选中时背景色不改变
 
@@ -93,8 +91,7 @@ public class CommunityLocationListViewAdapter extends BaseAdapter {
                     Message message = handler.obtainMessage();
                     CharSequence charSequence = ((Button) parent.findViewWithTag("Button" + position)).getText();
                     String string = (String) charSequence;
-                    String[] strings = string.split(" ");
-                    message.obj = strings[0];
+                    message.obj = string;
                     handler.sendMessage(message);
                 }
             });

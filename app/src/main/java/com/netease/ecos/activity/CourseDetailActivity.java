@@ -339,6 +339,8 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
         @Override
         public void success(String userId, boolean praise) {
+            Log.d(TAG, "praise success:" + praise);
+
             course.hasPraised = !course.hasPraised;
             setPraiseLayout();
         }

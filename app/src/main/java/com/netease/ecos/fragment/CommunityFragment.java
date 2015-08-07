@@ -53,7 +53,6 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
     private XListView lv_campaign;
     private PopupWindow popupWindowLocation, popupWindowCategory;
     private Handler handler;
-    private ArrayList<int[]> locationCommunityCountList;
     private ImageView iv_show_flag_location, iv_show_flag_category;
     private ActivityListRequest request;
     private CampaignListViewAdapter campaignListViewAdapter;
@@ -74,7 +73,6 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        locationCommunityCountList = new ArrayList<int[]>();
         super.onCreate(savedInstanceState);
     }
 
@@ -349,9 +347,9 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                 final String strCategory = recentCategory;  // 记录当前状态下的地点和分类
 
                 String cityCode;
-                if (strLocation.equals("不限"))
+                if (strLocation.equals("不限")) {
                     cityCode = "";
-                else
+                } else
                     cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
                 recentLocation = strLocation;
 
@@ -386,26 +384,21 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
 //                }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
                 }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
 
+                Log.w("cityCode", cityCode);
                 pageIndex = 0;
                 btn_location.setText((CharSequence) msg.obj);
                 popupWindowLocation.dismiss();
                 iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
                 int length = ((CharSequence) msg.obj).length();
-                Util.setMargins(iv_show_flag_location, Util.dip2px(getActivity(), 120 + (length - 2) * 8), Util.dip2px(getActivity(), 15), 0, 0);
+                Util.setMargins(iv_show_flag_location, Util.dip2px(getActivity(), 120 + (length - 2) * 8), (int) getResources().getDimension(R.dimen.height_item_51px), 0, 0);
             }
         };
-
-        locationCommunityCountList.add(locationCommunityCount);     // 五个地区块分别拥有一个int[]数据
-        locationCommunityCountList.add(locationCommunityCount);
-        locationCommunityCountList.add(locationCommunityCount);
-        locationCommunityCountList.add(locationCommunityCount);
-        locationCommunityCountList.add(locationCommunityCount);
 
         // popup_window_location布局文件包含一个自定义的ListView
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_window_location, null);
 
         CommunityListView lv_Location = (CommunityListView) contentView.findViewById(R.id.lv_community_location);
-        lv_Location.setAdapter(new CommunityLocationListViewAdapter(getActivity(), handler, locationCommunityCountList));
+        lv_Location.setAdapter(new CommunityLocationListViewAdapter(getActivity(), handler));
 
         lv_Location.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -480,7 +473,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
             length = 4;
         else
             length = strCategory.length();
-        Util.setMargins(iv_show_flag_category, 0, Util.dip2px(getActivity(), 15), Util.dip2px(getActivity(), 60 - (length - 2) * 8), 0);
+        Util.setMargins(iv_show_flag_category, 0, (int) getResources().getDimension(R.dimen.height_item_51px), Util.dip2px(getActivity(), 60 - (length - 2) * 8), 0);
         popupWindowCategory.dismiss();
         iv_show_flag_category.setImageResource(R.drawable.ic_unpress_next_step);
         /**
@@ -616,8 +609,6 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
             e.printStackTrace();
         }
     }
-
-    private int[] locationCommunityCount = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
     @Override
     public void execute() {
