@@ -123,7 +123,7 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
                 public void onSuccess(LoginInfo param) {
 
                     Toast.makeText(LoginActivity.this, "LOGIN SUCCESS", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    startActivity(new Intent(LoginActivity.this, YunXinApiActivity.class));
                     finish();
 
                 }
