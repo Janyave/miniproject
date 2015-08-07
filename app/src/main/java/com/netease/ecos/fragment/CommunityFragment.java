@@ -258,7 +258,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
             }
             // TODO 省份ID与省份名称未定
             // TODO 全部分类项需要添加
-        }, cityCode, strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), 0);
+        }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
     }
 
     @Override
@@ -376,7 +376,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                         }
                     }
 //                }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
-                }, cityCode, strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), 0);
+                }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
 
                 btn_location.setText((CharSequence) msg.obj);
                 popupWindowLocation.dismiss();
@@ -457,7 +457,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                 }
             }
 //        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
-        }, cityCode, strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), 0);
+        }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
 
         btn_categary.setText(strCategory);
         int length = 0;
@@ -521,7 +521,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                     pageIndex = 0;
                 }
             }
-        }, cityCode, strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), 0);
+        }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
     }
 
     @Override
@@ -578,7 +578,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                 }
             }
 //        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
-        }, cityCode, strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), pageIndex);
+        }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), pageIndex);
         System.out.println("pageIndex " + pageIndex);
     }
 

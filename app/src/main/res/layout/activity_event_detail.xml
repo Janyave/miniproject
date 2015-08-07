@@ -61,7 +61,6 @@
                                 style="@style/text_pink_max"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="西南Cosplay超级展览"
                                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
                             <LinearLayout
@@ -82,7 +81,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="@dimen/margin_20px"
-                                    android:text="成都"
                                     android:textAppearance="?android:attr/textAppearanceMedium" />
                             </LinearLayout>
 
@@ -98,7 +96,7 @@
                                     style="@style/text_pink_max"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="￥ 100" />
+                                    android:text="@string/RMB" />
                             </LinearLayout>
 
                         </LinearLayout>
@@ -115,8 +113,7 @@
                         android:layout_marginRight="@dimen/margin_30px"
                         android:layout_marginTop="@dimen/margin_20px"
                         android:background="@drawable/bg_campaign_type_1"
-                        android:gravity="center"
-                        android:text="主题ONLY" />
+                        android:gravity="center" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -255,7 +252,6 @@
                             style="@style/text_dark_mid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/detail_location_event_detail"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </LinearLayout>
 
@@ -279,8 +275,7 @@
                             android:id="@+id/tv_event_time_detail"
                             style="@style/text_dark_mid"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/time_event_detail" />
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
 
                     <TextView style="@style/layout_line_gray" />
@@ -306,7 +301,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="start"
-                            android:text="@string/detail_event_detail"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
                     </LinearLayout>
 
@@ -342,8 +336,7 @@
                             android:layout_width="@dimen/circle_icon_100px"
                             android:layout_height="@dimen/circle_icon_100px"
                             android:background="@drawable/bg_activty_wantgo_unable"
-                            android:gravity="center"
-                            android:text="1020" />
+                            android:gravity="center" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -444,16 +437,14 @@
                             android:id="@+id/tv_author_name"
                             style="@style/text_dark_mid"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="萌萌哒小章鱼" />
+                            android:layout_height="wrap_content" />
 
                         <TextView
                             android:id="@+id/tv_author_time"
                             style="@style/text_dark_mid"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_10px"
-                            android:text="2013/12/12" />
+                            android:layout_marginTop="@dimen/margin_10px" />
                     </LinearLayout>
 
                 </LinearLayout>
