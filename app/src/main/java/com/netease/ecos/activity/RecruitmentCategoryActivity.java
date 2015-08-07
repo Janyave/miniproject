@@ -97,6 +97,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                     PopupHelper.showRecruiteSortTypePopupWindow(popupSortType, RecruitmentCategoryActivity.this, v, new PopupHelper.IPopupListner() {
                         @Override
                         public void clickListner(int type, View v, PopupWindow popupWindow) {
+                            pageIndex = 1;
                             tv_sortText.setText(((RadioButton) v).getText().toString());
                             selectedSortRule = type;
                             pageIndex = 1;
@@ -120,6 +121,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                     PopupHelper.showSixTypePopupWindow(popupSixType, RecruitmentCategoryActivity.this, v, new PopupHelper.IPopupListner() {
                         @Override
                         public void clickListner(int type, View v, PopupWindow popupWindow) {
+                            pageIndex = 1;
                             tv_left.setText(((RadioButton) v).getText().toString());
                             selectRecruitType = type;
                             pageIndex = 1;
