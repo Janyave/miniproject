@@ -8,7 +8,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,7 +30,7 @@ public class Banner extends RelativeLayout {
     private ImageView iv_currentNum;
     private ViewPager vp_image;
 
-    private int[] pagerViewIDs=new int[]{R.mipmap.banner1, R.mipmap.banner2,R.mipmap.banner3,R.mipmap.banner4};
+    private int[] pagerViewIDs = new int[]{R.mipmap.banner1, R.mipmap.banner2, R.mipmap.banner3, R.mipmap.banner4};
 
     private List<String> URLList = new ArrayList<>();
     private List<View> ViewList = new ArrayList<>();
@@ -62,8 +61,6 @@ public class Banner extends RelativeLayout {
 
     public void setURLList(List<String> data) {
         this.URLList = data;
-//        this.count = data.size();
-
         for (int i = 0; i < count; i++) {
             View v = View.inflate(mContext, pagerViewID, null);
             Picasso.with(mContext).load(URLList.get(i)).into((ImageView) v.findViewById(R.id.iv_image));
@@ -107,7 +104,7 @@ public class Banner extends RelativeLayout {
             @Override
             public void onPageScrollStateChanged(int state) {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    int num=vp_image.getCurrentItem() % count;
+                    int num = vp_image.getCurrentItem() % count;
                     tv_currentNum.setText(num + 1 + "");
                     iv_currentNum.setImageResource(pagerViewIDs[num]);
                 }
