@@ -194,6 +194,7 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
                         PopupHelper.showSixTypePopupWindow(courseTypePopupWindow, SearchActivity.this, v, new PopupHelper.IPopupListner() {
                             @Override
                             public void clickListner(int type, View v, PopupWindow popupWindow) {
+                                pageIndex = 0;
                                 tv_searchType.setText(((RadioButton) v).getText().toString());
                                 selectPosition = type;
                             }

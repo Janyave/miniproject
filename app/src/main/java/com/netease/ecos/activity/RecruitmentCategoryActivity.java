@@ -112,6 +112,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                     PopupHelper.showRecruiteSortTypePopupWindow(popupSortType, RecruitmentCategoryActivity.this, v, new PopupHelper.IPopupListner() {
                         @Override
                         public void clickListner(int type, View v, PopupWindow popupWindow) {
+                            pageIndex = 1;
                             tv_sortText.setText(((RadioButton) v).getText().toString());
                             //TODO 下拉选择事件 type
                         }
@@ -132,6 +133,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                     PopupHelper.showSixTypePopupWindow(popupSixType, RecruitmentCategoryActivity.this, v, new PopupHelper.IPopupListner() {
                         @Override
                         public void clickListner(int type, View v, PopupWindow popupWindow) {
+                            pageIndex = 1;
                             tv_left.setText(((RadioButton) v).getText().toString());
                             //TODO 八种下拉选择事件 type
                         }
@@ -229,7 +231,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                     recruitmentListViewAdapter.notifyDataSetChanged();
                 }
             }
-        }, Recruitment.RecruitType.妆娘, "12", RecruitmentListRequest.SortRule.智能排序, 1);
+        }, Recruitment.RecruitType.妆娘, "12", RecruitmentListRequest.SortRule.智能排序, pageIndex);
     }
 
 
