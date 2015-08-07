@@ -98,12 +98,13 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
 
     private void initNameData() {
         ll_inputPassword.setVisibility(View.GONE);
-        et_input.setHint("请输入新昵称");
+
+        et_input.setHint(user.nickname);
     }
 
     private void initSignatureData() {
         ll_inputPassword.setVisibility(View.GONE);
-        et_input.setHint("请输入新简介");
+        et_input.setHint(user.characterSignature);
     }
 
     private void initPasswordData() {
@@ -126,7 +127,10 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
                 switch (TYPE) {
                     case TYPE_NAME:
                         user.nickname = et_input.getText().toString();
-                        sendUser(user);
+                        if (user.nickname.equals(""))
+                            Toast.makeText(this, "请输入昵称", Toast.LENGTH_LONG).show();
+                        else
+                            sendUser(user);
                         Log.w("User", et_input.getText().toString());
                         //TODO
                         break;
@@ -142,13 +146,13 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
                                 user.password = et_inputPassword.getText().toString();
                                 sendUser(user);
                             } else {
-                                Toast.makeText(this, "密码输入不一致", Toast.LENGTH_LONG);
+                                Toast.makeText(this, "密码输入不一致", Toast.LENGTH_LONG).show();
                                 et_input.setText("");
                                 et_inputPassword.setText("");
                                 et_inputPassword2.setText("");
                             }
                         } else {
-                            Toast.makeText(this, "密码输入错误", Toast.LENGTH_LONG);
+                            Toast.makeText(this, "密码输入错误", Toast.LENGTH_LONG).show();
                             et_input.setText("");
                             et_inputPassword.setText("");
                             et_inputPassword2.setText("");

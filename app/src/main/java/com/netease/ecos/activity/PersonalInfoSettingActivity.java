@@ -326,6 +326,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
 //        if (bitmap != null) {
 //            personal_info_set_avatar_pic.setImageBitmap(bitmap);
 //        }
+        user = UserDataService.getSingleUserDataService(this).getUser();
         mAvatarUrl = setUser.avatarUrl;
         if (mAvatarUrl != null) {
             ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
