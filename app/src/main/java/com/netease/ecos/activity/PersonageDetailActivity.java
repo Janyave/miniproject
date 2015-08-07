@@ -3,12 +3,16 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +84,8 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
     LinearLayout ll_edit;
     @InjectView(R.id.ll_personage_tag) //tag
             LinearLayout ll_personage_tag;
+    @InjectView(R.id.sv_personal)
+    ScrollView sv_presonal_page;
 
     //无标签 隐藏 ll_personage_tag
     //无签名 隐藏 user_description
@@ -114,6 +120,8 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
     private List<Recruitment> mRecruitment;
     private int mRecruitmentPageIndex = 1;
 
+    private static Boolean refreshFlag = true;
+
 
     private int mCurrentTab = 0;
 
@@ -147,6 +155,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         mCourse = new ArrayList<Course>();
         mShare = new ArrayList<Share>();
         mActivity = new ArrayList<ActivityModel>();
+        Log.d("ZYW","on create activity list long is" + mActivity.size());
         mRecruitment = new ArrayList<Recruitment>();
     }
 
@@ -216,9 +225,13 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         //TODO  personRecuritmentAdapter.
         personRecruitAdapter = new PersonRecruitAdapter(this);
 
+        mCourse.clear();
         personCourseAdapter.SetCourseList(mCourse);
+        mShare.clear();
         personDisplayAdapter.setShareList(mShare);
+        mActivity.clear();
         personActivityAdapter.setActivityList(mActivity);
+        mRecruitment.clear();
         personRecruitAdapter.setRecruitmentList(mRecruitment);
         lv_list.setAdapter(personCourseAdapter);
 
@@ -230,6 +243,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         btn_attention.setOnClickListener(this);
         btn_contact.setOnClickListener(this);
         ll_edit.setOnClickListener(this);
+        //sv_presonal_page.setOnTouchListener(new ScrollTouchListener());
     }
 
     private void setUnChecked() {
@@ -339,6 +353,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
             //prevent gc
             if (personCourseAdapter == null) {
                 personCourseAdapter = new PersonCourseAdapter(PersonageDetailActivity.this);
+                mCourse.clear();
                 personCourseAdapter.SetCourseList(mCourse);
             }
             personCourseAdapter.getCourseList().addAll(courseList);
@@ -366,10 +381,12 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
             //prevent gc
             if (personDisplayAdapter == null) {
                 personDisplayAdapter = new PersonDisplayAdapter(PersonageDetailActivity.this);
+                mShare.clear();
                 personDisplayAdapter.setShareList(mShare);
             }
             personDisplayAdapter.getShareList().addAll(shareList);
             personDisplayAdapter.notifyDataSetChanged();
+
         }
 
         @Override
@@ -389,6 +406,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
             //prevent gc
             if (personActivityAdapter == null) {
                 personActivityAdapter = new PersonActivityAdapter(PersonageDetailActivity.this);
+                mActivity.clear();
                 personActivityAdapter.setActivityList(mActivity);
             }
             personActivityAdapter.getActivityList().addAll(activityList);
@@ -412,6 +430,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
             //TODO recruitment success response.
             if (personRecruitAdapter == null){
                 personRecruitAdapter = new PersonRecruitAdapter(PersonageDetailActivity.this);
+                mRecruitment.clear();
                 personRecruitAdapter.setRecruitmentList(mRecruitment);
             }
             personRecruitAdapter.getRecruitmentList().addAll(recruitmentList);
@@ -428,4 +447,49 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
 
         }
     }
+
+//    class ScrollTouchListener implements  ScrollView.OnTouchListener{
+//        private float mPosY;
+//        private float mCurrentPosY;
+//        @Override
+//        public boolean onTouch(View v, MotionEvent event) {
+//            switch (event.getAction()) {
+//
+//                case MotionEvent.ACTION_DOWN:
+//                    mPosY = event.getY();
+//                    break;
+//                case MotionEvent.ACTION_MOVE:
+//                    mCurrentPosY = event.getY();
+//                    if((mCurrentPosY - mPosY < 0) && refreshFlag){
+//                       if ((sv_presonal_page.getChildAt(0).getMeasuredHeight() <= v.getHeight() + v.getScrollY())){
+//                           Log.d("scroll view", "bottom");
+//                           Log.d("scroll view", "view.getMeasuredHeight() = " + sv_presonal_page.getMeasuredHeight()
+//                                   + ", v.getHeight() = " + v.getHeight()
+//                                   + ", v.getScrollY() = " + v.getScrollY()
+//                                   + ", view.getChildAt(0).getMeasuredHeight() = " + sv_presonal_page.getChildAt(0).getMeasuredHeight());
+//                           refreshFlag = false;
+//                           final Handler handler = new Handler();
+//                           Runnable runnable = new Runnable(){
+//
+//                               @Override
+//                               public void run() {
+//                                   // TODO Auto-generated method stub
+//                                       refreshFlag = true;
+//                                       //handler.removeCallbacks(this);
+//                                       //
+//                               }
+//                           };
+//                           handler.postDelayed(runnable, 1000);
+//                       }
+//                    }
+//                    break;
+//                default:
+//                    break;
+//            }
+//            return false;
+//        }
+//
+//
+//    }
+
 }

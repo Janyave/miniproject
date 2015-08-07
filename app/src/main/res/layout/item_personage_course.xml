@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_cover_640px_960px">
 
-            <com.android.volley.toolbox.NetworkImageView
+            <ImageView
                 android:id="@+id/iv_cover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
