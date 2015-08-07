@@ -143,4 +143,12 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
                 break;
         }
     }
+
+    public List<Recruitment> getRecruitmentArrayList() {
+        return recruitmentArrayList;
+    }
+
+    public void setRecruitmentArrayList(List<Recruitment> recruitmentArrayList) {
+        this.recruitmentArrayList = recruitmentArrayList;
+    }
 }
