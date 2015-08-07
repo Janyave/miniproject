@@ -162,7 +162,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 
         initialDataLoaded = true;
 
-
+        showLoginAndRegist();
 
 
     }
