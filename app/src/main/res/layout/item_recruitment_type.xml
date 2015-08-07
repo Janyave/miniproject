@@ -60,7 +60,7 @@
                             android:layout_width="@dimen/icon_little_36px"
                             android:layout_height="@dimen/icon_little_36px"
                             android:layout_marginLeft="12dp"
-                            android:src="@mipmap/ic_launcher" />
+                            android:src="@mipmap/ic_gender_female" />
 
                     </LinearLayout>
 
@@ -74,7 +74,7 @@
                         style="@style/text_gray_mid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3km" />
+                        android:text="km" />
                 </LinearLayout>
             </LinearLayout>
 

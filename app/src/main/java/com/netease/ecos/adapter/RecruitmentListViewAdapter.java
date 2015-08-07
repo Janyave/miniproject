@@ -65,7 +65,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             if (recruitmentArrayList.get(position).coverUrl != null && !recruitmentArrayList.get(position).coverUrl.equals(""))
                 Picasso.with(mcontext).load(recruitmentArrayList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             tv_name.setText(recruitmentArrayList.get(position).nickname);
-            tv_distance.setText(recruitmentArrayList.get(position).distanceKM);
+            tv_distance.setText(recruitmentArrayList.get(position).distanceKM + mcontext.getResources().getString(R.string.KM));
             tv_price.setText(recruitmentArrayList.get(position).averagePrice + recruitmentArrayList.get(position).priceUnit);
             genderImVw.setImageResource(recruitmentArrayList.get(position).gender == User.Gender.男 ? R.mipmap.ic_gender_male : R.mipmap.ic_gender_female);
             //set tag
