@@ -15,8 +15,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
+import com.netease.ecos.activity.ContactActivity;
 import com.netease.ecos.activity.NormalListViewActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
+import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.User;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
@@ -130,9 +132,13 @@ public class EventWantGoAdapter extends BaseAdapter{
                     Toast.makeText(mcontext, "个人界面", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.tv_contact:
-                    //TODO 私信界面
-                    Toast.makeText(mcontext, "私信界面", Toast.LENGTH_SHORT).show();
-                    return;
+                    intent = new Intent(mcontext, ContactActivity.class);
+                    bundle.putString(ContactActivity.TargetUserID, userList.get((int)v.getTag()).userId);
+                    bundle.putString(ContactActivity.TargetUserAvatar, userList.get((int)v.getTag()).avatarUrl);
+                    bundle.putString(ContactActivity.TargetUserName, userList.get((int)v.getTag()).nickname);
+                    bundle.putString(ContactActivity.TargetUserIMID, userList.get((int) v.getTag()).imId);
+                    intent.putExtras(bundle);
+                    break;
                 default:
                     return;
             }
