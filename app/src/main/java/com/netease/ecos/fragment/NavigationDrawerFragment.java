@@ -20,9 +20,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +33,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
+import com.netease.ecos.activity.NormalListViewActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.PersonalInfoSettingActivity;
 import com.netease.ecos.model.User;
@@ -239,6 +243,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         ll_attention.setOnClickListener(this);
         ll_fans.setOnClickListener(this);
+
     }
 
 
@@ -248,11 +253,23 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         Bundle bundle;
         switch (v.getId()) {
             case R.id.ll_notification:
-            case R.id.ll_contact:
-            case R.id.ll_attention:
-            case R.id.ll_fans:
                 Toast.makeText(getActivity(), getResources().getString(R.string.noPage), Toast.LENGTH_SHORT).show();
                 return;
+            case R.id.ll_contact:
+                Toast.makeText(getActivity(), getResources().getString(R.string.noPage), Toast.LENGTH_SHORT).show();
+                return;
+            case R.id.ll_attention:
+                intent=new Intent(getActivity(), NormalListViewActivity.class);
+                bundle=new Bundle();
+                bundle.putInt(NormalListViewActivity.LISTVIEW_TYPE, NormalListViewActivity.TYPE_EVENT_ATTENTION);
+                intent.putExtras(bundle);
+                break;
+            case R.id.ll_fans:
+                intent=new Intent(getActivity(), NormalListViewActivity.class);
+                bundle=new Bundle();
+                bundle.putInt(NormalListViewActivity.LISTVIEW_TYPE, NormalListViewActivity.TYPE_EVENT_FANS);
+                intent.putExtras(bundle);
+                break;
             case R.id.ll_setting:
                 intent = new Intent(getActivity(), PersonalInfoSettingActivity.class);
                 break;

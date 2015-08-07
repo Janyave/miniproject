@@ -71,13 +71,11 @@
         <item name="android:backgroundDimAmount">0.4</item>
     </style>
     <style name="dialog_blue_button" parent="android:Widget.Button">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">40dp</item>
-        <item name="android:background">@drawable/blue_button_background</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:paddingLeft">21dp</item>
-        <item name="android:paddingRight">21dp</item>
-        <item name="android:textColor">@color/button_text_color</item>
+        <item name="android:layout_width">@dimen/width_title_right_text_160px</item>
+        <item name="android:layout_height">@dimen/height_title_right_text_80px</item>
+        <item name="android:background">@color/bg_red_light_light</item>
+        <item name="android:textSize">@dimen/text_size_36</item>
+        <item name="android:textColor">@color/text_white</item>
     </style>
 
         <style name="Dialog_Transparent">
