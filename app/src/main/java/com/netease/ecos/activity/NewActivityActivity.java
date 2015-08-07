@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -40,6 +41,7 @@ import com.netease.ecos.views.ExtensibleListView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -47,7 +49,7 @@ import butterknife.InjectView;
 /**
  * Created by Think on 2015/7/28.
  */
-public class NewActivityActivity extends Activity implements View.OnClickListener, View.OnTouchListener {
+public class NewActivityActivity extends Activity implements View.OnClickListener, View.OnTouchListener, AdapterView.OnItemSelectedListener {
     private final String TAG = "Ecos---NewActivity";
     @InjectView(R.id.lly_right_action)
     LinearLayout title_right;
@@ -113,7 +115,8 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     //get the province list and city list.
     private ProvinceDBService provinceDBService;
     private CityDBService cityDBService;
-
+    private List<Province> provinceList;
+    private List<City> cityList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,11 +138,13 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
     void initData() {
         provinceDBService = ProvinceDBService.getProvinceDBServiceInstance(NewActivityActivity.this);
         cityDBService = CityDBService.getCityDBServiceInstance(NewActivityActivity.this);
+        provinceList = provinceDBService.getProvinceList();
+        cityList = cityDBService.getCityListByProvinceId(provinceList.get(0).getProvinceCode());
         //init the adapter
         contactListAdapter = new ContactListAdapter(this);
         activityTypeAdapter = new ArrayAdapter<ActivityType>(this, android.R.layout.simple_list_item_1, activityTypes);
-        provinceAdapter = new ArrayAdapter<Province>(this, android.R.layout.simple_list_item_1, provinceDBService.getProvinceList());
-        cityAdapter = new ArrayAdapter<City>(this, android.R.layout.simple_list_item_1, cityDBService.getCityListByProvinceId(provinceDBService.getProvinceList().get(0).getProvinceCode()));
+        provinceAdapter = new ArrayAdapter<Province>(this, android.R.layout.simple_list_item_1, provinceList);
+        cityAdapter = new ArrayAdapter<City>(this, android.R.layout.simple_list_item_1, cityList);
         //init the calendar
         calendar = Calendar.getInstance();
         //choose the cover image
@@ -165,6 +170,7 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
         endDateEdTx.setOnTouchListener(this);
         beginTimeEdTx.setOnTouchListener(this);
         endTimeEdTx.setOnTouchListener(this);
+        activityProvinceSpinner.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -199,6 +205,18 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
                 contactListAdapter.addItem(getDataFromListView());
                 break;
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        cityList = cityDBService.getCityListByProvinceId(provinceList.get(position).getProvinceCode());
+        cityAdapter = new ArrayAdapter<City>(this, android.R.layout.simple_list_item_1, cityList);
+        activityCitySpinner.setAdapter(cityAdapter);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     boolean checkAll() {
@@ -370,9 +388,8 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
             activityModel.activityTime.dayEndTime = endTimeEdTx.getText().toString();
             activityModel.activityType = activityTypes[activityTypeSpinner.getSelectedItemPosition()];
             activityModel.location.address = addressEdTx.getText().toString();
-            //TODO:set the province and city.
-            activityModel.location.province.provinceCode = "1";
-            activityModel.location.city.cityCode = "1";
+            activityModel.location.province.provinceCode = provinceList.get(activityProvinceSpinner.getSelectedItemPosition()).getProvinceCode();
+            activityModel.location.city.cityCode = cityList.get(activityCitySpinner.getSelectedItemPosition()).getCityCode();
             //set the contact way list
             activityModel.contactWayList = getDataFromListView();
             createActivityRequest.request(createActivityResponce, activityModel);

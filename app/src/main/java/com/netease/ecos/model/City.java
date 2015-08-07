@@ -4,10 +4,10 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 /**
- * @Title: City.java 
+ * @author enlizhang
+ * @Title: City.java
  * @Description: 城市
- * @author enlizhang   
- * @date 2015年7月25日 下午11:26:18 
+ * @date 2015年7月25日 下午11:26:18
  */
 
 @DatabaseTable(tableName = "city_info")
@@ -23,8 +23,7 @@ public class City {
     @DatabaseField(canBeNull = false)
     public String provinceId;
 
-    public City()
-    {
+    public City() {
 
     }
 
@@ -56,11 +55,7 @@ public class City {
 
     @Override
     public String toString() {
-        return "City{" +
-                "cityName='" + cityName + '\'' +
-                ", cityCode='" + cityCode + '\'' +
-                ", provinceId='" + provinceId + '\'' +
-                '}';
+        return cityName;
     }
 }
 
