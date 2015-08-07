@@ -32,7 +32,8 @@
                 android:id="@+id/iv_personage_portrait"
                 android:layout_width="@dimen/circle_icon_210px"
                 android:layout_height="@dimen/circle_icon_210px"
-                android:src="@drawable/img_default_portrait"/>
+                android:src="@drawable/img_default_portrait"
+                />
             <ImageView
                 android:id="@+id/riv_personage_gender"
                 android:layout_width="@dimen/circle_icon_50px"

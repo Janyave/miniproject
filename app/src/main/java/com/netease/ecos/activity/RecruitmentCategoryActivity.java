@@ -74,6 +74,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
     private RecruitmentListRequest request;
     private RecruitmentListResponse recruitmentListResponse;
 
+    private int pageIndex = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,6 +149,8 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
     }
 
     private void initData() {
+
+        pageIndex = 1;
         //下拉菜单
         popupSortType = PopupHelper.newRecruiteSortTypePopupWindow(RecruitmentCategoryActivity.this);
         popupSixType = PopupHelper.newSixTypePopupWindow(RecruitmentCategoryActivity.this);
@@ -160,6 +163,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
         sp_sortType.setAdapter(spAdapter);
 
         //设置列表Adapter
+        lv_list.setDividerHeight(2);
         lv_list.initRefleshTime(this.getClass().getSimpleName());
         lv_list.setPullLoadEnable(true);
         lv_list.setXListViewListener(this);
@@ -181,6 +185,8 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                 lv_list.stopRefresh();
             }
         }, 1000);
+
+        request.request(recruitmentListResponse, Recruitment.RecruitType.妆娘, "12", RecruitmentListRequest.SortRule.智能排序, 1);
     }
 
     @Override
@@ -195,7 +201,38 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                 lv_list.stopLoadMore();
             }
         }, 1000);
+
+        pageIndex++;
+        request.request(new RecruitmentListRequest.IRecruitmentListResponse() {
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+
+            }
+
+            @Override
+            public void doAfterFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void responseNoGrant() {
+
+            }
+
+            @Override
+            public void success(List<Recruitment> recruitmentList) {
+                if (recruitmentList.size() == 0) {
+                    Toast.makeText(RecruitmentCategoryActivity.this, getResources().getString(R.string.nothingLeft), Toast.LENGTH_SHORT).show();
+                    pageIndex--;
+                } else {
+                    recruitmentListViewAdapter.getRecruitmentArrayList().addAll(recruitmentList); // 添加ListView的内容
+                    recruitmentListViewAdapter.notifyDataSetChanged();
+                }
+            }
+        }, Recruitment.RecruitType.妆娘, "12", RecruitmentListRequest.SortRule.智能排序, 1);
     }
+
 
     class RecruitmentListResponse extends BaseResponceImpl implements RecruitmentListRequest.IRecruitmentListResponse {
 

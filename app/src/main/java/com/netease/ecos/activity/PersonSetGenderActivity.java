@@ -64,6 +64,7 @@ public class PersonSetGenderActivity extends BaseActivity implements View.OnClic
     private void initView() {
 
         user = UserDataService.getSingleUserDataService(this).getUser();
+        user.gender = User.Gender.男;
         request = new UpdateUserInfoRequest();
         title_text.setText("性别");
     }

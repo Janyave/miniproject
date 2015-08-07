@@ -225,7 +225,12 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         final String strCategory = recentCategory;
         final String strLocation = recentLocation;
 
-        String cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
+
+        String cityCode;
+        if (strLocation.equals("不限"))
+            cityCode = "";
+        else
+            cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
 
         request.request(new ActivityListRequest.IActivityListResponse() {
 
@@ -258,7 +263,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
             }
             // TODO 省份ID与省份名称未定
             // TODO 全部分类项需要添加
-        }, cityCode, strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), 0);
+        }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
     }
 
     @Override
@@ -343,7 +348,11 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                 final String strLocation = (String) msg.obj;
                 final String strCategory = recentCategory;  // 记录当前状态下的地点和分类
 
-                String cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
+                String cityCode;
+                if (strLocation.equals("不限"))
+                    cityCode = "";
+                else
+                    cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
                 recentLocation = strLocation;
 
                 request.request(new ActivityListRequest.IActivityListResponse() {
@@ -376,7 +385,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                         }
                     }
 //                }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
-                }, cityCode, strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), 0);
+                }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
 
                 btn_location.setText((CharSequence) msg.obj);
                 popupWindowLocation.dismiss();
@@ -426,7 +435,11 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         final String strLocation = recentLocation;
         recentCategory = strCategory;
 
-        String cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
+        String cityCode;
+        if (strLocation.equals("不限"))
+            cityCode = "";
+        else
+            cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
         request.request(new ActivityListRequest.IActivityListResponse() {
 
             @Override
@@ -457,7 +470,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                 }
             }
 //        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
-        }, cityCode, strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), 0);
+        }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
 
         btn_categary.setText(strCategory);
         int length = 0;
@@ -490,7 +503,11 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         final String strCategory = recentCategory;
         final String strLocation = recentLocation;
 
-        String cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
+        String cityCode;
+        if (strLocation.equals("不限"))
+            cityCode = "";
+        else
+            cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
 
         request.request(new ActivityListRequest.IActivityListResponse() {
 
@@ -521,7 +538,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                     pageIndex = 0;
                 }
             }
-        }, cityCode, strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), 0);
+        }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
     }
 
     @Override
@@ -540,7 +557,11 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         final String strCategory = recentCategory;
         final String strLocation = recentLocation;
 
-        String cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
+        String cityCode;
+        if (strLocation.equals("不限"))
+            cityCode = "";
+        else
+            cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
 
         if (campaignListViewAdapter == null)
             pageIndex = 0;
@@ -578,7 +599,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                 }
             }
 //        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
-        }, cityCode, strCategory.equals("全部分类") ? null : ActivityModel.ActivityType.getActivityTypeByValue(strCategory), pageIndex);
+        }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), pageIndex);
         System.out.println("pageIndex " + pageIndex);
     }
 

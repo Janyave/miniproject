@@ -139,6 +139,7 @@
     <string name="beginTime">开始时间</string>
     <string name="endTime">结束时间</string>
     <string name="feeHint">请填写费用:)</string>
+    <string name="RMB">￥ </string>
 
     <!-- 个人单个作品上传页面-->
     <string name="notFinished">请填写分享内容:)</string>
