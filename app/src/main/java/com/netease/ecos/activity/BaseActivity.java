@@ -30,6 +30,10 @@ public class BaseActivity extends ActionBarActivity {
      * 加载对话框
      */
     SweetAlertDialog mProgressDialog;
+//    SweetAlertDialog mSuccessDialog;
+//    SweetAlertDialog mErrorDialog;
+//    SweetAlertDialog mWarningDialog;
+//    SweetAlertDialog mNormalTextDialog;
 
     protected  String CLASS_TAG;
     @Override
@@ -80,11 +84,26 @@ public class BaseActivity extends ActionBarActivity {
 
         if (mProgressDialog == null) {
             //mMyProgressDialog初始化
-            mProgressDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE).setTitleText(title);
+            mProgressDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE).setTitleText(title).setContentText(title);
             mProgressDialog.setCancelable(false);
             mProgressDialog.setCanceledOnTouchOutside(false);
+            mProgressDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.bg_red));
         }
     }
+
+//    /***
+//     * 初始化成功提示对话框
+//     */
+//    private void initSuccessSweetDialog(String title, String content, SweetAlertDialog.OnSweetClickListener listener){
+//
+//        if (mSuccessDialog == null) {
+//            //mMyProgressDialog初始化
+//            mSuccessDialog = new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE).setTitleText(title).setContentText(content);
+//            mSuccessDialog.setConfirmClickListener(listener);
+//            mSuccessDialog.setCancelable(false);
+//            mSuccessDialog.setCanceledOnTouchOutside(false);
+//        }
+//    }
 
     /***
      * 初始化提示对话框
@@ -127,6 +146,38 @@ public class BaseActivity extends ActionBarActivity {
         }
 
     }
+
+//    /***
+//     * 移除界面上的成功提示框
+//     */
+//    public void dismissSuccessBar()
+//    {
+//        Log.i(TAG, "销毁成功提示框");
+//        //如果加载框存在并显示，则进行销毁
+//        if(mSuccessDialog != null && mSuccessDialog.isShowing())
+//        {
+//            mSuccessDialog.dismiss();
+//        }
+//
+//    }
+
+
+
+    /***
+     * 显示成功提示
+     *
+     */
+//    public void showSuccessBar(String title, String content,SweetAlertDialog.OnSweetClickListener listener)
+//    {
+//        Log.i(TAG, "显示成功提示框");
+//        initSuccessSweetDialog(title, content,listener);
+//
+//        //如果加载框存在并未未显示，则进行显示
+//        if( !mSuccessDialog.isShowing())
+//        {
+//            mSuccessDialog.show();
+//        }
+//    }
 
 
     /***

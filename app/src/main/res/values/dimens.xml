@@ -99,6 +99,7 @@
 
 
     <dimen name="margin_110px">33dp</dimen>
+    <dimen name="margin_90px">26dp</dimen>
     <dimen name="margin_80px">23dp</dimen>
     <dimen name="margin_60px">17dp</dimen>
     <dimen name="margin_50px">14dp</dimen>
@@ -221,6 +222,12 @@
     <dimen name="height_title__main_tag_pic">30dp</dimen>
     <dimen name="marginTop_title__main_tag_pic">8dp</dimen>
 
+    <!-- 对话框-->
+    <dimen name="width_dialog_720px">280dp</dimen>
+    <dimen name="width_dialog_button">75dp</dimen>
+    <dimen name="height_dialog_button">30dp</dimen>
+    <dimen name="radius_dialog_button">15dp</dimen>
+
     <!-- 一般高度-->
     <dimen name="height_item_240px">75dp</dimen>
     <dimen name="height_item_140px">45dp</dimen>
@@ -237,6 +244,7 @@
     <dimen name="height_tag_80px">32dp</dimen>
     <dimen name="radius_tag_80px">16dp</dimen>
     <dimen name="height_person_navigation_636px">190dp</dimen>
+
 
 
 </resources>

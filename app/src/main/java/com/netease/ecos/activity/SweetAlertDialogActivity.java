@@ -32,13 +32,16 @@ public class SweetAlertDialogActivity extends BaseActivity implements View.OnCli
 		switch (v.getId()) {
 			case R.id.basic_test:
 				// default title "Here's a message!"
-				SweetAlertDialog sd = new SweetAlertDialog(this);
-				sd.setCancelable(true);
-				sd.setCanceledOnTouchOutside(true);
-				sd.show();
+//				SweetAlertDialog sd = new SweetAlertDialog(this);
+//				sd.setCancelable(true);
+//				sd.setCanceledOnTouchOutside(true);
+//				sd.show();
+				//加载
+				new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE).setTitleText("E君正在努力加载中~ >w<").setContentText("E君正在努力加载中~ >w<").show();
 				break;
 			case R.id.under_text_test:
-				new SweetAlertDialog(this).setContentText("It's pretty, isn't it?").show();
+				//正常
+				new SweetAlertDialog(this).setTitleText("测试").setContentText("It's pretty, isn't it?").show();
 				break;
 			case R.id.error_text_test:
 				new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE).setTitleText("Oops...").setContentText("Something went wrong!").show();
