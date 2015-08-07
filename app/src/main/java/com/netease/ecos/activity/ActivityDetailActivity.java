@@ -2,7 +2,6 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -51,6 +50,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     LinearLayout title_left;
     @InjectView(R.id.iv_event_cover)
     ImageView iv_event_cover;
+    @InjectView(R.id.tv_event_coverTag)
+    TextView tv_event_coverTag;
     @InjectView(R.id.tv_event_title)
     TextView tv_event_title;
     @InjectView(R.id.tv_event_location)
@@ -110,8 +111,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     private void initTitle() {
         title_left.setOnClickListener(this);
         title_right.setOnClickListener(this);
-        title_right_text.setText("评论");
         title_text.setText("");
+        title_right_text.setText("");
     }
 
     private void initData() {
@@ -187,7 +188,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
 
             tv_event_title.setText(activity.title);
             tv_event_location.setText(activity.location.province.provinceName);
-            tv_event_price.setText(activity.fee);
+            tv_event_price.setText(getResources().getString(R.string.RMB) + activity.fee);
+            tv_event_coverTag.setText(activity.activityType.name());
 
             tv_event_location_detail.setText(activity.location.toString());
             tv_event_time_detail.setText(activity.activityTime.toString());
@@ -204,9 +206,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             contactWayAdapter = new EventContactWayAdapter(ActivityDetailActivity.this, activityModel.contactWayList);
             lv_list.setAdapter(contactWayAdapter);
 
-            Log.d(TAG, "activity.avatarUrl :" + activity.avatarUrl);
             if (activity.avatarUrl != null) {
-                iv_author_avator.setImageUrl("http://image.tianjimedia.com/uploadImages/upload/20140912/upload/201409/w4qlbtkmqrapng.png", imageLoader);
+                iv_author_avator.setImageUrl(activity.avatarUrl, imageLoader);
                 //init the data for NetWorkImageView
                 iv_author_avator.setDefaultImageResId(R.mipmap.bg_female_default);
                 //设置加载出错图片
@@ -230,14 +231,17 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void success(String activityId, SingupActivityRequest.SignupType signupType) {
-            Log.d(TAG, "SignUpActivityResponse: success");
             //it means it want to cancel signing up
             if (signupType == SingupActivityRequest.SignupType.报名) {
                 tv_wantgo.setText(getResources().getString(R.string.alreadyGo));
                 tv_wantgo.setTextColor(getResources().getColor(R.color.text_gray));
+                activityModel.loveNums++;
+                tv_wangoNum.setText(activityModel.loveNums + "");
             } else {
                 tv_wantgo.setText(getResources().getString(R.string.notGo));
                 tv_wantgo.setTextColor(getResources().getColor(R.color.text_red));
+                activityModel.loveNums--;
+                tv_wangoNum.setText(activityModel.loveNums + "");
             }
             activityModel.hasSignuped = !activityModel.hasSignuped;
         }
