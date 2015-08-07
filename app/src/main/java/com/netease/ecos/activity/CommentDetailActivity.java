@@ -58,6 +58,8 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
     ImageView iv_favor;
     @InjectView(R.id.tv_favor)
     TextView tv_favor;
+    @InjectView(R.id.iv_left)
+    ImageView iv_left;
 
     //for NetWorkImageView
     static ImageLoader.ImageCache imageCache;
@@ -108,6 +110,8 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
         comment.commentType = commentType;
         comment.commentTypeId = fromId;
         commentListRequest.request(getCommentListResponse, comment, 1);
+        //set listener
+        iv_left.setOnClickListener(this);
     }
 
     void initView() {
@@ -167,6 +171,7 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
                 }
                 break;
             case R.id.lly_right_action:
+            case R.id.iv_left:
                 CommentDetailActivity.this.finish();
                 break;
         }

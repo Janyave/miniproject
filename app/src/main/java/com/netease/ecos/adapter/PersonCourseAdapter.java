@@ -3,6 +3,7 @@ package com.netease.ecos.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -61,8 +62,9 @@ public class PersonCourseAdapter extends BaseAdapter implements View.OnClickList
 
         public void setData(final int position) {
             Course item = courseList.get(position);
-            if (item.coverUrl != null && !item.coverUrl.equals(""))
+            if (item.coverUrl != null && !item.coverUrl.equals("")) {
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            }
             tv_title.setText(item.title);
             tv_praiseNum.setText(item.praiseNum + "");
             tv_time.setText(item.issueTimeStamp + "");
