@@ -55,12 +55,17 @@ public class FollowedUserListRequest extends BaseRequest{
 	 * 请求我的粉丝列表
 	 * @param baseresponce
 	 */
-	public void requestMyFans(IFollowUserListResponce followUserListResponce,int pageIndex)
+	public void requestSomeOneFans(IFollowUserListResponce followUserListResponce, final String someoneUserId,final int pageIndex)
 	{
 		super.initBaseRequest(followUserListResponce);
 		mFollowUserListResponce = followUserListResponce;
 
-		String url = RequestUrlConstants.GET_FOLLED_USER_LIST + "type=fans" + "&" + "userId=" + getUserId()
+		String userId = someoneUserId;
+
+		if(userId==null)
+			userId = getUserId();
+
+		String url = RequestUrlConstants.GET_FOLLED_USER_LIST + "type=fans" + "&" + "userId=" + userId
 				+ "&" + "pageSize=20" + "&" + "pages=" + String.valueOf(pageIndex);
 
 		traceNormal(TAG, url);
