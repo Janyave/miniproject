@@ -6,8 +6,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.EventWantGoAdapter;
+import com.netease.ecos.model.User;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.user.FollowedUserListRequest;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -32,7 +38,7 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
 
     public final static int TYPE_EVENT_WANTGO=0;
     public final static int TYPE_EVENT_FANS=1;
-    public final static int TYPE_EVENT_STTENTION=2;
+    public final static int TYPE_EVENT_ATTENTION=2;
 
 
 
@@ -50,16 +56,34 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
             case TYPE_EVENT_WANTGO:
                 initEventWantGo();
                 break;
+            case TYPE_EVENT_ATTENTION:
+                initFollowsGo();
+                break;
         }
     }
 
     private void initEventWantGo() {
         title_left.setOnClickListener(this);
         title_right.setVisibility(View.INVISIBLE);
-        title_right_text.setText("评论");
         title_text.setText("想去的人");
-        eventWantGoAdapter=new EventWantGoAdapter(this);
+        eventWantGoAdapter=new EventWantGoAdapter(this, TYPE_EVENT_WANTGO, null);
         lv_list.setAdapter(eventWantGoAdapter);
+
+        FollowedUserListRequest request  = new FollowedUserListRequest();
+        request.requestMyFollows(new followedUserListRequest(), 1);
+
+    }
+
+    private void initFollowsGo() {
+        title_left.setOnClickListener(this);
+        title_right.setVisibility(View.INVISIBLE);
+        title_text.setText("我的关注");
+
+
+        FollowedUserListRequest request  = new FollowedUserListRequest();
+        request.requestMyFollows(new followedUserListRequest(), 1);
+        showProcessBar("获取粉丝列表");
+
     }
 
     @Override
@@ -68,6 +92,26 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
             case R.id.lly_left_action:
                 finish();
                 break;
+        }
+    }
+
+    class followedUserListRequest extends BaseResponceImpl implements FollowedUserListRequest.IFollowUserListResponce {
+
+        @Override
+        public void success(List<User> userList) {
+            dismissProcessBar();
+            eventWantGoAdapter=new EventWantGoAdapter(NormalListViewActivity.this, TYPE_EVENT_ATTENTION, userList);
+            lv_list.setAdapter(eventWantGoAdapter);
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
         }
     }
 }

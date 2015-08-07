@@ -30,6 +30,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
+import com.netease.ecos.activity.NormalListViewActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.PersonalInfoSettingActivity;
 import com.netease.ecos.model.User;
@@ -250,6 +251,11 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             case R.id.ll_notification:
             case R.id.ll_contact:
             case R.id.ll_attention:
+                Intent intent2=new Intent(getActivity(), NormalListViewActivity.class);
+                Bundle bundle2=new Bundle();
+                bundle2.putInt(NormalListViewActivity.LISTVIEW_TYPE, NormalListViewActivity.TYPE_EVENT_ATTENTION);
+                intent2.putExtras(bundle2);
+                startActivity(intent2);
             case R.id.ll_fans:
                 Toast.makeText(getActivity(), getResources().getString(R.string.noPage), Toast.LENGTH_SHORT).show();
                 return;

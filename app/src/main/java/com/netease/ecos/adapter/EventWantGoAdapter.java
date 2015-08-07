@@ -10,17 +10,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.netease.ecos.R;
+import com.netease.ecos.activity.NormalListViewActivity;
+import com.netease.ecos.model.User;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by hzjixinyu on 2015/8/4.
  */
 public class EventWantGoAdapter extends BaseAdapter{
     private Context mcontext;
+    private int TYPE=1;
+    private List<User> userList;
 
     public EventWantGoAdapter(Context context) {
         this.mcontext = context;
+    }
+
+    public EventWantGoAdapter(Context context , int type, List<User> userList) {
+        this.mcontext = context;
+        this.TYPE=type;
+        this.userList=userList;
     }
 
 
@@ -60,11 +75,32 @@ public class EventWantGoAdapter extends BaseAdapter{
          */
         public void setData(final int position, ViewGroup parent) {
 
-            ll_tagList.removeAllViews();
+            User item=userList.get(position);
 
-            View v=parent.inflate(mcontext, R.layout.item_tag,null);
-            ((TextView)v.findViewById(R.id.tv_tag)).setText("单身狗");
-            ll_tagList.addView(v);
+            Picasso.with(mcontext).load(item.avatarUrl).placeholder(R.mipmap.bg_female_default).into(iv_avatar);
+            tv_name.setText(item.nickname);
+            tv_signature.setText(item.characterSignature);
+
+            if (TYPE==NormalListViewActivity.TYPE_EVENT_ATTENTION){
+                tv_contact.setText("私信");
+            }
+            if (TYPE==NormalListViewActivity.TYPE_EVENT_WANTGO){
+                tv_contact.setText("戳一下");
+            }
+            if (TYPE==NormalListViewActivity.TYPE_EVENT_FANS){
+                tv_contact.setText("等Y神！");
+            }
+
+            ll_tagList.removeAllViews();
+            Set<User.RoleType> roleTypeList=item.roleTypeSet;
+            Iterator i=roleTypeList.iterator();
+            while(i.hasNext()){
+                User.RoleType type=(User.RoleType)i.next();
+                View v=parent.inflate(mcontext, R.layout.item_tag,null);
+                ((TextView)v.findViewById(R.id.tv_tag)).setText(type.name());
+                ll_tagList.addView(v);
+            }
+
         }
 
         @Override
@@ -86,7 +122,12 @@ public class EventWantGoAdapter extends BaseAdapter{
     //TODO 数据数量【现在模拟为4】
     @Override
     public int getCount() {
-        return 4;
+        if (TYPE== NormalListViewActivity.TYPE_EVENT_WANTGO){
+            return 4;
+        }else {
+            return userList.size();
+        }
+
     }
 
     @Override
