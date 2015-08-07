@@ -233,6 +233,7 @@
     <dimen name="height_item_140px">45dp</dimen>
     <dimen name="height_item_120px">40dp</dimen>
     <dimen name="height_item_60px">20dp</dimen>
+    <dimen name="height_item_51px">17dp</dimen>
 
 
     <!-- TextView-->
