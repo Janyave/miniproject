@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,11 +33,8 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
     private static final String TAG = "Ecos---Recruitment";
     public static final String TRecruitmentType = "recruitmentType";
     private Recruitment.RecruitType recruitment_type;
-    @InjectView(R.id.sp_sortType)
-    Spinner sp_sortType;
     @InjectView(R.id.lv_list)
     XListView lv_list;
-
     @InjectView(R.id.lly_left_action)
     LinearLayout lly_left_action;
     @InjectView(R.id.ll_left)
@@ -64,9 +58,12 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
     private PopupWindow popupSortType;
     private PopupWindow popupSixType;
 
-    private ArrayAdapter<RecruitmentListRequest.SortRule> spAdapter;
     private RecruitmentListRequest.SortRule sortRules[] = {RecruitmentListRequest.SortRule.智能排序,
             RecruitmentListRequest.SortRule.价格最低, RecruitmentListRequest.SortRule.最受欢迎, RecruitmentListRequest.SortRule.距离最近};
+    private Recruitment.RecruitType recruitTypes[] = {Recruitment.RecruitType.妆娘, Recruitment.RecruitType.后期, Recruitment.RecruitType.摄影,
+            Recruitment.RecruitType.服装, Recruitment.RecruitType.道具, Recruitment.RecruitType.其他};
+    private int selectedSortRule = 0;
+    private int selectRecruitType = 0;
 
     private RecruitmentListViewAdapter recruitmentListViewAdapter;
     //for request
@@ -86,18 +83,6 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
     }
 
     private void initListener() {
-        sp_sortType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //TODO 排序事件
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         ll_left.setOnClickListener(this);
         lly_left_action.setOnClickListener(this);
         ll_location.setOnClickListener(this);
@@ -113,7 +98,10 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                         @Override
                         public void clickListner(int type, View v, PopupWindow popupWindow) {
                             tv_sortText.setText(((RadioButton) v).getText().toString());
-                            //TODO 下拉选择事件 type
+                            selectedSortRule = type;
+                            pageIndex = 1;
+                            Toast.makeText(RecruitmentCategoryActivity.this, getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
+                            request.request(recruitmentListResponse, recruitment_type, "", sortRules[selectedSortRule], pageIndex);
                         }
                     });
                 }
@@ -133,7 +121,11 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                         @Override
                         public void clickListner(int type, View v, PopupWindow popupWindow) {
                             tv_left.setText(((RadioButton) v).getText().toString());
-                            //TODO 八种下拉选择事件 type
+                            selectRecruitType = type;
+                            pageIndex = 1;
+                            recruitment_type = recruitTypes[selectRecruitType];
+                            Toast.makeText(RecruitmentCategoryActivity.this, getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
+                            request.request(recruitmentListResponse, recruitment_type, "", sortRules[selectedSortRule], pageIndex);
                         }
                     });
                 }
@@ -142,7 +134,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                 finish();
                 break;
             case R.id.ll_location:
-                //TODO 位置选择界面
+                Toast.makeText(RecruitmentCategoryActivity.this, getResources().getString(R.string.noLocation), Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -156,10 +148,6 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
 
         recruitment_type = Recruitment.RecruitType.getRecruitTypeByValue(getIntent().getExtras().getString(TRecruitmentType));
         recruitmentTypeTxVw.setText(recruitment_type.name());
-        //设置下拉菜单选项
-        spAdapter = new ArrayAdapter<RecruitmentListRequest.SortRule>(this, android.R.layout.simple_spinner_item, sortRules);
-        spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_sortType.setAdapter(spAdapter);
 
         //设置列表Adapter
         lv_list.setDividerHeight(2);
@@ -170,7 +158,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
         //for request
         request = new RecruitmentListRequest();
         recruitmentListResponse = new RecruitmentListResponse();
-        request.request(recruitmentListResponse, recruitment_type, "12", RecruitmentListRequest.SortRule.智能排序, 1);
+        request.request(recruitmentListResponse, recruitment_type, "", RecruitmentListRequest.SortRule.智能排序, pageIndex);
     }
 
     @Override
@@ -184,8 +172,8 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                 lv_list.stopRefresh();
             }
         }, 1000);
-
-        request.request(recruitmentListResponse, Recruitment.RecruitType.妆娘, "12", RecruitmentListRequest.SortRule.智能排序, 1);
+        pageIndex = 1;
+        request.request(recruitmentListResponse, recruitment_type, "", sortRules[selectedSortRule], pageIndex);
     }
 
     @Override
@@ -229,7 +217,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
                     recruitmentListViewAdapter.notifyDataSetChanged();
                 }
             }
-        }, Recruitment.RecruitType.妆娘, "12", RecruitmentListRequest.SortRule.智能排序, 1);
+        }, recruitment_type, "", sortRules[selectedSortRule], pageIndex);
     }
 
 
@@ -247,6 +235,8 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
         @Override
         public void success(List<Recruitment> recruitList) {
             //获取recruit信息
+            if (recruitList.size() == 0)
+                Toast.makeText(RecruitmentCategoryActivity.this, getResources().getString(R.string.noRecruit), Toast.LENGTH_SHORT).show();
             recruitmentListViewAdapter = new RecruitmentListViewAdapter(RecruitmentCategoryActivity.this, recruitList);
             lv_list.setAdapter(recruitmentListViewAdapter);
         }

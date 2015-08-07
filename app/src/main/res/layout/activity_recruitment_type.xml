@@ -16,16 +16,6 @@
             android:orientation="vertical"
             android:background="@color/bg_white">
             <!-- 排序下拉菜单-->
-            <!-- 不使用-->
-            <Spinner
-                android:visibility="gone"
-                android:id="@+id/sp_sortType"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                style="@style/text_pink_mid"
-                android:background="@color/bg_white"/>
-            <!-- 使用-->
             <LinearLayout
                 android:id="@+id/ll_sortType"
                 android:layout_width="match_parent"
