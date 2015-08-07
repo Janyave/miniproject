@@ -88,13 +88,7 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
         newDisplayListAdater = new NewDisplayListAdater(this);
         //for request
         request = new CreateRecruitmentRequest();
-//        responce = new ICreateRecruitmentResponce();
-
         getPersonalShareList();
-
-
-
-
     }
 
     @Override
@@ -116,13 +110,12 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
                 }
 
                 Recruitment recruitment = new Recruitment();
-                recruitment.averagePrice = price;
+                recruitment.averagePrice = newDisplayListAdater.getPrice();
                 recruitment.priceUnit = mRecruitType.getPriceUnit();
-                recruitment.description = descrp;
+                recruitment.description = newDisplayListAdater.getDes();
                 recruitment.coverUrl = newDisplayListAdater.getCheckedCoverUrl();
                 recruitment.recruitType = mRecruitType;
 
-//                recruitment.recruitmentId = "" + 1;
 //                recruitment.issueTimeStamp = System.currentTimeMillis() - 1 * 24 * 60 * 60 * 1000;
                 showProcessBar("挂牌中...");
                 request.request(new CreateRecruitmentResponce(), recruitment);

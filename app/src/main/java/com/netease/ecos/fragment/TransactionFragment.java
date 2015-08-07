@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
@@ -31,7 +31,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
 
     //all the widget in this page.
     private View mainView;
-    private ImageView makeupBtn, photographyBtn, backstageBtn, costumeBtn, propBtn, othersBtn;
+    private LinearLayout makeupBtn, photographyBtn, backstageBtn, costumeBtn, propBtn, othersBtn;
     private TextView releaseRecruitmentTxVw;
 
     /**
@@ -69,12 +69,12 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_transaction, container, false);
-        makeupBtn = (ImageView) mainView.findViewById(R.id.makeuper_btn);
-        photographyBtn = (ImageView) mainView.findViewById(R.id.photography_btn);
-        backstageBtn = (ImageView) mainView.findViewById(R.id.backstage_btn);
-        costumeBtn = (ImageView) mainView.findViewById(R.id.costume_btn);
-        propBtn = (ImageView) mainView.findViewById(R.id.prop_btn);
-        othersBtn = (ImageView) mainView.findViewById(R.id.others_btn);
+        makeupBtn = (LinearLayout) mainView.findViewById(R.id.makeuper_btn);
+        photographyBtn = (LinearLayout) mainView.findViewById(R.id.photography_btn);
+        backstageBtn = (LinearLayout) mainView.findViewById(R.id.backstage_btn);
+        costumeBtn = (LinearLayout) mainView.findViewById(R.id.costume_btn);
+        propBtn = (LinearLayout) mainView.findViewById(R.id.prop_btn);
+        othersBtn = (LinearLayout) mainView.findViewById(R.id.others_btn);
         releaseRecruitmentTxVw = (TextView) mainView.findViewById(R.id.releaseRecruitmentTxVw);
         makeupBtn.setOnClickListener(this);
         photographyBtn.setOnClickListener(this);
@@ -118,7 +118,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
         }
         intent = new Intent(getActivity(), RecruitmentCategoryActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(RecruitmentCategoryActivity.TRecruitmentType, recruitType.name());
+        bundle.putString(RecruitmentCategoryActivity.TRecruitmentType, recruitType.getValue());
         intent.putExtras(bundle);
         startActivity(intent);
     }

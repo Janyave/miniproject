@@ -53,7 +53,6 @@ public class CreateShareRequest extends BaseRequest{
 
 				map.put(JSON_STRING, getRequestShareJSon(share));
 
-
 				traceNormal(TAG, map.toString());
 				traceNormal(TAG, CreateShareRequest.this.getUrl(RequestUrlConstants.CREATE_SHARE_URL, map));
 				return map;

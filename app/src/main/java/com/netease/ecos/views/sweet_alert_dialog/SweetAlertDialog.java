@@ -15,6 +15,7 @@ import android.view.animation.Transformation;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
@@ -48,8 +49,9 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
     private View mSuccessRightMask;
     private Drawable mCustomImgDrawable;
     private ImageView mCustomImage;
-    private Button mConfirmButton;
-    private Button mCancelButton;
+    private TextView mConfirmButton;
+    private TextView mCancelButton;
+    private LinearLayout ll_buttons;
     private ProgressHelper mProgressHelper;
     private FrameLayout mWarningFrame;
     private OnSweetClickListener mCancelClickListener;
@@ -151,8 +153,9 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
         mSuccessRightMask = mSuccessFrame.findViewById(R.id.mask_right);
         mCustomImage = (ImageView)findViewById(R.id.custom_image);
         mWarningFrame = (FrameLayout)findViewById(R.id.warning_frame);
-        mConfirmButton = (Button)findViewById(R.id.confirm_button);
-        mCancelButton = (Button)findViewById(R.id.cancel_button);
+        mConfirmButton = (TextView)findViewById(R.id.confirm_button);
+        mCancelButton = (TextView)findViewById(R.id.cancel_button);
+        ll_buttons=(LinearLayout)findViewById(R.id.ll_buttons);
         mProgressHelper.setProgressWheel((ProgressWheel)findViewById(R.id.progressWheel));
         
         mConfirmButton.setOnClickListener(this);
@@ -220,6 +223,10 @@ public class SweetAlertDialog extends Dialog implements View.OnClickListener {
                 case PROGRESS_TYPE:
                     mProgressFrame.setVisibility(View.VISIBLE);
                     mConfirmButton.setVisibility(View.GONE);
+                    mCancelButton.setVisibility(View.GONE);  //TODO
+                    ll_buttons.setVisibility(View.GONE);
+                    mTitleTextView.setVisibility(View.GONE);
+                    mContentTextView.setVisibility(View.VISIBLE);
                     break;
             }
             if (!fromCreate) {

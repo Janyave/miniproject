@@ -38,6 +38,7 @@ public class ExhibitListViewAdapter extends BaseAdapter {
 
     public void updateDataList(List<Image> imageList) {
         this.imageList = imageList;
+        notifyDataSetChanged();
     }
 
     @Override

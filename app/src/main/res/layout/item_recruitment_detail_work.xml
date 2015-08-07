@@ -84,8 +84,7 @@
                     android:id="@+id/iv_praise"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@mipmap/ic_launcher"
-                    android:visibility="gone" />
+                    android:src="@mipmap/ic_praise_num" />
 
                 <TextView
                     android:id="@+id/tv_praise"
@@ -111,8 +110,7 @@
                     android:id="@+id/iv_evaluation"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@mipmap/ic_launcher"
-                    android:visibility="gone" />
+                    android:src="@mipmap/ic_evalution_num" />
 
                 <TextView
                     android:id="@+id/tv_evaluation"
