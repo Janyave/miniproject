@@ -8,11 +8,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.netease.ecos.R;
-import com.netease.ecos.database.CityDBService;
-import com.netease.ecos.database.ProvinceDBService;
-import com.netease.ecos.model.City;
+import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.ConfigurationService;
-import com.netease.ecos.model.Province;
 import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.initial.GetCityListRequest;
 import com.netease.ecos.request.initial.GetProvinceListRequest;
@@ -45,6 +42,12 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 
         initListener();
         initData();
+
+    }
+
+    private void startMainActivity() {
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        finish();
     }
 
     private void initListener() {
@@ -53,7 +56,19 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
     }
 
     private void initData() {
-        requestInitialData();
+
+        if(!isInitialDataLoaded())
+            requestInitialData();
+        else{
+            if(isLogined()){
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                finish();
+            }
+            else{
+                //展示登录和注册
+                showLoginAndRegist();
+            }
+        }
     }
 
     @Override
@@ -116,7 +131,6 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
         if(mInitialRequestList.size()==0)
         {
             initialDataLoaded = true;
-            startActivity(new Intent(this,MainActivity.class));
         }
     }
 
@@ -148,24 +162,9 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
 
         initialDataLoaded = true;
 
-        List<City> cityList = CityDBService.getCityDBServiceInstance(MyApplication.getContext())
-                .getCityList();
 
-        for(City city:cityList){
-            Log.e("城市", city.toString());
-        }
 
-        List<Province> provinceList = ProvinceDBService.getProvinceDBServiceInstance(MyApplication.getContext())
-                .getProvinceList();
 
-        for(Province province:provinceList){
-            Log.e("省", province.toString());
-        }
-
-        Log.e("查询河北", ProvinceDBService.getProvinceDBServiceInstance(MyApplication.getContext()).getProvinceId("河北"));
-        Log.e("查询河北", ProvinceDBService.getProvinceDBServiceInstance(MyApplication.getContext()).getProvinceId("浙江"));
-
-//        startActivity(new Intent(this, MainActivity.class));
     }
 
     /**
@@ -189,4 +188,50 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
             doAfterInitialResponse();
         }
     };
+
+    /***
+     * 基础数据是否加载过
+     * @return
+     */
+    public boolean isInitialDataLoaded(){
+        if(ConfigurationService.getConfigurationService(this).getProvinceDataDownloaded()
+                && ConfigurationService.getConfigurationService(this).getCityDataDownloaded())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /***
+     * 展示登录和注册
+     */
+    public void showLoginAndRegist(){
+
+        tv_login.setVisibility(View.VISIBLE);
+        tv_regist.setVisibility(View.VISIBLE);
+
+    }
+
+
+    /***
+     * 是否已经登陆过
+     * @return
+     */
+    public boolean isLogined(){
+        //如果已经登录过则直接登陆
+        AccountDataService accountService = AccountDataService.getSingleAccountDataService(this);
+        String token = accountService.getToken();
+        String imId = accountService.getUserAccId();
+        String imToken= accountService.getImToken();
+        //若存在token则直接登录
+        if( token!=null && imId!=null && imToken!=null &&
+                !"".equals(token) && !"".equals(imId) && !"".equals(imToken)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

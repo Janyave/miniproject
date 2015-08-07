@@ -21,7 +21,7 @@ public class Contact {
 	@DatabaseField
 	public String contactUserId;
 	
-	/*** 联系人用户id */
+	/*** 联系人用户昵称 */
 	@DatabaseField
 	public String contactNickName;
 	
