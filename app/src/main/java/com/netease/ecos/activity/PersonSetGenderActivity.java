@@ -120,17 +120,20 @@ public class PersonSetGenderActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void doAfterFailedResponse(String message) {
-                Toast.makeText(PersonSetGenderActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PersonSetGenderActivity.this, getResources().getString(R.string.personalInformationLoadError) + message, Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
             public void responseNoGrant() {
-
+                Toast.makeText(PersonSetGenderActivity.this, getResources().getString(R.string.personalInformationLoadError), Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                Toast.makeText(PersonSetGenderActivity.this, getResources().getString(R.string.personalInformationLoadError), Toast.LENGTH_SHORT).show();
+                finish();
             }
         }, user);
     }

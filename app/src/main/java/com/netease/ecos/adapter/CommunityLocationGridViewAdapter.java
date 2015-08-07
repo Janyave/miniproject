@@ -23,12 +23,12 @@ public class CommunityLocationGridViewAdapter extends BaseAdapter {
     private Context context;
     private String[] strings;
     private ViewHolder holder;
-    private int[] locationCommunityCount;
+//    private int[] locationCommunityCount;
 
-    public CommunityLocationGridViewAdapter(Context context, String[] strings, int[] locationCommunityCount) {
+    public CommunityLocationGridViewAdapter(Context context, String[] strings) {
         this.context = context;
         this.strings = strings;
-        this.locationCommunityCount = locationCommunityCount;
+//        this.locationCommunityCount = locationCommunityCount;
     }
 
     @Override
@@ -58,11 +58,14 @@ public class CommunityLocationGridViewAdapter extends BaseAdapter {
         } else
             holder = (ViewHolder) convertView.getTag();
 
-        // locationCommunityCount[]记录了地区活动的数量
-        if (locationCommunityCount[position] <= 99)
-            holder.btn.setText(strings[position] + " ( " + locationCommunityCount[position] + " )");
-        else
-            holder.btn.setText(strings[position] + " ( " + 99 + "+" + " )");
+//        // locationCommunityCount[]记录了地区活动的数量
+//        if (locationCommunityCount[position] <= 99)
+//            holder.btn.setText(strings[position] + " ( " + locationCommunityCount[position] + " )");
+//        else
+//            holder.btn.setText(strings[position] + " ( " + 99 + "+" + " )");
+
+        holder.btn.setText(strings[position]);
+
         holder.btn.setTag("Button" + position);
 
         // 使button不可以被点击，才会在点击button的时候触发父容器的onItemClick函数

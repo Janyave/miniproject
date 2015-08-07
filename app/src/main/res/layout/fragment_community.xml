@@ -73,7 +73,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="120dp"
-        android:layout_marginTop="@dimen/height_item_60px"
+        android:layout_marginTop="@dimen/height_item_51px"
         android:layout_weight="1"
         android:src="@drawable/ic_unpress_next_step" />
 
@@ -84,7 +84,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="44dp"
-        android:layout_marginTop="@dimen/height_item_60px"
+        android:layout_marginTop="@dimen/height_item_51px"
         android:layout_weight="1"
         android:src="@drawable/ic_unpress_next_step" />
 

@@ -138,17 +138,20 @@ public class PersonSetTagsActivity extends BaseActivity implements View.OnClickL
 
             @Override
             public void doAfterFailedResponse(String message) {
-                Toast.makeText(PersonSetTagsActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PersonSetTagsActivity.this, getResources().getString(R.string.personalInformationLoadError) + message, Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
             public void responseNoGrant() {
-
+                Toast.makeText(PersonSetTagsActivity.this, getResources().getString(R.string.personalInformationLoadError), Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                Toast.makeText(PersonSetTagsActivity.this, getResources().getString(R.string.personalInformationLoadError), Toast.LENGTH_SHORT).show();
+                finish();
             }
         }, user);
     }
