@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -176,6 +176,7 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(CommentDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -204,6 +205,7 @@ public class CommentDetailActivity extends Activity implements View.OnTouchListe
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(CommentDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

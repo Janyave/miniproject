@@ -5,11 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
@@ -27,8 +27,6 @@ import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.HorizontalListView;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -210,9 +208,9 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             if (activity.avatarUrl != null) {
                 iv_author_avator.setImageUrl("http://image.tianjimedia.com/uploadImages/upload/20140912/upload/201409/w4qlbtkmqrapng.png", imageLoader);
                 //init the data for NetWorkImageView
-                iv_author_avator.setDefaultImageResId(R.drawable.img_default);
+                iv_author_avator.setDefaultImageResId(R.mipmap.bg_female_default);
                 //设置加载出错图片
-                iv_author_avator.setErrorImageResId(R.drawable.img_default);
+                iv_author_avator.setErrorImageResId(R.mipmap.bg_female_default);
             }
             tv_author_name.setText(activity.nickname);
             tv_author_time.setText(activity.getDateDescription());
@@ -220,6 +218,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(ActivityDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -245,6 +244,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(ActivityDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

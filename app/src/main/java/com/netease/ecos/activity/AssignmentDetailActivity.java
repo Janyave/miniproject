@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,7 +27,6 @@ import com.netease.ecos.adapter.WorkDetailListViewAdapter;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
-import com.netease.ecos.request.comment.CommentListRequest;
 import com.netease.ecos.request.course.GetAssignmentDetailRequest;
 import com.netease.ecos.request.course.PraiseRequest;
 import com.netease.ecos.utils.SDImageCache;
@@ -104,8 +102,6 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
     //request
     private GetAssignmentDetailRequest request;
     private GetAssignmentDetailResponse assignmentDetailResponse;
-    private CommentListRequest commentListRequest;
-    private CommentListResponse commentListResponse;
     private PraiseRequest praiseRequest;
     private PraiseResponse praiseResponse;
 
@@ -158,9 +154,9 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         title_text.setText((workOrder + 1) + "/" + workList.size());
 
         //set the default image for NetWorkImageView
-        networkImageView.setDefaultImageResId(R.mipmap.ic_launcher);
+        networkImageView.setDefaultImageResId(R.drawable.img_default);
         //set the error image for NetWorkImageView
-        networkImageView.setErrorImageResId(R.mipmap.ic_launcher);
+        networkImageView.setErrorImageResId(R.drawable.img_default);
 
         //setAdapter
         commentListView.setAdapter(workDetailListViewAdapter);
@@ -218,8 +214,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         Bundle bundle = new Bundle();
         bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.作业.getBelongs());
         bundle.putString(CommentDetailActivity.FromId, workList.get(workOrder));
-        //TODO:add the attribute in the assignment
-        bundle.putBoolean(CommentDetailActivity.IsPraised, false);
+        bundle.putBoolean(CommentDetailActivity.IsPraised, assignment.hasPraised);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -228,14 +223,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CommentDetailActivity.RequestCodeForComment && resultCode == CommentDetailActivity.ResultCodeForComment) {
-            Comment comment = new Comment();
-            comment.commentType = Comment.CommentType.作业;
-            comment.commentTypeId = assignment.assignmentId;
-            if (commentListRequest == null)
-                commentListRequest = new CommentListRequest();
-            if (commentListResponse == null)
-                commentListResponse = new CommentListResponse();
-            commentListRequest.request(commentListResponse, comment, 1);
+            request.request(assignmentDetailResponse, workID);
         }
     }
 
@@ -277,6 +265,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(AssignmentDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -299,22 +288,6 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         }
     }
 
-    class CommentListResponse extends BaseResponceImpl implements CommentListRequest.ICommentListResponse {
-
-        @Override
-        public void success(List<Comment> commentList) {
-            workDetailListViewAdapter.updateCommentList(commentList);
-        }
-
-        @Override
-        public void doAfterFailedResponse(String message) {
-        }
-
-        @Override
-        public void onErrorResponse(VolleyError volleyError) {
-        }
-    }
-
     class PraiseResponse extends BaseResponceImpl implements PraiseRequest.IPraiseResponce {
 
         @Override
@@ -326,7 +299,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(AssignmentDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

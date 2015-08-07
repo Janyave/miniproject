@@ -9,14 +9,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.RecruitmentDetailWorkAdapter;
 import com.netease.ecos.model.Recruitment;
+import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.recruitment.GetRecruitmentDetailRequest;
+import com.netease.ecos.request.share.ShareListRequest;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -25,6 +30,8 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
 
     private static final String TAG = "Ecos---RecruitmentDet";
     public static final String RecruitID = "RecruitID";
+    public static final String RecruitType = "RecruitType";
+    public static final String UserId = "UserId";
 
     @InjectView(R.id.lly_right_action)
     LinearLayout title_right;
@@ -57,10 +64,14 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
     private RecruitmentDetailWorkAdapter recruitmentDetailWorkAdapter;
     private String recruitID = "";
     private Recruitment recruitment;
+    private Recruitment.RecruitType recruitType;
+    private String userId = "";
 
     //for request
     private GetRecruitmentDetailRequest request;
     private GetRecruitmentLDetailResponse response;
+    private ShareListRequest shareListRequest;
+    private ShareListResponse shareListResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +102,26 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
 
     private void initData() {
         recruitID = getIntent().getExtras().getString(RecruitID);
+        recruitType = Recruitment.RecruitType.getRecruitTypeByValue(getIntent().getExtras().getString(RecruitType));
+        userId = getIntent().getExtras().getString(UserId);
         request = new GetRecruitmentDetailRequest();
         response = new GetRecruitmentLDetailResponse();
+        shareListRequest = new ShareListRequest();
+        shareListResponse = new ShareListResponse();
+        Share.Tag tag = new Share.Tag();
+        if (recruitType == Recruitment.RecruitType.妆娘)
+            tag.isMakeup = true;
+        else if (recruitType == Recruitment.RecruitType.后期)
+            tag.isLater = true;
+        else if (recruitType == Recruitment.RecruitType.其他)
+            tag.isLater = true;
+        else if (recruitType == Recruitment.RecruitType.摄影)
+            tag.isLater = true;
+        else if (recruitType == Recruitment.RecruitType.服装)
+            tag.isLater = true;
+        else if (recruitType == Recruitment.RecruitType.道具)
+            tag.isLater = true;
+        shareListRequest.requestSomeOneShareWithTag(shareListResponse, userId, tag, 1);
         request.request(response, recruitID);
     }
 
@@ -135,7 +164,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(RecruitmentDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -152,9 +181,29 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
             tv_distance.setText(recruit.distanceKM + getResources().getString(R.string.KM));
             tv_price.setText(recruit.averagePrice + recruit.recruitType.getPriceUnit());
             tv_detail.setText(recruit.description);
-            recruitmentDetailWorkAdapter = new RecruitmentDetailWorkAdapter(RecruitmentDetailActivity.this, recruitment.shareList);
+        }
+
+    }
+
+    class ShareListResponse extends BaseResponceImpl implements ShareListRequest.IShareListResponse {
+
+        @Override
+        public void success(List<Share> shareList) {
+            if (shareList.size() == 0) {
+                Toast.makeText(RecruitmentDetailActivity.this, getResources().getString(R.string.noOtherShare), Toast.LENGTH_SHORT).show();
+            }
+            recruitmentDetailWorkAdapter = new RecruitmentDetailWorkAdapter(RecruitmentDetailActivity.this, shareList);
             lv_list.setAdapter(recruitmentDetailWorkAdapter);
         }
 
+        @Override
+        public void doAfterFailedResponse(String message) {
+            Toast.makeText(RecruitmentDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
     }
 }

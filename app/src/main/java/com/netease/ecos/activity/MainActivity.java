@@ -152,9 +152,9 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
      */
     private void initViews() {
         //init the data for NetWorkImageView
-        btn_open.setDefaultImageResId(R.drawable.img_default);
+        btn_open.setDefaultImageResId(R.mipmap.bg_female_default);
         //设置加载出错图片
-        btn_open.setErrorImageResId(R.drawable.img_default);
+        btn_open.setErrorImageResId(R.mipmap.bg_female_default);
         queue = Volley.newRequestQueue(this);
         imageCache = new SDImageCache();
         imageLoader = new ImageLoader(queue, imageCache);
@@ -237,7 +237,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         iv_tag3.setImageResource(R.mipmap.ic_activity);
         iv_tag4.setImageResource(R.mipmap.ic_recruite);
 
-        switch (index){
+        switch (index) {
             case TAB_COURSE_INDEX:
                 iv_tag1.setImageResource(R.mipmap.ic_crouse_check);
                 break;

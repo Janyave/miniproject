@@ -42,6 +42,7 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
     }
 
     public void updateCommentList(List<Comment> commentList) {
+        commentList.clear();
         this.commentList = commentList;
         notifyDataSetChanged();
     }
