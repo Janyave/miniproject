@@ -946,7 +946,7 @@ public class UserApiTestActivity extends BaseActivity {
 
     public void getFansUserList() {
         FollowedUserListRequest request = new FollowedUserListRequest();
-        request.requestMyFans(new FollowUserListResponce(), 1);
+        request.requestSomeOneFans(new FollowUserListResponce(),null, 1);
     }
 
 
