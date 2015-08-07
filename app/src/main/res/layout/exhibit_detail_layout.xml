@@ -96,7 +96,7 @@
                 android:layout_marginBottom="@dimen/margin_40px"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="1dp"
-                android:listSelector="@android:color/transparent"/>
+                android:listSelector="@android:color/transparent" />
 
             <include
                 layout="@layout/item_comment_title"
@@ -107,10 +107,10 @@
                 android:id="@+id/exhibitCommentLsVw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:listSelector="@android:color/transparent"
-                android:dividerHeight="0dp"
+                android:layout_marginBottom="@dimen/margin_110px"
                 android:divider="@android:color/transparent"
-                android:layout_marginBottom="@dimen/margin_110px"/>
+                android:dividerHeight="0dp"
+                android:listSelector="@android:color/transparent" />
         </LinearLayout>
 
     </ScrollView>

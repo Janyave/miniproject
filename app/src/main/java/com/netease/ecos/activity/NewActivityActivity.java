@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -284,7 +283,6 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
         new TimePickerDialog(NewActivityActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hour, int minute) {
-                // TODO Auto-generated method stub
                 mHour = hour;
                 mMinute = minute;
                 //更新EditText控件时间 小于10加0
@@ -326,6 +324,7 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(NewActivityActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

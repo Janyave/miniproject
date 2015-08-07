@@ -322,10 +322,9 @@ public class PersonalInfoSettingActivity extends BaseActivity {
 //            personal_info_set_avatar_pic.setImageBitmap(bitmap);
 //        }
         mAvatarUrl = setUser.avatarUrl;
-        if(mAvatarUrl!=null)
-        {
+        if (mAvatarUrl != null) {
             ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
-            personal_info_set_avatar_pic.setImageUrl(mAvatarUrl,imageLoader);
+            personal_info_set_avatar_pic.setImageUrl(mAvatarUrl, imageLoader);
         }
 
         Log.w("nickname", setUser.nickname);
@@ -343,7 +342,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         mSetIntro.setText(setUser.characterSignature);
     }
 
-    void setTagVisiable(Set<User.RoleType> roleTypeSet){
+    void setTagVisiable(Set<User.RoleType> roleTypeSet) {
         Log.w("roleType Size", roleTypeSet.size() + "");
         tv_tag1.setVisibility(View.GONE);
         tv_tag2.setVisibility(View.GONE);
@@ -352,8 +351,8 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         tv_tag5.setVisibility(View.GONE);
         tv_tag6.setVisibility(View.GONE);
 
-        for (User.RoleType roleType : roleTypeSet){
-            switch (roleType.getBelongs()){
+        for (User.RoleType roleType : roleTypeSet) {
+            switch (roleType.getBelongs()) {
                 case "0":
                     tv_tag1.setVisibility(View.VISIBLE);
                     break;
@@ -378,12 +377,12 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     }
 
 
-    /***
+    /**
      * 设置并上传头像
      */
-    public void setAndUploadAvatar( ){
+    public void setAndUploadAvatar() {
 
-        if(mAvatarLocalPath!=null && !"".equals(mAvatarLocalPath)){
+        if (mAvatarLocalPath != null && !"".equals(mAvatarLocalPath)) {
             UploadImageTools.uploadImageSys(new File(mAvatarLocalPath), new UploadImageTools.UploadCallBack() {
 
                 @Override
@@ -396,7 +395,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     user.avatarUrl = originUrl;
 
                     UpdateUserInfoRequest request = new UpdateUserInfoRequest();
-                    request.request(new UpdateAvatarResponse(),user);
+                    request.request(new UpdateAvatarResponse(), user);
 
                 }
 
@@ -415,21 +414,20 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     }
 
 
-    class UpdateAvatarResponse extends BaseResponceImpl implements NorResponce{
+    class UpdateAvatarResponse extends BaseResponceImpl implements NorResponce {
 
         @Override
         public void success() {
-            if(mAvatarUrl!=null)
-            {
+            if (mAvatarUrl != null) {
                 ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
-                personal_info_set_avatar_pic.setImageUrl(mAvatarUrl,imageLoader);
+                personal_info_set_avatar_pic.setImageUrl(mAvatarUrl, imageLoader);
             }
 
         }
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            Toast.makeText(PersonalInfoSettingActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

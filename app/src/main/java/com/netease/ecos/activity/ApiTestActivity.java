@@ -63,7 +63,6 @@ public class ApiTestActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_api);
@@ -145,7 +144,6 @@ public class ApiTestActivity extends BaseActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
 
             }
 
@@ -426,13 +424,11 @@ public class ApiTestActivity extends BaseActivity {
 
         @Override
         public void doAfterFailedResponse(String message) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            // TODO Auto-generated method stub
 
         }
 
@@ -568,7 +564,6 @@ public class ApiTestActivity extends BaseActivity {
 
         @Override
         public void doAfterFailedResponse(String message) {
-            // TODO Auto-generated method stub
 
         }
 
@@ -696,13 +691,11 @@ public class ApiTestActivity extends BaseActivity {
 
         @Override
         public void doAfterFailedResponse(String message) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            // TODO Auto-generated method stub
 
         }
 
@@ -883,8 +876,6 @@ public class ApiTestActivity extends BaseActivity {
 
         @Override
         public void doAfterFailedResponse(String message) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
@@ -940,14 +931,10 @@ public class ApiTestActivity extends BaseActivity {
 
         @Override
         public void doAfterFailedResponse(String message) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
@@ -987,14 +974,10 @@ public class ApiTestActivity extends BaseActivity {
 
         @Override
         public void doAfterFailedResponse(String message) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            // TODO Auto-generated method stub
-
         }
 
         @Override

@@ -15,7 +15,6 @@ import com.netease.ecos.R;
 import com.netease.ecos.activity.CourseCategoryActivity;
 import com.netease.ecos.activity.PhotoAlbumActivity;
 import com.netease.ecos.activity.SearchActivity;
-import com.netease.ecos.adapter.CampaignListViewAdapter;
 import com.netease.ecos.adapter.DisplayListViewAdapter;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
@@ -251,7 +250,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
             @Override
             public void doAfterFailedResponse(String message) {
-
+                Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -356,6 +355,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

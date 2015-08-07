@@ -14,15 +14,13 @@ import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.request.user.UpdateUserInfoRequest;
 
-import org.w3c.dom.Text;
-
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
  * Created by hzjixinyu on 2015/8/5.
  */
-public class PersonSetGenderActivity extends BaseActivity implements View.OnClickListener{
+public class PersonSetGenderActivity extends BaseActivity implements View.OnClickListener {
     @InjectView(R.id.lly_right_action)
     LinearLayout title_right;
     @InjectView(R.id.tv_right_text)
@@ -73,10 +71,10 @@ public class PersonSetGenderActivity extends BaseActivity implements View.OnClic
 
     private void initData() {
         //TODO
-        if (true){  //if male
+        if (true) {  //if male
             iv_male.setVisibility(View.VISIBLE);
             iv_female.setVisibility(View.GONE);
-        }else{   //if femlale
+        } else {   //if femlale
             iv_male.setVisibility(View.GONE);
             iv_female.setVisibility(View.VISIBLE);
         }
@@ -91,7 +89,7 @@ public class PersonSetGenderActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.lly_left_action:
                 finish();
                 break;
@@ -111,6 +109,7 @@ public class PersonSetGenderActivity extends BaseActivity implements View.OnClic
                 break;
         }
     }
+
     void sendUser(User user) {
         request.request(new NorResponce() {
             @Override
@@ -121,7 +120,7 @@ public class PersonSetGenderActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void doAfterFailedResponse(String message) {
-
+                Toast.makeText(PersonSetGenderActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
