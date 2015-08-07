@@ -1,6 +1,8 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,9 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.NormalListViewActivity;
+import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.model.User;
+import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
@@ -43,7 +51,7 @@ public class EventWantGoAdapter extends BaseAdapter{
 
     class ViewHolder implements View.OnClickListener{
 
-        private ImageView iv_avatar;
+        private RoundImageView iv_avatar;
         private ImageView iv_relation;
         private LinearLayout ll_tagList;
         private TextView tv_name;
@@ -52,7 +60,7 @@ public class EventWantGoAdapter extends BaseAdapter{
 
 
         public ViewHolder(View root) {
-            iv_avatar = (ImageView) root.findViewById(R.id.iv_avatar);
+            iv_avatar = (RoundImageView) root.findViewById(R.id.iv_avatar);
             iv_relation = (ImageView) root.findViewById(R.id.iv_relation);
             ll_tagList = (LinearLayout)root.findViewById(R.id.ll_tagList);
             tv_name = (TextView) root.findViewById(R.id.tv_name);
@@ -77,7 +85,13 @@ public class EventWantGoAdapter extends BaseAdapter{
 
             User item=userList.get(position);
 
-            Picasso.with(mcontext).load(item.avatarUrl).placeholder(R.mipmap.bg_female_default).into(iv_avatar);
+            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+            iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+            RequestQueue queue = Volley.newRequestQueue(mcontext);
+            ImageLoader.ImageCache imageCache = new SDImageCache();
+            ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+            iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
+
             tv_name.setText(item.nickname);
             tv_signature.setText(item.characterSignature);
 
@@ -105,16 +119,24 @@ public class EventWantGoAdapter extends BaseAdapter{
 
         @Override
         public void onClick(View v) {
+            Intent intent;
+            Bundle bundle=new Bundle();
             switch (v.getId()){
                 case R.id.iv_avatar:
-                    //TODO 个人界面
+                    intent = new Intent(mcontext, PersonageDetailActivity.class);
+                    bundle.putString(PersonageDetailActivity.UserID, userList.get((int)v.getTag()).userId);
+                    bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
+                    intent.putExtras(bundle);
                     Toast.makeText(mcontext, "个人界面", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.tv_contact:
                     //TODO 私信界面
                     Toast.makeText(mcontext, "私信界面", Toast.LENGTH_SHORT).show();
-                    break;
+                    return;
+                default:
+                    return;
             }
+            mcontext.startActivity(intent);
         }
     }
 

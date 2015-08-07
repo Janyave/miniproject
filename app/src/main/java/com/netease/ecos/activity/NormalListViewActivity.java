@@ -40,7 +40,7 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
     public final static int TYPE_EVENT_FANS=1;
     public final static int TYPE_EVENT_ATTENTION=2;
 
-
+    private int TYPE=TYPE_EVENT_WANTGO;  //当前Activity类型
 
     private EventWantGoAdapter eventWantGoAdapter;
 
@@ -50,14 +50,17 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
         setContentView(R.layout.activity_listview_normal);
         ButterKnife.inject(this);
 
-        int type=getIntent().getExtras().getInt(LISTVIEW_TYPE);
+        TYPE=getIntent().getExtras().getInt(LISTVIEW_TYPE);
 
-        switch (type){
+        switch (TYPE){
             case TYPE_EVENT_WANTGO:
                 initEventWantGo();
                 break;
             case TYPE_EVENT_ATTENTION:
-                initFollowsGo();
+                initFollows();
+                break;
+            case TYPE_EVENT_FANS:
+                initFans();
                 break;
         }
     }
@@ -74,16 +77,24 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
 
     }
 
-    private void initFollowsGo() {
+    private void initFollows() {
         title_left.setOnClickListener(this);
         title_right.setVisibility(View.INVISIBLE);
         title_text.setText("我的关注");
 
-
         FollowedUserListRequest request  = new FollowedUserListRequest();
         request.requestMyFollows(new followedUserListRequest(), 1);
-        showProcessBar("获取粉丝列表");
+        showProcessBar("获取关注列表");
+    }
 
+    private void initFans() {
+        title_left.setOnClickListener(this);
+        title_right.setVisibility(View.INVISIBLE);
+        title_text.setText("我的粉丝");
+
+        FollowedUserListRequest request  = new FollowedUserListRequest();
+        request.requestSomeOneFans(new followedUserListRequest(), null, 1);
+        showProcessBar("获取粉丝列表");
     }
 
     @Override
@@ -100,8 +111,14 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
         @Override
         public void success(List<User> userList) {
             dismissProcessBar();
-            eventWantGoAdapter=new EventWantGoAdapter(NormalListViewActivity.this, TYPE_EVENT_ATTENTION, userList);
-            lv_list.setAdapter(eventWantGoAdapter);
+            if (TYPE==TYPE_EVENT_ATTENTION) {
+                eventWantGoAdapter = new EventWantGoAdapter(NormalListViewActivity.this, TYPE_EVENT_ATTENTION, userList);
+                lv_list.setAdapter(eventWantGoAdapter);
+            }
+            if (TYPE==TYPE_EVENT_FANS) {
+                eventWantGoAdapter = new EventWantGoAdapter(NormalListViewActivity.this, TYPE_EVENT_FANS, userList);
+                lv_list.setAdapter(eventWantGoAdapter);
+            }
         }
 
         @Override

@@ -125,17 +125,17 @@
         android:textColor="#575757"
         android:layout_marginTop="10dp"
         android:singleLine="true"
-        android:text="标题下方文字" />
+        android:text="标题下方文字"
+        style="@style/text_dark_max"/>
 
     <TextView
         android:id="@+id/content_text"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
         android:gravity="center"
-        android:textColor="#797979"
-        android:visibility="gone" />
+        android:text="1111111"
+        style="@style/text_gray_mid"/>
 <!--         android:textAlignment="center" -->
 
     <LinearLayout
@@ -147,9 +147,7 @@
         <Button
             android:id="@+id/cancel_button"
             style="@style/dialog_blue_button"
-            android:background="@drawable/gray_button_background"
             android:layout_marginRight="10dp"
-            android:visibility="gone"
             android:text="cancel" />
 
         <Button
