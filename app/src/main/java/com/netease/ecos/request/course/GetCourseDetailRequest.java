@@ -167,9 +167,9 @@ public class GetCourseDetailRequest extends BaseRequest {
     public void request(ICourseDetailResponse courseDetailRespnce, final String courseId) {
         super.initBaseRequest(courseDetailRespnce);
         mCourseDetailRespnce = courseDetailRespnce;
-		
+
 		/*if(mCourseDetailRespnce!=null)
-		{
+        {
 			mCourseDetailRespnce.success(getTestCourse());
 		}		*/
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COURSE_DETAIL_URL, this, this) {
@@ -254,7 +254,6 @@ public class GetCourseDetailRequest extends BaseRequest {
                     course.addStep(assignment);
                 }
             }
-
 
             String commentNum = getString(courseJO, KEY_COMMENT_MUN);
             course.commentNum = "".equals(commentNum) ? 0 : Integer.valueOf(commentNum);

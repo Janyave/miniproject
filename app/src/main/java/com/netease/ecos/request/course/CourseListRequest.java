@@ -274,7 +274,6 @@ public class CourseListRequest extends BaseRequest {
                 mBaseResponse.doAfterFailedResponse("json异常");
             }
         }
-
     }
 
     /**

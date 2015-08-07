@@ -209,6 +209,14 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
                 }
                 followUserRequest.request(followResponce, share.userId, true);
                 break;
+            case R.id.exhibitPersonImgVw:
+                Intent intent1 = new Intent(DisplayDetailActivity.this, PersonageDetailActivity.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putBoolean(PersonageDetailActivity.IsOwn, false);
+                bundle1.putString(PersonageDetailActivity.UserID, share.userId);
+                intent1.putExtras(bundle1);
+                startActivity(intent1);
+                break;
         }
     }
 
