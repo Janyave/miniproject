@@ -122,6 +122,7 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
                 break;
             case R.id.lly_right_action:
                 //TODO change
+                System.out.println(TYPE);
                 switch (TYPE) {
                     case TYPE_NAME:
                         user.nickname = et_input.getText().toString();
@@ -170,17 +171,20 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
 
             @Override
             public void doAfterFailedResponse(String message) {
-                Toast.makeText(PersonSetInformationNormalActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PersonSetInformationNormalActivity.this, getResources().getString(R.string.personalInformationLoadError) + message, Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
             public void responseNoGrant() {
-
+                Toast.makeText(PersonSetInformationNormalActivity.this, getResources().getString(R.string.personalInformationLoadError), Toast.LENGTH_SHORT).show();
+                finish();
             }
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                Toast.makeText(PersonSetInformationNormalActivity.this, getResources().getString(R.string.personalInformationLoadError), Toast.LENGTH_SHORT).show();
+                finish();
             }
         }, user);
     }

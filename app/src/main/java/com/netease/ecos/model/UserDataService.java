@@ -51,6 +51,8 @@ public class UserDataService {
 	/*** 存储{@link User#fansNum} */
 	public static final  String FANS_NUM = "fansNum";
 
+	/*** 存储{@link User#roleTypeSet} */
+	public static final  String ROLE_TYPE = "roleTypes";
 
 	private String DEFAULT_VALUE = "";
 
@@ -98,6 +100,7 @@ public class UserDataService {
 		editor.putString(GENDER, user.gender.getValue());
 		editor.putString(FOLLOW_OTHER_NUM, user.followOtherNum);
 		editor.putString(FANS_NUM, user.fansNum);
+		editor.putString(ROLE_TYPE, user.getSortRoleString());
 
 		editor.commit();
 	}
@@ -125,7 +128,7 @@ public class UserDataService {
 
 		user.followOtherNum = sharedPreferences.getString(FOLLOW_OTHER_NUM, DEFAULT_VALUE);
 		user.fansNum = sharedPreferences.getString(FANS_NUM, DEFAULT_VALUE);
-
+		user.roleTypeSet = user.getRoleTypeByString(sharedPreferences.getString(ROLE_TYPE, DEFAULT_VALUE) );
 		return user;
 	}
 
