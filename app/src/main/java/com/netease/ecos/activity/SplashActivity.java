@@ -165,7 +165,7 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
         Log.e("查询河北", ProvinceDBService.getProvinceDBServiceInstance(MyApplication.getContext()).getProvinceId("河北"));
         Log.e("查询河北", ProvinceDBService.getProvinceDBServiceInstance(MyApplication.getContext()).getProvinceId("浙江"));
 
-        startActivity(new Intent(this, MainActivity.class));
+//        startActivity(new Intent(this, MainActivity.class));
     }
 
     /**
