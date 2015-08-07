@@ -162,7 +162,7 @@ public class AccountDataService {
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
 
-		return sharedPreferences.getString(COOKIE, "1");
+		return sharedPreferences.getString(COOKIE, "");
 	}
 
 
@@ -174,7 +174,7 @@ public class AccountDataService {
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
 
-		return sharedPreferences.getString(USER_ID, "1");
+		return sharedPreferences.getString(USER_ID, "");
 	}
 
 
@@ -208,7 +208,7 @@ public class AccountDataService {
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
 
-		return sharedPreferences.getString(TOKEN, "1");
+		return sharedPreferences.getString(TOKEN, "");
 	}
 
 	/****
@@ -218,7 +218,7 @@ public class AccountDataService {
 	public String getAutoCode()
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
-		return sharedPreferences.getString(AUTOCODE, "-1");
+		return sharedPreferences.getString(AUTOCODE, "");
 	}
 
 	/**
@@ -228,6 +228,10 @@ public class AccountDataService {
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,WRITE_MODE);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
+
+		editor.putString(USER_ID,null);
+		editor.putString(USER_ACCID,null);
+		editor.putString(IM_TOKEN,null);
 
 		editor.commit();
 	}

@@ -56,13 +56,13 @@ public class MyStringRequest extends Request<String>{
         String value="";
         String token = AccountDataService.getSingleAccountDataService(MyApplication.getContext()).getToken();
         Log.e("MyStringRequest", "token---------"  + token);
-        if(token!=null){
+        if(token!=null && !"".equals(token)){
             value = value+"TOKEN=" + token + ";" ;
         }
 
         String sessionId = AccountDataService.getSingleAccountDataService(MyApplication.getContext()).getAutocodeCookie();
         Log.e("MyStringRequest", "sessionId---------"  + sessionId);
-        if(sessionId!=null){
+        if(sessionId!=null && "".equals(sessionId)){
             value = value+"SESSIONID=" + sessionId + ";" ;
         }
 
