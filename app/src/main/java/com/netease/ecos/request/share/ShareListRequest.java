@@ -179,8 +179,6 @@ public class ShareListRequest extends BaseRequest {
         super.initBaseRequest(shareListResponse);
         mShareListResponse = shareListResponse;
 
-        //		shareListResponse.success(getTestShareList());
-
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_SHARE_LIST_URL, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -217,8 +215,6 @@ public class ShareListRequest extends BaseRequest {
         super.initBaseRequest(shareListResponse);
         mShareListResponse = shareListResponse;
 
-        //		shareListResponse.success(getTestShareList());
-
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_SHARE_LIST_URL, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -252,8 +248,6 @@ public class ShareListRequest extends BaseRequest {
     public void requestOtherShareList(IShareListResponse shareListResponse, final String otherUserId, final int pageIndex) {
         super.initBaseRequest(shareListResponse);
         mShareListResponse = shareListResponse;
-
-        //		shareListResponse.success(getTestShareList());
 
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_SHARE_LIST_URL, this, this) {
             @Override
@@ -297,8 +291,6 @@ public class ShareListRequest extends BaseRequest {
                                            final Share.Tag tags, final int pageIndex) {
         super.initBaseRequest(shareListResponse);
         mShareListResponse = shareListResponse;
-
-        //		shareListResponse.success(getTestShareList());
 
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_SHARE_LIST_URL, this, this) {
             @Override

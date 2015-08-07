@@ -118,7 +118,11 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         initViews();
         initData();
 
+        Log.e(TAG, "-----------------------------------------------------------------------------");
         Log.e(TAG, UserDataService.getSingleUserDataService(this).getUser().toString());
+        Log.e(TAG, "userId:" + UserDataService.getSingleUserDataService(this).getUser().userId);
+        Log.e(TAG, UserDataService.getSingleUserDataService(this).getUser().imId);
+        Log.e(TAG, "-----------------------------------------------------------------------------");
     }
 
     @Override
