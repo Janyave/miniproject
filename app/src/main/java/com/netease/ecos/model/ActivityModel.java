@@ -98,7 +98,7 @@ public class ActivityModel {
     /**
      * 想去的人数
      */
-    public String loveNums;
+    public int loveNums;
 
     /**
      * 活动地址
@@ -304,13 +304,13 @@ public class ActivityModel {
     /**
      * 联系方式包装对象
      */
-    public static class Contact{
+    public static class Contact {
 
         public ContactWay contactWay;
 
         public String value;
 
-        public Contact(){
+        public Contact() {
             contactWay = ContactWay.QQ;
             value = "";
         }

@@ -116,6 +116,7 @@ public class GetActivityDetailRequest extends BaseRequest {
                 user.nickname = signUpUserJO.getString("nickName");
                 activity.signUpUseList.add(user);
             }
+            activity.loveNums = activity.signUpUseList.size();
 
             activity.hasSignuped = activityJO.getBoolean("hasSignuped");
             activity.hasStarted = activityJO.getBoolean("hasStarted");
