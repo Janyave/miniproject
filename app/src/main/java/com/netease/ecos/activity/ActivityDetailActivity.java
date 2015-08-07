@@ -112,7 +112,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         title_left.setOnClickListener(this);
         title_right.setOnClickListener(this);
         title_text.setText("");
-        title_right_text.setText("");
+        title_right_text.setVisibility(View.GONE);
     }
 
     private void initData() {
@@ -141,8 +141,6 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         tv_wantgo.setOnClickListener(this);
         iv_author_avator.setOnClickListener(this);
         tv_author_name.setOnClickListener(this);
-        ll_wantgo_icons.setOnClickListener(this);
-        tv_wangoNum.setOnClickListener(this);
     }
 
     @Override
@@ -166,13 +164,6 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
-            case R.id.ll_wantgo_icons:
-            case R.id.tv_wangoNum:
-                Intent intent1 = new Intent(ActivityDetailActivity.this, NormalListViewActivity.class);
-                Bundle bundle1 = new Bundle();
-                bundle1.putInt(NormalListViewActivity.LISTVIEW_TYPE, NormalListViewActivity.TYPE_EVENT_WANTGO);
-                intent1.putExtras(bundle1);
-                startActivity(intent1);
             default:
                 break;
         }
