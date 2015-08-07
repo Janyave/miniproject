@@ -381,12 +381,12 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                             campaignListViewAdapter.setActivityList(activityList);
                             campaignListViewAdapter.notifyDataSetChanged();
                             lv_campaign.smoothScrollToPosition(0);  // ListView回到顶部
-                            pageIndex = 0;
                         }
                     }
 //                }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
                 }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
 
+                pageIndex = 0;
                 btn_location.setText((CharSequence) msg.obj);
                 popupWindowLocation.dismiss();
                 iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
@@ -466,12 +466,12 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                     campaignListViewAdapter.setActivityList(activityList);
                     campaignListViewAdapter.notifyDataSetChanged();
                     lv_campaign.smoothScrollToPosition(0);  // ListView回到顶部
-                    pageIndex = 0;
                 }
             }
 //        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
         }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
 
+        pageIndex = 0;
         btn_categary.setText(strCategory);
         int length = 0;
         if (strCategory.equals("LIVE"))

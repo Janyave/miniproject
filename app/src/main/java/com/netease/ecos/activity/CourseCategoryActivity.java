@@ -135,6 +135,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                     PopupHelper.showSixTypePopupWindow(popupSixType, CourseCategoryActivity.this, v, new PopupHelper.IPopupListner() {
                         @Override
                         public void clickListner(int type, View v, PopupWindow popupWindow) {
+                            pageIndex = 0;
                             tv_left.setText(((RadioButton) v).getText().toString());
                             courseType = courseTypes[type];
                             request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[selectPosition], 0);
@@ -366,6 +367,7 @@ public class CourseCategoryActivity extends Activity implements View.OnClickList
                         selectPosition = 1;
                         break;
                 }
+                pageIndex = 0;
                 tv_sortText.setText(((RadioButton) rg.getChildAt(selectPosition)).getText().toString());
                 ((RadioButton) rg.getChildAt(selectPosition)).setTextColor(getResources().getColor(R.color.text_red));
                 Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
