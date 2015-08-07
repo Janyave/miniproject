@@ -21,6 +21,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.adapter.PersonActivityAdapter;
 import com.netease.ecos.adapter.PersonCourseAdapter;
 import com.netease.ecos.adapter.PersonDisplayAdapter;
+import com.netease.ecos.adapter.PersonRecruitAdapter;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.model.Recruitment;
@@ -122,7 +123,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
     private PersonDisplayAdapter personDisplayAdapter;
     private PersonActivityAdapter personActivityAdapter;
     //TODO 其他Adapter
-    //private PersonRecruitAdapter personRecruitAdapter;
+    private PersonRecruitAdapter personRecruitAdapter;
 
 
     @Override
@@ -164,12 +165,11 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
             userID = getIntent().getExtras().getString(UserID);
             getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, userID);
         }
-        Log.d("ZYW_1234567890","My user id is "+userID);
         Toast.makeText(this,"userId is "+userID,Toast.LENGTH_SHORT).show();
         courseListRequest.requestOtherCourse(courseListResponce, userID, mCoursePageIndex);
         shareListRequest.requestOtherShareList(shareListResponse, userID, mSharePageIndex);
         activityListRequest.requestOtherActivityList(activityListResponse, userID, mActivityPageIndex);
-        //recruitmentListRequest.requestSomeone(recruitmentListResponse, userID, mRecruitmentPageIndex);
+        recruitmentListRequest.requestSomeone(recruitmentListResponse, userID, mRecruitmentPageIndex);
     }
 
     void setData() {
@@ -216,11 +216,12 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         personDisplayAdapter = new PersonDisplayAdapter(this);
         personActivityAdapter = new PersonActivityAdapter(this);
         //TODO  personRecuritmentAdapter.
-        //personRecruitAdapter = new PersonRecruitAdapter(this);
+        personRecruitAdapter = new PersonRecruitAdapter(this);
 
         personCourseAdapter.SetCourseList(mCourse);
         personDisplayAdapter.setShareList(mShare);
         personActivityAdapter.setActivityList(mActivity);
+        personRecruitAdapter.setRecruitmentList(mRecruitment);
         lv_list.setAdapter(personCourseAdapter);
 
         //set checked
@@ -291,8 +292,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
                     break;
                 case R.id.radio_4:
                     ((RadioButton) findViewById(R.id.radio_4)).setTextColor(getResources().getColor(R.color.text_red));
-                    Toast.makeText(PersonageDetailActivity.this, "CHANGE ADAPTER", Toast.LENGTH_SHORT).show();
-                    //lv_list.setAdapter(personRecruitAdapter);
+                    lv_list.setAdapter(personRecruitAdapter);
                     break;
             }
         }
@@ -407,8 +407,12 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         @Override
         public void success(List<Recruitment> recruitmentList) {
             //TODO recruitment success response.
-            //personRecruitAdapter.getActivityList().addAll(recruitmentList);
-            //personRecruitAdapter.notifyDataSetChanged();
+            if (personRecruitAdapter == null){
+                personRecruitAdapter = new PersonRecruitAdapter(PersonageDetailActivity.this);
+                personRecruitAdapter.setRecruitmentList(mRecruitment);
+            }
+            personRecruitAdapter.getRecruitmentList().addAll(recruitmentList);
+            personRecruitAdapter.notifyDataSetChanged();
         }
 
         @Override
