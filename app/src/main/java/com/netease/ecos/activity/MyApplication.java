@@ -16,7 +16,6 @@ import com.baidu.location.LocationClientOption;
 import com.netease.ecos.R;
 import com.netease.ecos.model.LocationData;
 import com.netease.ecos.model.LocationDataService;
-import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.user.SendLocationRequest;
 import com.netease.ecos.utils.MyMediaScanner;
@@ -74,7 +73,7 @@ public class MyApplication extends Application {
         NIMClient.init(this, getLoginInfo(), getOptions());
 
         //模拟存储用户数据.
-        saveTestUserData();
+//        saveTestUserData();
 
         Log.e("tag","---------------" + UserDataService.getSingleUserDataService(this).getUser().toString());
 
@@ -95,7 +94,7 @@ public class MyApplication extends Application {
         //百度定位---------------------结束
     }
 
-    private void saveTestUserData() {
+    /*private void saveTestUserData() {
 
         User user = new User();
 
@@ -112,7 +111,7 @@ public class MyApplication extends Application {
         user.fansNum = "20";
 
         UserDataService.getSingleUserDataService(this).saveUser(user);
-    }
+    }*/
 
 
     /***

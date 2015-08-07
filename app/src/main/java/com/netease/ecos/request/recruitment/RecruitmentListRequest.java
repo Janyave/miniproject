@@ -103,8 +103,6 @@ public class RecruitmentListRequest extends BaseRequest {
         super.initBaseRequest(recruitmentListResponse);
         mRecruitmentListResponse = recruitmentListResponse;
 
-        //		recruitmentListResponse.success(getTestRecruitmentList());
-
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_RECRUITMENT_LIST_URL, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -136,8 +134,6 @@ public class RecruitmentListRequest extends BaseRequest {
     public void requestMyself(IRecruitmentListResponse recruitmentListResponse, final int pageIndex) {
         super.initBaseRequest(recruitmentListResponse);
         mRecruitmentListResponse = recruitmentListResponse;
-
-        recruitmentListResponse.success(getTestRecruitmentList());
 
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_RECRUITMENT_LIST_URL, this, this) {
             @Override
@@ -173,8 +169,6 @@ public class RecruitmentListRequest extends BaseRequest {
     public void requestSomeone(IRecruitmentListResponse recruitmentListResponse, final String otherUserId, final int pageIndex) {
         super.initBaseRequest(recruitmentListResponse);
         mRecruitmentListResponse = recruitmentListResponse;
-
-        recruitmentListResponse.success(getTestRecruitmentList());
 
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_RECRUITMENT_LIST_URL, this, this) {
             @Override

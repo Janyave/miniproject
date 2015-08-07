@@ -262,7 +262,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                 case R.id.personal_info_logout:
 
                     AccountDataService.getSingleAccountDataService(PersonalInfoSettingActivity.this).clearAllDataExceptUsername();
-
+                    UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this).clearAllData();
 
                     Intent intent = new Intent(PersonalInfoSettingActivity.this, SplashActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
