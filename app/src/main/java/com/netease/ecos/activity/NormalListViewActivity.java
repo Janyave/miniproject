@@ -1,6 +1,7 @@
 package com.netease.ecos.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -10,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.EventWantGoAdapter;
 import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.user.FollowedUserListRequest;
 
@@ -52,6 +54,8 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
 
         TYPE=getIntent().getExtras().getInt(LISTVIEW_TYPE);
 
+        check();
+
         switch (TYPE){
             case TYPE_EVENT_WANTGO:
                 initEventWantGo();
@@ -62,6 +66,13 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
             case TYPE_EVENT_FANS:
                 initFans();
                 break;
+        }
+    }
+
+    private void check() {
+        String id= UserDataService.getSingleUserDataService(NormalListViewActivity.this).getUser().userId;
+        if (TextUtils.isEmpty(id)){
+
         }
     }
 
@@ -123,12 +134,12 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void doAfterFailedResponse(String message) {
-
+            dismissProcessBar();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-
+            dismissProcessBar();
         }
     }
 }

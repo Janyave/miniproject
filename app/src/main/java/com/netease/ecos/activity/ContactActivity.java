@@ -83,7 +83,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
         initTitle();
         initListener();
-        initData();
+
 
 //        IM_ID = targetUserID;
         NIMClient.getService(MsgService.class).setChattingAccount(
@@ -93,15 +93,49 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
         regeisterObserver();
 
-
-
+        initData();
     }
 
     private void initTitle() {
         title_left.setOnClickListener(this);
         title_right.setVisibility(View.INVISIBLE);
-        title_right_text.setText("评论");
-        title_text.setText("xxxNAME");
+        title_text.setText("");
+
+
+        try{
+            Bundle bundle=getIntent().getExtras();
+            targetUserID=bundle.getString(TargetUserID);
+            targetUserAvatar=bundle.getString(TargetUserAvatar);
+            targetUserName=bundle.getString(TargetUserName);
+            targetUserIMID=bundle.getString(TargetUserIMID);
+            Log.v("contact","targetIMID--------   "+targetUserIMID);
+            Log.v("contact","targetID--------   "+targetUserID);
+            Log.v("contact","MyIMID--------   "+ UserDataService.getSingleUserDataService(this).getUser().imId);
+            Log.v("contact","MyID--------   "+UserDataService.getSingleUserDataService(this).getUser().userId);
+        }catch (Exception e){
+            e.printStackTrace();
+            SweetAlertDialog sweetAlertDialog=new SweetAlertDialog(ContactActivity.this, SweetAlertDialog.ERROR_TYPE);
+            sweetAlertDialog.setTitle("错误");
+            sweetAlertDialog.setContentText("错误的用户信息");
+            sweetAlertDialog.setConfirmText("朕知道了");
+            sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    finish();
+                }
+            });
+
+            Log.v("contact", "targetIMID--------" + "Error Intent");
+        }
+
+        //        targetUserIMID=IM_ID;
+//        targetUserAvatar="http://p2.gexing.com/touxiang/20120812/2335/5027cd5ea61c8.jpg";
+//        targetUserID="1";
+
+        Log.v("contact", "targetID" + targetUserIMID);
+
+        title_text.setText(targetUserName);
+
     }
 
 
@@ -136,49 +170,12 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                         et_input.getText().toString() // 文本内容
                 );
                 NIMClient.getService(MsgService.class).sendMessage(message, false);
-
                 et_input.setText("");
                 break;
         }
     }
 
     private void initData() {
-        try{
-            Bundle bundle=getIntent().getExtras();
-            targetUserID=bundle.getString(TargetUserID);
-            targetUserAvatar=bundle.getString(targetUserAvatar);
-            targetUserName=bundle.getString(targetUserName);
-            targetUserIMID=bundle.getString(targetUserIMID);
-            Log.v("contact","targetIMID--------"+targetUserIMID);
-            Log.v("contact","targetID--------"+targetUserID);
-            Log.v("contact","MyIMID--------"+ UserDataService.getSingleUserDataService(this).getUser().imId);
-            Log.v("contact","MyID--------"+UserDataService.getSingleUserDataService(this).getUser().userId);
-        }catch (Exception e){
-            e.printStackTrace();
-            SweetAlertDialog sweetAlertDialog=new SweetAlertDialog(ContactActivity.this, SweetAlertDialog.ERROR_TYPE);
-            sweetAlertDialog.setTitle("错误");
-            sweetAlertDialog.setContentText("错误的用户信息");
-            sweetAlertDialog.setConfirmText("朕知道了");
-            sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                @Override
-                public void onClick(SweetAlertDialog sweetAlertDialog) {
-                    finish();
-                }
-            });
-
-            Log.v("contact", "targetIMID--------" + "Error Intent");
-        }
-
-
-
-//        targetUserIMID=IM_ID;
-//        targetUserAvatar="http://p2.gexing.com/touxiang/20120812/2335/5027cd5ea61c8.jpg";
-//        targetUserID="1";
-
-        Log.v("contact", "targetID"+ targetUserIMID);
-
-        title_text.setText(targetUserName);
-
         testMessageHistory(targetUserIMID);
     }
 
@@ -219,9 +216,9 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                 Log.i("发送消息状态回掉", "消息类型：" + message.getMsgType().name());
 
                 /**Add**/
+
                 Toast.makeText(ContactActivity.this, message.getStatus().toString(), Toast.LENGTH_SHORT).show();
                 addList(message);
-
             }
         }
                 , true);
@@ -266,6 +263,8 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     public void testMessageHistory(String toAccid) {
 
         IMMessage endMessage = MessageBuilder.createEmptyMessage(toAccid, SessionTypeEnum.P2P, 0);
+
+        Log.i("contact--------", "history");
 
         NIMClient.getService(MsgService.class).pullMessageHistory(endMessage, 20, true)
                 .setCallback(new RequestCallback<List<IMMessage>>() {

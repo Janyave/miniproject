@@ -6,6 +6,12 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="text_course_type_dark">
+        <item name="android:textSize">@dimen/text_size_36</item>
+        <item name="android:textColor">@color/text_white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <!-- 56对应，最大字体-->
     <style name="text_pink_maxmax">
         <item name="android:textSize">20sp</item>

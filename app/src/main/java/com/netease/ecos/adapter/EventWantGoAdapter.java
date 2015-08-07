@@ -3,6 +3,7 @@ package com.netease.ecos.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -20,6 +21,7 @@ import com.netease.ecos.activity.NormalListViewActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 import com.squareup.picasso.Picasso;
@@ -137,6 +139,8 @@ public class EventWantGoAdapter extends BaseAdapter{
                     bundle.putString(ContactActivity.TargetUserAvatar, userList.get((int)v.getTag()).avatarUrl);
                     bundle.putString(ContactActivity.TargetUserName, userList.get((int)v.getTag()).nickname);
                     bundle.putString(ContactActivity.TargetUserIMID, userList.get((int) v.getTag()).imId);
+                    Log.v("contact", "targetIMID--------   " + userList.get((int) v.getTag()).imId);
+                    Log.v("contact", "targetID--------   " + userList.get((int)v.getTag()).userId);
                     intent.putExtras(bundle);
                     break;
                 default:

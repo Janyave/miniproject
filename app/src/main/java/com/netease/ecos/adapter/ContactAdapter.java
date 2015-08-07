@@ -9,10 +9,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.views.RoungImageView;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.squareup.picasso.Picasso;
@@ -56,10 +60,18 @@ public class ContactAdapter extends BaseAdapter{
         public void setData(int position){
             IMMessage item=messageList.get(position);
             tv_text.setText(item.getContent());
+
+            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+            iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+            RequestQueue queue = Volley.newRequestQueue(mcontext);
+            ImageLoader.ImageCache imageCache = new SDImageCache();
+            ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+
+
             if (isMe){
-                Picasso.with(mcontext).load(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl).into(iv_avatar);
+                iv_avatar.setImageUrl(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl, imageLoader);
             }else {
-                Picasso.with(mcontext).load(targetAvatarUrl).into(iv_avatar);
+                iv_avatar.setImageUrl(targetAvatarUrl, imageLoader);
             }
         }
     }
