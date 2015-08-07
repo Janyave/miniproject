@@ -78,20 +78,10 @@ public class PersonRecruitAdapter extends BaseAdapter implements View.OnClickLis
          */
         public void setData(final int position) {
             Recruitment item = recruitmentList.get(position);
-            if(item.avatarUrl == null){
-                iv_avatar.setImageResource(R.drawable.img_default);
-            }else if (item.avatarUrl.isEmpty()){
-                iv_avatar.setImageResource(R.drawable.img_default);
-            }else{
+            if (item.avatarUrl != null && !item.avatarUrl.equals(""))
                 Picasso.with(mcontext).load(item.avatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
-            }
-            if(item.coverUrl == null ){
-                iv_cover.setImageResource(R.drawable.img_default);
-            }else if (item.coverUrl.isEmpty()) {
-                iv_cover.setImageResource(R.drawable.img_default);
-            }else{
+            if (item.coverUrl != null && !item.coverUrl.equals(""))
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
-            }
 
             if (item.gender == User.Gender.男){
                 gender.setImageResource(R.mipmap.ic_gender_male);
