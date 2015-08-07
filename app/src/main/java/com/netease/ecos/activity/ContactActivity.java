@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.ContactAdapter;
 import com.netease.ecos.model.ModelUtils;
+import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.views.sweet_alert_dialog.SweetAlertDialog;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.RequestCallback;
@@ -41,6 +43,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     public static final String TargetUserID = "TargetUserID";
     public static final String TargetUserName = "TargetUserName";
     public static final String TargetUserAvatar = "TargetUserAvatar";
+    public static final String TargetUserIMID = "TargetUserIMID";
 
     private String userId = "", userName = "", userAvatar = "";
 
@@ -61,35 +64,78 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     EditText et_input;
 
 
+    private String targetUserID ;
+    private String targetUserName ;
+    private String targetUserAvatar ;
+    private String targetUserIMID ;
+
     private List<IMMessage> messageList = new ArrayList<>();
     private ContactAdapter contactAdapter;
 
+//    String IM_ID = "2255be0951400e260832c85c5d191247";
+
+//    String IM_ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
         ButterKnife.inject(this);
 
+        initTitle();
+        initListener();
 
+
+//        IM_ID = targetUserID;
         NIMClient.getService(MsgService.class).setChattingAccount(
-                "test1",
+                targetUserID,
                 SessionTypeEnum.P2P
         );
 
         regeisterObserver();
 
-        initTitle();
-        initListener();
         initData();
-
-
     }
 
     private void initTitle() {
         title_left.setOnClickListener(this);
         title_right.setVisibility(View.INVISIBLE);
-        title_right_text.setText("评论");
-        title_text.setText("xxxNAME");
+        title_text.setText("");
+
+
+        try{
+            Bundle bundle=getIntent().getExtras();
+            targetUserID=bundle.getString(TargetUserID);
+            targetUserAvatar=bundle.getString(TargetUserAvatar);
+            targetUserName=bundle.getString(TargetUserName);
+            targetUserIMID=bundle.getString(TargetUserIMID);
+            Log.v("contact","targetIMID--------   "+targetUserIMID);
+            Log.v("contact","targetID--------   "+targetUserID);
+            Log.v("contact","MyIMID--------   "+ UserDataService.getSingleUserDataService(this).getUser().imId);
+            Log.v("contact","MyID--------   "+UserDataService.getSingleUserDataService(this).getUser().userId);
+        }catch (Exception e){
+            e.printStackTrace();
+            SweetAlertDialog sweetAlertDialog=new SweetAlertDialog(ContactActivity.this, SweetAlertDialog.ERROR_TYPE);
+            sweetAlertDialog.setTitle("错误");
+            sweetAlertDialog.setContentText("错误的用户信息");
+            sweetAlertDialog.setConfirmText("朕知道了");
+            sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    finish();
+                }
+            });
+
+            Log.v("contact", "targetIMID--------" + "Error Intent");
+        }
+
+        //        targetUserIMID=IM_ID;
+//        targetUserAvatar="http://p2.gexing.com/touxiang/20120812/2335/5027cd5ea61c8.jpg";
+//        targetUserID="1";
+
+        Log.v("contact", "targetID" + targetUserIMID);
+
+        title_text.setText(targetUserName);
+
     }
 
 
@@ -119,23 +165,22 @@ public class ContactActivity extends Activity implements View.OnClickListener {
             case R.id.tv_send:
 
                 IMMessage message = MessageBuilder.createTextMessage(
-                        "test2", // 聊天对象的ID，如果是单聊，为用户账号，如果是群聊，为群组ID
+                        targetUserID, // 聊天对象的ID，如果是单聊，为用户账号，如果是群聊，为群组ID
                         SessionTypeEnum.P2P, // 聊天类型，单聊或群组
                         et_input.getText().toString() // 文本内容
                 );
                 NIMClient.getService(MsgService.class).sendMessage(message, false);
-
                 et_input.setText("");
                 break;
         }
     }
 
     private void initData() {
-        testMessageHistory("test2");
+        testMessageHistory(targetUserIMID);
     }
 
     private void initList() {
-        contactAdapter = new ContactAdapter(this, messageList);
+        contactAdapter = new ContactAdapter(this, messageList, targetUserIMID, targetUserAvatar);
         lv_list.setAdapter(contactAdapter);
         lv_list.setSelection(contactAdapter.getCount() + 1);
     }
@@ -171,9 +216,9 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                 Log.i("发送消息状态回掉", "消息类型：" + message.getMsgType().name());
 
                 /**Add**/
+
                 Toast.makeText(ContactActivity.this, message.getStatus().toString(), Toast.LENGTH_SHORT).show();
                 addList(message);
-
             }
         }
                 , true);
@@ -219,7 +264,9 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
         IMMessage endMessage = MessageBuilder.createEmptyMessage(toAccid, SessionTypeEnum.P2P, 0);
 
-        NIMClient.getService(MsgService.class).pullMessageHistory(endMessage, 80, true)
+        Log.i("contact--------", "history");
+
+        NIMClient.getService(MsgService.class).pullMessageHistory(endMessage, 20, true)
                 .setCallback(new RequestCallback<List<IMMessage>>() {
                     @Override
                     public void onSuccess(List<IMMessage> msgList) {
@@ -232,7 +279,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                         Log.e("拉取信息", "拉去信息的条数" + msgList.size());
 
                         Log.e("历史信息", "聊天------");
-                        for (int i = 0; i < 10; i++) {
+                        for (int i = 0; i < messageList.size(); i++) {
 
                             IMMessage message = msgList.get(i);
 

@@ -149,7 +149,7 @@
             android:id="@+id/cancel_button"
             style="@style/dialog_blue_button"
             android:background="@drawable/btn_dialog_no"
-            android:layout_marginLeft="@dimen/margin_80px"
+            android:layout_marginRight="@dimen/margin_80px"
             android:text="取 消"
             android:visibility="gone"/>
 

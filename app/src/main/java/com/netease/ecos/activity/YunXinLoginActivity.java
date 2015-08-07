@@ -87,6 +87,9 @@ public class YunXinLoginActivity extends BaseActivity{
             Toast.makeText(this, "网络不可用", Toast.LENGTH_LONG).show();
             return;
         }
+
+
+
 		
 		//用账号和token进行登录
         loginRequest = NIMClient.getService(AuthService.class).login(new LoginInfo(account126, token126));
@@ -96,7 +99,7 @@ public class YunXinLoginActivity extends BaseActivity{
             	
             	Log.i("登录", "登录成功");
             	
-            	startActivity(new Intent(YunXinLoginActivity.this, YunXinApiActivity.class));
+            	startActivity(new Intent(YunXinLoginActivity.this, MainActivity.class));
             }
 
             @Override

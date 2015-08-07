@@ -16,10 +16,10 @@
             android:maxWidth="280dp"
             android:layout_height="wrap_content"
             android:text="我是聊天内容啦啦啦啦啦啦"
-            style="@style/text_white_max"
+            style="@style/text_white_mid"
             android:background="@drawable/bg_contact_me"
-            android:paddingTop="@dimen/margin_40px"
-            android:paddingBottom="@dimen/margin_40px"
+            android:paddingTop="@dimen/margin_30px"
+            android:paddingBottom="@dimen/margin_30px"
             android:paddingLeft="@dimen/margin_50px"
             android:paddingRight="@dimen/margin_50px"/>
         <com.netease.ecos.utils.RoundImageView

@@ -1,6 +1,5 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -49,7 +48,7 @@ import butterknife.InjectView;
 /**
  * Created by Think on 2015/7/28.
  */
-public class NewActivityActivity extends Activity implements View.OnClickListener, View.OnTouchListener, AdapterView.OnItemSelectedListener {
+public class NewActivityActivity extends BaseActivity implements View.OnClickListener, View.OnTouchListener, AdapterView.OnItemSelectedListener {
     private final String TAG = "Ecos---NewActivity";
     @InjectView(R.id.lly_right_action)
     LinearLayout title_right;
@@ -351,15 +350,18 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(NewActivityActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
+            dismissProcessBar();
         }
 
         @Override
         public void success(ActivityModel activity) {
+            dismissProcessBar();
             Toast.makeText(NewActivityActivity.this, getResources().getString(R.string.realiseActivitySuccessfully), Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -392,6 +394,7 @@ public class NewActivityActivity extends Activity implements View.OnClickListene
             activityModel.location.city.cityCode = cityList.get(activityCitySpinner.getSelectedItemPosition()).getCityCode();
             //set the contact way list
             activityModel.contactWayList = getDataFromListView();
+            showProcessBar(getResources().getString(R.string.loading));
             createActivityRequest.request(createActivityResponce, activityModel);
         }
 

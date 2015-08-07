@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.netease.ecos.R;
 import com.netease.ecos.model.Course;
@@ -33,6 +34,8 @@ public class CourseTypeActivity extends Activity implements View.OnClickListener
     ImageView experienceImgVw;
     @InjectView(R.id.tv_type_8)
     ImageView othersImgVw;
+    @InjectView(R.id.rl_contain)
+    RelativeLayout rl_contain;
 
 
     @Override
@@ -48,6 +51,12 @@ public class CourseTypeActivity extends Activity implements View.OnClickListener
         backstageImgVw.setOnClickListener(this);
         experienceImgVw.setOnClickListener(this);
         othersImgVw.setOnClickListener(this);
+        rl_contain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

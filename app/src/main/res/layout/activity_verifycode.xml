@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/img_splath_g">
+    android:background="@drawable/img_splath_g_l">
     <include layout="@layout/item_splash_return"/>
     <include layout="@layout/view_aplash_icon"/>
 

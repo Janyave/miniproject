@@ -2,7 +2,6 @@ package com.netease.ecos.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ import java.util.List;
 /**
  * 教程页面
  */
-public class CourseFragment extends Fragment implements View.OnClickListener {
+public class CourseFragment extends BaseFragment implements View.OnClickListener {
     private View mainView;
     private Banner banner;
     private ImageView tv_type_1;

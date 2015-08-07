@@ -2,7 +2,6 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,7 +25,6 @@ import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.GetCourseDetailRequest;
 import com.netease.ecos.request.course.PraiseRequest;
-import com.netease.ecos.request.user.FollowUserRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
 import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.HorizontalListView;
@@ -37,7 +35,7 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class CourseDetailActivity extends ActionBarActivity implements View.OnClickListener {
+public class CourseDetailActivity extends BaseActivity implements View.OnClickListener {
     private final String TAG = "Ecos---CourseDetail";
     public static final int RESULT_CODE_COURSEDETAIL = 1;
     public static final String CourseID = "CourseID";
@@ -128,6 +126,8 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         courseId = getIntent().getExtras().getString(CourseID);
         getCourseDetailRequest = new GetCourseDetailRequest();
         getCourseDetailResponse = new GetCourseDetailResponse();
+        showProcessBar(getResources().getString(R.string.loading));
+        ;
         getCourseDetailRequest.request(getCourseDetailResponse, courseId);
     }
 
@@ -252,6 +252,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
                     Log.e("CLASS_TAG", "onActivityResult() 无对应");
             }
         } else if (requestCode == UploadAssignmentActivity.REQUEST_CODE_FOR_UPLOAD_ASSIGNMENT) {
+            showProcessBar(getResources().getString(R.string.loading));
             getCourseDetailRequest.request(getCourseDetailResponse, courseId);
         }
     }
@@ -268,12 +269,13 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(CourseDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-
+            dismissProcessBar();
         }
     }
 
@@ -307,6 +309,7 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
             workList.add(course.assignmentList.get(i).assignmentId);
 
         }
+        dismissProcessBar();
     }
 
     private void setPraiseLayout() {
@@ -316,22 +319,6 @@ public class CourseDetailActivity extends ActionBarActivity implements View.OnCl
         } else {
             tv_praise.setText(getResources().getString(R.string.favour));
             iv_praise.setImageResource(R.mipmap.ic_praise_block);
-        }
-    }
-
-    class FollowResponce extends BaseResponceImpl implements FollowUserRequest.IFollowResponce {
-
-        @Override
-        public void doAfterFailedResponse(String message) {
-            Toast.makeText(CourseDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onErrorResponse(VolleyError error) {
-        }
-
-        @Override
-        public void success(String userId, boolean follow) {
         }
     }
 

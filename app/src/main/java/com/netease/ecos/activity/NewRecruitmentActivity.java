@@ -25,7 +25,7 @@ import butterknife.InjectView;
 /**
  * Created by Think on 2015/7/31.
  */
-public class NewRecruitmentActivity extends BaseActivity implements View.OnClickListener,XListView.IXListViewListener{
+public class NewRecruitmentActivity extends BaseActivity implements View.OnClickListener, XListView.IXListViewListener {
     private static final String TAG = "Ecos---NewRecruitment";
     public static final String RecruitmentType = "RecruitmentType";
     private Recruitment.RecruitType mRecruitType;
@@ -100,11 +100,11 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
             case R.id.lly_right_action:
                 String price = priceEdTx.getText().toString();
                 String descrp = descrpEdTx.getText().toString();
-                if(newDisplayListAdater.isTopViewEmpty()){
+                if (newDisplayListAdater.isTopViewEmpty()) {
                     Toast.makeText(NewRecruitmentActivity.this, this.getResources().getString(R.string.notAlreadyFinished), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!newDisplayListAdater.isThereCoverUrl()){
+                if (!newDisplayListAdater.isThereCoverUrl()) {
                     Toast.makeText(NewRecruitmentActivity.this, "请选择作品封面", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -117,7 +117,7 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
                 recruitment.recruitType = mRecruitType;
 
 //                recruitment.issueTimeStamp = System.currentTimeMillis() - 1 * 24 * 60 * 60 * 1000;
-                showProcessBar("挂牌中...");
+                showProcessBar(getResources().getString(R.string.uploading));
                 request.request(new CreateRecruitmentResponce(), recruitment);
                 break;
         }
@@ -148,27 +148,25 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
     }
 
 
-    /***
+    /**
      * 获取个人分享列表
      */
     public void getPersonalShareList() {
         showProcessBar("加载中...");
-        ShareListRequest request =  new ShareListRequest();
+        ShareListRequest request = new ShareListRequest();
         Share.Tag tags = Share.Tag.getTagByRecruitType(mRecruitType);
 
-        request.requestSomeOneShareWithTag(new ShareListResponse(), null, tags,(newDisplayListAdater.getCount()-1)/5+1);
+        request.requestSomeOneShareWithTag(new ShareListResponse(), null, tags, (newDisplayListAdater.getCount() - 1) / 5 + 1);
 
     }
 
-    /***
-     *
+    /**
+     * @author enlizhang
      * @ClassName: GetAssignmetnDetailResponse
      * @Description:
-     * @author enlizhang
      * @date 2015年7月28日 下午5:24:35
-     *
      */
-    class ShareListResponse extends BaseResponceImpl implements ShareListRequest.IShareListResponse{
+    class ShareListResponse extends BaseResponceImpl implements ShareListRequest.IShareListResponse {
 
         @Override
         public void doAfterFailedResponse(String message) {
@@ -188,8 +186,8 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
             dismissProcessBar();
             displayLsVw.stopLoadMore();
 
-            if((newDisplayListAdater.getCount()-1)==0){
-                Toast.makeText(NewRecruitmentActivity.this,"小编还没找到您在该类别下的分享作品，所以不能发布新的招募哦，快去创建相应的分享吧亲:)",Toast.LENGTH_LONG).show();
+            if ((newDisplayListAdater.getCount() - 1) == 0) {
+                Toast.makeText(NewRecruitmentActivity.this, "小编还没找到您在该类别下的分享作品，所以不能发布新的招募哦，快去创建相应的分享吧亲:)", Toast.LENGTH_LONG).show();
                 finish();
             }
         }
@@ -203,8 +201,7 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
     }
 
     @Override
-    public void onLoadMore()
-    {
+    public void onLoadMore() {
         getPersonalShareList();
     }
 
