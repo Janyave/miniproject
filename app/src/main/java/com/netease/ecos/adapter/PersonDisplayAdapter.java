@@ -74,12 +74,18 @@ public class PersonDisplayAdapter extends BaseAdapter implements View.OnClickLis
          * 传入数据未定
          */
         public void setData(int position) {
-            Picasso.with(mcontext).load(shareList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            if (shareList.get(position).coverUrl != null && !shareList.get(position).coverUrl.equals(""))
+                Picasso.with(mcontext).load(shareList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             tv_coverNum.setText(shareList.get(position).totalPageNumber + "");
             tv_coverTitle.setText(shareList.get(position).title);
             tv_coverTime.setText(shareList.get(position).getDateDescription() + "");
             tv_praise.setText(shareList.get(position).praiseNum + "");
             tv_evaluate.setText(shareList.get(position).commentNum + "");
+
+            iv_cover.setTag(position);
+            tv_coverTitle.setTag(position);
+            iv_cover.setOnClickListener(PersonDisplayAdapter.this);
+            tv_coverTitle.setOnClickListener(PersonDisplayAdapter.this);
         }
     }
 
@@ -121,9 +127,10 @@ public class PersonDisplayAdapter extends BaseAdapter implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        int position = (int) v.getTag();
         Intent intent = new Intent(mcontext, DisplayDetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(DisplayDetailActivity.ShareId, "1");
+        bundle.putString(DisplayDetailActivity.ShareId, shareList.get(position).shareId);
         intent.putExtras(bundle);
         mcontext.startActivity(intent);
     }

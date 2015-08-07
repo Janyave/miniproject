@@ -1,6 +1,8 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
+import com.netease.ecos.activity.CourseDetailActivity;
+import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.model.Course;
 import com.squareup.picasso.Picasso;
 
@@ -16,7 +20,9 @@ import java.util.List;
 /**
  * Created by hzjixinyu on 2015/8/2.
  */
-public class PersonCourseAdapter extends BaseAdapter {
+
+public class PersonCourseAdapter extends BaseAdapter implements View.OnClickListener {
+
     private Context mcontext;
     private List<Course> courseList;
 
@@ -61,6 +67,12 @@ public class PersonCourseAdapter extends BaseAdapter {
             tv_praiseNum.setText(item.praiseNum + "");
             tv_time.setText(item.issueTimeStamp + "");
 
+            iv_cover.setTag(position);
+            tv_title.setTag(position);
+            iv_cover.setOnClickListener(PersonCourseAdapter.this);
+            tv_title.setOnClickListener(PersonCourseAdapter.this);
+
+
         }
     }
 
@@ -99,4 +111,22 @@ public class PersonCourseAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+    @Override
+    public void onClick(View v) {
+        int position = (int) v.getTag();
+        Intent intent;
+        Bundle bundle = new Bundle();
+//        switch (v.getId()) {
+//            default:
+                intent = new Intent(mcontext, CourseDetailActivity.class);
+                bundle.putString(CourseDetailActivity.CourseID, courseList.get(position).courseId);
+//                break;
+//        }
+        intent.putExtras(bundle);
+        mcontext.startActivity(intent);
+
+    }
+
+
 }
