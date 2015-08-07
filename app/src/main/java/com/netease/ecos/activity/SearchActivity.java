@@ -1,6 +1,5 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,7 +40,7 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/27.
  */
-public class SearchActivity extends Activity implements XListView.IXListViewListener {
+public class SearchActivity extends BaseActivity implements XListView.IXListViewListener {
 
     private static final String TAG = "Ecos---Search";
     public static final String SearchWord = "SearchWord";
@@ -136,8 +135,10 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
                 }
                 lv_searchHistory.setVisibility(View.GONE);
                 if (TYPE == TYPE_COURSE) {
+                    showProcessBar(getResources().getString(R.string.loading));
                     courseListRequest.request(courseListResponse, CourseListRequest.Type.筛选, CourseCategoryActivity.courseTypes[selectPosition], searchWord, CourseListRequest.SortRule.时间, 0);
                 } else {
+                    showProcessBar(getResources().getString(R.string.loading));
                     shareListRequest.request(getShareListResponse, DisplayFragment.shareTypes[selectPosition], searchWord, 1);
                 }
             }
@@ -324,6 +325,7 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
 
         @Override
         public void success(List<Course> courseList) {
+            dismissProcessBar();
             Log.d(TAG, "CourseListResponse.success()");
             if (courseList.size() == 0) {
                 Toast.makeText(SearchActivity.this, getResources().getString(R.string.noCourse), Toast.LENGTH_SHORT).show();
@@ -336,11 +338,13 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(SearchActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
+            dismissProcessBar();
         }
     }
 
@@ -348,6 +352,7 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
 
         @Override
         public void success(List<Share> shareList) {
+            dismissProcessBar();
             if (shareList.size() == 0)
                 Toast.makeText(SearchActivity.this, getResources().getString(R.string.noShare), Toast.LENGTH_SHORT).show();
             displayListViewAdapter = new DisplayListViewAdapter(SearchActivity.this, shareList);
@@ -358,11 +363,13 @@ public class SearchActivity extends Activity implements XListView.IXListViewList
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(SearchActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
+            dismissProcessBar();
         }
     }
 

@@ -1,6 +1,5 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -37,7 +36,7 @@ import butterknife.InjectView;
 /**
  * Created by Think on 2015/8/1.
  */
-public class DisplayDetailActivity extends Activity implements View.OnTouchListener, AdapterView.OnItemClickListener, View.OnClickListener {
+public class DisplayDetailActivity extends BaseActivity implements View.OnTouchListener, AdapterView.OnItemClickListener, View.OnClickListener {
 
     private final String TAG = "Ecos---ExhibitDetail";
     public static final String ShareId = "shareId";
@@ -136,6 +135,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
         //request the data
         getShareDetailRequest = new GetShareDetailRequest();
         getShareDetealResponse = new GetShareDetealResponse();
+        showProcessBar(getResources().getString(R.string.loading));
         getShareDetailRequest.request(getShareDetealResponse, shareId);
     }
 
@@ -234,6 +234,7 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CommentDetailActivity.RequestCodeForComment && resultCode == CommentDetailActivity.ResultCodeForComment) {
+            showProcessBar(getResources().getString(R.string.loading));
             getShareDetailRequest.request(getShareDetealResponse, shareId);
         }
     }
@@ -242,15 +243,18 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(DisplayDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
+            dismissProcessBar();
         }
 
         @Override
         public void success(Share share) {
+            dismissProcessBar();
             DisplayDetailActivity.this.share = share;
             exhibitCoverImgVw.setImageUrl(share.coverUrl, imageLoader);
             exhibitPersonImgVw.setImageUrl(share.avatarUrl, imageLoader);

@@ -2,7 +2,6 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -26,7 +25,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class RecruitmentDetailActivity extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class RecruitmentDetailActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private static final String TAG = "Ecos---RecruitmentDet";
     public static final String RecruitID = "RecruitID";
@@ -122,6 +121,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
             tag.isLater = true;
         else if (recruitType == Recruitment.RecruitType.道具)
             tag.isLater = true;
+        showProcessBar(getResources().getString(R.string.loading));
         shareListRequest.requestSomeOneShareWithTag(shareListResponse, userId, tag, 1);
         request.request(response, recruitID);
     }
@@ -175,7 +175,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
 
         @Override
         public void success(Recruitment recruit) {
-            recruitment = recruit;
+            RecruitmentDetailActivity.this.recruitment = recruit;
             if (recruit.avatarUrl != null && !recruit.avatarUrl.equals(""))
                 Picasso.with(RecruitmentDetailActivity.this).load(recruit.avatarUrl).placeholder(R.drawable.img_default).into(iv_avator);
             tv_name.setText(recruit.nickname);
@@ -190,6 +190,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
 
         @Override
         public void success(List<Share> shareList) {
+            dismissProcessBar();
             RecruitmentDetailActivity.this.shareList = shareList;
             if (shareList.size() == 0) {
                 Toast.makeText(RecruitmentDetailActivity.this, getResources().getString(R.string.noOtherShare), Toast.LENGTH_SHORT).show();

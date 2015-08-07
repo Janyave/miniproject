@@ -164,6 +164,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
                     Toast.makeText(UploadDisplayActivity.this, "请填写完所有内容:)", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                showProcessBar(getResources().getString(R.string.uploading));
                 share.title = uploadWorksCoverEdTx.getText().toString();
                 share.content = uploadWorksDescrpEdTx.getText().toString();
                 share.totalPageNumber = worksLsVw.getCount();
@@ -281,6 +282,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
 
         @Override
         public void success(Share share) {
+            dismissProcessBar();
             Toast.makeText(UploadDisplayActivity.this, "upload the share successfully", Toast.LENGTH_SHORT).show();
             finish();
         }

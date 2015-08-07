@@ -61,8 +61,7 @@
                                 android:id="@+id/tv_name"
                                 style="@style/text_dark_mid"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="NAME" />
+                                android:layout_height="wrap_content" />
 
                             <TextView
                                 android:layout_width="@dimen/width_line"
@@ -78,16 +77,14 @@
                                     android:id="@+id/tv_distance"
                                     style="@style/text_gray_mid"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="3km" />
+                                    android:layout_height="wrap_content" />
 
                                 <TextView
                                     android:id="@+id/tv_price"
                                     style="@style/text_pink_max"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/margin_40px"
-                                    android:text="均价30元/人" />
+                                    android:layout_marginLeft="@dimen/margin_40px" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
