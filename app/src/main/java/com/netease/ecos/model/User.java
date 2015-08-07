@@ -159,4 +159,24 @@ public class User {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "User{" +
+				"userId='" + userId + '\'' +
+				", imId='" + imId + '\'' +
+				", imToken='" + imToken + '\'' +
+				", phone='" + phone + '\'' +
+				", password='" + password + '\'' +
+				", nickname='" + nickname + '\'' +
+				", avatarUrl='" + avatarUrl + '\'' +
+				", gender=" + gender +
+				", characterSignature='" + characterSignature + '\'' +
+				", roleTypeSet=" + roleTypeSet +
+				", cityName='" + cityName + '\'' +
+				", cityCode='" + cityCode + '\'' +
+				", coverUrl='" + coverUrl + '\'' +
+				", followOtherNum='" + followOtherNum + '\'' +
+				", fansNum='" + fansNum + '\'' +
+				'}';
+	}
 }

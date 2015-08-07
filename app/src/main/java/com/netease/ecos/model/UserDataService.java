@@ -21,6 +21,8 @@ public class UserDataService {
 	 */
 	private final static String USER_ID = "userId";
 
+	private final static String IM_ID = "imId";
+
 
 	/*** 存储昵称{@link User#nickname} */
 	public static final  String NICKNAME = "nickname";
@@ -86,6 +88,7 @@ public class UserDataService {
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 
 		editor.putString(USER_ID, user.userId);
+		editor.putString(IM_ID, user.imId);
 		editor.putString(NICKNAME, user.nickname);
 		editor.putString(AVATAR_URL, user.avatarUrl);
 		editor.putString(CHARACTER_SIGANATURE, user.characterSignature);
@@ -111,6 +114,7 @@ public class UserDataService {
 		User user = new User();
 
 		user.userId = sharedPreferences.getString(USER_ID, DEFAULT_VALUE);
+		user.imId = sharedPreferences.getString(IM_ID, DEFAULT_VALUE);
 		user.nickname = sharedPreferences.getString(NICKNAME, DEFAULT_VALUE);
 		user.avatarUrl = sharedPreferences.getString(AVATAR_URL, DEFAULT_VALUE);
 		user.characterSignature = sharedPreferences.getString(CHARACTER_SIGANATURE, DEFAULT_VALUE);
@@ -124,7 +128,15 @@ public class UserDataService {
 
 		return user;
 	}
-	
+
+
+	public void clearAllData(){
+
+		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,WRITE_MODE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.clear();
+
+	}
 
 }
 

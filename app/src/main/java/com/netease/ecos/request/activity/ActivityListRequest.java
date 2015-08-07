@@ -50,7 +50,6 @@ public class ActivityListRequest extends BaseRequest{
 		super.initBaseRequest(activityListResponse);
 		mActivityListResponse = activityListResponse;
 
-		//		mActivityListResponse.success(getTestActivityList());
 		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_ACTIVITY_LIST_URL,  this, this) {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
@@ -90,7 +89,6 @@ public class ActivityListRequest extends BaseRequest{
 		super.initBaseRequest(activityListResponse);
 		mActivityListResponse = activityListResponse;
 
-		mActivityListResponse.success(getTestActivityList());
 		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_ACTIVITY_LIST_URL,  this, this) {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
@@ -125,7 +123,6 @@ public class ActivityListRequest extends BaseRequest{
 		super.initBaseRequest(activityListResponse);
 		mActivityListResponse = activityListResponse;
 
-		mActivityListResponse.success(getTestActivityList());
 		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_ACTIVITY_LIST_URL,  this, this) {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
