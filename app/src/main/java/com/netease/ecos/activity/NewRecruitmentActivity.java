@@ -88,13 +88,7 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
         newDisplayListAdater = new NewDisplayListAdater(this);
         //for request
         request = new CreateRecruitmentRequest();
-//        responce = new ICreateRecruitmentResponce();
-
         getPersonalShareList();
-
-
-
-
     }
 
     @Override
@@ -116,13 +110,12 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
                 }
 
                 Recruitment recruitment = new Recruitment();
-                recruitment.averagePrice = price;
+                recruitment.averagePrice = newDisplayListAdater.getPrice();
                 recruitment.priceUnit = mRecruitType.getPriceUnit();
-                recruitment.description = descrp;
+                recruitment.description = newDisplayListAdater.getDes();
                 recruitment.coverUrl = newDisplayListAdater.getCheckedCoverUrl();
                 recruitment.recruitType = mRecruitType;
 
-//                recruitment.recruitmentId = "" + 1;
 //                recruitment.issueTimeStamp = System.currentTimeMillis() - 1 * 24 * 60 * 60 * 1000;
                 showProcessBar("挂牌中...");
                 request.request(new CreateRecruitmentResponce(), recruitment);
@@ -196,7 +189,7 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
             displayLsVw.stopLoadMore();
 
             if((newDisplayListAdater.getCount()-1)==0){
-                Toast.makeText(NewRecruitmentActivity.this,"你目前没有分享",Toast.LENGTH_LONG).show();
+                Toast.makeText(NewRecruitmentActivity.this,"小编还没找到您在该类别下的分享作品，所以不能发布新的招募哦，快去创建相应的分享吧亲:)",Toast.LENGTH_LONG).show();
                 finish();
             }
         }

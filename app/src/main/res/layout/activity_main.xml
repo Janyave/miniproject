@@ -28,7 +28,7 @@
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:scaleType="fitCenter"
                 ecos:circle_color="@color/bg_red_light_light"
-                ecos:line_width="5.0"
+                ecos:line_width="3.0"
                 ecos:showable="true" />
             <TextView
                 android:layout_width="0dp"

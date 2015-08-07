@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:ecos="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
@@ -14,13 +16,16 @@
         android:background="@drawable/bg_course_item"
         android:padding="@dimen/margin_40px">
 
-        <ImageView
+        <com.netease.ecos.utils.RoundImageView
             android:id="@+id/iv_avatar"
             android:layout_width="@dimen/circle_icon_140px"
             android:layout_height="@dimen/circle_icon_140px"
-            android:src="@drawable/img_default"
+            android:src="@mipmap/bg_female_default"
             android:scaleType="fitXY"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            ecos:circle_color="@color/bg_red"
+            ecos:line_width="3.0"
+            ecos:showable="true"/>
         <LinearLayout
             android:layout_toRightOf="@id/iv_avatar"
             android:layout_marginLeft="@dimen/margin_40px"
@@ -84,7 +89,9 @@
             android:id="@+id/tv_contact"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_width="@dimen/width_btn_focus_152px"
+            android:layout_width="wrap_content"
+            android:paddingLeft="@dimen/margin_40px"
+            android:paddingRight="@dimen/margin_40px"
             android:layout_height="@dimen/height_btn_focus_70px"
             android:background="@drawable/btn_focus_pink"
             android:text="戳一下"

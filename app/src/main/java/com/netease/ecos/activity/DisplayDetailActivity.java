@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -210,6 +209,14 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
                 }
                 followUserRequest.request(followResponce, share.userId, true);
                 break;
+            case R.id.exhibitPersonImgVw:
+                Intent intent1 = new Intent(DisplayDetailActivity.this, PersonageDetailActivity.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putBoolean(PersonageDetailActivity.IsOwn, false);
+                bundle1.putString(PersonageDetailActivity.UserID, share.userId);
+                intent1.putExtras(bundle1);
+                startActivity(intent1);
+                break;
         }
     }
 
@@ -245,15 +252,12 @@ public class DisplayDetailActivity extends Activity implements View.OnTouchListe
         @Override
         public void success(Share share) {
             DisplayDetailActivity.this.share = share;
-
             exhibitCoverImgVw.setImageUrl(share.coverUrl, imageLoader);
-            Log.d(TAG, "share.avatarUrl:" + share.avatarUrl);
             exhibitPersonImgVw.setImageUrl(share.avatarUrl, imageLoader);
             exhibitPersonNameTxVw.setText(share.nickname);
             exhibitFocusBtn.setText(share.hasAttention ? DisplayDetailActivity.this.getString(R.string.focus) : DisplayDetailActivity.this.getString(R.string.notFocus));
             exhibitTitleTxVw.setText(share.title);
             exhibitTitleContentTxVw.setText(share.content);
-            Log.d(TAG, "share.imageList:" + share.imageList.size());
             exhibitListViewAdapter.updateDataList(share.imageList);
             workDetailListViewAdapter.setCommentCount(share.commentNum);
             workDetailListViewAdapter.updateCommentList(share.commentList);

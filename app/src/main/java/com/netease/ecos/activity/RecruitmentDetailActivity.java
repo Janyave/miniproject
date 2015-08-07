@@ -72,6 +72,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
     private GetRecruitmentLDetailResponse response;
     private ShareListRequest shareListRequest;
     private ShareListResponse shareListResponse;
+    private List<Share> shareList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +156,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(RecruitmentDetailActivity.this, DisplayDetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(DisplayDetailActivity.ShareId, recruitment.shareList.get(position).shareId);
+        bundle.putString(DisplayDetailActivity.ShareId, this.shareList.get(position).shareId);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -189,6 +190,7 @@ public class RecruitmentDetailActivity extends ActionBarActivity implements View
 
         @Override
         public void success(List<Share> shareList) {
+            RecruitmentDetailActivity.this.shareList = shareList;
             if (shareList.size() == 0) {
                 Toast.makeText(RecruitmentDetailActivity.this, getResources().getString(R.string.noOtherShare), Toast.LENGTH_SHORT).show();
             }

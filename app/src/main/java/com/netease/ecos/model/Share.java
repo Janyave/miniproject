@@ -165,7 +165,6 @@ public class Share {
 
         public int getTagValues() {
             int tagValues = 0;
-
             if (isMakeup)
                 tagValues += 1;
             if (isPhoto)
@@ -178,7 +177,6 @@ public class Share {
                 tagValues += 16;
             if (isCoser)
                 tagValues += 32;
-
             return tagValues;
         }
 

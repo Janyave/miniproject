@@ -81,7 +81,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mainView = inflater.inflate(R.layout.fragment_community, container, false);
-        recentLocation = "浙江";
+        recentLocation = "不限";
         recentCategory = "全部分类";
         bindView();
         initListener();
@@ -225,7 +225,12 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         final String strCategory = recentCategory;
         final String strLocation = recentLocation;
 
-        String cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
+
+        String cityCode;
+        if (strLocation.equals("不限"))
+            cityCode = "";
+        else
+            cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
 
         request.request(new ActivityListRequest.IActivityListResponse() {
 
@@ -343,7 +348,11 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
                 final String strLocation = (String) msg.obj;
                 final String strCategory = recentCategory;  // 记录当前状态下的地点和分类
 
-                String cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
+                String cityCode;
+                if (strLocation.equals("不限"))
+                    cityCode = "";
+                else
+                    cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
                 recentLocation = strLocation;
 
                 request.request(new ActivityListRequest.IActivityListResponse() {
@@ -426,7 +435,11 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         final String strLocation = recentLocation;
         recentCategory = strCategory;
 
-        String cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
+        String cityCode;
+        if (strLocation.equals("不限"))
+            cityCode = "";
+        else
+            cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
         request.request(new ActivityListRequest.IActivityListResponse() {
 
             @Override
@@ -490,7 +503,11 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         final String strCategory = recentCategory;
         final String strLocation = recentLocation;
 
-        String cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
+        String cityCode;
+        if (strLocation.equals("不限"))
+            cityCode = "";
+        else
+            cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
 
         request.request(new ActivityListRequest.IActivityListResponse() {
 
@@ -540,7 +557,11 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
         final String strCategory = recentCategory;
         final String strLocation = recentLocation;
 
-        String cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
+        String cityCode;
+        if (strLocation.equals("不限"))
+            cityCode = "";
+        else
+            cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
 
         if (campaignListViewAdapter == null)
             pageIndex = 0;
