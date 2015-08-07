@@ -52,6 +52,17 @@ public class ContactAdapter extends BaseAdapter{
             iv_avatar = (RoundImageView) root.findViewById(R.id.iv_avatar);
             tv_text = (TextView) root.findViewById(R.id.tv_text);
             isMe=me;
+
+            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+            iv_avatar.setErrorImageResId(R.mipmap.bg_nogender_default);
+            RequestQueue queue = Volley.newRequestQueue(mcontext);
+            ImageLoader.ImageCache imageCache = new SDImageCache();
+            ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+            if (isMe){
+                iv_avatar.setImageUrl(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl, imageLoader);
+            }else {
+                iv_avatar.setImageUrl(targetAvatarUrl, imageLoader);
+            }
         }
 
         /**
@@ -60,19 +71,6 @@ public class ContactAdapter extends BaseAdapter{
         public void setData(int position){
             IMMessage item=messageList.get(position);
             tv_text.setText(item.getContent());
-
-            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
-            iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
-            RequestQueue queue = Volley.newRequestQueue(mcontext);
-            ImageLoader.ImageCache imageCache = new SDImageCache();
-            ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-
-
-            if (isMe){
-                iv_avatar.setImageUrl(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl, imageLoader);
-            }else {
-                iv_avatar.setImageUrl(targetAvatarUrl, imageLoader);
-            }
         }
     }
 
@@ -109,12 +107,17 @@ public class ContactAdapter extends BaseAdapter{
         Boolean isMe= !TextUtils.equals(messageList.get(position).getFromAccount(),targetIMID);
         Log.v("contact", messageList.get(position).getFromAccount());
         Log.v("contact", targetIMID);
-        if(isMe){
+        if(convertView!=null&&((ViewHolder)convertView.getTag()).isMe==isMe){
+            viewHolder=(ViewHolder)convertView.getTag();
+        }else if(isMe){
             convertView=parent.inflate(mcontext, R.layout.item_contact_me, null);
-        }else{
+            viewHolder=new ViewHolder(convertView,isMe);
+            convertView.setTag(viewHolder);
+        }else {
             convertView=parent.inflate(mcontext, R.layout.item_contact_other, null);
+            viewHolder=new ViewHolder(convertView,isMe);
+            convertView.setTag(viewHolder);
         }
-        viewHolder=new ViewHolder(convertView,isMe);
 
         viewHolder.setData(position);
 
