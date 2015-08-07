@@ -205,16 +205,11 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Log.d(TAG, "is checked:" + isChecked);
         switch (buttonView.getId()) {
-            case R.id.makeuper_btn:
+            case R.id.makeuper_cb:
                 share.tags.isMakeup = isChecked;
                 break;
             case R.id.prop_cb:
-                if (share == null)
-                    Log.d(TAG, "share is null");
-                if (share.tags == null)
-                    Log.d(TAG, "share's tag is null");
                 share.tags.isProperty = isChecked;
                 break;
             case R.id.backstage_cb:
@@ -265,6 +260,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
                 if (count == (imagePaths.size() + 1)) {
                     Log.d(TAG, "all the images has been uploaded successfully.");
                     share.imageList = imagesArraylist;
+                    Log.d(TAG, "share's tag:" + share.tags.getTagValues());
                     request.request(response, share);
                 }
             }

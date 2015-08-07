@@ -167,7 +167,7 @@ public class RecruitmentListRequest extends BaseRequest {
      * 请求其他人招募列表
      *
      * @param recruitmentListResponse
-     * @param otherUserId       要查看的人的userId
+     * @param otherUserId             要查看的人的userId
      * @param pageIndex
      */
     public void requestSomeone(IRecruitmentListResponse recruitmentListResponse, final String otherUserId, final int pageIndex) {
@@ -213,7 +213,6 @@ public class RecruitmentListRequest extends BaseRequest {
 
                 JSONArray recruitJA = json.getJSONArray(JA_RECRUITMENTS);
 
-
                 for (int i = 0; i < recruitJA.length(); i++) {
                     JSONObject recruitJO = recruitJA.getJSONObject(i);
 
@@ -235,15 +234,14 @@ public class RecruitmentListRequest extends BaseRequest {
                     recruit.avatarUrl = getString(recruitJO, "avatarUrl");
                     recruit.nickname = getString(recruitJO, "nickname");
                     recruit.gender = Gender.getGender(getString(recruitJO, "gender"));
+                    recruit.distanceKM = getString(recruitJO, "distance");
 
                     recruitmentList.add(recruit);
 
                 }
             }
 
-
-            if(mRecruitmentListResponse!=null)
-            {
+            if (mRecruitmentListResponse != null) {
                 mRecruitmentListResponse.success(recruitmentList);
             }
         } catch (JSONException e) {

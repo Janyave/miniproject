@@ -19,7 +19,6 @@ import com.netease.ecos.R;
 import com.netease.ecos.adapter.RecruitmentListViewAdapter;
 import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.request.BaseResponceImpl;
-import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.request.recruitment.RecruitmentListRequest;
 import com.netease.ecos.views.PopupHelper;
 import com.netease.ecos.views.XListView;
@@ -36,7 +35,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
 
     private static final String TAG = "Ecos---Recruitment";
     public static final String TRecruitmentType = "recruitmentType";
-    private String recruitment_type = "";
+    private Recruitment.RecruitType recruitment_type;
     @InjectView(R.id.sp_sortType)
     Spinner sp_sortType;
     @InjectView(R.id.lv_list)
@@ -155,8 +154,8 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
         popupSortType = PopupHelper.newRecruiteSortTypePopupWindow(RecruitmentCategoryActivity.this);
         popupSixType = PopupHelper.newSixTypePopupWindow(RecruitmentCategoryActivity.this);
 
-        recruitment_type = getIntent().getExtras().getString(TRecruitmentType);
-        recruitmentTypeTxVw.setText(recruitment_type);
+        recruitment_type = Recruitment.RecruitType.getRecruitTypeByValue(getIntent().getExtras().getString(TRecruitmentType));
+        recruitmentTypeTxVw.setText(recruitment_type.name());
         //设置下拉菜单选项
         spAdapter = new ArrayAdapter<RecruitmentListRequest.SortRule>(this, android.R.layout.simple_spinner_item, sortRules);
         spAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -171,7 +170,7 @@ public class RecruitmentCategoryActivity extends Activity implements View.OnClic
         //for request
         request = new RecruitmentListRequest();
         recruitmentListResponse = new RecruitmentListResponse();
-        request.request(recruitmentListResponse, Recruitment.RecruitType.妆娘, "12", RecruitmentListRequest.SortRule.智能排序, 1);
+        request.request(recruitmentListResponse, recruitment_type, "12", RecruitmentListRequest.SortRule.智能排序, 1);
     }
 
     @Override

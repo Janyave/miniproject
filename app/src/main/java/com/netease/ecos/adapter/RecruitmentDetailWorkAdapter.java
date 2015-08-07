@@ -1,8 +1,6 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
-import com.netease.ecos.activity.DisplayDetailActivity;
 import com.netease.ecos.model.Share;
 import com.squareup.picasso.Picasso;
 
@@ -20,7 +17,7 @@ import java.util.List;
 /**
  * Created by hzjixinyu on 2015/7/23.
  */
-public class RecruitmentDetailWorkAdapter extends BaseAdapter implements View.OnClickListener {
+public class RecruitmentDetailWorkAdapter extends BaseAdapter {
 
     private Context mcontext;
     private List<Share> shareList;
@@ -100,14 +97,5 @@ public class RecruitmentDetailWorkAdapter extends BaseAdapter implements View.On
         }
         viewHolder.setData(position);
         return convertView;
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent intent = new Intent(mcontext, DisplayDetailActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(DisplayDetailActivity.ShareId, "1");
-        intent.putExtras(bundle);
-        mcontext.startActivity(intent);
     }
 }
