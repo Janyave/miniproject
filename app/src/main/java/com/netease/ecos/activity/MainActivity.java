@@ -23,6 +23,7 @@ import com.netease.ecos.fragment.CourseFragment;
 import com.netease.ecos.fragment.DisplayFragment;
 import com.netease.ecos.fragment.NavigationDrawerFragment;
 import com.netease.ecos.fragment.TransactionFragment;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 
@@ -116,6 +117,8 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         getSupportActionBar().hide();
         initViews();
         initData();
+
+        Log.e(TAG, UserDataService.getSingleUserDataService(this).getUser().toString());
     }
 
     @Override

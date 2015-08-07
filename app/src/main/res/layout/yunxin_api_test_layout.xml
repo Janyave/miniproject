@@ -17,7 +17,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:hint="请输入accid"
-	        android:text="2255be0951400e260832c85c5d191247" />
+	        android:text="2b584d0f3e0243008582579802d28901" />
 	
 	    <EditText
 	        android:id="@+id/etv_content"

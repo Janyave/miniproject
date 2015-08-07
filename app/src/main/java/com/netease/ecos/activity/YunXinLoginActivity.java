@@ -77,11 +77,11 @@ public class YunXinLoginActivity extends BaseActivity{
 //		String account = etv_account.getText().toString();
 //		String token = etv_password.getText().toString();
 
-		String account = "2b584d0f3e0243008582579802d28901";
-		String token = "cc7be9877aacd5248b53d2e0b823096f";
+//		String account = "2b584d0f3e0243008582579802d28901";
+//		String token = "cc7be9877aacd5248b53d2e0b823096f";
 
-//		String account126 = "2255be0951400e260832c85c5d191247";
-//		String token126 = "4d8f6d6f1d3d534544be4b9bbdad5559";
+		String account126 = "2255be0951400e260832c85c5d191247";
+		String token126 = "4d8f6d6f1d3d534544be4b9bbdad5559";
 
 		if (!NetworkUtil.isNetAvailable(this)) {
             Toast.makeText(this, "网络不可用", Toast.LENGTH_LONG).show();
@@ -92,7 +92,7 @@ public class YunXinLoginActivity extends BaseActivity{
 
 		
 		//用账号和token进行登录
-        loginRequest = NIMClient.getService(AuthService.class).login(new LoginInfo(account, token));
+        loginRequest = NIMClient.getService(AuthService.class).login(new LoginInfo(account126, token126));
         loginRequest.setCallback(new RequestCallback<LoginInfo>() {
             @Override
             public void onSuccess(LoginInfo param) {

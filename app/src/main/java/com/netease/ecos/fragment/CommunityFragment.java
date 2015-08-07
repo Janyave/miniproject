@@ -81,7 +81,7 @@ public class CommunityFragment extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mainView = inflater.inflate(R.layout.fragment_community, container, false);
-        recentLocation = "浙江";
+        recentLocation = "不限";
         recentCategory = "全部分类";
         bindView();
         initListener();

@@ -153,6 +153,8 @@
     <string name="notAlreadyFinished">请填写完所有数据;)</string>
     <string name="uploadSuccessfully">挂牌成功:)</string>
     <string name="KM">千米</string>
+    <string name="noLocation">小编还在调bug，暂未完成该功能:)</string>
+    <string name="noRecruit">暂未查询到该类别的招募信息哦</string>
     <!-- 评论页面-->
     <string name="noComment">请填写评论;)</string>
     <string name="commentSuccess">评论发送成功:)</string>
