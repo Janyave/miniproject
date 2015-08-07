@@ -146,6 +146,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         //get the work detail from the server
         request = new GetAssignmentDetailRequest();
         assignmentDetailResponse = new GetAssignmentDetailResponse();
+        showProcessBar(getResources().getString(R.string.loading));
         request.request(assignmentDetailResponse, workID);
     }
 
@@ -223,6 +224,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CommentDetailActivity.RequestCodeForComment && resultCode == CommentDetailActivity.ResultCodeForComment) {
+            showProcessBar(getResources().getString(R.string.loading));
             request.request(assignmentDetailResponse, workID);
         }
     }
@@ -239,7 +241,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
                         Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.alreadyFirstAssignment), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.loadingLastAssignment), Toast.LENGTH_SHORT).show();
+                    showProcessBar(getResources().getString(R.string.loadingLastAssignment));
                     workOrder--;
                     title_text.setText((workOrder + 1) + "/" + workList.size());
                 } else if (LEFT.equals(prediction.name)) {
@@ -247,7 +249,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
                         Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.alreadyLastAssignment), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Toast.makeText(AssignmentDetailActivity.this, AssignmentDetailActivity.this.getString(R.string.loadingNextAssignment), Toast.LENGTH_SHORT).show();
+                    showProcessBar(getResources().getString(R.string.loadingNextAssignment));
                     workOrder++;
                     title_text.setText((workOrder + 1) + "/" + workList.size());
                 }
@@ -265,15 +267,18 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(AssignmentDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
+            dismissProcessBar();
         }
 
         @Override
         public void success(Course.Assignment assignment, List<Comment> commentList) {
+            dismissProcessBar();
             AssignmentDetailActivity.this.assignment = assignment;
             //set the work image.
             networkImageView.setImageUrl(assignment.imageUrl, imageLoader);

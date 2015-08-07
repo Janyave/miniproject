@@ -3,7 +3,6 @@ package com.netease.ecos.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,7 @@ import com.netease.ecos.views.XListView;
 import java.util.List;
 
 
-public class DisplayFragment extends Fragment implements XListView.IXListViewListener, View.OnClickListener {
+public class DisplayFragment extends BaseFragment implements XListView.IXListViewListener, View.OnClickListener {
     private static final String TAG = "Ecos---DisplayF";
     public static ShareListRequest.ShareType shareTypes[] = {ShareListRequest.ShareType.所有, ShareListRequest.ShareType.推荐, ShareListRequest.ShareType.新人, ShareListRequest.ShareType.关注};
     private View mainView;
@@ -163,52 +162,6 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 });
             }
         }));
-        /*lv_course.setOnScrollListener(new AbsListView.OnScrollListener() {
-            int lvIndext = 0; //当前listView显示的首个Item的Index
-            String state = "up"; //当前ListView动作状态 up or down
-            Boolean isAnim = false; //是否正在动画
-
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                *//***当前滑动状态，与记录的lvIndex作比较，发生变化触发动画*//*
-                String nowstate = state;
-                *//***当前可见Item的首个Index*//*
-                int nowIndext = firstVisibleItem;
-                *//***nowIndex大于lvIndex，ListView下滑*//*
-                if (nowIndext > lvIndext && !isAnim) {
-                    nowstate = "down";
-                    if (!TextUtils.equals(nowstate, state)) {
-                        btn_floading.disappear(new AnimationHelper.DoAfterAnimation() {
-                            @Override
-                            public void doAfterAnimation() {
-                                isAnim = false;
-                            }
-                        });
-                        isAnim = true;
-                    }
-                }
-                *//***nowIndex小于lvIndex，ListView下滑*//*
-                if (nowIndext < lvIndext && !isAnim) {
-                    nowstate = "up";
-                    if (!TextUtils.equals(nowstate, state)) {
-                        btn_floading.appear(new AnimationHelper.DoAfterAnimation() {
-                            @Override
-                            public void doAfterAnimation() {
-                                isAnim = false;
-                            }
-                        });
-                        isAnim = true;
-                    }
-                }
-                state = nowstate;
-                lvIndext = nowIndext;
-            }
-        });*/
     }
 
 
@@ -282,7 +235,9 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_all.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.所有;
                 //send the request
-                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
+                dismissProcessBar();
+                showProcessBar(getResources().getString(R.string.loading));
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 pageIndex = 1;
                 break;
@@ -293,7 +248,9 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_recommend.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.推荐;
                 //send the request
-                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
+                dismissProcessBar();
+                showProcessBar(getResources().getString(R.string.loading));
+//                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 pageIndex = 1;
                 break;
@@ -304,7 +261,9 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_attention.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.关注;
                 //send the request
-                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
+                dismissProcessBar();
+                showProcessBar(getResources().getString(R.string.loading));
+//                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 pageIndex = 1;
                 break;
@@ -315,7 +274,9 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
                 tv_new.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.新人;
                 //send the request
-                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
+                dismissProcessBar();
+                showProcessBar(getResources().getString(R.string.loading));
+//                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 pageIndex = 1;
                 break;
@@ -347,6 +308,7 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
 
         @Override
         public void success(List<Share> shareList) {
+            dismissProcessBar();
             if (shareList.size() == 0)
                 Toast.makeText(getActivity(), getResources().getString(R.string.noShare), Toast.LENGTH_SHORT).show();
             displayListViewAdapter = new DisplayListViewAdapter(getActivity(), shareList);
@@ -362,4 +324,6 @@ public class DisplayFragment extends Fragment implements XListView.IXListViewLis
         public void onErrorResponse(VolleyError volleyError) {
         }
     }
+
+
 }

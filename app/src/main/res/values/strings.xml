@@ -178,4 +178,6 @@
     <string name="title_upload_detail">简介</string>
     <string name="loadMore">正在为你努力加载内容哦，亲:)</string>
     <string name="noOtherShare">暂未查到该人的作品</string>
+    <string name="uploading">正在上传中</string>
+    <string name="loading">正在加载中</string>
 </resources>

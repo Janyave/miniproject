@@ -1,6 +1,5 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -28,7 +27,7 @@ import butterknife.InjectView;
 /**
  * Created by Think on 2015/8/1.
  */
-public class UploadAssignmentActivity extends Activity implements View.OnClickListener {
+public class UploadAssignmentActivity extends BaseActivity implements View.OnClickListener {
 
     private final String TAG = "Ecos---UploadWork";
     public static final String CourseId = "courseId";
@@ -98,6 +97,7 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
                     Toast.makeText(UploadAssignmentActivity.this, UploadAssignmentActivity.this.getString(R.string.notFinished), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                showProcessBar(getResources().getString(R.string.uploading));
                 File file = new File(image_path);
                 UploadImageTools.uploadImageSys(file, new UploadWorkCallBack(), UploadAssignmentActivity.this, false);
                 break;
@@ -136,6 +136,7 @@ public class UploadAssignmentActivity extends Activity implements View.OnClickLi
 
         @Override
         public void success(Course.Assignment assignment) {
+            dismissProcessBar();
             Toast.makeText(UploadAssignmentActivity.this, getResources().getString(R.string.uploadAssignmentSuccessfully), Toast.LENGTH_SHORT).show();
             setResult(RESULT_CODE_FOR_UPLOAD_ASSIGNMENT);
             finish();
