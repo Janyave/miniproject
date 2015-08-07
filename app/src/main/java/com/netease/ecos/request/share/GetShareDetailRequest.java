@@ -102,7 +102,7 @@ public class GetShareDetailRequest extends BaseRequest {
     /**
      * 分享图片JA
      */
-    public static final String KEY_IMAGE_URLS = "imageUrls";
+    public static final String KEY_IMAGE_URLS = "imgUrl";
 
     /**
      * 评论列表JSONArray,内含JSONObject
@@ -219,8 +219,8 @@ public class GetShareDetailRequest extends BaseRequest {
             share.commentNum = "".equals(commentNum) ? 0 : Integer.valueOf(commentNum);
 
 
-            if (shareJO.has(KEY_IMAGE_URLS)) {
-                JSONArray imageUrlJA = shareJO.getJSONArray(KEY_IMAGE_URLS);
+            if (shareJO.has(KEY_IMAGE_URLS) && !shareJO.isNull(KEY_IMAGE_URLS)) {
+                JSONArray imageUrlJA = new JSONArray(getString(shareJO, KEY_IMAGE_URLS));
 
                 for (int i = 0; i < imageUrlJA.length(); i++) {
                     Image image = new Image();
@@ -228,7 +228,6 @@ public class GetShareDetailRequest extends BaseRequest {
                     share.imageList.add(image);
                 }
             }
-
 
             //设置评论数据
             List<Comment> commentList = new ArrayList<Comment>();

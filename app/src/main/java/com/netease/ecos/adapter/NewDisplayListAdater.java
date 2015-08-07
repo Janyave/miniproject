@@ -222,7 +222,6 @@ public class NewDisplayListAdater extends BaseAdapter {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -236,5 +235,15 @@ public class NewDisplayListAdater extends BaseAdapter {
             return true;
         }
         return false;
+    }
+
+    public String getPrice(){
+        EditText price = (EditText) vTop.findViewById(R.id.priceEdTx);
+        return price.getText().toString();
+    }
+
+    public String getDes(){
+        EditText descrpEdTx = (EditText) vTop.findViewById(R.id.descrpEdTx);
+        return descrpEdTx.getText().toString();
     }
 }

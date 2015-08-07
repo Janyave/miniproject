@@ -118,7 +118,7 @@ public class TransactionFragment extends Fragment implements View.OnClickListene
         }
         intent = new Intent(getActivity(), RecruitmentCategoryActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(RecruitmentCategoryActivity.TRecruitmentType, recruitType.name());
+        bundle.putString(RecruitmentCategoryActivity.TRecruitmentType, recruitType.getValue());
         intent.putExtras(bundle);
         startActivity(intent);
     }
