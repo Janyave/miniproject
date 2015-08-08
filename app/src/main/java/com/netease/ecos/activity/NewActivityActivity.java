@@ -2,6 +2,7 @@ package com.netease.ecos.activity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -170,6 +172,8 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
         beginTimeEdTx.setOnTouchListener(this);
         endTimeEdTx.setOnTouchListener(this);
         activityProvinceSpinner.setOnItemSelectedListener(this);
+        //set input type
+        expenseEdTx.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
     }
 
     @Override
@@ -287,7 +291,7 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
 
     void setDate(final EditText editText) {
         //点击日期按钮布局 设置日期
-        new DatePickerDialog(NewActivityActivity.this, new DatePickerDialog.OnDateSetListener() {
+        new MyDatePickDialog(NewActivityActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 mYear = year;
@@ -298,6 +302,10 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
                         .append((mMonth + 1) < 10 ? 0 + (mMonth + 1) : (mMonth + 1))
                         .append("-")
                         .append((mDay < 10) ? 0 + mDay : mDay));
+                if (beginDateEdTx.getText().toString().compareTo(editText.getText().toString()) > 0) {
+                    Toast.makeText(NewActivityActivity.this, "结束日期不可以小于开始日期", Toast.LENGTH_SHORT).show();
+                    editText.setText("");
+                }
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -306,7 +314,7 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
 
     void setTime(final EditText editText, boolean isNow) {
         //点击时间按钮布局 设置时间
-        new TimePickerDialog(NewActivityActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        new MyTimePickDialog(NewActivityActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hour, int minute) {
                 mHour = hour;
@@ -315,6 +323,10 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
                 editText.setText(new StringBuilder()
                         .append(mHour < 10 ? 0 + mHour : mHour).append(":")
                         .append(mMinute < 10 ? 0 + mMinute : mMinute).append(":00"));
+                if (beginTimeEdTx.getText().toString().compareTo(editText.getText().toString()) > 0) {
+                    Toast.makeText(NewActivityActivity.this, "结束时间不可以小于开始时间", Toast.LENGTH_SHORT).show();
+                    editText.setText("");
+                }
             }
         }, calendar.get(Calendar.HOUR_OF_DAY),
                 isNow ? calendar.get(Calendar.MINUTE) : calendar.get(Calendar.MINUTE) + 1, true).show();
@@ -410,4 +422,23 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
 
     }
 
+    public static class MyDatePickDialog extends DatePickerDialog {
+        public MyDatePickDialog(Context context, OnDateSetListener callBack, int year, int monthOfYear, int dayOfMonth) {
+            super(context, callBack, year, monthOfYear, dayOfMonth);
+        }
+
+        @Override
+        protected void onStop() {
+        }
+    }
+
+    public static class MyTimePickDialog extends TimePickerDialog {
+        public MyTimePickDialog(Context context, OnTimeSetListener callBack, int hourOfDay, int minute, boolean is24HourView) {
+            super(context, callBack, hourOfDay, minute, is24HourView);
+        }
+
+        @Override
+        protected void onStop() {
+        }
+    }
 }
