@@ -23,6 +23,7 @@ import com.netease.ecos.fragment.CourseFragment;
 import com.netease.ecos.fragment.DisplayFragment;
 import com.netease.ecos.fragment.NavigationDrawerFragment;
 import com.netease.ecos.fragment.TransactionFragment;
+import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
@@ -93,9 +94,15 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     private TabFragmentPagerAdapter mPagerAdapter;
 
     /**
-     * /侧滑栏
+     * 侧滑栏
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
+
+    /**
+     * 用户信息
+     */
+    private UserDataService mUserDataService;
+    private User mUserData;
 
     /**
      * for netWorkImageView
@@ -106,6 +113,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     static ImageLoader.ImageCache imageCache;
     RequestQueue queue;
     ImageLoader imageLoader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +166,9 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
      * 初始化视图
      */
     private void initViews() {
+
+        mUserDataService = UserDataService.getSingleUserDataService(this);
+        mUserData = mUserDataService.getUser();
         //init the data for NetWorkImageView
         btn_open.setDefaultImageResId(R.mipmap.bg_female_default);
         //设置加载出错图片
@@ -165,7 +176,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         queue = Volley.newRequestQueue(this);
         imageCache = new SDImageCache();
         imageLoader = new ImageLoader(queue, imageCache);
-        btn_open.setImageUrl("http://image.tianjimedia.com/uploadImages/upload/20140912/upload/201409/w4qlbtkmqrapng.png", imageLoader);
+        btn_open.setImageUrl(mUserData.avatarUrl, imageLoader);
 
         mPagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);

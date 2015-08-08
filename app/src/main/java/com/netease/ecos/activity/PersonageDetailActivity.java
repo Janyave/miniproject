@@ -3,9 +3,6 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -83,7 +80,7 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
     @InjectView(R.id.ll_edit)
     LinearLayout ll_edit;
     @InjectView(R.id.ll_personage_tag) //tag
-            LinearLayout ll_personage_tag;
+    LinearLayout ll_personage_tag;
     @InjectView(R.id.sv_personal)
     ScrollView sv_presonal_page;
 
@@ -155,12 +152,13 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         mCourse = new ArrayList<Course>();
         mShare = new ArrayList<Share>();
         mActivity = new ArrayList<ActivityModel>();
-        Log.d("ZYW","on create activity list long is" + mActivity.size());
         mRecruitment = new ArrayList<Recruitment>();
     }
 
     private void initUserData() {
+        showProcessBar("正在加载数据");
         isOwn = getIntent().getExtras().getBoolean(IsOwn);
+        //Toast.makeText(this,"Is myself "+ isOwn,Toast.LENGTH_SHORT).show();
         if (isOwn) {
             mUserDataService = UserDataService.getSingleUserDataService(this);
             mUserData = mUserDataService.getUser();
@@ -225,13 +223,10 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
         //TODO  personRecuritmentAdapter.
         personRecruitAdapter = new PersonRecruitAdapter(this);
 
-        mCourse.clear();
+
         personCourseAdapter.SetCourseList(mCourse);
-        mShare.clear();
         personDisplayAdapter.setShareList(mShare);
-        mActivity.clear();
         personActivityAdapter.setActivityList(mActivity);
-        mRecruitment.clear();
         personRecruitAdapter.setRecruitmentList(mRecruitment);
         lv_list.setAdapter(personCourseAdapter);
 
@@ -353,24 +348,26 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
             //prevent gc
             if (personCourseAdapter == null) {
                 personCourseAdapter = new PersonCourseAdapter(PersonageDetailActivity.this);
-                mCourse.clear();
                 personCourseAdapter.SetCourseList(mCourse);
+            }
+            if(courseList.size() >= 5){
+                courseListRequest.requestOtherCourse(courseListResponce, userID, ++mCoursePageIndex);
             }
             personCourseAdapter.getCourseList().addAll(courseList);
             personCourseAdapter.notifyDataSetChanged();
-//            if(courseList.size() >= 10){
-//                courseListRequest.requestOtherCourse(courseListResponse, userID, ++mCoursePageIndex);
-//            }
+            dismissProcessBar();
+
         }
 
         @Override
         public void doAfterFailedResponse(String message) {
             Toast.makeText(PersonageDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
+            dismissProcessBar();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-
+            dismissProcessBar();
         }
 
     }
@@ -381,9 +378,14 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
             //prevent gc
             if (personDisplayAdapter == null) {
                 personDisplayAdapter = new PersonDisplayAdapter(PersonageDetailActivity.this);
-                mShare.clear();
                 personDisplayAdapter.setShareList(mShare);
             }
+            if(shareList.size() >= 5){
+
+                shareListRequest.requestOtherShareList(shareListResponse, userID, ++mSharePageIndex);
+                //Log.d("ZYW", "00000000000request one more page" + mSharePageIndex);
+            }
+//            //Log.d("ZYW", "111111111111request add one more page");
             personDisplayAdapter.getShareList().addAll(shareList);
             personDisplayAdapter.notifyDataSetChanged();
 
@@ -406,8 +408,10 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
             //prevent gc
             if (personActivityAdapter == null) {
                 personActivityAdapter = new PersonActivityAdapter(PersonageDetailActivity.this);
-                mActivity.clear();
                 personActivityAdapter.setActivityList(mActivity);
+            }
+            if(activityList.size() >= 5){
+                activityListRequest.requestOtherActivityList(activityListResponse, userID, ++mActivityPageIndex);
             }
             personActivityAdapter.getActivityList().addAll(activityList);
             personActivityAdapter.notifyDataSetChanged();
@@ -430,8 +434,10 @@ public class PersonageDetailActivity extends BaseActivity implements View.OnClic
             //TODO recruitment success response.
             if (personRecruitAdapter == null){
                 personRecruitAdapter = new PersonRecruitAdapter(PersonageDetailActivity.this);
-                mRecruitment.clear();
                 personRecruitAdapter.setRecruitmentList(mRecruitment);
+            }
+            if (recruitmentList.size() >= 5){
+                recruitmentListRequest.requestSomeone(recruitmentListResponse, userID, ++mRecruitmentPageIndex);
             }
             personRecruitAdapter.getRecruitmentList().addAll(recruitmentList);
             personRecruitAdapter.notifyDataSetChanged();
