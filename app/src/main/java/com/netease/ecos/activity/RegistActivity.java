@@ -124,6 +124,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
 
         } else {
+            isSettingAvatart = false;
             Log.e(CLASS_TAG, "操作取消");
         }
     }

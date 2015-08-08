@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,13 +13,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
-import com.netease.ecos.model.Course;
+import com.netease.ecos.activity.ContactActivity;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
-import com.netease.ecos.views.RoungImageView;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,8 +71,8 @@ public class ContactAdapter extends BaseAdapter{
          */
         public void setData(int position, Boolean isMe){
             IMMessage item=messageList.get(position);
-            tv_text.setText(item.getContent());
-            tv_text2.setText(item.getContent());
+            tv_text.setText(ContactActivity.getMessageContentByJSONString(item.getContent()));
+            tv_text2.setText(ContactActivity.getMessageContentByJSONString(item.getContent()));
             if (isMe){
                 ll_other.setVisibility(View.GONE);
             }else {

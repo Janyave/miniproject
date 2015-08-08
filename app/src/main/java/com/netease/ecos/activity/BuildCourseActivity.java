@@ -378,6 +378,8 @@ public class BuildCourseActivity extends BaseActivity {
 
 
         } else {
+            isSettingCoverPhoto = false;
+            isSettingCoursePhoto = false;
             Log.e(CLASS_TAG, "操作取消");
         }
     }
