@@ -93,8 +93,8 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-//        if (et_password.getText().toString().length()>7&&et_password.getText().toString().length()<17&&!TextUtils.isEmpty(et_phone.getText().toString())){
-        if (!TextUtils.isEmpty(et_phone.getText().toString())){
+        if (et_password.getText().toString().length()>7&&et_password.getText().toString().length()<17&&!TextUtils.isEmpty(et_phone.getText().toString())){
+//        if (!TextUtils.isEmpty(et_phone.getText().toString())){
             tv_login.setEnabled(true);
         }else{
             tv_login.setEnabled(false);

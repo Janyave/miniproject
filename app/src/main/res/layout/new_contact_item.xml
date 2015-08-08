@@ -12,8 +12,7 @@
         android:id="@+id/contactTypeSpinner"
         android:layout_width="@dimen/width_new_activity_text_4"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="@android:color/transparent"/>
+        android:gravity="center"/>
 
     <EditText
         android:id="@+id/contactDetailEdTx"

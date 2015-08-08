@@ -123,8 +123,8 @@ public class CreateActivityRequest extends BaseRequest {
 
         jsonMap.put("startDateStamp", String.valueOf(activity.activityTime.startDateStamp));
         jsonMap.put("endDateStamp", String.valueOf(activity.activityTime.endDateStamp));
-        jsonMap.put("dayStartStamp", String.valueOf(activity.activityTime.dayStartTime));
-        jsonMap.put("dayEndStamp", String.valueOf(activity.activityTime.dayEndTime));
+        jsonMap.put("dayStartTime",String.valueOf(activity.activityTime.dayStartTime));
+        jsonMap.put("dayEndTime",String.valueOf(activity.activityTime.dayEndTime));
 
         jsonMap.put("description", activity.introduction);
         jsonMap.put("fee", activity.fee);

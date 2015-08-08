@@ -190,9 +190,11 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             if (activity.hasSignuped) {
                 tv_wantgo.setText(getResources().getString(R.string.alreadyGo));
                 tv_wantgo.setTextColor(getResources().getColor(R.color.text_gray));
+                tv_wantgo.setBackgroundResource(R.drawable.bg_activty_wantgo_unable);
             } else {
                 tv_wantgo.setText(getResources().getString(R.string.notGo));
                 tv_wantgo.setTextColor(getResources().getColor(R.color.text_red));
+                tv_wantgo.setBackgroundResource(R.drawable.bg_activty_wantgo);
             }
             tv_wangoNum.setText(activity.signUpUseList.size() + "");
 
@@ -231,11 +233,13 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
                 tv_wantgo.setText(getResources().getString(R.string.alreadyGo));
                 tv_wantgo.setTextColor(getResources().getColor(R.color.text_gray));
                 activityModel.loveNums++;
+                tv_wantgo.setBackgroundResource(R.drawable.bg_activty_wantgo_unable);
                 tv_wangoNum.setText(activityModel.loveNums + "");
             } else {
                 tv_wantgo.setText(getResources().getString(R.string.notGo));
                 tv_wantgo.setTextColor(getResources().getColor(R.color.text_red));
                 activityModel.loveNums--;
+                tv_wantgo.setBackgroundResource(R.drawable.bg_activty_wantgo);
                 tv_wangoNum.setText(activityModel.loveNums + "");
             }
             activityModel.hasSignuped = !activityModel.hasSignuped;

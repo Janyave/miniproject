@@ -145,7 +145,11 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
                         break;
                     case TYPE_PASSWORD:
                         if (et_inputPassword.getText().toString().equals(et_inputPassword2.getText().toString())) {
-                            checkPassword(et_input.getText().toString(), et_inputPassword.getText().toString());
+                            if (et_inputPassword.getText().toString().length()>7&&et_inputPassword.getText().toString().length()<17){
+                                checkPassword(et_input.getText().toString(), et_inputPassword.getText().toString());
+                            }else {
+                                Toast.makeText(this, "请输入8~16位密码", Toast.LENGTH_LONG).show();
+                            }
                         } else {
                             Toast.makeText(this, "密码输入不一致", Toast.LENGTH_LONG).show();
                             et_input.setText("");

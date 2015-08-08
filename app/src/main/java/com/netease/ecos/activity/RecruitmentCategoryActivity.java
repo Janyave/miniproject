@@ -53,7 +53,7 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
     ImageView iv_sortIcon;
 
     private PopupWindow popupSortType;
-    private PopupWindow popupSixType;
+    private PopupWindow popupRecruiteType;
 
     private RecruitmentListRequest.SortRule sortRules[] = {RecruitmentListRequest.SortRule.智能排序,
             RecruitmentListRequest.SortRule.价格最低, RecruitmentListRequest.SortRule.最受欢迎, RecruitmentListRequest.SortRule.距离最近};
@@ -111,11 +111,11 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_left:
-                if (popupSixType.isShowing()) {
-                    popupSixType.dismiss();
+                if (popupRecruiteType.isShowing()) {
+                    popupRecruiteType.dismiss();
                 } else {
-                    popupSixType = PopupHelper.newSixTypePopupWindow(RecruitmentCategoryActivity.this);
-                    PopupHelper.showSixTypePopupWindow(popupSixType, RecruitmentCategoryActivity.this, v, new PopupHelper.IPopupListner() {
+                    popupRecruiteType = PopupHelper.newRecruiteTypePopupWindow(RecruitmentCategoryActivity.this);
+                    PopupHelper.showRecruiteTypePopupWindow(popupRecruiteType, RecruitmentCategoryActivity.this, v, new PopupHelper.IPopupListner() {
                         @Override
                         public void clickListner(int type, View v, PopupWindow popupWindow) {
                             pageIndex = 1;
@@ -143,7 +143,7 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
         pageIndex = 1;
         //下拉菜单
         popupSortType = PopupHelper.newRecruiteSortTypePopupWindow(RecruitmentCategoryActivity.this);
-        popupSixType = PopupHelper.newSixTypePopupWindow(RecruitmentCategoryActivity.this);
+        popupRecruiteType = PopupHelper.newSixTypePopupWindow(RecruitmentCategoryActivity.this);
 
         recruitment_type = Recruitment.RecruitType.getRecruitTypeByValue(getIntent().getExtras().getString(TRecruitmentType));
         recruitmentTypeTxVw.setText(recruitment_type.name());

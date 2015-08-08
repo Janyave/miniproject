@@ -2,6 +2,7 @@ package com.netease.ecos.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -22,6 +23,7 @@ import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
+import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum;
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
@@ -162,14 +164,17 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.tv_send:
+                if (TextUtils.isEmpty(et_input.getText().toString())){
+                    Toast.makeText(ContactActivity.this, "请输入聊天内容", Toast.LENGTH_SHORT).show();
+                }else {
+                    IMMessage message = MessageBuilder.createTextMessage(
+                            targetUserIMID, // 聊天对象的ID，如果是单聊，为用户账号，如果是群聊，为群组ID
+                            SessionTypeEnum.P2P, // 聊天类型，单聊或群组
+                            et_input.getText().toString() // 文本内容
+                    );
+                    NIMClient.getService(MsgService.class).sendMessage(message, false);
 
-                IMMessage message = MessageBuilder.createTextMessage(
-                        targetUserIMID, // 聊天对象的ID，如果是单聊，为用户账号，如果是群聊，为群组ID
-                        SessionTypeEnum.P2P, // 聊天类型，单聊或群组
-                        et_input.getText().toString() // 文本内容
-                );
-                NIMClient.getService(MsgService.class).sendMessage(message, false);
-                et_input.setText("");
+                }
                 break;
         }
     }
@@ -189,6 +194,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
             initList();
         }
         contactAdapter.add(message);
+        contactAdapter.notifyDataSetChanged();
         lv_list.setSelection(contactAdapter.getCount() + 1);
         Log.i("contact", "add：----" + message.getFromAccount());
     }
@@ -219,8 +225,14 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                 Log.i("发送消息状态回掉", "消息类型：----" + message.getMsgType().name());
 
                 /**Add**/
-                Toast.makeText(ContactActivity.this, message.getStatus().toString(), Toast.LENGTH_SHORT).show();
-                addList(message);
+                if (message.getStatus() == MsgStatusEnum.success) {
+                    addList(message);
+                    et_input.setText("");
+                } else {
+                    Toast.makeText(ContactActivity.this, message.getStatus().toString(), Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         }, true);
 

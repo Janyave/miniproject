@@ -78,8 +78,10 @@ public class ContactAdapter extends BaseAdapter{
             tv_text2.setText(item.getContent());
             if (isMe){
                 ll_other.setVisibility(View.GONE);
+                ll_me.setVisibility(View.VISIBLE);
             }else {
                 ll_me.setVisibility(View.GONE);
+                ll_other.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -90,7 +92,6 @@ public class ContactAdapter extends BaseAdapter{
      */
     public void add(IMMessage message){
         messageList.add(message);
-        notifyDataSetInvalidated();
     }
 
     //TODO ��������������ģ��Ϊ10��
