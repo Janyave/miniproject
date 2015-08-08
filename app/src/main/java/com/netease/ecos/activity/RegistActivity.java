@@ -19,6 +19,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.user.RegistRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
 import com.netease.ecos.utils.UploadImageTools;
@@ -210,25 +211,29 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+
     @Override
     public void afterTextChanged(Editable s) {
     }
+
+
+
 
     class RegistResponse extends BaseResponceImpl implements NorResponce{
 
         @Override
         public void success() {
-            Toast.makeText(RegistActivity.this, "REGIST SUCCESS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistActivity.this, "注册成功", Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void doAfterFailedResponse(String message) {
-            Toast.makeText(RegistActivity.this, "REGIST FAIL", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistActivity.this,"注册失败",Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-            Toast.makeText(RegistActivity.this, "NETWORK FAIL", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistActivity.this, VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_LONG).show();
         }
     }
 }
