@@ -241,6 +241,7 @@
     <dimen name="height_person_navigation_636px">190dp</dimen>
     <dimen name="radius_contact">18dp</dimen>
     <dimen name="width_contact">250dp</dimen>
+    <dimen name="circle_icon_line_width">3px</dimen>
 
 
 </resources>

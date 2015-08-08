@@ -314,7 +314,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         mDrawerToggle = new ActionBarDrawerToggle(
                 getActivity(),                    /* host ActivityModel */
                 mDrawerLayout,                    /* DrawerLayout object */
-                R.mipmap.ic_launcher,             /* nav drawer image to replace 'Up' caret */
+                R.mipmap.icon,             /* nav drawer image to replace 'Up' caret */
                 R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
                 R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
         ) {

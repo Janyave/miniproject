@@ -1,4 +1,4 @@
-﻿package com.netease.ecos.activity;
+package com.netease.ecos.activity;
 
 import android.app.Activity;
 import android.os.Bundle;

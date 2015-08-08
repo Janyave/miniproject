@@ -39,6 +39,8 @@ public class EventWantGoAdapter extends BaseAdapter{
     private Context mcontext;
     private int TYPE=1;
     private List<User> userList;
+    private boolean[] hasFollowEd;
+    private boolean[] beFollowed;
 
     public EventWantGoAdapter(Context context) {
         this.mcontext = context;
@@ -50,8 +52,13 @@ public class EventWantGoAdapter extends BaseAdapter{
         this.userList=userList;
     }
 
-
-
+    public EventWantGoAdapter(Context context , int type, List<User> userList, boolean[] hasFollowEd, boolean[] beFollowed) {
+        this.mcontext = context;
+        this.TYPE=type;
+        this.userList=userList;
+        this.hasFollowEd=hasFollowEd;
+        this.beFollowed=beFollowed;
+    }
 
     class ViewHolder implements View.OnClickListener{
 
@@ -117,6 +124,18 @@ public class EventWantGoAdapter extends BaseAdapter{
                 View v=parent.inflate(mcontext, R.layout.item_tag,null);
                 ((TextView)v.findViewById(R.id.tv_tag)).setText(type.name());
                 ll_tagList.addView(v);
+            }
+
+            if (TYPE==NormalListViewActivity.TYPE_EVENT_WANTGO){
+                if (hasFollowEd[position]&&beFollowed[position]){
+                    iv_relation.setImageResource(R.mipmap.ic_contact_friend);
+                    iv_relation.setVisibility(View.VISIBLE);
+                }else if(hasFollowEd[position]){
+                    iv_relation.setImageResource(R.mipmap.ic_contact_attention);
+                    iv_relation.setVisibility(View.VISIBLE);
+                }else {
+                    iv_relation.setVisibility(View.GONE);
+                }
             }
 
         }

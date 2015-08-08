@@ -33,7 +33,7 @@
                         android:layout_height="@dimen/circle_icon_210px"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/margin_80px"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@mipmap/bg_female_default"
                         ecos:circle_color="@color/bg_red"
                         ecos:line_width="0.0"
                         ecos:showable="true" />

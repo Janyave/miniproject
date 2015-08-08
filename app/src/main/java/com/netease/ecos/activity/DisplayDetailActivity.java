@@ -145,7 +145,8 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         Display display = getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         width -= 80;
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, width * 2 / 3);
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)exhibitCoverImgVw.getLayoutParams();
+        params.height=params.width*2/3;
         exhibitCoverImgVw.setLayoutParams(params);
     }
 

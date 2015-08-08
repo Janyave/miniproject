@@ -87,7 +87,7 @@ public class SweetAlertDialogActivity extends BaseActivity implements View.OnCli
 				}).show();
 				break;
 			case R.id.custom_img_test:
-				new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE).setTitleText("Sweet!").setContentText("Here's a custom image.").setCustomImage(R.mipmap.ic_launcher).show();
+				new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE).setTitleText("Sweet!").setContentText("Here's a custom image.").setCustomImage(R.mipmap.icon).show();
 				break;
 			case R.id.progress_dialog:
 				final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE).setTitleText("Loading");
