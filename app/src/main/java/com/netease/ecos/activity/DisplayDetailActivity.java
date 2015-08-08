@@ -2,7 +2,6 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -251,6 +250,9 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
             DisplayDetailActivity.this.share = share;
             exhibitCoverImgVw.setImageUrl(share.coverUrl, imageLoader);
             exhibitPersonImgVw.setImageUrl(share.avatarUrl, imageLoader);
+            exhibitPersonImgVw.setErrorImageResId(R.mipmap.bg_female_default);
+            exhibitPersonImgVw.setDefaultImageResId(R.mipmap.bg_female_default);
+
             exhibitPersonNameTxVw.setText(share.nickname);
             exhibitFocusBtn.setText(share.hasAttention ? DisplayDetailActivity.this.getString(R.string.focus) : DisplayDetailActivity.this.getString(R.string.notFocus));
             exhibitTitleTxVw.setText(share.title);
