@@ -3,12 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <!--标题栏-->
-    <dimen name="tv_title_txsize">21sp</dimen>
-    <!-- 155px-->
-    <dimen name="tv_title_height">55dp</dimen>
-
-
     <!-- Per the design guidelines, navigation drawers should be between 240dp and 320dp:
          https://developer.android.com/design/patterns/navigation-drawer.html -->
     <dimen name="navigation_drawer_width">250dp</dimen>
@@ -132,9 +126,9 @@
 
     <!-- 带粉色装饰label等-->
     <dimen name="height_label_100px">35dp</dimen>
-    <dimen name="height_tag_36px">16dp</dimen>
-    <dimen name="width_tag_100px">40dp</dimen>
-    <dimen name="radius_tag_36px">8dp</dimen>
+    <dimen name="height_tag_36px">18dp</dimen>
+    <dimen name="width_tag_100px">45dp</dimen>
+    <dimen name="radius_tag_36px">9dp</dimen>
     <dimen name="height_tag_54px">24dp</dimen>
     <dimen name="width_tag_150px">52dp</dimen>
     <dimen name="radius_tag_54px">12dp</dimen>
@@ -210,7 +204,7 @@
 
     <!-- Title-->
     <dimen name="height_title">55dp</dimen>
-    <dimen name="height_title_normal">55dp</dimen>
+    <dimen name="height_title_normal">45dp</dimen>
     <dimen name="icon_title_return">35dp</dimen>
     <dimen name="width_title_right_text_160px">55dp</dimen>
     <dimen name="height_title_right_text_80px">26dp</dimen>
@@ -238,14 +232,15 @@
 
     <!-- TextView-->
     <dimen name="width_new_activity_text_4">85dp</dimen>
-    <dimen name="height_notification_40px">15dp</dimen>
+    <dimen name="height_notification_40px">18dp</dimen>
     <dimen name="radius_notification_40px">5dp</dimen>
-    <dimen name="width_notification_contact_new_60px">15dp</dimen>
+    <dimen name="width_notification_contact_new_60px">18dp</dimen>
     <dimen name="width_tag_226px">85dp</dimen>
     <dimen name="height_tag_80px">32dp</dimen>
     <dimen name="radius_tag_80px">16dp</dimen>
     <dimen name="height_person_navigation_636px">190dp</dimen>
     <dimen name="radius_contact">18dp</dimen>
+    <dimen name="width_contact">250dp</dimen>
 
 
 </resources>

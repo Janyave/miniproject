@@ -5,9 +5,13 @@
     android:descendantFocusability="blocksDescendants">
 
     <Button
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_btn_big_120px"
         android:text="New Button"
+        android:background="@drawable/btn_big_gray_line"
+        android:paddingLeft="@dimen/margin_40px"
+        android:paddingRight="@dimen/margin_40px"
         android:id="@+id/btn_gridview_location"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        style="@style/text_gray_mid"/>
 </LinearLayout>

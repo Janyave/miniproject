@@ -36,7 +36,7 @@
                 android:id="@+id/imageViewAuthor"
                 android:layout_width="@dimen/circle_icon_100px"
                 android:layout_height="@dimen/circle_icon_100px"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/bg_female_default" />
 
             <LinearLayout
                 android:layout_width="match_parent"

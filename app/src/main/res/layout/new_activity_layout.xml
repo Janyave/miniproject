@@ -38,7 +38,8 @@
                         android:layout_marginBottom="@dimen/margin_30px"
                         android:layout_marginTop="@dimen/margin_30px"
                         android:background="@drawable/bg_course_item"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@mipmap/img_default"
+                        android:scaleType="centerCrop"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"

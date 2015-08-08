@@ -27,14 +27,16 @@
                 android:id="@+id/iv_avatar"
                 android:layout_width="@dimen/circle_icon_80px"
                 android:layout_height="@dimen/circle_icon_80px"
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/bg_female_default"
                 android:scaleType="fitCenter"/>
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_20px"
-                android:text="我是姓名"
+                android:text=""
+                android:singleLine="true"
+                android:ellipsize="end"
                 style="@style/text_dark_min"/>
             <!-- 日期-->
             <TextView
@@ -43,7 +45,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_20px"
                 android:layout_marginBottom="@dimen/margin_40px"
-                android:text="2011年11月11日"
+                android:singleLine="true"
+                android:text=""
+                android:ellipsize="end"
                 style="@style/text_gray_min"/>
         </LinearLayout>
     </RelativeLayout>

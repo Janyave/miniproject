@@ -37,7 +37,7 @@
                     style="@style/text_pink_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="西南Cosplay超级展览"
+                    android:text=""
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <LinearLayout
@@ -58,7 +58,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_20px"
-                        android:text="2015" />
+                        android:text="" />
                 </LinearLayout>
 
 
@@ -80,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_20px"
-                        android:text="成都"
+                        android:text=""
                         android:textAppearance="?android:attr/textAppearanceMedium" />
                 </LinearLayout>
 

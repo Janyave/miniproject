@@ -2,19 +2,27 @@ package com.netease.ecos.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.ContactActivity;
+import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -55,13 +63,24 @@ public class NotificationContactAdapter extends BaseAdapter{
             iv_avatar.setOnClickListener(this);
         }
 
+        public void setTag(int position){
+            iv_avatar.setTag(position);
+            rly_main.setTag(position);
+        }
+
         /**
          * ��������δ��
          */
         public void setData(int position){
             Contact item=contactList.get(position);
-//            Picasso.with(mcontext).load("").placeholder(R.drawable.img_default).into(iv_avatar);
-            tv_name.setText("TEST");
+            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+            iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+            RequestQueue queue = Volley.newRequestQueue(mcontext);
+            ImageLoader.ImageCache imageCache = new SDImageCache();
+            ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+            //TODO
+//            iv_avatar.setImageUrl(item.av, imageLoader);
+            tv_name.setText(item.contactNickName);
             tv_recentContact.setText(item.messageContent);
             tv_recentTime.setText(ModelUtils.getDateDetailByTimeStamp(item.time)+"");
             tv_uncheckNum.setText(item.unreadedNum+"");
@@ -69,14 +88,31 @@ public class NotificationContactAdapter extends BaseAdapter{
 
         @Override
         public void onClick(View v) {
+            Intent intent;
+            Bundle bundle=new Bundle();
             switch (v.getId()){
                 case R.id.rly_main:
-                    mcontext.startActivity(new Intent(mcontext, ContactActivity.class));
+                    intent = new Intent(mcontext, ContactActivity.class);
+                    bundle.putString(ContactActivity.TargetUserID, contactList.get((int)v.getTag()).contactUserId);
+                    //TODO
+                    bundle.putString(ContactActivity.TargetUserAvatar, "");
+                    bundle.putString(ContactActivity.TargetUserName, contactList.get((int)v.getTag()).contactNickName);
+                    bundle.putString(ContactActivity.TargetUserIMID, contactList.get((int) v.getTag()).fromAccount);
+                    Log.v("contact", "targetIMID--------   " + contactList.get((int) v.getTag()).fromAccount);
+                    Log.v("contact", "targetID--------   " + contactList.get((int)v.getTag()).contactUserId);
+                    intent.putExtras(bundle);
                     break;
                 case R.id.iv_avatar:
-                    //TODO
+                    intent = new Intent(mcontext, PersonageDetailActivity.class);
+                    bundle.putString(PersonageDetailActivity.UserID, contactList.get((int)v.getTag()).contactUserId);
+                    bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
+                    intent.putExtras(bundle);
+                    Toast.makeText(mcontext, "个人界面", Toast.LENGTH_SHORT).show();
                     break;
+                default:
+                    return;
             }
+            mcontext.startActivity(intent);
         }
     }
 
@@ -108,6 +144,7 @@ public class NotificationContactAdapter extends BaseAdapter{
             viewHolder=(ViewHolder)convertView.getTag();
         }
 
+        viewHolder.setTag(position);
         viewHolder.setData(position);
 
         return convertView;

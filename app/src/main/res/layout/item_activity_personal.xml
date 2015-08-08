@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="西南Cosplay超级展览"
+                    android:text=""
                     android:id="@+id/tv_title"
                     style="@style/text_pink_max"/>
 
@@ -43,11 +43,11 @@
                     <ImageView
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@mipmap/ic_time_gray"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2015"
+                        android:text=""
                         android:layout_marginLeft="@dimen/margin_20px"
                         android:id="@+id/tv_time"
                         style="@style/text_gray_min"/>
@@ -63,12 +63,12 @@
                     <ImageView
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
-                        android:src="@mipmap/ic_launcher"/>
+                        android:src="@mipmap/ic_position_gray"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="成都"
+                        android:text=""
                         android:layout_marginLeft="@dimen/margin_20px"
                         android:id="@+id/tv_location"
                         style="@style/text_gray_min"/>
@@ -80,9 +80,11 @@
         </LinearLayout>
         
         <TextView
-            android:layout_width="@dimen/width_campaign_type_150px"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/height_campaign_type_54px"
             android:id="@+id/tv_tag"
+            android:paddingLeft="@dimen/margin_20px"
+            android:paddingRight="@dimen/margin_20px"
             android:background="@drawable/bg_campaign_type_1"
             android:text="主题ONLY"
             android:gravity="center"

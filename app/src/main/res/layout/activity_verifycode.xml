@@ -22,7 +22,7 @@
         </LinearLayout>
         <TextView
             android:id="@+id/tv_next"
-            android:text="获取验证码"
+            android:text="@string/aplash_code"
             android:gravity="center"
             style="@style/text_white_max"
             android:enabled="false"

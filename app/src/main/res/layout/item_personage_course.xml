@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_20px"
-                    android:text="25" />
+                    android:text="" />
 
             </LinearLayout>
 
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="大圣归来"
+                android:text=""
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
@@ -84,7 +84,7 @@
                 style="@style/text_gray_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2015年7月28日"
+                android:text=""
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 

@@ -35,7 +35,7 @@
                     android:layout_height="@dimen/circle_icon_108px"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/bg_female_default" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -53,14 +53,14 @@
                             style="@style/text_dark_mid"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="NAME" />
+                            android:text="" />
 
                         <ImageView
                             android:id="@+id/genderImVw"
                             android:layout_width="@dimen/icon_little_36px"
                             android:layout_height="@dimen/icon_little_36px"
                             android:layout_marginLeft="12dp"
-                            android:src="@mipmap/ic_launcher" />
+                            android:src="@mipmap/ic_male_line" />
 
                     </LinearLayout>
 
@@ -74,7 +74,7 @@
                         style="@style/text_gray_mid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3km" />
+                        android:text="" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -86,8 +86,10 @@
             <TextView
                 android:id="@+id/tv_talk"
                 style="@style/text_white_mid"
-                android:layout_width="@dimen/width_btn_focus_152px"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/height_btn_focus_70px"
+                android:paddingLeft="@dimen/margin_40px"
+                android:paddingRight="@dimen/margin_40px"
                 android:background="@drawable/btn_focus_pink"
                 android:gravity="center"
                 android:text="私信" />

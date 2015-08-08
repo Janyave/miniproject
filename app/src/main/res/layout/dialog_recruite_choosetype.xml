@@ -36,7 +36,7 @@
                     style="@style/text_white_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_40px"
+                    android:layout_marginTop="@dimen/margin_30px"
                     android:text="@string/makeuper" />
             </LinearLayout>
 
@@ -58,7 +58,7 @@
                     style="@style/text_white_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_40px"
+                    android:layout_marginTop="@dimen/margin_30px"
                     android:text="@string/prop" />
             </LinearLayout>
 
@@ -88,7 +88,7 @@
                     style="@style/text_white_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_40px"
+                    android:layout_marginTop="@dimen/margin_30px"
                     android:text="@string/photography" />
             </LinearLayout>
 
@@ -110,7 +110,7 @@
                     style="@style/text_white_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_40px"
+                    android:layout_marginTop="@dimen/margin_30px"
                     android:text="@string/backstage" />
             </LinearLayout>
 
@@ -140,7 +140,7 @@
                     style="@style/text_white_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_40px"
+                    android:layout_marginTop="@dimen/margin_30px"
                     android:text="@string/costume" />
             </LinearLayout>
 
@@ -162,7 +162,7 @@
                     style="@style/text_white_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_40px"
+                    android:layout_marginTop="@dimen/margin_30px"
                     android:text="@string/others" />
             </LinearLayout>
         </LinearLayout>

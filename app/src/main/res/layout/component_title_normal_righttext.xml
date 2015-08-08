@@ -19,8 +19,10 @@
             android:id="@+id/iv_left"
             android:layout_width="@dimen/icon_title_return"
             android:layout_height="@dimen/icon_title_return"
-            android:layout_marginLeft="@dimen/margin_30px"
-            android:src="@drawable/btn_return_white"/>
+            android:layout_marginLeft="@dimen/margin_10px"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:src="@drawable/btn_return_white" />
 
 
         <TextView
@@ -60,6 +62,8 @@
             android:paddingRight="@dimen/margin_40px">
 
             <TextView
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:id="@+id/tv_right_text"
                 style="@style/text_white_mid"
                 android:layout_width="@dimen/width_title_right_text_160px"

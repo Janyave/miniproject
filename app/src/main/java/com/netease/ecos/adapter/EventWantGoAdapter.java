@@ -106,7 +106,7 @@ public class EventWantGoAdapter extends BaseAdapter{
                 tv_contact.setText("戳一下");
             }
             if (TYPE==NormalListViewActivity.TYPE_EVENT_FANS){
-                tv_contact.setText("等Y神！");
+                tv_contact.setText("私信");
             }
 
             ll_tagList.removeAllViews();

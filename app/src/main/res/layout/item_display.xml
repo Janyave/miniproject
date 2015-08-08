@@ -35,7 +35,7 @@
                     android:id="@+id/iv_avatar"
                     android:layout_width="@dimen/circle_icon_108px"
                     android:layout_height="@dimen/circle_icon_108px"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/bg_female_default" />
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -106,12 +106,12 @@
                 <TextView
                     android:id="@+id/tv_coverTitle"
                     style="@style/text_pink_max"
-                    android:text="1111"
+                    android:text=""
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="111"
+                    android:text=""
                     android:id="@+id/tv_coverTime"
                     style="@style/text_gray_min"
                     android:layout_width="wrap_content"
@@ -136,7 +136,7 @@
                         android:src="@mipmap/ic_evalution_num" />
 
                     <TextView
-                        android:text="11"
+                        android:text=""
                         android:id="@+id/tv_evaluation"
                         style="@style/text_pink_mid"
                         android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
                         android:src="@mipmap/ic_praise_num" />
 
                     <TextView
-                        android:text="11"
+                        android:text=""
                         android:id="@+id/tv_praise"
                         style="@style/text_pink_mid"
                         android:layout_width="wrap_content"

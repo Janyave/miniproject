@@ -19,7 +19,8 @@
         <TextView
             android:id="@+id/tv_search"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:hint="搜索你喜欢的作品和角色"
             android:textColorHint="@color/bg_gray_dark"
             style="@style/text_gray_mid"

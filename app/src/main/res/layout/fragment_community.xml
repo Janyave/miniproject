@@ -29,8 +29,6 @@
                 android:text="不限" />
 
             <TextView
-                android:layout_width="1dp"
-                android:layout_height="@dimen/height_item_60px"
                 style="@style/layout_line_gray_v"/>
 
             <Button

@@ -8,7 +8,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="(A-G)"
-        android:id="@+id/tv_location_scope" />
+        android:id="@+id/tv_location_scope"
+        style="@style/text_gray_mid"/>
 
     <com.netease.ecos.views.CommunityGridView
         android:layout_width="wrap_content"

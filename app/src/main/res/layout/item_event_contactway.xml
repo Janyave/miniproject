@@ -22,7 +22,7 @@
             style="@style/text_dark_mid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/detail_location_event_detail"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 </LinearLayout>

@@ -400,7 +400,6 @@ public class BuildCourseActivity extends BaseActivity {
                     break;
                 //发布教程
                 case R.id.btn_iss_course:
-//                    startActivity(new Intent(BuildCourseActivity.this, MainActivity.class));
                     if (mCoverLocalPath == null || "".equals(mCoverLocalPath)) {
                         Toast.makeText(BuildCourseActivity.this, "请上传封面图", Toast.LENGTH_LONG).show();
                         return;

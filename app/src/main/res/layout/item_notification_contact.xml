@@ -10,7 +10,7 @@
         android:gravity="center_vertical"
         android:layout_marginLeft="@dimen/margin_40px"
         android:layout_marginRight="@dimen/margin_40px"
-        android:layout_marginBottom="@dimen/margin_30px"
+        android:layout_marginTop="@dimen/margin_30px"
         android:background="@drawable/bg_course_item"
         android:paddingRight="@dimen/margin_40px">
         <com.netease.ecos.utils.RoundImageView
@@ -25,7 +25,7 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="派派派派派大星"
+            android:text=""
             style="@style/text_dark_mid"
             android:textStyle="bold"
             android:singleLine="true"
@@ -42,7 +42,6 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="this is my message..."
                 android:singleLine="true"
                 style="@style/text_gray_mid"
                 />
@@ -50,9 +49,7 @@
                 android:id="@+id/tv_uncheckNum"
                 android:layout_width="@dimen/width_notification_contact_new_60px"
                 android:layout_height="@dimen/width_notification_contact_new_60px"
-                android:text="2"
                 style="@style/text_white_min"
-                android:padding="2dp"
                 android:gravity="center"
                 android:background="@drawable/bg_circle_pink"/>
         </LinearLayout>
@@ -61,7 +58,6 @@
             android:id="@+id/tv_recentTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2011/11/11"
             android:lines="1"
             android:layout_alignParentRight="true"
             android:layout_alignRight="@id/tv_name"

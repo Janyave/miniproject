@@ -36,24 +36,8 @@
             <LinearLayout
                 android:id="@+id/ll_tagList"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/height_tag_36px"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="@dimen/width_tag_100px"
-                    android:layout_height="@dimen/height_tag_36px"
-                    android:text="后期君"
-                    style="@style/text_white_min"
-                    android:background="@drawable/bg_tag"
-                    android:gravity="center"
-                    android:layout_marginRight="@dimen/margin_20px"/>
-                <TextView
-                    android:layout_width="@dimen/width_tag_100px"
-                    android:layout_height="@dimen/height_tag_36px"
-                    android:text="后期君"
-                    style="@style/text_white_min"
-                    android:background="@drawable/bg_tag"
-                    android:gravity="center"
-                    android:layout_marginRight="@dimen/margin_20px"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -65,21 +49,21 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="人民储备军"
+                    android:text=""
                     android:singleLine="true"
                     style="@style/text_pink_max"/>
                 <ImageView
                     android:id="@+id/iv_relation"
                     android:layout_width="@dimen/icon_little_36px"
                     android:layout_height="@dimen/icon_little_36px"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@mipmap/ic_contact_friend"
                     android:layout_marginLeft="@dimen/margin_20px"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/tv_signature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="烧死天下所有有情人"
+                android:text=""
                 android:singleLine="true"
                 style="@style/text_gray_mid"
                 android:layout_marginTop="@dimen/margin_10px"/>

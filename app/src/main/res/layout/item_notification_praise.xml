@@ -17,7 +17,7 @@
             android:id="@+id/tv_praiseDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="萌萌哒小白菜赞了你的分享"
+            android:text=""
             style="@style/text_dark_mid"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,13 +42,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="爱我你怕了吗"
+                    android:text=""
                     style="@style/text_pink_mid"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:text="2011/11/11"
+                    android:text=""
                     style="@style/text_gray_min"
                     android:layout_marginTop="@dimen/margin_20px"/>
             </LinearLayout>

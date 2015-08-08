@@ -73,32 +73,6 @@
                         android:layout_below="@id/ll_personage_name"
                         android:layout_marginTop="@dimen/margin_50px"
                         android:gravity="center">
-
-                        <TextView
-                            style="@style/text_white_min"
-                            android:layout_width="@dimen/width_tag_100px"
-                            android:layout_height="@dimen/height_tag_36px"
-                            android:layout_marginRight="@dimen/margin_30px"
-                            android:background="@drawable/bg_tag"
-                            android:gravity="center"
-                            android:text="@string/tv_personage_tag1" />
-
-                        <TextView
-                            style="@style/text_white_min"
-                            android:layout_width="@dimen/width_tag_100px"
-                            android:layout_height="@dimen/height_tag_36px"
-                            android:layout_marginRight="@dimen/margin_30px"
-                            android:background="@drawable/bg_tag"
-                            android:gravity="center"
-                            android:text="@string/tv_personage_tag2" />
-
-                        <TextView
-                            style="@style/text_white_min"
-                            android:layout_width="@dimen/width_tag_100px"
-                            android:layout_height="@dimen/height_tag_36px"
-                            android:background="@drawable/bg_tag"
-                            android:gravity="center"
-                            android:text="@string/tv_personage_tag4" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -122,7 +96,7 @@
                             style="@style/text_pink_mid"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="324"
+                            android:text=""
                             android:textAppearance="?android:attr/textAppearanceSmall" />
 
                         <TextView
@@ -144,7 +118,7 @@
                             style="@style/text_pink_mid"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="234"
+                            android:text=""
                             android:textAppearance="?android:attr/textAppearanceSmall" />
                     </LinearLayout>
 
@@ -208,8 +182,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_20px"
+                android:paddingLeft="@dimen/margin_80px"
+                android:paddingRight="@dimen/margin_80px"
                 android:gravity="center"
-                android:text="@string/tv_personage_description_default"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/bg_red_light_light" />
 

@@ -6,14 +6,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="验证码已发送至以下手机号，请在五分钟内完成注册"
+        android:text="@string/aplash_code_notification"
         android:gravity="center"
         style="@style/text_white_min"/>
     <TextView
         android:id="@+id/tv_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+86 13333333333"
+        android:text=""
         style="@style/text_white_max"
         android:layout_marginTop="@dimen/splash_item_marginTop"
         android:gravity="center"/>

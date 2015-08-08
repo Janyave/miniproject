@@ -23,9 +23,9 @@
             android:background="@drawable/comment_shape"
             android:gravity="center_vertical"
             android:orientation="vertical"
-            android:layout_marginBottom="@dimen/margin_40px"
+            android:layout_marginBottom="@dimen/margin_30px"
             android:layout_marginLeft="@dimen/margin_40px"
-            android:layout_marginTop="@dimen/margin_40px">
+            android:layout_marginTop="@dimen/margin_30px">
 
             <EditText
                 android:id="@+id/workDetailsCommentEdTx"
@@ -36,9 +36,9 @@
                 android:gravity="left|center_vertical"
                 android:hint="@string/comment_hint"
                 android:textColorHint="@color/text_gray"
-                android:paddingBottom="@dimen/margin_30px"
+                android:paddingBottom="@dimen/margin_20px"
                 android:paddingLeft="@dimen/margin_50px"
-                android:paddingTop="@dimen/margin_30px" />
+                android:paddingTop="@dimen/margin_20px" />
         </LinearLayout>
         <TextView style="@style/layout_line_gray_v"/>
 

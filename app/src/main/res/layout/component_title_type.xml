@@ -8,7 +8,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rly_title_bar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/tv_title_height"
+    android:layout_height="@dimen/height_title_normal"
     android:background="@color/bg_red">
 
     <LinearLayout
@@ -24,7 +24,7 @@
             android:id="@+id/iv_left"
             android:layout_width="@dimen/icon_title_return"
             android:layout_height="@dimen/icon_title_return"
-            android:layout_marginLeft="@dimen/margin_30px"
+            android:layout_marginLeft="@dimen/margin_10px"
             android:src="@mipmap/ic_return_white"/>
     </LinearLayout>
 

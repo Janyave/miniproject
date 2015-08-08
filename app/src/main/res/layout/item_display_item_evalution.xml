@@ -17,7 +17,7 @@
             style="@style/text_dark_mid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NAME" />
+            android:text="" />
         <TextView
             style="@style/text_dark_mid"
             android:layout_width="wrap_content"
@@ -31,6 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_20px"
             android:lines="1"
-            android:text="叔叔我们不约~" />
+            android:text="" />
     </LinearLayout>
 </LinearLayout>
