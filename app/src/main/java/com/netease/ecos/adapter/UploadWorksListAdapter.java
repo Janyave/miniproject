@@ -70,7 +70,9 @@ public class UploadWorksListAdapter extends BaseAdapter implements View.OnClickL
         Bitmap bitmap = CompressImageUitl.decodeSampledBitmapFromFile(mStepsList.get(position).imagePath, 200, 200);
         holder.item_photo.setImageBitmap(bitmap);
         holder.next_step.setOnClickListener(this);
+        holder.next_step.setTag(position);
         holder.last_step.setOnClickListener(this);
+        holder.last_step.setTag(position);
         return convertView;
     }
 
@@ -86,7 +88,7 @@ public class UploadWorksListAdapter extends BaseAdapter implements View.OnClickL
         switch (v.getId()) {
             case R.id.next_step:
                 if (position == (getCount() - 1)) {
-                    Toast.makeText(mContext, "already in the bottom", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, mContext.getResources().getString(R.string.alreadyBottom), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 tempStep = mStepsList.get(position);
@@ -97,7 +99,7 @@ public class UploadWorksListAdapter extends BaseAdapter implements View.OnClickL
                 break;
             case R.id.last_step:
                 if (position == 0) {
-                    Toast.makeText(mContext, "already in the top", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, mContext.getResources().getString(R.string.alreadyTop), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 tempStep = mStepsList.get(position);

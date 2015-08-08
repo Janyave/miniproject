@@ -144,6 +144,9 @@
     <!-- 个人单个作品上传页面-->
     <string name="notFinished">请填写分享内容:)</string>
     <string name="uploadAssignmentSuccessfully">上传作品成功;)</string>
+    <string name="alreadyTop">已经置顶，不能上移</string>
+    <string name="alreadyBottom">已经置底，不能下移</string>
+    <string name="uploadDisplaySuccessfully">上传分享成功</string>
     <!-- 发布招募页面-->
     <string name="avgPrice">均价</string>
     <string name="recruitmentTitle">设置价格和封面作品</string>

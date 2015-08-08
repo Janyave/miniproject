@@ -4,6 +4,8 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.netease.ecos.constants.RequestUrlConstants;
+import com.netease.ecos.database.CityDBService;
+import com.netease.ecos.database.ProvinceDBService;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.ActivityModel.ActivityType;
 import com.netease.ecos.model.ActivityModel.ContactWay;
@@ -32,6 +34,8 @@ public class GetActivityDetailRequest extends BaseRequest {
 
     //响应参数键
     IActivityDetailResponse mActivityDetailResponse;
+    ProvinceDBService provinceDBService;
+    CityDBService cityDBService;
 
 
     public void request(IActivityDetailResponse activityDetailResponse, final String activityId) {
@@ -71,7 +75,7 @@ public class GetActivityDetailRequest extends BaseRequest {
             activity.title = activityJO.getString("title");
             activity.activityType = ActivityType.getActivityTypeByValue(activityJO.getString("activityType"));
             activity.coverUrl = activityJO.getString("logoUrl");
-
+            activity.userId = activityJO.getString("userId");
 
             activity.activityTime.startDateStamp = Long.valueOf(activityJO.getString("startDateStamp")).longValue();
             activity.activityTime.endDateStamp = Long.valueOf(activityJO.getString("endDateStamp")).longValue();
@@ -88,9 +92,13 @@ public class GetActivityDetailRequest extends BaseRequest {
             activity.nickname = activityJO.getString("nickName");
 
             activity.location.province.provinceCode = activityJO.getString("provinceCode");
-//            activity.location.province.provinceName = activityJO.getString("provinceName");
-            activity.location.city.cityName = activityJO.getString("cityName");
             activity.location.city.cityCode = activityJO.getString("cityCode");
+            if (provinceDBService == null)
+                provinceDBService = ProvinceDBService.getProvinceDBServiceInstance(getContext());
+            if (cityDBService == null)
+                cityDBService = CityDBService.getCityDBServiceInstance(getContext());
+            activity.location.province.provinceName = provinceDBService.getProvinceName(activity.location.province.provinceCode);
+            activity.location.city.cityName = cityDBService.getCityName(activity.location.city.cityCode);
             activity.location.address = activityJO.getString("address");
 
             JSONArray contactWayJA = activityJO.getJSONArray("contacts");
