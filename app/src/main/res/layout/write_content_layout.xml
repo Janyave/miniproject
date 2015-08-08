@@ -34,7 +34,10 @@
             android:inputType="textMultiLine"
             android:minLines="5"
             android:padding="@dimen/margin_40px"
-            android:textColorHint="@color/text_gray" />
+            android:textColorHint="@color/text_gray">
+            <requestFocus />
+            </EditText>
+
     </LinearLayout>
 
 </LinearLayout>

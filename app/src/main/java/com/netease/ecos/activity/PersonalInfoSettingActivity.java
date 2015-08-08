@@ -89,6 +89,8 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     TextView tv_tag5;
     @InjectView(R.id.tv_tag6)
     TextView tv_tag6;
+    @InjectView(R.id.tv_phone_num)
+    TextView tv_phone_num;
 
 //    private RoundAngleImageView iv;
 
@@ -328,10 +330,12 @@ public class PersonalInfoSettingActivity extends BaseActivity {
 //        }
         user = UserDataService.getSingleUserDataService(this).getUser();
         mAvatarUrl = setUser.avatarUrl;
-        if (mAvatarUrl != null) {
+        if (mAvatarUrl != null && mAvatarUrl.equals("")) {
             ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
             personal_info_set_avatar_pic.setImageUrl(mAvatarUrl, imageLoader);
         }
+        else
+            personal_info_set_avatar_pic.setImageResource(R.mipmap.bg_female_default);
 
         Log.w("nickname", setUser.nickname);
 
@@ -342,8 +346,13 @@ public class PersonalInfoSettingActivity extends BaseActivity {
             mSetGender.setText("男");
         else if (setUser.gender.getValue().equals("2"))
             mSetGender.setText("女");
-            setTagVisiable(user.roleTypeSet);
-
+        setTagVisiable(user.roleTypeSet);
+        if(setUser.phone != null && setUser.phone.equals(""))
+            tv_phone_num.setText(setUser.phone);
+        else {
+            tv_phone_num.setText("");
+            Log.d("ZYW00000000", "phone num is null");
+        }
 
         mSetIntro.setText(setUser.characterSignature);
     }
