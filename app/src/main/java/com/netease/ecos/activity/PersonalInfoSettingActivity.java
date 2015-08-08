@@ -265,7 +265,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this).clearAllData();
 
                     Intent intent = new Intent(PersonalInfoSettingActivity.this, SplashActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                     break;
@@ -321,20 +321,12 @@ public class PersonalInfoSettingActivity extends BaseActivity {
 
     private void setUserData() {
         User setUser = UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this).getUser();
-//        Bitmap bitmap = null;
-//        bitmap = BitmapFactory.decodeFile(setUser.avatarUrl);
-//        if (bitmap != null) {
-//            personal_info_set_avatar_pic.setImageBitmap(bitmap);
-//        }
         user = UserDataService.getSingleUserDataService(this).getUser();
         mAvatarUrl = setUser.avatarUrl;
         if (mAvatarUrl != null) {
             ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
             personal_info_set_avatar_pic.setImageUrl(mAvatarUrl, imageLoader);
         }
-
-        Log.w("nickname", setUser.nickname);
-
         mSetName.setText(setUser.nickname);
         if (setUser.gender.getValue().equals("0"))
             mSetGender.setText("暂无");
@@ -342,9 +334,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
             mSetGender.setText("男");
         else if (setUser.gender.getValue().equals("2"))
             mSetGender.setText("女");
-            setTagVisiable(user.roleTypeSet);
-
-
+        setTagVisiable(user.roleTypeSet);
         mSetIntro.setText(setUser.characterSignature);
     }
 
@@ -358,7 +348,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         tv_tag6.setVisibility(View.GONE);
 
         for (User.RoleType roleType : roleTypeSet) {
-            if(roleType == null){
+            if (roleType == null) {
                 continue;//in case of  roletype null.
             }
             switch (roleType.getBelongs()) {
