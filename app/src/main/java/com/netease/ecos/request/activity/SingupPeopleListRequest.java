@@ -120,7 +120,7 @@ public class SingupPeopleListRequest extends BaseRequest{
 	 * @date 2015年7月30日 下午3:06:47
 	 *
 	 */
-	interface ISignupPeopleListResponce extends IBaseResponse
+	public interface ISignupPeopleListResponce extends IBaseResponse
 	{
 		/***
 		 * 请求成功回掉函数，其中usrList.get(index)、hasFollowEd[index],hanBeenFollowed[index]一一对应

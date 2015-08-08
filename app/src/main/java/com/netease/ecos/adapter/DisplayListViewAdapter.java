@@ -101,8 +101,10 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             tv_focus.setTextColor(mcontext.getResources().getColor(item.hasAttention ? R.color.text_gray : R.color.text_white));
             tv_focus.setBackgroundResource(item.hasAttention ? R.drawable.btn_focus_gray : R.drawable.btn_focus_pink);
 
-            if (item.coverUrl != null)
+            if (item.coverUrl != null && !TextUtils.isEmpty(item.coverUrl))
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            else
+                iv_cover.setImageResource(R.drawable.img_default);
             tv_coverNum.setText(item.totalPageNumber + mcontext.getResources().getString(R.string.page));
             tv_coverTitle.setText(item.title);
             tv_coverTime.setText(item.getDateDescription());

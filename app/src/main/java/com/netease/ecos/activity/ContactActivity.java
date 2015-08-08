@@ -2,7 +2,6 @@ package com.netease.ecos.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -13,7 +12,10 @@ import android.widget.Toast;
 
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.ContactAdapter;
+import com.netease.ecos.database.ContactDBService;
+import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.ModelUtils;
+import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.views.sweet_alert_dialog.SweetAlertDialog;
 import com.netease.nimlib.sdk.NIMClient;
@@ -23,23 +25,27 @@ import com.netease.nimlib.sdk.msg.MessageBuilder;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.constant.MsgDirectionEnum;
-import com.netease.nimlib.sdk.msg.constant.MsgStatusEnum;
 import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.netease.nimlib.sdk.msg.model.RecentContact;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by hzjixinyu on 2015/7/29.
+ * Created by Think on 2015/8/8.
  */
 public class ContactActivity extends Activity implements View.OnClickListener {
-
     private final String TAG = "Ecos---Contact";
     public static final String TargetUserID = "TargetUserID";
     public static final String TargetUserName = "TargetUserName";
@@ -66,17 +72,14 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
 //    String IM_ID = "2255be0951400e260832c85c5d191247";
 
-    private String targetUserID ;
-    private String targetUserName ;
-    private String targetUserAvatar ;
+    private String targetUserID;
+    private String targetUserName;
+    private String targetUserAvatar;
     private String targetUserIMID = "";
 
     private List<IMMessage> messageList = new ArrayList<>();
     private ContactAdapter contactAdapter;
 
-
-
-//    String IM_ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,19 +106,19 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         title_text.setText("");
 
 
-        try{
-            Bundle bundle=getIntent().getExtras();
-            targetUserID=bundle.getString(TargetUserID);
-            targetUserAvatar=bundle.getString(TargetUserAvatar);
-            targetUserName=bundle.getString(TargetUserName);
-            targetUserIMID=bundle.getString(TargetUserIMID);
-            Log.v("contact","targetIMID--------   "+targetUserIMID);
-            Log.v("contact","targetID--------   "+targetUserID);
-            Log.v("contact","MyIMID--------   "+ UserDataService.getSingleUserDataService(this).getUser().imId);
-            Log.v("contact","MyID--------   "+UserDataService.getSingleUserDataService(this).getUser().userId);
-        }catch (Exception e){
+        try {
+            Bundle bundle = getIntent().getExtras();
+            targetUserID = bundle.getString(TargetUserID);
+            targetUserAvatar = bundle.getString(TargetUserAvatar);
+            targetUserName = bundle.getString(TargetUserName);
+            targetUserIMID = bundle.getString(TargetUserIMID);
+            Log.v("contact", "targetIMID--------   " + targetUserIMID);
+            Log.v("contact", "targetID--------   " + targetUserID);
+            Log.v("contact", "MyIMID--------   " + UserDataService.getSingleUserDataService(this).getUser().imId);
+            Log.v("contact", "MyID--------   " + UserDataService.getSingleUserDataService(this).getUser().userId);
+        } catch (Exception e) {
             e.printStackTrace();
-            SweetAlertDialog sweetAlertDialog=new SweetAlertDialog(ContactActivity.this, SweetAlertDialog.ERROR_TYPE);
+            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(ContactActivity.this, SweetAlertDialog.ERROR_TYPE);
             sweetAlertDialog.setTitle("错误");
             sweetAlertDialog.setContentText("错误的用户信息");
             sweetAlertDialog.setConfirmText("朕知道了");
@@ -147,10 +150,11 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         NIMClient.getService(MsgServiceObserve.class)
                 .observeReceiveMessage(incomingMessageObserver, false);
 
-        NIMClient.getService(MsgService.class).setChattingAccount(
-                MsgService.MSG_CHATTING_ACCOUNT_NONE,
-                SessionTypeEnum.None
-        );
+        NIMClient.getService(MsgService.class).setChattingAccount(MsgService.MSG_CHATTING_ACCOUNT_NONE, SessionTypeEnum.None);
+
+        //最近联系人列表监听
+        NIMClient.getService(MsgServiceObserve.class)
+                .observeRecentContact(messageObserver, true);
     }
 
     private void initListener() {
@@ -164,19 +168,41 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.tv_send:
-                if (TextUtils.isEmpty(et_input.getText().toString())){
-                    Toast.makeText(ContactActivity.this, "请输入聊天内容", Toast.LENGTH_SHORT).show();
-                }else {
-                    IMMessage message = MessageBuilder.createTextMessage(
-                            targetUserIMID, // 聊天对象的ID，如果是单聊，为用户账号，如果是群聊，为群组ID
-                            SessionTypeEnum.P2P, // 聊天类型，单聊或群组
-                            et_input.getText().toString() // 文本内容
-                    );
-                    NIMClient.getService(MsgService.class).sendMessage(message, false);
 
-                }
+                IMMessage message = MessageBuilder.createTextMessage(
+                        targetUserIMID, // 聊天对象的ID，如果是单聊，为用户账号，如果是群聊，为群组ID
+                        SessionTypeEnum.P2P, // 聊天类型，单聊或群组
+                        getMessageJSON(et_input.getText().toString()) // 文本内容
+                );
+                NIMClient.getService(MsgService.class).sendMessage(message, false);
+                et_input.setText("");
                 break;
         }
+    }
+
+
+    public static String getMessageJSON(String content) {
+        User user = UserDataService.getSingleUserDataService(MyApplication.getContext()).getUser();
+        Map<String, Object> messageMap = new HashMap<String, Object>();
+        messageMap.put("userId", user.userId);
+        messageMap.put("nickname", user.nickname);
+        messageMap.put("avatarUrl", user.avatarUrl);
+        messageMap.put("message", content);
+
+        return new JSONObject(messageMap).toString();
+    }
+
+    public static String getMessageContentByJSONString(String jsonString) {
+
+        try {
+            JSONObject json = new JSONObject(jsonString);
+            return json.has("message") && !json.isNull("message") ? json.getString("message") : jsonString;
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.e("contact", "--------非json message-----------");
+        return jsonString;
     }
 
     private void initData() {
@@ -190,11 +216,10 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     }
 
     private void addList(IMMessage message) {
-        if (contactAdapter==null){
+        if (contactAdapter == null) {
             initList();
         }
         contactAdapter.add(message);
-        contactAdapter.notifyDataSetChanged();
         lv_list.setSelection(contactAdapter.getCount() + 1);
         Log.i("contact", "add：----" + message.getFromAccount());
     }
@@ -225,16 +250,14 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                 Log.i("发送消息状态回掉", "消息类型：----" + message.getMsgType().name());
 
                 /**Add**/
-                if (message.getStatus() == MsgStatusEnum.success) {
-                    addList(message);
-                    et_input.setText("");
-                } else {
-                    Toast.makeText(ContactActivity.this, message.getStatus().toString(), Toast.LENGTH_SHORT).show();
-                }
-
-
+                Toast.makeText(ContactActivity.this, message.getStatus().toString(), Toast.LENGTH_SHORT).show();
+                addList(message);
             }
         }, true);
+
+        //最近联系人列表监听
+        NIMClient.getService(MsgServiceObserve.class)
+                .observeRecentContact(messageObserver, false);
 
     }
 
@@ -317,5 +340,44 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                 });
     }
 
+
+    Observer<List<RecentContact>> messageObserver =
+            new Observer<List<RecentContact>>() {
+                @Override
+                public void onEvent(List<RecentContact> messages) {
+
+                    for (RecentContact msg : messages) {
+
+                        Contact contact = new Contact();
+                        contact.contactAccid = msg.getContactId();
+                        contact.fromAccount = msg.getFromAccount();
+                        contact.messageContent = msg.getContent();
+                        contact.messgeId = msg.getRecentMessageId();
+                        contact.time = msg.getTime();
+                        contact.unreadedNum = msg.getUnreadCount();
+                        ContactDBService.getInstance(ContactActivity.this).addContact(contact);
+
+                        Log.e("最近会话信息", "联系人id：" + msg.getContactId());
+                        Log.e("最近会话信息", "会话内容：" + msg.getContent());
+                        Log.e("最近会话信息", "会话账号：" + msg.getFromAccount());
+                        Log.e("最近会话信息", "messageId：" + msg.getRecentMessageId());
+                        Log.e("最近会话信息", "时间：" + ModelUtils.getDateDetailByTimeStamp(msg.getTime()));
+                        Log.e("最近会话信息", "未读数：" + msg.getUnreadCount());
+                        Log.e("最近会话信息", "信息状态：" + msg.getMsgStatus());
+                        Log.e("最近会话信息", "会话类型：" + (msg.getSessionType() == SessionTypeEnum.Team ? "群聊" : "单聊"));
+                        Log.i("最近会话信息", "----------------------------------------");
+                            /*NIMClient.getService(MsgService.class).setChattingAccount(
+                                    msg.getContactId(),
+	    	                	    SessionTypeEnum.P2P
+	    	                	    );*/
+                    }
+
+                    List<Contact> contactList = ContactDBService.getInstance(ContactActivity.this).getContactList();
+
+                    for (Contact contact : contactList) {
+                        Log.e("数据库读取", "contact: --" + contact.toString());
+                    }
+                }
+            };
 
 }

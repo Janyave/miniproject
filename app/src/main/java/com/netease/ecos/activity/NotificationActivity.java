@@ -115,16 +115,17 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 //        contactAdapter=new NotificationContactAdapter(this);
 //        lv_list.setAdapter(contactAdapter);
 
-
         contactList = ContactDBService.getInstance(NotificationActivity.this).getContactList();
+
+        if(contactList.size()==0)
+            Log.e("notification","联系人列表为空");
         for (Contact contact : contactList) {
             Log.e("数据库读取", "contact: --" + contact.toString());
-
-
         }
 
         contactAdapter = new NotificationContactAdapter(this, contactList);
         lv_list.setAdapter(contactAdapter);
+
     }
 
     private void freshData() {

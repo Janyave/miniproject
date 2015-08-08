@@ -140,14 +140,6 @@ public class CourseStepAdapter extends BaseAdapter {
         holder.tv_index.setText(String.valueOf(stepData.stepIndex));
         Log.e("步骤描述", stepData.toString());
 
-
-
-        //            holder.niv_course_photo.setErrorImageResId(R.drawable.bg_niv_error);
-        //            //若照片Url有效，则进行加载
-        //            if( !(stepData.photoUrl ==null) && !("".equals(stepData.photoUrl.trim())) )
-        //                holder.niv_course_photo.setImageUrl(stepData.photoUrl, mImageLoader);
-
-
         //从SD卡中读取，可以优化为从内存读取，后续做
         if (!(stepData.imagePath == null) && !("".equals(stepData.imagePath.trim()))) {
             File file = new File(stepData.imagePath);
@@ -157,15 +149,12 @@ public class CourseStepAdapter extends BaseAdapter {
             } else {
                 Log.e("设置教程步骤图片", "无效路径: " + stepData.imagePath);
             }
-        } else {
-            holder.niv_course_photo.setImageBitmap(null);
         }
 
         //对步骤描述进行数字限制
         //.......
         holder.etv_description.setText(stepData.description);
         holder.etv_description.setOnFocusChangeListener(onFocusChangeListener);
-
 
         holder.niv_course_photo.setOnClickListener(viewClickListener);
         holder.iv_last_step.setOnClickListener(viewClickListener);

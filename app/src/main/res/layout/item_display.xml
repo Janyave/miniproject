@@ -53,7 +53,9 @@
             <TextView
                 android:id="@+id/tv_focus"
                 style="@style/text_white_mid"
-                android:layout_width="@dimen/width_btn_focus_152px"
+                android:layout_width="wrap_content"
+                android:paddingLeft="@dimen/margin_40px"
+                android:paddingRight="@dimen/margin_40px"
                 android:layout_height="@dimen/height_btn_focus_70px"
                 android:background="@drawable/btn_focus_pink"
                 android:gravity="center"
@@ -71,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_default" />
+                android:src="@mipmap/img_default" />
 
             <TextView
                 android:id="@+id/tv_coverNum"

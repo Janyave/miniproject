@@ -72,7 +72,7 @@ public class ShareListRequest extends BaseRequest {
     /**
      * 作者id
      */
-    public static final String KEY_USER_ID = "authorId";
+    public static final String KEY_USER_ID = "userId";
 
     /**
      * 是否已评论，true:是 false:否

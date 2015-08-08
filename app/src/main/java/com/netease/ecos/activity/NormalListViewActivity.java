@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
@@ -13,6 +14,7 @@ import com.netease.ecos.adapter.EventWantGoAdapter;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.activity.SingupPeopleListRequest;
 import com.netease.ecos.request.user.FollowedUserListRequest;
 
 import java.util.List;
@@ -36,6 +38,7 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
     @InjectView(R.id.lv_list)
     ListView lv_list;
 
+    public static String GET_ACTIVITY_ID="activity_id";
     public static String LISTVIEW_TYPE="type";
 
     public final static int TYPE_EVENT_WANTGO=0;
@@ -54,25 +57,28 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
 
         TYPE=getIntent().getExtras().getInt(LISTVIEW_TYPE);
 
-        check();
-
-        switch (TYPE){
-            case TYPE_EVENT_WANTGO:
-                initEventWantGo();
-                break;
-            case TYPE_EVENT_ATTENTION:
-                initFollows();
-                break;
-            case TYPE_EVENT_FANS:
-                initFans();
-                break;
+        if (check()){
+            switch (TYPE){
+                case TYPE_EVENT_WANTGO:
+                    initEventWantGo();
+                    break;
+                case TYPE_EVENT_ATTENTION:
+                    initFollows();
+                    break;
+                case TYPE_EVENT_FANS:
+                    initFans();
+                    break;
+            }
         }
     }
 
-    private void check() {
+    private Boolean check() {
         String id= UserDataService.getSingleUserDataService(NormalListViewActivity.this).getUser().userId;
         if (TextUtils.isEmpty(id)){
-
+            Toast.makeText(NormalListViewActivity.this,getResources().getString(R.string.null_id), Toast.LENGTH_SHORT).show();
+            return false;
+        }else{
+            return true;
         }
     }
 
@@ -83,9 +89,15 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
         eventWantGoAdapter=new EventWantGoAdapter(this, TYPE_EVENT_WANTGO, null);
         lv_list.setAdapter(eventWantGoAdapter);
 
-        FollowedUserListRequest request  = new FollowedUserListRequest();
-        request.requestMyFollows(new followedUserListRequest(), 1);
-
+        try {
+            String activityId=getIntent().getExtras().getString(GET_ACTIVITY_ID);
+            SingupPeopleListRequest request  = new SingupPeopleListRequest();
+            request.request(new signupPeopleListResponce(), activityId,0);
+            showProcessBar(getResources().getString(R.string.e_loading));
+        }catch (Exception e){
+            e.printStackTrace();
+            Toast.makeText(NormalListViewActivity.this, "getIntentInformation error", Toast.LENGTH_SHORT);
+        }
     }
 
     private void initFollows() {
@@ -140,6 +152,27 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
+        }
+    }
+
+    class signupPeopleListResponce extends BaseResponceImpl implements SingupPeopleListRequest.ISignupPeopleListResponce{
+
+        @Override
+        public void success(List<User> userList, boolean[] hasFollowEd, boolean[] beFollowed) {
+            eventWantGoAdapter = new EventWantGoAdapter(NormalListViewActivity.this, TYPE_EVENT_WANTGO, userList, hasFollowEd, beFollowed);
+            dismissProcessBar();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
+            Toast.makeText(NormalListViewActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+            dismissProcessBar();
+            Toast.makeText(NormalListViewActivity.this, "volleyError", Toast.LENGTH_SHORT).show();
         }
     }
 }

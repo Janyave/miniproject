@@ -225,11 +225,13 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(RecruitmentCategoryActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
+            dismissProcessBar();
         }
 
         @Override

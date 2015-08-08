@@ -5,4 +5,6 @@ android:layout_width="@dimen/splash_return_height"
 android:layout_height="@dimen/splash_return_height"
     android:layout_marginLeft="@dimen/margin_40px"
     android:layout_marginTop="@dimen/margin_40px"
-android:src="@drawable/btn_return_white"/>
+android:src="@drawable/btn_return_white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"/>

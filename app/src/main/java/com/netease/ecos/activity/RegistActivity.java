@@ -1,5 +1,6 @@
 package com.netease.ecos.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,6 +63,8 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
         initListener();
         initData();
+
+        iv_return.requestFocus();
     }
 
     private void initListener() {
@@ -70,7 +74,8 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         iv_avatar.setOnClickListener(this);
         tv_complete.setOnClickListener(this);
         iv_return.setOnClickListener(this);
-    }
+
+}
 
 
 
@@ -124,6 +129,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
 
         } else {
+            isSettingAvatart = false;
             Log.e(CLASS_TAG, "操作取消");
         }
     }
