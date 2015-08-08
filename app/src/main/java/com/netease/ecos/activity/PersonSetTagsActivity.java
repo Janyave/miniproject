@@ -80,7 +80,30 @@ public class PersonSetTagsActivity extends BaseActivity implements View.OnClickL
 
 
     private void initData() {
-
+        user = UserDataService.getSingleUserDataService(this).getUser();
+        for (User.RoleType roleType : user.roleTypeSet){
+            switch (roleType.getBelongs()){
+                case "0":
+                    checkBox1.setChecked(true);
+                    break;
+                case "1":
+                    checkBox2.setChecked(true);
+                    break;
+                case "2":
+                    checkBox3.setChecked(true);
+                    break;
+                case "3":
+                    checkBox4.setChecked(true);
+                    break;
+                case "4":
+                    checkBox5.setChecked(true);
+                    break;
+                case "5":
+                    checkBox6.setChecked(true);
+                    break;
+            }
+        }
+        user.roleTypeSet.clear();
     }
 
     @Override
@@ -91,7 +114,6 @@ public class PersonSetTagsActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.lly_right_action:
                 //TODO
-                user = UserDataService.getSingleUserDataService(this).getUser();
                 if (checkBox1.isChecked()) {
                     roleType = User.RoleType.coser;
                     user.roleTypeSet.add(roleType);
