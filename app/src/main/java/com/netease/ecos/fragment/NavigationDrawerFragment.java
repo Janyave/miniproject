@@ -580,8 +580,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         } else {
             user_gender.setBackgroundResource(R.mipmap.ic_gender_male);
         }
-        user_attention.setText("关注数：" + mUserData.followOtherNum);
-        user_fans.setText("粉丝数：" + mUserData.fansNum);
+        user_attention.setText("" + mUserData.followOtherNum);
+        user_fans.setText("" + mUserData.fansNum);
         user_description.setText(mUserData.characterSignature);
 
     }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
@@ -58,6 +59,7 @@ public class PersonActivityAdapter extends BaseAdapter implements View.OnClickLi
         private TextView tv_title;
         private TextView tv_time;
         private TextView tv_location;
+        private LinearLayout ll_activity;
 
 
         public ViewHolder(View root) {
@@ -66,6 +68,7 @@ public class PersonActivityAdapter extends BaseAdapter implements View.OnClickLi
             tv_title = (TextView) root.findViewById(R.id.tv_title);
             tv_time = (TextView) root.findViewById(R.id.tv_time);
             tv_location = (TextView) root.findViewById(R.id.tv_location);
+            ll_activity = (LinearLayout) root.findViewById(R.id.ll_activity_item);
         }
 
         /**
@@ -77,13 +80,15 @@ public class PersonActivityAdapter extends BaseAdapter implements View.OnClickLi
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             tv_title.setText(item.title);
             tv_tag.setText(item.activityType + "");
-            tv_time.setText(item.issueTimeStamp + "");
-            tv_location.setText(item.location+"");
+            tv_time.setText(item.activityTime.toString());
+            tv_location.setText(item.location.toString());
 
-            iv_cover.setTag(position);
-            tv_title.setTag(position);
-            iv_cover.setOnClickListener(PersonActivityAdapter.this);
-            tv_title.setOnClickListener(PersonActivityAdapter.this);
+//            iv_cover.setTag(position);
+//            tv_title.setTag(position);
+//            iv_cover.setOnClickListener(PersonActivityAdapter.this);
+//            tv_title.setOnClickListener(PersonActivityAdapter.this);
+            ll_activity.setTag(position);
+            ll_activity.setOnClickListener(PersonActivityAdapter.this);
         }
     }
 
