@@ -22,7 +22,7 @@ public class ModelUtils {
 		if(srcTimeStamp == null)
 			return "";
 		
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");  
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy.MM.dd");
 		  
 		String sd = sdf.format(new Date(srcTimeStamp)); 
 		
@@ -39,7 +39,7 @@ public class ModelUtils {
 		if(srcTimeStamp == null)
 			return "";
 
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy.MM.dd hh:mm:ss");
 
 		String sd = sdf.format(new Date(srcTimeStamp));
 

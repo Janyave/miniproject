@@ -77,9 +77,12 @@ public class User {
 
 	public Set<RoleType> getRoleTypeByString(String string){
 
-		LinkedHashSet<RoleType> roleTypeSet = new LinkedHashSet<RoleType>();
 		for(String s:string.split(",")){
-			roleTypeSet.add(RoleType.getRoleTypeByValue(s));
+			if("".equals(s))
+				continue;
+			RoleType roleType = RoleType.getRoleTypeByValue(s);
+			if(roleType!=null)
+				roleTypeSet.add(roleType);
 		}
 		return roleTypeSet;
 	}

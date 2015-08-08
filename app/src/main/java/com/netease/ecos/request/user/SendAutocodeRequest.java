@@ -1,24 +1,18 @@
 package com.netease.ecos.request.user;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.util.Log;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.netease.ecos.constants.RequestUrlConstants;
-import com.netease.ecos.model.AccountDataService;
-import com.netease.ecos.model.Share;
-import com.netease.ecos.model.Course.CourseType;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
-import com.netease.ecos.request.NorResponce;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /***
  *
@@ -86,9 +80,9 @@ public class SendAutocodeRequest extends BaseRequest{
 
 				String autocode = getString(json, "code");
 				//保存验证码到本地
-				AccountDataService.getSingleAccountDataService(getContext()).saveAutocode(autocode);
-
-				Log.i("保存的验证码", AccountDataService.getSingleAccountDataService(getContext()).getAutoCode());
+//				AccountDataService.getSingleAccountDataService(getContext()).saveAutocode(autocode);
+//
+//				Log.i("保存的验证码", AccountDataService.getSingleAccountDataService(getContext()).getAutoCode());
 
 				mSendAutocodeResponse.success();
 			}

@@ -35,7 +35,7 @@
     <!-- 和下面的uses-permission一起加入到你的AndroidManifest文件中。 -->
 
     <!-- 接收SDK消息广播权限， 第三方APP接入时，请将com.netease.nim.demo替换为自己的包名 -->
-    <uses-permission android:name="com.netease.ecos.permission.RECEIVE_MSG" />
+    <!--<uses-permission android:name="com.netease.ecos.permission.RECEIVE_MSG" />-->
 
     <application
         android:name=".activity.MyApplication"
