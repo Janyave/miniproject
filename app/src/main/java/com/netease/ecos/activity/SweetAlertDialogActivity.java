@@ -74,56 +74,59 @@ public class SweetAlertDialogActivity extends BaseActivity implements View.OnCli
 						 * .setConfirmText("OK")
 						 * .show();
 						 */
-                    }
-                }).setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.setTitleText("Deleted!").setContentText("Your imaginary file has been deleted!").setConfirmText("OK").showCancelButton(false).setCancelClickListener(null).setConfirmClickListener(null).changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                    }
-                }).show();
-                break;
-            case R.id.custom_img_test:
-                new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE).setTitleText("Sweet!").setContentText("Here's a custom image.").setCustomImage(R.mipmap.bg_female_default).show();
-                break;
-            case R.id.progress_dialog:
-                final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE).setTitleText("Loading");
-                pDialog.show();
-                pDialog.setCancelable(false);
-                CountDownTimer countDownTime = new CountDownTimer(800 * 7, 800) {
-                    public void onTick(long millisUntilFinished) {
-                        // you can change the progress bar color by ProgressHelper every 800 millis
-                        i++;
-                        switch (i) {
-                            case 0:
-                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.blue_btn_bg_color));
-                                break;
-                            case 1:
-                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.material_deep_teal_50));
-                                break;
-                            case 2:
-                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.success_stroke_color));
-                                break;
-                            case 3:
-                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.material_deep_teal_20));
-                                break;
-                            case 4:
-                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.material_blue_grey_80));
-                                break;
-                            case 5:
-                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.warning_stroke_color));
-                                break;
-                            case 6:
-                                pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.success_stroke_color));
-                                break;
-                        }
-                    }
+					}
+				}).setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener()
+				{
+					@Override
+					public void onClick(SweetAlertDialog sDialog) {
+						sDialog.setTitleText("Deleted!").setContentText("Your imaginary file has been deleted!").setConfirmText("OK").showCancelButton(false).setCancelClickListener(null).setConfirmClickListener(null).changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+					}
+				}).show();
+				break;
+			case R.id.custom_img_test:
+				new SweetAlertDialog(this, SweetAlertDialog.CUSTOM_IMAGE_TYPE).setTitleText("Sweet!").setContentText("Here's a custom image.").setCustomImage(R.mipmap.icon).show();
+				break;
+			case R.id.progress_dialog:
+				final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE).setTitleText("Loading");
+				pDialog.show();
+				pDialog.setCancelable(false);
+				CountDownTimer countDownTime = new CountDownTimer(800 * 7, 800)
+				{
+					public void onTick(long millisUntilFinished) {
+						// you can change the progress bar color by ProgressHelper every 800 millis
+						i++;
+						switch (i) {
+							case 0:
+								pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.blue_btn_bg_color));
+								break;
+							case 1:
+								pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.material_deep_teal_50));
+								break;
+							case 2:
+								pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.success_stroke_color));
+								break;
+							case 3:
+								pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.material_deep_teal_20));
+								break;
+							case 4:
+								pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.material_blue_grey_80));
+								break;
+							case 5:
+								pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.warning_stroke_color));
+								break;
+							case 6:
+								pDialog.getProgressHelper().setBarColor(getResources().getColor(R.color.success_stroke_color));
+								break;
+						}
+					}
+					
+					public void onFinish() {
+						i = -1;
+						pDialog.setTitleText("Success!").setConfirmText("OK").changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+					}
+				}.start();
+				break;
+		}
+	}
 
-                    public void onFinish() {
-                        i = -1;
-                        pDialog.setTitleText("Success!").setConfirmText("OK").changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                    }
-                }.start();
-                break;
-        }
-    }
 }

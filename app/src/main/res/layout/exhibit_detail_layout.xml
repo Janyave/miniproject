@@ -127,9 +127,10 @@
                 android:id="@+id/exhibitLsVw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_40px"
+                android:paddingTop="@dimen/margin_40px"
+                android:paddingBottom="@dimen/margin_20px"
                 android:divider="@android:color/transparent"
-                android:dividerHeight="1dp"
+                android:dividerHeight="0dp"
                 android:listSelector="@android:color/transparent" />
 
             <include

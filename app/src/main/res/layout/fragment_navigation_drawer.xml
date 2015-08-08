@@ -138,7 +138,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/bg_white"
             android:orientation="vertical"
             android:paddingTop="@dimen/margin_50px">
@@ -181,7 +181,8 @@
                     android:gravity="center"
                     android:paddingLeft="@dimen/margin_10px"
                     android:paddingRight="@dimen/margin_10px"
-                    android:text="11" />
+                    android:text="11"
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:layout_width="@dimen/icon_big_64px"
@@ -228,7 +229,8 @@
                     android:gravity="center"
                     android:paddingLeft="@dimen/margin_10px"
                     android:paddingRight="@dimen/margin_10px"
-                    android:text="11" />
+                    android:text="11"
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:layout_width="@dimen/icon_big_64px"
@@ -275,7 +277,8 @@
                     android:gravity="center"
                     android:paddingLeft="@dimen/margin_10px"
                     android:paddingRight="@dimen/margin_10px"
-                    android:text="11" />
+                    android:text="11"
+                    android:visibility="gone"/>
 
                 <ImageView
                     android:layout_width="@dimen/icon_big_64px"
@@ -283,199 +286,14 @@
                     android:padding="5dp"
                     android:src="@mipmap/ic_more" />
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:id="@+id/ll_course"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_item_140px"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/margin_50px"
-                    android:paddingRight="@dimen/margin_30px">
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_sidebar_54px"
-                        android:layout_height="@dimen/icon_sidebar_54px"
-                        android:scaleType="fitCenter"
-                        android:src="@mipmap/ic_side_course" />
-
-                    <TextView
-                        style="@style/text_white_mid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_40px"
-                        android:text="@string/side_course" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:id="@+id/tv_courseNum"
-                        style="@style/text_pink_min"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height_notification_40px"
-                        android:layout_marginRight="@dimen/margin_20px"
-                        android:background="@drawable/bg_side_notification"
-                        android:gravity="center"
-                        android:minWidth="20dp"
-                        android:text="11" />
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_big_64px"
-                        android:layout_height="@dimen/icon_big_64px"
-                        android:padding="2dp"
-                        android:src="@mipmap/ic_more_white" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_display"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_item_140px"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/margin_50px"
-                    android:paddingRight="@dimen/margin_30px">
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_sidebar_54px"
-                        android:layout_height="@dimen/icon_sidebar_54px"
-                        android:scaleType="fitCenter"
-                        android:src="@mipmap/ic_side_display" />
-
-                    <TextView
-                        style="@style/text_white_mid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_40px"
-                        android:text="@string/side_display" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:id="@+id/tv_displayNum"
-                        style="@style/text_pink_min"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height_notification_40px"
-                        android:layout_marginRight="@dimen/margin_20px"
-                        android:background="@drawable/bg_side_notification"
-                        android:gravity="center"
-                        android:minWidth="20dp"
-                        android:text="11" />
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_big_64px"
-                        android:layout_height="@dimen/icon_big_64px"
-                        android:padding="2dp"
-                        android:src="@mipmap/ic_more_white" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_activity"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_item_140px"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/margin_50px"
-                    android:paddingRight="@dimen/margin_30px">
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_sidebar_54px"
-                        android:layout_height="@dimen/icon_sidebar_54px"
-                        android:scaleType="fitCenter"
-                        android:src="@mipmap/ic_side_activity" />
-
-                    <TextView
-                        style="@style/text_white_mid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_40px"
-                        android:text="@string/side_activity" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:id="@+id/tv_activityNum"
-                        style="@style/text_pink_min"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height_notification_40px"
-                        android:layout_marginRight="@dimen/margin_20px"
-                        android:background="@drawable/bg_side_notification"
-                        android:gravity="center"
-                        android:minWidth="20dp"
-                        android:text="11" />
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_big_64px"
-                        android:layout_height="@dimen/icon_big_64px"
-                        android:padding="2dp"
-                        android:src="@mipmap/ic_more_white" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_recruite"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_item_140px"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/margin_50px"
-                    android:paddingRight="@dimen/margin_30px">
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_sidebar_54px"
-                        android:layout_height="@dimen/icon_sidebar_54px"
-                        android:scaleType="fitCenter"
-                        android:src="@mipmap/ic_side_recruite" />
-
-                    <TextView
-                        style="@style/text_white_mid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_40px"
-                        android:text="@string/side_recruite" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:id="@+id/tv_recruiteNum"
-                        style="@style/text_pink_min"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/height_notification_40px"
-                        android:layout_marginRight="@dimen/margin_20px"
-                        android:background="@drawable/bg_side_notification"
-                        android:gravity="center"
-                        android:minWidth="20dp"
-                        android:text="11" />
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_big_64px"
-                        android:layout_height="@dimen/icon_big_64px"
-                        android:padding="2dp"
-                        android:src="@mipmap/ic_more_white" />
-                </LinearLayout>
-            </LinearLayout>
+        </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_block"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@color/bg_white"/>
 
             <TextView style="@style/layout_line_gray" />
 
@@ -523,5 +341,4 @@
                 android:background="#cccc"/>
             </FrameLayout>-->
         </LinearLayout>
-    </LinearLayout>
 </LinearLayout>
