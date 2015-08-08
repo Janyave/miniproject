@@ -211,7 +211,9 @@ public class MyApplication extends Application {
         // 如果将新消息通知提醒托管给SDK完成，需要添加以下配置。
         // 其中notificationSmallIconId必须提供
         StatusBarNotificationConfig config = new StatusBarNotificationConfig();
-        config.notificationEntrance = MainActivity.class;
+        config.notificationEntrance = NotificationActivity.class;
+
+
         config.notificationSmallIconId = R.mipmap.icon;
         // 通知铃声的uri字符串
         config.notificationSound = "android.resource://com.netease.ecos/raw/msg";
