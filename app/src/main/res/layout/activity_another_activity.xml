@@ -6,14 +6,30 @@
     android:orientation="vertical"
     android:id="@+id/rl_contain">
 
-    <include
-        layout="@layout/item_course_type_dark"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_centerInParent="true">
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:paddingBottom="80dp"
+        android:layout_marginBottom="@dimen/margin_80px"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/ic_choose_course_type"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/margin_80px"
+            />
+        <include
+            layout="@layout/item_course_type_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+        </include>
+    </LinearLayout>
 
-    </include>
 
     <LinearLayout
         android:layout_width="match_parent"

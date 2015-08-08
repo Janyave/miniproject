@@ -1,12 +1,14 @@
 package com.netease.ecos.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,12 +43,15 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
 
         initListener();
         initData();
+
+        iv_return.requestFocus();
     }
 
     private void initListener() {
         et_password.addTextChangedListener(this);
         tv_reset_password.setOnClickListener(this);
         iv_return.setOnClickListener(this);
+
     }
 
     private void initData() {
