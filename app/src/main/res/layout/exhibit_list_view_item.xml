@@ -12,6 +12,6 @@
         android:layout_marginBottom="@dimen/ExhibitListItemMargin"
         android:layout_marginTop="@dimen/ExhibitListItemMargin"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/img_default"/>
 
 </LinearLayout>

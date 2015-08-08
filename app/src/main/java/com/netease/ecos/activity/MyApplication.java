@@ -210,7 +210,7 @@ public class MyApplication extends Application {
         // 其中notificationSmallIconId必须提供
         StatusBarNotificationConfig config = new StatusBarNotificationConfig();
         config.notificationEntrance = MainActivity.class;
-        config.notificationSmallIconId = R.mipmap.ic_launcher;
+        config.notificationSmallIconId = R.mipmap.bg_female_default;
         // 通知铃声的uri字符串
         config.notificationSound = "android.resource://com.netease.ecos/raw/msg";
         options.statusBarNotificationConfig = config;
