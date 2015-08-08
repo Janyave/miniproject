@@ -186,19 +186,19 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         ll_notification = (LinearLayout) mDrawerView.findViewById(R.id.ll_notification);
         ll_contact = (LinearLayout) mDrawerView.findViewById(R.id.ll_contact);
-        ll_course = (LinearLayout) mDrawerView.findViewById(R.id.ll_course);
-        ll_display = (LinearLayout) mDrawerView.findViewById(R.id.ll_display);
-        ll_activity = (LinearLayout) mDrawerView.findViewById(R.id.ll_activity);
-        ll_recruite = (LinearLayout) mDrawerView.findViewById(R.id.ll_recruite);
+//        ll_course = (LinearLayout) mDrawerView.findViewById(R.id.ll_course);
+//        ll_display = (LinearLayout) mDrawerView.findViewById(R.id.ll_display);
+//        ll_activity = (LinearLayout) mDrawerView.findViewById(R.id.ll_activity);
+//        ll_recruite = (LinearLayout) mDrawerView.findViewById(R.id.ll_recruite);
         ll_personcenter = (LinearLayout) mDrawerView.findViewById(R.id.ll_personcenter);
         ll_setting = (LinearLayout) mDrawerView.findViewById(R.id.ll_setting);
 
         tv_notificationNum = (TextView) mDrawerView.findViewById(R.id.tv_notificationNum);
         tv_contactNum = (TextView) mDrawerView.findViewById(R.id.tv_contactNum);
-        tv_courseNum = (TextView) mDrawerView.findViewById(R.id.tv_courseNum);
-        tv_displayNum = (TextView) mDrawerView.findViewById(R.id.tv_displayNum);
-        tv_activityNum = (TextView) mDrawerView.findViewById(R.id.tv_activityNum);
-        tv_recruiteNum = (TextView) mDrawerView.findViewById(R.id.tv_recruiteNum);
+//        tv_courseNum = (TextView) mDrawerView.findViewById(R.id.tv_courseNum);
+//        tv_displayNum = (TextView) mDrawerView.findViewById(R.id.tv_displayNum);
+//        tv_activityNum = (TextView) mDrawerView.findViewById(R.id.tv_activityNum);
+//        tv_recruiteNum = (TextView) mDrawerView.findViewById(R.id.tv_recruiteNum);
         tv_personcenterNum = (TextView) mDrawerView.findViewById(R.id.tv_personcenterNum);
         tv_block = (TextView) mDrawerView.findViewById(R.id.tv_block);
 
@@ -231,10 +231,10 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         ll_notification.setOnClickListener(this);
         ll_contact.setOnClickListener(this);
-        ll_course.setOnClickListener(this);
-        ll_display.setOnClickListener(this);
-        ll_activity.setOnClickListener(this);
-        ll_recruite.setOnClickListener(this);
+//        ll_course.setOnClickListener(this);
+//        ll_display.setOnClickListener(this);
+//        ll_activity.setOnClickListener(this);
+//        ll_recruite.setOnClickListener(this);
         ll_personcenter.setOnClickListener(this);
         ll_setting.setOnClickListener(this);
         tv_block.setOnClickListener(this);

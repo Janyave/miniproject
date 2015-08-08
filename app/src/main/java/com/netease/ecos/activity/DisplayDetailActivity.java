@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -145,8 +146,8 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         Display display = getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         width -= 80;
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)exhibitCoverImgVw.getLayoutParams();
-        params.height=params.width*2/3;
+        ViewGroup.LayoutParams params = exhibitCoverImgVw.getLayoutParams();
+        params.height=width*2/3;
         exhibitCoverImgVw.setLayoutParams(params);
     }
 
