@@ -160,7 +160,10 @@ public class GetRecruitmentDetailRequest extends BaseRequest {
             recruit.nickname = getString(asJO, KEY_NICKNAME);
             recruit.gender = Gender.getGender(getString(asJO, KEY_GENDER));
             recruit.distanceKM = getString(asJO, KEY_DISTANCE);
-            recruit.issueTimeStamp = asJO.getLong(KEY_ISSUE_TIME_STAMP);
+            if(asJO.has(KEY_ISSUE_TIME_STAMP) && !asJO.isNull(KEY_ISSUE_TIME_STAMP)){
+                recruit.issueTimeStamp = asJO.getLong(KEY_ISSUE_TIME_STAMP);
+            }
+
             if (mGetRecruitmentLDetailResponse != null) {
                 mGetRecruitmentLDetailResponse.success(recruit);
             }

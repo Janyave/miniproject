@@ -3,6 +3,7 @@ package com.netease.ecos.activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.baidu.location.GeofenceClient;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.netease.ecos.R;
+import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.LocationData;
 import com.netease.ecos.model.LocationDataService;
 import com.netease.ecos.model.UserDataService;
@@ -186,17 +188,16 @@ public class MyApplication extends Application {
      */
 
     private LoginInfo getLoginInfo() {
-        /*String account = Preferences.getUserAccount();
-        String token = Preferences.getUserToken();
+        String account = AccountDataService.getSingleAccountDataService(this).getUserAccId();
+        String token = AccountDataService.getSingleAccountDataService(this).getImToken();
+
+        Log.e(TAG,"account:" + account);
+        Log.e(TAG,"token:" + token);
 
         if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
-            DemoCache.setAccount(account.toLowerCase());
             // open db
-            DatabaseManager.getInstance().open(this);
             return new LoginInfo(account, token);
-        } else {
-            return null;
-        }*/
+        }
 
         return null;
     }

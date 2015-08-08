@@ -40,8 +40,6 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
     LinearLayout ll_left;
     @InjectView(R.id.tv_left)
     TextView tv_left;
-    @InjectView(R.id.tv_location)
-    TextView tv_location;
     @InjectView(R.id.ll_location)
     LinearLayout ll_location;
     @InjectView(R.id.tv_left)

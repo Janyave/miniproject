@@ -73,26 +73,26 @@ public class YunXinApiActivity extends Activity{
 	private void regeisterObserver() {
 
 		//发送消息状态监听器
-		NIMClient.getService(MsgServiceObserve.class).observeMsgStatus(new Observer<IMMessage>(){
+		/*NIMClient.getService(MsgServiceObserve.class).observeMsgStatus(new Observer<IMMessage>(){
 			
 	        public void onEvent(IMMessage message) {
 	            // 参数为有状态发生改变的消息对象，其msgStatus和attachStatus均为最新状态。
 	            // 发送消息和接收消息的状态监听均可以通过此接口完成。
-	        	/*Log.i("发送消息状态回掉", "消息内容：" + message.getContent());
+	        	Log.i("发送消息状态回掉", "消息内容：" + message.getContent());
 	        	Log.i("发送消息状态回掉", "消息来自：" + message.getFromAccount());
 	        	Log.i("发送消息状态回掉", "消息接收：" + message.getSessionId());
 	        	Log.i("发送消息状态回掉", "会话类型：" + message.getSessionType());
 	        	Log.i("发送消息状态回掉", "消息类型：" + message.getMsgType().name());
 	        	Log.i("发送消息状态回掉", "消息状态：" + message.getStatus());
-	        	
+
 	        	Log.i("发送消息状态回掉", "消息方向：" + message.getDirect());
 	        	Log.i("发送消息状态回掉", "当前是发出去:" + message.getDirect().compareTo(MsgDirectionEnum.Out));
 	        	Log.i("发送消息状态回掉", "当前是收到:" + message.getDirect().compareTo(MsgDirectionEnum.In));
-	        	Log.i("发送消息状态回掉", "消息类型：" + message.getMsgType().name());*/
+	        	Log.i("发送消息状态回掉", "消息类型：" + message.getMsgType().name());
 		        	
 		    }
 			}
-		, true);
+		, true);*/
 		
 		
 	    //注册接收信息监听器

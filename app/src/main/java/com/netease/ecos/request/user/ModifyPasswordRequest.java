@@ -5,11 +5,9 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.request.BaseRequest;
-import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.netease.ecos.request.NorResponce;
+import com.netease.ecos.utils.StringUtils;
 
 import java.util.Map;
 
@@ -25,26 +23,28 @@ public class ModifyPasswordRequest extends BaseRequest{
 
 	//请求参数键
 	/*** 精度 */
-	public static final String OLD_PWD = "old_pwd";
+	public static final String OLD_PWD = "oldPwd";
 
 	/*** 维度 */
-	public static final String NEW_PWD = "new_pwd";
+	public static final String NEW_PWD = "newPwd";
 
 
 	//响应参数键
 
+	NorResponce mNorResponce;
 
-	public void request(IBaseResponse baseresponce, final String oldPwd, final String newPwd)
+	public void request(NorResponce norResponce, final String oldPwd, final String newPwd)
 	{
-		super.initBaseRequest(baseresponce);
+		super.initBaseRequest(norResponce);
+		mNorResponce = norResponce;
 
 		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.MODIFY_PASSWORD,  this, this) {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
 				Map<String, String> map = getRequestBasicMap();
 
-				map.put(OLD_PWD, oldPwd);
-				map.put(NEW_PWD, newPwd);
+				map.put(OLD_PWD, StringUtils.hashKeyForDisk(oldPwd));
+				map.put(NEW_PWD, StringUtils.hashKeyForDisk(newPwd));
 
 				traceNormal(TAG, map.toString());
 				traceNormal(TAG, ModifyPasswordRequest.this.getUrl(RequestUrlConstants.MODIFY_PASSWORD, map));
@@ -62,31 +62,16 @@ public class ModifyPasswordRequest extends BaseRequest{
 	@Override
 	public void responceSuccess(String jstring) {
 		traceNormal(TAG, jstring);
-
-		try {
-			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
-
-
-			if(mBaseResponse!=null)
-			{
-			}
-			else
-			{
-				traceError(TAG,"回调接口为null");
-			}
-
-
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-			if(mBaseResponse!=null)
-			{
-				mBaseResponse.doAfterFailedResponse("json异常");
-			}
+		if(mNorResponce!=null)
+		{
+			mNorResponce.success();
 		}
-
+		else
+		{
+			traceError(TAG,"回调接口为null");
+		}
 	}
+
 
 }
 

@@ -23,6 +23,8 @@ public class UserDataService {
 
 	private final static String IM_ID = "imId";
 
+	private final static String IM_TOKEN = "imId";
+
 
 	/*** 存储昵称{@link User#nickname} */
 	public static final  String NICKNAME = "nickname";
@@ -91,6 +93,7 @@ public class UserDataService {
 
 		editor.putString(USER_ID, user.userId);
 		editor.putString(IM_ID, user.imId);
+		editor.putString(IM_TOKEN, user.imToken);
 		editor.putString(NICKNAME, user.nickname);
 		editor.putString(AVATAR_URL, user.avatarUrl);
 		editor.putString(CHARACTER_SIGANATURE, user.characterSignature);
@@ -118,6 +121,7 @@ public class UserDataService {
 
 		user.userId = sharedPreferences.getString(USER_ID, DEFAULT_VALUE);
 		user.imId = sharedPreferences.getString(IM_ID, DEFAULT_VALUE);
+		user.imToken = sharedPreferences.getString(IM_TOKEN, DEFAULT_VALUE);
 		user.nickname = sharedPreferences.getString(NICKNAME, DEFAULT_VALUE);
 		user.avatarUrl = sharedPreferences.getString(AVATAR_URL, DEFAULT_VALUE);
 		user.characterSignature = sharedPreferences.getString(CHARACTER_SIGANATURE, DEFAULT_VALUE);

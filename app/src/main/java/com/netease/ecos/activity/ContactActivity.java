@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -63,16 +62,17 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     @InjectView(R.id.et_input)
     EditText et_input;
 
+//    String IM_ID = "2255be0951400e260832c85c5d191247";
 
     private String targetUserID ;
     private String targetUserName ;
     private String targetUserAvatar ;
-    private String targetUserIMID ;
+    private String targetUserIMID = "";
 
     private List<IMMessage> messageList = new ArrayList<>();
     private ContactAdapter contactAdapter;
 
-//    String IM_ID = "2255be0951400e260832c85c5d191247";
+
 
 //    String IM_ID;
     @Override
@@ -84,8 +84,6 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         initTitle();
         initListener();
 
-
-//        IM_ID = targetUserID;
         NIMClient.getService(MsgService.class).setChattingAccount(
                 targetUserID,
                 SessionTypeEnum.P2P
@@ -94,6 +92,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         regeisterObserver();
 
         initData();
+
     }
 
     private void initTitle() {
@@ -165,7 +164,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
             case R.id.tv_send:
 
                 IMMessage message = MessageBuilder.createTextMessage(
-                        targetUserID, // 聊天对象的ID，如果是单聊，为用户账号，如果是群聊，为群组ID
+                        targetUserIMID, // 聊天对象的ID，如果是单聊，为用户账号，如果是群聊，为群组ID
                         SessionTypeEnum.P2P, // 聊天类型，单聊或群组
                         et_input.getText().toString() // 文本内容
                 );
@@ -216,13 +215,10 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                 Log.i("发送消息状态回掉", "消息类型：" + message.getMsgType().name());
 
                 /**Add**/
-
                 Toast.makeText(ContactActivity.this, message.getStatus().toString(), Toast.LENGTH_SHORT).show();
                 addList(message);
             }
-        }
-                , true);
-
+        }, true);
 
     }
 
@@ -283,11 +279,11 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
                             IMMessage message = msgList.get(i);
 
-                            Log.e("历史记录", message.getFromAccount().equals("test1") ? "我：" : "  蓝天：");
+//                            Log.e("历史记录", message.getFromAccount().equals("test1") ? "我：" : "  蓝天：");
                             Log.e("历史记录", message.getContent());
                             Log.e("历史记录", ModelUtils.getDateDetailByTimeStamp(message.getTime()));
                             Log.e("历史记录", ("\n"));
-
+                            Log.e("历史记录", message.getFromAccount());
                         }
 
                     }
