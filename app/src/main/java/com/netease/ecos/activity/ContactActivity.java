@@ -1,4 +1,4 @@
-﻿package com.netease.ecos.activity;
+package com.netease.ecos.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -43,10 +43,9 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by hzjixinyu on 2015/7/29.
+ * Created by Think on 2015/8/8.
  */
 public class ContactActivity extends Activity implements View.OnClickListener {
-
     private final String TAG = "Ecos---Contact";
     public static final String TargetUserID = "TargetUserID";
     public static final String TargetUserName = "TargetUserName";
@@ -73,17 +72,14 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
 //    String IM_ID = "2255be0951400e260832c85c5d191247";
 
-    private String targetUserID ;
-    private String targetUserName ;
-    private String targetUserAvatar ;
+    private String targetUserID;
+    private String targetUserName;
+    private String targetUserAvatar;
     private String targetUserIMID = "";
 
     private List<IMMessage> messageList = new ArrayList<>();
     private ContactAdapter contactAdapter;
 
-
-
-//    String IM_ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,19 +106,19 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         title_text.setText("");
 
 
-        try{
-            Bundle bundle=getIntent().getExtras();
-            targetUserID=bundle.getString(TargetUserID);
-            targetUserAvatar=bundle.getString(TargetUserAvatar);
-            targetUserName=bundle.getString(TargetUserName);
-            targetUserIMID=bundle.getString(TargetUserIMID);
-            Log.v("contact","targetIMID--------   "+targetUserIMID);
-            Log.v("contact","targetID--------   "+targetUserID);
-            Log.v("contact","MyIMID--------   "+ UserDataService.getSingleUserDataService(this).getUser().imId);
-            Log.v("contact","MyID--------   "+UserDataService.getSingleUserDataService(this).getUser().userId);
-        }catch (Exception e){
+        try {
+            Bundle bundle = getIntent().getExtras();
+            targetUserID = bundle.getString(TargetUserID);
+            targetUserAvatar = bundle.getString(TargetUserAvatar);
+            targetUserName = bundle.getString(TargetUserName);
+            targetUserIMID = bundle.getString(TargetUserIMID);
+            Log.v("contact", "targetIMID--------   " + targetUserIMID);
+            Log.v("contact", "targetID--------   " + targetUserID);
+            Log.v("contact", "MyIMID--------   " + UserDataService.getSingleUserDataService(this).getUser().imId);
+            Log.v("contact", "MyID--------   " + UserDataService.getSingleUserDataService(this).getUser().userId);
+        } catch (Exception e) {
             e.printStackTrace();
-            SweetAlertDialog sweetAlertDialog=new SweetAlertDialog(ContactActivity.this, SweetAlertDialog.ERROR_TYPE);
+            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(ContactActivity.this, SweetAlertDialog.ERROR_TYPE);
             sweetAlertDialog.setTitle("错误");
             sweetAlertDialog.setContentText("错误的用户信息");
             sweetAlertDialog.setConfirmText("朕知道了");
@@ -185,9 +181,9 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     }
 
 
-    public static String getMessageJSON(String content){
+    public static String getMessageJSON(String content) {
         User user = UserDataService.getSingleUserDataService(MyApplication.getContext()).getUser();
-        Map<String,Object> messageMap = new HashMap<String,Object>();
+        Map<String, Object> messageMap = new HashMap<String, Object>();
         messageMap.put("userId", user.userId);
         messageMap.put("nickname", user.nickname);
         messageMap.put("avatarUrl", user.avatarUrl);
@@ -196,11 +192,11 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         return new JSONObject(messageMap).toString();
     }
 
-    public static String getMessageContentByJSONString(String jsonString){
+    public static String getMessageContentByJSONString(String jsonString) {
 
         try {
             JSONObject json = new JSONObject(jsonString);
-            return json.has("message")&&!json.isNull("message")?json.getString("message"):jsonString;
+            return json.has("message") && !json.isNull("message") ? json.getString("message") : jsonString;
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -220,7 +216,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     }
 
     private void addList(IMMessage message) {
-        if (contactAdapter==null){
+        if (contactAdapter == null) {
             initList();
         }
         contactAdapter.add(message);
@@ -345,7 +341,6 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     }
 
 
-
     Observer<List<RecentContact>> messageObserver =
             new Observer<List<RecentContact>>() {
                 @Override
@@ -362,7 +357,6 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                         contact.unreadedNum = msg.getUnreadCount();
                         ContactDBService.getInstance(ContactActivity.this).addContact(contact);
 
-
                         Log.e("最近会话信息", "联系人id：" + msg.getContactId());
                         Log.e("最近会话信息", "会话内容：" + msg.getContent());
                         Log.e("最近会话信息", "会话账号：" + msg.getFromAccount());
@@ -372,8 +366,8 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                         Log.e("最近会话信息", "信息状态：" + msg.getMsgStatus());
                         Log.e("最近会话信息", "会话类型：" + (msg.getSessionType() == SessionTypeEnum.Team ? "群聊" : "单聊"));
                         Log.i("最近会话信息", "----------------------------------------");
-	    	                /*NIMClient.getService(MsgService.class).setChattingAccount(
-	    	                		msg.getContactId(),
+                            /*NIMClient.getService(MsgService.class).setChattingAccount(
+                                    msg.getContactId(),
 	    	                	    SessionTypeEnum.P2P
 	    	                	    );*/
                     }
@@ -385,8 +379,5 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                     }
                 }
             };
-
-
-
 
 }
