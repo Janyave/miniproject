@@ -319,7 +319,7 @@
                             style="@style/text_pink_max"
                             android:layout_width="@dimen/width_btn_wantgo_220px"
                             android:layout_height="@dimen/circle_icon_100px"
-                            android:background="@drawable/btn_activity_wantgo"
+                            android:background="@drawable/bg_activty_wantgo"
                             android:gravity="center"
                             android:text="@string/notGo" />
 
