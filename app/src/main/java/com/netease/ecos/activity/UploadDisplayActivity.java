@@ -261,7 +261,6 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
                 if (count == (imagePaths.size() + 1)) {
                     Log.d(TAG, "all the images has been uploaded successfully.");
                     share.imageList = imagesArraylist;
-                    Log.d(TAG, "share's tag:" + share.tags.getTagValues());
                     request.request(response, share);
                 }
             }
@@ -272,18 +271,20 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(UploadDisplayActivity.this, "doAfterFailedResponse", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
+            dismissProcessBar();
             Toast.makeText(UploadDisplayActivity.this, "onErrorResponse:" + error.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void success(Share share) {
             dismissProcessBar();
-            Toast.makeText(UploadDisplayActivity.this, "upload the share successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UploadDisplayActivity.this, getResources().getString(R.string.uploadDisplaySuccessfully), Toast.LENGTH_SHORT).show();
             finish();
         }
 

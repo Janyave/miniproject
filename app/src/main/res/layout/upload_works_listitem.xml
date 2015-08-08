@@ -30,7 +30,7 @@
             android:layout_marginTop="@dimen/margin_30px"
             android:contentDescription="点击将当前步骤置为下一步"
             android:padding="2dp"
-            android:src="@mipmap/ic_course_down" />
+            android:src="@mipmap/ic_course_down"/>
 
 
         <ImageView
@@ -49,7 +49,8 @@
             android:layout_alignBottom="@id/item_photo"
             android:layout_alignParentRight="true"
             android:contentDescription="删除当前步骤"
-            android:src="@mipmap/ic_course_delete" />
+            android:src="@mipmap/ic_course_delete"
+            android:visibility="gone" />
 
     </RelativeLayout>
 </RelativeLayout>
