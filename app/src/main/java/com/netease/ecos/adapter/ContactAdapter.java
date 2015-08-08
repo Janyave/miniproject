@@ -90,7 +90,7 @@ public class ContactAdapter extends BaseAdapter{
      */
     public void add(IMMessage message){
         messageList.add(message);
-        notifyDataSetChanged();
+        notifyDataSetInvalidated();
     }
 
     //TODO ��������������ģ��Ϊ10��

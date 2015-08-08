@@ -185,8 +185,12 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     }
 
     private void addList(IMMessage message) {
+        if (contactAdapter==null){
+            initList();
+        }
         contactAdapter.add(message);
         lv_list.setSelection(contactAdapter.getCount() + 1);
+        Log.i("contact", "add：----" + message.getFromAccount());
     }
 
 
@@ -202,17 +206,17 @@ public class ContactActivity extends Activity implements View.OnClickListener {
             public void onEvent(IMMessage message) {
                 // 参数为有状态发生改变的消息对象，其msgStatus和attachStatus均为最新状态。
                 // 发送消息和接收消息的状态监听均可以通过此接口完成。
-                Log.i("发送消息状态回掉", "消息内容：" + message.getContent());
-                Log.i("发送消息状态回掉", "消息来自：" + message.getFromAccount());
-                Log.i("发送消息状态回掉", "消息接收：" + message.getSessionId());
-                Log.i("发送消息状态回掉", "会话类型：" + message.getSessionType());
-                Log.i("发送消息状态回掉", "消息类型：" + message.getMsgType().name());
-                Log.i("发送消息状态回掉", "消息状态：" + message.getStatus());
+                Log.i("发送消息状态回掉", "消息内容：----" + message.getContent());
+                Log.i("发送消息状态回掉", "消息来自：----" + message.getFromAccount());
+                Log.i("发送消息状态回掉", "消息接收：----" + message.getSessionId());
+                Log.i("发送消息状态回掉", "会话类型：----" + message.getSessionType());
+                Log.i("发送消息状态回掉", "消息类型：----" + message.getMsgType().name());
+                Log.i("发送消息状态回掉", "消息状态：----" + message.getStatus());
 
-                Log.i("发送消息状态回掉", "消息方向：" + message.getDirect());
-                Log.i("发送消息状态回掉", "当前是发出去:" + message.getDirect().compareTo(MsgDirectionEnum.Out));
-                Log.i("发送消息状态回掉", "当前是收到:" + message.getDirect().compareTo(MsgDirectionEnum.In));
-                Log.i("发送消息状态回掉", "消息类型：" + message.getMsgType().name());
+                Log.i("发送消息状态回掉", "消息方向：----" + message.getDirect());
+                Log.i("发送消息状态回掉", "当前是发出去:----" + message.getDirect().compareTo(MsgDirectionEnum.Out));
+                Log.i("发送消息状态回掉", "当前是收到:----" + message.getDirect().compareTo(MsgDirectionEnum.In));
+                Log.i("发送消息状态回掉", "消息类型：----" + message.getMsgType().name());
 
                 /**Add**/
                 Toast.makeText(ContactActivity.this, message.getStatus().toString(), Toast.LENGTH_SHORT).show();
@@ -237,18 +241,18 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                         if (message.getMsgType().compareTo(MsgTypeEnum.text) == 0) {
 //                            ((TextView)findViewById(R.id.tv_received_text)).setText(message.getContent());
 
-                            Log.i("发送消息状态回掉", "消息内容：" + message.getContent());
-                            Log.i("发送消息状态回掉", "消息来自：" + message.getFromAccount());
-                            Log.i("发送消息状态回掉", "消息接收：" + message.getSessionId());
-                            Log.i("发送消息状态回掉", "会话类型：" + message.getSessionType());
-                            Log.i("发送消息状态回掉", "消息类型：" + message.getMsgType().name());
-                            Log.i("发送消息状态回掉", "消息状态：" + message.getStatus());
-                            Log.i("发送消息状态回掉", "时间：" + ModelUtils.getDateDetailByTimeStamp(message.getTime()));
+                            Log.i("发送消息状态回掉", "消息内容：----" + message.getContent());
+                            Log.i("发送消息状态回掉", "消息来自：----" + message.getFromAccount());
+                            Log.i("发送消息状态回掉", "消息接收：----" + message.getSessionId());
+                            Log.i("发送消息状态回掉", "会话类型：----" + message.getSessionType());
+                            Log.i("发送消息状态回掉", "消息类型：----" + message.getMsgType().name());
+                            Log.i("发送消息状态回掉", "消息状态：----" + message.getStatus());
+                            Log.i("发送消息状态回掉", "时间：----" + ModelUtils.getDateDetailByTimeStamp(message.getTime()));
 
-                            Log.i("发送消息状态回掉", "消息方向：" + message.getDirect());
-                            Log.i("发送消息状态回掉", "当前是发出去:" + message.getDirect().compareTo(MsgDirectionEnum.Out));
-                            Log.i("发送消息状态回掉", "当前是收到:" + message.getDirect().compareTo(MsgDirectionEnum.In));
-                            Log.i("发送消息状态回掉", "消息类型：" + message.getMsgType().name());
+                            Log.i("发送消息状态回掉", "消息方向：----" + message.getDirect());
+                            Log.i("发送消息状态回掉", "当前是发出去:----" + message.getDirect().compareTo(MsgDirectionEnum.Out));
+                            Log.i("发送消息状态回掉", "当前是收到:----" + message.getDirect().compareTo(MsgDirectionEnum.In));
+                            Log.i("发送消息状态回掉", "消息类型：----" + message.getMsgType().name());
                         }
 
                     }
