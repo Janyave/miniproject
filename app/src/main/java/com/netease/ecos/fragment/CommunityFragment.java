@@ -35,7 +35,6 @@ import com.netease.ecos.views.ListViewListener;
 import com.netease.ecos.views.XListView;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -357,17 +356,18 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
 
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-
+                        dismissProcessBar();
                     }
 
                     @Override
                     public void doAfterFailedResponse(String message) {
+                        dismissProcessBar();
                         Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void responseNoGrant() {
-
+                        dismissProcessBar();
                     }
 
                     @Override
@@ -439,17 +439,18 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                dismissProcessBar();
             }
 
             @Override
             public void doAfterFailedResponse(String message) {
+                dismissProcessBar();
                 Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void responseNoGrant() {
-
+                dismissProcessBar();
             }
 
             @Override

@@ -2,7 +2,7 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -200,14 +200,7 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
                     followUserRequest = new FollowUserRequest();
                 if (followResponce == null)
                     followResponce = new FollowResponce();
-                if (TextUtils.equals(((TextView) v).getText().toString(), DisplayDetailActivity.this.getString(R.string.focus))) {
-                    ((TextView) v).setText("已关注");
-                    followUserRequest.request(followResponce, share.userId, true);
-                } else {
-                    ((TextView) v).setText("关注");
-                    followUserRequest.request(followResponce, share.userId, false);
-                }
-                followUserRequest.request(followResponce, share.userId, true);
+                followUserRequest.request(followResponce, share.userId, !share.hasAttention);
                 break;
             case R.id.exhibitPersonImgVw:
                 Intent intent1 = new Intent(DisplayDetailActivity.this, PersonageDetailActivity.class);
@@ -283,6 +276,8 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
 
         @Override
         public void success(String userId, boolean follow) {
+            share.hasAttention = follow;
+            exhibitFocusBtn.setText(share.hasAttention ? DisplayDetailActivity.this.getString(R.string.focus) : DisplayDetailActivity.this.getString(R.string.notFocus));
         }
     }
 

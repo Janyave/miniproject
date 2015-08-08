@@ -20,12 +20,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -254,36 +251,39 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         Bundle bundle;
         switch (v.getId()) {
             case R.id.ll_notification:
-                intent=new Intent(getActivity(), NotificationActivity.class);
+                intent = new Intent(getActivity(), NotificationActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll_contact:
                 Toast.makeText(getActivity(), getResources().getString(R.string.noPage), Toast.LENGTH_SHORT).show();
                 return;
             case R.id.ll_attention:
-                intent=new Intent(getActivity(), NormalListViewActivity.class);
-                bundle=new Bundle();
+                intent = new Intent(getActivity(), NormalListViewActivity.class);
+                bundle = new Bundle();
                 bundle.putInt(NormalListViewActivity.LISTVIEW_TYPE, NormalListViewActivity.TYPE_EVENT_ATTENTION);
                 intent.putExtras(bundle);
+                startActivity(intent);
                 break;
             case R.id.ll_fans:
-                intent=new Intent(getActivity(), NormalListViewActivity.class);
-                bundle=new Bundle();
+                intent = new Intent(getActivity(), NormalListViewActivity.class);
+                bundle = new Bundle();
                 bundle.putInt(NormalListViewActivity.LISTVIEW_TYPE, NormalListViewActivity.TYPE_EVENT_FANS);
                 intent.putExtras(bundle);
+                startActivity(intent);
                 break;
             case R.id.ll_setting:
                 intent = new Intent(getActivity(), PersonalInfoSettingActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll_personcenter:
                 intent = new Intent(getActivity(), PersonageDetailActivity.class);
                 bundle = new Bundle();
                 bundle.putBoolean(PersonageDetailActivity.IsOwn, true);
                 intent.putExtras(bundle);
+                startActivity(intent);
                 break;
-            default:
-                intent = new Intent();
         }
-        startActivity(intent);
+
     }
 
 
