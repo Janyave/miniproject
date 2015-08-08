@@ -93,7 +93,7 @@ public class ActivityListRequest extends BaseRequest {
                 Map<String, String> map = getRequestBasicMap();
 
                 //活动类别为个人
-                map.put("isMySelf", "true");
+                map.put("isMyself", "true");
                 map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
                 map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
 

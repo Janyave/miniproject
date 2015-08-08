@@ -58,7 +58,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
     private String recentLocation, recentCategory;
     private int pageIndex = 0;
 
-    private List<ActivityModel> activityList;
+//    private List<ActivityModel> activityList;
 
     public static CommunityFragment newInstance(String param1, String param2) {
         CommunityFragment fragment = new CommunityFragment();
@@ -151,7 +151,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     }
                 Intent intent = new Intent(getActivity(), ActivityDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString(ActivityDetailActivity.ActivityID, activityList.get(position - 1).activityId);
+                bundle.putString(ActivityDetailActivity.ActivityID, campaignListViewAdapter.getActivityList().get(position - 1).activityId);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -227,27 +227,30 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
             cityCode = "";
         else
             cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
-
+        showProcessBar(getResources().getString(R.string.loading));
         request.request(new ActivityListRequest.IActivityListResponse() {
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+                dismissProcessBar();
 
             }
 
             @Override
             public void doAfterFailedResponse(String message) {
+                dismissProcessBar();
                 Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void responseNoGrant() {
-
+                dismissProcessBar();
             }
 
             @Override
             public void success(List<ActivityModel> activityList) {
-                CommunityFragment.this.activityList = activityList;
+                dismissProcessBar();
+//                CommunityFragment.this.activityList = activityList;
                 Log.d("test", "activityList size:" + activityList.size());
                 if (campaignListViewAdapter == null) {
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
@@ -373,6 +376,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     @Override
                     public void success(List<ActivityModel> activityList) {
                         dismissProcessBar();
+//                        CommunityFragment.this.activityList=activityList;
                         if (campaignListViewAdapter == null) {
                             campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
                             lv_campaign.setAdapter(campaignListViewAdapter);
@@ -456,6 +460,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
             @Override
             public void success(List<ActivityModel> activityList) {
                 dismissProcessBar();
+//                CommunityFragment.this.activityList=activityList;
                 if (campaignListViewAdapter == null) {
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
                     lv_campaign.setAdapter(campaignListViewAdapter);
@@ -525,6 +530,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
 
             @Override
             public void success(List<ActivityModel> activityList) {
+//                CommunityFragment.this.activityList=activityList;
                 if (campaignListViewAdapter == null) {
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
                     lv_campaign.setAdapter(campaignListViewAdapter);
