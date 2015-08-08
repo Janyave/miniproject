@@ -12,6 +12,7 @@
             android:layout_marginBottom="@dimen/margin_30px"
             android:background="@drawable/bg_course_item"
             android:orientation="horizontal"
+            android:id="@+id/ll_activity_item"
             android:padding="@dimen/margin_20px"
             android:gravity="center_vertical">
     <ImageView
@@ -43,7 +44,9 @@
                     <ImageView
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
-                        android:src="@mipmap/ic_time_gray"/>
+
+                        android:src="@mipmap/ic_time_pink"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -63,7 +66,9 @@
                     <ImageView
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
-                        android:src="@mipmap/ic_position_gray"/>
+
+                        android:src="@mipmap/ic_position_pink"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

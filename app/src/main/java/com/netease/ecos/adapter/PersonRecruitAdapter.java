@@ -98,7 +98,7 @@ public class PersonRecruitAdapter extends BaseAdapter implements View.OnClickLis
             iv_avatar.setTag(position);
             iv_cover.setOnClickListener(PersonRecruitAdapter.this);
             tv_name.setOnClickListener(PersonRecruitAdapter.this);
-            iv_avatar.setOnClickListener(PersonRecruitAdapter.this);
+            //iv_avatar.setOnClickListener(PersonRecruitAdapter.this);
         }
     }
 
@@ -148,11 +148,11 @@ public class PersonRecruitAdapter extends BaseAdapter implements View.OnClickLis
                 mcontext.startActivity(intent);
                 break;
             case R.id.iv_avatar:
-                Intent intentB = new Intent(mcontext, PersonageDetailActivity.class);
-                Bundle bundleB = new Bundle();
-                bundleB.putString(PersonageDetailActivity.UserID, recruitmentList.get(position).userId);
-                intentB.putExtras(bundleB);
-                mcontext.startActivity(intentB);
+//                Intent intentB = new Intent(mcontext, PersonageDetailActivity.class);
+//                Bundle bundleB = new Bundle();
+//                bundleB.putString(PersonageDetailActivity.UserID, recruitmentList.get(position).userId);
+//                intentB.putExtras(bundleB);
+//                mcontext.startActivity(intentB);
             case R.id.tv_name:
                 break;
         }

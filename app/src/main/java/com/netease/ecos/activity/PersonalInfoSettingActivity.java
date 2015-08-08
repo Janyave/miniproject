@@ -342,8 +342,8 @@ public class PersonalInfoSettingActivity extends BaseActivity {
             mSetGender.setText("男");
         else if (setUser.gender.getValue().equals("2"))
             mSetGender.setText("女");
+            setTagVisiable(user.roleTypeSet);
 
-        setTagVisiable(user.roleTypeSet);
 
         mSetIntro.setText(setUser.characterSignature);
     }
@@ -358,6 +358,9 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         tv_tag6.setVisibility(View.GONE);
 
         for (User.RoleType roleType : roleTypeSet) {
+            if(roleType == null){
+                continue;//in case of  roletype null.
+            }
             switch (roleType.getBelongs()) {
                 case "0":
                     tv_tag1.setVisibility(View.VISIBLE);
