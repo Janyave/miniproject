@@ -19,7 +19,6 @@ import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.LocationData;
 import com.netease.ecos.model.LocationDataService;
 import com.netease.ecos.model.UserDataService;
-import com.netease.ecos.request.user.SendLocationRequest;
 import com.netease.ecos.utils.MyMediaScanner;
 import com.netease.ecos.utils.yunxin.ScreenUtil;
 import com.netease.ecos.utils.yunxin.SystemUtil;
@@ -84,16 +83,19 @@ public class MyApplication extends Application {
         // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
         //		SDKInitializer.initialize(this);
 
+        if(firstTime){
+            mLocationClient = new LocationClient(this.getApplicationContext());
+            mMyLocationListener = new MyLocationListener();
+            mLocationClient.registerLocationListener(mMyLocationListener);
+            mGeofenceClient = new GeofenceClient(getApplicationContext());
+            mLocationClient.setDebug(false);
+            InitLocation();
+            mLocationClient.start();
+            firstTime = false;
+            //百度定位---------------------结束
+        }
 
-        mLocationClient = new LocationClient(this.getApplicationContext());
-        mMyLocationListener = new MyLocationListener();
-        mLocationClient.registerLocationListener(mMyLocationListener);
-        mGeofenceClient = new GeofenceClient(getApplicationContext());
-        mLocationClient.setDebug(false);
-        InitLocation();
-        mLocationClient.start();
-        firstTime = false;
-        //百度定位---------------------结束
+
     }
 
     /*private void saveTestUserData() {
@@ -210,7 +212,7 @@ public class MyApplication extends Application {
         // 其中notificationSmallIconId必须提供
         StatusBarNotificationConfig config = new StatusBarNotificationConfig();
         config.notificationEntrance = MainActivity.class;
-        config.notificationSmallIconId = R.mipmap.ic_launcher;
+        config.notificationSmallIconId = R.mipmap.icon;
         // 通知铃声的uri字符串
         config.notificationSound = "android.resource://com.netease.ecos/raw/msg";
         options.statusBarNotificationConfig = config;
@@ -298,8 +300,8 @@ public class MyApplication extends Application {
                 }
                 LocationDataService.getBDLocationDataService(getApplicationContext()).save(locationData);
 
-                new SendLocationRequest().request(null,String.valueOf(location.getLatitude()),
-                        String.valueOf(location.getLongitude()));
+                /*new SendLocationRequest().request(null,String.valueOf(location.getLatitude()),
+                        String.valueOf(location.getLongitude()));*/
             }
             else
             {

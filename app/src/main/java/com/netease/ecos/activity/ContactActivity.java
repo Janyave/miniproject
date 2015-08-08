@@ -1,4 +1,4 @@
-﻿package com.netease.ecos.activity;
+package com.netease.ecos.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -158,7 +158,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
         //最近联系人列表监听
         NIMClient.getService(MsgServiceObserve.class)
-                .observeRecentContact(messageObserver, true);
+                .observeRecentContact(messageObserver, false);
     }
 
     private void initListener() {
@@ -261,7 +261,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
         //最近联系人列表监听
         NIMClient.getService(MsgServiceObserve.class)
-                .observeRecentContact(messageObserver, false);
+                .observeRecentContact(messageObserver, true);
 
     }
 
@@ -322,7 +322,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
                             IMMessage message = msgList.get(i);
 
-//                            Log.e("历史记录", message.getFromAccount().equals("test1") ? "我：" : "  蓝天：");
+//                          Log.e("历史记录", message.getFromAccount().equals("test1") ? "我：" : "  蓝天：");
                             Log.e("历史记录", message.getContent());
                             Log.e("历史记录", ModelUtils.getDateDetailByTimeStamp(message.getTime()));
                             Log.e("历史记录", ("\n"));
@@ -333,7 +333,6 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
                     @Override
                     public void onFailed(int code) {
-
                         Log.e("拉取信息", "拉取失败");
                     }
 

@@ -7,23 +7,19 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.ContactActivity;
+import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.model.Contact;
-import com.netease.ecos.model.Course;
 import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,9 +71,9 @@ public class NotificationContactAdapter extends BaseAdapter{
             Contact item=contactList.get(position);
             iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
             iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
-            RequestQueue queue = Volley.newRequestQueue(mcontext);
+
             ImageLoader.ImageCache imageCache = new SDImageCache();
-            ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+            ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
             //TODO
 //            iv_avatar.setImageUrl(item.av, imageLoader);
             tv_name.setText(item.contactNickName);

@@ -17,12 +17,20 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.dialog.SetPhotoDialog;
+import com.netease.ecos.model.AccountDataService;
+import com.netease.ecos.model.LocationData;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.user.RegistRequest;
+import com.netease.ecos.request.user.SendLocationRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
 import com.netease.ecos.utils.UploadImageTools;
+import com.netease.nimlib.sdk.AbortableFuture;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.auth.AuthService;
+import com.netease.nimlib.sdk.auth.LoginInfo;
 
 import java.io.File;
 
@@ -147,7 +155,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                             RegistRequest request = new RegistRequest();
                             request.request(new RegistResponse(), getIntent().getStringExtra("phone"), et_password.getText().toString(), et_name.getText().toString(),
                                     originUrl);
-                            dismissProcessBar();
                         }
 
                         @Override
@@ -163,9 +170,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 }
                 else{
                     RegistRequest request = new RegistRequest();
+                    new RegistResponse().success();
                     request.request(new RegistResponse(), getIntent().getStringExtra("phone"),
                             et_password.getText().toString(), et_name.getText().toString(),"");
-                    dismissProcessBar();
                 }
 
                 break;
@@ -225,16 +232,78 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         @Override
         public void success() {
             Toast.makeText(RegistActivity.this, "注册成功", Toast.LENGTH_LONG).show();
+            //云信登录
+            loginYunXin();
+
+            //进行定位并发送定位数据
+            MyApplication.startLocation(new MyApplication.LocationCallBack() {
+
+                @Override
+                public void locationSuccess(LocationData location) {
+
+                    Log.i("注册location","定位成功:" + location.toString());
+                    new SendLocationRequest().request(null, String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
+                }
+
+                @Override
+                public void locationFailed(String message) {
+
+                }
+            });
+
+            Intent intent = new Intent(RegistActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+            dismissProcessBar();
+
         }
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(RegistActivity.this,"注册失败",Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
+            dismissProcessBar();
             Toast.makeText(RegistActivity.this, VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_LONG).show();
+
         }
+    }
+
+    public void loginYunXin(){
+
+        String imId = AccountDataService.getSingleAccountDataService(RegistActivity.this).getUserAccId();
+        String imtoken = AccountDataService.getSingleAccountDataService(RegistActivity.this).getImToken();
+
+        Log.e("云信登录","imId:" + imId);
+        Log.e("云信令牌","imtoken:" + imtoken);
+
+        AbortableFuture<LoginInfo> loginRequest;
+        loginRequest = NIMClient.getService(AuthService.class).login(new LoginInfo(imId, imtoken));
+        loginRequest.setCallback(new RequestCallback<LoginInfo>() {
+            @Override
+            public void onSuccess(LoginInfo param) {
+                Log.e("注册-登录云信", "登录成功");
+            }
+
+            @Override
+            public void onFailed(int code) {
+                Log.i("登录", "登录失败");
+                if (code == 302 || code == 404) {
+                    Log.e("注册-登录云信", "帐号或密码错误");
+                } else {
+                    Log.e("注册-登录云信","login error: " + code);
+                }
+            }
+
+            @Override
+            public void onException(Throwable exception) {
+                Log.e("注册-登录云信", "登录异常");
+            }
+
+        });
     }
 }

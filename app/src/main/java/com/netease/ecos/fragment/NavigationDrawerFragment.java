@@ -20,12 +20,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -142,6 +139,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         setHasOptionsMenu(true);
     }
 
+
+    public View mContainer;
     /**
      * 侧边栏Layout
      *
@@ -177,6 +176,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 ////        mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
         //初始化用户信息
+        mContainer = mDrawerView;
         initUserData(mDrawerView);
 
         return mDrawerView;
@@ -331,6 +331,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                resetUserData();
                 if (!isAdded()) {
                     return;
                 }
@@ -373,6 +374,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     public void openNavigationDrawer() {
         //打开NavigationDrawer
         mDrawerLayout.openDrawer(GravityCompat.START);
+        resetUserData();
     }
 
     /**
@@ -411,6 +413,11 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         }
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+
+    }
     @Override
     public void onDetach() {
         super.onDetach();
@@ -558,6 +565,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         mUserDataService = UserDataService.getSingleUserDataService(v.getContext());
         mUserData = mUserDataService.getUser();
 
+        Log.e("侧边栏","用户数据:" + mUserData.toString());
+
         RoundImageView user_avatar = (RoundImageView) v.findViewById(R.id.iv_personage_portrait);
         TextView user_name = (TextView) v.findViewById(R.id.bt_personage_name);
         ImageView user_gender = (ImageView) v.findViewById(R.id.riv_personage_gender);
@@ -584,5 +593,10 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         user_fans.setText("" + mUserData.fansNum);
         user_description.setText(mUserData.characterSignature);
 
+    }
+
+    public void resetUserData(){
+        if(mContainer!=null)
+            initUserData(mContainer);
     }
 }

@@ -16,9 +16,11 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.model.AccountDataService;
+import com.netease.ecos.model.LocationData;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.request.user.LoginRequest;
+import com.netease.ecos.request.user.SendLocationRequest;
 import com.netease.nimlib.sdk.AbortableFuture;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
@@ -110,6 +112,7 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
         @Override
         public void success() {
 
+            //云信登录
             String imId = AccountDataService.getSingleAccountDataService(LoginActivity.this).getUserAccId();
             String imtoken = AccountDataService.getSingleAccountDataService(LoginActivity.this).getImToken();
 
@@ -123,7 +126,10 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
                 public void onSuccess(LoginInfo param) {
 
                     Toast.makeText(LoginActivity.this, "LOGIN SUCCESS", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                     finish();
 
                 }
@@ -146,6 +152,22 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
             });
 
 
+
+            //进行定位并发送定位数据
+            MyApplication.startLocation(new MyApplication.LocationCallBack(){
+
+                @Override
+                public void locationSuccess(LocationData location) {
+
+                    Log.i("登录location","定位成功:" + location.toString());
+                    new SendLocationRequest().request(null, String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
+                }
+
+                @Override
+                public void locationFailed(String message) {
+
+                }
+            });
         }
 
         @Override

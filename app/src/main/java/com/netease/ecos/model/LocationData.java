@@ -61,6 +61,16 @@ public class LocationData {
 	public void setgetLocStreet(String locStreet) {
 		this.locStreet = locStreet;
 	}
-	
-	
+
+
+	@Override
+	public String toString() {
+		return "LocationData{" +
+				"latitude='" + latitude + '\'' +
+				", longitude='" + longitude + '\'' +
+				", locCity='" + locCity + '\'' +
+				", locDistrict='" + locDistrict + '\'' +
+				", locStreet='" + locStreet + '\'' +
+				'}';
+	}
 }

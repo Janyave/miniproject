@@ -10,10 +10,12 @@ import android.widget.Toast;
 import com.netease.ecos.R;
 import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.ConfigurationService;
+import com.netease.ecos.model.LocationData;
 import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.initial.GetCityListRequest;
 import com.netease.ecos.request.initial.GetProvinceListRequest;
 import com.netease.ecos.request.initial.InitialRequest;
+import com.netease.ecos.request.user.SendLocationRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +63,24 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
             requestInitialData();
         else{
             if(isLogined()){
+
+                //进行定位并发送定位数据
+                MyApplication.startLocation(new MyApplication.LocationCallBack(){
+
+                    @Override
+                    public void locationSuccess(LocationData location) {
+
+                        Log.i("开屏页-》主页面location","定位成功:" + location.toString());
+                        new SendLocationRequest().request(null, String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
+                    }
+
+                    @Override
+                    public void locationFailed(String message) {
+
+                    }
+                });
+
+
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 finish();
             }

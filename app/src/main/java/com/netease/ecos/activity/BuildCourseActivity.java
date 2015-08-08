@@ -3,8 +3,6 @@ package com.netease.ecos.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -315,7 +313,7 @@ public class BuildCourseActivity extends BaseActivity {
     }
 
     public static synchronized void releaseImageViewResouce(ImageView imageView) {
-        if (imageView == null) return;
+        /*if (imageView == null) return;
         Drawable drawable = imageView.getDrawable();
         if (drawable != null && drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
@@ -323,7 +321,8 @@ public class BuildCourseActivity extends BaseActivity {
             if (bitmap != null && !bitmap.isRecycled()) {
                 bitmap.recycle();
             }
-        }
+        }*/
+        return;
     }
 
 
