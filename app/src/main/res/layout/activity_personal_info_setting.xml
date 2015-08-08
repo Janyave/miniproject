@@ -382,6 +382,7 @@
                     <TextView
                         style="@style/text_gray_mid"
                         android:layout_width="0dp"
+                        android:id="@+id/tv_phone_num"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
