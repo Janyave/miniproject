@@ -23,7 +23,8 @@
                 android:id="@+id/uploadWorksCoverImgVw"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_cover_670px_1080px"
-                android:src="@mipmap/img_default" />
+                android:scaleType="centerCrop"
+                android:src="@drawable/choose_photo_big" />
 
             <ImageView
                 android:layout_width="250dp"

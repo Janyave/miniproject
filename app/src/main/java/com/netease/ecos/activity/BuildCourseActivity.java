@@ -120,7 +120,6 @@ public class BuildCourseActivity extends BaseActivity {
     public String mCourseTitle;
 
 
-    @Override
     protected void onCreate(Bundle onSavedInstance) {
         super.onCreate(onSavedInstance);
         Log.i(CLASS_TAG, "onCreate()");
