@@ -33,6 +33,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
+import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.activity.NormalListViewActivity;
 import com.netease.ecos.activity.NotificationActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
@@ -569,7 +570,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         user_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
         //设置加载出错图片
         user_avatar.setErrorImageResId(R.mipmap.bg_female_default);
-        RequestQueue queue = Volley.newRequestQueue(v.getContext());
+        RequestQueue queue = MyApplication.getRequestQueue();
         ImageLoader.ImageCache imageCache = new SDImageCache();
         ImageLoader imageLoader = new ImageLoader(queue, imageCache);
         user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);

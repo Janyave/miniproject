@@ -173,7 +173,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         btn_open.setDefaultImageResId(R.mipmap.bg_female_default);
         //设置加载出错图片
         btn_open.setErrorImageResId(R.mipmap.bg_female_default);
-        queue = Volley.newRequestQueue(this);
+        queue = MyApplication.getRequestQueue();
         imageCache = new SDImageCache();
         imageLoader = new ImageLoader(queue, imageCache);
         btn_open.setImageUrl(mUserData.avatarUrl, imageLoader);
