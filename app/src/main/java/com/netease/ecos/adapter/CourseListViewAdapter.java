@@ -9,10 +9,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.CourseDetailActivity;
+import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.model.Course;
+import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,14 +40,14 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
     class ViewHolder {
 
         private ImageView networkImageView;
-        private ImageView imageAuthorPic;
+        private RoundImageView imageAuthorPic;
         private TextView textViewTitle;
         private TextView textViewAmz;
         private TextView textViewAuthor;
 
         public ViewHolder(View root) {
             networkImageView = (ImageView) root.findViewById(R.id.pic_dis);
-            imageAuthorPic = (ImageView) root.findViewById(R.id.imageViewAuthor);
+            imageAuthorPic = (RoundImageView) root.findViewById(R.id.imageViewAuthor);
 
             textViewTitle = (TextView) root.findViewById(R.id.textViewTitle);
             textViewAmz = (TextView) root.findViewById(R.id.textViewAmz);
@@ -55,8 +60,14 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(networkImageView);
             else
                 networkImageView.setImageResource(R.drawable.img_default);
-            if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals(""))
-                Picasso.with(mcontext).load(item.authorAvatarUrl).placeholder(R.drawable.img_default).into(imageAuthorPic);
+            if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals("")){
+                imageAuthorPic.setDefaultImageResId(R.mipmap.bg_female_default);
+                imageAuthorPic.setErrorImageResId(R.mipmap.bg_female_default);
+                RequestQueue queue = MyApplication.getRequestQueue();
+                ImageLoader.ImageCache imageCache = new SDImageCache();
+                ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+                imageAuthorPic.setImageUrl(item.authorAvatarUrl, imageLoader);
+            }
             else
                 imageAuthorPic.setImageResource(R.drawable.img_default);
             textViewTitle.setText(item.title);
