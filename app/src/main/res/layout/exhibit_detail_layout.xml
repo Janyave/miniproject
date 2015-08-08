@@ -64,7 +64,9 @@
                 <TextView
                     android:id="@+id/exhibitFocusBtn"
                     style="@style/text_white_mid"
-                    android:layout_width="@dimen/width_btn_focus_152px"
+                    android:layout_width="wrap_content"
+                    android:paddingLeft="@dimen/margin_40px"
+                    android:paddingRight="@dimen/margin_40px"
                     android:layout_height="@dimen/height_btn_focus_70px"
                     android:background="@drawable/btn_focus_pink"
                     android:gravity="center" />
@@ -80,6 +82,35 @@
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px"
                 android:textColor="@color/bg_red" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_label_100px"
+                android:background="@color/bg_gray"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/margin_40px"
+                android:paddingRight="@dimen/margin_40px">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/bg_red" />
+
+                    <TextView
+                        android:id="@+id/tv_otherWorks"
+                        style="@style/text_dark_max"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_40px"
+                        android:text="内容" />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/exhibitTitleContentTxVw"
