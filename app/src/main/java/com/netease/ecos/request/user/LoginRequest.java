@@ -45,12 +45,15 @@ public class LoginRequest extends BaseRequest{
 	//响应参数键
 	NorResponce mNorResponce;
 
+	public String mPhone;
+
 	public void request(NorResponce norResponce , final String phone, final String password)
 	{
 		super.initBaseRequest(norResponce);
 		mNorResponce = norResponce;
-		//		testLogin();
-		//		mNorResponce.success();
+		mPhone = phone;
+
+
 		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.LOLGIN_URL,  this, this) {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
@@ -78,7 +81,6 @@ public class LoginRequest extends BaseRequest{
 
 		try {
 			JSONObject usreJO = new JSONObject(jstring).getJSONObject(KEY_DATA);
-
 
 			User user = new User();
 			user.userId = getString(usreJO,"userId");
@@ -114,7 +116,7 @@ public class LoginRequest extends BaseRequest{
 			accountService.saveUserId(user.userId);
 			accountService.saveUserAccId(user.imId);
 			accountService.saveUserImToken(user.imToken);
-
+			accountService.savePhone(mPhone);
 
 			if(mNorResponce!=null)
 			{

@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
-import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.user.CheckAutoRequest;
 import com.netease.ecos.request.user.SendAutocodeRequest;
 
@@ -95,6 +95,10 @@ public class VerifyCodeActivity extends Activity implements TextWatcher {
             @Override
             public void onClick(View v) {
                 if (stepN == 1) {
+                    if("".equals(et_phone.getText().toString()) || et_phone.getText().toString().length()!=11){
+                        Toast.makeText(VerifyCodeActivity.this, "请输入完整的手机号",Toast.LENGTH_LONG).show();
+                        return ;
+                    }
                     requestCode();
                 } else {
                     //verify code
@@ -132,9 +136,21 @@ public class VerifyCodeActivity extends Activity implements TextWatcher {
      */
     public void checkCode() {
         CheckAutoRequest request = new CheckAutoRequest();
+
         String phone = et_phone.getText().toString();
+        if("".equals(phone) || phone.length()!=11){
+            Toast.makeText(VerifyCodeActivity.this, "请输入完整的手机号",Toast.LENGTH_LONG).show();
+            return ;
+        }
+
         //TODO change
-        String autocode = AccountDataService.getSingleAccountDataService(this).getAutoCode();
+        String autocode = et_code.getText().toString();
+        if("".equals(autocode))
+        {
+            Toast.makeText(this,"请输入验证码",Toast.LENGTH_LONG).show();
+            return ;
+        }
+
         request.requestCheck(new CheckAutocodeResponse(), phone, autocode);
     }
 
@@ -209,7 +225,7 @@ public class VerifyCodeActivity extends Activity implements TextWatcher {
 
         @Override
         public void success() {
-            Toast.makeText(VerifyCodeActivity.this, "RequestCode SUCCESS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(VerifyCodeActivity.this, "验证码已发送", Toast.LENGTH_SHORT).show();
             changePageTo(2);
             tv_notice.setEnabled(false);
             setTimer();
@@ -217,12 +233,13 @@ public class VerifyCodeActivity extends Activity implements TextWatcher {
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(VerifyCodeActivity.this, "发送失败", Toast.LENGTH_SHORT).show();
 
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-            Toast.makeText(VerifyCodeActivity.this, "NETWORK FAIL", Toast.LENGTH_SHORT).show();
+            Toast.makeText(VerifyCodeActivity.this, VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -230,7 +247,7 @@ public class VerifyCodeActivity extends Activity implements TextWatcher {
 
         @Override
         public void success() {
-            Toast.makeText(VerifyCodeActivity.this, "VERIFY SUCCESS", Toast.LENGTH_SHORT).show();
+            Toast.makeText(VerifyCodeActivity.this, "验证成功", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();
             intent.putExtra("phone", et_phone.getText().toString());
             setResult(RESULT_OK, intent);
@@ -239,12 +256,12 @@ public class VerifyCodeActivity extends Activity implements TextWatcher {
 
         @Override
         public void doAfterFailedResponse(String message) {
-            Toast.makeText(VerifyCodeActivity.this, "VERIFY FAIL", Toast.LENGTH_SHORT).show();
+            Toast.makeText(VerifyCodeActivity.this, "验证码错误", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-            Toast.makeText(VerifyCodeActivity.this, "NETWORK FAIL", Toast.LENGTH_SHORT).show();
+            Toast.makeText(VerifyCodeActivity.this, VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 

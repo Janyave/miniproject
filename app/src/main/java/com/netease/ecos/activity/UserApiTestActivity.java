@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
-import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.ActivityModel.ActivityType;
 import com.netease.ecos.model.Comment;
@@ -201,7 +200,7 @@ public class UserApiTestActivity extends BaseActivity {
     public void checkAutoCode() {
         CheckAutoRequest request = new CheckAutoRequest();
         String phone = "18868816564";
-        String autocode = AccountDataService.getSingleAccountDataService(this).getAutoCode();
+        String autocode = "";
         request.requestCheck(new CheckAutocodeResponse(), phone, autocode);
     }
 

@@ -25,7 +25,7 @@ public class AccountDataService {
 	private final static String USER_ID = "userId";
 
 	/****
-	 * 存储云信id{@link User#accid}
+	 * 存储云信id{@link User#imId}
 	 */
 	private final static String USER_ACCID = "accid";
 
@@ -40,10 +40,12 @@ public class AccountDataService {
 	private final static String TOKEN = "token";
 
 	/*** 验证码 */
-	private final static String AUTOCODE = "autocode";
+//	private final static String AUTOCODE = "autocode";
 
 	/*** 验证码 */
 	private final static String COOKIE = "cookie";
+
+	private final static String PHONE = "phone";
 
 	private String DEFAULT_VALUE = "";
 
@@ -87,7 +89,7 @@ public class AccountDataService {
 
 	/***
 	 * 保存云信accid
-	 * @param userId 用户id
+	 * @param accid 用户id
 	 */
 	public void saveUserAccId(String accid)
 	{
@@ -131,14 +133,14 @@ public class AccountDataService {
 	 * 保存验证码
 	 * @param registValidateCode 注册验证码
 	 */
-	public void saveAutocode(String autocode)
+	/*public void saveAutocode(String autocode)
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,WRITE_MODE);
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 
 		editor.putString(AUTOCODE, autocode);
 		editor.commit();
-	}
+	}*/
 
 
 	/***
@@ -156,7 +158,6 @@ public class AccountDataService {
 
 	/***
 	 * 获取验证码 cookie
-	 * @param cookie 验证码cookie
 	 */
 	public String getAutocodeCookie()
 	{
@@ -215,11 +216,11 @@ public class AccountDataService {
 	 * 获取验证码
 	 * @return 若无则返回"-1"
 	 */
-	public String getAutoCode()
+	/*public String getAutoCode()
 	{
 		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
 		return sharedPreferences.getString(AUTOCODE, "");
-	}
+	}*/
 
 	/**
 	 * 清除所有数据
@@ -234,6 +235,30 @@ public class AccountDataService {
 		editor.putString(IM_TOKEN,null);
 
 		editor.commit();
+	}
+
+
+	/***
+	 * 保存电话
+	 * @param phone 电话
+	 */
+	public void savePhone(String phone)
+	{
+		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,WRITE_MODE);
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+
+		editor.putString(PHONE, phone);
+		editor.commit();
+	}
+
+	/***
+	 * 获取phone.返回号码
+	 */
+	public String getPhone()
+	{
+		SharedPreferences sharedPreferences = mContext.getSharedPreferences(PREFERENCE_NAME,READ_MODE);
+
+		return sharedPreferences.getString(PHONE, "");
 	}
 
 }
