@@ -65,6 +65,8 @@ public class PersonCourseAdapter extends BaseAdapter implements View.OnClickList
             if (item.coverUrl != null && !item.coverUrl.equals("")) {
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             }
+            else
+                iv_cover.setImageResource(R.drawable.img_default);
             tv_title.setText(item.title);
             tv_praiseNum.setText(item.praiseNum + "");
             tv_time.setText(item.issueTimeStamp + "");

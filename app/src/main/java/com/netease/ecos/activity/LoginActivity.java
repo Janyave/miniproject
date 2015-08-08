@@ -1,6 +1,7 @@
 package com.netease.ecos.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,6 +9,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,6 +56,8 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
 
         initListener();
         initData();
+
+        iv_return.requestFocus();
     }
 
     private void initListener() {

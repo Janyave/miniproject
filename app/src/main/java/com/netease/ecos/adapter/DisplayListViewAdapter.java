@@ -13,16 +13,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.CommentDetailActivity;
 import com.netease.ecos.activity.DisplayDetailActivity;
+import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.SearchActivity;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.user.FollowUserRequest;
+import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.views.ExtensibleListView;
 import com.squareup.picasso.Picasso;
 
@@ -48,7 +53,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
     class ViewHolder {
 
         private LinearLayout ll_author;
-        private ImageView iv_avatar;
+        private RoundImageView iv_avatar;
         private TextView tv_name;
         private TextView tv_focus;
 
@@ -68,7 +73,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
         public ViewHolder(View root) {
             ll_author = (LinearLayout) root.findViewById(R.id.ll_author);
-            iv_avatar = (ImageView) root.findViewById(R.id.iv_avatar);
+            iv_avatar = (RoundImageView) root.findViewById(R.id.iv_avatar);
             tv_name = (TextView) root.findViewById(R.id.tv_name);
             tv_focus = (TextView) root.findViewById(R.id.tv_focus);
             iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
@@ -92,17 +97,25 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             Share item = shareList.get(position);
 
             //bind the data
-            if (item.avatarUrl != null && !item.avatarUrl.equals(""))
-                Picasso.with(mcontext).load(item.avatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
+            if (item.avatarUrl != null && !item.avatarUrl.equals("")){
+                iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+                iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+                RequestQueue queue = MyApplication.getRequestQueue();
+                ImageLoader.ImageCache imageCache = new SDImageCache();
+                ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+                iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
+            }
             else
-                Log.d("test", "item.avatarUrl is null");
+                iv_avatar.setImageResource(R.mipmap.bg_female_default);;
             tv_name.setText(item.nickname);
             tv_focus.setText(item.hasAttention ? "已关注" : "关注");
             tv_focus.setTextColor(mcontext.getResources().getColor(item.hasAttention ? R.color.text_gray : R.color.text_white));
             tv_focus.setBackgroundResource(item.hasAttention ? R.drawable.btn_focus_gray : R.drawable.btn_focus_pink);
 
-            if (item.coverUrl != null)
+            if (item.coverUrl != null && !TextUtils.isEmpty(item.coverUrl))
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            else
+                iv_cover.setImageResource(R.drawable.img_default);
             tv_coverNum.setText(item.totalPageNumber + mcontext.getResources().getString(R.string.page));
             tv_coverTitle.setText(item.title);
             tv_coverTime.setText(item.getDateDescription());

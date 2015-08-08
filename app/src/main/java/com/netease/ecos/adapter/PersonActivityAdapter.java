@@ -78,6 +78,8 @@ public class PersonActivityAdapter extends BaseAdapter implements View.OnClickLi
             ActivityModel item = activityList.get(position);
             if (item.coverUrl != null && !item.coverUrl.equals(""))
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            else
+                iv_cover.setImageResource(R.drawable.img_default);
             tv_title.setText(item.title);
             tv_tag.setText(item.activityType + "");
             tv_time.setText(item.activityTime.toString());

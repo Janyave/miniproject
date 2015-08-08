@@ -1,9 +1,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ecos="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sv_personal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/sv_personal">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,6 @@
             android:layout_height="@dimen/height_personDetail_640px_1080px">
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -24,8 +23,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="@mipmap/img_person_back">
+                    android:background="@mipmap/img_person_back"
+                    android:gravity="center">
 
                     <com.netease.ecos.utils.RoundImageView
                         android:id="@+id/iv_personage_portrait"
@@ -33,7 +32,7 @@
                         android:layout_height="@dimen/circle_icon_210px"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/margin_80px"
-                        android:src="@mipmap/ic_launcher"
+                        android:src="@mipmap/bg_female_default"
                         ecos:circle_color="@color/bg_red"
                         ecos:line_width="0.0"
                         ecos:showable="true" />
@@ -45,7 +44,7 @@
                         android:layout_alignBottom="@id/iv_personage_portrait"
                         android:layout_alignRight="@id/iv_personage_portrait"
                         android:layout_marginBottom="5dp"
-                        android:background="@mipmap/ic_gender_female"/>
+                        android:background="@mipmap/ic_gender_female" />
 
                     <LinearLayout
                         android:id="@+id/ll_personage_name"
@@ -72,8 +71,7 @@
                         android:layout_height="@dimen/height_tag_36px"
                         android:layout_below="@id/ll_personage_name"
                         android:layout_marginTop="@dimen/margin_50px"
-                        android:gravity="center">
-                    </LinearLayout>
+                        android:gravity="center"></LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_personage_attention"
@@ -140,31 +138,34 @@
                 android:id="@+id/iv_return"
                 android:layout_width="@dimen/icon_return_50px"
                 android:layout_height="@dimen/icon_return_50px"
+                android:layout_marginTop="@dimen/margin_30px"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:src="@mipmap/ic_return_red"
-                android:layout_marginTop="@dimen/margin_30px"
                 android:padding="@dimen/margin_20px"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_return_red" />
+
             <LinearLayout
                 android:id="@+id/ll_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:orientation="horizontal"
-                android:layout_alignTop="@id/iv_return"
                 android:layout_alignParentRight="true"
-                android:gravity="center_vertical">
+                android:layout_alignTop="@id/iv_return"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
                 <TextView
+                    style="@style/text_pink_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="编辑"
-                    style="@style/text_pink_max"/>
+                    android:text="编辑" />
+
                 <ImageView
                     android:layout_width="@dimen/icon_big_64px"
                     android:layout_height="@dimen/icon_big_64px"
-                    android:src="@mipmap/ic_edit"
-                    android:padding="6dp"/>
+                    android:padding="6dp"
+                    android:src="@mipmap/ic_edit" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -182,11 +183,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_20px"
+                android:ellipsize="end"
+                android:gravity="center"
                 android:paddingLeft="@dimen/margin_80px"
                 android:paddingRight="@dimen/margin_80px"
-                android:gravity="center"
                 android:singleLine="true"
-                android:ellipsize="end"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/bg_red_light_light" />
 
@@ -239,8 +240,8 @@
                     android:id="@+id/radio_1"
                     style="@style/rb_center_list_tab"
                     android:layout_width="match_parent"
-                    android:checked="true"
                     android:layout_height="match_parent"
+                    android:checked="true"
                     android:text="@string/tab_course" />
 
                 <TextView

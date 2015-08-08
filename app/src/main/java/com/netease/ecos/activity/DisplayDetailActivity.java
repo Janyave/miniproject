@@ -2,10 +2,10 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -145,7 +145,8 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         Display display = getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
         width -= 80;
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, width * 2 / 3);
+        ViewGroup.LayoutParams params = exhibitCoverImgVw.getLayoutParams();
+        params.height=width*2/3;
         exhibitCoverImgVw.setLayoutParams(params);
     }
 
@@ -200,14 +201,7 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
                     followUserRequest = new FollowUserRequest();
                 if (followResponce == null)
                     followResponce = new FollowResponce();
-                if (TextUtils.equals(((TextView) v).getText().toString(), DisplayDetailActivity.this.getString(R.string.focus))) {
-                    ((TextView) v).setText("已关注");
-                    followUserRequest.request(followResponce, share.userId, true);
-                } else {
-                    ((TextView) v).setText("关注");
-                    followUserRequest.request(followResponce, share.userId, false);
-                }
-                followUserRequest.request(followResponce, share.userId, true);
+                followUserRequest.request(followResponce, share.userId, !share.hasAttention);
                 break;
             case R.id.exhibitPersonImgVw:
                 Intent intent1 = new Intent(DisplayDetailActivity.this, PersonageDetailActivity.class);
@@ -258,6 +252,9 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
             DisplayDetailActivity.this.share = share;
             exhibitCoverImgVw.setImageUrl(share.coverUrl, imageLoader);
             exhibitPersonImgVw.setImageUrl(share.avatarUrl, imageLoader);
+            exhibitPersonImgVw.setErrorImageResId(R.mipmap.bg_female_default);
+            exhibitPersonImgVw.setDefaultImageResId(R.mipmap.bg_female_default);
+
             exhibitPersonNameTxVw.setText(share.nickname);
             exhibitFocusBtn.setText(share.hasAttention ? DisplayDetailActivity.this.getString(R.string.focus) : DisplayDetailActivity.this.getString(R.string.notFocus));
             exhibitTitleTxVw.setText(share.title);
@@ -283,6 +280,8 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
 
         @Override
         public void success(String userId, boolean follow) {
+            share.hasAttention = follow;
+            exhibitFocusBtn.setText(share.hasAttention ? DisplayDetailActivity.this.getString(R.string.focus) : DisplayDetailActivity.this.getString(R.string.notFocus));
         }
     }
 

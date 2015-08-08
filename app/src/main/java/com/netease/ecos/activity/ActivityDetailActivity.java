@@ -142,6 +142,9 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         tv_wantgo.setOnClickListener(this);
         iv_author_avator.setOnClickListener(this);
         tv_author_name.setOnClickListener(this);
+
+        ll_wantgo_icons.setOnClickListener(this);
+        tv_wangoNum.setOnClickListener(this);
     }
 
     @Override
@@ -164,6 +167,14 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
                 bundle.putString(PersonageDetailActivity.UserID, activityModel.userId);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                break;
+            case R.id.ll_wantgo_icons:
+            case R.id.tv_wangoNum:
+                Intent intent2 = new Intent(ActivityDetailActivity.this, NormalListViewActivity.class);
+                Bundle bundle2= new Bundle();
+                bundle2.putString(NormalListViewActivity.GET_ACTIVITY_ID, activityModel.activityId);
+                intent2.putExtras(bundle2);
+                startActivity(intent2);
                 break;
             default:
                 break;

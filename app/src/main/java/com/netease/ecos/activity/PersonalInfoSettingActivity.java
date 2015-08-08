@@ -89,6 +89,8 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     TextView tv_tag5;
     @InjectView(R.id.tv_tag6)
     TextView tv_tag6;
+    @InjectView(R.id.tv_phone_num)
+    TextView tv_phone_num;
 
 //    private RoundAngleImageView iv;
 
@@ -265,7 +267,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this).clearAllData();
 
                     Intent intent = new Intent(PersonalInfoSettingActivity.this, SplashActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
                     break;
@@ -321,17 +323,13 @@ public class PersonalInfoSettingActivity extends BaseActivity {
 
     private void setUserData() {
         User setUser = UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this).getUser();
-//        Bitmap bitmap = null;
-//        bitmap = BitmapFactory.decodeFile(setUser.avatarUrl);
-//        if (bitmap != null) {
-//            personal_info_set_avatar_pic.setImageBitmap(bitmap);
-//        }
         user = UserDataService.getSingleUserDataService(this).getUser();
         mAvatarUrl = setUser.avatarUrl;
-        if (mAvatarUrl != null) {
+        if (mAvatarUrl != null && mAvatarUrl.equals("")) {
             ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
             personal_info_set_avatar_pic.setImageUrl(mAvatarUrl, imageLoader);
-        }
+        } else
+            personal_info_set_avatar_pic.setImageResource(R.mipmap.bg_female_default);
 
         Log.w("nickname", setUser.nickname);
 
@@ -342,8 +340,14 @@ public class PersonalInfoSettingActivity extends BaseActivity {
             mSetGender.setText("男");
         else if (setUser.gender.getValue().equals("2"))
             mSetGender.setText("女");
-            setTagVisiable(user.roleTypeSet);
+        setTagVisiable(user.roleTypeSet);
 
+        if (setUser.phone != null && setUser.phone.equals(""))
+            tv_phone_num.setText(setUser.phone);
+        else {
+            tv_phone_num.setText("");
+            Log.d("ZYW00000000", "phone num is null");
+        }
 
         mSetIntro.setText(setUser.characterSignature);
     }
@@ -358,7 +362,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         tv_tag6.setVisibility(View.GONE);
 
         for (User.RoleType roleType : roleTypeSet) {
-            if(roleType == null){
+            if (roleType == null) {
                 continue;//in case of  roletype null.
             }
             switch (roleType.getBelongs()) {

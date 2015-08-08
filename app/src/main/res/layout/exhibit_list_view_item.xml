@@ -7,11 +7,12 @@
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/exhibit_lsvw_item_img"
-        android:layout_width="@dimen/workDetail_ImgVw_height"
-        android:layout_height="@dimen/workDetail_ImgVw_height"
-        android:layout_marginBottom="@dimen/ExhibitListItemMargin"
-        android:layout_marginTop="@dimen/ExhibitListItemMargin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_cover_664px_1000px"
+        android:layout_marginBottom="@dimen/margin_20px"
+        android:layout_marginLeft="@dimen/margin_40px"
+        android:layout_marginRight="@dimen/margin_40px"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/img_default" />
 
 </LinearLayout>

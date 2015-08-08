@@ -113,7 +113,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
 
     void initView() {
         //implementation on the title bar
-        titleTxVw.setText("新建作品");
+        titleTxVw.setText("新建分享");
         tv_right_text.setText("发布");
         imagePaths = getIntent().getExtras().getStringArrayList("paths");
         uploadWorksListAdapter = new UploadWorksListAdapter(this, imagePaths);

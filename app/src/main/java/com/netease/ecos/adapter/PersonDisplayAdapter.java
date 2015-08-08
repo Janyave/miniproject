@@ -76,6 +76,8 @@ public class PersonDisplayAdapter extends BaseAdapter implements View.OnClickLis
         public void setData(int position) {
             if (shareList.get(position).coverUrl != null && !shareList.get(position).coverUrl.equals(""))
                 Picasso.with(mcontext).load(shareList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            else
+                iv_cover.setImageResource(R.drawable.img_default);
             tv_coverNum.setText(shareList.get(position).totalPageNumber + "");
             tv_coverTitle.setText(shareList.get(position).title);
             tv_coverTime.setText(shareList.get(position).getDateDescription() + "");

@@ -4,12 +4,13 @@
     android:layout_height="match_parent"
 
     android:background="@drawable/img_splath_g_l">
-    <include layout="@layout/item_splash_return"/>
+    <include layout="@layout/item_splash_return"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:gravity="center_horizontal"
         android:orientation="vertical">
         <ImageView
@@ -101,6 +102,6 @@
     <LinearLayout
         android:layout_width="@dimen/login_item_width"
         android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_weight="1">
     </LinearLayout>
 </LinearLayout>

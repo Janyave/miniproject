@@ -30,6 +30,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
+import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.activity.NormalListViewActivity;
 import com.netease.ecos.activity.NotificationActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
@@ -189,19 +190,19 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         ll_notification = (LinearLayout) mDrawerView.findViewById(R.id.ll_notification);
         ll_contact = (LinearLayout) mDrawerView.findViewById(R.id.ll_contact);
-        ll_course = (LinearLayout) mDrawerView.findViewById(R.id.ll_course);
-        ll_display = (LinearLayout) mDrawerView.findViewById(R.id.ll_display);
-        ll_activity = (LinearLayout) mDrawerView.findViewById(R.id.ll_activity);
-        ll_recruite = (LinearLayout) mDrawerView.findViewById(R.id.ll_recruite);
+//        ll_course = (LinearLayout) mDrawerView.findViewById(R.id.ll_course);
+//        ll_display = (LinearLayout) mDrawerView.findViewById(R.id.ll_display);
+//        ll_activity = (LinearLayout) mDrawerView.findViewById(R.id.ll_activity);
+//        ll_recruite = (LinearLayout) mDrawerView.findViewById(R.id.ll_recruite);
         ll_personcenter = (LinearLayout) mDrawerView.findViewById(R.id.ll_personcenter);
         ll_setting = (LinearLayout) mDrawerView.findViewById(R.id.ll_setting);
 
         tv_notificationNum = (TextView) mDrawerView.findViewById(R.id.tv_notificationNum);
         tv_contactNum = (TextView) mDrawerView.findViewById(R.id.tv_contactNum);
-        tv_courseNum = (TextView) mDrawerView.findViewById(R.id.tv_courseNum);
-        tv_displayNum = (TextView) mDrawerView.findViewById(R.id.tv_displayNum);
-        tv_activityNum = (TextView) mDrawerView.findViewById(R.id.tv_activityNum);
-        tv_recruiteNum = (TextView) mDrawerView.findViewById(R.id.tv_recruiteNum);
+//        tv_courseNum = (TextView) mDrawerView.findViewById(R.id.tv_courseNum);
+//        tv_displayNum = (TextView) mDrawerView.findViewById(R.id.tv_displayNum);
+//        tv_activityNum = (TextView) mDrawerView.findViewById(R.id.tv_activityNum);
+//        tv_recruiteNum = (TextView) mDrawerView.findViewById(R.id.tv_recruiteNum);
         tv_personcenterNum = (TextView) mDrawerView.findViewById(R.id.tv_personcenterNum);
         tv_block = (TextView) mDrawerView.findViewById(R.id.tv_block);
 
@@ -234,10 +235,10 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         ll_notification.setOnClickListener(this);
         ll_contact.setOnClickListener(this);
-        ll_course.setOnClickListener(this);
-        ll_display.setOnClickListener(this);
-        ll_activity.setOnClickListener(this);
-        ll_recruite.setOnClickListener(this);
+//        ll_course.setOnClickListener(this);
+//        ll_display.setOnClickListener(this);
+//        ll_activity.setOnClickListener(this);
+//        ll_recruite.setOnClickListener(this);
         ll_personcenter.setOnClickListener(this);
         ll_setting.setOnClickListener(this);
         tv_block.setOnClickListener(this);
@@ -254,36 +255,39 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         Bundle bundle;
         switch (v.getId()) {
             case R.id.ll_notification:
-                intent=new Intent(getActivity(), NotificationActivity.class);
+                intent = new Intent(getActivity(), NotificationActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll_contact:
                 Toast.makeText(getActivity(), getResources().getString(R.string.noPage), Toast.LENGTH_SHORT).show();
                 return;
             case R.id.ll_attention:
-                intent=new Intent(getActivity(), NormalListViewActivity.class);
-                bundle=new Bundle();
+                intent = new Intent(getActivity(), NormalListViewActivity.class);
+                bundle = new Bundle();
                 bundle.putInt(NormalListViewActivity.LISTVIEW_TYPE, NormalListViewActivity.TYPE_EVENT_ATTENTION);
                 intent.putExtras(bundle);
+                startActivity(intent);
                 break;
             case R.id.ll_fans:
-                intent=new Intent(getActivity(), NormalListViewActivity.class);
-                bundle=new Bundle();
+                intent = new Intent(getActivity(), NormalListViewActivity.class);
+                bundle = new Bundle();
                 bundle.putInt(NormalListViewActivity.LISTVIEW_TYPE, NormalListViewActivity.TYPE_EVENT_FANS);
                 intent.putExtras(bundle);
+                startActivity(intent);
                 break;
             case R.id.ll_setting:
                 intent = new Intent(getActivity(), PersonalInfoSettingActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll_personcenter:
                 intent = new Intent(getActivity(), PersonageDetailActivity.class);
                 bundle = new Bundle();
                 bundle.putBoolean(PersonageDetailActivity.IsOwn, true);
                 intent.putExtras(bundle);
+                startActivity(intent);
                 break;
-            default:
-                intent = new Intent();
         }
-        startActivity(intent);
+
     }
 
 
@@ -314,7 +318,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         mDrawerToggle = new ActionBarDrawerToggle(
                 getActivity(),                    /* host ActivityModel */
                 mDrawerLayout,                    /* DrawerLayout object */
-                R.mipmap.ic_launcher,             /* nav drawer image to replace 'Up' caret */
+                R.mipmap.icon,             /* nav drawer image to replace 'Up' caret */
                 R.string.navigation_drawer_open,  /* "open drawer" description for accessibility */
                 R.string.navigation_drawer_close  /* "close drawer" description for accessibility */
         ) {
@@ -578,7 +582,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         user_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
         //设置加载出错图片
         user_avatar.setErrorImageResId(R.mipmap.bg_female_default);
-        RequestQueue queue = Volley.newRequestQueue(v.getContext());
+        RequestQueue queue = MyApplication.getRequestQueue();
         ImageLoader.ImageCache imageCache = new SDImageCache();
         ImageLoader imageLoader = new ImageLoader(queue, imageCache);
         user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);

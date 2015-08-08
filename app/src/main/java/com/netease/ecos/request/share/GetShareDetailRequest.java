@@ -219,7 +219,7 @@ public class GetShareDetailRequest extends BaseRequest {
             share.commentNum = "".equals(commentNum) ? 0 : Integer.valueOf(commentNum);
 
 
-            if (shareJO.has(KEY_IMAGE_URLS) && !shareJO.isNull(KEY_IMAGE_URLS)) {
+            if (shareJO.has(KEY_IMAGE_URLS) && !shareJO.isNull(KEY_IMAGE_URLS) && !getString(shareJO, KEY_IMAGE_URLS).equals("")) {
                 JSONArray imageUrlJA = new JSONArray(getString(shareJO, KEY_IMAGE_URLS));
 
                 for (int i = 0; i < imageUrlJA.length(); i++) {

@@ -32,7 +32,7 @@
             android:paddingLeft="@dimen/margin_40px"
             android:paddingRight="@dimen/margin_40px">
 
-            <ImageView
+            <com.netease.ecos.utils.RoundImageView
                 android:id="@+id/imageViewAuthor"
                 android:layout_width="@dimen/circle_icon_100px"
                 android:layout_height="@dimen/circle_icon_100px"
