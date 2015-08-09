@@ -48,7 +48,7 @@ public class PersonageDetailActivity extends BaseActivity {
     public static final String UserID = "UserID";
     public static final String IsOwn = "IsOwn";
 
-    private boolean isOwn;
+    private boolean isOwn = true;
     private String userID = null;
 
     @InjectView(R.id.iv_personage_portrait)
@@ -148,16 +148,21 @@ public class PersonageDetailActivity extends BaseActivity {
 
     private void initUserData() {
         showProcessBar("正在加载数据");
-        isOwn = getIntent().getExtras().getBoolean(IsOwn);
+        userID = getIntent().getExtras().getString(UserID);
+        Log.d("ZYW11111111", "get intent user ID"+userID);
+
+        mUserDataService = UserDataService.getSingleUserDataService(this);
+        mUserData = mUserDataService.getUser();//默认用户是自己
+        Log.d("ZYW22222222", "get loack user ID"+mUserData.userId);
+        if(!userID.equals(mUserData.userId)){
+            isOwn = false;
+        }
+        //isOwn = getIntent().getExtras().getBoolean(IsOwn);//assist judge
         if (isOwn) {
-            mUserDataService = UserDataService.getSingleUserDataService(this);
-            mUserData = mUserDataService.getUser();
-            userID = null;
             setData();
         } else {
             getUserInfoRequest = new GetUserInfoRequest();
             getuserInfoResponse = new GetuserInfoResponse();
-            userID = getIntent().getExtras().getString(UserID);
             getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, userID);
         }
         Toast.makeText(this,"userId is "+userID,Toast.LENGTH_SHORT).show();
@@ -168,6 +173,7 @@ public class PersonageDetailActivity extends BaseActivity {
     }
 
     void setData() {
+        Log.d("ZYW3333333333","is own ???????"+isOwn);
         RequestQueue queue = MyApplication.getRequestQueue();
         ImageLoader.ImageCache imageCache = new SDImageCache();
         ImageLoader imageLoader = new ImageLoader(queue, imageCache);

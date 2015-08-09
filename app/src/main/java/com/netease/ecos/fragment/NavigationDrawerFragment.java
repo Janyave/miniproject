@@ -219,6 +219,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), PersonageDetailActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putString(PersonageDetailActivity.UserID, mUserData.userId);
                 bundle.putBoolean(PersonageDetailActivity.IsOwn, true);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -282,6 +283,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
             case R.id.ll_personcenter:
                 intent = new Intent(getActivity(), PersonageDetailActivity.class);
                 bundle = new Bundle();
+                bundle.putString(PersonageDetailActivity.UserID, mUserData.userId);
                 bundle.putBoolean(PersonageDetailActivity.IsOwn, true);
                 intent.putExtras(bundle);
                 startActivity(intent);
