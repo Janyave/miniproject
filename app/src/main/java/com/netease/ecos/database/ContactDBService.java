@@ -56,6 +56,8 @@ public class ContactDBService {
 	 * 添加联系人
 	 */
 	public void addContact(Contact contact){
+		Log.e("插入数据",contact.toString());
+
 		if(contact!=null)
 			mContactDAO.createOrUpdate(contact);
 		else

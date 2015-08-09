@@ -342,6 +342,7 @@ public class PersonageDetailActivity extends BaseActivity {
             }
             if(activityList.size() >= 5){
                 activityListRequest.requestOtherActivityList(activityListResponse, userID, ++mActivityPageIndex);
+
             }
             personActivityAdapter.getActivityList().addAll(activityList);
             personActivityAdapter.notifyDataSetChanged();

@@ -3,13 +3,10 @@ package com.netease.ecos.request.user;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
-import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.constants.RequestUrlConstants;
-import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.User.Gender;
 import com.netease.ecos.model.User.RoleType;
-import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
@@ -128,9 +125,9 @@ public class GetUserInfoRequest extends BaseRequest{
 				}
 			}
 
-			UserDataService.getSingleUserDataService(MyApplication.getContext()).saveUser(user);
-			AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveUserAccId(user.imId);
-			AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveUserId(user.userId);
+//			UserDataService.getSingleUserDataService(MyApplication.getContext()).saveUser(user);
+//			AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveUserAccId(user.imId);
+//			AccountDataService.getSingleAccountDataService(MyApplication.getContext()).saveUserId(user.userId);
 
 			if(mGetUserInfoResponse!=null)
 			{

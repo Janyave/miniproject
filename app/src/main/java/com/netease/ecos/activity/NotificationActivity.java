@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.NotificationContactAdapter;
 import com.netease.ecos.database.ContactDBService;
+import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.model.UserDataService;
@@ -29,6 +30,9 @@ import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum;
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -148,7 +152,6 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
      * ---------------------------------------------------yunxing api test----------------------------------------
      * |||||||||||
      */
-
 
     private void regeisterObserver() {
 
@@ -336,12 +339,28 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
                     for (RecentContact msg : messages) {
 
                         Contact contact = new Contact();
+                        String myImId = AccountDataService.getSingleAccountDataService(NotificationActivity.this).getUserAccId();
+
+                        contact.setId(myImId,msg.getContactId());
                         contact.contactAccid = msg.getContactId();
+
+                        try {
+
+                            JSONObject content  = new JSONObject(msg.getContent());
+                            contact.contactNickName = content.getString("nickname");
+                            contact.contactUserId = content.getString("userID");
+                            contact.avatarUrl = content.getString("avatarUrl");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                         contact.fromAccount = msg.getFromAccount();
-                        contact.messageContent = msg.getContent();
+                        contact.messageContent = ContactActivity.getMessageContentByJSONString(msg.getContent());
                         contact.messgeId = msg.getRecentMessageId();
                         contact.time = msg.getTime();
                         contact.unreadedNum = msg.getUnreadCount();
+
                         ContactDBService.getInstance(NotificationActivity.this).addContact(contact);
 
 

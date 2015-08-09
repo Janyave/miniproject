@@ -1,11 +1,5 @@
 package com.netease.ecos.request.user;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
@@ -15,10 +9,15 @@ import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseRequest;
-import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.utils.StringUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /***
  *
@@ -46,6 +45,8 @@ public class RegistRequest extends BaseRequest{
 	//响应参数键
 	NorResponce mNorResponce;
 
+
+	public String mPhone;
 	/***
 	 * 请求结束后把userId,imId,avatarUrl存入SharePreference
 	 * @param norResponce
@@ -59,7 +60,7 @@ public class RegistRequest extends BaseRequest{
 	{
 		super.initBaseRequest(norResponce);
 		mNorResponce = norResponce;
-
+		mPhone = phone;
 		//		testRegist();
 		//		mNorResponce.success();
 		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.REGIST_URL,  this, this) {
@@ -104,6 +105,7 @@ public class RegistRequest extends BaseRequest{
 			AccountDataService service = AccountDataService.getSingleAccountDataService(MyApplication.getContext());
 			service.saveUserId(user.userId);
 			service.saveUserAccId(user.imId);
+			service.savePhone(mPhone);
 
 			if(mNorResponce!=null)
 			{
