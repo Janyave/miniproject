@@ -34,7 +34,6 @@
                         android:layout_marginTop="@dimen/margin_80px"
                         android:src="@mipmap/bg_female_default"
                         ecos:circle_color="@color/bg_red"
-                        ecos:line_width="0.0"
                         ecos:showable="true" />
 
                     <ImageView
@@ -71,6 +70,7 @@
                         android:layout_height="@dimen/height_tag_36px"
                         android:layout_below="@id/ll_personage_name"
                         android:layout_marginTop="@dimen/margin_50px"
+                        android:orientation="horizontal"
                         android:gravity="center"></LinearLayout>
 
                     <LinearLayout
