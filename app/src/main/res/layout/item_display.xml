@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ecos="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -35,7 +36,9 @@
                     android:id="@+id/iv_avatar"
                     android:layout_width="@dimen/circle_icon_108px"
                     android:layout_height="@dimen/circle_icon_108px"
-                    android:background="@mipmap/bg_female_default" />
+                    android:background="@mipmap/bg_female_default"
+                    ecos:circle_color="@color/bg_red"
+                    ecos:showable="true"/>
 
                 <TextView
                     android:id="@+id/tv_name"
