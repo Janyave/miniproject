@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
@@ -17,6 +18,9 @@ import com.netease.ecos.model.PhotoAibum;
 import com.netease.ecos.model.PhotoItem;
 
 import java.util.ArrayList;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by Think on 2015/7/26.
@@ -31,6 +35,15 @@ public class PhotoActivity extends Activity {
     private LayoutInflater inflater;
     private ImageView imageViewPhotoSelect;
 
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
+    @InjectView(R.id.tv_title)
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
+
     private ArrayList<String> paths = new ArrayList<String>();
     private ArrayList<String> ids = new ArrayList<String>();
     private ArrayList<PhotoItem> gl_arr = new ArrayList<PhotoItem>();
@@ -39,6 +52,7 @@ public class PhotoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photoalbum_gridview);
+        ButterKnife.inject(this);
 
         btn_sure = (Button) findViewById(R.id.btn_sure);
         aibum = (PhotoAibum) getIntent().getExtras().get("aibum");
@@ -86,5 +100,18 @@ public class PhotoActivity extends Activity {
                 finish();
             }
         });
+
+        initTitle();
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        title_right.setVisibility(View.INVISIBLE);
+        title_text.setText("选择图片");
     }
 }

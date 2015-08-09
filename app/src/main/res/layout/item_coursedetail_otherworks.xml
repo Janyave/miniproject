@@ -10,12 +10,19 @@
         android:background="@drawable/bg_course_item"
         android:layout_marginRight="8dp">
         <!-- 图片-->
-        <ImageView
+        <com.netease.ecos.utils.RoundAngleImageView
             android:id="@+id/iv_image"
-            android:layout_width="@dimen/width_item_work_360px"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/width_item_work_540px"
             android:src="@drawable/img_default"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            ecos:leftUpRoundWidth="@dimen/margin_20px"
+            ecos:leftUpRoundHeight="@dimen/margin_20px"
+            ecos:rightUpRoundHeight="@dimen/margin_20px"
+            ecos:rightUpRoundWidth="@dimen/margin_20px"
+            ecos:isLeftUp="true"
+            ecos:isRightUp="true"
+            />
 
         <!--个人头像和姓名-->
         <LinearLayout

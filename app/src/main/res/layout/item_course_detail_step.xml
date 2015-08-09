@@ -50,8 +50,7 @@
             android:layout_marginRight="@dimen/margin_40px"
             android:layout_marginTop="@dimen/margin_50px"
             android:layout_marginBottom="@dimen/margin_20px"
-            style="@style/text_dark_mid"
-            android:text="我是萌萌哒文字君"/>
+            style="@style/text_dark_mid"/>
     </LinearLayout>
 
 </LinearLayout>

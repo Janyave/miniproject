@@ -35,7 +35,9 @@
             android:textColorHint="@color/text_gray"
             android:background="@android:color/transparent"
             android:hint="@string/work_hint"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:minLines="8"
+            android:gravity="top"/>
     </LinearLayout>
 
     <TextView style="@style/layout_line_gray"/>

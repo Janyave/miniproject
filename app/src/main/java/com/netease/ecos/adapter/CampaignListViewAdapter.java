@@ -93,6 +93,22 @@ public class CampaignListViewAdapter extends BaseAdapter {
             viewHolder.textViewLocation.setText(activityList.get(position).location.toString());
 
             viewHolder.activityTypeTxVw.setText(activityList.get(position).activityType.name());
+            if (activityList.get(position).activityType == ActivityModel.ActivityType.同人展)
+                viewHolder.activityTypeTxVw.setBackgroundResource(R.drawable.bg_campaign_type_1);
+            if (activityList.get(position).activityType == ActivityModel.ActivityType.动漫节)
+                viewHolder.activityTypeTxVw.setBackgroundResource(R.drawable.bg_campaign_type_2);
+            if (activityList.get(position).activityType == ActivityModel.ActivityType.官方活动)
+                viewHolder.activityTypeTxVw.setBackgroundResource(R.drawable.bg_campaign_type_3);
+            if (activityList.get(position).activityType == ActivityModel.ActivityType.LIVE)
+                viewHolder.activityTypeTxVw.setBackgroundResource(R.drawable.bg_campaign_type_4);
+            if (activityList.get(position).activityType == ActivityModel.ActivityType.舞台祭)
+                viewHolder.activityTypeTxVw.setBackgroundResource(R.drawable.bg_campaign_type_5);
+            if (activityList.get(position).activityType == ActivityModel.ActivityType.赛事)
+                viewHolder.activityTypeTxVw.setBackgroundResource(R.drawable.bg_campaign_type_6);
+            if (activityList.get(position).activityType == ActivityModel.ActivityType.主题ONLY)
+                viewHolder.activityTypeTxVw.setBackgroundResource(R.drawable.bg_campaign_type_7);
+            if (activityList.get(position).activityType == ActivityModel.ActivityType.派对)
+                viewHolder.activityTypeTxVw.setBackgroundResource(R.drawable.bg_campaign_type_8);
         }
     }
 }

@@ -38,8 +38,8 @@ import butterknife.InjectView;
 public class UploadDisplayActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private final String TAG = "Ecos---UploadWorks";
-    @InjectView(R.id.iv_left)
-    ImageView iv_left;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
     @InjectView(R.id.tv_title)
     TextView titleTxVw;
     @InjectView(R.id.tv_right_text)
@@ -130,7 +130,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
         costume_cb.setOnCheckedChangeListener(this);
         other_cb.setOnCheckedChangeListener(this);
         backstage_cb.setOnCheckedChangeListener(this);
-        iv_left.setOnClickListener(this);
+        title_left.setOnClickListener(this);
     }
 
     @Override
@@ -197,7 +197,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
                 });
                 dialog.showSetPhotoDialog();
                 break;
-            case R.id.iv_left:
+            case R.id.lly_left_action:
                 finish();
                 break;
         }

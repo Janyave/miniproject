@@ -133,7 +133,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="1111111"
         style="@style/text_gray_mid"/>
 <!--         android:textAlignment="center" -->
 

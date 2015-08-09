@@ -52,7 +52,8 @@
                             android:focusableInTouchMode="true"
                             android:src="@mipmap/bg_female_default"
                             ecos:circle_color="@color/bg_red"
-                            ecos:showable="true"/>
+                            ecos:showable="true"
+                            />
 
                         <LinearLayout
                             android:layout_width="wrap_content"

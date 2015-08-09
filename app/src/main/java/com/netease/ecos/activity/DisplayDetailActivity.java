@@ -27,6 +27,7 @@ import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.PraiseRequest;
 import com.netease.ecos.request.share.GetShareDetailRequest;
 import com.netease.ecos.request.user.FollowUserRequest;
+import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.views.ExtensibleListView;
 
@@ -53,7 +54,7 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
     @InjectView(R.id.exhibitCoverImgVw)
     NetworkImageView exhibitCoverImgVw;
     @InjectView(R.id.exhibitPersonImgVw)
-    NetworkImageView exhibitPersonImgVw;
+    RoundImageView exhibitPersonImgVw;
     @InjectView(R.id.exhibitPersonNameTxVw)
     TextView exhibitPersonNameTxVw;
     @InjectView(R.id.exhibitFocusBtn)
