@@ -75,8 +75,11 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
 //    String IM_ID = "2255be0951400e260832c85c5d191247";
 
+    /**对方userId*/
     private String targetUserID;
+    /***对方昵称*/
     private String targetUserName;
+    /***对方头像*/
     private String targetUserAvatar;
     private String targetUserIMID = "";
 
@@ -376,16 +379,26 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                         contact.setId(myImId,msg.getContactId());
                         contact.contactAccid = msg.getContactId();
 
-                        try {
-                            JSONObject content  = new JSONObject(msg.getContent());
-                            contact.contactNickName = content.getString("nickname");
-                            contact.contactUserId = content.getString("userId");
-                            contact.avatarUrl = content.getString("avatarUrl");
-
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        //本人发起的
+                        if(msg.getFromAccount().equals(myImId)){
+                            contact.contactNickName = targetUserName;
+                            contact.contactUserId = targetUserID;
+                            contact.avatarUrl = targetUserAvatar;
                         }
+                        //对方发来的
+                        else{
+                            try {
+                                JSONObject content  = new JSONObject(msg.getContent());
+                                contact.contactNickName = content.getString("nickname");
+                                contact.contactUserId = content.getString("userId");
+                                contact.avatarUrl = content.getString("avatarUrl");
+
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
 
                         contact.fromAccount = msg.getFromAccount();
                         contact.messageContent = getMessageContentByJSONString(msg.getContent());
@@ -397,7 +410,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
                         Log.e("最近会话信息", "联系人id：" + msg.getContactId());
                         Log.e("最近会话信息", "会话内容：" + msg.getContent());
-                        Log.e("最近会话信息", "会话账号：" + msg.getFromAccount());
+                        Log.e("最近会话信息", "会话来自账号：" + msg.getFromAccount());
                         Log.e("最近会话信息", "messageId：" + msg.getRecentMessageId());
                         Log.e("最近会话信息", "时间：" + ModelUtils.getDateDetailByTimeStamp(msg.getTime()));
                         Log.e("最近会话信息", "未读数：" + msg.getUnreadCount());
@@ -411,7 +424,6 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                     }
 
                     List<Contact> contactList = ContactDBService.getInstance(ContactActivity.this).getContactList();
-
                     for (Contact contact : contactList) {
                         Log.e("数据库读取", "contact: --" + contact.toString());
                     }

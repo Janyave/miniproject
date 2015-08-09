@@ -102,7 +102,7 @@ public class GetShareDetailRequest extends BaseRequest {
     /**
      * 分享图片JA
      */
-    public static final String KEY_IMAGE_URLS = "imgUrl";
+    public static final String KEY_IMAGE_URLS = "imgUrls";
 
     /**
      * 评论列表JSONArray,内含JSONObject
