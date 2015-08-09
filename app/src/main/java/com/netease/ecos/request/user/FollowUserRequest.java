@@ -1,19 +1,16 @@
 package com.netease.ecos.request.user;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.netease.ecos.constants.RequestUrlConstants;
+import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
-import com.netease.ecos.request.NorResponce;
+
+import java.util.Map;
 
 /***
  *
@@ -74,6 +71,14 @@ public class FollowUserRequest extends BaseRequest{
 	@Override
 	public void responceSuccess(String jstring) {
 		//		traceNormal(TAG, jstring);
+		User user = UserDataService.getSingleUserDataService(getContext()).getUser();
+		
+		if(mFollow)
+			user.followOtherNum = String.valueOf( Integer.valueOf(user.followOtherNum)+1 );
+		else
+			user.followOtherNum = String.valueOf( Integer.valueOf(user.followOtherNum)-1 );
+
+
 		mFollowResponce.success(mToUserId, mFollow);
 		/*try {
 //			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
