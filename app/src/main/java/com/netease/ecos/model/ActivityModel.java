@@ -223,7 +223,7 @@ public class ActivityModel {
 
         @Override
         public String toString() {
-            return ModelUtils.getDateDesByTimeStamp(startDateStamp) + "-" + ModelUtils.getDateDesByTimeStamp(endDateStamp) + "\n" + dayStartTime + "-" + dayEndTime;
+            return ModelUtils.getDateDesByTimeStamp(startDateStamp) + "-" + ModelUtils.getDateDesByTimeStamp(endDateStamp) + "\n" + dayStartTime.substring(0, 5) + "-" + dayEndTime.substring(0, 5);
 
         }
     }
