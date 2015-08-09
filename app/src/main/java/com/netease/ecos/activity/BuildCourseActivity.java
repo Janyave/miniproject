@@ -92,7 +92,7 @@ public class BuildCourseActivity extends BaseActivity {
     /**
      * 当前正在设置教程步骤的图片
      */
-    public boolean isSettingCoursePhoto = false;
+    public boolean isSettingStepPhoto = false;
 
     /**
      * 当前正在设置第(couserStepPosition+1)步的教程图片
@@ -159,7 +159,7 @@ public class BuildCourseActivity extends BaseActivity {
             @Override
             public void setPhotoAtPosition(int position) {
 
-                isSettingCoursePhoto = true;
+                isSettingStepPhoto = true;
                 mCouserStepPosition = position;
 
                 SetPhotoDialog dialog = new SetPhotoDialog(BuildCourseActivity.this,
@@ -168,14 +168,14 @@ public class BuildCourseActivity extends BaseActivity {
                             @Override
                             public void choosePhotoFromLocal() {
                                 Toast.makeText(BuildCourseActivity.this, "选择本地图片", Toast.LENGTH_LONG).show();
-                                isSettingCoursePhoto = true;
+                                isSettingStepPhoto = true;
                                 mSetPhotoHelper.choosePhotoFromLocal();
                             }
 
                             @Override
                             public void takePhoto() {
                                 Toast.makeText(BuildCourseActivity.this, "拍照", Toast.LENGTH_LONG).show();
-                                isSettingCoursePhoto = true;
+                                isSettingStepPhoto = true;
                                 mSetPhotoHelper.takePhoto(false);
 
                             }
@@ -263,7 +263,7 @@ public class BuildCourseActivity extends BaseActivity {
         savedInstanceState.putString("mCourseTitle", mCourseTitle);
 
         savedInstanceState.putBoolean("isSettingCoverPhoto", isSettingCoverPhoto);
-        savedInstanceState.putBoolean("isSettingCoursePhoto", isSettingCoursePhoto);
+        savedInstanceState.putBoolean("isSettingCoursePhoto", isSettingStepPhoto);
         savedInstanceState.putInt("mCouserStepPosition", mCouserStepPosition);
 
         Log.i(TAG, "教程类型:" + mCourseTypeValue);
@@ -277,7 +277,7 @@ public class BuildCourseActivity extends BaseActivity {
 
 
         Log.i(TAG, "设置封面图:" + "当前正在设置封面图" + isSettingCoverPhoto);
-        Log.i(TAG, "在设置步骤:" + "当前正在设置步骤" + isSettingCoursePhoto);
+        Log.i(TAG, "在设置步骤:" + "当前正在设置步骤" + isSettingStepPhoto);
         Log.i(TAG, "当前操作的教程步骤序号:" + "当前操作的教程步骤序号" + mCouserStepPosition);
 
 //        Log.i("onSaveInstanceState", getCourseByPage().toString());
@@ -304,8 +304,8 @@ public class BuildCourseActivity extends BaseActivity {
         etv_course_title.setText(mCourseTitle);
 
         isSettingCoverPhoto = savedInstanceState.getBoolean("mConurseTypeValue");
-        isSettingCoursePhoto = savedInstanceState.getBoolean("isSettingCoursePhoto");
-        mCouserStepPosition = savedInstanceState.getInt("isSettingCoursePhoto");
+        isSettingStepPhoto = savedInstanceState.getBoolean("isSettingCoursePhoto");
+        mCouserStepPosition = savedInstanceState.getInt("mCouserStepPosition");
 
         Log.i("onRestoreInstanceState", "--------------------");
 
@@ -350,7 +350,7 @@ public class BuildCourseActivity extends BaseActivity {
                     }
 
                     //当前是设置教程步骤图片
-                    if (isSettingCoursePhoto) {
+                    if (isSettingStepPhoto) {
                         if (mCouserStepPosition == -1) {
                             Log.e("设置教程步骤图片", "缺少position");
                         }
@@ -358,7 +358,7 @@ public class BuildCourseActivity extends BaseActivity {
                         File imageFile = mSetPhotoHelper.getFileBeforeCrop(data, 300, 200);
                         mCourseStepAdapter.refleshImageAtPosition(mCouserStepPosition, imageFile.getAbsolutePath());
 
-                        isSettingCoursePhoto = false;
+                        isSettingStepPhoto = false;
                         mCouserStepPosition = -1;
                         return;
                     }
@@ -370,14 +370,14 @@ public class BuildCourseActivity extends BaseActivity {
                     break;
                 default:
                     isSettingCoverPhoto = false;
-                    isSettingCoursePhoto = false;
+                    isSettingStepPhoto = false;
                     Log.e("CLASS_TAG", "onActivityResult() 无对应");
             }
 
 
         } else {
             isSettingCoverPhoto = false;
-            isSettingCoursePhoto = false;
+            isSettingStepPhoto = false;
             Log.e(CLASS_TAG, "操作取消");
         }
     }

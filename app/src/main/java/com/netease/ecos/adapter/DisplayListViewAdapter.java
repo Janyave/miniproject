@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -184,8 +183,6 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             convertView.setTag(false);
             return convertView;
         } else {
-
-
             if (convertView == null || convertView.getTag() instanceof Boolean) {
                 convertView = parent.inflate(mcontext, R.layout.item_display, null);
                 viewHolder = new ViewHolder(convertView);
