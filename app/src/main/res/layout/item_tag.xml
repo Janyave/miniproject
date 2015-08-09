@@ -10,5 +10,5 @@
         style="@style/text_white_min"
         android:background="@drawable/bg_tag"
         android:gravity="center"
-        android:layout_marginLeft="@dimen/margin_20px" />
+        android:layout_marginRight="@dimen/margin_10px" />
 </LinearLayout>

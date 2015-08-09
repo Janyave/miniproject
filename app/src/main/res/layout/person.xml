@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.android.volley.toolbox.NetworkImageView
+    <com.netease.ecos.utils.RoundImageView
         android:id="@+id/personPicImgView"
         android:layout_width="@dimen/circle_icon_108px"
         android:layout_height="@dimen/circle_icon_108px"
