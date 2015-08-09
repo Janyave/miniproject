@@ -117,6 +117,8 @@ public class SetPhotoHelper {
 				
 	}
 
+	public File fileAfterChoose;
+
 	/***
 	 * 拍照
 	 * @param needCrop 是否需要裁剪,true:需要 false:不需要
@@ -127,7 +129,10 @@ public class SetPhotoHelper {
 		if( needCrop)
 			imgUriBeforeCrop = Uri.fromFile(mBefCropFile);
 		else
-			imgUriBeforeCrop = Uri.fromFile( FileManager.getInstance().getPhotoOutFile() );
+		{
+			fileAfterChoose = FileManager.getInstance().getPhotoOutFile();
+			imgUriBeforeCrop = Uri.fromFile( fileAfterChoose );
+		}
 
 		Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		
@@ -240,9 +245,23 @@ public class SetPhotoHelper {
 	public Bitmap getPhotoBeforeCrop()
 	{
 		Bitmap bitmap = BitmapFactory.decodeFile(mAfterCropFile.getAbsolutePath());
-		
-		
+
 		return bitmap;
+	}
+
+	/***
+	 * 在选择完图片或者拍照后不进行裁剪的图片存储文件；
+	 * @return
+	 */
+	public File getFileAfterChoose(){
+		File file = fileAfterChoose;
+		fileAfterChoose = null;
+
+		Bitmap chooenBitmap = CompressImageUitl.decodeSampledBitmapFromFile(file.getAbsolutePath(),300,200);
+		ImageTools.saveBitmap(chooenBitmap,file);
+
+		return file;
+
 	}
 	
 	/***

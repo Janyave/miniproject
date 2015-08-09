@@ -305,7 +305,7 @@ public class BuildCourseActivity extends BaseActivity {
 
         isSettingCoverPhoto = savedInstanceState.getBoolean("mConurseTypeValue");
         isSettingStepPhoto = savedInstanceState.getBoolean("isSettingCoursePhoto");
-        mCouserStepPosition = savedInstanceState.getInt("mCouserStepPosition");
+        mCouserStepPosition = savedInstanceState.getInt("isSettingCoursePhoto");
 
         Log.i("onRestoreInstanceState", "--------------------");
 
@@ -355,7 +355,9 @@ public class BuildCourseActivity extends BaseActivity {
                             Log.e("设置教程步骤图片", "缺少position");
                         }
 
-                        File imageFile = mSetPhotoHelper.getFileBeforeCrop(data, 300, 200);
+                        File imageFile = mSetPhotoHelper.getFileAfterChoose();
+
+//                        File imageFile = mSetPhotoHelper.getFileBeforeCrop(data, 300, 200);
                         mCourseStepAdapter.refleshImageAtPosition(mCouserStepPosition, imageFile.getAbsolutePath());
 
                         isSettingStepPhoto = false;
