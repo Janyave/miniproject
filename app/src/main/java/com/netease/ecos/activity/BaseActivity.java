@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Display;
 
 import com.netease.ecos.R;
 import com.netease.ecos.views.SystemBarTintManager;
@@ -20,6 +21,11 @@ import com.netease.ecos.views.sweet_alert_dialog.SweetAlertDialog;
 public class BaseActivity extends ActionBarActivity {
 
     protected static String TAG = "BaseActivity";
+
+
+    public static int DisplayWidth;
+    public static int DisplayHeight;
+
 
     /***
      * 提示对话框
@@ -44,6 +50,9 @@ public class BaseActivity extends ActionBarActivity {
 
         //设置当前activity
         MyApplication.setCurrentActivity(this);
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayWidth= display.getWidth();
+        DisplayHeight=display.getHeight();
 
         //隐藏ActionBar
         getSupportActionBar().hide();

@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img_splath_g_l"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/main">
 
     <include layout="@layout/item_splash_return" />
 

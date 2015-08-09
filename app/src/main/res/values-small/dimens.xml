@@ -14,6 +14,6 @@
     <dimen name="height_cover_480px_320px">150dp</dimen>
     <dimen name="width_cover_552px_870px">300dp</dimen>
     <dimen name="height_cover_552px_870px">200dp</dimen>
-    <dimen name="height_banner_610px_1080px">100dp</dimen>
+    <dimen name="height_banner_610px_1080px">210dp</dimen>
     <dimen name="height_personDetail_640px_1080px">230dp</dimen> //should not change
 </resources>

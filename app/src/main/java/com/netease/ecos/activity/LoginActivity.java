@@ -4,14 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.KeyEventCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +51,10 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
     TextView tv_forgetPassword;
     @InjectView(R.id.iv_return)
     ImageView iv_return;
+    @InjectView(R.id.logo)
+    ImageView logo;
+    @InjectView(R.id.main)
+    LinearLayout main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +72,21 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
     private void initListener() {
         et_phone.addTextChangedListener(this);
         et_password.addTextChangedListener(this);
+        main.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if ((main.getRootView().getHeight()-main.getHeight())>100){
+                    logo.setVisibility(View.GONE);
+                }else{
+                    logo.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         tv_forgetPassword.setOnClickListener(this);
         tv_login.setOnClickListener(this);
         iv_return.setOnClickListener(this);
+        main.setOnClickListener(this);
     }
 
     private void initData() {
@@ -110,6 +130,13 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
     @Override
     public void afterTextChanged(Editable s) {
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.v("code","enter "+keyCode);
+        return super.onKeyDown(keyCode, event);
+    }
+
 
     class LoginResponse extends BaseResponceImpl implements NorResponce{
 

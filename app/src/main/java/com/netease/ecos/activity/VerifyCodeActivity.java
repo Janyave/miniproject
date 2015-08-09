@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,6 +41,11 @@ public class VerifyCodeActivity extends Activity implements TextWatcher {
     TextView tv_next;
     @InjectView(R.id.tv_notice)
     TextView tv_notice;
+    @InjectView(R.id.logo)
+    ImageView logo;
+    @InjectView(R.id.main)
+    LinearLayout main;
+
 
     private int stepN = 1;  //默认step
 
@@ -85,6 +91,17 @@ public class VerifyCodeActivity extends Activity implements TextWatcher {
         et_phone = (EditText) view_step1.findViewById(R.id.et_phone);
         tv_phone = (TextView) view_step2.findViewById(R.id.tv_phone);
         et_code = (EditText) view_step2.findViewById(R.id.et_code);
+
+        main.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if ((main.getRootView().getHeight() - main.getHeight()) > 100) {
+                    logo.setVisibility(View.GONE);
+                } else {
+                    logo.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void initListener() {
