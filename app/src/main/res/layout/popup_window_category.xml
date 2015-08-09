@@ -22,13 +22,7 @@
             style="@style/text_gray_mid"
             android:textColor="@color/radio_sort_text"/>
 
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="@dimen/width_line"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:background="@color/bg_gray_dark"
-            android:textColor="@color/radio_sort_text"/>
+        <TextView style="@style/layout_line_gray_v"/>
 
         <Button
             android:id="@+id/btn_same_people_show"
@@ -40,13 +34,7 @@
             style="@style/text_gray_mid"
             android:textColor="@color/radio_sort_text"/>
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="@dimen/width_line"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:background="@color/bg_gray_dark"
-            android:textColor="@color/radio_sort_text"/>
+        <TextView style="@style/layout_line_gray_v"/>
 
         <Button
             android:id="@+id/btn_movie_festival"
@@ -60,10 +48,7 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/width_line"
-        android:id="@+id/imageView2" />
+    <TextView style="@style/layout_line_gray"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,12 +64,7 @@
             android:background="@drawable/ll_white"
             style="@style/text_gray_mid"
             android:textColor="@color/radio_sort_text"/>
-        <ImageView
-            android:id="@+id/imageView7"
-            android:layout_width="@dimen/width_line"
-            android:layout_height="match_parent"
-            android:background="@color/bg_gray_dark"
-            android:textColor="@color/radio_sort_text"/>
+        <TextView style="@style/layout_line_gray_v"/>
         <Button
             android:id="@+id/btn_category_live"
             android:text="LIVE"
@@ -94,12 +74,7 @@
             android:background="@drawable/ll_white"
             style="@style/text_gray_mid"
             android:textColor="@color/radio_sort_text"/>
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="@dimen/width_line"
-            android:layout_height="match_parent"
-            android:background="@color/bg_gray_dark"
-            android:textColor="@color/radio_sort_text"/>
+        <TextView style="@style/layout_line_gray_v"/>
         <Button
             android:id="@+id/btn_category_stage"
             android:text="舞台祭"
@@ -111,12 +86,7 @@
             android:textColor="@color/radio_sort_text"/>
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/width_line"
-        android:id="@+id/imageView3"
-        android:scaleType="fitXY"
-        android:layout_gravity="center_horizontal" />
+    <TextView style="@style/layout_line_gray"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -132,13 +102,7 @@
             android:background="@drawable/ll_white"
             style="@style/text_gray_mid"
             android:textColor="@color/radio_sort_text"/>
-        <ImageView
-            android:id="@+id/imageView9"
-            android:layout_width="@dimen/width_line"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:background="@color/bg_gray_dark"
-            android:textColor="@color/radio_sort_text"/>
+        <TextView style="@style/layout_line_gray_v"/>
         <Button
             android:id="@+id/btn_theme_only"
             android:text="主题ONLY"
@@ -148,13 +112,7 @@
             android:background="@drawable/ll_white"
             style="@style/text_gray_mid"
             android:textColor="@color/radio_sort_text"/>
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="@dimen/width_line"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:background="@color/bg_gray_dark"
-            android:textColor="@color/radio_sort_text"/>
+        <TextView style="@style/layout_line_gray_v"/>
         <Button
             android:id="@+id/btn_category_party"
             android:text="派对"
@@ -166,10 +124,6 @@
             android:textColor="@color/radio_sort_text"/>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/width_line"
-        android:background="@color/bg_gray_dark"/>
+    <TextView style="@style/layout_line_gray"/>
 
 </LinearLayout>

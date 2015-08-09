@@ -8,5 +8,8 @@
     <com.netease.ecos.views.CommunityListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:listSelector="@android:color/transparent"
         android:id="@+id/lv_community_location"/>
 </LinearLayout>

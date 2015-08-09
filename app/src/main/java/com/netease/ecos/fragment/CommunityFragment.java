@@ -2,6 +2,7 @@ package com.netease.ecos.fragment;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.drawable.PaintDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -103,14 +104,14 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     showCategoryPopupWindow(v);
                 } else if (popupWindowCategory.isShowing()) {
                     popupWindowCategory.dismiss();
-                    iv_show_flag_category.setImageResource(R.drawable.ic_unpress_next_step);
+                    iv_show_flag_category.setImageResource(R.mipmap.ic_choose_gray_down);
                 } else {
                     showCategoryPopupWindow(v);
                 }
                 if (popupWindowLocation != null)
                     if (popupWindowLocation.isShowing()) {
                         popupWindowLocation.dismiss();
-                        iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
+                        iv_show_flag_location.setImageResource(R.mipmap.ic_choose_gray_down);
                     }
             }
         });
@@ -122,14 +123,14 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     showLocationPopupWindow(v);
                 } else if (popupWindowLocation.isShowing()) {
                     popupWindowLocation.dismiss();
-                    iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
+                    iv_show_flag_location.setImageResource(R.mipmap.ic_choose_gray_down);
                 } else {
                     showLocationPopupWindow(v);
                 }
                 if (popupWindowCategory != null)
                     if (popupWindowCategory.isShowing()) {
                         popupWindowCategory.dismiss();
-                        iv_show_flag_category.setImageResource(R.drawable.ic_unpress_next_step);
+                        iv_show_flag_category.setImageResource(R.mipmap.ic_choose_gray_down);
                     }
             }
         });
@@ -274,8 +275,8 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void showCategoryPopupWindow(final View view) {
 
-        iv_show_flag_category.setImageResource(R.drawable.ic_unpress_last_step);
-        iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
+        iv_show_flag_category.setImageResource(R.mipmap.ic_choose_gray_up);
+        iv_show_flag_location.setImageResource(R.mipmap.ic_choose_gray_up);
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_window_category, null);
         // 设置按钮的点击事件
@@ -318,8 +319,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
 
         // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
         // 我觉得这里是API的一个bug
-        popupWindowCategory.setBackgroundDrawable(getResources().getDrawable(
-                R.drawable.white));
+        popupWindowCategory.setBackgroundDrawable(new PaintDrawable(getResources().getColor(R.color.bg_white)));
 
         // 设置好参数之后再show
         popupWindowCategory.showAsDropDown(view);
@@ -332,8 +332,8 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
      */
     private void showLocationPopupWindow(final View view) {
 
-        iv_show_flag_location.setImageResource(R.drawable.ic_unpress_last_step);
-        iv_show_flag_category.setImageResource(R.drawable.ic_unpress_next_step);
+        iv_show_flag_location.setImageResource(R.mipmap.ic_choose_gray_up);
+        iv_show_flag_category.setImageResource(R.mipmap.ic_choose_gray_down);
 
         handler = new Handler() {
             @Override
@@ -389,7 +389,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                 pageIndex = 0;
                 btn_location.setText((CharSequence) msg.obj);
                 popupWindowLocation.dismiss();
-                iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
+                iv_show_flag_location.setImageResource(R.mipmap.ic_choose_gray_down);
                 int length = ((CharSequence) msg.obj).length();
                 Util.setMargins(iv_show_flag_location, Util.dip2px(getActivity(), 120 + (length - 2) * 8), (int) getResources().getDimension(R.dimen.height_item_51px), 0, 0);
             }
@@ -418,8 +418,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                 return false;
             }
         });
-        popupWindowLocation.setBackgroundDrawable(getResources().getDrawable(
-                R.drawable.white));
+        popupWindowLocation.setBackgroundDrawable(new PaintDrawable(getResources().getColor(R.color.bg_white)));
         popupWindowLocation.showAsDropDown(view);
     }
 
@@ -480,7 +479,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
             length = strCategory.length();
         Util.setMargins(iv_show_flag_category, 0, (int) getResources().getDimension(R.dimen.height_item_51px), Util.dip2px(getActivity(), 60 - (length - 2) * 8), 0);
         popupWindowCategory.dismiss();
-        iv_show_flag_category.setImageResource(R.drawable.ic_unpress_next_step);
+        iv_show_flag_category.setImageResource(R.mipmap.ic_choose_gray_down);
         /**
          * 根据点击的按钮，刷新listView的数据
          */
@@ -621,12 +620,12 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
         if (popupWindowLocation != null)
             if (popupWindowLocation.isShowing()) {
                 popupWindowLocation.dismiss();
-                iv_show_flag_location.setImageResource(R.drawable.ic_unpress_next_step);
+                iv_show_flag_location.setImageResource(R.mipmap.ic_choose_gray_down);
             }
         if (popupWindowCategory != null)
             if (popupWindowCategory.isShowing()) {
                 popupWindowCategory.dismiss();
-                iv_show_flag_category.setImageResource(R.drawable.ic_unpress_next_step);
+                iv_show_flag_category.setImageResource(R.mipmap.ic_choose_gray_up);
             }
     }
 }

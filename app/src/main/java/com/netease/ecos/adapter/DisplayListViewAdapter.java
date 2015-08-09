@@ -165,7 +165,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
         ViewHolder viewHolder = null;
         if (position == 0) {
             convertView = parent.inflate(mcontext, R.layout.item_display_search, null);
-            ((TextView) convertView.findViewById(R.id.tv_search)).setOnClickListener(new View.OnClickListener() {
+            ((LinearLayout) convertView.findViewById(R.id.ll_search)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent1 = new Intent(mcontext, SearchActivity.class);
