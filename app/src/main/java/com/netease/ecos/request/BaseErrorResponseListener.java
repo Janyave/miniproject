@@ -16,7 +16,7 @@ import com.netease.ecos.activity.MyApplication;
 
 public class BaseErrorResponseListener implements ErrorListener{
 
-	private final static String TAG = "BaseErrorResponseListener";
+	private final static String TAG = "BaseErrorResponse";
 	
 	private final static String NETWORK_ERROR = "网络出错，请重新操作";
 	

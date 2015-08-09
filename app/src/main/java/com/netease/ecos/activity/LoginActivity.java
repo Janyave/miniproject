@@ -1,19 +1,14 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.KeyEventCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,7 +35,7 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/30.
  */
-public class LoginActivity extends Activity implements TextWatcher,View.OnClickListener{
+public class LoginActivity extends BaseActivity implements TextWatcher,View.OnClickListener{
     @InjectView(R.id.et_phone)
     EditText et_phone;
     @InjectView(R.id.et_password)
@@ -75,9 +70,9 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
         main.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
-                if ((main.getRootView().getHeight()-main.getHeight())>100){
+                if ((main.getRootView().getHeight() - main.getHeight()) > 100) {
                     logo.setVisibility(View.GONE);
-                }else{
+                } else {
                     logo.setVisibility(View.VISIBLE);
                 }
             }
@@ -109,6 +104,7 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
     }
 
     private void login() {
+        showProcessBar("登录中");
         LoginRequest request = new LoginRequest();
         request.request(new LoginResponse(), et_phone.getText().toString(),et_password.getText().toString());
     }
@@ -156,6 +152,7 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
                 @Override
                 public void onSuccess(LoginInfo param) {
 
+                    dismissProcessBar();
                     Toast.makeText(LoginActivity.this, "LOGIN SUCCESS", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -167,6 +164,7 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
 
                 @Override
                 public void onFailed(int code) {
+                    dismissProcessBar();
                     Log.i("登录", "登录失败");
                     if (code == 302 || code == 404) {
                         Toast.makeText(LoginActivity.this, "帐号或密码错误", Toast.LENGTH_SHORT).show();
@@ -177,6 +175,8 @@ public class LoginActivity extends Activity implements TextWatcher,View.OnClickL
 
                 @Override
                 public void onException(Throwable exception) {
+
+                    dismissProcessBar();
                     Log.i("登录", "登录异常");
                 }
 
