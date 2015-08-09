@@ -65,7 +65,7 @@ public class CommentListRequest extends BaseRequest{
 	public static final String KEY_COMMENT_FROM_ID = "fromId";
 
 	/** 评论者名称 */
-	public static final String KEY_COMMENT_USER_NICKNAME = "fromNickName";
+	public static final String KEY_COMMENT_USER_NICKNAME = "fromNickname";
 
 	/** 父评论用户id */
 	public static final String KEY_COMMENT_PARENT_ID= "parentId";
