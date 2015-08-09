@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_140px"
             android:button="@null"
-            android:text="化 妆"
+            android:text="妆 娘"
             android:gravity="right|center_vertical"
             android:paddingRight="@dimen/paddingLeft_popup_six_type"
             style="@style/text_gray_max"
