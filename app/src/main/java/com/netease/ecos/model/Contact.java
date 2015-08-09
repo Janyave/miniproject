@@ -90,5 +90,9 @@ public class Contact {
 	public Contact(){
 	}
 
+	public String getId(){
+		return MyImIdPlusContactImiId;
+	}
+
 }
 

@@ -146,6 +146,7 @@ public class RecruitmentDetailActivity extends BaseActivity implements View.OnCl
                 bundle.putString(ContactActivity.TargetUserID, recruitment.userId);
                 bundle.putString(ContactActivity.TargetUserName, recruitment.nickname);
                 bundle.putString(ContactActivity.TargetUserAvatar, recruitment.avatarUrl);
+                bundle.putString(ContactActivity.TargetUserIMID, recruitment.imId);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
