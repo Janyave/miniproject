@@ -2,6 +2,7 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -187,7 +188,7 @@ public class PersonageDetailActivity extends BaseActivity {
                 ll_personage_tag.addView(v);
             }
         }
-        if (mUserData.characterSignature == null){
+        if (mUserData.characterSignature == null && mUserData.characterSignature.equals("")){
             ll_signature_attention.setVisibility(isOwn ? View.GONE : View.VISIBLE);
             user_description.setVisibility(View.GONE);
         }else{
@@ -204,6 +205,7 @@ public class PersonageDetailActivity extends BaseActivity {
         user_fans.setText("" + mUserData.fansNum);
         user_description.setText(mUserData.characterSignature);
         contactLayout.setVisibility(isOwn ? View.GONE : View.VISIBLE);
+        //TODO set attention text
     }
 
     private void initViews() {
@@ -261,7 +263,7 @@ public class PersonageDetailActivity extends BaseActivity {
 
         @Override
         public void doAfterFailedResponse(String message) {
-            Toast.makeText(PersonageDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
+            Toast.makeText(PersonageDetailActivity.this, "关注错误" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

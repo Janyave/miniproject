@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ecos="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_white">
 
     <include
@@ -44,11 +45,13 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <com.android.volley.toolbox.NetworkImageView
+                <com.netease.ecos.utils.RoundImageView
                     android:id="@+id/exhibitPersonImgVw"
                     android:layout_width="@dimen/circle_icon_108px"
                     android:background="@mipmap/bg_female_default"
-                    android:layout_height="@dimen/circle_icon_108px" />
+                    android:layout_height="@dimen/circle_icon_108px"
+                    ecos:circle_color="@color/bg_red"
+                    ecos:showable="true"/>
 
                 <TextView
                     android:id="@+id/exhibitPersonNameTxVw"
