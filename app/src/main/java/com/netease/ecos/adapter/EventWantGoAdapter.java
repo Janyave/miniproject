@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -23,6 +24,7 @@ import com.netease.ecos.model.User;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -30,150 +32,43 @@ import java.util.Set;
 /**
  * Created by hzjixinyu on 2015/8/4.
  */
-public class EventWantGoAdapter extends BaseAdapter{
+public class EventWantGoAdapter extends BaseAdapter {
     private Context mcontext;
-    private int TYPE=1;
+    private int TYPE = 1;
     private List<User> userList;
-    private boolean[] hasFollowEd;
-    private boolean[] beFollowed;
+    private ArrayList<Boolean> hasFollowEd;
+    private ArrayList<Boolean> beFollowed;
+    //for NetWorkImageView
+    static ImageLoader.ImageCache imageCache;
+    RequestQueue queue;
+    ImageLoader imageLoader;
 
-    public EventWantGoAdapter(Context context) {
+    public EventWantGoAdapter(Context context, int type, List<User> userList) {
         this.mcontext = context;
+        this.TYPE = type;
+        this.userList = userList;
+        initData();
     }
 
-    public EventWantGoAdapter(Context context , int type, List<User> userList) {
+    public EventWantGoAdapter(Context context, int type, List<User> userList, ArrayList<Boolean> hasFollowEd, ArrayList<Boolean> beFollowed) {
         this.mcontext = context;
-        this.TYPE=type;
-        this.userList=userList;
+        this.TYPE = type;
+        this.userList = userList;
+        this.hasFollowEd = hasFollowEd;
+        this.beFollowed = beFollowed;
+        initData();
+
     }
 
-    public EventWantGoAdapter(Context context , int type, List<User> userList, boolean[] hasFollowEd, boolean[] beFollowed) {
-        this.mcontext = context;
-        this.TYPE=type;
-        this.userList=userList;
-        this.hasFollowEd=hasFollowEd;
-        this.beFollowed=beFollowed;
+    private void initData() {
+        queue = MyApplication.getRequestQueue();
+        imageCache = new SDImageCache();
+        imageLoader = new ImageLoader(queue, imageCache);
     }
 
-    class ViewHolder implements View.OnClickListener{
-
-        private RoundImageView iv_avatar;
-        private ImageView iv_relation;
-        private LinearLayout ll_tagList;
-        private TextView tv_name;
-        private TextView tv_signature;
-        private TextView tv_contact;
-
-
-        public ViewHolder(View root) {
-            iv_avatar = (RoundImageView) root.findViewById(R.id.iv_avatar);
-            iv_relation = (ImageView) root.findViewById(R.id.iv_relation);
-            ll_tagList = (LinearLayout)root.findViewById(R.id.ll_tagList);
-            tv_name = (TextView) root.findViewById(R.id.tv_name);
-            tv_signature = (TextView) root.findViewById(R.id.tv_signature);
-            tv_contact = (TextView) root.findViewById(R.id.tv_contact);
-
-
-            iv_avatar.setOnClickListener(this);
-            tv_contact.setOnClickListener(this);
-
-        }
-
-        public void setTag(int position){
-            iv_avatar.setTag(position);
-            tv_contact.setTag(position);
-        }
-
-        /**
-         * 传入数据未定
-         */
-        public void setData(final int position, ViewGroup parent) {
-
-            User item=userList.get(position);
-
-            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
-            iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
-            RequestQueue queue = MyApplication.getRequestQueue();
-            ImageLoader.ImageCache imageCache = new SDImageCache();
-            ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-            iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
-
-            tv_name.setText(item.nickname);
-            tv_signature.setText(item.characterSignature);
-
-            if (TYPE==NormalListViewActivity.TYPE_EVENT_ATTENTION){
-                tv_contact.setText("私信");
-            }
-            if (TYPE==NormalListViewActivity.TYPE_EVENT_WANTGO){
-                tv_contact.setText("戳一下");
-            }
-            if (TYPE==NormalListViewActivity.TYPE_EVENT_FANS){
-                tv_contact.setText("私信");
-            }
-
-            ll_tagList.removeAllViews();
-            Set<User.RoleType> roleTypeList=item.roleTypeSet;
-            Iterator i=roleTypeList.iterator();
-            while(i.hasNext()){
-                User.RoleType type=(User.RoleType)i.next();
-                View v=parent.inflate(mcontext, R.layout.item_tag,null);
-                ((TextView)v.findViewById(R.id.tv_tag)).setText(type.name());
-                ll_tagList.addView(v);
-            }
-
-            if (TYPE==NormalListViewActivity.TYPE_EVENT_WANTGO){
-                if (hasFollowEd[position]&&beFollowed[position]){
-                    iv_relation.setImageResource(R.mipmap.ic_contact_friend);
-                    iv_relation.setVisibility(View.VISIBLE);
-                }else if(hasFollowEd[position]){
-                    iv_relation.setImageResource(R.mipmap.ic_contact_attention);
-                    iv_relation.setVisibility(View.VISIBLE);
-                }else {
-                    iv_relation.setVisibility(View.GONE);
-                }
-            }
-
-        }
-
-        @Override
-        public void onClick(View v) {
-            Intent intent;
-            Bundle bundle=new Bundle();
-            switch (v.getId()){
-                case R.id.iv_avatar:
-                    intent = new Intent(mcontext, PersonageDetailActivity.class);
-                    bundle.putString(PersonageDetailActivity.UserID, userList.get((int)v.getTag()).userId);
-                    bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
-                    intent.putExtras(bundle);
-                    Toast.makeText(mcontext, "个人界面", Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.tv_contact:
-                    intent = new Intent(mcontext, ContactActivity.class);
-                    bundle.putString(ContactActivity.TargetUserID, userList.get((int)v.getTag()).userId);
-                    bundle.putString(ContactActivity.TargetUserAvatar, userList.get((int)v.getTag()).avatarUrl);
-                    bundle.putString(ContactActivity.TargetUserName, userList.get((int)v.getTag()).nickname);
-                    bundle.putString(ContactActivity.TargetUserIMID, userList.get((int) v.getTag()).imId);
-                    Log.v("contact", "targetIMID--------   " + userList.get((int) v.getTag()).imId);
-                    Log.v("contact", "targetID--------   " + userList.get((int)v.getTag()).userId);
-                    intent.putExtras(bundle);
-                    break;
-                default:
-                    return;
-            }
-            mcontext.startActivity(intent);
-        }
-    }
-
-
-    //TODO 数据数量【现在模拟为4】
     @Override
     public int getCount() {
-        if (TYPE== NormalListViewActivity.TYPE_EVENT_WANTGO){
-            return 4;
-        }else {
-            return userList.size();
-        }
-
+        return userList.size();
     }
 
     @Override
@@ -190,7 +85,7 @@ public class EventWantGoAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
-            convertView = parent.inflate(mcontext, R.layout.item_activity_wantgo, null);
+            convertView = LayoutInflater.from(mcontext).inflate(R.layout.item_activity_wantgo, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
@@ -198,8 +93,113 @@ public class EventWantGoAdapter extends BaseAdapter{
         }
 
         viewHolder.setTag(position);
-        viewHolder.setData(position,parent);
+        setData(position, parent, viewHolder);
 
         return convertView;
+    }
+
+    public void setData(final int position, ViewGroup parent, ViewHolder viewHolder) {
+        User item = userList.get(position);
+
+        //set avatar
+        if (item.avatarUrl != null && !item.avatarUrl.equals(""))
+            viewHolder.iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
+        viewHolder.iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+        viewHolder.iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+        //set nick name
+        viewHolder.tv_name.setText(item.nickname);
+        //set signature
+        if (item.characterSignature != null)
+            viewHolder.tv_signature.setText(item.characterSignature);
+        else
+            viewHolder.tv_signature.setText(mcontext.getResources().getString(R.string.noSignature));
+        //set contact
+        if (TYPE == NormalListViewActivity.TYPE_EVENT_ATTENTION) {
+            viewHolder.tv_contact.setText("私信");
+        }
+        if (TYPE == NormalListViewActivity.TYPE_EVENT_WANTGO) {
+            viewHolder.tv_contact.setText("戳一下");
+        }
+        if (TYPE == NormalListViewActivity.TYPE_EVENT_FANS) {
+            viewHolder.tv_contact.setText("私信");
+        }
+        //set tags
+        viewHolder.ll_tagList.removeAllViews();
+        Set<User.RoleType> roleTypeList = item.roleTypeSet;
+        Iterator i = roleTypeList.iterator();
+        while (i.hasNext()) {
+            User.RoleType type = (User.RoleType) i.next();
+            View v = parent.inflate(mcontext, R.layout.item_tag, null);
+            ((TextView) v.findViewById(R.id.tv_tag)).setText(type.name());
+            viewHolder.ll_tagList.addView(v);
+        }
+
+        if (TYPE == NormalListViewActivity.TYPE_EVENT_WANTGO) {
+            if (hasFollowEd.get(position) && beFollowed.get(position)) {
+                viewHolder.iv_relation.setImageResource(R.mipmap.ic_contact_friend);
+                viewHolder.iv_relation.setVisibility(View.VISIBLE);
+            } else if (hasFollowEd.get(position)) {
+                viewHolder.iv_relation.setImageResource(R.mipmap.ic_contact_attention);
+                viewHolder.iv_relation.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.iv_relation.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    class ViewHolder implements View.OnClickListener {
+
+        private RoundImageView iv_avatar;
+        private ImageView iv_relation;
+        private LinearLayout ll_tagList;
+        private TextView tv_name;
+        private TextView tv_signature;
+        private TextView tv_contact;
+
+        public ViewHolder(View root) {
+            iv_avatar = (RoundImageView) root.findViewById(R.id.iv_avatar);
+            iv_relation = (ImageView) root.findViewById(R.id.iv_relation);
+            ll_tagList = (LinearLayout) root.findViewById(R.id.ll_tagList);
+            tv_name = (TextView) root.findViewById(R.id.tv_name);
+            tv_signature = (TextView) root.findViewById(R.id.tv_signature);
+            tv_contact = (TextView) root.findViewById(R.id.tv_contact);
+
+            iv_avatar.setOnClickListener(this);
+            tv_contact.setOnClickListener(this);
+        }
+
+        public void setTag(int position) {
+            iv_avatar.setTag(position);
+            tv_contact.setTag(position);
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            Intent intent;
+            Bundle bundle = new Bundle();
+            switch (v.getId()) {
+                case R.id.iv_avatar:
+                    intent = new Intent(mcontext, PersonageDetailActivity.class);
+                    bundle.putString(PersonageDetailActivity.UserID, userList.get((int) v.getTag()).userId);
+                    bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
+                    intent.putExtras(bundle);
+                    Toast.makeText(mcontext, "个人界面", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.tv_contact:
+                    intent = new Intent(mcontext, ContactActivity.class);
+                    bundle.putString(ContactActivity.TargetUserID, userList.get((int) v.getTag()).userId);
+                    bundle.putString(ContactActivity.TargetUserAvatar, userList.get((int) v.getTag()).avatarUrl);
+                    bundle.putString(ContactActivity.TargetUserName, userList.get((int) v.getTag()).nickname);
+                    bundle.putString(ContactActivity.TargetUserIMID, userList.get((int) v.getTag()).imId);
+                    Log.v("contact", "targetIMID--------   " + userList.get((int) v.getTag()).imId);
+                    Log.v("contact", "targetID--------   " + userList.get((int) v.getTag()).userId);
+                    intent.putExtras(bundle);
+                    break;
+                default:
+                    return;
+            }
+            mcontext.startActivity(intent);
+        }
     }
 }
