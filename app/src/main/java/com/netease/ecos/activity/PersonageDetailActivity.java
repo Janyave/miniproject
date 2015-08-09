@@ -149,11 +149,10 @@ public class PersonageDetailActivity extends BaseActivity {
     private void initUserData() {
         showProcessBar("正在加载数据");
         userID = getIntent().getExtras().getString(UserID);
-        Log.d("ZYW11111111", "get intent user ID"+userID);
 
         mUserDataService = UserDataService.getSingleUserDataService(this);
         mUserData = mUserDataService.getUser();//默认用户是自己
-        Log.d("ZYW22222222", "get loack user ID"+mUserData.userId);
+
         if(!userID.equals(mUserData.userId)){
             isOwn = false;
         }
@@ -173,7 +172,6 @@ public class PersonageDetailActivity extends BaseActivity {
     }
 
     void setData() {
-        Log.d("ZYW3333333333","is own ???????"+isOwn);
         RequestQueue queue = MyApplication.getRequestQueue();
         ImageLoader.ImageCache imageCache = new SDImageCache();
         ImageLoader imageLoader = new ImageLoader(queue, imageCache);
@@ -317,11 +315,8 @@ public class PersonageDetailActivity extends BaseActivity {
                 personDisplayAdapter.setShareList(mShare);
             }
             if(shareList.size() >= 5){
-
                 shareListRequest.requestOtherShareList(shareListResponse, userID, ++mSharePageIndex);
-                //Log.d("ZYW", "00000000000request one more page" + mSharePageIndex);
             }
-//            //Log.d("ZYW", "111111111111request add one more page");
             personDisplayAdapter.getShareList().addAll(shareList);
             personDisplayAdapter.notifyDataSetChanged();
 
@@ -439,6 +434,14 @@ public class PersonageDetailActivity extends BaseActivity {
                     break;
                 case R.id.btn_contact:
                     Intent intent = new Intent(PersonageDetailActivity.this, ContactActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putString(ContactActivity.TargetUserID, mUserData.userId);
+                    bundle.putString(ContactActivity.TargetUserAvatar, mUserData.avatarUrl);
+                    bundle.putString(ContactActivity.TargetUserName, mUserData.nickname);
+                    bundle.putString(ContactActivity.TargetUserIMID, mUserData.imId);
+                    Log.v("contact", "targetIMID--------   " + mUserData.imId);
+                    Log.v("contact", "targetID--------   " + mUserData.userId);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                     break;
                 case R.id.ll_edit:

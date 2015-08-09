@@ -119,7 +119,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         //for request
         getActivityDetailRequest = new GetActivityDetailRequest();
         getActivityDetailResponse = new GetActivityDetailResponse();
-        showProcessBar(getResources().getString(R.string.loading));;
+        showProcessBar(getResources().getString(R.string.loading));
+        ;
         getActivityDetailRequest.request(getActivityDetailResponse, activityID);
         imageCache = new SDImageCache();
         imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
@@ -168,9 +169,14 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
                 break;
             case R.id.ll_wantgo_icons:
             case R.id.tv_wangoNum:
+                if (tv_wangoNum.getText().toString().equals("0")) {
+                    Toast.makeText(ActivityDetailActivity.this, "目前想去人数为0，暂无列表", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent2 = new Intent(ActivityDetailActivity.this, NormalListViewActivity.class);
-                Bundle bundle2= new Bundle();
+                Bundle bundle2 = new Bundle();
                 bundle2.putString(NormalListViewActivity.GET_ACTIVITY_ID, activityModel.activityId);
+                bundle2.putInt(NormalListViewActivity.LISTVIEW_TYPE, NormalListViewActivity.TYPE_EVENT_WANTGO);
                 intent2.putExtras(bundle2);
                 startActivity(intent2);
                 break;

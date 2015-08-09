@@ -336,7 +336,7 @@ public class ShareListRequest extends BaseRequest {
                 JSONObject shareJO = shareJA.getJSONObject(i);
                 Share share = new Share();
                 share.shareId = getString(shareJO, KEY_SHARE_ID);
-                share.userId = getString(shareJO, KEY_USER_ID);
+                share.userId = getString(shareJO, "authorId");
                 share.avatarUrl = getString(shareJO, KEY_AVATAR_URL);
                 share.nickname = getString(shareJO, KEY_NICKNAME);
                 share.hasAttention = Boolean.valueOf(getString(shareJO, KEY_HAS_FOLLOWED));
