@@ -433,6 +433,14 @@ public class PersonageDetailActivity extends BaseActivity {
                     break;
                 case R.id.btn_contact:
                     Intent intent = new Intent(PersonageDetailActivity.this, ContactActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putString(ContactActivity.TargetUserID, mUserData.userId);
+                    bundle.putString(ContactActivity.TargetUserAvatar, mUserData.avatarUrl);
+                    bundle.putString(ContactActivity.TargetUserName, mUserData.nickname);
+                    bundle.putString(ContactActivity.TargetUserIMID, mUserData.imId);
+                    Log.v("contact", "targetIMID--------   " + mUserData.imId);
+                    Log.v("contact", "targetID--------   " + mUserData.userId);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                     break;
                 case R.id.ll_edit:

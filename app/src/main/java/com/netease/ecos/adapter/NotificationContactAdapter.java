@@ -84,6 +84,11 @@ public class NotificationContactAdapter extends BaseAdapter{
             tv_recentContact.setText(item.messageContent);
             tv_recentTime.setText(ModelUtils.getDateDetailByTimeStamp(item.time)+"");
             tv_uncheckNum.setText(item.unreadedNum+"");
+            if (item.unreadedNum==0){
+                tv_uncheckNum.setVisibility(View.GONE);
+            }else {
+                tv_uncheckNum.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -94,12 +99,12 @@ public class NotificationContactAdapter extends BaseAdapter{
                 case R.id.rly_main:
                     intent = new Intent(mcontext, ContactActivity.class);
                     bundle.putString(ContactActivity.TargetUserID, contactList.get((int)v.getTag()).contactUserId);
-                    //TODO
-                    bundle.putString(ContactActivity.TargetUserAvatar, "");
+                    bundle.putString(ContactActivity.TargetUserAvatar, contactList.get((int)v.getTag()).avatarUrl);
                     bundle.putString(ContactActivity.TargetUserName, contactList.get((int)v.getTag()).contactNickName);
                     bundle.putString(ContactActivity.TargetUserIMID, contactList.get((int) v.getTag()).fromAccount);
                     Log.v("contact", "targetIMID--------   " + contactList.get((int) v.getTag()).fromAccount);
                     Log.v("contact", "targetID--------   " + contactList.get((int)v.getTag()).contactUserId);
+                    Log.v("contact", "targetAvatar--------   " + contactList.get((int)v.getTag()).avatarUrl);
                     intent.putExtras(bundle);
                     break;
                 case R.id.iv_avatar:

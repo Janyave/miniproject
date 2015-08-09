@@ -59,6 +59,8 @@ public class ContactAdapter extends BaseAdapter{
 
             iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
             iv_avatar.setErrorImageResId(R.mipmap.bg_nogender_default);
+            iv_avatar2.setDefaultImageResId(R.mipmap.bg_female_default);
+            iv_avatar2.setErrorImageResId(R.mipmap.bg_nogender_default);
             RequestQueue queue = MyApplication.getRequestQueue();
             ImageLoader.ImageCache imageCache = new SDImageCache();
             ImageLoader imageLoader = new ImageLoader(queue, imageCache);
