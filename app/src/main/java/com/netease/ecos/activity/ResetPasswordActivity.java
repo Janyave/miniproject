@@ -8,9 +8,11 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,10 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
     TextView tv_reset_password;
     @InjectView(R.id.iv_return)
     ImageView iv_return;
+    @InjectView(R.id.logo)
+    ImageView logo;
+    @InjectView(R.id.main)
+    LinearLayout main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,16 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
         tv_reset_password.setOnClickListener(this);
         iv_return.setOnClickListener(this);
 
+        main.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if ((main.getRootView().getHeight() - main.getHeight()) > 100) {
+                    logo.setVisibility(View.GONE);
+                } else {
+                    logo.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void initData() {

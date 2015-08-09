@@ -9,8 +9,10 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +53,10 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     TextView tv_complete;
     @InjectView(R.id.iv_return)
     ImageView iv_return;
+    @InjectView(R.id.logo)
+    ImageView logo;
+    @InjectView(R.id.main)
+    LinearLayout main;
 
 
     public SetPhotoHelper mSetPhotoHelper;
@@ -81,6 +87,16 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         tv_complete.setOnClickListener(this);
         iv_return.setOnClickListener(this);
 
+        main.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if ((main.getRootView().getHeight() - main.getHeight()) > 100) {
+                    logo.setVisibility(View.GONE);
+                } else {
+                    logo.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 }
 
 

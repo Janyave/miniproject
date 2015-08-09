@@ -72,7 +72,7 @@ public class FollowUserRequest extends BaseRequest{
 	public void responceSuccess(String jstring) {
 		//		traceNormal(TAG, jstring);
 		User user = UserDataService.getSingleUserDataService(getContext()).getUser();
-		
+
 		if(mFollow)
 			user.followOtherNum = String.valueOf( Integer.valueOf(user.followOtherNum)+1 );
 		else

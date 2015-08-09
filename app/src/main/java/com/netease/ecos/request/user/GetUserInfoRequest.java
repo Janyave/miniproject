@@ -3,10 +3,13 @@ package com.netease.ecos.request.user;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
+import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.constants.RequestUrlConstants;
+import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.User.Gender;
 import com.netease.ecos.model.User.RoleType;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseRequest;
 import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
@@ -123,6 +126,17 @@ public class GetUserInfoRequest extends BaseRequest{
 				for(int i=0;i<rolesJA.length();i++){
 					roleTypeSet.add( RoleType.getRoleTypeByValue(rolesJA.getString(i)) );
 				}
+			}
+
+			//如果用户信息对应当前用户，则刷新用户信息
+			if( getUserId().equals(user.userId) ){
+				UserDataService.getSingleUserDataService(MyApplication.getContext()).saveUser(user);
+				AccountDataService accountService = AccountDataService.getSingleAccountDataService(MyApplication.getContext());
+
+				//保存userId、imId(云信id)、imtoken(云信token)
+				accountService.saveUserId(user.userId);
+				accountService.saveUserAccId(user.imId);
+				accountService.saveUserImToken(user.imToken);
 			}
 
 //			UserDataService.getSingleUserDataService(MyApplication.getContext()).saveUser(user);

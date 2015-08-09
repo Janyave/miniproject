@@ -7,8 +7,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -158,6 +160,10 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         //初始化侧滑栏
         mNavigationDrawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
+        //侧滑栏宽度
+        ViewGroup.LayoutParams params = mNavigationDrawerFragment.getView().getLayoutParams();
+        params.width = DisplayWidth*2/3;
+        mNavigationDrawerFragment.getView().setLayoutParams(params);
         //初始化侧滑栏
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
         mNavigationDrawerFragment.closeNavigationDrawer();
