@@ -28,6 +28,7 @@ import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.GetAssignmentDetailRequest;
 import com.netease.ecos.request.course.PraiseRequest;
+import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.views.ExtensibleListView;
 
@@ -68,7 +69,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
     @InjectView(R.id.workDetailImgVw)
     NetworkImageView networkImageView;
     @InjectView(R.id.personPicImgView)
-    NetworkImageView personPicImgView;
+    RoundImageView personPicImgView;
     @InjectView(R.id.personNameTxV)
     TextView personNameTxV;
     @InjectView(R.id.workDetailDate)
