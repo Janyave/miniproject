@@ -49,6 +49,7 @@
                 android:layout_height="@dimen/height_label_100px"
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px"
+                android:layout_marginTop="@dimen/margin_40px"
                 android:background="@null"
                 android:hint="请输入你的教程名称"
                 android:textColorHint="@color/text_gray" />
@@ -62,6 +63,7 @@
                 android:id="@+id/lv_build_course"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20px"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:contentDescription="教程列表"

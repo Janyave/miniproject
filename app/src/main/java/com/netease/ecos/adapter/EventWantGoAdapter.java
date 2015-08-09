@@ -23,6 +23,7 @@ import com.netease.ecos.model.User;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -33,7 +34,7 @@ import java.util.Set;
 public class EventWantGoAdapter extends BaseAdapter{
     private Context mcontext;
     private int TYPE=1;
-    private List<User> userList;
+    private List<User> userList = new ArrayList<>();
     private boolean[] hasFollowEd;
     private boolean[] beFollowed;
 
@@ -168,12 +169,7 @@ public class EventWantGoAdapter extends BaseAdapter{
     //TODO 数据数量【现在模拟为4】
     @Override
     public int getCount() {
-        if (TYPE== NormalListViewActivity.TYPE_EVENT_WANTGO){
-            return 4;
-        }else {
             return userList.size();
-        }
-
     }
 
     @Override
