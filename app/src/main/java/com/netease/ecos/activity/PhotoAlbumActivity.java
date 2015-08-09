@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.PhotoAibumAdapter;
@@ -20,12 +22,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 /**
  * Created by Think on 2015/7/26.
  */
 public class PhotoAlbumActivity extends Activity {
     private GridView aibumGV;
     private List<PhotoAibum> aibumList;
+
+    @InjectView(R.id.lly_right_action)
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
+    @InjectView(R.id.tv_title)
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
 
     private static final String[] STORE_IMAGES = {
             MediaStore.Images.Media.DISPLAY_NAME,
@@ -40,10 +54,23 @@ public class PhotoAlbumActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photoalbum);
+        ButterKnife.inject(this);
+        initTitle();
         aibumGV = (GridView) findViewById(R.id.album_gridview);
         aibumList = getPhotoAlbum();
         aibumGV.setAdapter(new PhotoAibumAdapter(aibumList, PhotoAlbumActivity.this));
         aibumGV.setOnItemClickListener(aibumClickListener);
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        title_right.setVisibility(View.INVISIBLE);
+        title_text.setText("选择图片");
     }
 
     AdapterView.OnItemClickListener aibumClickListener = new AdapterView.OnItemClickListener() {

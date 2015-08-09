@@ -16,11 +16,8 @@
 
 <resources>
     <!-- 主题色 -->
-    <color name="theme">#339a89</color>
 
     <!-- 标题 -->
-    <color name="bg_title"> #00bcd5</color>
-    <color name="tv_title"> #ffffff</color>
 
     <drawable name="red">#7f00</drawable>
     <drawable name="blue">#770000ff</drawable>
@@ -52,7 +49,7 @@
     <color name="cloth">#f36492</color>
     <color name="idea">#d4a6e6</color>
     <color name="other">#d4a6e6</color>
-    
+
     <!-- 文字-->
     <color name="text_dark">#333333</color>
     <color name="text_gray">#999999</color>
