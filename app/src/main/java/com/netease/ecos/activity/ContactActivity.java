@@ -351,13 +351,26 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                         Contact contact = new Contact();
                         String myImId = AccountDataService.getSingleAccountDataService(ContactActivity.this).getUserAccId();
 
-                        contact.setId(myImId,targetUserID);
+                        contact.setId(myImId,msg.getContactId());
                         contact.contactAccid = msg.getContactId();
+
+                        try {
+                            JSONObject content  = new JSONObject(msg.getContent());
+                            contact.contactNickName = content.getString("nickname");
+                            contact.contactUserId = content.getString("userId");
+                            contact.avatarUrl = content.getString("avatarUrl");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                         contact.fromAccount = msg.getFromAccount();
-                        contact.messageContent = msg.getContent();
+                        contact.messageContent = getMessageContentByJSONString(msg.getContent());
                         contact.messgeId = msg.getRecentMessageId();
                         contact.time = msg.getTime();
                         contact.unreadedNum = msg.getUnreadCount();
+
                         ContactDBService.getInstance(ContactActivity.this).addContact(contact);
 
                         Log.e("最近会话信息", "联系人id：" + msg.getContactId());

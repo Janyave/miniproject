@@ -69,13 +69,17 @@ public class NotificationContactAdapter extends BaseAdapter{
          */
         public void setData(int position){
             Contact item=contactList.get(position);
+
+            Log.i("最近联系人列表",item.toString());
+
             iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
             iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
 
             ImageLoader.ImageCache imageCache = new SDImageCache();
             ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
             //TODO
-//            iv_avatar.setImageUrl(item.av, imageLoader);
+            if( item.avatarUrl!=null && !"".equals(item.avatarUrl) )
+                iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
             tv_name.setText(item.contactNickName);
             tv_recentContact.setText(item.messageContent);
             tv_recentTime.setText(ModelUtils.getDateDetailByTimeStamp(item.time)+"");

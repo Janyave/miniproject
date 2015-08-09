@@ -14,7 +14,7 @@ import com.netease.ecos.activity.MyApplication;
 public class Contact {
 
 	/*** 本人imid和对方imid */
-	@DatabaseField
+	@DatabaseField(id = true)
 	private String MyImIdPlusContactImiId;
 
 	/*** 联系人云信((聊天对象))accid */
@@ -82,7 +82,12 @@ public class Contact {
 	}
 
 	public void setId(String myImId,String contactImId){
+
 		MyImIdPlusContactImiId = myImId + contactImId;
+	}
+
+
+	public Contact(){
 	}
 
 }
