@@ -53,8 +53,7 @@
                     style="@style/text_pink_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="name" />
+                    android:singleLine="true" />
 
                 <ImageView
                     android:id="@+id/iv_relation"
@@ -72,9 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10px"
                 android:ellipsize="end"
-                android:singleLine="true"
-
-                android:text="signature" />
+                android:singleLine="true" />
         </LinearLayout>
 
         <TextView
