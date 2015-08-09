@@ -58,11 +58,13 @@
                 <LinearLayout
                     android:id="@+id/personal_info_set_pic"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_item_240px"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/margin_40px"
-                    android:paddingRight="@dimen/margin_40px">
+                    android:paddingRight="@dimen/margin_40px"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
 
                     <TextView
                         style="@style/text_dark_max"
