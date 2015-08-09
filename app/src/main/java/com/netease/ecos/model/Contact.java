@@ -13,17 +13,25 @@ import com.netease.ecos.activity.MyApplication;
 @DatabaseTable(tableName = "contact")
 public class Contact {
 
-	/*** 联系人云信accid */
-	@DatabaseField(id = true)
+	/*** 本人imid和对方imid */
+	@DatabaseField
+	private String MyImIdPlusContactImiId;
+
+	/*** 联系人云信((聊天对象))accid */
+	@DatabaseField
 	public String contactAccid;
 	
-	/*** 联系人用户id */
+	/*** 联系人(聊天对象)用户id */
 	@DatabaseField
 	public String contactUserId;
 	
-	/*** 联系人用户昵称 */
+	/*** 联系人(聊天对象)用户昵称 */
 	@DatabaseField
 	public String contactNickName;
+
+	/*** 联系人(聊天对象)头像url */
+	@DatabaseField
+	public String avatarUrl;
 	
 	/*** 聊天信息id */
 	@DatabaseField
@@ -54,16 +62,28 @@ public class Contact {
 		return contactAccid.equals(myAccid);
 	}
 
+
 	@Override
 	public String toString() {
-		return "Contact [contactAccid=" + contactAccid + ", contactUserId="
-				+ contactUserId + ", contactNickName=" + contactNickName
-				+ ", messgeId=" + messgeId + ", messageContent="
-				+ messageContent + ", fromAccount=" + fromAccount + ", time="
-				+ time + ", unreadedNum=" + unreadedNum + "]";
+		return "Contact{" +
+				"MyImIdPlusContactImiId='" + MyImIdPlusContactImiId + '\'' +
+				", contactAccid='" + contactAccid + '\'' +
+				", contactUserId='" + contactUserId + '\'' +
+				", contactNickName='" + contactNickName + '\'' +
+				", messgeId='" + messgeId + '\'' +
+				", messageContent='" + messageContent + '\'' +
+				", avatarUrl='" + avatarUrl + '\'' +
+				", messgeId='" + messgeId + '\'' +
+				", messageContent='" + messageContent + '\'' +
+				", fromAccount='" + fromAccount + '\'' +
+				", time=" + time +
+				", unreadedNum=" + unreadedNum +
+				'}';
 	}
-	
-	
-	
+
+	public void setId(String myImId,String contactImId){
+		MyImIdPlusContactImiId = myImId + contactImId;
+	}
+
 }
 
