@@ -132,7 +132,7 @@ public class ActivityListRequest extends BaseRequest {
                     map.put(KEY_USER_ID, otherUserId);
 
                 //活动类别为个人
-                map.put("isMySelf", "true");
+                map.put("isMyself", "true");
                 map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
                 map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
 
