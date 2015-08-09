@@ -25,6 +25,7 @@ import com.netease.ecos.adapter.DisplayListViewAdapter;
 import com.netease.ecos.adapter.SearchHistoryAdapter;
 import com.netease.ecos.fragment.DisplayFragment;
 import com.netease.ecos.model.Course;
+import com.netease.ecos.model.Image;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.CourseListRequest;
@@ -52,6 +53,8 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
 
     private int TYPE = TYPE_COURSE; //default course
 
+    @InjectView(R.id.iv_left)
+    ImageView iv_left;
     @InjectView(R.id.et_search)
     EditText et_search;
     @InjectView(R.id.tv_confirm)
@@ -124,6 +127,12 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
     }
 
     private void initListener() {
+        iv_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         tv_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

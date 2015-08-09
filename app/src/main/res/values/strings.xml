@@ -36,7 +36,7 @@
     <!-- xListView(下拉上拉控件)结束-->
 
     <!-- 个人作品详情页面-->
-    <string name="comment_hint">请写下你的评论吧:)</string>
+    <string name="comment_hint">请写下你的评论吧 &gt;w&lt;</string>
     <string name="favour">点赞</string>
     <string name="cancelFavor">已赞</string>
     <string name="favorCount">个赞</string>

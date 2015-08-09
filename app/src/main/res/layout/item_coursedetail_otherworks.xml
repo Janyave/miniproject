@@ -37,8 +37,7 @@
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20px"
-                android:text=""
+                android:layout_marginTop="@dimen/margin_10px"
                 android:singleLine="true"
                 android:ellipsize="end"
                 style="@style/text_dark_min"/>
@@ -47,10 +46,9 @@
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20px"
-                android:layout_marginBottom="@dimen/margin_40px"
+                android:layout_marginTop="@dimen/margin_10px"
+                android:layout_marginBottom="@dimen/margin_20px"
                 android:singleLine="true"
-                android:text=""
                 android:ellipsize="end"
                 style="@style/text_gray_min"/>
         </LinearLayout>
