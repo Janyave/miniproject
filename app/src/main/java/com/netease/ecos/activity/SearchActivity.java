@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -194,6 +195,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
                 finish();
             }
         });
+
 
         ll_searchType.setOnClickListener(new View.OnClickListener() {
             @Override
