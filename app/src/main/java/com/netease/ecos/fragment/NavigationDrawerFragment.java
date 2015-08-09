@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
@@ -37,6 +38,8 @@ import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.PersonalInfoSettingActivity;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.user.GetUserInfoRequest;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 
@@ -104,6 +107,9 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     private UserDataService mUserDataService;
     private User mUserData;
 
+    private GetUserInfoRequest getUserInfoRequest;
+    private GetuserInfoResponse getuserInfoResponse;
+
 
     private LinearLayout ll_notification, ll_contact, ll_course, ll_display, ll_activity, ll_recruite, ll_personcenter, ll_setting;
     private TextView tv_notificationNum, tv_contactNum, tv_courseNum, tv_displayNum, tv_activityNum, tv_recruiteNum, tv_personcenterNum, tv_block;
@@ -138,6 +144,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
+
+
     }
 
 
@@ -160,6 +168,12 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         bindView();
 
         initListener();
+        mUserDataService = UserDataService.getSingleUserDataService(getActivity());
+        mUserData = mUserDataService.getUser();
+
+        getUserInfoRequest = new GetUserInfoRequest();
+        getuserInfoResponse = new GetuserInfoResponse();
+        getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, mUserData.userId);
 
 
 //        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -178,7 +192,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         //初始化用户信息
         mContainer = mDrawerView;
-        initUserData(mDrawerView);
+        //initUserData(mDrawerView);
 
         return mDrawerView;
     }
@@ -490,7 +504,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     }
 
     private void initUserData(View v) {
-        mUserDataService = UserDataService.getSingleUserDataService(v.getContext());
+        mUserDataService = UserDataService.getSingleUserDataService(getActivity());
         mUserData = mUserDataService.getUser();
 
         Log.e("侧边栏","用户数据:" + mUserData.toString());
@@ -525,6 +539,28 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
     public void resetUserData(){
         if(mContainer!=null)
+        {
             initUserData(mContainer);
+        }
+    }
+
+    private class GetuserInfoResponse extends BaseResponceImpl implements GetUserInfoRequest.IGetUserInfoResponse {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+        }
+
+        @Override
+        public void success(User user) {
+            if (user.userId.equals(mUserData.userId)){
+                mUserData = user;
+                Log.d("ZYW请求侧边栏", mUserData.toString());
+                initUserData(mContainer);
+            }
+        }
     }
 }
