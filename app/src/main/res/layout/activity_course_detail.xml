@@ -109,7 +109,7 @@
                         android:gravity="right"
                         android:orientation="vertical">
                         <!-- 个人头像-->
-                        <ImageView
+                        <com.netease.ecos.utils.RoundImageView
                             android:id="@+id/iv_avatar"
                             android:layout_width="@dimen/circle_icon_100px"
                             android:layout_height="@dimen/circle_icon_100px"
