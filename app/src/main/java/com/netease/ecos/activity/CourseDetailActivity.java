@@ -15,7 +15,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.CourseDetailOtherWorksHListViewAdapter;
 import com.netease.ecos.adapter.CourseDetailStepAdapter;
@@ -25,6 +27,8 @@ import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.GetCourseDetailRequest;
 import com.netease.ecos.request.course.PraiseRequest;
+import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.utils.SetPhotoHelper;
 import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.HorizontalListView;
@@ -63,7 +67,7 @@ public class CourseDetailActivity extends BaseActivity implements View.OnClickLi
     @InjectView(R.id.ll_author)
     LinearLayout ll_author;
     @InjectView(R.id.iv_avatar)
-    ImageView iv_avatar;
+    RoundImageView iv_avatar;
     @InjectView(R.id.tv_name)
     TextView tv_name;
     @InjectView(R.id.tv_otherWorks)
@@ -127,7 +131,6 @@ public class CourseDetailActivity extends BaseActivity implements View.OnClickLi
         getCourseDetailRequest = new GetCourseDetailRequest();
         getCourseDetailResponse = new GetCourseDetailResponse();
         showProcessBar(getResources().getString(R.string.loading));
-        ;
         getCourseDetailRequest.request(getCourseDetailResponse, courseId);
     }
 
@@ -291,8 +294,16 @@ public class CourseDetailActivity extends BaseActivity implements View.OnClickLi
         tv_name.setText(course.author);
         tv_praiseNum.setText(course.praiseNum + getResources().getString(R.string.manyFavor));
         setPraiseLayout();
-        if (course.authorAvatarUrl != null && !course.authorAvatarUrl.equals(""))
-            Picasso.with(CourseDetailActivity.this).load(course.authorAvatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
+        if (course.authorAvatarUrl != null && !course.authorAvatarUrl.equals("")){
+            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+            iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+            RequestQueue queue = MyApplication.getRequestQueue();
+            ImageLoader.ImageCache imageCache = new SDImageCache();
+            ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+            iv_avatar.setImageUrl(course.authorAvatarUrl, imageLoader);
+        }else{
+            iv_avatar.setImageResource(R.mipmap.bg_female_default);
+        }
         if (course.coverUrl != null && !course.coverUrl.equals(""))
             Picasso.with(CourseDetailActivity.this).load(course.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
         tv_otherWorks.setText(course.assignmentList.size() + getResources().getString(R.string.manyAssignment));
