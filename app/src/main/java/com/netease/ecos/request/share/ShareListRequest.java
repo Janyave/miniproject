@@ -72,7 +72,7 @@ public class ShareListRequest extends BaseRequest {
     /**
      * 作者id
      */
-    public static final String KEY_USER_ID = "authorId";      //request
+    public static final String KEY_USER_ID = "userId";
 
     /**
      * 是否已评论，true:是 false:否
@@ -336,7 +336,7 @@ public class ShareListRequest extends BaseRequest {
                 JSONObject shareJO = shareJA.getJSONObject(i);
                 Share share = new Share();
                 share.shareId = getString(shareJO, KEY_SHARE_ID);
-                share.userId = getString(shareJO, KEY_USER_ID);
+                share.userId = getString(shareJO, "authorId");
                 share.avatarUrl = getString(shareJO, KEY_AVATAR_URL);
                 share.nickname = getString(shareJO, KEY_NICKNAME);
                 share.hasAttention = Boolean.valueOf(getString(shareJO, KEY_HAS_FOLLOWED));

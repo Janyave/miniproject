@@ -101,7 +101,6 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
 
     private void initNameData() {
         ll_inputPassword.setVisibility(View.GONE);
-
         et_input.setHint(user.nickname);
     }
 
