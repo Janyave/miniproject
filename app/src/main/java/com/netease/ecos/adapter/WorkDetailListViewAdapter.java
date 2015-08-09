@@ -28,7 +28,6 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
     //for NetWorkImageView
     static ImageLoader.ImageCache imageCache;
     RequestQueue queue;
-    ImageLoader imageLoader;
     private int commentCount = 0;
 
     public WorkDetailListViewAdapter(Context context, boolean isDetail) {
@@ -37,7 +36,6 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
         commentList = new ArrayList<>();
         queue = MyApplication.getRequestQueue();
         imageCache = new SDImageCache();
-        imageLoader = new ImageLoader(queue, imageCache);
         this.isDetail = isDetail;
     }
 
@@ -84,6 +82,7 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
     }
 
     void setData(CommentViewHolder viewHolder, int position) {
+        ImageLoader imageLoader = new ImageLoader(queue, imageCache);
         if (commentList.get(position).avatarUrl != null)
             viewHolder.imageView.setImageUrl(commentList.get(position).avatarUrl, imageLoader);
         viewHolder.imageView.setErrorImageResId(R.mipmap.bg_female_default);

@@ -76,18 +76,18 @@ public class SingupPeopleListRequest extends BaseRequest {
 
                 User user = new User();
                 user.userId = usreJO.getString("userId");
-                user.imId = usreJO.getString("im_id");
-                user.characterSignature = usreJO.getString("characterSignature");
+                user.imId = getString(usreJO, "im_id");
+                user.characterSignature = getString(usreJO, "characterSignature");
                 user.nickname = usreJO.getString("nickName");
-                user.avatarUrl = getString(usreJO,"avatarUrl");
+                user.avatarUrl = getString(usreJO, "avatarUrl");
 
-                if(usreJO.has("roleType") && !usreJO.isNull("roleType")){
-                    JSONArray rolesJA = new JSONArray(getString(usreJO,"roleType"));
+                if (usreJO.has("roleType") && !usreJO.isNull("roleType")) {
+                    JSONArray rolesJA = new JSONArray(getString(usreJO, "roleType"));
                     Set<RoleType> roleTypeSet = new LinkedHashSet<RoleType>();
-                    for(int index=0;index<rolesJA.length();index++){
-                        roleTypeSet.add( RoleType.getRoleTypeByValue(rolesJA.getString(index)) );
+                    for (int index = 0; index < rolesJA.length(); index++) {
+                        roleTypeSet.add(RoleType.getRoleTypeByValue(rolesJA.getString(index)));
                     }
-                    user.roleTypeSet=roleTypeSet;
+                    user.roleTypeSet = roleTypeSet;
                 }
 
                 hasFollowEd[i] = Boolean.valueOf(usreJO.getString("hasFollowed"));

@@ -109,7 +109,7 @@ public class EventWantGoAdapter extends BaseAdapter {
         //set nick name
         viewHolder.tv_name.setText(item.nickname);
         //set signature
-        if (item.characterSignature != null)
+        if (item.characterSignature != null && !item.characterSignature.equals(""))
             viewHolder.tv_signature.setText(item.characterSignature);
         else
             viewHolder.tv_signature.setText(mcontext.getResources().getString(R.string.noSignature));
@@ -127,8 +127,8 @@ public class EventWantGoAdapter extends BaseAdapter {
         viewHolder.ll_tagList.removeAllViews();
         Set<User.RoleType> roleTypeList = item.roleTypeSet;
         Iterator i = roleTypeList.iterator();
-        int num=0;
-        while (i.hasNext()&&num<3) {
+        int num = 0;
+        while (i.hasNext() && num < 3) {
             User.RoleType type = (User.RoleType) i.next();
             View v = parent.inflate(mcontext, R.layout.item_tag, null);
             ((TextView) v.findViewById(R.id.tv_tag)).setText(type.name());

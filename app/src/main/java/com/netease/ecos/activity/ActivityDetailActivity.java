@@ -120,7 +120,6 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         getActivityDetailRequest = new GetActivityDetailRequest();
         getActivityDetailResponse = new GetActivityDetailResponse();
         showProcessBar(getResources().getString(R.string.loading));
-        ;
         getActivityDetailRequest.request(getActivityDetailResponse, activityID);
         imageCache = new SDImageCache();
         imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);

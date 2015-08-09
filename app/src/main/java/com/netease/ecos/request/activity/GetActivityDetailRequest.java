@@ -108,10 +108,11 @@ public class GetActivityDetailRequest extends BaseRequest {
                 JSONObject contactWayJO = contactWayJA.getJSONObject(i);
 
                 ActivityModel.Contact contact = new ActivityModel.Contact();
-                contact.contactWay = ContactWay.getContactWayByValue(contactWayJO.getString("contactType"));
-                contact.value = contactWayJO.getString("contactValue");
-
-                contactWayList.add(contact);
+                if (contactWayJO.has("contactValue") && !contactWayJO.isNull("contactValue")) {
+                    contact.contactWay = ContactWay.getContactWayByValue(contactWayJO.getString("contactType"));
+                    contact.value = getString(contactWayJO, "contactValue");
+                    contactWayList.add(contact);
+                }
             }
             activity.contactWayList = contactWayList;
 
