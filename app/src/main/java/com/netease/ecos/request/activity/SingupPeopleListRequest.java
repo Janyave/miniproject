@@ -89,7 +89,7 @@ public class SingupPeopleListRequest extends BaseRequest {
                     }
                     user.roleTypeSet=roleTypeSet;
                 }
-                
+
                 hasFollowEd[i] = Boolean.valueOf(usreJO.getString("hasFollowed"));
                 beFollowed[i] = Boolean.valueOf(usreJO.getString("beFollowed"));
                 userList.add(user);
