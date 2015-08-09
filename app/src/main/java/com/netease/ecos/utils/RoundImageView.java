@@ -13,7 +13,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.netease.ecos.R;

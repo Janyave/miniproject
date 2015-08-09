@@ -14,9 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.fragment.CommunityFragment;
 import com.netease.ecos.fragment.CourseFragment;
@@ -111,7 +109,6 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
      */
     //for NetWorkImageView
     static ImageLoader.ImageCache imageCache;
-    RequestQueue queue;
     ImageLoader imageLoader;
 
 
@@ -131,6 +128,21 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         Log.e(TAG, "userId:" + UserDataService.getSingleUserDataService(this).getUser().userId);
         Log.e(TAG, UserDataService.getSingleUserDataService(this).getUser().imId);
         Log.e(TAG, "-----------------------------------------------------------------------------");
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        mUserDataService = UserDataService.getSingleUserDataService(this);
+        mUserData = mUserDataService.getUser();
+        //init the data for NetWorkImageView
+        btn_open.setDefaultImageResId(R.mipmap.bg_female_default);
+        //设置加载出错图片
+        btn_open.setErrorImageResId(R.mipmap.bg_female_default);
+        imageCache = new SDImageCache();
+        imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
+        btn_open.setImageUrl(mUserData.avatarUrl, imageLoader);
     }
 
     @Override
@@ -173,9 +185,8 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         btn_open.setDefaultImageResId(R.mipmap.bg_female_default);
         //设置加载出错图片
         btn_open.setErrorImageResId(R.mipmap.bg_female_default);
-        queue = Volley.newRequestQueue(this);
         imageCache = new SDImageCache();
-        imageLoader = new ImageLoader(queue, imageCache);
+        imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
         btn_open.setImageUrl(mUserData.avatarUrl, imageLoader);
 
         mPagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager());
@@ -329,6 +340,8 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         }
     }
 
+
+    private long mExitTime = 0;
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         /**
@@ -339,8 +352,19 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 mNavigationDrawerFragment.closeNavigationDrawer();
                 return true;
             }
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+            }
+            else
+            {
+                finish();
+            }
         }
         return super.onKeyDown(keyCode, event);
     }
+
+
+
 
 }

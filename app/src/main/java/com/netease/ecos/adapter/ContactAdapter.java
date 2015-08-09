@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.ContactActivity;
+import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
@@ -59,7 +59,7 @@ public class ContactAdapter extends BaseAdapter{
 
             iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
             iv_avatar.setErrorImageResId(R.mipmap.bg_nogender_default);
-            RequestQueue queue = Volley.newRequestQueue(mcontext);
+            RequestQueue queue = MyApplication.getRequestQueue();
             ImageLoader.ImageCache imageCache = new SDImageCache();
             ImageLoader imageLoader = new ImageLoader(queue, imageCache);
             iv_avatar.setImageUrl(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl, imageLoader);

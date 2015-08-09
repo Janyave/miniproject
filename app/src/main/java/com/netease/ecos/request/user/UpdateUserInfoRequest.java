@@ -1,5 +1,7 @@
 package com.netease.ecos.request.user;
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
@@ -43,15 +45,12 @@ public class UpdateUserInfoRequest extends BaseRequest{
 		super.initBaseRequest(norResponce);
 		mNorResponce = norResponce;
 		mUser = user;
-		//		Log.i("修改的个人信息json", getUserJSonDescription(user));
-		//		mNorResponce.success();
 
 		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.UPDATE_USER_INFO,  this, this) {
 			@Override
 			protected Map<String, String> getParams() throws AuthFailureError {
 				Map<String, String> map = getRequestBasicMap();
 
-				map.put("token", "4");
 				map.put(USER_JSON, getUserJSonDescription(user));
 
 				traceNormal(TAG, map.toString());
@@ -76,6 +75,7 @@ public class UpdateUserInfoRequest extends BaseRequest{
 
 			UserDataService.getSingleUserDataService(getContext()).saveUser(mUser);
 
+			Log.e("修改后配置文件数据",mUser.toString());
 			if(mNorResponce!=null)
 			{
 				mNorResponce.success();

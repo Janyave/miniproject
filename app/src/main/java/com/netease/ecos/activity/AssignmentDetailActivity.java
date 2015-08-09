@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -96,7 +95,6 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
 
     //for NetWorkImageView
     static ImageLoader.ImageCache imageCache;
-    RequestQueue queue;
     ImageLoader imageLoader;
 
     //request
@@ -140,9 +138,8 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         //init the adapter
         workDetailListViewAdapter = new WorkDetailListViewAdapter(this, false);
         //init the data for NetWorkImageView
-        queue = MyApplication.getRequestQueue();
         imageCache = new SDImageCache();
-        imageLoader = new ImageLoader(queue, imageCache);
+        imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
         //get the work detail from the server
         request = new GetAssignmentDetailRequest();
         assignmentDetailResponse = new GetAssignmentDetailResponse();

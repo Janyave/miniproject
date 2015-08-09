@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.ActivityPhotoHListViewAdapter;
 import com.netease.ecos.adapter.EventContactWayAdapter;
@@ -122,9 +121,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         getActivityDetailResponse = new GetActivityDetailResponse();
         showProcessBar(getResources().getString(R.string.loading));;
         getActivityDetailRequest.request(getActivityDetailResponse, activityID);
-        queue = Volley.newRequestQueue(this);
         imageCache = new SDImageCache();
-        imageLoader = new ImageLoader(queue, imageCache);
+        imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
     }
 
     private void initView() {

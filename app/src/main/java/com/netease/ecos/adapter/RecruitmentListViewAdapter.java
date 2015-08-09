@@ -10,12 +10,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.ContactActivity;
+import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.RecruitmentDetailActivity;
 import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.model.User;
+import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -35,7 +40,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
 
     class ViewHolder {
 
-        private ImageView iv_avatar;
+        private RoundImageView iv_avatar;
         private TextView tv_name;
         private TextView tv_distance;
         private TextView tv_price;
@@ -45,7 +50,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
         private ImageView genderImVw;
 
         public ViewHolder(View root) {
-            iv_avatar = (ImageView) root.findViewById(R.id.iv_avatar);
+            iv_avatar = (RoundImageView) root.findViewById(R.id.iv_avatar);
             tv_name = (TextView) root.findViewById(R.id.tv_name);
             tv_distance = (TextView) root.findViewById(R.id.tv_distance);
             tv_price = (TextView) root.findViewById(R.id.tv_price);
@@ -60,10 +65,20 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
          */
         public void setData(int position) {
             //set the data for each widget
-            if (recruitmentArrayList.get(position).avatarUrl != null && !recruitmentArrayList.get(position).avatarUrl.equals(""))
-                Picasso.with(mcontext).load(recruitmentArrayList.get(position).avatarUrl).placeholder(R.drawable.img_default).into(iv_avatar);
+            if (recruitmentArrayList.get(position).avatarUrl != null && !recruitmentArrayList.get(position).avatarUrl.equals("")){
+                iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+                iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+                RequestQueue queue = MyApplication.getRequestQueue();
+                ImageLoader.ImageCache imageCache = new SDImageCache();
+                ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+                iv_avatar.setImageUrl(recruitmentArrayList.get(position).avatarUrl, imageLoader);
+            }
+            else
+                iv_avatar.setImageResource(R.mipmap.bg_female_default);
             if (recruitmentArrayList.get(position).coverUrl != null && !recruitmentArrayList.get(position).coverUrl.equals(""))
                 Picasso.with(mcontext).load(recruitmentArrayList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+            else
+                iv_cover.setImageResource(R.drawable.img_default);
             tv_name.setText(recruitmentArrayList.get(position).nickname);
             tv_distance.setText(recruitmentArrayList.get(position).distanceKM + mcontext.getResources().getString(R.string.KM));
             tv_price.setText(recruitmentArrayList.get(position).averagePrice + recruitmentArrayList.get(position).recruitType.getPriceUnit());

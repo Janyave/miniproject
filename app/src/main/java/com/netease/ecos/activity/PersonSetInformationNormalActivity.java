@@ -114,8 +114,9 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
         ll_inputPassword.setVisibility(View.VISIBLE);
         et_input.setHint("请输入旧密码");
         et_input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        et_inputPassword.setHint("请输入新密码");
+        et_inputPassword.setHint("请输入新密码(8-16位)");
         et_inputPassword2.setHint("请再次输入新密码");
+
     }
 
     @Override

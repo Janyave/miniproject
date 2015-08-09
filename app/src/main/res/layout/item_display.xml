@@ -31,7 +31,7 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageView
+                <com.netease.ecos.utils.RoundImageView
                     android:id="@+id/iv_avatar"
                     android:layout_width="@dimen/circle_icon_108px"
                     android:layout_height="@dimen/circle_icon_108px"
