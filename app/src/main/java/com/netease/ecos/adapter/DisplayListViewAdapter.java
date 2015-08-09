@@ -181,8 +181,6 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             convertView.setTag(false);
             return convertView;
         } else {
-
-
             if (convertView == null || convertView.getTag() instanceof Boolean) {
                 convertView = parent.inflate(mcontext, R.layout.item_display, null);
                 viewHolder = new ViewHolder(convertView);

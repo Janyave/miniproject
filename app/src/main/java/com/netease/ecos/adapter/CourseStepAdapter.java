@@ -201,8 +201,6 @@ public class CourseStepAdapter extends BaseAdapter {
                     break;
                 //点击向下按钮
                 case R.id.iv_next_step:
-
-
                     position = (int) view.getTag();
                     if (position == (getCount() - 1)) {
                         Toast.makeText(mContext, "已经在底层，不能下移了", Toast.LENGTH_LONG).show();
@@ -244,7 +242,6 @@ public class CourseStepAdapter extends BaseAdapter {
          */
         public void setPhotoAtPosition(int position);
     }
-
 
     /***
      * 将步骤描述编辑框的输入同步到mStepList
