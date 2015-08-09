@@ -95,10 +95,8 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         initTitle();
         initListener();
 
-        NIMClient.getService(MsgService.class).setChattingAccount(
-                targetUserID,
-                SessionTypeEnum.P2P
-        );
+//        Log.i("聊天界面","设置信息已读" + targetUserID);
+        NIMClient.getService(MsgService.class).setChattingAccount(targetUserIMID, SessionTypeEnum.P2P);
 
         regeisterObserver();
 
@@ -155,6 +153,32 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         Log.v("contact", "targetID" + targetUserIMID);
 
         title_text.setText(targetUserName);
+
+        String myImId = AccountDataService.getSingleAccountDataService(this).getUserAccId();
+        String myImIdPlusContactImiId = myImId + targetUserIMID;
+
+
+
+
+        List<Contact> contactList = ContactDBService.getInstance(ContactActivity.this).getContactList();
+
+        if(contactList.size()==0)
+            Log.e("notification","联系人列表为空");
+        for (Contact contact : contactList) {
+            Log.e("数据库读取", "contact: --" + contact.toString());
+            if(contact.getMyImIdPlusContactImiId().equals(myImId))
+            {
+
+                Log.d("id对比","id一样----");
+                Log.d("id对比","id一样" + contact.getMyImIdPlusContactImiId());
+                Log.d("id对比","id一样" + myImId);
+                Log.d("id对比","id一样---");
+            }
+            else
+                Log.d("id对比","id一样");
+        }
+
+        ContactDBService.getInstance(this).resetUnreadNum(myImIdPlusContactImiId);
 
     }
 

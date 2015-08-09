@@ -86,13 +86,89 @@ public class Contact {
 		MyImIdPlusContactImiId = myImId + contactImId;
 	}
 
+	public String getMyImIdPlusContactImiId() {
+		return MyImIdPlusContactImiId;
+	}
+
+	public void setMyImIdPlusContactImiId(String myImIdPlusContactImiId) {
+		MyImIdPlusContactImiId = myImIdPlusContactImiId;
+	}
+
+	public String getContactAccid() {
+		return contactAccid;
+	}
+
+	public void setContactAccid(String contactAccid) {
+		this.contactAccid = contactAccid;
+	}
+
+	public String getContactUserId() {
+		return contactUserId;
+	}
+
+	public void setContactUserId(String contactUserId) {
+		this.contactUserId = contactUserId;
+	}
+
+	public String getContactNickName() {
+		return contactNickName;
+	}
+
+	public void setContactNickName(String contactNickName) {
+		this.contactNickName = contactNickName;
+	}
+
+	public String getAvatarUrl() {
+		return avatarUrl;
+	}
+
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
+	}
+
+	public String getMessgeId() {
+		return messgeId;
+	}
+
+	public void setMessgeId(String messgeId) {
+		this.messgeId = messgeId;
+	}
+
+	public String getMessageContent() {
+		return messageContent;
+	}
+
+	public void setMessageContent(String messageContent) {
+		this.messageContent = messageContent;
+	}
+
+	public String getFromAccount() {
+		return fromAccount;
+	}
+
+	public void setFromAccount(String fromAccount) {
+		this.fromAccount = fromAccount;
+	}
+
+	public long getTime() {
+		return time;
+	}
+
+	public void setTime(long time) {
+		this.time = time;
+	}
+
+	public int getUnreadedNum() {
+		return unreadedNum;
+	}
+
+	public void setUnreadedNum(int unreadedNum) {
+		this.unreadedNum = unreadedNum;
+	}
 
 	public Contact(){
 	}
 
-	public String getId(){
-		return MyImIdPlusContactImiId;
-	}
 
 }
 
