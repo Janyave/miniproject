@@ -71,7 +71,8 @@
                         android:layout_height="@dimen/height_tag_36px"
                         android:layout_below="@id/ll_personage_name"
                         android:layout_marginTop="@dimen/margin_50px"
-                        android:gravity="center"></LinearLayout>
+                        android:gravity="center"
+                        android:orientation="horizontal"></LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_personage_attention"
