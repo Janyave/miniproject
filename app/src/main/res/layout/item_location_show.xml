@@ -9,7 +9,11 @@
         android:layout_height="wrap_content"
         android:text="(A-G)"
         android:id="@+id/tv_location_scope"
-        style="@style/text_gray_mid"/>
+        style="@style/text_pink_mid"
+        android:layout_marginLeft="@dimen/margin_40px"
+        android:layout_marginRight="@dimen/margin_40px"
+        android:layout_marginTop="@dimen/margin_20px"
+        android:layout_marginBottom="@dimen/margin_20px"/>
 
     <com.netease.ecos.views.CommunityGridView
         android:layout_width="wrap_content"

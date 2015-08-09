@@ -88,8 +88,7 @@
                 android:layout_marginBottom="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px"
                 android:background="@drawable/bg_pagenum"
-                android:gravity="center"
-                android:text="5P" />
+                android:gravity="center" />
 
         </RelativeLayout>
 

@@ -66,24 +66,24 @@
 
     <ImageView
         android:id="@+id/iv_show_flag_location"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="@dimen/icon_little_36px"
+        android:layout_height="@dimen/icon_little_36px"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="120dp"
         android:layout_marginTop="@dimen/height_item_51px"
         android:layout_weight="1"
-        android:src="@drawable/ic_unpress_next_step" />
+        android:src="@mipmap/ic_choose_gray_down" />
 
     <ImageView
         android:id="@+id/iv_show_flag_category"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
+        android:layout_width="@dimen/icon_little_36px"
+        android:layout_height="@dimen/icon_little_36px"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="44dp"
         android:layout_marginTop="@dimen/height_item_51px"
         android:layout_weight="1"
-        android:src="@drawable/ic_unpress_next_step" />
+        android:src="@mipmap/ic_choose_gray_down" />
 
 </RelativeLayout>

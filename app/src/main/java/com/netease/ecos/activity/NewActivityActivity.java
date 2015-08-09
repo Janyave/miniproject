@@ -299,9 +299,9 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
                 mDay = day;
                 //更新EditText控件日期 小于10加0
                 editText.setText(new StringBuilder().append(mYear).append("-")
-                        .append((mMonth + 1) < 10 ? 0 + (mMonth + 1) : (mMonth + 1))
+                        .append((mMonth + 1) < 10 ? "0" + (mMonth + 1) : (mMonth + 1))
                         .append("-")
-                        .append((mDay < 10) ? 0 + mDay : mDay));
+                        .append((mDay < 10) ? "0" + mDay : mDay));
                 if (beginDateEdTx.getText().toString().compareTo(editText.getText().toString()) > 0) {
                     Toast.makeText(NewActivityActivity.this, "结束日期不可以小于开始日期", Toast.LENGTH_SHORT).show();
                     editText.setText("");
@@ -321,8 +321,8 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
                 mMinute = minute;
                 //更新EditText控件时间 小于10加0
                 editText.setText(new StringBuilder()
-                        .append(mHour < 10 ? 0 + mHour : mHour).append(":")
-                        .append(mMinute < 10 ? 0 + mMinute : mMinute).append(":00"));
+                        .append(mHour < 10 ? "0" + mHour : mHour).append(":")
+                        .append(mMinute < 10 ? "0" + mMinute : mMinute).append(":00"));
                 if (beginTimeEdTx.getText().toString().compareTo(editText.getText().toString()) > 0) {
                     Toast.makeText(NewActivityActivity.this, "结束时间不可以小于开始时间", Toast.LENGTH_SHORT).show();
                     editText.setText("");

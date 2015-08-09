@@ -71,7 +71,7 @@
                 <!-- 标题-->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_item_courseInformation_244px"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_40px"
                     android:layout_marginRight="@dimen/margin_40px"
                     android:paddingBottom="@dimen/margin_50px"
@@ -81,8 +81,7 @@
                         android:id="@+id/tv_title1"
                         style="@style/text_pink_maxmax"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="" />
+                        android:layout_height="wrap_content" />
                     <!-- 赞-->
                     <ImageView
                         android:id="@+id/iv_praiseIcon"
@@ -99,11 +98,11 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginLeft="@dimen/margin_20px"
                         android:layout_toRightOf="@id/iv_praiseIcon"
-                        android:text="" />
+                        style="@style/text_pink_min"/>
 
                     <LinearLayout
                         android:id="@+id/ll_author"
-                        android:layout_width="80dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:gravity="right"
@@ -120,8 +119,7 @@
                             style="@style/text_gray_min"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_20px"
-                            android:text="" />
+                            android:layout_marginTop="@dimen/margin_20px" />
                     </LinearLayout>
 
                 </RelativeLayout>

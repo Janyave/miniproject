@@ -10,10 +10,17 @@
         android:background="@color/bg_red"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingBottom="8dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="8dp">
+        android:paddingBottom="@dimen/margin_20px"
+        android:paddingRight="@dimen/margin_40px"
+        android:paddingTop="@dimen/margin_20px">
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="@dimen/icon_title_return"
+            android:layout_height="@dimen/icon_title_return"
+            android:layout_marginLeft="@dimen/margin_10px"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:src="@drawable/btn_return_white" />
 
         <LinearLayout
             android:id="@+id/ll_searchType"
@@ -49,16 +56,16 @@
             <ImageView
                 android:layout_width="@dimen/icon_big_64px"
                 android:layout_height="@dimen/icon_big_64px"
-                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginLeft="@dimen/margin_10px"
+                android:layout_marginRight="@dimen/margin_10px"
                 android:scaleType="centerCrop"
                 android:src="@mipmap/ic_search_gray_white" />
 
             <EditText
                 android:id="@+id/et_search"
-                style="@style/text_white_mid"
+                style="@style/text_white_min"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
                 android:background="@android:color/transparent"
                 android:ellipsize="start"
                 android:gravity="left|center_vertical"

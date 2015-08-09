@@ -146,14 +146,14 @@
     <dimen name="circle_icon_140px">52dp</dimen>
     <dimen name="circle_icon_108px">44dp</dimen>
     <dimen name="radius_circle_icon_108px">18dp</dimen>
-    <dimen name="circle_icon_100px">34dp</dimen>
-    <dimen name="circle_icon_80px">28dp</dimen>
+    <dimen name="circle_icon_100px">40dp</dimen>
+    <dimen name="circle_icon_80px">35dp</dimen>
     <dimen name="circle_icon_210px">70dp</dimen>
     <dimen name="circle_icon_50px">17dp</dimen>
     <dimen name="radius_circle_icon_100px">17dp</dimen>
 
     <dimen name="text_size_44">17sp</dimen>
-    <dimen name="text_size_36">14sp</dimen>
+    <dimen name="text_size_36">15sp</dimen>
     <dimen name="text_size_24">12sp</dimen>
 
     <dimen name="icon_big_260px">85dp</dimen>
@@ -227,7 +227,7 @@
     <dimen name="height_item_140px">45dp</dimen>
     <dimen name="height_item_120px">40dp</dimen>
     <dimen name="height_item_60px">20dp</dimen>
-    <dimen name="height_item_51px">17dp</dimen>
+    <dimen name="height_item_51px">15dp</dimen>
 
 
     <!-- TextView-->
@@ -242,6 +242,7 @@
     <dimen name="radius_contact">18dp</dimen>
     <dimen name="width_contact">250dp</dimen>
     <dimen name="circle_icon_line_width">3px</dimen>
+    <dimen name="width_activitychoose_position">90dp</dimen>
 
 
 </resources>

@@ -345,8 +345,14 @@ public class ShareListRequest extends BaseRequest {
                 share.title = getString(shareJO, KEY_TITLE);
                 share.issueTimeStamp = Long.valueOf(shareJO.getString(KEY_ISSUE_TIME)).longValue();
 
-                String totalPics = getString(shareJO, KEY_TOTAL_IMAGES);
-                share.totalPageNumber = "".equals(totalPics) ? 0 : Integer.valueOf(totalPics);
+
+
+                share.totalPageNumber = 0;
+                if(shareJO.has("imgUrls") && !shareJO.isNull("imgUrls")){
+                    share.totalPageNumber = new JSONArray( getString(shareJO,"imgUrls") ).length();
+
+                }
+
 
                 String praiseNum = getString(shareJO, KEY_PRAISE_NUM);
                 share.praiseNum = "".equals(praiseNum) ? 0 : Integer.valueOf(praiseNum);

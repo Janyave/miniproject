@@ -10,10 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.CommentDetailActivity;
@@ -23,7 +21,6 @@ import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.SearchActivity;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
-import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.user.FollowUserRequest;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
@@ -105,7 +102,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
             ;
             tv_name.setText(item.nickname);
-            tv_focus.setText(item.hasAttention ? "已关注" : "关注");
+            tv_focus.setText(item.hasAttention ? "已关注" : "");
             tv_focus.setTextColor(mcontext.getResources().getColor(item.hasAttention ? R.color.text_gray : R.color.text_white));
             tv_focus.setBackgroundResource(item.hasAttention ? R.drawable.btn_focus_gray : R.drawable.btn_focus_pink);
 
@@ -125,7 +122,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
             //set tag
             ll_author.setTag(position);
-            tv_focus.setTag(position);
+//            tv_focus.setTag(position);
             iv_cover.setTag(position);
             tv_coverTitle.setTag(position);
             ll_praise.setTag(position);
@@ -134,7 +131,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
             //set listener
             ll_author.setOnClickListener(DisplayListViewAdapter.this);
-            tv_focus.setOnClickListener(DisplayListViewAdapter.this);
+//            tv_focus.setOnClickListener(DisplayListViewAdapter.this);
             iv_cover.setOnClickListener(DisplayListViewAdapter.this);
             tv_coverTitle.setOnClickListener(DisplayListViewAdapter.this);
             ll_praise.setOnClickListener(DisplayListViewAdapter.this);
@@ -168,7 +165,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
         ViewHolder viewHolder = null;
         if (position == 0) {
             convertView = parent.inflate(mcontext, R.layout.item_display_search, null);
-            ((TextView) convertView.findViewById(R.id.tv_search)).setOnClickListener(new View.OnClickListener() {
+            ((LinearLayout) convertView.findViewById(R.id.ll_search)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent1 = new Intent(mcontext, SearchActivity.class);
@@ -206,12 +203,6 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;
-            case R.id.tv_focus:
-                FollowResponce followResponce = new FollowResponce((TextView) v, position);
-                request.request(followResponce, shareList.get(position).userId, !shareList.get(position).hasAttention);
-
-
-                break;
             case R.id.iv_cover:
             case R.id.tv_coverTitle:
                 intent = new Intent(mcontext, DisplayDetailActivity.class);
@@ -228,40 +219,6 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;
-        }
-    }
-
-    class FollowResponce extends BaseResponceImpl implements FollowUserRequest.IFollowResponce {
-
-        private TextView textView;
-        private int position;
-
-        public FollowResponce(TextView textView, int position) {
-            this.textView = textView;
-            this.position = position;
-        }
-
-        @Override
-        public void doAfterFailedResponse(String message) {
-            Toast.makeText(mcontext, "error happens:" + message, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onErrorResponse(VolleyError error) {
-        }
-
-        @Override
-        public void success(String userId, boolean follow) {
-            shareList.get(position).hasAttention = follow;
-            if (follow) {
-                this.textView.setText("已关注");
-                this.textView.setTextColor(mcontext.getResources().getColor(R.color.text_gray));
-                this.textView.setBackgroundResource(R.drawable.btn_focus_gray);
-            } else {
-                this.textView.setText("关注");
-                this.textView.setTextColor(mcontext.getResources().getColor(R.color.text_white));
-                this.textView.setBackgroundResource(R.drawable.btn_focus_pink);
-            }
         }
     }
 

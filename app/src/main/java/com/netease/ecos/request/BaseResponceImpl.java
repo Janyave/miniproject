@@ -39,6 +39,7 @@ public abstract class BaseResponceImpl implements IBaseResponse{
 
 		SweetAlertDialog dialog = new SweetAlertDialog(MyApplication.getCurrentActivity(), SweetAlertDialog.NORMAL_TYPE);
 		dialog.setTitleText("账号在其他地方登录，请重新登录");
+		dialog.setContentText("");
 		dialog.setCancelable(true);
 		dialog.setCanceledOnTouchOutside(true);
 		dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
