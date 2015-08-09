@@ -1,6 +1,5 @@
 package com.netease.ecos.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,7 +9,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -175,7 +173,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 }
                 else{
                     RegistRequest request = new RegistRequest();
-                    new RegistResponse().success();
                     request.request(new RegistResponse(), getIntent().getStringExtra("phone"),
                             et_password.getText().toString(), et_name.getText().toString(),"");
                 }

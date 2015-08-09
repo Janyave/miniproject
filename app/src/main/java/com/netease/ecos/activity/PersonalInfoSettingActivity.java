@@ -342,8 +342,9 @@ public class PersonalInfoSettingActivity extends BaseActivity {
             mSetGender.setText("女");
         setTagVisiable(user.roleTypeSet);
 
-        if (setUser.phone != null && setUser.phone.equals(""))
-            tv_phone_num.setText(setUser.phone);
+        String phone = AccountDataService.getSingleAccountDataService(this).getPhone();
+        if (phone != null && !phone.equals(""))
+            tv_phone_num.setText(phone);
         else {
             tv_phone_num.setText("");
             Log.d("ZYW00000000", "phone num is null");
