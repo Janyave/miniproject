@@ -92,6 +92,23 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+
+        Log.i("联系人列表","联系人列表刷新");
+        contactList = ContactDBService.getInstance(NotificationActivity.this).getContactList();
+
+        if(contactList.size()==0)
+            Log.e("notification","联系人列表为空");
+        for (Contact contact : contactList) {
+            Log.e("数据库读取", "contact: --" + contact.toString());
+        }
+
+        contactAdapter = new NotificationContactAdapter(this, contactList);
+        lv_list.setAdapter(contactAdapter);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
 
@@ -348,7 +365,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 
                             JSONObject content  = new JSONObject(msg.getContent());
                             contact.contactNickName = content.getString("nickname");
-                            contact.contactUserId = content.getString("userID");
+                            contact.contactUserId = content.getString("userId");
                             contact.avatarUrl = content.getString("avatarUrl");
 
                         } catch (JSONException e) {

@@ -194,7 +194,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                             @Override
                             public void takePhoto() {
                                 Toast.makeText(RegistActivity.this, "拍照", Toast.LENGTH_LONG).show();
-                                mSetPhotoHelper.takePhoto(false);
+                                mSetPhotoHelper.takePhoto(true);
                                 isSettingAvatart = true;
 
                             }

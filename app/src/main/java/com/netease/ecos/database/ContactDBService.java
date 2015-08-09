@@ -1,6 +1,5 @@
 package com.netease.ecos.database;
 
-import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
@@ -79,7 +78,7 @@ public class ContactDBService {
 
 		String myImId = AccountDataService.getSingleAccountDataService(MyApplication.getContext()).getUserAccId();
 		for(Contact contact:list){
-			if(contact.getId().contains(myImId)){
+			if(contact.getMyImIdPlusContactImiId().contains(myImId)){
 				choosedlist.add(contact);
 			}
 		}
@@ -93,23 +92,48 @@ public class ContactDBService {
 	 * @param contactAccId
 	 * @return
 	 */
-	public Contact getContact(String contactAccId) {
-		
+	/*public Contact getContact(String contactAccId) {
+
 		if(contactAccId == null || "".equals(contactAccId))
 		{
 			Log.e(TAG, "getContact(String contactAccId),contactAccId=null");
 			return null;
 		}
-		
+
 		Contact contact = new Contact();
-		
+
 		//以省名作为检索条件
 		contact.contactAccid = contactAccId;
-		
+
 		List<Contact> contactList=mContactDAO.queryForMatchingArgs(contact);
-		
+
 		return contactList.size()>0?contactList.get(0):null;
+	}*/
+
+	public void resetUnreadNum(String myImIdPlusContactImiId) {
+
+		Log.d("resetUnreadNum","myImIdPlusContactImiId:" + myImIdPlusContactImiId);
+		Contact contact = getContactById(myImIdPlusContactImiId);
+		if(contact == null){
+			Log.e("重置信息未读数错误","无此" + myImIdPlusContactImiId + "的会话");
+		}
+		else{
+			Log.d("重置信息未读数错误","---------已经重置---------"+ contact.toString());
+			contact.unreadedNum = 0;
+			mContactDAO.update(contact);
+		}
 	}
-	
+
+
+	public Contact getContactById(String id){
+		Contact contact = new Contact();
+
+		//以处理状态作为检索条件
+		contact.setMyImIdPlusContactImiId(id);
+		Log.e("getContactById","id:" + id);
+		List<Contact> contactList=mContactDAO.queryForMatchingArgs(contact);
+
+		return (contactList.size()>0)?contactList.get(0):null;
+	}
 }
 
