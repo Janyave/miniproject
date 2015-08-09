@@ -10,7 +10,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.RecruitmentDetailWorkAdapter;
 import com.netease.ecos.model.Recruitment;
@@ -18,6 +20,8 @@ import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.recruitment.GetRecruitmentDetailRequest;
 import com.netease.ecos.request.share.ShareListRequest;
+import com.netease.ecos.utils.RoundImageView;
+import com.netease.ecos.utils.SDImageCache;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -44,7 +48,7 @@ public class RecruitmentDetailActivity extends BaseActivity implements View.OnCl
     @InjectView(R.id.ll_author)
     LinearLayout ll_author;
     @InjectView(R.id.iv_avatar)
-    ImageView iv_avator;
+    RoundImageView iv_avatar;
     @InjectView(R.id.tv_name)
     TextView tv_name;
     @InjectView(R.id.tv_distance)
@@ -177,8 +181,16 @@ public class RecruitmentDetailActivity extends BaseActivity implements View.OnCl
         @Override
         public void success(Recruitment recruit) {
             RecruitmentDetailActivity.this.recruitment = recruit;
-            if (recruit.avatarUrl != null && !recruit.avatarUrl.equals(""))
-                Picasso.with(RecruitmentDetailActivity.this).load(recruit.avatarUrl).placeholder(R.drawable.img_default).into(iv_avator);
+            if (recruit.avatarUrl != null && !recruit.avatarUrl.equals("")){
+                iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+                iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+                RequestQueue queue = MyApplication.getRequestQueue();
+                ImageLoader.ImageCache imageCache = new SDImageCache();
+                ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+                iv_avatar.setImageUrl(recruit.avatarUrl, imageLoader);
+            }else{
+                iv_avatar.setImageResource(R.mipmap.bg_female_default);
+            }
             tv_name.setText(recruit.nickname);
             tv_distance.setText(recruit.distanceKM + getResources().getString(R.string.KM));
             tv_price.setText(recruit.averagePrice + recruit.recruitType.getPriceUnit());

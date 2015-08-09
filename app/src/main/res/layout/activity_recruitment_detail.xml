@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ecos="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_gray"
     android:orientation="vertical">
 
@@ -43,13 +44,15 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <ImageView
+                        <com.netease.ecos.utils.RoundImageView
                             android:id="@+id/iv_avatar"
                             android:layout_width="@dimen/circle_icon_108px"
                             android:layout_height="@dimen/circle_icon_108px"
                             android:focusable="true"
                             android:focusableInTouchMode="true"
-                            android:src="@mipmap/bg_female_default" />
+                            android:src="@mipmap/bg_female_default"
+                            ecos:circle_color="@color/bg_red"
+                            ecos:showable="true"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
