@@ -127,11 +127,13 @@ public class EventWantGoAdapter extends BaseAdapter {
         viewHolder.ll_tagList.removeAllViews();
         Set<User.RoleType> roleTypeList = item.roleTypeSet;
         Iterator i = roleTypeList.iterator();
-        while (i.hasNext()) {
+        int num=0;
+        while (i.hasNext()&&num<3) {
             User.RoleType type = (User.RoleType) i.next();
             View v = parent.inflate(mcontext, R.layout.item_tag, null);
             ((TextView) v.findViewById(R.id.tv_tag)).setText(type.name());
             viewHolder.ll_tagList.addView(v);
+            num++;
         }
 
         if (TYPE == NormalListViewActivity.TYPE_EVENT_WANTGO) {
