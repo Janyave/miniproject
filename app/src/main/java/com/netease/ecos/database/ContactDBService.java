@@ -1,11 +1,15 @@
 package com.netease.ecos.database;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.netease.ecos.activity.MyApplication;
+import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.Contact;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**   
@@ -70,7 +74,17 @@ public class ContactDBService {
 	 */
 	public List<Contact> getContactList() {
 		// TODO Auto-generated method stub
-		return mContactDAO.queryForAll();
+		List<Contact> list = mContactDAO.queryForAll();
+		List<Contact> choosedlist = new ArrayList<Contact>();
+
+		String myImId = AccountDataService.getSingleAccountDataService(MyApplication.getContext()).getUserAccId();
+		for(Contact contact:list){
+			if(contact.getId().contains(myImId)){
+				choosedlist.add(contact);
+			}
+		}
+
+		return choosedlist;
 	}
 
 

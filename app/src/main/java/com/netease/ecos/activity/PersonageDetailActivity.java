@@ -171,19 +171,22 @@ public class PersonageDetailActivity extends BaseActivity {
         ImageLoader.ImageCache imageCache = new SDImageCache();
         ImageLoader imageLoader = new ImageLoader(queue, imageCache);
         user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
-        if(mUserData.roleTypeSet.isEmpty()){
+        if(mUserData.roleTypeSet == null || mUserData.roleTypeSet.isEmpty()){
             ll_personage_tag.setVisibility(View.GONE);
         }else {
+            ll_personage_tag.setVisibility(View.VISIBLE);
             ll_personage_tag.removeAllViews();
             for(User.RoleType type:mUserData.roleTypeSet){
                 View v=View.inflate(this, R.layout.item_tag, null);
-                ((TextView)v.findViewById(R.id.tv_tag)).setText(type+"");
+                ((TextView)v.findViewById(R.id.tv_tag)).setText(type + "");
                 ll_personage_tag.addView(v);
             }
         }
         if (mUserData.characterSignature == null){
             ll_signature_attention.setVisibility(isOwn ? View.GONE : View.VISIBLE);
             user_description.setVisibility(View.GONE);
+        }else{
+            user_description.setVisibility(View.VISIBLE);
         }
 
         user_name.setText(mUserData.nickname);
@@ -429,6 +432,14 @@ public class PersonageDetailActivity extends BaseActivity {
                     break;
                 case R.id.btn_contact:
                     Intent intent = new Intent(PersonageDetailActivity.this, ContactActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putString(ContactActivity.TargetUserID, mUserData.userId);
+                    bundle.putString(ContactActivity.TargetUserAvatar, mUserData.avatarUrl);
+                    bundle.putString(ContactActivity.TargetUserName, mUserData.nickname);
+                    bundle.putString(ContactActivity.TargetUserIMID, mUserData.imId);
+                    Log.v("contact", "targetIMID--------   " + mUserData.imId);
+                    Log.v("contact", "targetID--------   " + mUserData.userId);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                     break;
                 case R.id.ll_edit:

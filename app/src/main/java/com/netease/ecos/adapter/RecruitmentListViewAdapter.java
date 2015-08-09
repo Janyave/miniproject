@@ -153,6 +153,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
                 bundle.putString(ContactActivity.TargetUserID, recruitmentArrayList.get(position).userId);
                 bundle.putString(ContactActivity.TargetUserName, recruitmentArrayList.get(position).nickname);
                 bundle.putString(ContactActivity.TargetUserAvatar, recruitmentArrayList.get(position).avatarUrl);
+                bundle.putString(ContactActivity.TargetUserIMID, recruitmentArrayList.get(position).imId);
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;

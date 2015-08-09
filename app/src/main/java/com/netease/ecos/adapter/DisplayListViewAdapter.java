@@ -40,13 +40,11 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
     private Context mcontext;
     private List<Share> shareList;
     private FollowUserRequest request;
-    private FollowResponce followResponce;
 
     public DisplayListViewAdapter(Context context, List<Share> shareList) {
         this.mcontext = context;
         this.shareList = shareList;
         request = new FollowUserRequest();
-        followResponce = new FollowResponce();
     }
 
     class ViewHolder {
@@ -96,16 +94,16 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             Share item = shareList.get(position);
 
             //bind the data
-            if (item.avatarUrl != null && !item.avatarUrl.equals("")){
+            if (item.avatarUrl != null && !item.avatarUrl.equals("")) {
                 iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
                 iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
                 RequestQueue queue = MyApplication.getRequestQueue();
                 ImageLoader.ImageCache imageCache = new SDImageCache();
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);
                 iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
-            }
-            else
-                iv_avatar.setImageResource(R.mipmap.bg_female_default);;
+            } else
+                iv_avatar.setImageResource(R.mipmap.bg_female_default);
+            ;
             tv_name.setText(item.nickname);
             tv_focus.setText(item.hasAttention ? "已关注" : "关注");
             tv_focus.setTextColor(mcontext.getResources().getColor(item.hasAttention ? R.color.text_gray : R.color.text_white));
@@ -209,17 +207,10 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 mcontext.startActivity(intent);
                 break;
             case R.id.tv_focus:
-                if (TextUtils.equals(((TextView) v).getText().toString(), "关注")) {
-                    ((TextView) v).setText("已关注");
-                    ((TextView) v).setTextColor(mcontext.getResources().getColor(R.color.text_gray));
-                    ((TextView) v).setBackgroundResource(R.drawable.btn_focus_gray);
-                    request.request(followResponce, shareList.get(position).userId, true);
-                } else {
-                    ((TextView) v).setText("关注");
-                    ((TextView) v).setTextColor(mcontext.getResources().getColor(R.color.text_white));
-                    ((TextView) v).setBackgroundResource(R.drawable.btn_focus_pink);
-                    request.request(followResponce, shareList.get(position).userId, false);
-                }
+                FollowResponce followResponce = new FollowResponce((TextView) v, position);
+                request.request(followResponce, shareList.get(position).userId, !shareList.get(position).hasAttention);
+
+
                 break;
             case R.id.iv_cover:
             case R.id.tv_coverTitle:
@@ -227,9 +218,6 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 bundle.putString(DisplayDetailActivity.ShareId, shareList.get(position).shareId);
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
-                break;
-            case R.id.ll_praise:
-                //TODO:点赞 favor
                 break;
             case R.id.ll_evaluation:
             case R.id.ll_evaluationList:
@@ -245,6 +233,14 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
     class FollowResponce extends BaseResponceImpl implements FollowUserRequest.IFollowResponce {
 
+        private TextView textView;
+        private int position;
+
+        public FollowResponce(TextView textView, int position) {
+            this.textView = textView;
+            this.position = position;
+        }
+
         @Override
         public void doAfterFailedResponse(String message) {
             Toast.makeText(mcontext, "error happens:" + message, Toast.LENGTH_SHORT).show();
@@ -256,6 +252,16 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
         @Override
         public void success(String userId, boolean follow) {
+            shareList.get(position).hasAttention = follow;
+            if (follow) {
+                this.textView.setText("已关注");
+                this.textView.setTextColor(mcontext.getResources().getColor(R.color.text_gray));
+                this.textView.setBackgroundResource(R.drawable.btn_focus_gray);
+            } else {
+                this.textView.setText("关注");
+                this.textView.setTextColor(mcontext.getResources().getColor(R.color.text_white));
+                this.textView.setBackgroundResource(R.drawable.btn_focus_pink);
+            }
         }
     }
 

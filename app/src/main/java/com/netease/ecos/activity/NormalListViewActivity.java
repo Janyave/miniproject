@@ -2,6 +2,7 @@ package com.netease.ecos.activity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -17,6 +18,7 @@ import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.activity.SingupPeopleListRequest;
 import com.netease.ecos.request.user.FollowedUserListRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -25,7 +27,8 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/8/4.
  */
-public class NormalListViewActivity extends BaseActivity implements View.OnClickListener{
+public class NormalListViewActivity extends BaseActivity implements View.OnClickListener {
+    private static final String TAG = "Ecos---NormalList";
 
     @InjectView(R.id.lly_right_action)
     LinearLayout title_right;
@@ -38,16 +41,25 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
     @InjectView(R.id.lv_list)
     ListView lv_list;
 
-    public static String GET_ACTIVITY_ID="activity_id";
-    public static String LISTVIEW_TYPE="type";
+    public static String GET_ACTIVITY_ID = "activity_id";
+    public static String LISTVIEW_TYPE = "type";
 
-    public final static int TYPE_EVENT_WANTGO=0;
-    public final static int TYPE_EVENT_FANS=1;
-    public final static int TYPE_EVENT_ATTENTION=2;
+    public final static int TYPE_EVENT_WANTGO = 0;
+    public final static int TYPE_EVENT_FANS = 1;
+    public final static int TYPE_EVENT_ATTENTION = 2;
 
-    private int TYPE=TYPE_EVENT_WANTGO;  //当前Activity类型
+    private int TYPE = TYPE_EVENT_WANTGO;  //当前Activity类型
 
     private EventWantGoAdapter eventWantGoAdapter;
+
+    //for request
+    private SingupPeopleListRequest singupPeopleListRequest;
+    private SignUpPeopleListResponse signUpPeopleListResponse;
+    private String activityId;
+    private List<User> userList;
+    private int pageIndex = 0;
+    private ArrayList<Boolean> hasFollowed;
+    private ArrayList<Boolean> beFollowed;
 
     @Override
     protected void onCreate(Bundle arg0) {
@@ -55,10 +67,10 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
         setContentView(R.layout.activity_listview_normal);
         ButterKnife.inject(this);
 
-        TYPE=getIntent().getExtras().getInt(LISTVIEW_TYPE);
-
-        if (check()){
-            switch (TYPE){
+        TYPE = getIntent().getExtras().getInt(LISTVIEW_TYPE);
+        Log.d(TAG, "type:" + TYPE);
+        if (check()) {
+            switch (TYPE) {
                 case TYPE_EVENT_WANTGO:
                     initEventWantGo();
                     break;
@@ -73,11 +85,11 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
     }
 
     private Boolean check() {
-        String id= UserDataService.getSingleUserDataService(NormalListViewActivity.this).getUser().userId;
-        if (TextUtils.isEmpty(id)){
-            Toast.makeText(NormalListViewActivity.this,getResources().getString(R.string.null_id), Toast.LENGTH_SHORT).show();
+        String id = UserDataService.getSingleUserDataService(NormalListViewActivity.this).getUser().userId;
+        if (TextUtils.isEmpty(id)) {
+            Toast.makeText(NormalListViewActivity.this, getResources().getString(R.string.null_id), Toast.LENGTH_SHORT).show();
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -86,15 +98,12 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
         title_left.setOnClickListener(this);
         title_right.setVisibility(View.INVISIBLE);
         title_text.setText("想去的人");
-        eventWantGoAdapter=new EventWantGoAdapter(this, TYPE_EVENT_WANTGO, null);
-        lv_list.setAdapter(eventWantGoAdapter);
-
         try {
-            String activityId=getIntent().getExtras().getString(GET_ACTIVITY_ID);
-            SingupPeopleListRequest request  = new SingupPeopleListRequest();
-            request.request(new signupPeopleListResponce(), activityId,0);
-            showProcessBar(getResources().getString(R.string.e_loading));
-        }catch (Exception e){
+            activityId = getIntent().getExtras().getString(GET_ACTIVITY_ID);
+            singupPeopleListRequest = new SingupPeopleListRequest();
+            signUpPeopleListResponse = new SignUpPeopleListResponse();
+            singupPeopleListRequest.request(signUpPeopleListResponse, activityId, pageIndex);
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(NormalListViewActivity.this, "getIntentInformation error", Toast.LENGTH_SHORT);
         }
@@ -105,9 +114,8 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
         title_right.setVisibility(View.INVISIBLE);
         title_text.setText("我的关注");
 
-        FollowedUserListRequest request  = new FollowedUserListRequest();
+        FollowedUserListRequest request = new FollowedUserListRequest();
         request.requestMyFollows(new followedUserListRequest(), 1);
-        showProcessBar("获取关注列表");
     }
 
     private void initFans() {
@@ -115,14 +123,13 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
         title_right.setVisibility(View.INVISIBLE);
         title_text.setText("我的粉丝");
 
-        FollowedUserListRequest request  = new FollowedUserListRequest();
+        FollowedUserListRequest request = new FollowedUserListRequest();
         request.requestSomeOneFans(new followedUserListRequest(), null, 1);
-        showProcessBar("获取粉丝列表");
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.lly_left_action:
                 finish();
                 break;
@@ -133,12 +140,11 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void success(List<User> userList) {
-            dismissProcessBar();
-            if (TYPE==TYPE_EVENT_ATTENTION) {
+            if (TYPE == TYPE_EVENT_ATTENTION) {
                 eventWantGoAdapter = new EventWantGoAdapter(NormalListViewActivity.this, TYPE_EVENT_ATTENTION, userList);
                 lv_list.setAdapter(eventWantGoAdapter);
             }
-            if (TYPE==TYPE_EVENT_FANS) {
+            if (TYPE == TYPE_EVENT_FANS) {
                 eventWantGoAdapter = new EventWantGoAdapter(NormalListViewActivity.this, TYPE_EVENT_FANS, userList);
                 lv_list.setAdapter(eventWantGoAdapter);
             }
@@ -146,21 +152,35 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void doAfterFailedResponse(String message) {
-            dismissProcessBar();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-            dismissProcessBar();
         }
     }
 
-    class signupPeopleListResponce extends BaseResponceImpl implements SingupPeopleListRequest.ISignupPeopleListResponce{
+    class SignUpPeopleListResponse extends BaseResponceImpl implements SingupPeopleListRequest.ISignupPeopleListResponce {
 
         @Override
         public void success(List<User> userList, boolean[] hasFollowEd, boolean[] beFollowed) {
-            eventWantGoAdapter = new EventWantGoAdapter(NormalListViewActivity.this, TYPE_EVENT_WANTGO, userList, hasFollowEd, beFollowed);
-            dismissProcessBar();
+            if (NormalListViewActivity.this.userList == null)
+                NormalListViewActivity.this.userList = new ArrayList<>();
+            if (NormalListViewActivity.this.hasFollowed == null)
+                NormalListViewActivity.this.hasFollowed = new ArrayList<>();
+            if (NormalListViewActivity.this.beFollowed == null)
+                NormalListViewActivity.this.beFollowed = new ArrayList<>();
+            for (int i = 0; i < userList.size(); i++) {
+                NormalListViewActivity.this.userList.add(userList.get(i));
+                NormalListViewActivity.this.hasFollowed.add(hasFollowEd[i]);
+                NormalListViewActivity.this.beFollowed.add(beFollowed[i]);
+            }
+            if (userList.size() == 5) {
+                pageIndex++;
+                singupPeopleListRequest.request(signUpPeopleListResponse, activityId, pageIndex);
+            } else {
+                eventWantGoAdapter = new EventWantGoAdapter(NormalListViewActivity.this, TYPE_EVENT_WANTGO, NormalListViewActivity.this.userList, NormalListViewActivity.this.hasFollowed, NormalListViewActivity.this.beFollowed);
+                lv_list.setAdapter(eventWantGoAdapter);
+            }
         }
 
         @Override
