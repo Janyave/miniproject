@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_80px"
                     android:layout_marginTop="@dimen/margin_40px"
-                    android:text=""
+                    android:ellipsize="end"
                     android:textColor="@color/bg_red_light" />
             </LinearLayout>
 
@@ -182,7 +182,7 @@
                     android:paddingLeft="@dimen/margin_10px"
                     android:paddingRight="@dimen/margin_10px"
                     android:text="11"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <ImageView
                     android:layout_width="@dimen/icon_big_64px"
@@ -230,7 +230,7 @@
                     android:paddingLeft="@dimen/margin_10px"
                     android:paddingRight="@dimen/margin_10px"
                     android:text="11"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <ImageView
                     android:layout_width="@dimen/icon_big_64px"
@@ -278,7 +278,7 @@
                     android:paddingLeft="@dimen/margin_10px"
                     android:paddingRight="@dimen/margin_10px"
                     android:text="11"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <ImageView
                     android:layout_width="@dimen/icon_big_64px"
@@ -288,57 +288,57 @@
             </LinearLayout>
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/tv_block"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/bg_white" />
+
+        <TextView style="@style/layout_line_gray" />
+
+        <LinearLayout
+            android:id="@+id/ll_setting"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_item_140px"
+            android:background="@drawable/ll_white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/margin_50px">
+
             <TextView
-                android:id="@+id/tv_block"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/bg_white"/>
-
-            <TextView style="@style/layout_line_gray" />
-
-            <LinearLayout
-                android:id="@+id/ll_setting"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_item_140px"
-                android:background="@drawable/ll_white"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingRight="@dimen/margin_50px">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:layout_width="@dimen/icon_sidebar_54px"
-                    android:layout_height="@dimen/icon_sidebar_54px"
-                    android:scaleType="fitCenter"
-                    android:src="@mipmap/ic_side_setting_gray" />
-
-                <TextView
-                    android:id="@+id/bt_personage_setting"
-                    style="@style/text_gray_mid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_40px"
-                    android:text="@string/side_setting" />
-            </LinearLayout>
-
-
-            <!--<FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            <ListView
-                android:id="@+id/lv_list"
-                android:layout_width="match_parent"
-                tools:context="com.netease.ecos.fragment.NavigationDrawerFragment"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:choiceMode="singleChoice"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="0dp"
-                android:background="#cccc"/>
-            </FrameLayout>-->
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="@dimen/icon_sidebar_54px"
+                android:layout_height="@dimen/icon_sidebar_54px"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_side_setting_gray" />
+
+            <TextView
+                android:id="@+id/bt_personage_setting"
+                style="@style/text_gray_mid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:text="@string/side_setting" />
         </LinearLayout>
+
+
+        <!--<FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/lv_list"
+            android:layout_width="match_parent"
+            tools:context="com.netease.ecos.fragment.NavigationDrawerFragment"
+            android:layout_height="match_parent"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:background="#cccc"/>
+        </FrameLayout>-->
+    </LinearLayout>
 </LinearLayout>
