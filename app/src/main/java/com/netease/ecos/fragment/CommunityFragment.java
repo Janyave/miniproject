@@ -227,18 +227,15 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
             cityCode = "";
         else
             cityCode = ProvinceDBService.getProvinceDBServiceInstance(getActivity()).getProvinceId(strLocation);
-        showProcessBar(getResources().getString(R.string.loading));
         request.request(new ActivityListRequest.IActivityListResponse() {
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                dismissProcessBar();
 
             }
 
             @Override
             public void doAfterFailedResponse(String message) {
-                dismissProcessBar();
                 Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
@@ -249,7 +246,6 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
 
             @Override
             public void success(List<ActivityModel> activityList) {
-                dismissProcessBar();
 //                CommunityFragment.this.activityList = activityList;
                 Log.d("test", "activityList size:" + activityList.size());
                 if (campaignListViewAdapter == null) {
