@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.ContactAdapter;
 import com.netease.ecos.database.ContactDBService;
+import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.model.User;
@@ -348,6 +349,9 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                     for (RecentContact msg : messages) {
 
                         Contact contact = new Contact();
+                        String myImId = AccountDataService.getSingleAccountDataService(ContactActivity.this).getUserAccId();
+
+                        contact.setId(myImId,targetUserID);
                         contact.contactAccid = msg.getContactId();
                         contact.fromAccount = msg.getFromAccount();
                         contact.messageContent = msg.getContent();
