@@ -219,6 +219,7 @@ public class RecruitmentListRequest extends BaseRequest {
                     recruit.description = getString(recruitJO, "description");
                     recruit.coverUrl = getString(recruitJO, "coverUrl");
                     recruit.title = getString(recruitJO, "title");
+                    recruit.averagePrice = getString(recruitJO, "price");
                     recruit.priceUnit = getString(recruitJO, "priceUnit");
                     recruit.recruitType = RecruitType.getRecruitTypeByValue(getString(recruitJO, "recruitType"));
                     recruit.issueTimeStamp = Long.valueOf(getString(recruitJO, "recruitType")).longValue();

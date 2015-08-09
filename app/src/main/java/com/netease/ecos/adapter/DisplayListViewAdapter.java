@@ -102,7 +102,10 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
             ;
             tv_name.setText(item.nickname);
-            tv_focus.setText(item.hasAttention ? "已关注" : "");
+            if (item.hasAttention)
+                tv_focus.setText("已关注");
+            else
+                tv_focus.setVisibility(View.GONE);
             tv_focus.setTextColor(mcontext.getResources().getColor(item.hasAttention ? R.color.text_gray : R.color.text_white));
             tv_focus.setBackgroundResource(item.hasAttention ? R.drawable.btn_focus_gray : R.drawable.btn_focus_pink);
 

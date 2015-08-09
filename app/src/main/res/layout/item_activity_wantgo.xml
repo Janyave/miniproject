@@ -73,6 +73,7 @@
                 android:layout_marginTop="@dimen/margin_10px"
                 android:ellipsize="end"
                 android:singleLine="true"
+
                 android:text="signature" />
         </LinearLayout>
 
