@@ -3,7 +3,6 @@ package com.netease.ecos.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,11 +12,8 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
-import com.netease.ecos.activity.ActivityDetailActivity;
 import com.netease.ecos.activity.MyApplication;
-import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.RecruitmentDetailActivity;
-import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.model.User;
 import com.netease.ecos.utils.RoundImageView;
@@ -37,6 +33,7 @@ public class PersonRecruitAdapter extends BaseAdapter implements View.OnClickLis
     public PersonRecruitAdapter(Context context) {
         this.mcontext = context;
     }
+
     public PersonRecruitAdapter(Context context, List<Recruitment> recruitmentList) {
         this.mcontext = context;
         this.recruitmentList = recruitmentList;
@@ -56,7 +53,6 @@ public class PersonRecruitAdapter extends BaseAdapter implements View.OnClickLis
     }
 
 
-
     class ViewHolder {
         private RoundImageView iv_avatar;
         private ImageView iv_cover;
@@ -65,7 +61,6 @@ public class PersonRecruitAdapter extends BaseAdapter implements View.OnClickLis
         private TextView tv_name;
         private TextView tv_price;
         private TextView tv_distance;
-
 
 
         public ViewHolder(View root) {
@@ -83,24 +78,23 @@ public class PersonRecruitAdapter extends BaseAdapter implements View.OnClickLis
          */
         public void setData(final int position) {
             Recruitment item = recruitmentList.get(position);
-            if (item.avatarUrl != null && !item.avatarUrl.equals("")){
+            if (item.avatarUrl != null && !item.avatarUrl.equals("")) {
                 iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
                 iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
                 RequestQueue queue = MyApplication.getRequestQueue();
                 ImageLoader.ImageCache imageCache = new SDImageCache();
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);
                 iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
-            }
-            else
+            } else
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
             if (item.coverUrl != null && !item.coverUrl.equals(""))
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             else
-            iv_cover.setImageResource(R.drawable.img_default);
+                iv_cover.setImageResource(R.drawable.img_default);
 
-            if (item.gender == User.Gender.男){
+            if (item.gender == User.Gender.男) {
                 gender.setImageResource(R.mipmap.ic_gender_male);
-            }else {
+            } else {
                 gender.setImageResource(R.mipmap.ic_gender_female);
             }
             tv_name.setText(item.nickname);
@@ -119,7 +113,7 @@ public class PersonRecruitAdapter extends BaseAdapter implements View.OnClickLis
 
     @Override
     public int getCount() {
-        if (recruitmentList != null){
+        if (recruitmentList != null) {
             return recruitmentList.size();
         }
         return 0;
@@ -154,7 +148,7 @@ public class PersonRecruitAdapter extends BaseAdapter implements View.OnClickLis
     @Override
     public void onClick(View v) {
         int position = (int) v.getTag();
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_cover:
                 Intent intent = new Intent(mcontext, RecruitmentDetailActivity.class);
                 Bundle bundle = new Bundle();

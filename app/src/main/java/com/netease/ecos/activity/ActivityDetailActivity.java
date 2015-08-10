@@ -192,7 +192,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             activityModel = activity;
             if (activity.coverUrl != null && !activity.coverUrl.equals(""))
                 Picasso.with(ActivityDetailActivity.this).load(activity.coverUrl).placeholder(R.drawable.img_default).into(iv_event_cover);
-
+            else
+                iv_event_cover.setImageResource(R.drawable.img_default);
             tv_event_title.setText(activity.title);
             tv_event_location.setText(activity.location.province.provinceName);
             tv_event_price.setText(getResources().getString(R.string.RMB) + activity.fee);

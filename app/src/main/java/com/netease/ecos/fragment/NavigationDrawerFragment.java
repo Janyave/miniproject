@@ -1,7 +1,6 @@
 package com.netease.ecos.fragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -20,7 +19,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,7 +27,6 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.activity.NormalListViewActivity;
@@ -150,6 +147,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
 
     public View mContainer;
+
     /**
      * 侧边栏Layout
      *
@@ -434,10 +432,11 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
     }
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -507,7 +506,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         mUserDataService = UserDataService.getSingleUserDataService(getActivity());
         mUserData = mUserDataService.getUser();
 
-        Log.e("侧边栏","用户数据:" + mUserData.toString());
+        Log.e("侧边栏", "用户数据:" + mUserData.toString());
 
         RoundImageView user_avatar = (RoundImageView) v.findViewById(R.id.iv_personage_portrait);
         TextView user_name = (TextView) v.findViewById(R.id.bt_personage_name);
@@ -523,7 +522,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         RequestQueue queue = MyApplication.getRequestQueue();
         ImageLoader.ImageCache imageCache = new SDImageCache();
         ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-        user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
+        if (mUserData.avatarUrl != null && !"".equals(mUserData.avatarUrl))
+            user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
 
         user_name.setText(mUserData.nickname);
         if (mUserData.gender == User.Gender.女) {
@@ -537,9 +537,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
     }
 
-    public void resetUserData(){
-        if(mContainer!=null)
-        {
+    public void resetUserData() {
+        if (mContainer != null) {
             initUserData(mContainer);
         }
     }
@@ -556,7 +555,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         @Override
         public void success(User user) {
-            if (user.userId.equals(mUserData.userId)){
+            if (user.userId.equals(mUserData.userId)) {
                 mUserData = user;
                 Log.d("ZYW请求侧边栏", mUserData.toString());
                 initUserData(mContainer);

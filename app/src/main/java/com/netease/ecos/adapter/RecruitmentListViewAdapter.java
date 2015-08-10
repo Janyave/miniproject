@@ -66,15 +66,14 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
          */
         public void setData(int position) {
             //set the data for each widget
-            if (recruitmentArrayList.get(position).avatarUrl != null && !recruitmentArrayList.get(position).avatarUrl.equals("")){
-                iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
-                iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+            iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+            if (recruitmentArrayList.get(position).avatarUrl != null && !recruitmentArrayList.get(position).avatarUrl.equals("")) {
                 RequestQueue queue = MyApplication.getRequestQueue();
                 ImageLoader.ImageCache imageCache = new SDImageCache();
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);
                 iv_avatar.setImageUrl(recruitmentArrayList.get(position).avatarUrl, imageLoader);
-            }
-            else
+            } else
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
             if (recruitmentArrayList.get(position).coverUrl != null && !recruitmentArrayList.get(position).coverUrl.equals(""))
                 Picasso.with(mcontext).load(recruitmentArrayList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);

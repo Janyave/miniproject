@@ -40,7 +40,7 @@ public class GetAssignmentDetailRequest extends BaseRequest {
     IAssignmentDetailRespnce mAssignmentDetailRespnce;
 
 	/*userId：作者id
-	assignment_id:作业id
+    assignment_id:作业id
 	course_id:教程id
 	img：图片URL
 	description :描述
@@ -224,7 +224,6 @@ public class GetAssignmentDetailRequest extends BaseRequest {
             assignment.hasPraised = asJO.getBoolean("hasPraised");
 //			assignment.issueTimeStamp = Long.valueOf(asJO.getString(KEY_AS_ISSUE_TIMES)).longValue();
 
-
             //设置评论数据
             List<Comment> commentList = new ArrayList<Comment>();
 
@@ -262,7 +261,6 @@ public class GetAssignmentDetailRequest extends BaseRequest {
 
 
         } catch (JSONException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
 
             if (mBaseResponse != null) {
@@ -271,53 +269,6 @@ public class GetAssignmentDetailRequest extends BaseRequest {
         }
     }
 
-    /**
-     * 获取作业详情测试数据
-     *
-     * @return
-     */
-    public Assignment getTestAssignmentDetail() {
-        Assignment assignment = new Assignment();
-
-        assignment.assignmentId = "1";
-        assignment.author = "张恩立";
-        assignment.authorAvatarUrl = "http://p1.gexing.com/G1/M00/9E/A6/rBACE1J-AI7xPAUWAAAa1SSMm94668_200x200_3.jpg?recache=20131108";
-        assignment.content = "这张图片是关于....？";
-        assignment.praiseNum = 100;
-        assignment.commentNum = 100;
-
-        return assignment;
-    }
-
-
-    /**
-     * 获取评论列表测试数据(至多4条)
-     *
-     * @return
-     */
-    public List<Comment> getTestCommentList() {
-        List<Comment> commentList = new ArrayList<Comment>();
-
-        int commentNum = 4;
-        Comment comment;
-        String commentContents[] = {"蓝天好老!", "赞同1楼", "I'm sky!", "你们欺负我室友？"};
-        String fromNickNames[] = {"胡泽", "enli", "蓝天", "houzhe"};
-        for (int i = 0; i < commentNum; i++) {
-            comment = new Comment();
-            comment.avatarUrl = "http://img4.imgtn.bdimg.com/it/u=4220977954,2571826636&fm=21&gp=0.jpg";
-            comment.content = commentContents[i];
-            comment.commentType = CommentType.作业;
-            comment.commentTypeId = "" + i;
-            comment.commentId = "" + i;
-            comment.fromId = "" + i;
-            comment.fromNickName = fromNickNames[i];
-            comment.targetId = "" + (i << 2);
-
-            commentList.add(comment);
-        }
-
-        return commentList;
-    }
 
     /**
      * @author enlizhang

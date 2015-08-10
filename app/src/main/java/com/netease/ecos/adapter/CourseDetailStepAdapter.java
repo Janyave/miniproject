@@ -51,6 +51,8 @@ public class CourseDetailStepAdapter extends BaseAdapter {
             Course.Step item = stepList.get(position);
             if (item.imageUrl != null && !item.imageUrl.equals(""))
                 Picasso.with(mcontext).load(item.imageUrl).placeholder(R.drawable.img_default).into(iv_stepImage);
+            else
+                iv_stepImage.setImageResource(R.drawable.img_default);
             tv_stepText.setText(item.description);
             tv_stepNum.setText(position + 1 + "");
         }
