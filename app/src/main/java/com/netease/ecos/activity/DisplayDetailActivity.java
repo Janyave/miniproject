@@ -23,6 +23,8 @@ import com.netease.ecos.adapter.ExhibitListViewAdapter;
 import com.netease.ecos.adapter.WorkDetailListViewAdapter;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
+import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.PraiseRequest;
 import com.netease.ecos.request.share.GetShareDetailRequest;
@@ -86,12 +88,15 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
     private FollowUserRequest followUserRequest;
     private FollowResponce followResponce;
     private GetShareDetailRequest getShareDetailRequest;
-    private GetShareDetealResponse getShareDetealResponse;
+    private GetShareDetailResponse getShareDetealResponse;
 
     private String shareId = "";
     private Share share;
     private PraiseRequest praiseRequest;
     private PraiseResponse praiseResponse;
+
+    private UserDataService mUserDataService;
+    private User mUserData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,9 +140,13 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         imageLoader = new ImageLoader(queue, imageCache);
         //request the data
         getShareDetailRequest = new GetShareDetailRequest();
-        getShareDetealResponse = new GetShareDetealResponse();
+        getShareDetealResponse = new GetShareDetailResponse();
         showProcessBar(getResources().getString(R.string.loading));
         getShareDetailRequest.request(getShareDetealResponse, shareId);
+        //get the local user id
+        mUserDataService = UserDataService.getSingleUserDataService(DisplayDetailActivity.this);
+        mUserData = mUserDataService.getUser();
+
     }
 
     @Override
@@ -147,7 +156,7 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         int width = display.getWidth();
         width -= 80;
         ViewGroup.LayoutParams params = exhibitCoverImgVw.getLayoutParams();
-        params.height=width*2/3;
+        params.height = width * 2 / 3;
         exhibitCoverImgVw.setLayoutParams(params);
     }
 
@@ -234,7 +243,7 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         }
     }
 
-    class GetShareDetealResponse extends BaseResponceImpl implements GetShareDetailRequest.IGetShareResponse {
+    class GetShareDetailResponse extends BaseResponceImpl implements GetShareDetailRequest.IGetShareResponse {
 
         @Override
         public void doAfterFailedResponse(String message) {
@@ -251,13 +260,20 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         public void success(Share share) {
             dismissProcessBar();
             DisplayDetailActivity.this.share = share;
-            exhibitCoverImgVw.setImageUrl(share.coverUrl, imageLoader);
-            exhibitPersonImgVw.setImageUrl(share.avatarUrl, imageLoader);
+            if (share.coverUrl != null && !share.coverUrl.equals(""))
+                exhibitCoverImgVw.setImageUrl(share.coverUrl, imageLoader);
+            exhibitCoverImgVw.setErrorImageResId(R.drawable.img_default);
+            exhibitCoverImgVw.setDefaultImageResId(R.drawable.img_default);
+            if (share.avatarUrl != null && !share.avatarUrl.equals(""))
+                exhibitPersonImgVw.setImageUrl(share.avatarUrl, imageLoader);
             exhibitPersonImgVw.setErrorImageResId(R.mipmap.bg_female_default);
             exhibitPersonImgVw.setDefaultImageResId(R.mipmap.bg_female_default);
 
             exhibitPersonNameTxVw.setText(share.nickname);
-            exhibitFocusBtn.setText(share.hasAttention ? DisplayDetailActivity.this.getString(R.string.focus) : DisplayDetailActivity.this.getString(R.string.notFocus));
+            if (!share.userId.equals(mUserData.userId))
+                exhibitFocusBtn.setText(share.hasAttention ? DisplayDetailActivity.this.getString(R.string.focus) : DisplayDetailActivity.this.getString(R.string.notFocus));
+            else
+                exhibitFocusBtn.setVisibility(View.GONE);
             exhibitTitleTxVw.setText(share.title);
             exhibitTitleContentTxVw.setText(share.content);
             exhibitListViewAdapter.updateDataList(share.imageList);

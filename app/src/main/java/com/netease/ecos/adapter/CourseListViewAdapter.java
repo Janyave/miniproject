@@ -67,15 +67,15 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(networkImageView);
             else
                 networkImageView.setImageResource(R.drawable.img_default);
-            if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals("")){
+            if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals("")) {
                 imageAuthorPic.setDefaultImageResId(R.mipmap.bg_female_default);
                 imageAuthorPic.setErrorImageResId(R.mipmap.bg_female_default);
                 RequestQueue queue = MyApplication.getRequestQueue();
                 ImageLoader.ImageCache imageCache = new SDImageCache();
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-                imageAuthorPic.setImageUrl(item.authorAvatarUrl, imageLoader);
-            }
-            else
+                if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals(""))
+                    imageAuthorPic.setImageUrl(item.authorAvatarUrl, imageLoader);
+            } else
                 imageAuthorPic.setImageResource(R.drawable.img_default);
             textViewTitle.setText(item.title);
             textViewAmz.setText(item.praiseNum + "");
@@ -151,10 +151,9 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
     }
 
     @Override
-    public void finalize()
-    {
+    public void finalize() {
 
         mInstances--;
-        Log.i("CourseListAdapter", "当前正在销毁CourseListViewAdapter对像，销毁后有" + mInstances +"个对象");
+        Log.i("CourseListAdapter", "当前正在销毁CourseListViewAdapter对像，销毁后有" + mInstances + "个对象");
     }
 }

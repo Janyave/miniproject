@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -84,14 +83,17 @@ public class CourseDetailOtherWorksHListViewAdapter extends BaseAdapter {
             Course.Assignment item = assignmentList.get(position);
             if (item.imageUrl != null && !item.imageUrl.equals(""))
                 Picasso.with(mContext).load(item.imageUrl).placeholder(R.drawable.img_default).into(iv_image);
-            if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals("")){
+            else
+                iv_image.setImageResource(R.drawable.img_default);
+            if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals("")) {
                 iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
                 iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
                 RequestQueue queue = MyApplication.getRequestQueue();
                 ImageLoader.ImageCache imageCache = new SDImageCache();
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-                iv_avatar.setImageUrl(item.authorAvatarUrl, imageLoader);
-            }else{
+                if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals(""))
+                    iv_avatar.setImageUrl(item.authorAvatarUrl, imageLoader);
+            } else {
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
             }
             tv_name.setText(item.author);

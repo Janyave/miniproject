@@ -301,8 +301,14 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
             dismissProcessBar();
             AssignmentDetailActivity.this.assignment = assignment;
             //set the work image.
-            networkImageView.setImageUrl(assignment.imageUrl, imageLoader);
-            personPicImgView.setImageUrl(assignment.authorAvatarUrl, imageLoader);
+            if (assignment.imageUrl != null && !assignment.imageUrl.equals(""))
+                networkImageView.setImageUrl(assignment.imageUrl, imageLoader);
+            networkImageView.setDefaultImageResId(R.drawable.img_default);
+            networkImageView.setErrorImageResId(R.drawable.img_default);
+            if (assignment.authorAvatarUrl != null && !assignment.authorAvatarUrl.equals(""))
+                personPicImgView.setImageUrl(assignment.authorAvatarUrl, imageLoader);
+            personPicImgView.setDefaultImageResId(R.drawable.img_default);
+            personPicImgView.setErrorImageResId(R.drawable.img_default);
             personNameTxV.setText(assignment.author);
             workDetailDate.setText(assignment.getDateDescription());
             workDetailDescpTxVw.setText(assignment.content);

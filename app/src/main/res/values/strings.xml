@@ -89,6 +89,7 @@
     <string name="alreadyFirstAssignment">已经到第一个作品！</string>
     <string name="loadingNextAssignment">即将为你加载下一个作品</string>
     <string name="loadingLastAssignment">即将为你加载上一个作品</string>
+    <string name="noWeixin">小编还未实现该接口，一定好好鞭策程序猿!尽请期待:)</string>
 
     <!-- 个人上传作品页面（多个作品）-->
     <string name="uploadWorks_coverHint">给作品起个名字让别人更容易找到你</string>

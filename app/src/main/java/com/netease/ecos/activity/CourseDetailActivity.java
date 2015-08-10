@@ -294,18 +294,23 @@ public class CourseDetailActivity extends BaseActivity implements View.OnClickLi
         tv_name.setText(course.author);
         tv_praiseNum.setText(course.praiseNum + getResources().getString(R.string.manyFavor));
         setPraiseLayout();
-        if (course.authorAvatarUrl != null && !course.authorAvatarUrl.equals("")){
+        if (course.authorAvatarUrl != null && !course.authorAvatarUrl.equals("")) {
             iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
             iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
             RequestQueue queue = MyApplication.getRequestQueue();
             ImageLoader.ImageCache imageCache = new SDImageCache();
             ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-            iv_avatar.setImageUrl(course.authorAvatarUrl, imageLoader);
-        }else{
+            if (course.authorAvatarUrl != null && !course.authorAvatarUrl.equals(""))
+                iv_avatar.setImageUrl(course.authorAvatarUrl, imageLoader);
+            iv_avatar.setDefaultImageResId(R.drawable.img_default);
+            iv_avatar.setErrorImageResId(R.drawable.img_default);
+        } else {
             iv_avatar.setImageResource(R.mipmap.bg_female_default);
         }
         if (course.coverUrl != null && !course.coverUrl.equals(""))
             Picasso.with(CourseDetailActivity.this).load(course.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
+        else
+            iv_cover.setImageResource(R.drawable.img_default);
         tv_otherWorks.setText(course.assignmentList.size() + getResources().getString(R.string.manyAssignment));
         courseDetailStepAdapter = new CourseDetailStepAdapter(this, course.stepList);
         lv_courseStep.setAdapter(courseDetailStepAdapter);

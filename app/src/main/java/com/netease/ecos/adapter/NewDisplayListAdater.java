@@ -34,26 +34,28 @@ public class NewDisplayListAdater extends BaseAdapter {
         resetCheckState();
     }
 
-    /***
+    /**
      * 分享列表
      */
     public List<Share> mShareList;
 
 
-    /*** 标志某个分享是否被选中，与{@link #mShareList}一一对应*/
+    /**
+     * 标志某个分享是否被选中，与{@link #mShareList}一一对应
+     */
     public boolean isChecked[];
 
     public NewDisplayListAdater(Context context, List<Share> shareList) {
         this.mcontext = context;
         this.layoutInflater = LayoutInflater.from(mcontext);
-        mShareList =  shareList;
+        mShareList = shareList;
 
         resetCheckState();
     }
 
     @Override
     public int getCount() {
-        return (mShareList==null)?1: mShareList.size()+1;
+        return (mShareList == null) ? 1 : mShareList.size() + 1;
     }
 
     @Override
@@ -66,24 +68,21 @@ public class NewDisplayListAdater extends BaseAdapter {
         return position;
     }
 
-    View vTop=null;
+    View vTop = null;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         DisplayItemViewHolder viewHolder = null;
-        if(position==0){
-            if(vTop==null)
-            {
+        if (position == 0) {
+            if (vTop == null) {
                 convertView = layoutInflater.inflate(R.layout.item_new_recruitment_top, null);
                 vTop = convertView;
-            }
-            else{
+            } else {
                 convertView = vTop;
             }
-        }
-        else{
+        } else {
             viewHolder = new DisplayItemViewHolder();
-            if (convertView == null || convertView.getTag()==null) {
+            if (convertView == null || convertView.getTag() == null) {
 
                 convertView = layoutInflater.inflate(R.layout.item_new_display_list, null);
                 viewHolder.iv_cover = (NetworkImageView) convertView.findViewById(R.id.displayCoverImVw);
@@ -97,7 +96,7 @@ public class NewDisplayListAdater extends BaseAdapter {
             }
 
             viewHolder.iv_choose.setTag(position - 1);
-            setData(viewHolder, position-1);
+            setData(viewHolder, position - 1);
         }
 
         return convertView;
@@ -106,20 +105,19 @@ public class NewDisplayListAdater extends BaseAdapter {
     void setData(DisplayItemViewHolder viewHolder, int position) {
 
         Share share = mShareList.get(position);
-        Log.e("tag",share.toString());
+        Log.e("tag", share.toString());
 
-        if(share.coverUrl!=null)
-        {
+        if (share.coverUrl != null && !share.coverUrl.equals("")) {
             ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
             viewHolder.iv_cover.setImageUrl(share.coverUrl, imageLoader);
         }
 
         viewHolder.tv_title.setText(share.title);
-        Log.e("tag",String.valueOf(share.praiseNum));
+        Log.e("tag", String.valueOf(share.praiseNum));
         viewHolder.tv_praise_num.setText(String.valueOf(share.praiseNum));
 
         //设置是否选中
-        if(isChecked[position])
+        if (isChecked[position])
             viewHolder.iv_choose.setImageResource(R.mipmap.ic_choose_true);
         else
             viewHolder.iv_choose.setImageResource(R.mipmap.ic_choose_false);
@@ -127,7 +125,7 @@ public class NewDisplayListAdater extends BaseAdapter {
         viewHolder.iv_choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("选择图片","选择图片");
+                Log.e("选择图片", "选择图片");
                 //重置选择状态
                 resetCheckState();
 
@@ -140,14 +138,17 @@ public class NewDisplayListAdater extends BaseAdapter {
     }
 
 
-
     TopViewHolder mTopViewHolder = new TopViewHolder();
 
     class TopViewHolder {
-        /** 价格 */
+        /**
+         * 价格
+         */
         EditText priceEdTx;
 
-        /** 描述 */
+        /**
+         * 描述
+         */
         EditText descrpEdTx;
     }
 
@@ -159,37 +160,36 @@ public class NewDisplayListAdater extends BaseAdapter {
         ImageView iv_choose;
     }
 
-    /***
+    /**
      * 重置选择状态，包括初始化选中数组和重置选中状态为false
      */
-    public void resetCheckState(){
+    public void resetCheckState() {
         isChecked = new boolean[getCount()];
 
-        for (int i=0;i<getCount();i++){
+        for (int i = 0; i < getCount(); i++) {
             isChecked[i] = false;
         }
     }
 
-    public void reflesh(List<Share> shareList){
-        if(mShareList==null)
+    public void reflesh(List<Share> shareList) {
+        if (mShareList == null)
             mShareList = shareList;
         else {
 
             int length = mShareList.size();
 
-            for(Share newShare:shareList){
+            for (Share newShare : shareList) {
 
-                boolean same=false;
-                for(int i=0;i<length;i++)
-                {
+                boolean same = false;
+                for (int i = 0; i < length; i++) {
                     Share existedShare = mShareList.get(i);
 
-                    if(newShare.shareId.equals(existedShare.shareId)) {
-                        same=true;
+                    if (newShare.shareId.equals(existedShare.shareId)) {
+                        same = true;
                     }
                 }
 
-                if(!same)
+                if (!same)
                     mShareList.add(newShare);
             }
         }
@@ -198,27 +198,26 @@ public class NewDisplayListAdater extends BaseAdapter {
     }
 
 
-    /***
+    /**
      * 获取选中的作品封面图
+     *
      * @return
      */
-    public String getCheckedCoverUrl(){
-        for(int i=0;i<isChecked.length;i++){
-            if(isChecked[i])
+    public String getCheckedCoverUrl() {
+        for (int i = 0; i < isChecked.length; i++) {
+            if (isChecked[i])
                 return mShareList.get(i).coverUrl;
         }
         return null;
     }
 
     /**
-     *
      * @return
      */
-    public boolean isThereCoverUrl(){
-        for(int i=0;i<isChecked.length;i++){
-            if(isChecked[i])
-            {
-                Log.e("选择的封面","第"+(i+1)+"张");
+    public boolean isThereCoverUrl() {
+        for (int i = 0; i < isChecked.length; i++) {
+            if (isChecked[i]) {
+                Log.e("选择的封面", "第" + (i + 1) + "张");
                 return true;
             }
         }
@@ -226,23 +225,23 @@ public class NewDisplayListAdater extends BaseAdapter {
     }
 
 
-    public boolean isTopViewEmpty(){
+    public boolean isTopViewEmpty() {
 
-       EditText price = (EditText) vTop.findViewById(R.id.priceEdTx);
-       EditText descrpEdTx = (EditText) vTop.findViewById(R.id.descrpEdTx);
+        EditText price = (EditText) vTop.findViewById(R.id.priceEdTx);
+        EditText descrpEdTx = (EditText) vTop.findViewById(R.id.descrpEdTx);
 
-        if("".equals(price.getText().toString()) || "".equals(descrpEdTx.getText().toString())){
+        if ("".equals(price.getText().toString()) || "".equals(descrpEdTx.getText().toString())) {
             return true;
         }
         return false;
     }
 
-    public String getPrice(){
+    public String getPrice() {
         EditText price = (EditText) vTop.findViewById(R.id.priceEdTx);
         return price.getText().toString();
     }
 
-    public String getDes(){
+    public String getDes() {
         EditText descrpEdTx = (EditText) vTop.findViewById(R.id.descrpEdTx);
         return descrpEdTx.getText().toString();
     }

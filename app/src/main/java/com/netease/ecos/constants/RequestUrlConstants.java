@@ -8,12 +8,15 @@ public class RequestUrlConstants {
     private static final String HOST_COURSE = "http://223.252.223.141:80";
 //    private static final String HOST_COURSE = "http://10.240.34.181:8080/ecos-mainsite-web";
 
+
+
+
     private static final String HOST_USER = HOST;
 
     public static final String TEST_TOKEN = "e5daf20fc3b64b9cb85ccb38a08d8f19";
 
-//    public static final String HOUZHE_HOST = "http://10.240.34.189:8080/ecos-mainsite-web";
-    public static final String HOUZHE_HOST = "http://223.252.223.141:80";
+    public static final String HOUZHE_HOST = "http://10.240.34.189:8080/ecos-mainsite-web";
+//    public static final String HOUZHE_HOST = "http://223.252.223.141:80";
 
 
     /**------------------------------    通用模块    -------------------------------------------*/

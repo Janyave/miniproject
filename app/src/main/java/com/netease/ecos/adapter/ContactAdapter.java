@@ -25,17 +25,17 @@ import java.util.List;
 /**
  * Created by hzjixinyu on 2015/7/29.
  */
-public class ContactAdapter extends BaseAdapter{
+public class ContactAdapter extends BaseAdapter {
     private Context mcontext;
-    private List<IMMessage> messageList=new ArrayList<>();
+    private List<IMMessage> messageList = new ArrayList<>();
     private String targetIMID;
     private String targetAvatarUrl;
 
-    public ContactAdapter(Context context, List<IMMessage> messageList, String targetIMID,String targetAvatarUrl) {
+    public ContactAdapter(Context context, List<IMMessage> messageList, String targetIMID, String targetAvatarUrl) {
         this.mcontext = context;
-        this.messageList=messageList;
-        this.targetIMID=targetIMID;
-        this.targetAvatarUrl=targetAvatarUrl;
+        this.messageList = messageList;
+        this.targetIMID = targetIMID;
+        this.targetAvatarUrl = targetAvatarUrl;
     }
 
 
@@ -54,8 +54,8 @@ public class ContactAdapter extends BaseAdapter{
             tv_text = (TextView) root.findViewById(R.id.tv_text);
             iv_avatar2 = (RoundImageView) root.findViewById(R.id.iv_avatar2);
             tv_text2 = (TextView) root.findViewById(R.id.tv_text2);
-            ll_me=(LinearLayout)root.findViewById(R.id.ll_me);
-            ll_other=(LinearLayout)root.findViewById(R.id.ll_other);
+            ll_me = (LinearLayout) root.findViewById(R.id.ll_me);
+            ll_other = (LinearLayout) root.findViewById(R.id.ll_other);
 
             iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
             iv_avatar.setErrorImageResId(R.mipmap.bg_nogender_default);
@@ -64,21 +64,23 @@ public class ContactAdapter extends BaseAdapter{
             RequestQueue queue = MyApplication.getRequestQueue();
             ImageLoader.ImageCache imageCache = new SDImageCache();
             ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-            iv_avatar.setImageUrl(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl, imageLoader);
-            iv_avatar2.setImageUrl(targetAvatarUrl, imageLoader);
+            if (UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl != null && !UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl.equals(""))
+                iv_avatar.setImageUrl(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl, imageLoader);
+            if (targetAvatarUrl != null && !targetAvatarUrl.equals(""))
+                iv_avatar2.setImageUrl(targetAvatarUrl, imageLoader);
         }
 
         /**
          * ��������δ��
          */
-        public void setData(int position, Boolean isMe){
-            IMMessage item=messageList.get(position);
+        public void setData(int position, Boolean isMe) {
+            IMMessage item = messageList.get(position);
             tv_text.setText(ContactActivity.getMessageContentByJSONString(item.getContent()));
             tv_text2.setText(ContactActivity.getMessageContentByJSONString(item.getContent()));
-            if (isMe){
+            if (isMe) {
                 ll_other.setVisibility(View.GONE);
                 ll_me.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 ll_me.setVisibility(View.GONE);
                 ll_other.setVisibility(View.VISIBLE);
             }
@@ -87,9 +89,10 @@ public class ContactAdapter extends BaseAdapter{
 
     /**
      * ����Ԫ��
+     *
      * @param
      */
-    public void add(IMMessage message){
+    public void add(IMMessage message) {
         messageList.add(message);
     }
 
@@ -111,21 +114,21 @@ public class ContactAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder=null;
+        ViewHolder viewHolder = null;
 
         //判断
-        Boolean isMe= !TextUtils.equals(messageList.get(position).getFromAccount(),targetIMID);
+        Boolean isMe = !TextUtils.equals(messageList.get(position).getFromAccount(), targetIMID);
         Log.v("contact", messageList.get(position).getFromAccount());
         Log.v("contact", targetIMID);
-        if(convertView==null){
-            convertView=parent.inflate(mcontext, R.layout.item_contact_me, null);
-            viewHolder=new ViewHolder(convertView);
+        if (convertView == null) {
+            convertView = parent.inflate(mcontext, R.layout.item_contact_me, null);
+            viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder=(ViewHolder)convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.setData(position,isMe);
+        viewHolder.setData(position, isMe);
 
         return convertView;
     }

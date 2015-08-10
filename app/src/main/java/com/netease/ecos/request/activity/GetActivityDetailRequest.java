@@ -74,7 +74,7 @@ public class GetActivityDetailRequest extends BaseRequest {
             activity.activityId = activityJO.getString("activityId");
             activity.title = activityJO.getString("title");
             activity.activityType = ActivityType.getActivityTypeByValue(activityJO.getString("activityType"));
-            activity.coverUrl = activityJO.getString("logoUrl");
+            activity.coverUrl = getString(activityJO, "logoUrl");
             activity.userId = activityJO.getString("userId");
 
             activity.activityTime.startDateStamp = Long.valueOf(activityJO.getString("startDateStamp")).longValue();
@@ -87,7 +87,7 @@ public class GetActivityDetailRequest extends BaseRequest {
             activity.introduction = activityJO.getString("description");
             activity.fee = activityJO.getString("fee");
             //发布者头像url
-            activity.avatarUrl = activityJO.getString("avatarUrl");
+            activity.avatarUrl = getString(activityJO, "avatarUrl");
             //发布者姓名
             activity.nickname = activityJO.getString("nickName");
 
@@ -121,7 +121,7 @@ public class GetActivityDetailRequest extends BaseRequest {
                 JSONObject signUpUserJO = signUpUserJA.getJSONObject(i);
                 User user = new User();
                 user.userId = signUpUserJO.getString("userId");
-                user.avatarUrl = signUpUserJO.getString("avatarUrl");
+                user.avatarUrl = getString(signUpUserJO, "avatarUrl");
                 user.nickname = signUpUserJO.getString("nickName");
                 activity.signUpUseList.add(user);
             }

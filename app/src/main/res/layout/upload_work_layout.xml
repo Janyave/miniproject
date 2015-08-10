@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/bg_gray">
+    android:background="@color/bg_gray"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/include_title"
@@ -12,8 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/bg_white"
+        android:orientation="horizontal"
         android:paddingBottom="@dimen/margin_50px"
         android:paddingLeft="@dimen/margin_40px"
         android:paddingTop="@dimen/margin_40px">
@@ -27,78 +27,85 @@
 
         <EditText
             android:id="@+id/uploadWorkEdTx"
+            style="@style/text_dark_mid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_40px"
             android:layout_marginRight="@dimen/margin_40px"
-            style="@style/text_dark_mid"
-            android:textColorHint="@color/text_gray"
             android:background="@android:color/transparent"
+            android:gravity="top"
             android:hint="@string/work_hint"
             android:inputType="textMultiLine"
             android:minLines="8"
-            android:gravity="top"/>
+            android:textColorHint="@color/text_gray" />
     </LinearLayout>
 
-    <TextView style="@style/layout_line_gray"/>
+    <TextView style="@style/layout_line_gray" />
 
     <LinearLayout
+        android:id="@+id/shareLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/bg_white">
+        android:background="@color/bg_white"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="@dimen/margin_20px"
             android:layout_marginBottom="@dimen/margin_10px"
-            android:text="微信"
+            android:layout_marginTop="@dimen/margin_20px"
+            android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical"
-            android:gravity="center">
+            android:text="微信">
+
             <CheckBox
                 android:id="@+id/cb_weixin"
-                android:button="@null"
                 android:layout_width="@dimen/icon_big_64px"
                 android:layout_height="@dimen/icon_big_64px"
                 android:background="@drawable/checkbox_weixin"
-                android:checked="true"/>
+                android:button="@null"
+                android:checked="true" />
+
             <TextView
+                style="@style/text_gray_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="分享到微信"
                 android:layout_marginTop="@dimen/margin_10px"
-                style="@style/text_gray_min"/>
+                android:text="分享到微信" />
         </LinearLayout>
-        <TextView style="@style/layout_line_gray_v"/>
+
+        <TextView style="@style/layout_line_gray_v" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="微信"
-            android:layout_marginTop="@dimen/margin_20px"
             android:layout_marginBottom="@dimen/margin_20px"
+            android:layout_marginTop="@dimen/margin_20px"
+            android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical"
-            android:gravity="center">
+            android:text="微信">
+
             <CheckBox
                 android:id="@+id/cb_friend"
-                android:button="@null"
                 android:layout_width="@dimen/icon_big_64px"
                 android:layout_height="@dimen/icon_big_64px"
                 android:background="@drawable/checkbox_friend"
-                android:checked="true"/>
+                android:button="@null"
+                android:checked="true" />
+
             <TextView
+                style="@style/text_gray_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="分享到朋友圈"
                 android:layout_marginTop="@dimen/margin_10px"
-                style="@style/text_gray_min"/>
+                android:text="分享到朋友圈" />
         </LinearLayout>
 
     </LinearLayout>
-    <TextView style="@style/layout_line_gray"/>
+
+    <TextView style="@style/layout_line_gray" />
 
 
 </LinearLayout>
