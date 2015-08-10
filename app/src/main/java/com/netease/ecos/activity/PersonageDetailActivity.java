@@ -212,7 +212,11 @@ public class PersonageDetailActivity extends BaseActivity {
         user_attention.setText("" + mUserData.followOtherNum);
         user_fans.setText("" + mUserData.fansNum);
         user_description.setText(mUserData.characterSignature);
-
+        if(!isOwn){
+            ll_edit.setVisibility(View.GONE);
+        }else {
+            ll_edit.setVisibility(View.VISIBLE);
+        }
         if((!isOwn) && mAttentionFlag){
             btn_attention.setText(this.getString(R.string.focus));
             btn_attention.setBackgroundResource(R.drawable.btn_focus_gray);
