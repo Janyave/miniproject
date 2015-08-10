@@ -1,8 +1,10 @@
 package com.netease.ecos.activity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -34,6 +36,7 @@ import com.netease.ecos.request.share.ShareListRequest;
 import com.netease.ecos.views.PopupHelper;
 import com.netease.ecos.views.XListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -53,6 +56,8 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
     public static final int TYPE_SHARE = 3;
 
     private int TYPE = TYPE_COURSE; //default course
+
+    private static java.util.List<String> HistoryList=new ArrayList<>();  //搜索历史记录
 
     @InjectView(R.id.iv_left)
     ImageView iv_left;
@@ -103,6 +108,21 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         initData();
         initView();
         initListener();
+        getHistory();
+        setHistoryList();
+    }
+
+    private void setHistoryList() {
+        searchHistoryAdapter=new SearchHistoryAdapter(this, HistoryList);
+        lv_searchHistory.setAdapter(searchHistoryAdapter);
+    }
+
+    private void setHistory(String s){
+        if (!TextUtils.isEmpty(s)){
+            searchHistoryAdapter.getList().add(s);
+        }
+        SharedPreferences setting = getSharedPreferences("Search", 0);
+        setting.edit().putString("History", getString(searchHistoryAdapter.getList())).commit();
     }
 
     private void initData() {
@@ -116,8 +136,6 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
             shareListRequest = new ShareListRequest();
             getShareListResponse = new GetShareListResponse();
         }
-        searchHistoryAdapter = new SearchHistoryAdapter(this);
-        lv_searchHistory.setAdapter(searchHistoryAdapter);
     }
 
     private void initView() {
@@ -137,7 +155,10 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         tv_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pageIndex = 0;
+                if (TYPE == TYPE_COURSE)
+                    pageIndex = 0;
+                else
+                    pageIndex = 1;
                 searchWord = et_search.getText().toString();
                 if (searchWord.equals("")) {
                     Toast.makeText(SearchActivity.this, getResources().getString(R.string.noContent), Toast.LENGTH_SHORT).show();
@@ -151,6 +172,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
                     showProcessBar(getResources().getString(R.string.loading));
                     shareListRequest.request(getShareListResponse, DisplayFragment.shareTypes[selectPosition], searchWord, 1);
                 }
+                setHistory(searchWord);
             }
         });
 
@@ -207,7 +229,10 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
                         PopupHelper.showSixTypePopupWindow(courseTypePopupWindow, SearchActivity.this, v, new PopupHelper.IPopupListner() {
                             @Override
                             public void clickListner(int type, View v, PopupWindow popupWindow) {
-                                pageIndex = 0;
+                                if (TYPE == TYPE_COURSE)
+                                    pageIndex = 0;
+                                else
+                                    pageIndex = 1;
                                 tv_searchType.setText(((RadioButton) v).getText().toString());
                                 selectPosition = type;
                             }
@@ -249,8 +274,6 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
     public void onLoadMore() {
         Toast.makeText(this, "上拉加载", Toast.LENGTH_SHORT).show();
         //1秒后关闭加载
-        if (TYPE == TYPE_COURSE) {
-
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -258,7 +281,6 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
                     lv_searchList.stopLoadMore();
                 }
             }, 1000);
-        }
 
         if (TYPE == TYPE_COURSE) {
 
@@ -298,7 +320,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         } else {
 
             if (displayListViewAdapter == null)
-                pageIndex = 0;
+                pageIndex = 1;
             pageIndex++;
             shareListRequest.request(new ShareListRequest.IShareListResponse() {
 
@@ -329,6 +351,46 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
                     }
                 }
             }, DisplayFragment.shareTypes[selectPosition], searchWord, pageIndex);
+        }
+    }
+
+    public void getHistory() {
+        SharedPreferences setting = getSharedPreferences("Search", 0);
+        String history = setting.getString("History", "");
+        HistoryList=getList(history);
+    }
+
+    private String getString(List<String> list){
+        String s="";
+        for (int i=0; i<list.size(); i++){
+            s+=list.get(i);
+            s+=",";
+        }
+
+        if (!TextUtils.isEmpty(s)){
+            s=s.substring(0,s.length()-1);
+        }
+
+
+        return s;
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+    }
+
+    private List<String> getList(String s){
+        List<String> list=new ArrayList<>();
+        if (TextUtils.isEmpty(s)){
+            return list;
+        }else{
+            String[] l=s.split(",");
+            for (int i=0;i<l.length;i++){
+                list.add(l[i]);
+            }
+            return list;
         }
     }
 
@@ -369,7 +431,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
             displayListViewAdapter = new DisplayListViewAdapter(SearchActivity.this, shareList);
             lv_searchList.setVisibility(View.VISIBLE);
             lv_searchList.setAdapter(displayListViewAdapter);
-            pageIndex = 0;
+            pageIndex = 1;
         }
 
         @Override

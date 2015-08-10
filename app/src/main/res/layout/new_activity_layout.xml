@@ -36,21 +36,15 @@
                         android:layout_width="@dimen/width_cover_380px_270px"
                         android:layout_height="@dimen/height_cover_380px_270px"
                         android:layout_marginBottom="@dimen/margin_30px"
-                        android:layout_marginTop="@dimen/margin_30px"
-                        android:background="@drawable/bg_course_item">
+                        android:layout_marginTop="@dimen/margin_30px">
                         <com.netease.ecos.utils.RoundAngleImageView
                             android:id="@+id/activityCoverImgVw"
                             android:layout_width="@dimen/width_cover_380px_270px"
                             android:layout_height="@dimen/height_cover_380px_270px"
-                            android:scaleType="centerCrop"
-                            android:src="@mipmap/img_default"
+                            android:scaleType="centerInside"
+                            android:src="@mipmap/ic_add_activity_default"
                             app:roundWidth="@dimen/margin_20px"
                             app:roundHeight="@dimen/margin_20px"/>
-                        <ImageView
-                            android:layout_width="@dimen/circle_icon_108px"
-                            android:layout_height="@dimen/circle_icon_108px"
-                            android:layout_centerInParent="true"
-                            android:src="@mipmap/ic_camera_gray"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -79,11 +73,13 @@
 
                             <EditText
                                 android:id="@+id/activityNameEdTx"
-                                style="@style/text_gray_mid"
+                                style="@style/text_dark_mid"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@null"
                                 android:gravity="center"
+                                android:singleLine="true"
+                                android:ellipsize="end"
                                 android:hint="@string/activity_name"
                                 android:textColorHint="@color/text_gray" />
                         </LinearLayout>

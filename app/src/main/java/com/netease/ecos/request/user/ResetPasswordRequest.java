@@ -1,20 +1,16 @@
 package com.netease.ecos.request.user;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
 import com.netease.ecos.constants.RequestUrlConstants;
 import com.netease.ecos.request.BaseRequest;
-import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.utils.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /***
  *
@@ -67,29 +63,13 @@ public class ResetPasswordRequest extends BaseRequest{
 	@Override
 	public void responceSuccess(String jstring) {
 		traceNormal(TAG, jstring);
-
-		try {
-			JSONObject json = new JSONObject(jstring).getJSONObject(KEY_DATA);
-
-
-			if(mNorResponce!=null)
-			{
-				mNorResponce.success();
-			}
-			else
-			{
-				traceError(TAG,"回调接口为null");
-			}
-
-
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
-			if(mBaseResponse!=null)
-			{
-				mBaseResponse.doAfterFailedResponse("json异常");
-			}
+		if(mNorResponce!=null)
+		{
+			mNorResponce.success();
+		}
+		else
+		{
+			traceError(TAG,"回调接口为null");
 		}
 
 	}
