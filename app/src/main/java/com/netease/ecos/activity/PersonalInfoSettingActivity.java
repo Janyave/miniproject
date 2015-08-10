@@ -350,7 +350,10 @@ public class PersonalInfoSettingActivity extends BaseActivity {
             Log.d("ZYW00000000", "phone num is null");
         }
 
-        mSetIntro.setText(setUser.characterSignature);
+        if (setUser.characterSignature.equals(PersonSetInformationNormalActivity.NineSpace))
+            mSetIntro.setText("这家伙很懒什么都没留下");
+        else
+            mSetIntro.setText(setUser.characterSignature);
     }
 
     void setTagVisiable(Set<User.RoleType> roleTypeSet) {
