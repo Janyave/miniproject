@@ -3,6 +3,7 @@ package com.netease.ecos.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,6 +20,7 @@ import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.RecruitmentDetailActivity;
 import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
@@ -91,6 +93,12 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             ll_author.setOnClickListener(RecruitmentListViewAdapter.this);
             iv_cover.setOnClickListener(RecruitmentListViewAdapter.this);
             tv_talk.setOnClickListener(RecruitmentListViewAdapter.this);
+
+            if (TextUtils.equals(recruitmentArrayList.get(position).userId, UserDataService.getSingleUserDataService(mcontext).getUser().userId)){
+                tv_talk.setVisibility(View.GONE);
+            }else{
+                tv_talk.setVisibility(View.VISIBLE);
+            }
         }
     }
 

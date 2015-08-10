@@ -42,7 +42,8 @@ public class SearchHistoryAdapter extends BaseAdapter {
             iv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mcontext, "delete " + position, Toast.LENGTH_SHORT).show();
+                    list.remove(position);
+                    notifyDataSetChanged();
                 }
             });
         }

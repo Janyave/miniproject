@@ -20,6 +20,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.adapter.CourseStepAdapter;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.Course;
+import com.netease.ecos.model.InputLength;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.CreateCourseRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
@@ -402,6 +403,11 @@ public class BuildCourseActivity extends BaseActivity {
 
                     if ("".equals(etv_course_title.getText().toString())) {
                         Toast.makeText(BuildCourseActivity.this, "请填写教程名称", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    if (etv_course_title.getText().length()>InputLength.CourseTitle_max){
+                        Toast.makeText(BuildCourseActivity.this, "", Toast.LENGTH_SHORT).show();
                         return;
                     }
 

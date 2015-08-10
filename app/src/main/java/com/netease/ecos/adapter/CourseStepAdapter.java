@@ -24,6 +24,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.model.Course;
+import com.netease.ecos.model.InputLength;
 import com.netease.ecos.utils.SDImageCache;
 
 import java.io.File;
@@ -141,7 +142,6 @@ public class CourseStepAdapter extends BaseAdapter {
     private void setData(ViewHolder holder, int position, Course.Step stepData) {
         holder.tv_index.setText(String.valueOf(stepData.stepIndex));
         holder.niv_course_photo.setImageResource(R.drawable.choose_photo_big);
-        holder.etv_description.setText("");
         //从SD卡中读取，可以优化为从内存读取，后续做
         if (!(stepData.imagePath == null) && !("".equals(stepData.imagePath.trim()))) {
             File file = new File(stepData.imagePath);
@@ -259,7 +259,7 @@ public class CourseStepAdapter extends BaseAdapter {
                 etv_description.removeTextChangedListener(mTexeChangeListener);
             }
 
-            mTexeChangeListener = new TexeChangeListener((int) v.getTag());
+            mTexeChangeListener = new TexeChangeListener(v,(int) v.getTag());
             if (hasFocus)
                 etv_description.addTextChangedListener(mTexeChangeListener);
             else {
@@ -275,8 +275,10 @@ public class CourseStepAdapter extends BaseAdapter {
         class TexeChangeListener implements TextWatcher {
 
             final int positionOfEtv;
+            View view;
 
-            public TexeChangeListener(int position) {
+            public TexeChangeListener(View v,int position) {
+                view=v;
                 positionOfEtv = position;
             }
 
@@ -286,6 +288,9 @@ public class CourseStepAdapter extends BaseAdapter {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()> InputLength.CourseStepDetail_max){
+                    ((EditText)view).setText(s.subSequence(0,InputLength.CourseStepDetail_max-1));
+                }
             }
 
             @Override

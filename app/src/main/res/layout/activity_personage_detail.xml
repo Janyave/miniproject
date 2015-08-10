@@ -33,6 +33,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/margin_80px"
                         android:src="@mipmap/bg_female_default"
+                        android:scaleType="fitXY"
                         ecos:circle_color="@color/bg_red"
                         ecos:showable="true" />
 

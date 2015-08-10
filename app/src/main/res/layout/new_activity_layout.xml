@@ -41,7 +41,7 @@
                             android:id="@+id/activityCoverImgVw"
                             android:layout_width="@dimen/width_cover_380px_270px"
                             android:layout_height="@dimen/height_cover_380px_270px"
-                            android:scaleType="centerInside"
+                            android:scaleType="fitXY"
                             android:src="@mipmap/ic_add_activity_default"
                             app:roundWidth="@dimen/margin_20px"
                             app:roundHeight="@dimen/margin_20px"/>

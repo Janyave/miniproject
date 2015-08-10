@@ -31,6 +31,7 @@ import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.model.ActivityModel.ActivityType;
 import com.netease.ecos.model.City;
+import com.netease.ecos.model.InputLength;
 import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.model.Province;
 import com.netease.ecos.request.BaseResponceImpl;
@@ -242,14 +243,27 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
             return false;
         if (expenseEdTx.getText().toString().equals(""))
             return false;
-        View view;
-        for (int i = 0; i < contactListAdapter.getCount(); i++) {
-            view = contactListView.getChildAt(i);
-            EditText editText = (EditText) view.findViewById(R.id.contactDetailEdTx);
-            if (editText.getText().toString().equals(""))
-                return false;
+
+        if (activityNameEdTx.getText().length() > InputLength.ActivityTitle_max) {
+            Toast.makeText(NewActivityActivity.this, "标题限制 " + InputLength.ActivityTitle_max + " 字", Toast.LENGTH_SHORT).show();
+            return false;
         }
-        return true;
+        if (addressEdTx.getText().length() > InputLength.ActivityPosition_max) {
+            Toast.makeText(NewActivityActivity.this, "详细地址限制 " + InputLength.ActivityPosition_max + " 字", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (activityDesrpEdTx.getText().length() > InputLength.ActivityDetail_max) {
+            Toast.makeText(NewActivityActivity.this, "活动简介限制 " + InputLength.ActivityDetail_max + " 字", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+            View view;
+            for (int i = 0; i < contactListAdapter.getCount(); i++) {
+                view = contactListView.getChildAt(i);
+                EditText editText = (EditText) view.findViewById(R.id.contactDetailEdTx);
+                if (editText.getText().toString().equals(""))
+                    return false;
+            }
+            return true;
     }
 
     @Override

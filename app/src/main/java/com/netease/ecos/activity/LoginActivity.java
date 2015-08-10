@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.model.AccountDataService;
+import com.netease.ecos.model.InputLength;
 import com.netease.ecos.model.LocationData;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
@@ -116,7 +117,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher,View.OnCl
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (et_password.getText().toString().length()>7&&et_password.getText().toString().length()<17&&!TextUtils.isEmpty(et_phone.getText().toString())){
+        if (et_password.getText().toString().length()>= InputLength.Password_min&&et_password.getText().toString().length()<=InputLength.Password_max&&!TextUtils.isEmpty(et_phone.getText().toString())){
 //        if (!TextUtils.isEmpty(et_phone.getText().toString())){
             tv_login.setEnabled(true);
         }else{

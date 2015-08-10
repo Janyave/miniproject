@@ -104,6 +104,7 @@
                         android:layout_marginLeft="@dimen/margin_20px"
                         android:layout_toRightOf="@id/iv_praiseIcon"
                         android:layout_alignBottom="@id/iv_praiseIcon"
+                        android:layout_alignParentBottom="true"
                         style="@style/text_pink_min"/>
 
                     <LinearLayout
