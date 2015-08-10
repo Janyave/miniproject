@@ -197,9 +197,11 @@ public class PersonageDetailActivity extends BaseActivity {
         }
         if (mUserData.characterSignature == null && mUserData.characterSignature.equals("")) {
             user_description.setVisibility(View.GONE);
+            contactLayout.setVisibility(isOwn ? View.GONE : View.VISIBLE);
             ll_signature_attention.setVisibility(isOwn ? View.GONE : View.VISIBLE);
         } else {
             user_description.setVisibility(View.VISIBLE);
+            contactLayout.setVisibility(View.VISIBLE);
             ll_signature_attention.setVisibility(View.VISIBLE);
         }
 
@@ -212,15 +214,17 @@ public class PersonageDetailActivity extends BaseActivity {
         user_attention.setText("" + mUserData.followOtherNum);
         user_fans.setText("" + mUserData.fansNum);
         user_description.setText(mUserData.characterSignature);
-        contactLayout.setVisibility(isOwn ? View.GONE : View.VISIBLE);
+
         //TODO set attention text
-        if ((!isOwn) && (mShare.get(0) != null) && (!mShare.get(0).equals(""))) {
-            if (mShare.get(0).hasAttention) {
-                btn_attention.setText("已关注");
-                btn_attention.setTextColor(getResources().getColor(R.color.text_gray));
-                btn_attention.setBackgroundResource(R.drawable.btn_focus_gray);
-            }
-        }
+
+//        if((!isOwn) && (mShare.get(0) != null) && (!mShare.get(0).equals(""))){
+//            if(mShare.get(0).hasAttention) {
+//                btn_attention.setText("已关注");
+//                btn_attention.setTextColor(getResources().getColor(R.color.text_gray));
+//                btn_attention.setBackgroundResource(R.drawable.btn_focus_gray);
+//            }
+//        }
+
     }
 
     private void initViews() {
@@ -254,7 +258,6 @@ public class PersonageDetailActivity extends BaseActivity {
         ((RadioButton) findViewById(R.id.radio_3)).setTextColor(getResources().getColor(R.color.text_gray));
         ((RadioButton) findViewById(R.id.radio_4)).setTextColor(getResources().getColor(R.color.text_gray));
     }
-
 
     private class GetuserInfoResponse extends BaseResponceImpl implements GetUserInfoRequest.IGetUserInfoResponse {
 
