@@ -2,6 +2,7 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -88,7 +89,7 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
     private FollowUserRequest followUserRequest;
     private FollowResponce followResponce;
     private GetShareDetailRequest getShareDetailRequest;
-    private GetShareDetealResponse getShareDetealResponse;
+    private GetShareDetailResponse getShareDetealResponse;
 
     private String shareId = "";
     private Share share;
@@ -140,7 +141,7 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         imageLoader = new ImageLoader(queue, imageCache);
         //request the data
         getShareDetailRequest = new GetShareDetailRequest();
-        getShareDetealResponse = new GetShareDetealResponse();
+        getShareDetealResponse = new GetShareDetailResponse();
         showProcessBar(getResources().getString(R.string.loading));
         getShareDetailRequest.request(getShareDetealResponse, shareId);
         //get the local user id
@@ -243,7 +244,7 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         }
     }
 
-    class GetShareDetealResponse extends BaseResponceImpl implements GetShareDetailRequest.IGetShareResponse {
+    class GetShareDetailResponse extends BaseResponceImpl implements GetShareDetailRequest.IGetShareResponse {
 
         @Override
         public void doAfterFailedResponse(String message) {
@@ -266,7 +267,10 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
             exhibitPersonImgVw.setDefaultImageResId(R.mipmap.bg_female_default);
 
             exhibitPersonNameTxVw.setText(share.nickname);
-            exhibitFocusBtn.setText(share.hasAttention ? DisplayDetailActivity.this.getString(R.string.focus) : DisplayDetailActivity.this.getString(R.string.notFocus));
+            if (!share.userId.equals(mUserData.userId))
+                exhibitFocusBtn.setText(share.hasAttention ? DisplayDetailActivity.this.getString(R.string.focus) : DisplayDetailActivity.this.getString(R.string.notFocus));
+            else
+                exhibitFocusBtn.setVisibility(View.GONE);
             exhibitTitleTxVw.setText(share.title);
             exhibitTitleContentTxVw.setText(share.content);
             exhibitListViewAdapter.updateDataList(share.imageList);
