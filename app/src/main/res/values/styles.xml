@@ -10,7 +10,7 @@
     <!-- 主页面tab按钮样式-->
     <style name="rb_chat_list_tab">
         <item name="android:background">@color/bg_red</item>        
-        <item name="android:textSize">@dimen/text_size_36</item>
+        <item name="android:textSize">@dimen/text_size_tab</item>
         <item name="android:textColor">@color/txt_color_tab_selector</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:gravity">center</item>  

@@ -2,6 +2,7 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,16 +15,26 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.EventContactWayAdapter;
+import com.netease.ecos.adapter.EventWantGoAdapter;
 import com.netease.ecos.model.ActivityModel;
+import com.netease.ecos.model.User;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.activity.GetActivityDetailRequest;
 import com.netease.ecos.request.activity.SingupActivityRequest;
+import com.netease.ecos.request.activity.SingupPeopleListRequest;
+import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.HorizontalListView;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -120,6 +131,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         getActivityDetailRequest.request(getActivityDetailResponse, activityID);
         imageCache = new SDImageCache();
         imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
+
+
     }
 
     private void initView() {
@@ -239,6 +252,19 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             iv_author_avator.setErrorImageResId(R.mipmap.bg_female_default);
             tv_author_name.setText(activity.nickname);
             tv_author_time.setText(activity.getDateDescription());
+
+            Collections.reverse(activity.signUpUseList);
+            int num=activity.signUpUseList.size()>5?5:activity.signUpUseList.size();
+            ll_wantgo_icons.removeAllViews();
+            for (int position=0; position<num; position++){
+                View v=View.inflate(ActivityDetailActivity.this, R.layout.item_icon, null);
+                if (!TextUtils.isEmpty(activity.signUpUseList.get(position).avatarUrl)) {
+                    Picasso.with(ActivityDetailActivity.this).load(activity.signUpUseList.get(position).avatarUrl).placeholder(R.mipmap.bg_female_default).error(R.mipmap.bg_female_default).into((RoundAngleImageView) v.findViewById(R.id.icon));
+                }else {
+                    ((RoundAngleImageView) v.findViewById(R.id.icon)).setImageResource(R.mipmap.bg_female_default);
+                }
+                ll_wantgo_icons.addView(v);
+            }
         }
 
         @Override
@@ -273,6 +299,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
                 tv_wangoNum.setText(activityModel.loveNums + "");
             }
             activityModel.hasSignuped = !activityModel.hasSignuped;
+            showProcessBar(getResources().getString(R.string.loading));
+            getActivityDetailRequest.request(getActivityDetailResponse, activityID);
         }
 
         @Override
