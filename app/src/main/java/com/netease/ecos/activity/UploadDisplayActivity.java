@@ -21,6 +21,7 @@ import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.Image;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.share.CreateShareRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
 import com.netease.ecos.utils.UploadImageTools;
@@ -284,7 +285,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
         @Override
         public void onErrorResponse(VolleyError error) {
             dismissProcessBar();
-            Toast.makeText(UploadDisplayActivity.this, "onErrorResponse:" + error.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(UploadDisplayActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(error), Toast.LENGTH_SHORT).show();
         }
 
         @Override

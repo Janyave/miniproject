@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.course.CreateAssignmentRequest;
 import com.netease.ecos.utils.UploadImageTools;
 
@@ -157,6 +158,7 @@ public class UploadAssignmentActivity extends BaseActivity implements View.OnCli
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
+            Toast.makeText(UploadAssignmentActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 }

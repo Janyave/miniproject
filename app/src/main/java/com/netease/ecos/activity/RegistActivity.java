@@ -66,8 +66,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     public String mAvatarLocalPath = "";
 
-    public String mAvatarUrl = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +101,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
 
     private void initData() {
-
         mSetPhotoHelper = new SetPhotoHelper(this, null);
         //图片裁剪后输出宽度
         final int outPutWidth = 200;
@@ -149,8 +146,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     isSettingAvatart = false;
                     Log.e("CLASS_TAG", "onActivityResult() 无对应");
             }
-
-
         } else {
             isSettingAvatart = false;
             Log.e(CLASS_TAG, "操作取消");
@@ -242,9 +237,6 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void afterTextChanged(Editable s) {
     }
-
-
-
 
     class RegistResponse extends BaseResponceImpl implements RegistRequest.IRegistResponse{
 
