@@ -215,13 +215,13 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             contactWayAdapter = new EventContactWayAdapter(ActivityDetailActivity.this, activityModel.contactWayList);
             lv_list.setAdapter(contactWayAdapter);
 
-            if (activity.avatarUrl != null) {
+            if (activity.avatarUrl != null && !activity.avatarUrl.equals(""))
                 iv_author_avator.setImageUrl(activity.avatarUrl, imageLoader);
-                //init the data for NetWorkImageView
-                iv_author_avator.setDefaultImageResId(R.mipmap.bg_female_default);
-                //设置加载出错图片
-                iv_author_avator.setErrorImageResId(R.mipmap.bg_female_default);
-            }
+
+            //init the data for NetWorkImageView
+            iv_author_avator.setDefaultImageResId(R.mipmap.bg_female_default);
+            //设置加载出错图片
+            iv_author_avator.setErrorImageResId(R.mipmap.bg_female_default);
             tv_author_name.setText(activity.nickname);
             tv_author_time.setText(activity.getDateDescription());
         }

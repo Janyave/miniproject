@@ -79,6 +79,7 @@ public class CommentDetailActivity extends BaseActivity implements View.OnTouchL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_comment_detail);
         ButterKnife.inject(this);
+        initTitle();
         initData();
         initView();
     }
@@ -87,7 +88,7 @@ public class CommentDetailActivity extends BaseActivity implements View.OnTouchL
         title_left.setOnClickListener(this);
         title_right.setVisibility(View.INVISIBLE);
         title_right_text.setText("");
-        title_text.setText("评论");
+        title_text.setText("所有评论");
     }
 
     void initData() {

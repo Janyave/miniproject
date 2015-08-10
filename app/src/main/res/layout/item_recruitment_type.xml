@@ -101,14 +101,21 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_cover_664px_1000px"
-            android:layout_margin="@dimen/width_line">
+            android:layout_margin="@dimen/width_line"
+            android:padding="@dimen/width_line">
 
-            <ImageView
+            <com.netease.ecos.utils.RoundAngleImageView
                 android:id="@+id/iv_cover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/img_default" />
+                android:src="@drawable/img_default"
+                ecos:leftDownRoundHeight="@dimen/margin_20px"
+                ecos:leftDownRoundWidth="@dimen/margin_20px"
+                ecos:rightDownRoundHeight="@dimen/margin_20px"
+                ecos:rightDownRoundWidth="@dimen/margin_20px"
+                ecos:isRightDown="true"
+                ecos:isLeftDown="true"/>
 
             <TextView
                 android:id="@+id/tv_price"
