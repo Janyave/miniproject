@@ -34,7 +34,7 @@
                 style="@style/text_white_max"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/makeuper" />
+                android:text="化妆" />
 
             <ImageView
                 android:id="@+id/iv_searchType"

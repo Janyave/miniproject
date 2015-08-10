@@ -53,13 +53,11 @@ public class GetUserInfoRequest extends BaseRequest {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = getRequestBasicMap();
-                if( userId!=null )
-                {
-                    map.put("toUserId",userId);
-                    map.put("type","other");
-                }
-                else{
-                    map.put("type","self");
+                if (userId != null) {
+                    map.put("toUserId", userId);
+                    map.put("type", "other");
+                } else {
+                    map.put("type", "self");
                 }
                 map.put(KEY_TOKEN, getToken());
 
@@ -129,7 +127,9 @@ public class GetUserInfoRequest extends BaseRequest {
                 for (int i = 0; i < rolesJA.length(); i++) {
                     roleTypeSet.add(RoleType.getRoleTypeByValue(rolesJA.getString(i)));
                 }
+                user.roleTypeSet = roleTypeSet;
             }
+
 
             //如果用户信息对应当前用户，则刷新用户信息
             if (getUserId().equals(user.userId)) {
@@ -143,27 +143,23 @@ public class GetUserInfoRequest extends BaseRequest {
             }
 
             //请求个人
-            if(mUserId==null){
+            if (mUserId == null) {
                 if (mGetUserInfoResponse != null) {
-                    mGetUserInfoResponse.success(user,false);
+                    mGetUserInfoResponse.success(user, false);
                 } else {
                     traceError(TAG, "回调接口为null");
                 }
             }
             //请求其他人
-            else{
+            else {
                 if (mGetUserInfoResponse != null) {
 //                    boolean hasBeFollowed = usreJO.getBoolean("hasBeFollowed");
                     boolean hasFollowed = usreJO.getBoolean("hasFollowed");
-                    mGetUserInfoResponse.success(user,hasFollowed);
+                    mGetUserInfoResponse.success(user, hasFollowed);
                 } else {
                     traceError(TAG, "回调接口为null");
                 }
             }
-
-
-
-
 
 
         } catch (JSONException e) {
