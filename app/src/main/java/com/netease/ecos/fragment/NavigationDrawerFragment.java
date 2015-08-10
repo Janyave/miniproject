@@ -169,10 +169,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         mUserDataService = UserDataService.getSingleUserDataService(getActivity());
         mUserData = mUserDataService.getUser();
 
-        getUserInfoRequest = new GetUserInfoRequest();
-        getuserInfoResponse = new GetuserInfoResponse();
-        getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, mUserData.userId);
-
 
 //        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -539,6 +535,9 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
     public void resetUserData() {
         if (mContainer != null) {
+            getUserInfoRequest = new GetUserInfoRequest();
+            getuserInfoResponse = new GetuserInfoResponse();
+            getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, mUserData.userId);
             initUserData(mContainer);
         }
     }

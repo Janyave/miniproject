@@ -66,7 +66,7 @@ public class PersonCourseAdapter extends BaseAdapter implements View.OnClickList
                 iv_cover.setImageResource(R.drawable.img_default);
             tv_title.setText(item.title);
             tv_praiseNum.setText(item.praiseNum + "");
-            tv_time.setText(item.issueTimeStamp.toString());
+            tv_time.setText(item.getDateDescription());
 
             iv_cover.setTag(position);
             tv_title.setTag(position);
