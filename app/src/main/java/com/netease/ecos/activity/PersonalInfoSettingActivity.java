@@ -434,7 +434,8 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         public void success() {
             if (mAvatarUrl != null) {
                 ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
-                personal_info_set_avatar_pic.setImageUrl(mAvatarUrl, imageLoader);
+                if (mAvatarUrl != null && !mAvatarUrl.equals(""))
+                    personal_info_set_avatar_pic.setImageUrl(mAvatarUrl, imageLoader);
             }
 
         }

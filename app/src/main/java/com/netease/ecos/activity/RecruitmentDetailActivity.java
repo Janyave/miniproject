@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,7 +21,6 @@ import com.netease.ecos.request.recruitment.GetRecruitmentDetailRequest;
 import com.netease.ecos.request.share.ShareListRequest;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -181,14 +179,15 @@ public class RecruitmentDetailActivity extends BaseActivity implements View.OnCl
         @Override
         public void success(Recruitment recruit) {
             RecruitmentDetailActivity.this.recruitment = recruit;
-            if (recruit.avatarUrl != null && !recruit.avatarUrl.equals("")){
+            if (recruit.avatarUrl != null && !recruit.avatarUrl.equals("")) {
                 iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
                 iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
                 RequestQueue queue = MyApplication.getRequestQueue();
                 ImageLoader.ImageCache imageCache = new SDImageCache();
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-                iv_avatar.setImageUrl(recruit.avatarUrl, imageLoader);
-            }else{
+                if (recruit.avatarUrl != null && !recruit.avatarUrl.equals(""))
+                    iv_avatar.setImageUrl(recruit.avatarUrl, imageLoader);
+            } else {
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
             }
             tv_name.setText(recruit.nickname);

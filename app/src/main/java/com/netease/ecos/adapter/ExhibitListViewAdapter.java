@@ -66,7 +66,8 @@ public class ExhibitListViewAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         } else
             viewHolder = (ImageViewHolder) convertView.getTag();
-        viewHolder.imageView.setImageUrl(imageList.get(position).originUrl, imageLoader);
+        if (imageList.get(position).originUrl != null && !imageList.get(position).originUrl.equals(""))
+            viewHolder.imageView.setImageUrl(imageList.get(position).originUrl, imageLoader);
         return convertView;
     }
 

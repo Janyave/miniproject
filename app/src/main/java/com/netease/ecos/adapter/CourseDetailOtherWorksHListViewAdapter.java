@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,6 +12,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.model.Course;
+import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 import com.squareup.picasso.Picasso;
@@ -65,14 +65,14 @@ public class CourseDetailOtherWorksHListViewAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        private ImageView iv_image;
+        private RoundAngleImageView iv_image;
         private TextView tv_time;
         private TextView tv_name;
         private RoundImageView iv_avatar;
         private LinearLayout ll_author;
 
         ViewHolder(View v) {
-            iv_image = (ImageView) v.findViewById(R.id.iv_image);
+            iv_image = (RoundAngleImageView) v.findViewById(R.id.iv_image);
             tv_name = (TextView) v.findViewById(R.id.tv_name);
             iv_avatar = (RoundImageView) v.findViewById(R.id.iv_avatar);
             tv_time = (TextView) v.findViewById(R.id.tv_time);
@@ -83,14 +83,17 @@ public class CourseDetailOtherWorksHListViewAdapter extends BaseAdapter {
             Course.Assignment item = assignmentList.get(position);
             if (item.imageUrl != null && !item.imageUrl.equals(""))
                 Picasso.with(mContext).load(item.imageUrl).placeholder(R.drawable.img_default).into(iv_image);
-            if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals("")){
+            else
+                iv_image.setImageResource(R.drawable.img_default);
+            if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals("")) {
                 iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
                 iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
                 RequestQueue queue = MyApplication.getRequestQueue();
                 ImageLoader.ImageCache imageCache = new SDImageCache();
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-                iv_avatar.setImageUrl(item.authorAvatarUrl, imageLoader);
-            }else{
+                if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals(""))
+                    iv_avatar.setImageUrl(item.authorAvatarUrl, imageLoader);
+            } else {
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
             }
             tv_name.setText(item.author);

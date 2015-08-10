@@ -19,6 +19,7 @@ import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.RecruitmentDetailActivity;
 import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.model.User;
+import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 import com.squareup.picasso.Picasso;
@@ -45,7 +46,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
         private TextView tv_distance;
         private TextView tv_price;
         private TextView tv_talk;
-        private ImageView iv_cover;
+        private RoundAngleImageView iv_cover;
         private LinearLayout ll_author;
         private ImageView genderImVw;
 
@@ -55,7 +56,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             tv_distance = (TextView) root.findViewById(R.id.tv_distance);
             tv_price = (TextView) root.findViewById(R.id.tv_price);
             tv_talk = (TextView) root.findViewById(R.id.tv_talk);
-            iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
+            iv_cover = (RoundAngleImageView) root.findViewById(R.id.iv_cover);
             ll_author = (LinearLayout) root.findViewById(R.id.ll_author);
             genderImVw = (ImageView) root.findViewById(R.id.genderImVw);
         }
@@ -65,15 +66,14 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
          */
         public void setData(int position) {
             //set the data for each widget
-            if (recruitmentArrayList.get(position).avatarUrl != null && !recruitmentArrayList.get(position).avatarUrl.equals("")){
-                iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
-                iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+            iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+            if (recruitmentArrayList.get(position).avatarUrl != null && !recruitmentArrayList.get(position).avatarUrl.equals("")) {
                 RequestQueue queue = MyApplication.getRequestQueue();
                 ImageLoader.ImageCache imageCache = new SDImageCache();
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);
                 iv_avatar.setImageUrl(recruitmentArrayList.get(position).avatarUrl, imageLoader);
-            }
-            else
+            } else
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
             if (recruitmentArrayList.get(position).coverUrl != null && !recruitmentArrayList.get(position).coverUrl.equals(""))
                 Picasso.with(mcontext).load(recruitmentArrayList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);

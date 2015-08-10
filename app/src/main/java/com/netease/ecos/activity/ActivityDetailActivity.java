@@ -192,7 +192,8 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             activityModel = activity;
             if (activity.coverUrl != null && !activity.coverUrl.equals(""))
                 Picasso.with(ActivityDetailActivity.this).load(activity.coverUrl).placeholder(R.drawable.img_default).into(iv_event_cover);
-
+            else
+                iv_event_cover.setImageResource(R.drawable.img_default);
             tv_event_title.setText(activity.title);
             tv_event_location.setText(activity.location.province.provinceName);
             tv_event_price.setText(getResources().getString(R.string.RMB) + activity.fee);
@@ -215,13 +216,13 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             contactWayAdapter = new EventContactWayAdapter(ActivityDetailActivity.this, activityModel.contactWayList);
             lv_list.setAdapter(contactWayAdapter);
 
-            if (activity.avatarUrl != null) {
+            if (activity.avatarUrl != null && !activity.avatarUrl.equals(""))
                 iv_author_avator.setImageUrl(activity.avatarUrl, imageLoader);
-                //init the data for NetWorkImageView
-                iv_author_avator.setDefaultImageResId(R.mipmap.bg_female_default);
-                //设置加载出错图片
-                iv_author_avator.setErrorImageResId(R.mipmap.bg_female_default);
-            }
+
+            //init the data for NetWorkImageView
+            iv_author_avator.setDefaultImageResId(R.mipmap.bg_female_default);
+            //设置加载出错图片
+            iv_author_avator.setErrorImageResId(R.mipmap.bg_female_default);
             tv_author_name.setText(activity.nickname);
             tv_author_time.setText(activity.getDateDescription());
         }
