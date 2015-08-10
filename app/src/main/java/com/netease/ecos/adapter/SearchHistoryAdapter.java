@@ -10,14 +10,18 @@ import android.widget.Toast;
 
 import com.netease.ecos.R;
 
+import java.util.List;
+
 /**
  * Created by hzjixinyu on 2015/7/27.
  */
 public class SearchHistoryAdapter extends BaseAdapter {
     private Context mcontext;
+    private List<String> list;
 
-    public SearchHistoryAdapter(Context context) {
+    public SearchHistoryAdapter(Context context, List<String> list) {
         this.mcontext = context;
+        this.list=list;
     }
 
     public class SearchHistoryViewHolder {
@@ -32,6 +36,9 @@ public class SearchHistoryAdapter extends BaseAdapter {
 
 
         public void setData(final int position) {
+            tv_search.setText(list.get(position));
+
+
             iv_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -41,9 +48,13 @@ public class SearchHistoryAdapter extends BaseAdapter {
         }
     }
 
+    public List<String> getList(){
+        return list;
+    }
+
     @Override
     public int getCount() {
-        return 4;
+        return list.size();
     }
 
 
