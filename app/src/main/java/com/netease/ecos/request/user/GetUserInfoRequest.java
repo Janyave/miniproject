@@ -50,9 +50,16 @@ public class GetUserInfoRequest extends BaseRequest {
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_USER_INFO, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> map = new HashMap<String, String>();
+                Map<String, String> map = getRequestBasicMap();
+                if( userId!=null )
+                {
+                    map.put("toUserId",userId);
+                    map.put("type","other");
+                }
+                else{
+                    map.put("type","self");
+                }
                 map.put(KEY_TOKEN, getToken());
-                map.put("userId", userId);
 
                 traceNormal(TAG, map.toString());
                 traceNormal(TAG, GetUserInfoRequest.this.getUrl(RequestUrlConstants.GET_USER_INFO, map));
@@ -72,7 +79,7 @@ public class GetUserInfoRequest extends BaseRequest {
      *
      * @param getUserInfoResponse
      */
-    public void requestPersonalInfo(IGetUserInfoResponse getUserInfoResponse) {
+    /*public void requestPersonalInfo(IGetUserInfoResponse getUserInfoResponse) {
         super.initBaseRequest(getUserInfoResponse);
         mGetUserInfoResponse = getUserInfoResponse;
         //		mGetUserInfoResponse.success(getTestUser());
@@ -92,7 +99,7 @@ public class GetUserInfoRequest extends BaseRequest {
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         getQueue().add(stringRequest);
-    }
+    }*/
 
 
     @Override

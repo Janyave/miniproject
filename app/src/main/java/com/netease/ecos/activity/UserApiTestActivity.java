@@ -370,7 +370,7 @@ public class UserApiTestActivity extends BaseActivity {
      */
     public void getMySelfInfo() {
         GetUserInfoRequest request = new GetUserInfoRequest();
-        request.requestPersonalInfo(new GetuserInfoResponse());
+        request.requestOtherUserInfo(new GetuserInfoResponse(),null);
     }
 
     /**
