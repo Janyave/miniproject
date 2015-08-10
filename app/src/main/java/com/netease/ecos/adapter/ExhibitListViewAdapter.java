@@ -32,7 +32,7 @@ public class ExhibitListViewAdapter extends BaseAdapter {
         this.mcontext = context;
         imageList = new ArrayList<>();
         queue = MyApplication.getRequestQueue();
-        imageCache = new SDImageCache();
+        imageCache = new SDImageCache(300,200);
         imageLoader = new ImageLoader(queue, imageCache);
     }
 

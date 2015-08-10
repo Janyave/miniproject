@@ -286,7 +286,7 @@ public class CourseDetailActivity extends BaseActivity implements View.OnClickLi
         iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
         if (course.authorAvatarUrl != null && !course.authorAvatarUrl.equals("")) {
             RequestQueue queue = MyApplication.getRequestQueue();
-            ImageLoader.ImageCache imageCache = new SDImageCache();
+            ImageLoader.ImageCache imageCache = new SDImageCache(300,200);
             ImageLoader imageLoader = new ImageLoader(queue, imageCache);
             if (course.authorAvatarUrl != null && !course.authorAvatarUrl.equals(""))
                 iv_avatar.setImageUrl(course.authorAvatarUrl, imageLoader);

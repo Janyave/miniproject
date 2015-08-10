@@ -99,7 +99,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
                 iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
                 RequestQueue queue = MyApplication.getRequestQueue();
-                ImageLoader.ImageCache imageCache = new SDImageCache();
+                ImageLoader.ImageCache imageCache = new SDImageCache(300,200);
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);
                 iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
             } else

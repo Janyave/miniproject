@@ -59,8 +59,6 @@ public class GetUserInfoRequest extends BaseRequest {
                 } else {
                     map.put("type", "self");
                 }
-                map.put(KEY_TOKEN, getToken());
-
                 traceNormal(TAG, map.toString());
                 traceNormal(TAG, GetUserInfoRequest.this.getUrl(RequestUrlConstants.GET_USER_INFO, map));
                 return map;

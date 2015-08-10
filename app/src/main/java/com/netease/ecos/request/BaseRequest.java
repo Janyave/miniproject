@@ -226,7 +226,6 @@ public abstract class BaseRequest implements Listener<String>,ErrorListener{
 	public Map<String,String> getRequestBasicMap(){
 		Map<String,String> basicMap = new HashMap<String,String>();
 
-		//		basicMap.put(KEY_TOKEN, getToken());
 		basicMap.put(KEY_USER_ID, getUserId());
 
 		return basicMap;

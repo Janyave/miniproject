@@ -16,6 +16,19 @@ public class SDImageCache implements ImageLoader.ImageCache {
 
     private static final String TAG = "SDImageCache";
 
+    public int mRequestWidth = 150;
+    public int mRequestHeight = 150;
+
+
+    public SDImageCache(){
+
+    }
+
+    public SDImageCache(int requestWidth,int requestHeight){
+        mRequestWidth = requestWidth;
+        mRequestHeight =  requestHeight;
+    }
+
     @Override
     public Bitmap getBitmap(String url) {
 //		System.out.println("getBitmap(String url, Bitmap bitmap)");
@@ -38,8 +51,8 @@ public class SDImageCache implements ImageLoader.ImageCache {
         int height = bitmap.getHeight();
         System.out.println("width:" + width + "  ,height" + height);
 
-        int reqWidth = 150;
-        int reqHeight = 150;
+        int reqWidth = mRequestWidth;
+        int reqHeight = mRequestHeight;
         int inSampleSize = 1;
         if (height > reqHeight && width > reqWidth) {
             final int heightRatio = Math.round((float) height / (float) reqHeight);
