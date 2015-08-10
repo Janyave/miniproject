@@ -392,7 +392,7 @@ public class UserApiTestActivity extends BaseActivity {
         }
 
         @Override
-        public void success(User user) {
+        public void success(User user,boolean hasFollowed) {
             tv_display.setText("");
 
             tv_display.append("用户id: " + user.userId + "\n");
