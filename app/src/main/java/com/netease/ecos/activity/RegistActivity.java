@@ -24,6 +24,7 @@ import com.netease.ecos.model.LocationData;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.request.VolleyErrorParser;
+import com.netease.ecos.request.user.LoginRequest;
 import com.netease.ecos.request.user.RegistRequest;
 import com.netease.ecos.request.user.SendLocationRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
@@ -245,11 +246,16 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
 
 
-    class RegistResponse extends BaseResponceImpl implements NorResponce{
+    class RegistResponse extends BaseResponceImpl implements RegistRequest.IRegistResponse{
 
         @Override
-        public void success() {
-            Toast.makeText(RegistActivity.this, "注册成功", Toast.LENGTH_LONG).show();
+        public void success(String phone, String pwd) {
+
+            LoginRequest request = new LoginRequest();
+            request.request(new LoginResponse(), phone,pwd);
+            Toast.makeText(RegistActivity.this,"注册成功",Toast.LENGTH_LONG).show();
+
+            /*Toast.makeText(RegistActivity.this, "注册成功", Toast.LENGTH_LONG).show();
             //云信登录
             loginYunXin();
 
@@ -273,7 +279,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
-            dismissProcessBar();
+            dismissProcessBar();*/
 
         }
 
@@ -291,7 +297,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
-    public void loginYunXin(){
+    /*public void loginYunXin(){
 
         String imId = AccountDataService.getSingleAccountDataService(RegistActivity.this).getUserAccId();
         String imtoken = AccountDataService.getSingleAccountDataService(RegistActivity.this).getImToken();
@@ -323,5 +329,87 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
             }
 
         });
+    }*/
+
+
+
+    class LoginResponse extends BaseResponceImpl implements NorResponce{
+
+        @Override
+        public void success() {
+
+            //云信登录
+            String imId = AccountDataService.getSingleAccountDataService(RegistActivity.this).getUserAccId();
+            String imtoken = AccountDataService.getSingleAccountDataService(RegistActivity.this).getImToken();
+
+            Log.e("云信登录","imId:" + imId);
+            Log.e("云信令牌","imtoken:" + imtoken);
+
+            AbortableFuture<LoginInfo> loginRequest;
+            loginRequest = NIMClient.getService(AuthService.class).login(new LoginInfo(imId, imtoken));
+            loginRequest.setCallback(new RequestCallback<LoginInfo>() {
+                @Override
+                public void onSuccess(LoginInfo param) {
+
+                    dismissProcessBar();
+                    Toast.makeText(RegistActivity.this, "LOGIN SUCCESS", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(RegistActivity.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+
+                }
+
+                @Override
+                public void onFailed(int code) {
+                    dismissProcessBar();
+                    Log.i("登录", "登录失败");
+                    if (code == 302 || code == 404) {
+                        Toast.makeText(RegistActivity.this, "帐号或密码错误", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(RegistActivity.this, "login error: " + code, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onException(Throwable exception) {
+
+                    dismissProcessBar();
+                    Log.i("登录", "登录异常");
+                }
+
+            });
+
+
+
+            //进行定位并发送定位数据
+            MyApplication.startLocation(new MyApplication.LocationCallBack(){
+
+                @Override
+                public void locationSuccess(LocationData location) {
+
+                    Log.i("登录location","定位成功:" + location.toString());
+                    new SendLocationRequest().request(null, String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
+                }
+
+                @Override
+                public void locationFailed(String message) {
+
+                }
+            });
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
+            Toast.makeText(RegistActivity.this,"账号或密码错误O",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+            dismissProcessBar();
+            Toast.makeText(RegistActivity.this, VolleyErrorParser.parseVolleyError(volleyError),Toast.LENGTH_SHORT).show();
+        }
     }
 }
