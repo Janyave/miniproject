@@ -97,6 +97,7 @@ public class CourseStepAdapter extends BaseAdapter {
         EditText etv_description;
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
@@ -110,6 +111,8 @@ public class CourseStepAdapter extends BaseAdapter {
             holder.iv_delete = (ImageView) convertView.findViewById(R.id.iv_delete);
             holder.niv_course_photo = (ImageView) convertView.findViewById(R.id.niv_course_photo);
             holder.etv_description = (EditText) convertView.findViewById(R.id.etv_description);
+
+
 
             convertView.setTag(holder);
         } else {
