@@ -53,18 +53,19 @@
             android:layout_toRightOf="@id/tv_index"
             android:contentDescription="教程步骤图片"
             android:scaleType="centerCrop"
-            android:src="@drawable/choose_photo_big" />
+            android:src="@mipmap/ic_add_course_default" />
 
         <EditText
             android:id="@+id/etv_description"
-            style="@style/text_gray_max"
+            style="@style/text_dark_mid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/niv_course_photo"
             android:layout_marginTop="@dimen/margin_50px"
             android:background="@android:color/transparent"
             android:contentDescription="教程步骤描述"
-            android:hint="教程描述" />
+            android:hint="点击添加教程描述~"
+            android:textColorHint="@color/text_gray"/>
 
         <ImageView
             android:id="@+id/iv_delete"

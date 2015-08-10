@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -76,8 +75,10 @@ public class WriteContentActivity extends Activity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.lly_right_action:
                 String content = commentEdTx.getText().toString();
-                if (content.equals(""))
+                if (content.equals("")) {
                     Toast.makeText(WriteContentActivity.this, getResources().getString(R.string.noComment), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Comment comment = new Comment();
                 comment.content = content;
                 comment.commentType = commentType;
@@ -95,7 +96,6 @@ public class WriteContentActivity extends Activity implements View.OnClickListen
         }
 
     }
-
 
 
     class UploadCommentResponse extends BaseResponceImpl implements CreateCommentRequest.ICreateCommentResponse {
