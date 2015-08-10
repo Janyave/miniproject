@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -38,10 +39,13 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
     private List<Share> shareList;
     private FollowUserRequest request;
 
+    public static int mInstances = 0;
+
     public DisplayListViewAdapter(Context context, List<Share> shareList) {
         this.mcontext = context;
         this.shareList = shareList;
         request = new FollowUserRequest();
+        mInstances ++;
     }
 
     class ViewHolder {
@@ -231,5 +235,12 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
     public void setShareList(List<Share> shareList) {
         this.shareList = shareList;
+    }
+
+    @Override
+    public void finalize()
+    {
+        mInstances--;
+        Log.i("DisplayListViewAdapter", "DisplayListViewAdapter，销毁后有" + mInstances + "个对象");
     }
 }

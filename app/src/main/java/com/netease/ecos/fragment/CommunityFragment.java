@@ -61,6 +61,8 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
 
 //    private List<ActivityModel> activityList;
 
+    public static int mInstances = 0;
+
     public static CommunityFragment newInstance(String param1, String param2) {
         CommunityFragment fragment = new CommunityFragment();
         return fragment;
@@ -525,7 +527,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
 
             @Override
             public void success(List<ActivityModel> activityList) {
-//                CommunityFragment.this.activityList=activityList;
+                //                CommunityFragment.this.activityList=activityList;
                 if (campaignListViewAdapter == null) {
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
                     lv_campaign.setAdapter(campaignListViewAdapter);
@@ -596,7 +598,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     }
                 }
             }
-//        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
+            //        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
         }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), pageIndex);
         System.out.println("pageIndex " + pageIndex);
     }
@@ -627,5 +629,20 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                 popupWindowCategory.dismiss();
                 iv_show_flag_category.setImageResource(R.mipmap.ic_choose_gray_up);
             }
+    }
+
+    /***
+     * 释放内存
+     */
+    public void releaseMemory(){
+        lv_campaign.setAdapter(null);
+        campaignListViewAdapter = null;
+        Log.i("community", "释放内存");
+    }
+
+
+    public void reloadData(){
+        Log.i("CommunityFragment", "重新加载请求数据");
+        initData();
     }
 }

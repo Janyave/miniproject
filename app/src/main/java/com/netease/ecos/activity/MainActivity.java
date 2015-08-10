@@ -314,6 +314,16 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 else
                     Log.i(TAG,"mCurrentTab==TAB_COURSE_INDEX");
             }
+
+            if(index!=TAB_DISPLAY_INDEX && mFragments[TAB_DISPLAY_INDEX]!=null){
+                ((DisplayFragment)mFragments[TAB_DISPLAY_INDEX]).releaseMemory();
+            }
+            else{
+                if(mFragments[TAB_DISPLAY_INDEX]==null)
+                    Log.i(TAG,"分享碎片为空");
+                else
+                    Log.i(TAG,"mCurrentTab==TAB_DISPLAY_INDEX");
+            }
         }
     };
 
@@ -339,11 +349,17 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 case TAB_DISPLAY_INDEX:
                     if (mFragments[TAB_DISPLAY_INDEX] == null)
                         mFragments[TAB_DISPLAY_INDEX] = new DisplayFragment();
+                    else{
+                        ((DisplayFragment)mFragments[TAB_DISPLAY_INDEX]).reloadData();
+                    }
                     return mFragments[TAB_DISPLAY_INDEX];
                 //点击活动tab，要显示活动页面
                 case TAB_COMMUCITY_INDEX:
                     if (mFragments[TAB_COMMUCITY_INDEX] == null)
                         mFragments[TAB_COMMUCITY_INDEX] = new CommunityFragment();
+                    else{
+                        ((CommunityFragment)mFragments[TAB_COMMUCITY_INDEX]).reloadData();
+                    }
                     return mFragments[TAB_COMMUCITY_INDEX];
                 //点击招募tab，要显示招募页面
                 case TAB_TRANSACTION_INDEX:
