@@ -142,7 +142,6 @@ public class CourseStepAdapter extends BaseAdapter {
     private void setData(ViewHolder holder, int position, Course.Step stepData) {
         holder.tv_index.setText(String.valueOf(stepData.stepIndex));
         holder.niv_course_photo.setImageResource(R.drawable.choose_photo_big);
-        holder.etv_description.setText("");
         //从SD卡中读取，可以优化为从内存读取，后续做
         if (!(stepData.imagePath == null) && !("".equals(stepData.imagePath.trim()))) {
             File file = new File(stepData.imagePath);
