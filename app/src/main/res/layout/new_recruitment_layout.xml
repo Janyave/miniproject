@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/bg_white">
+    android:background="@color/bg_white"
+    android:orientation="vertical">
 
     <include
         android:id="@+id/include_title"
@@ -11,7 +11,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,33 +30,35 @@
 
                 <TextView
                     android:id="@+id/avgPriceTxVw"
+                    style="@style/text_dark_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/avgPrice"
-                    style="@style/text_dark_max" />
+                    android:text="@string/avgPrice" />
+
                 <EditText
                     android:id="@+id/priceEdTx"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:background="@null"
                     style="@style/text_dark_mid"
-                    android:inputType="number"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center"
                     android:hint="请输入"
-                    android:textColorHint="@color/text_gray"/>
+                    android:inputType="number"
+                    android:textColorHint="@color/text_gray" />
 
                 <TextView
                     android:id="@+id/priceTxVw"
+                    style="@style/text_dark_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    style="@style/text_dark_max"
-                    android:text="/小时"/>
+                    android:text="/小时" />
 
             </LinearLayout>
-            <TextView style="@style/layout_line_gray"/>
+
+            <TextView style="@style/layout_line_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -64,22 +67,23 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/text_dark_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/instruction"
-                    style="@style/text_dark_max" />
+                    android:text="@string/instruction" />
             </LinearLayout>
+
             <EditText
                 android:id="@+id/descrpEdTx"
+                style="@style/text_gray_mid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="4"
                 android:background="@drawable/bg_course_item"
-                android:padding="@dimen/margin_20px"
-                style="@style/text_gray_mid"
                 android:gravity="top|left"
                 android:hint="请输入内容"
-                android:textColorHint="@color/text_gray"/>
+                android:lines="4"
+                android:padding="@dimen/margin_20px"
+                android:textColorHint="@color/text_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -88,10 +92,10 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/text_dark_max"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="选择封面作品"
-                    style="@style/text_dark_max" />
+                    android:text="选择封面作品" />
             </LinearLayout>
             <!--<com.netease.ecos.views.ExtensibleListView
                 android:id="@+id/displayListView"
@@ -100,13 +104,13 @@
         </LinearLayout>
 
     </ScrollView>
+
     <com.netease.ecos.views.XListView
         android:id="@+id/displayListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:descendantFocusability="afterDescendants"
-        />
+        android:descendantFocusability="afterDescendants" />
 
 
 </LinearLayout>
