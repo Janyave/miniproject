@@ -155,10 +155,13 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         title_text.setText(targetUserName);
 
         String myImId = AccountDataService.getSingleAccountDataService(this).getUserAccId();
+
+        Log.i("我的云信id1","------------------------" + myImId);
+        String myImId2 =UserDataService.getSingleUserDataService(this).getUser().imId;
+        Log.i("我的云信id2","---------------------------" + myImId2);
+
+
         String myImIdPlusContactImiId = myImId + targetUserIMID;
-
-
-
 
         List<Contact> contactList = ContactDBService.getInstance(ContactActivity.this).getContactList();
 
