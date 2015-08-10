@@ -135,6 +135,11 @@ public class EventWantGoAdapter extends BaseAdapter {
             viewHolder.ll_tagList.addView(v);
             num++;
         }
+        if (num==0){
+            viewHolder.ll_tagList.setVisibility(View.GONE);
+        }else {
+            viewHolder.ll_tagList.setVisibility(View.VISIBLE);
+        }
 
         if (TYPE == NormalListViewActivity.TYPE_EVENT_WANTGO) {
             if (hasFollowEd.get(position) && beFollowed.get(position)) {
