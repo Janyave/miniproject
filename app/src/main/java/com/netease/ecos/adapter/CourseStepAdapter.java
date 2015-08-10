@@ -138,6 +138,7 @@ public class CourseStepAdapter extends BaseAdapter {
      */
     private void setData(ViewHolder holder, int position, Course.Step stepData) {
         holder.tv_index.setText(String.valueOf(stepData.stepIndex));
+        holder.niv_course_photo.setImageResource(R.drawable.choose_photo_big);
 
         //从SD卡中读取，可以优化为从内存读取，后续做
         if (!(stepData.imagePath == null) && !("".equals(stepData.imagePath.trim()))) {
@@ -160,8 +161,6 @@ public class CourseStepAdapter extends BaseAdapter {
         holder.iv_next_step.setOnClickListener(viewClickListener);
         holder.iv_delete.setOnClickListener(viewClickListener);
     }
-
-
 
 
     /**
@@ -189,7 +188,7 @@ public class CourseStepAdapter extends BaseAdapter {
                         return;
                     }
                     mStepsList.get(position).stepIndex--;
-                    mStepsList.get(position-1).stepIndex++;
+                    mStepsList.get(position - 1).stepIndex++;
 
                     tempStep = mStepsList.get(position);
                     mStepsList.set(position, mStepsList.get(position - 1));
@@ -205,7 +204,7 @@ public class CourseStepAdapter extends BaseAdapter {
                         return;
                     }
                     mStepsList.get(position).stepIndex++;
-                    mStepsList.get(position+1).stepIndex--;
+                    mStepsList.get(position + 1).stepIndex--;
 
                     tempStep = mStepsList.get(position);
                     mStepsList.set(position, mStepsList.get(position + 1));
@@ -216,12 +215,12 @@ public class CourseStepAdapter extends BaseAdapter {
                 case R.id.iv_delete:
                     position = (int) view.getTag();
                     //不能删除第0项
-                    if(position==0)
+                    if (position == 0)
                         return;
                     position = (int) view.getTag();
                     mStepsList.remove(position);
-                    for(int i=position;i<getCount();i++){
-                        mStepsList.get(i).stepIndex = mStepsList.get(i).stepIndex-1;
+                    for (int i = position; i < getCount(); i++) {
+                        mStepsList.get(i).stepIndex = mStepsList.get(i).stepIndex - 1;
                     }
                     notifyDataSetChanged();
                     break;
@@ -241,7 +240,7 @@ public class CourseStepAdapter extends BaseAdapter {
         public void setPhotoAtPosition(int position);
     }
 
-    /***
+    /**
      * 将步骤描述编辑框的输入同步到mStepList
      */
     View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
@@ -289,8 +288,8 @@ public class CourseStepAdapter extends BaseAdapter {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(positionOfEtv >= getCount()){
-                    return ;
+                if (positionOfEtv >= getCount()) {
+                    return;
                 }
                 mStepsList.get(positionOfEtv).description = s.toString();
             }
