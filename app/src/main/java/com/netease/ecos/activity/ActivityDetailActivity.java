@@ -10,14 +10,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
-import com.netease.ecos.adapter.ActivityPhotoHListViewAdapter;
 import com.netease.ecos.adapter.EventContactWayAdapter;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.activity.GetActivityDetailRequest;
 import com.netease.ecos.request.activity.SingupActivityRequest;
 import com.netease.ecos.utils.RoundImageView;
@@ -82,7 +81,6 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     @InjectView(R.id.ll_wantgo_icons)
     LinearLayout ll_wantgo_icons;
 
-    private ActivityPhotoHListViewAdapter activityPhotoHListViewAdapter;
     private EventContactWayAdapter contactWayAdapter;
     //for request
     private GetActivityDetailRequest getActivityDetailRequest;
@@ -90,7 +88,6 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     //for network image
     //for NetWorkImageView
     static ImageLoader.ImageCache imageCache;
-    private RequestQueue queue;
     private ImageLoader imageLoader;
     private ActivityModel activityModel;
     private SingupActivityRequest singupActivityRequest;
@@ -140,7 +137,6 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         tv_wantgo.setOnClickListener(this);
         iv_author_avator.setOnClickListener(this);
         tv_author_name.setOnClickListener(this);
-
         ll_wantgo_icons.setOnClickListener(this);
         tv_wangoNum.setOnClickListener(this);
     }
@@ -197,6 +193,23 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             tv_event_title.setText(activity.title);
             tv_event_location.setText(activity.location.province.provinceName);
             tv_event_price.setText(getResources().getString(R.string.RMB) + activity.fee);
+            //set activity type
+            if (activity.activityType == ActivityModel.ActivityType.同人展)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_1);
+            if (activity.activityType == ActivityModel.ActivityType.动漫节)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_2);
+            if (activity.activityType == ActivityModel.ActivityType.官方活动)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_3);
+            if (activity.activityType == ActivityModel.ActivityType.LIVE)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_4);
+            if (activity.activityType == ActivityModel.ActivityType.舞台祭)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_5);
+            if (activity.activityType == ActivityModel.ActivityType.赛事)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_6);
+            if (activity.activityType == ActivityModel.ActivityType.主题ONLY)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_7);
+            if (activity.activityType == ActivityModel.ActivityType.派对)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_8);
             tv_event_coverTag.setText(activity.activityType.name());
 
             tv_event_location_detail.setText(activity.location.toString());
@@ -223,6 +236,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             iv_author_avator.setDefaultImageResId(R.mipmap.bg_female_default);
             //设置加载出错图片
             iv_author_avator.setErrorImageResId(R.mipmap.bg_female_default);
+            iv_author_avator.setImageResource(R.mipmap.bg_female_default);
             tv_author_name.setText(activity.nickname);
             tv_author_time.setText(activity.getDateDescription());
         }
@@ -236,6 +250,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
+            Toast.makeText(ActivityDetailActivity.this, "泪奔，服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -35,6 +35,7 @@ import com.netease.ecos.model.InputLength;
 import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.model.Province;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.activity.CreateActivityRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
 import com.netease.ecos.utils.UploadImageTools;
@@ -243,19 +244,26 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
         if (expenseEdTx.getText().toString().equals(""))
             return false;
 
-        if(activityNameEdTx.getText().length()> InputLength.ActivityTitle_max){
-            Toast.makeText(NewActivityActivity.this, "标题限制 "+ InputLength.ActivityTitle_max +" 字", Toast.LENGTH_SHORT).show();
+        if (activityNameEdTx.getText().length() > InputLength.ActivityTitle_max) {
+            Toast.makeText(NewActivityActivity.this, "标题限制 " + InputLength.ActivityTitle_max + " 字", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(addressEdTx.getText().length()> InputLength.ActivityPosition_max){
-            Toast.makeText(NewActivityActivity.this, "详细地址限制 "+ InputLength.ActivityPosition_max +" 字", Toast.LENGTH_SHORT).show();
+        if (addressEdTx.getText().length() > InputLength.ActivityPosition_max) {
+            Toast.makeText(NewActivityActivity.this, "详细地址限制 " + InputLength.ActivityPosition_max + " 字", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(activityDesrpEdTx.getText().length()> InputLength.ActivityDetail_max){
-            Toast.makeText(NewActivityActivity.this, "活动简介限制 "+ InputLength.ActivityDetail_max +" 字", Toast.LENGTH_SHORT).show();
+        if (activityDesrpEdTx.getText().length() > InputLength.ActivityDetail_max) {
+            Toast.makeText(NewActivityActivity.this, "活动简介限制 " + InputLength.ActivityDetail_max + " 字", Toast.LENGTH_SHORT).show();
             return false;
         }
-        return true;
+            View view;
+            for (int i = 0; i < contactListAdapter.getCount(); i++) {
+                view = contactListView.getChildAt(i);
+                EditText editText = (EditText) view.findViewById(R.id.contactDetailEdTx);
+                if (editText.getText().toString().equals(""))
+                    return false;
+            }
+            return true;
     }
 
     @Override
@@ -383,6 +391,7 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void onErrorResponse(VolleyError error) {
             dismissProcessBar();
+            Toast.makeText(NewActivityActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(error), Toast.LENGTH_SHORT).show();
         }
 
         @Override

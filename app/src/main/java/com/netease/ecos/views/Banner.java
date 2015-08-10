@@ -61,7 +61,7 @@ public class Banner extends RelativeLayout {
 
     public void setURLList(List<String> data) {
         this.URLList = data;
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < data.size(); i++) {
             View v = View.inflate(mContext, pagerViewID, null);
             Picasso.with(mContext).load(URLList.get(i)).into((ImageView) v.findViewById(R.id.iv_image));
             ViewList.add(v);

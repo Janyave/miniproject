@@ -55,8 +55,6 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     public static final String TargetUserAvatar = "TargetUserAvatar";
     public static final String TargetUserIMID = "TargetUserIMID";
 
-    private String userId = "", userName = "", userAvatar = "";
-
     @InjectView(R.id.lly_right_action)
     LinearLayout title_right;
     @InjectView(R.id.tv_right_text)
@@ -73,13 +71,17 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     @InjectView(R.id.et_input)
     EditText et_input;
 
-//    String IM_ID = "2255be0951400e260832c85c5d191247";
-
-    /**对方userId*/
+    /**
+     * 对方userId
+     */
     private String targetUserID;
-    /***对方昵称*/
+    /**
+     * 对方昵称
+     */
     private String targetUserName;
-    /***对方头像*/
+    /**
+     * 对方头像
+     */
     private String targetUserAvatar;
     private String targetUserIMID = "";
 
@@ -109,7 +111,6 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         title_right.setVisibility(View.INVISIBLE);
         title_text.setText("");
 
-
         try {
             Bundle bundle = getIntent().getExtras();
             targetUserID = bundle.getString(TargetUserID);
@@ -133,21 +134,21 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                 }
             });
 
-            Toast.makeText(ContactActivity.this,"Error Intent",Toast.LENGTH_SHORT).show();
+            Toast.makeText(ContactActivity.this, "Error Intent", Toast.LENGTH_SHORT).show();
             Log.v("contact", "targetIMID--------" + "Error Intent");
         }
 
-        if (TextUtils.isEmpty(targetUserID)){
-            Toast.makeText(ContactActivity.this,"targetID为空",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(targetUserID)) {
+            Toast.makeText(ContactActivity.this, "targetID为空", Toast.LENGTH_SHORT).show();
         }
-        if (TextUtils.isEmpty(targetUserIMID)){
-            Toast.makeText(ContactActivity.this,"targetIMID为空",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(targetUserIMID)) {
+            Toast.makeText(ContactActivity.this, "targetIMID为空", Toast.LENGTH_SHORT).show();
         }
-        if (TextUtils.isEmpty(targetUserName)){
-            Toast.makeText(ContactActivity.this,"targetName为空",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(targetUserName)) {
+            Toast.makeText(ContactActivity.this, "targetName为空", Toast.LENGTH_SHORT).show();
         }
-        if (TextUtils.isEmpty(targetUserAvatar)){
-            Toast.makeText(ContactActivity.this,"targetAvartar为空",Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(targetUserAvatar)) {
+            Toast.makeText(ContactActivity.this, "targetAvartar为空", Toast.LENGTH_SHORT).show();
         }
 
         Log.v("contact", "targetID" + targetUserIMID);
@@ -157,25 +158,20 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         String myImId = AccountDataService.getSingleAccountDataService(this).getUserAccId();
         String myImIdPlusContactImiId = myImId + targetUserIMID;
 
-
-
-
         List<Contact> contactList = ContactDBService.getInstance(ContactActivity.this).getContactList();
 
-        if(contactList.size()==0)
-            Log.e("notification","联系人列表为空");
+        if (contactList.size() == 0)
+            Log.e("notification", "联系人列表为空");
         for (Contact contact : contactList) {
             Log.e("数据库读取", "contact: --" + contact.toString());
-            if(contact.getMyImIdPlusContactImiId().equals(myImId))
-            {
+            if (contact.getMyImIdPlusContactImiId().equals(myImId)) {
 
-                Log.d("id对比","id一样----");
-                Log.d("id对比","id一样" + contact.getMyImIdPlusContactImiId());
-                Log.d("id对比","id一样" + myImId);
-                Log.d("id对比","id一样---");
-            }
-            else
-                Log.d("id对比","id一样");
+                Log.d("id对比", "id一样----");
+                Log.d("id对比", "id一样" + contact.getMyImIdPlusContactImiId());
+                Log.d("id对比", "id一样" + myImId);
+                Log.d("id对比", "id一样---");
+            } else
+                Log.d("id对比", "id一样");
         }
 
         ContactDBService.getInstance(this).resetUnreadNum(myImIdPlusContactImiId);
@@ -208,16 +204,16 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.tv_send:
-                if (TextUtils.isEmpty(et_input.getText().toString())){
-                Toast.makeText(ContactActivity.this, "请输入聊天内容",Toast.LENGTH_SHORT).show();
-            }else{
+                if (TextUtils.isEmpty(et_input.getText().toString())) {
+                    Toast.makeText(ContactActivity.this, "请输入聊天内容", Toast.LENGTH_SHORT).show();
+                } else {
                     IMMessage message = MessageBuilder.createTextMessage(
                             targetUserIMID, // 聊天对象的ID，如果是单聊，为用户账号，如果是群聊，为群组ID
                             SessionTypeEnum.P2P, // 聊天类型，单聊或群组
                             getMessageJSON(et_input.getText().toString()) // 文本内容
                     );
                     NIMClient.getService(MsgService.class).sendMessage(message, false);
-            }
+                }
                 break;
         }
     }
@@ -300,14 +296,12 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                     Toast.makeText(ContactActivity.this, message.getStatus().toString(), Toast.LENGTH_SHORT).show();
                 }
 
-
             }
         }, true);
 
         //最近联系人列表监听
         NIMClient.getService(MsgServiceObserve.class)
                 .observeRecentContact(messageObserver, true);
-
     }
 
     //信息收听接收器
@@ -319,12 +313,11 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                     for (IMMessage message : messages) {
 
                         /**Add**/
-                        Toast.makeText(ContactActivity.this,"收到一条信息", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ContactActivity.this, "收到一条信息", Toast.LENGTH_SHORT).show();
                         addList(message);
 
                         Log.i("收到消息", "----------------------------------------------------------");
                         if (message.getMsgType().compareTo(MsgTypeEnum.text) == 0) {
-//                            ((TextView)findViewById(R.id.tv_received_text)).setText(message.getContent());
 
                             Log.i("发送消息状态回掉", "消息内容：----" + message.getContent());
                             Log.i("发送消息状态回掉", "消息来自：----" + message.getFromAccount());
@@ -400,19 +393,19 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                         Contact contact = new Contact();
                         String myImId = AccountDataService.getSingleAccountDataService(ContactActivity.this).getUserAccId();
 
-                        contact.setId(myImId,msg.getContactId());
+                        contact.setId(myImId, msg.getContactId());
                         contact.contactAccid = msg.getContactId();
 
                         //本人发起的
-                        if(msg.getFromAccount().equals(myImId)){
+                        if (msg.getFromAccount().equals(myImId)) {
                             contact.contactNickName = targetUserName;
                             contact.contactUserId = targetUserID;
                             contact.avatarUrl = targetUserAvatar;
                         }
                         //对方发来的
-                        else{
+                        else {
                             try {
-                                JSONObject content  = new JSONObject(msg.getContent());
+                                JSONObject content = new JSONObject(msg.getContent());
                                 contact.contactNickName = content.getString("nickname");
                                 contact.contactUserId = content.getString("userId");
                                 contact.avatarUrl = content.getString("avatarUrl");
@@ -453,5 +446,4 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                     }
                 }
             };
-
 }

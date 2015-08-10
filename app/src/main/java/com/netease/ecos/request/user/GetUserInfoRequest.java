@@ -109,6 +109,7 @@ public class GetUserInfoRequest extends BaseRequest {
             User user = new User();
             user.userId = getString(usreJO, "userId");
             user.imId = getString(usreJO, "imId");
+            user.imToken = getString(usreJO, "imToken");
             user.avatarUrl = getString(usreJO, "avatarUrl");
             user.nickname = getString(usreJO, "nickname");
 

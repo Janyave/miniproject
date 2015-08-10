@@ -236,8 +236,8 @@ public class UserApiTestActivity extends BaseActivity {
     public void regist() {
         RegistRequest request = new RegistRequest();
 
-        request.request(new RegistResponse(), "12312312311", "123456", "zhangenli",
-                "http://img5.imgtn.bdimg.com/it/u=3692347433,431191650&fm=21&gp=0.jpg");
+//        request.request(new RegistResponse(), "12312312311", "123456", "zhangenli",
+//                "http://img5.imgtn.bdimg.com/it/u=3692347433,431191650&fm=21&gp=0.jpg");
     }
 
     /**

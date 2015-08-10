@@ -1,15 +1,11 @@
 package com.netease.ecos.activity;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,7 +42,6 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
         ButterKnife.inject(this);
-
 
         initListener();
         initData();

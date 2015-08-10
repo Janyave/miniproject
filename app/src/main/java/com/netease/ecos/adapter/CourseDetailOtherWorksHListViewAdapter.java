@@ -85,14 +85,13 @@ public class CourseDetailOtherWorksHListViewAdapter extends BaseAdapter {
                 Picasso.with(mContext).load(item.imageUrl).placeholder(R.drawable.img_default).into(iv_image);
             else
                 iv_image.setImageResource(R.drawable.img_default);
+            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+            iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
             if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals("")) {
-                iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
-                iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
                 RequestQueue queue = MyApplication.getRequestQueue();
                 ImageLoader.ImageCache imageCache = new SDImageCache();
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-                if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals(""))
-                    iv_avatar.setImageUrl(item.authorAvatarUrl, imageLoader);
+                iv_avatar.setImageUrl(item.authorAvatarUrl, imageLoader);
             } else {
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
             }

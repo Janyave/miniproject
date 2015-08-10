@@ -69,7 +69,7 @@ public class LoginRequest extends BaseRequest{
 
 		};
 
-		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,0));
 
 		getQueue().add(stringRequest);
 

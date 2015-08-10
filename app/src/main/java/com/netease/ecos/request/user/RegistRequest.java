@@ -9,8 +9,8 @@ import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseRequest;
+import com.netease.ecos.request.IBaseResponse;
 import com.netease.ecos.request.MyStringRequest;
-import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.utils.StringUtils;
 
 import org.json.JSONException;
@@ -49,27 +49,28 @@ public class RegistRequest extends BaseRequest {
     public static final String AVATAR_URL = "avatarUrl";
 
     //响应参数键
-    NorResponce mNorResponce;
+    IRegistResponse mRegistResponse;
 
 
     public String mPhone;
+    public String mPwd;
 
     /**
      * 请求结束后把userId,imId,avatarUrl存入SharePreference
      *
-     * @param norResponce
+     * @param registResponse
      * @param phone
      * @param password
      * @param nickName
      * @param avatarUrl
      */
-    public void request(NorResponce norResponce, final String phone, final String password,
+    public void request(IRegistResponse registResponse, final String phone, final String password,
                         final String nickName, final String avatarUrl) {
-        super.initBaseRequest(norResponce);
-        mNorResponce = norResponce;
+        super.initBaseRequest(registResponse);
+        mRegistResponse = registResponse;
         mPhone = phone;
-        //		testRegist();
-        //		mNorResponce.success();
+        mPwd = password;
+
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.REGIST_URL, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -114,8 +115,8 @@ public class RegistRequest extends BaseRequest {
             service.saveUserAccId(user.imId);
             service.savePhone(mPhone);
 
-            if (mNorResponce != null) {
-                mNorResponce.success();
+            if (mRegistResponse != null) {
+                mRegistResponse.success(mPhone,mPwd);
             } else {
                 traceError(TAG, "回调接口为null");
             }
@@ -131,5 +132,10 @@ public class RegistRequest extends BaseRequest {
 
     }
 
+
+    public interface IRegistResponse extends IBaseResponse{
+
+        public void success(String phone, String pwd);
+    }
 }
 
