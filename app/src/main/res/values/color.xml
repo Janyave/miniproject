@@ -79,6 +79,7 @@
     <color name="btn_red_press">#e62d69</color>
     <color name="btn_white_press">#f6f6f6</color>
     <color name="btn_red_disable">#bebebe</color>
+    <color name="white_press">#f2f2f2</color>
 
     <!-- login & regist input text color-->
     <color name="text_splash_input">#999999</color>

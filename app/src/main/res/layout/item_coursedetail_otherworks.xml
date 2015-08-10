@@ -8,7 +8,8 @@
         android:layout_width="@dimen/width_item_work_360px"
         android:layout_height="@dimen/height_item_work_620px"
         android:background="@drawable/bg_course_item"
-        android:layout_marginRight="8dp">
+        android:layout_marginRight="8dp"
+        android:padding="@dimen/width_line">
         <!-- 图片-->
         <com.netease.ecos.utils.RoundAngleImageView
             android:id="@+id/iv_image"
