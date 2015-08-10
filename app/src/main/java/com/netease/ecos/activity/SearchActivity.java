@@ -137,7 +137,10 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         tv_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pageIndex = 0;
+                if (TYPE == TYPE_COURSE)
+                    pageIndex = 0;
+                else
+                    pageIndex = 1;
                 searchWord = et_search.getText().toString();
                 if (searchWord.equals("")) {
                     Toast.makeText(SearchActivity.this, getResources().getString(R.string.noContent), Toast.LENGTH_SHORT).show();
@@ -207,7 +210,10 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
                         PopupHelper.showSixTypePopupWindow(courseTypePopupWindow, SearchActivity.this, v, new PopupHelper.IPopupListner() {
                             @Override
                             public void clickListner(int type, View v, PopupWindow popupWindow) {
-                                pageIndex = 0;
+                                if (TYPE == TYPE_COURSE)
+                                    pageIndex = 0;
+                                else
+                                    pageIndex = 1;
                                 tv_searchType.setText(((RadioButton) v).getText().toString());
                                 selectPosition = type;
                             }
@@ -249,8 +255,6 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
     public void onLoadMore() {
         Toast.makeText(this, "上拉加载", Toast.LENGTH_SHORT).show();
         //1秒后关闭加载
-        if (TYPE == TYPE_COURSE) {
-
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -258,7 +262,6 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
                     lv_searchList.stopLoadMore();
                 }
             }, 1000);
-        }
 
         if (TYPE == TYPE_COURSE) {
 
@@ -298,7 +301,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         } else {
 
             if (displayListViewAdapter == null)
-                pageIndex = 0;
+                pageIndex = 1;
             pageIndex++;
             shareListRequest.request(new ShareListRequest.IShareListResponse() {
 
@@ -369,7 +372,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
             displayListViewAdapter = new DisplayListViewAdapter(SearchActivity.this, shareList);
             lv_searchList.setVisibility(View.VISIBLE);
             lv_searchList.setAdapter(displayListViewAdapter);
-            pageIndex = 0;
+            pageIndex = 1;
         }
 
         @Override
