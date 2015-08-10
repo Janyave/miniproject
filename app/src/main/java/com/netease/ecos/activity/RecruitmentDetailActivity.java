@@ -213,12 +213,13 @@ public class RecruitmentDetailActivity extends BaseActivity implements View.OnCl
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(RecruitmentDetailActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-
+            dismissProcessBar();
         }
     }
 }

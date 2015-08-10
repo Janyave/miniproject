@@ -200,9 +200,8 @@ public class PersonageDetailActivity extends BaseActivity {
             ll_signature_attention.setVisibility(isOwn ? View.GONE : View.VISIBLE);
         } else {
             user_description.setVisibility(View.VISIBLE);
-            ll_signature_attention.setVisibility(View.VISIBLE);
         }
-
+        contactLayout.setVisibility(isOwn ? View.GONE : View.VISIBLE);
         user_name.setText(mUserData.nickname);
         if (mUserData.gender == User.Gender.女) {
             user_gender.setImageDrawable(getResources().getDrawable(R.mipmap.ic_gender_female));
@@ -212,15 +211,17 @@ public class PersonageDetailActivity extends BaseActivity {
         user_attention.setText("" + mUserData.followOtherNum);
         user_fans.setText("" + mUserData.fansNum);
         user_description.setText(mUserData.characterSignature);
-        contactLayout.setVisibility(isOwn ? View.GONE : View.VISIBLE);
+
         //TODO set attention text
-        if ((!isOwn) && (mShare.get(0) != null) && (!mShare.get(0).equals(""))) {
-            if (mShare.get(0).hasAttention) {
-                btn_attention.setText("已关注");
-                btn_attention.setTextColor(getResources().getColor(R.color.text_gray));
-                btn_attention.setBackgroundResource(R.drawable.btn_focus_gray);
-            }
-        }
+
+//        if((!isOwn) && (mShare.get(0) != null) && (!mShare.get(0).equals(""))){
+//            if(mShare.get(0).hasAttention) {
+//                btn_attention.setText("已关注");
+//                btn_attention.setTextColor(getResources().getColor(R.color.text_gray));
+//                btn_attention.setBackgroundResource(R.drawable.btn_focus_gray);
+//            }
+//        }
+
     }
 
     private void initViews() {
@@ -255,7 +256,6 @@ public class PersonageDetailActivity extends BaseActivity {
         ((RadioButton) findViewById(R.id.radio_4)).setTextColor(getResources().getColor(R.color.text_gray));
     }
 
-
     private class GetuserInfoResponse extends BaseResponceImpl implements GetUserInfoRequest.IGetUserInfoResponse {
 
         @Override
@@ -268,7 +268,7 @@ public class PersonageDetailActivity extends BaseActivity {
         }
 
         @Override
-        public void success(User user) {
+        public void success(User user, boolean hasFollowed) {
             mUserData = user;
             setData();
         }

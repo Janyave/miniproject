@@ -557,7 +557,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         }
 
         @Override
-        public void success(User user) {
+        public void success(User user,boolean hasFollowed) {
             if (user.userId.equals(mUserData.userId)) {
                 mUserData = user;
                 Log.d("ZYW请求侧边栏", mUserData.toString());

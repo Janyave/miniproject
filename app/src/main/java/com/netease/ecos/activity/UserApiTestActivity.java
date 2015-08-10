@@ -370,7 +370,7 @@ public class UserApiTestActivity extends BaseActivity {
      */
     public void getMySelfInfo() {
         GetUserInfoRequest request = new GetUserInfoRequest();
-        request.requestPersonalInfo(new GetuserInfoResponse());
+        request.requestOtherUserInfo(new GetuserInfoResponse(),null);
     }
 
     /**
@@ -392,7 +392,7 @@ public class UserApiTestActivity extends BaseActivity {
         }
 
         @Override
-        public void success(User user) {
+        public void success(User user,boolean hasFollowed) {
             tv_display.setText("");
 
             tv_display.append("用户id: " + user.userId + "\n");

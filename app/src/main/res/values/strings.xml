@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">ECos</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-
 
     <!-- tab 开始-->
     <string name="tab_course">教程</string>
@@ -14,13 +11,12 @@
 
     <!-- 侧滑栏开始 -->
     <string name="drawer_title">我是侧滑栏</string>
-
+    <string name="navigation_drawer_open">navigation_drawer_open</string>
+    <string name="navigation_drawer_close">navigation_drawer_close</string>
     <string name="title_section1">我的消息</string>
     <string name="title_section2">我的等级</string>
     <string name="title_section3">我的教程</string>
     <string name="title_section4">我的作品</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="noPage">该页面正在施工中 QAQ </string>
     <!-- 侧滑栏结束 -->
 
@@ -43,23 +39,8 @@
     <string name="focus">已关注</string>
     <string name="notFocus">关注</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_course_detail">CourseDetailActivity</string>
-    <string name="title_activity_course_detail_upload">CourseDetailUploadActivity</string>
-
     <!-- 活动详情页面 -->
     <string name="tag_event_detail">同人展</string>
-    <string name="title_event_detail">西南COSPLAY超级盛典</string>
-    <string name="location_event_detail">成都 武侯区</string>
-    <string name="price_event_detail">¥45</string>
-    <string name="detail_location_event_detail">成都 武侯区 动漫广场1号展厅</string>
-    <integer name="line_num_event_detail">3</integer>
-    <string name="time_event_detail">2015年7月20日-2015年7月24日 10:00-14:00</string>
-    <string name="detail_event_detail">我是一段关于本次活动的说明，我有很多字，我一定要超过三行，一定的啊，要不然界面会显得空旷啊，所以我要加油，誓要超越三行</string>
-    <string name="contact_event_detail">联系方式</string>
-    <string name="QQ_event_detail">企鹅群：970020010</string>
-    <string name="weibo_event_detail">微博：www.weibo.com/cosplay</string>
 
     <!-- 个人信息页面 -->
     <string name="bt_personage_name_default">玉生烟</string>
