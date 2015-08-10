@@ -28,7 +28,7 @@ public class RequestUrlConstants {
     /**
      * 获取与核对验证码
      */
-    public static final String AUTO_CODE_URL = HOUZHE_HOST + "/m/user/authcode?";
+    public static final String AUTO_CODE_URL = HOST_USER + "/m/user/authcode?";
 
     /**
      * 注册
