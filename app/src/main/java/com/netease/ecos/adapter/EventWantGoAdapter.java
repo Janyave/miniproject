@@ -3,6 +3,7 @@ package com.netease.ecos.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,8 @@ import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -162,6 +165,12 @@ public class EventWantGoAdapter extends BaseAdapter {
             } else {
                 viewHolder.iv_relation.setVisibility(View.GONE);
             }
+        }
+
+        if (TextUtils.equals(userList.get(position).userId, UserDataService.getSingleUserDataService(mcontext).getUser().userId)){
+            viewHolder.iv_relation.setVisibility(View.GONE);
+        }else {
+            viewHolder.iv_relation.setVisibility(View.VISIBLE);
         }
     }
 
