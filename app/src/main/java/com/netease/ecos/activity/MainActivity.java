@@ -132,7 +132,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
         mUserDataService = UserDataService.getSingleUserDataService(this);
@@ -143,7 +143,8 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         btn_open.setErrorImageResId(R.mipmap.bg_female_default);
         imageCache = new SDImageCache();
         imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
-        btn_open.setImageUrl(mUserData.avatarUrl, imageLoader);
+        if (mUserData.avatarUrl != null && !mUserData.avatarUrl.equals(""))
+            btn_open.setImageUrl(mUserData.avatarUrl, imageLoader);
     }
 
     @Override
@@ -161,7 +162,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
         //侧滑栏宽度
         ViewGroup.LayoutParams params = mNavigationDrawerFragment.getView().getLayoutParams();
-        params.width = DisplayWidth*2/3;
+        params.width = DisplayWidth * 2 / 3;
         mNavigationDrawerFragment.getView().setLayoutParams(params);
         //初始化侧滑栏
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
@@ -192,7 +193,8 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         btn_open.setErrorImageResId(R.mipmap.bg_female_default);
         imageCache = new SDImageCache();
         imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
-        btn_open.setImageUrl(mUserData.avatarUrl, imageLoader);
+        if (mUserData.avatarUrl != null && !mUserData.avatarUrl.equals(""))
+            btn_open.setImageUrl(mUserData.avatarUrl, imageLoader);
 
         mPagerAdapter = new TabFragmentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
@@ -264,9 +266,9 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         if (mViewPager != null && (index >= 0 && index <= 3)) {
             mCurrentTab = index;
             mViewPager.setCurrentItem(index);
-            Log.i(TAG,"mCurrentTab:" + mCurrentTab);
+            Log.i(TAG, "mCurrentTab:" + mCurrentTab);
         }
-        Log.i(TAG,"mCurrentTab:" + mCurrentTab);
+        Log.i(TAG, "mCurrentTab:" + mCurrentTab);
         iv_tag1.setImageResource(R.mipmap.ic_crouse);
         iv_tag2.setImageResource(R.mipmap.ic_share);
         iv_tag3.setImageResource(R.mipmap.ic_activity);
@@ -305,14 +307,23 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
             //选中第index个tab按钮，来触发对应tab选中效果(按钮下方会出现指示线)
             ((RadioButton) mRadioGroup.getChildAt(index)).setChecked(true);
 
-            if(index!=TAB_COURSE_INDEX && mFragments[TAB_COURSE_INDEX]!=null){
-                ((CourseFragment)mFragments[TAB_COURSE_INDEX]).releaseMemory();
+            if (index != TAB_COURSE_INDEX && mFragments[TAB_COURSE_INDEX] != null) {
+                ((CourseFragment) mFragments[TAB_COURSE_INDEX]).releaseMemory();
+            } else {
+                if (mFragments[TAB_COURSE_INDEX] == null)
+                    Log.i(TAG, "教程碎片为空");
+                else
+                    Log.i(TAG, "mCurrentTab==TAB_COURSE_INDEX");
+            }
+
+            if(index!=TAB_DISPLAY_INDEX && mFragments[TAB_DISPLAY_INDEX]!=null){
+                ((DisplayFragment)mFragments[TAB_DISPLAY_INDEX]).releaseMemory();
             }
             else{
-                if(mFragments[TAB_COURSE_INDEX]==null)
-                    Log.i(TAG,"教程碎片为空");
+                if(mFragments[TAB_DISPLAY_INDEX]==null)
+                    Log.i(TAG,"分享碎片为空");
                 else
-                    Log.i(TAG,"mCurrentTab==TAB_COURSE_INDEX");
+                    Log.i(TAG,"mCurrentTab==TAB_DISPLAY_INDEX");
             }
         }
     };
@@ -331,19 +342,25 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 case TAB_COURSE_INDEX:
                     if (mFragments[TAB_COURSE_INDEX] == null)
                         mFragments[TAB_COURSE_INDEX] = new CourseFragment();
-                    else{
-                        ((CourseFragment)mFragments[TAB_COURSE_INDEX]).reloadData();
+                    else {
+                        ((CourseFragment) mFragments[TAB_COURSE_INDEX]).reloadData();
                     }
                     return mFragments[TAB_COURSE_INDEX];
                 //点击分享tab，要显示分享页面
                 case TAB_DISPLAY_INDEX:
                     if (mFragments[TAB_DISPLAY_INDEX] == null)
                         mFragments[TAB_DISPLAY_INDEX] = new DisplayFragment();
+                    else{
+                        ((DisplayFragment)mFragments[TAB_DISPLAY_INDEX]).reloadData();
+                    }
                     return mFragments[TAB_DISPLAY_INDEX];
                 //点击活动tab，要显示活动页面
                 case TAB_COMMUCITY_INDEX:
                     if (mFragments[TAB_COMMUCITY_INDEX] == null)
                         mFragments[TAB_COMMUCITY_INDEX] = new CommunityFragment();
+                    else{
+                        ((CommunityFragment)mFragments[TAB_COMMUCITY_INDEX]).reloadData();
+                    }
                     return mFragments[TAB_COMMUCITY_INDEX];
                 //点击招募tab，要显示招募页面
                 case TAB_TRANSACTION_INDEX:
@@ -362,6 +379,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
 
     private long mExitTime = 0;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         /**
@@ -375,16 +393,12 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
             if ((System.currentTimeMillis() - mExitTime) > 2000) {
                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
-            }
-            else
-            {
+            } else {
                 finish();
             }
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
 
 
 }

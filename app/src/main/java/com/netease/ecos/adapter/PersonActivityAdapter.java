@@ -1,10 +1,8 @@
 package com.netease.ecos.adapter;
 
-import
-        android.content.Context;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,10 +13,8 @@ import android.widget.TextView;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.ActivityDetailActivity;
 import com.netease.ecos.model.ActivityModel;
-import com.netease.ecos.model.Share;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,11 +80,6 @@ public class PersonActivityAdapter extends BaseAdapter implements View.OnClickLi
             tv_tag.setText(item.activityType + "");
             tv_time.setText(item.activityTime.toString());
             tv_location.setText(item.location.toString());
-
-//            iv_cover.setTag(position);
-//            tv_title.setTag(position);
-//            iv_cover.setOnClickListener(PersonActivityAdapter.this);
-//            tv_title.setOnClickListener(PersonActivityAdapter.this);
             ll_activity.setTag(position);
             ll_activity.setOnClickListener(PersonActivityAdapter.this);
         }

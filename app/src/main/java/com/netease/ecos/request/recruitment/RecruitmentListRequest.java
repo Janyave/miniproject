@@ -305,42 +305,5 @@ public class RecruitmentListRequest extends BaseRequest {
 
     }
 
-    /**
-     * 获取测试分享数据
-     *
-     * @return
-     */
-    public List<Recruitment> getTestRecruitmentList() {
-
-        List<Recruitment> recruitList = new ArrayList<Recruitment>();
-
-        int length = 4;
-
-        List<String> bannerList = new ArrayList<String>();
-        bannerList.add("http://u4.tdimg.com/7/203/19/46138657748730920288026757971472766587.jpg");
-        bannerList.add("http://www.cnnb.com.cn/pic/0/01/49/86/1498602_864010.jpg");
-        bannerList.add("http://u3.tdimg.com/6/88/143/_56696781343356143444965292996172123406.jpg");
-        bannerList.add("http://i3.cqnews.net/news/attachement/jpg/site82/2011-07-27/4386628352243053135.jpg");
-
-
-        for (int i = 0; i < length; i++) {
-            Recruitment recruit = new Recruitment();
-            recruit.recruitmentId = "" + i;
-            recruit.userId = "" + i;
-            recruit.imId = "" + i;
-            //			recruit.title = "招募测试"+i;
-            recruit.avatarUrl = "http://img1.imgtn.bdimg.com/it/u=1413087,3985996900&fm=21&gp=0.jpg";
-            recruit.nickname = "蓝天与白云的故事";
-            recruit.gender = Gender.女;
-            recruit.coverUrl = bannerList.get(i);
-            recruit.issueTimeStamp = System.currentTimeMillis() - i * 24 * 60 * 60 * 1000;
-            recruit.distanceKM = "" + (1 + i);
-            recruit.averagePrice = "30元/人";
-
-            recruitList.add(recruit);
-        }
-
-        return recruitList;
-    }
 }
 

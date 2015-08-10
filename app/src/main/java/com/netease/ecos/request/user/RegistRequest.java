@@ -19,130 +19,117 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-/***
- *
+/**
+ * @author enlizhang
  * @ClassName: RegistRequest
  * @Description: 注册
- * @author enlizhang
  * @date 2015年7月26日 上午10:31:18
- *
  */
-public class RegistRequest extends BaseRequest{
+public class RegistRequest extends BaseRequest {
 
-	//请求参数键
-	/*** 手机号 */
-	public static final String PHONE = "phone";
+    //请求参数键
+    /**
+     * 手机号
+     */
+    public static final String PHONE = "phone";
 
-	/*** 昵称 */
-	public static final String NICK_NAME = "name";
+    /**
+     * 昵称
+     */
+    public static final String NICK_NAME = "name";
 
-	/*** 密码 */
-	public static final String PASSWORD = "pwd";
+    /**
+     * 密码
+     */
+    public static final String PASSWORD = "pwd";
 
-	/*** 头像URL */
-	public static final String AVATAR_URL = "avatarUrl";
+    /**
+     * 头像URL
+     */
+    public static final String AVATAR_URL = "avatarUrl";
 
-	//响应参数键
-	NorResponce mNorResponce;
+    //响应参数键
+    NorResponce mNorResponce;
 
 
-	public String mPhone;
-	/***
-	 * 请求结束后把userId,imId,avatarUrl存入SharePreference
-	 * @param norResponce
-	 * @param phone
-	 * @param password
-	 * @param nickName
-	 * @param avatarUrl
-	 */
-	public void request(NorResponce norResponce, final String phone, final String password,
-						final String nickName,final String avatarUrl)
-	{
-		super.initBaseRequest(norResponce);
-		mNorResponce = norResponce;
-		mPhone = phone;
-		//		testRegist();
-		//		mNorResponce.success();
-		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.REGIST_URL,  this, this) {
-			@Override
-			protected Map<String, String> getParams() throws AuthFailureError {
-				Map<String, String> map = new HashMap<String, String>();
+    public String mPhone;
 
-				map.put(PHONE, phone);
-				map.put(PASSWORD, StringUtils.hashKeyForDisk(password));
-				map.put(NICK_NAME, nickName);
-				if(avatarUrl!=null && !"".equals(avatarUrl))
-					map.put(AVATAR_URL, avatarUrl);
+    /**
+     * 请求结束后把userId,imId,avatarUrl存入SharePreference
+     *
+     * @param norResponce
+     * @param phone
+     * @param password
+     * @param nickName
+     * @param avatarUrl
+     */
+    public void request(NorResponce norResponce, final String phone, final String password,
+                        final String nickName, final String avatarUrl) {
+        super.initBaseRequest(norResponce);
+        mNorResponce = norResponce;
+        mPhone = phone;
+        //		testRegist();
+        //		mNorResponce.success();
+        MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.REGIST_URL, this, this) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
 
-				traceNormal(TAG, map.toString());
-				traceNormal(TAG, RegistRequest.this.getUrl(RequestUrlConstants.REGIST_URL, map));
-				return map;
-			}
+                map.put(PHONE, phone);
+                map.put(PASSWORD, StringUtils.hashKeyForDisk(password));
+                map.put(NICK_NAME, nickName);
+                if (avatarUrl != null && !"".equals(avatarUrl))
+                    map.put(AVATAR_URL, avatarUrl);
 
-		};
+                traceNormal(TAG, map.toString());
+                traceNormal(TAG, RegistRequest.this.getUrl(RequestUrlConstants.REGIST_URL, map));
+                return map;
+            }
 
-		stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,0,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        };
 
-		getQueue().add(stringRequest);
-	}
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-	@Override
-	public void responceSuccess(String jstring) {
-		traceNormal(TAG, jstring);
+        getQueue().add(stringRequest);
+    }
 
-		try {
-			JSONObject usreJO = new JSONObject(jstring).getJSONObject(KEY_DATA);
+    @Override
+    public void responceSuccess(String jstring) {
+        traceNormal(TAG, jstring);
 
-			User user = new User();
-			user.userId = getString(usreJO,"userId");
-			user.imId = getString(usreJO,"imId");
-			user.avatarUrl = getString(usreJO,"avatarUrl");
-			user.nickname = getString(usreJO,"nickname");
+        try {
+            JSONObject usreJO = new JSONObject(jstring).getJSONObject(KEY_DATA);
 
-			UserDataService userService = UserDataService.getSingleUserDataService(MyApplication.getContext());
-			userService.saveUser(user);
+            User user = new User();
+            user.userId = getString(usreJO, "userId");
+            user.imId = getString(usreJO, "imId");
+            user.avatarUrl = getString(usreJO, "avatarUrl");
+            user.nickname = getString(usreJO, "nickname");
 
-			AccountDataService service = AccountDataService.getSingleAccountDataService(MyApplication.getContext());
-			service.saveUserId(user.userId);
-			service.saveUserAccId(user.imId);
-			service.savePhone(mPhone);
+            UserDataService userService = UserDataService.getSingleUserDataService(MyApplication.getContext());
+            userService.saveUser(user);
 
-			if(mNorResponce!=null)
-			{
-				mNorResponce.success();
-			}
-			else
-			{
-				traceError(TAG,"回调接口为null");
-			}
+            AccountDataService service = AccountDataService.getSingleAccountDataService(MyApplication.getContext());
+            service.saveUserId(user.userId);
+            service.saveUserAccId(user.imId);
+            service.savePhone(mPhone);
 
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+            if (mNorResponce != null) {
+                mNorResponce.success();
+            } else {
+                traceError(TAG, "回调接口为null");
+            }
 
-			if(mBaseResponse!=null)
-			{
-				mBaseResponse.doAfterFailedResponse("json异常");
-			}
-		}
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
 
-	}
+            if (mBaseResponse != null) {
+                mBaseResponse.doAfterFailedResponse("json异常");
+            }
+        }
 
-	public void testRegist(){
-		User user = new User();
-		user.userId = "1";
-		user.imId = "test1";
-		user.phone = "18868816564";
-		user.avatarUrl = "http://img5.imgtn.bdimg.com/it/u=3692347433,431191650&fm=21&gp=0.jpg";
-		user.nickname = "张恩立";
-
-		UserDataService userService = UserDataService.getSingleUserDataService(MyApplication.getContext());
-		userService.saveUser(user);
-
-		AccountDataService service = AccountDataService.getSingleAccountDataService(MyApplication.getContext());
-		service.saveUserId(user.userId);
-		service.saveUserAccId(user.imId);
-	}
+    }
 
 }
 

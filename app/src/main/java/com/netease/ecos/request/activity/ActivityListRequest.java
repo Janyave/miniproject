@@ -167,7 +167,7 @@ public class ActivityListRequest extends BaseRequest {
                 JSONObject activityJO = activityJA.getJSONObject(i);
                 ActivityModel activity = new ActivityModel();
                 activity.activityId = activityJO.getString("activityId");
-                activity.coverUrl = activityJO.getString("logoUrl");
+                activity.coverUrl = getString(activityJO, "logoUrl");
                 activity.title = activityJO.getString("title");
                 activity.fee = activityJO.getString("fee");
 

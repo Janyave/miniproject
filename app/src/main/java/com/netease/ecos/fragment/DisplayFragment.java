@@ -3,6 +3,7 @@ package com.netease.ecos.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -317,13 +318,28 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
+            dismissProcessBar();
         }
     }
 
+    /***
+     * 释放内存
+     */
+    public void releaseMemory(){
+        lv_course.setAdapter(null);
+        displayListViewAdapter = null;
+        Log.i("display", "释放内存");
+    }
 
+
+    public void reloadData(){
+        Log.i("DisplayFragment", "重新加载请求数据");
+        shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
+    }
 }

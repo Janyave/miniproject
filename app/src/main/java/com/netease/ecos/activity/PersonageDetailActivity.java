@@ -2,7 +2,6 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -84,7 +83,6 @@ public class PersonageDetailActivity extends BaseActivity {
     LinearLayout ll_personage_tag;
 
 
-
     private UserDataService mUserDataService;
     private User mUserData;
     //for request
@@ -147,6 +145,14 @@ public class PersonageDetailActivity extends BaseActivity {
         mRecruitment = new ArrayList<Recruitment>();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUserInfoRequest = new GetUserInfoRequest();
+        getuserInfoResponse = new GetuserInfoResponse();
+        getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, userID);
+    }
+
     private void initUserData() {
         showProcessBar("正在加载数据");
         userID = getIntent().getExtras().getString(UserID);
@@ -154,7 +160,7 @@ public class PersonageDetailActivity extends BaseActivity {
         mUserDataService = UserDataService.getSingleUserDataService(this);
         mUserData = mUserDataService.getUser();//默认用户是自己
 
-        if(!userID.equals(mUserData.userId)){
+        if (!userID.equals(mUserData.userId)) {
             isOwn = false;
         }
         //isOwn = getIntent().getExtras().getBoolean(IsOwn);//assist judge
@@ -165,7 +171,7 @@ public class PersonageDetailActivity extends BaseActivity {
             getuserInfoResponse = new GetuserInfoResponse();
             getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, userID);
         }
-        Toast.makeText(this,"userId is "+userID,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "userId is " + userID, Toast.LENGTH_SHORT).show();
         courseListRequest.requestOtherCourse(courseListResponce, userID, mCoursePageIndex);
         shareListRequest.requestOtherShareList(shareListResponse, userID, mSharePageIndex);
         activityListRequest.requestOtherActivityList(activityListResponse, userID, mActivityPageIndex);
@@ -176,23 +182,25 @@ public class PersonageDetailActivity extends BaseActivity {
         RequestQueue queue = MyApplication.getRequestQueue();
         ImageLoader.ImageCache imageCache = new SDImageCache();
         ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-        user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
-        if(mUserData.roleTypeSet == null || mUserData.roleTypeSet.isEmpty()){
+        if (mUserData.avatarUrl != null && !mUserData.avatarUrl.equals(""))
+            user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
+        if (mUserData.roleTypeSet == null || mUserData.roleTypeSet.isEmpty()) {
             ll_personage_tag.setVisibility(View.GONE);
-        }else {
+        } else {
             ll_personage_tag.setVisibility(View.VISIBLE);
             ll_personage_tag.removeAllViews();
-            for(User.RoleType type:mUserData.roleTypeSet){
-                View v=View.inflate(this, R.layout.item_tag, null);
-                ((TextView)v.findViewById(R.id.tv_tag)).setText(type + "");
+            for (User.RoleType type : mUserData.roleTypeSet) {
+                View v = View.inflate(this, R.layout.item_tag, null);
+                ((TextView) v.findViewById(R.id.tv_tag)).setText(type + "");
                 ll_personage_tag.addView(v);
             }
         }
-        if (mUserData.characterSignature == null && mUserData.characterSignature.equals("")){
-            ll_signature_attention.setVisibility(isOwn ? View.GONE : View.VISIBLE);
+        if (mUserData.characterSignature == null && mUserData.characterSignature.equals("")) {
             user_description.setVisibility(View.GONE);
-        }else{
+            ll_signature_attention.setVisibility(isOwn ? View.GONE : View.VISIBLE);
+        } else {
             user_description.setVisibility(View.VISIBLE);
+            ll_signature_attention.setVisibility(View.VISIBLE);
         }
 
         user_name.setText(mUserData.nickname);
@@ -206,6 +214,13 @@ public class PersonageDetailActivity extends BaseActivity {
         user_description.setText(mUserData.characterSignature);
         contactLayout.setVisibility(isOwn ? View.GONE : View.VISIBLE);
         //TODO set attention text
+        if ((!isOwn) && (mShare.get(0) != null) && (!mShare.get(0).equals(""))) {
+            if (mShare.get(0).hasAttention) {
+                btn_attention.setText("已关注");
+                btn_attention.setTextColor(getResources().getColor(R.color.text_gray));
+                btn_attention.setBackgroundResource(R.drawable.btn_focus_gray);
+            }
+        }
     }
 
     private void initViews() {
@@ -272,6 +287,8 @@ public class PersonageDetailActivity extends BaseActivity {
 
         @Override
         public void success(String userId, boolean follow) {
+            mShare.get(0).hasAttention = follow;
+            btn_attention.setText(mShare.get(0).hasAttention ? PersonageDetailActivity.this.getString(R.string.focus) : PersonageDetailActivity.this.getString(R.string.notFocus));
 //            tv_display.append("操作对象userId:" + userId + "\n");
 //            tv_display.append("关注状态:" + follow + "\n");
         }
@@ -286,7 +303,7 @@ public class PersonageDetailActivity extends BaseActivity {
                 personCourseAdapter = new PersonCourseAdapter(PersonageDetailActivity.this);
                 personCourseAdapter.SetCourseList(mCourse);
             }
-            if(courseList.size() >= 5){
+            if (courseList.size() >= 5) {
                 courseListRequest.requestOtherCourse(courseListResponce, userID, ++mCoursePageIndex);
             }
             personCourseAdapter.getCourseList().addAll(courseList);
@@ -316,7 +333,7 @@ public class PersonageDetailActivity extends BaseActivity {
                 personDisplayAdapter = new PersonDisplayAdapter(PersonageDetailActivity.this);
                 personDisplayAdapter.setShareList(mShare);
             }
-            if(shareList.size() >= 5){
+            if (shareList.size() >= 5) {
                 shareListRequest.requestOtherShareList(shareListResponse, userID, ++mSharePageIndex);
             }
             personDisplayAdapter.getShareList().addAll(shareList);
@@ -343,7 +360,7 @@ public class PersonageDetailActivity extends BaseActivity {
                 personActivityAdapter = new PersonActivityAdapter(PersonageDetailActivity.this);
                 personActivityAdapter.setActivityList(mActivity);
             }
-            if(activityList.size() >= 5){
+            if (activityList.size() >= 5) {
                 activityListRequest.requestOtherActivityList(activityListResponse, userID, ++mActivityPageIndex);
 
             }
@@ -366,11 +383,11 @@ public class PersonageDetailActivity extends BaseActivity {
         @Override
         public void success(List<Recruitment> recruitmentList) {
             //TODO recruitment success response.
-            if (personRecruitAdapter == null){
+            if (personRecruitAdapter == null) {
                 personRecruitAdapter = new PersonRecruitAdapter(PersonageDetailActivity.this);
                 personRecruitAdapter.setRecruitmentList(mRecruitment);
             }
-            if (recruitmentList.size() >= 5){
+            if (recruitmentList.size() >= 5) {
                 recruitmentListRequest.requestSomeone(recruitmentListResponse, userID, ++mRecruitmentPageIndex);
             }
             personRecruitAdapter.getRecruitmentList().addAll(recruitmentList);
@@ -413,7 +430,7 @@ public class PersonageDetailActivity extends BaseActivity {
         }
     }
 
-    private class PersonalPageOnClickListener implements View.OnClickListener{
+    private class PersonalPageOnClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
@@ -427,16 +444,16 @@ public class PersonageDetailActivity extends BaseActivity {
                     if (followResponce == null)
                         followResponce = new FollowResponce();
                     if (btn_attention.getText().equals("已关注")) {
-                        btn_attention.setText("+关注");
+                        //btn_attention.setText("+关注");
                         followUserRequest.request(followResponce, userID, false);
                     } else {
-                        btn_attention.setText("已关注");
+                        //btn_attention.setText("已关注");
                         followUserRequest.request(followResponce, userID, true);
                     }
                     break;
                 case R.id.btn_contact:
                     Intent intent = new Intent(PersonageDetailActivity.this, ContactActivity.class);
-                    Bundle bundle=new Bundle();
+                    Bundle bundle = new Bundle();
                     bundle.putString(ContactActivity.TargetUserID, mUserData.userId);
                     bundle.putString(ContactActivity.TargetUserAvatar, mUserData.avatarUrl);
                     bundle.putString(ContactActivity.TargetUserName, mUserData.nickname);
