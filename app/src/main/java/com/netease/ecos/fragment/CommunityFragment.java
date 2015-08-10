@@ -249,7 +249,6 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
 
             @Override
             public void success(List<ActivityModel> activityList) {
-//                CommunityFragment.this.activityList = activityList;
                 Log.d("test", "activityList size:" + activityList.size());
                 if (campaignListViewAdapter == null) {
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
