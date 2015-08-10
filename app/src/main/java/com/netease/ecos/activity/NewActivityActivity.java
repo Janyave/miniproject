@@ -242,6 +242,13 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
             return false;
         if (expenseEdTx.getText().toString().equals(""))
             return false;
+        View view;
+        for (int i = 0; i < contactListAdapter.getCount(); i++) {
+            view = contactListView.getChildAt(i);
+            EditText editText = (EditText) view.findViewById(R.id.contactDetailEdTx);
+            if (editText.getText().toString().equals(""))
+                return false;
+        }
         return true;
     }
 

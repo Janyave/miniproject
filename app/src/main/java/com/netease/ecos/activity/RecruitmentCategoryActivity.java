@@ -131,7 +131,7 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
                 finish();
                 break;
             case R.id.ll_location:
-                Toast.makeText(RecruitmentCategoryActivity.this, getResources().getString(R.string.noLocation), Toast.LENGTH_SHORT).show();
+                Toast.makeText(RecruitmentCategoryActivity.this, getResources().getString(R.string.noWeixin), Toast.LENGTH_SHORT).show();
                 break;
         }
     }

@@ -21,6 +21,7 @@ import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.activity.NormalListViewActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 
@@ -43,6 +44,10 @@ public class EventWantGoAdapter extends BaseAdapter {
     RequestQueue queue;
     ImageLoader imageLoader;
 
+    //get login user data
+    private UserDataService mUserDataService;
+    private User mUserData;
+
     public EventWantGoAdapter(Context context, int type, List<User> userList) {
         this.mcontext = context;
         this.TYPE = type;
@@ -64,6 +69,8 @@ public class EventWantGoAdapter extends BaseAdapter {
         queue = MyApplication.getRequestQueue();
         imageCache = new SDImageCache();
         imageLoader = new ImageLoader(queue, imageCache);
+        mUserDataService = UserDataService.getSingleUserDataService(mcontext);
+        mUserData = mUserDataService.getUser();
     }
 
     @Override
@@ -113,16 +120,20 @@ public class EventWantGoAdapter extends BaseAdapter {
             viewHolder.tv_signature.setText(item.characterSignature);
         else
             viewHolder.tv_signature.setText(mcontext.getResources().getString(R.string.noSignature));
-        //set contact
-        if (TYPE == NormalListViewActivity.TYPE_EVENT_ATTENTION) {
-            viewHolder.tv_contact.setText("私信");
-        }
-        if (TYPE == NormalListViewActivity.TYPE_EVENT_WANTGO) {
-            viewHolder.tv_contact.setText("戳一下");
-        }
-        if (TYPE == NormalListViewActivity.TYPE_EVENT_FANS) {
-            viewHolder.tv_contact.setText("私信");
-        }
+        if (!item.userId.equals(mUserData.userId)) {
+            //set contact
+            if (TYPE == NormalListViewActivity.TYPE_EVENT_ATTENTION) {
+                viewHolder.tv_contact.setText("私信");
+            }
+            if (TYPE == NormalListViewActivity.TYPE_EVENT_WANTGO) {
+                viewHolder.tv_contact.setText("戳一下");
+            }
+            if (TYPE == NormalListViewActivity.TYPE_EVENT_FANS) {
+                viewHolder.tv_contact.setText("私信");
+            }
+        } else
+            viewHolder.tv_contact.setVisibility(View.GONE);
+
         //set tags
         viewHolder.ll_tagList.removeAllViews();
         Set<User.RoleType> roleTypeList = item.roleTypeSet;
@@ -135,9 +146,9 @@ public class EventWantGoAdapter extends BaseAdapter {
             viewHolder.ll_tagList.addView(v);
             num++;
         }
-        if (num==0){
+        if (num == 0) {
             viewHolder.ll_tagList.setVisibility(View.GONE);
-        }else {
+        } else {
             viewHolder.ll_tagList.setVisibility(View.VISIBLE);
         }
 

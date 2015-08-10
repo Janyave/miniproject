@@ -307,8 +307,10 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
             networkImageView.setErrorImageResId(R.drawable.img_default);
             if (assignment.authorAvatarUrl != null && !assignment.authorAvatarUrl.equals(""))
                 personPicImgView.setImageUrl(assignment.authorAvatarUrl, imageLoader);
-            personPicImgView.setDefaultImageResId(R.drawable.img_default);
-            personPicImgView.setErrorImageResId(R.drawable.img_default);
+            else
+                personPicImgView.setImageResource(R.mipmap.bg_female_default);
+            personPicImgView.setDefaultImageResId(R.mipmap.bg_female_default);
+            personPicImgView.setErrorImageResId(R.mipmap.bg_female_default);
             personNameTxV.setText(assignment.author);
             workDetailDate.setText(assignment.getDateDescription());
             workDetailDescpTxVw.setText(assignment.content);

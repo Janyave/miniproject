@@ -66,6 +66,8 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
     TextView tv_sortText;
     @InjectView(R.id.iv_sortIcon)
     ImageView iv_sortIcon;
+    @InjectView(R.id.ll_location)
+    LinearLayout ll_location;
 
     private PopupWindow popupSortType;
     private PopupWindow popupSixType = new PopupWindow();
@@ -105,6 +107,7 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
         lv_list.initRefleshTime(this.getClass().getSimpleName());
         lv_list.setPullLoadEnable(true);
         lv_list.setXListViewListener(this);
+        ll_location.setOnClickListener(this);
 
         //获取course信息
         request = new CourseListRequest();
@@ -151,6 +154,9 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
                 bundle.putString(BuildCourseActivity.COURSE_TYPE, courseType.getBelongs());
                 intent.putExtras(bundle);
                 startActivity(intent);
+                break;
+            case R.id.ll_location:
+                Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.noWeixin), Toast.LENGTH_SHORT).show();
                 break;
         }
     }

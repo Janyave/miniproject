@@ -193,6 +193,23 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             tv_event_title.setText(activity.title);
             tv_event_location.setText(activity.location.province.provinceName);
             tv_event_price.setText(getResources().getString(R.string.RMB) + activity.fee);
+            //set activity type
+            if (activity.activityType == ActivityModel.ActivityType.同人展)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_1);
+            if (activity.activityType == ActivityModel.ActivityType.动漫节)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_2);
+            if (activity.activityType == ActivityModel.ActivityType.官方活动)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_3);
+            if (activity.activityType == ActivityModel.ActivityType.LIVE)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_4);
+            if (activity.activityType == ActivityModel.ActivityType.舞台祭)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_5);
+            if (activity.activityType == ActivityModel.ActivityType.赛事)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_6);
+            if (activity.activityType == ActivityModel.ActivityType.主题ONLY)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_7);
+            if (activity.activityType == ActivityModel.ActivityType.派对)
+                tv_event_coverTag.setBackgroundResource(R.drawable.bg_campaign_type_8);
             tv_event_coverTag.setText(activity.activityType.name());
 
             tv_event_location_detail.setText(activity.location.toString());
@@ -219,6 +236,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             iv_author_avator.setDefaultImageResId(R.mipmap.bg_female_default);
             //设置加载出错图片
             iv_author_avator.setErrorImageResId(R.mipmap.bg_female_default);
+            iv_author_avator.setImageResource(R.mipmap.bg_female_default);
             tv_author_name.setText(activity.nickname);
             tv_author_time.setText(activity.getDateDescription());
         }
