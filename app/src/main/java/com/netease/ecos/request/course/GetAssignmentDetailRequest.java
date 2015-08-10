@@ -92,8 +92,7 @@ public class GetAssignmentDetailRequest extends BaseRequest {
     /**
      * 作业发布时间时间戳
      */
-    public static final String KEY_AS_ISSUE_TIMES = "issueTimeStamp";
-
+    public static final String KEY_AS_ISSUE_TIMES = "publishTime";
 
     /**
      * 评论列表JSONArray,内含JSONObject
