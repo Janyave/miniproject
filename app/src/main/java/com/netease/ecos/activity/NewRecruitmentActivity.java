@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.NewDisplayListAdater;
+import com.netease.ecos.model.InputLength;
 import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
@@ -100,6 +101,15 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
             case R.id.lly_right_action:
                 String price = priceEdTx.getText().toString();
                 String descrp = descrpEdTx.getText().toString();
+                if (Integer.parseInt(price)> InputLength.RecruitePrice_max||Integer.parseInt(price)<InputLength.RecruitePrice_min){
+                    Toast.makeText(NewRecruitmentActivity.this, "价格限制 "+ InputLength.RecruitePrice_min+"~"+InputLength.RecruitePrice_max, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (descrp.length()>InputLength.RecruiteDetail_max){
+                    Toast.makeText(NewRecruitmentActivity.this, "说明限制 "+ InputLength.RecruiteDetail_max + "字", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (newDisplayListAdater.isTopViewEmpty()) {
                     Toast.makeText(NewRecruitmentActivity.this, this.getResources().getString(R.string.notAlreadyFinished), Toast.LENGTH_SHORT).show();
                     return;

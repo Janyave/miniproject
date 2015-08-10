@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.model.InputLength;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.NorResponce;
@@ -115,7 +116,7 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
         ll_inputPassword.setVisibility(View.VISIBLE);
         et_input.setHint("请输入旧密码");
         et_input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        et_inputPassword.setHint("请输入新密码(8-16位)");
+        et_inputPassword.setHint("请输入新密码(6-16位)");
         et_inputPassword2.setHint("请再次输入新密码");
 
     }
@@ -131,6 +132,10 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
                 System.out.println(TYPE);
                 switch (TYPE) {
                     case TYPE_NAME:
+                        if (et_input.getText().length()>InputLength.PersonName_max){
+                            Toast.makeText(PersonSetInformationNormalActivity.this, "昵称限制 "+InputLength.PersonName_max+"字",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         user.nickname = et_input.getText().toString();
                         if (user.nickname.equals(""))
                             Toast.makeText(this, "请输入昵称", Toast.LENGTH_LONG).show();
@@ -140,6 +145,10 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
                         //TODO
                         break;
                     case TYPE_SIGNATURE:
+                        if (et_input.getText().length()>InputLength.PersonSignature_max){
+                            Toast.makeText(PersonSetInformationNormalActivity.this, "简介限制 "+InputLength.PersonSignature_max+"字",Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         user.characterSignature = et_input.getText().toString();
                         if (user.characterSignature.equals(""))
                             user.characterSignature = NineSpace;
@@ -149,10 +158,10 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
                         break;
                     case TYPE_PASSWORD:
                         if (et_inputPassword.getText().toString().equals(et_inputPassword2.getText().toString())) {
-                            if (et_inputPassword.getText().toString().length()>7&&et_inputPassword.getText().toString().length()<17){
+                            if (et_inputPassword.getText().toString().length()>= InputLength.Password_min&&et_inputPassword.getText().toString().length()<=InputLength.Password_max){
                                 checkPassword(et_input.getText().toString(), et_inputPassword.getText().toString());
                             }else {
-                                Toast.makeText(this, "请输入8~16位密码", Toast.LENGTH_LONG).show();
+                                Toast.makeText(this, "请输入6~16位密码", Toast.LENGTH_LONG).show();
                             }
                         } else {
                             Toast.makeText(this, "密码输入不一致", Toast.LENGTH_LONG).show();
