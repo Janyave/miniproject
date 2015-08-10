@@ -21,6 +21,7 @@ import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.LocationData;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.user.LoginRequest;
 import com.netease.ecos.request.user.SendLocationRequest;
 import com.netease.nimlib.sdk.AbortableFuture;
@@ -203,12 +204,14 @@ public class LoginActivity extends BaseActivity implements TextWatcher,View.OnCl
 
         @Override
         public void doAfterFailedResponse(String message) {
-            Toast.makeText(LoginActivity.this,"LOGIN FAIL",Toast.LENGTH_SHORT).show();
+            dismissProcessBar();
+            Toast.makeText(LoginActivity.this,"账号或密码错误O",Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-            Toast.makeText(LoginActivity.this,"NETWORK FAIL",Toast.LENGTH_SHORT).show();
+            dismissProcessBar();
+            Toast.makeText(LoginActivity.this, VolleyErrorParser.parseVolleyError(volleyError),Toast.LENGTH_SHORT).show();
         }
     }
 

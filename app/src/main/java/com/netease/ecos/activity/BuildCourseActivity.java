@@ -356,8 +356,9 @@ public class BuildCourseActivity extends BaseActivity {
                         }
 
                         File imageFile = mSetPhotoHelper.getFileAfterChoose();
+                        if(imageFile==null)
+                            imageFile = mSetPhotoHelper.getFileBeforeCrop(data, 300, 200);
 
-//                        File imageFile = mSetPhotoHelper.getFileBeforeCrop(data, 300, 200);
                         mCourseStepAdapter.refleshImageAtPosition(mCouserStepPosition, imageFile.getAbsolutePath());
 
                         isSettingStepPhoto = false;

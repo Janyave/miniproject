@@ -32,7 +32,6 @@
             android:inputType="number"
             android:textColorHint="@color/bg_gray"
             style="@style/text_splash_gray"
-            android:paddingLeft="@dimen/splash_item_edit_marginleft"
             android:background="@android:color/transparent"
             android:gravity="center"/>
     </LinearLayout>
