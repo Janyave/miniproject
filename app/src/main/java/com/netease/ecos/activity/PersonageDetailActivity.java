@@ -197,14 +197,11 @@ public class PersonageDetailActivity extends BaseActivity {
         }
         if (mUserData.characterSignature == null && mUserData.characterSignature.equals("")) {
             user_description.setVisibility(View.GONE);
-            contactLayout.setVisibility(isOwn ? View.GONE : View.VISIBLE);
             ll_signature_attention.setVisibility(isOwn ? View.GONE : View.VISIBLE);
         } else {
             user_description.setVisibility(View.VISIBLE);
-            contactLayout.setVisibility(View.VISIBLE);
-            ll_signature_attention.setVisibility(View.VISIBLE);
         }
-
+        contactLayout.setVisibility(isOwn ? View.GONE : View.VISIBLE);
         user_name.setText(mUserData.nickname);
         if (mUserData.gender == User.Gender.女) {
             user_gender.setImageDrawable(getResources().getDrawable(R.mipmap.ic_gender_female));
@@ -271,7 +268,7 @@ public class PersonageDetailActivity extends BaseActivity {
         }
 
         @Override
-        public void success(User user) {
+        public void success(User user, boolean hasFollowed) {
             mUserData = user;
             setData();
         }

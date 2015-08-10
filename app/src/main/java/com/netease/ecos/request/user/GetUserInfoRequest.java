@@ -18,7 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -35,6 +34,9 @@ public class GetUserInfoRequest extends BaseRequest {
 
     public IGetUserInfoResponse mGetUserInfoResponse;
 
+    public String mUserId;
+
+
     /**
      * 请求其他用户信息
      *
@@ -44,7 +46,7 @@ public class GetUserInfoRequest extends BaseRequest {
     public void requestOtherUserInfo(IGetUserInfoResponse getUserInfoResponse, final String userId) {
         super.initBaseRequest(getUserInfoResponse);
         mGetUserInfoResponse = getUserInfoResponse;
-
+        mUserId = userId;
         //		mGetUserInfoResponse.success(getTestUser());
 
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_USER_INFO, this, this) {
@@ -74,11 +76,6 @@ public class GetUserInfoRequest extends BaseRequest {
 
     }
 
-    /**
-     * 请求个人用户信息
-     *
-     * @param getUserInfoResponse
-     */
     /*public void requestPersonalInfo(IGetUserInfoResponse getUserInfoResponse) {
         super.initBaseRequest(getUserInfoResponse);
         mGetUserInfoResponse = getUserInfoResponse;
@@ -144,11 +141,28 @@ public class GetUserInfoRequest extends BaseRequest {
                 accountService.saveUserImToken(user.imToken);
             }
 
-            if (mGetUserInfoResponse != null) {
-                mGetUserInfoResponse.success(user);
-            } else {
-                traceError(TAG, "回调接口为null");
+            //请求个人
+            if(mUserId==null){
+                if (mGetUserInfoResponse != null) {
+                    mGetUserInfoResponse.success(user,false);
+                } else {
+                    traceError(TAG, "回调接口为null");
+                }
             }
+            //请求其他人
+            else{
+                if (mGetUserInfoResponse != null) {
+//                    boolean hasBeFollowed = usreJO.getBoolean("hasBeFollowed");
+                    boolean hasFollowed = usreJO.getBoolean("hasFollowed");
+                    mGetUserInfoResponse.success(user,hasFollowed);
+                } else {
+                    traceError(TAG, "回调接口为null");
+                }
+            }
+
+
+
+
 
 
         } catch (JSONException e) {
@@ -170,9 +184,8 @@ public class GetUserInfoRequest extends BaseRequest {
     public interface IGetUserInfoResponse extends IBaseResponse {
 
         /**
-         * 获取用户请求成功回掉，并返回用户信息
          */
-        public void success(User user);
+        public void success(User user, boolean hasFollowed);
 
     }
 
