@@ -19,6 +19,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.adapter.UploadWorksListAdapter;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.Image;
+import com.netease.ecos.model.InputLength;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.VolleyErrorParser;
@@ -166,6 +167,14 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
                         || uploadWorksCoverEdTx.getText().toString().equals("")
                         || uploadWorksDescrpEdTx.getText().toString().equals("")) {
                     Toast.makeText(UploadDisplayActivity.this, "请填写完所有内容:)", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (uploadWorksCoverEdTx.getText().length()> InputLength.DisplayTitle_max){
+                    Toast.makeText(UploadDisplayActivity.this, "标题限制 "+InputLength.DisplayTitle_max+" 字", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (uploadWorksDescrpEdTx.getText().length()> InputLength.DisplayContent_max){
+                    Toast.makeText(UploadDisplayActivity.this, "内容限制 "+InputLength.DisplayContent_max+" 字", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 showProcessBar(getResources().getString(R.string.uploading));

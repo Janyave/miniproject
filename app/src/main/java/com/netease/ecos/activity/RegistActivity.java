@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.AccountDataService;
+import com.netease.ecos.model.InputLength;
 import com.netease.ecos.model.LocationData;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
@@ -156,7 +157,10 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_complete:
-                //TODO 注册
+                if (et_name.getText().length()>InputLength.PersonName_max){
+                    Toast.makeText(RegistActivity.this, "昵称限制 "+ InputLength.PersonName_max+" 字", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 showProcessBar("注册...");
                 //先上传文件
@@ -226,7 +230,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (et_password.getText().toString().length()>7&&et_password.getText().toString().length()<17&&!TextUtils.isEmpty(et_name.getText().toString())) {
+        if (et_password.getText().toString().length()>= InputLength.Password_min&&et_password.getText().toString().length()<=InputLength.Password_max&&!TextUtils.isEmpty(et_name.getText().toString())) {
             tv_complete.setEnabled(true);
         }else {
             tv_complete.setEnabled(false);
