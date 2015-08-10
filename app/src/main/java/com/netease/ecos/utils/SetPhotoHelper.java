@@ -102,6 +102,7 @@ public class SetPhotoHelper {
 	 */
 	public void choosePhotoFromLocal() {
 		// TODO Auto-generated method stub
+		 fileAfterChoose = null;
 		 Intent openAlbumIntent = new Intent(Intent.ACTION_PICK);
 		 
 		openAlbumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
@@ -124,6 +125,7 @@ public class SetPhotoHelper {
 	 * @param needCrop 是否需要裁剪,true:需要 false:不需要
 	 */
 	public void takePhoto(boolean needCrop) {
+		fileAfterChoose = null;
 
 		Uri imgUriBeforeCrop;
 		if( needCrop)
@@ -139,7 +141,8 @@ public class SetPhotoHelper {
 		//设置拍照输入Uri
 		openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgUriBeforeCrop);
 		
-		openCameraIntent.putExtra("return-data", false); 
+		openCameraIntent.putExtra("return-data", false);
+
 		if(mFragment!=null)
 		{
 			mFragment.startActivityForResult(openCameraIntent, REQUEST_BEFORE_CROP);
@@ -200,7 +203,7 @@ public class SetPhotoHelper {
 			
 		File tempFileBeforeCROP = mBefCropFile;
 		
-		Bitmap chooenBitmap = CompressImageUitl.decodeSampledBitmapFromFile(picturePath.getAbsolutePath(),400,400);
+		Bitmap chooenBitmap = CompressImageUitl.decodeSampledBitmapFromFile(picturePath.getAbsolutePath(),350,350);
 		
 //		Bitmap chooenBitmap = BitmapFactory.decodeFile(picturePath.getAbsolutePath());
 		
@@ -257,8 +260,11 @@ public class SetPhotoHelper {
 		File file = fileAfterChoose;
 		fileAfterChoose = null;
 
-		Bitmap chooenBitmap = CompressImageUitl.decodeSampledBitmapFromFile(file.getAbsolutePath(),300,200);
-		ImageTools.saveBitmap(chooenBitmap,file);
+		if(file!=null)
+		{
+			Bitmap chooenBitmap = CompressImageUitl.decodeSampledBitmapFromFile(file.getAbsolutePath(),300,200);
+			ImageTools.saveBitmap(chooenBitmap,file);
+		}
 
 		return file;
 

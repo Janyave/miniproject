@@ -54,7 +54,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     @InjectView(R.id.iv_return)
     ImageView iv_return;
     @InjectView(R.id.logo)
-    ImageView logo;
+    LinearLayout logo;
     @InjectView(R.id.main)
     LinearLayout main;
 
