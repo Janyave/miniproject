@@ -10,14 +10,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
-import com.netease.ecos.adapter.ActivityPhotoHListViewAdapter;
 import com.netease.ecos.adapter.EventContactWayAdapter;
 import com.netease.ecos.model.ActivityModel;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.activity.GetActivityDetailRequest;
 import com.netease.ecos.request.activity.SingupActivityRequest;
 import com.netease.ecos.utils.RoundImageView;
@@ -82,7 +81,6 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     @InjectView(R.id.ll_wantgo_icons)
     LinearLayout ll_wantgo_icons;
 
-    private ActivityPhotoHListViewAdapter activityPhotoHListViewAdapter;
     private EventContactWayAdapter contactWayAdapter;
     //for request
     private GetActivityDetailRequest getActivityDetailRequest;
@@ -90,7 +88,6 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
     //for network image
     //for NetWorkImageView
     static ImageLoader.ImageCache imageCache;
-    private RequestQueue queue;
     private ImageLoader imageLoader;
     private ActivityModel activityModel;
     private SingupActivityRequest singupActivityRequest;
@@ -140,7 +137,6 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         tv_wantgo.setOnClickListener(this);
         iv_author_avator.setOnClickListener(this);
         tv_author_name.setOnClickListener(this);
-
         ll_wantgo_icons.setOnClickListener(this);
         tv_wangoNum.setOnClickListener(this);
     }
@@ -236,6 +232,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
+            Toast.makeText(ActivityDetailActivity.this, "泪奔，服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 

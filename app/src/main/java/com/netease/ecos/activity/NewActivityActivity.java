@@ -34,6 +34,7 @@ import com.netease.ecos.model.City;
 import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.model.Province;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.activity.CreateActivityRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
 import com.netease.ecos.utils.UploadImageTools;
@@ -369,6 +370,7 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void onErrorResponse(VolleyError error) {
             dismissProcessBar();
+            Toast.makeText(NewActivityActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(error), Toast.LENGTH_SHORT).show();
         }
 
         @Override

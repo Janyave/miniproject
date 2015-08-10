@@ -29,6 +29,7 @@ import com.netease.ecos.dialog.FirstDialog;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.course.GetAssignmentDetailRequest;
 import com.netease.ecos.request.course.PraiseRequest;
 import com.netease.ecos.utils.RoundImageView;
@@ -128,8 +129,6 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         if (first) {
             new FirstDialog(AssignmentDetailActivity.this).show();
             setting.edit().putBoolean("FIRST", false).commit();
-        } else {
-            //do nothing
         }
     }
 
@@ -170,8 +169,8 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         title_text.setText((workOrder + 1) + "/" + workList.size());
 
         // 3:2
-        ViewGroup.LayoutParams params=networkImageView.getLayoutParams();
-        params.height=(DisplayWidth-80)*3/2;
+        ViewGroup.LayoutParams params = networkImageView.getLayoutParams();
+        params.height = (DisplayWidth - 80) * 3 / 2;
         networkImageView.setLayoutParams(params);
 
         //set the default image for NetWorkImageView
@@ -294,6 +293,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         @Override
         public void onErrorResponse(VolleyError error) {
             dismissProcessBar();
+            Toast.makeText(AssignmentDetailActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -339,7 +339,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-
+            Toast.makeText(AssignmentDetailActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 }

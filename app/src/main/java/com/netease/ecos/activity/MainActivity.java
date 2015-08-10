@@ -37,14 +37,10 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
     @InjectView(R.id.btn_open)
     RoundImageView btn_open;
-
     @InjectView(R.id.radio_group)
     RadioGroup mRadioGroup;
-
     @InjectView(R.id.pager)
     ViewPager mViewPager;
-
-
     @InjectView(R.id.iv_tag1)
     ImageView iv_tag1;
     @InjectView(R.id.iv_tag2)

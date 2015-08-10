@@ -98,8 +98,6 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
                 finish();
                 break;
             case R.id.lly_right_action:
-                String price = priceEdTx.getText().toString();
-                String descrp = descrpEdTx.getText().toString();
                 if (newDisplayListAdater.isTopViewEmpty()) {
                     Toast.makeText(NewRecruitmentActivity.this, this.getResources().getString(R.string.notAlreadyFinished), Toast.LENGTH_SHORT).show();
                     return;
@@ -115,8 +113,6 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
                 recruitment.description = newDisplayListAdater.getDes();
                 recruitment.coverUrl = newDisplayListAdater.getCheckedCoverUrl();
                 recruitment.recruitType = mRecruitType;
-
-//                recruitment.issueTimeStamp = System.currentTimeMillis() - 1 * 24 * 60 * 60 * 1000;
                 showProcessBar(getResources().getString(R.string.uploading));
                 request.request(new CreateRecruitmentResponce(), recruitment);
                 break;

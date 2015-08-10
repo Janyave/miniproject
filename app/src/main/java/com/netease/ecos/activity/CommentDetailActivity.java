@@ -19,6 +19,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.adapter.WorkDetailListViewAdapter;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.comment.CommentListRequest;
 import com.netease.ecos.request.course.PraiseRequest;
 import com.netease.ecos.utils.SDImageCache;
@@ -167,7 +168,7 @@ public class CommentDetailActivity extends BaseActivity implements View.OnTouchL
                 } else if (commentType == Comment.CommentType.分享) {
                     praiseRequest.praiseShare(praiseResponse, fromId, !isPraised);
                 } else if (commentType == Comment.CommentType.作业) {
-//                    praiseRequest.praiseCourse(praiseResponse, fromId, !isPraised);
+                    praiseRequest.praiseAssignment(praiseResponse, fromId, !isPraised);
                 }
                 break;
             case R.id.lly_right_action:
@@ -188,6 +189,7 @@ public class CommentDetailActivity extends BaseActivity implements View.OnTouchL
         @Override
         public void onErrorResponse(VolleyError error) {
             dismissProcessBar();
+            Toast.makeText(CommentDetailActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -218,6 +220,7 @@ public class CommentDetailActivity extends BaseActivity implements View.OnTouchL
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
+            Toast.makeText(CommentDetailActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -3,7 +3,6 @@ package com.netease.ecos.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
@@ -15,6 +14,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.adapter.RecruitmentListViewAdapter;
 import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.recruitment.RecruitmentListRequest;
 import com.netease.ecos.views.PopupHelper;
 import com.netease.ecos.views.XListView;
@@ -49,8 +49,6 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
     LinearLayout ll_sortType;
     @InjectView(R.id.tv_sortText)
     TextView tv_sortText;
-    @InjectView(R.id.iv_sortIcon)
-    ImageView iv_sortIcon;
 
     private PopupWindow popupSortType;
     private PopupWindow popupRecruiteType;
@@ -139,7 +137,6 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
     }
 
     private void initData() {
-
         pageIndex = 1;
         //下拉菜单
         popupSortType = PopupHelper.newRecruiteSortTypePopupWindow(RecruitmentCategoryActivity.this);
@@ -232,6 +229,7 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
         @Override
         public void onErrorResponse(VolleyError error) {
             dismissProcessBar();
+            Toast.makeText(RecruitmentCategoryActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(error), Toast.LENGTH_SHORT).show();
         }
 
         @Override

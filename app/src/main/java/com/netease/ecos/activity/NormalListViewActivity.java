@@ -185,13 +185,11 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
 
         @Override
         public void doAfterFailedResponse(String message) {
-            dismissProcessBar();
             Toast.makeText(NormalListViewActivity.this, message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-            dismissProcessBar();
             Toast.makeText(NormalListViewActivity.this, "volleyError", Toast.LENGTH_SHORT).show();
         }
     }

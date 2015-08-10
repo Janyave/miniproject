@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.Display;
 
 import com.netease.ecos.R;
-import com.netease.ecos.views.SystemBarTintManager;
 import com.netease.ecos.views.sweet_alert_dialog.SweetAlertDialog;
 
 
@@ -27,32 +26,29 @@ public class BaseActivity extends ActionBarActivity {
     public static int DisplayHeight;
 
 
-    /***
+    /**
      * 提示对话框
      */
     public static SweetAlertDialog mAlertDialog;
 
-    /***
+    /**
      * 加载对话框
      */
     SweetAlertDialog mProgressDialog;
-//    SweetAlertDialog mSuccessDialog;
-//    SweetAlertDialog mErrorDialog;
-//    SweetAlertDialog mWarningDialog;
-//    SweetAlertDialog mNormalTextDialog;
 
-    protected  String CLASS_TAG;
+    protected String CLASS_TAG;
+
     @Override
     protected void onCreate(Bundle arg0) {
         super.onCreate(arg0);
 
-        CLASS_TAG  = getClass().getSimpleName();
+        CLASS_TAG = getClass().getSimpleName();
 
         //设置当前activity
         MyApplication.setCurrentActivity(this);
         Display display = getWindowManager().getDefaultDisplay();
-        DisplayWidth= display.getWidth();
-        DisplayHeight=display.getHeight();
+        DisplayWidth = display.getWidth();
+        DisplayHeight = display.getHeight();
 
         //隐藏ActionBar
         getSupportActionBar().hide();
@@ -82,14 +78,13 @@ public class BaseActivity extends ActionBarActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 
 
-    /***
+    /**
      * 初始化加载对话框
      */
-    private void initProgressSweetDialog(String title){
+    private void initProgressSweetDialog(String title) {
 
         if (mProgressDialog == null) {
             //mMyProgressDialog初始化
@@ -100,57 +95,36 @@ public class BaseActivity extends ActionBarActivity {
         }
     }
 
-//    /***
-//     * 初始化成功提示对话框
-//     */
-//    private void initSuccessSweetDialog(String title, String content, SweetAlertDialog.OnSweetClickListener listener){
-//
-//        if (mSuccessDialog == null) {
-//            //mMyProgressDialog初始化
-//            mSuccessDialog = new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE).setTitleText(title).setContentText(content);
-//            mSuccessDialog.setConfirmClickListener(listener);
-//            mSuccessDialog.setCancelable(false);
-//            mSuccessDialog.setCanceledOnTouchOutside(false);
-//        }
-//    }
-
-    /***
+    /**
      * 初始化提示对话框
      */
     private void initAlertSweetDialog() {
-
         mAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.NORMAL_TYPE);
         mAlertDialog.setCancelable(true);
         mAlertDialog.setCanceledOnTouchOutside(true);
     }
 
 
-
-    /***
+    /**
      * 显示加载框
-     *
      */
-    public void showProcessBar(String title)
-    {
+    public void showProcessBar(String title) {
         Log.i(TAG, "显示加载框");
         initProgressSweetDialog(title);
 
         //如果加载框存在并未未显示，则进行显示
-        if( !mProgressDialog.isShowing())
-        {
+        if (!mProgressDialog.isShowing()) {
             mProgressDialog.show();
         }
     }
 
-    /***
+    /**
      * 移除界面上的加载框
      */
-    public void dismissProcessBar()
-    {
+    public void dismissProcessBar() {
         Log.i(TAG, "销毁加载框");
         //如果加载框存在并显示，则进行销毁
-        if(mProgressDialog != null && mProgressDialog.isShowing())
-        {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
 
@@ -171,7 +145,6 @@ public class BaseActivity extends ActionBarActivity {
 //    }
 
 
-
     /***
      * 显示成功提示
      *
@@ -189,38 +162,36 @@ public class BaseActivity extends ActionBarActivity {
 //    }
 
 
-    /***
+    /**
      * 获取可用的提示对话框。
      * (由于提示对话框在app中比较常见，而不局限于特定activity，因此我将其写这里，大家也可以自己创建)
      *
      * @return
      */
-    public static SweetAlertDialog getAlertDialog(){
+    public static SweetAlertDialog getAlertDialog() {
         Log.i(TAG, "获取对话框");
 
         return mAlertDialog;
     }
 
-    /***
+    /**
      * 回收视图资源，例如关闭未关闭对话框
      */
-    public synchronized  void recycle()
-    {
+    public synchronized void recycle() {
 
-        if(mAlertDialog!=null && mAlertDialog.isShowing())
-        {
+        if (mAlertDialog != null && mAlertDialog.isShowing()) {
             mAlertDialog.dismiss();
         }
 
-        if(mProgressDialog!=null && mProgressDialog.isShowing())
-        {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
             dismissProcessBar();
         }
     }
 
 
-    /***
+    /**
      * 检测网络是否可用
+     *
      * @param context
      * @return true:是 false:否
      */
