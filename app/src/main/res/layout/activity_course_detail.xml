@@ -80,14 +80,19 @@
                     <!-- 标题-->
                     <TextView
                         android:id="@+id/tv_title1"
-                        style="@style/text_pink_maxmax"
+                        style="@style/text_pink_max"
+                        android:maxLines="2"
+                        android:layout_marginRight="@dimen/circle_icon_140px"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"/>
                     <!-- 赞-->
                     <ImageView
                         android:id="@+id/iv_praiseIcon"
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
+                        android:layout_marginTop="@dimen/margin_20px"
+                        android:layout_below="@id/tv_title1"
                         android:layout_alignParentBottom="true"
                         android:scaleType="fitCenter"
                         android:src="@mipmap/ic_praise_num" />
@@ -96,9 +101,9 @@
                         android:id="@+id/tv_praiseNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
                         android:layout_marginLeft="@dimen/margin_20px"
                         android:layout_toRightOf="@id/iv_praiseIcon"
+                        android:layout_alignBottom="@id/iv_praiseIcon"
                         style="@style/text_pink_min"/>
 
                     <LinearLayout

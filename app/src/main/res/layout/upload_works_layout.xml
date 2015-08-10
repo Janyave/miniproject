@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_cover_670px_1080px"
                 android:scaleType="centerCrop"
-                android:src="@drawable/choose_photo_big" />
+                android:src="@mipmap/ic_add_course_default" />
 
             <ImageView
                 android:layout_width="250dp"
@@ -105,21 +105,23 @@
 
                     <EditText
                         android:id="@+id/uploadWorksCoverEdTx"
-                        style="@style/text_dark_mid"
+                        style="@style/text_pink_max"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:background="@null"
                         android:gravity="bottom"
                         android:hint="@string/uploadWorks_coverHint"
-                        android:paddingBottom="2dp"
                         android:singleLine="true"
                         android:textColorHint="@color/text_gray" />
 
-                    <TextView style="@style/layout_line_gray" />
+
                 </LinearLayout>
             </LinearLayout>
-
+            <TextView
+                android:layout_marginTop="2dp"
+                style="@style/layout_line_gray"
+                android:layout_marginLeft="58dp"/>
             <TextView
                 style="@style/text_dark_max"
                 android:layout_width="wrap_content"
@@ -137,8 +139,9 @@
                 android:layout_marginRight="@dimen/margin_40px"
                 android:layout_marginTop="@dimen/margin_20px"
                 android:background="@drawable/bg_course_item"
-                android:hint="@string/workDescrp_hint"
-                android:minLines="3"
+                android:hint="@string/add_workDescrp_hint"
+                android:minLines="5"
+                android:gravity="top"
                 android:padding="@dimen/margin_20px"
                 android:textColorHint="@color/text_gray" />
 

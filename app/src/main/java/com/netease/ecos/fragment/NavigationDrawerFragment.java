@@ -518,8 +518,12 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         RequestQueue queue = MyApplication.getRequestQueue();
         ImageLoader.ImageCache imageCache = new SDImageCache();
         ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-        if (mUserData.avatarUrl != null && !"".equals(mUserData.avatarUrl))
+        if (mUserData.avatarUrl != null && !"".equals(mUserData.avatarUrl)){
             user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
+        }else {
+            user_avatar.setImageResource(R.mipmap.bg_female_default);
+        }
+
 
         user_name.setText(mUserData.nickname);
         if (mUserData.gender == User.Gender.女) {

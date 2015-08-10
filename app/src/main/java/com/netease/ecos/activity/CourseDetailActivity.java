@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -140,6 +141,10 @@ public class CourseDetailActivity extends BaseActivity implements View.OnClickLi
         ll_author.setOnClickListener(this);
         ll_praise.setOnClickListener(this);
         lv_courseStep.setDividerHeight(0);
+
+        ViewGroup.LayoutParams params=iv_cover.getLayoutParams();
+        params.height=DisplayWidth*2/3;
+        iv_cover.setLayoutParams(params);
 
         hlv_otherWorks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
