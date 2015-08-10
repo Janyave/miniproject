@@ -31,11 +31,17 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
 
     public CourseListViewAdapter(Context context) {
         this.mcontext = context;
+        mInstances++;
     }
+
+
+    public static int mInstances = 0;
 
     public CourseListViewAdapter(Context context, List<Course> courseList) {
         this.mcontext = context;
         this.courseList = courseList;
+        mInstances++;
+
     }
 
     class ViewHolder {
@@ -142,5 +148,13 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
 
     public void setCourseList(List<Course> courseList) {
         this.courseList = courseList;
+    }
+
+    @Override
+    public void finalize()
+    {
+
+        mInstances--;
+        Log.i("CourseListAdapter", "当前正在销毁CourseListViewAdapter对像，销毁后有" + mInstances +"个对象");
     }
 }

@@ -178,4 +178,11 @@ public class Banner extends RelativeLayout {
         }
         return true;
     }
+
+    public void releaseMemory(){
+        vp_image.setAdapter(null);
+        pagerAdapter=null;
+    }
+
+
 }

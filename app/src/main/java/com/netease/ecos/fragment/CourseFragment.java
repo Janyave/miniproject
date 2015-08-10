@@ -2,6 +2,7 @@ package com.netease.ecos.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -252,4 +253,30 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
 
         }
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
+        Log.i("course", "----------页面隐藏--------------" + (!hidden ? "教程页面显示" : "教程页面隐藏"));
+        Toast.makeText(getActivity(),!hidden?"教程页面显示":"教程页面隐藏",Toast.LENGTH_LONG).show();
+    }
+
+
+    /***
+     * 释放内存
+     */
+    public void releaseMemory(){
+        lv_course.setAdapter(null);
+        courseListViewAdapter = null;
+        banner.releaseMemory();
+        Log.i("course", "释放内存");
+    }
+
+    public void reloadData(){
+        Log.i("course", "重新加载请求数据");
+        initData();
+    }
+
+
 }

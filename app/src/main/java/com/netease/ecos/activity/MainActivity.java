@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -200,7 +199,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         mViewPager.setCurrentItem(mCurrentTab);
 
         //任意一个页面两边应持久化的fragment为2
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(1);
 
         //设置换页监听
         mViewPager.setOnPageChangeListener(mOnPageChangeListener);
@@ -263,10 +262,11 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
      */
     private void setCurrentTab(int index) {
         if (mViewPager != null && (index >= 0 && index <= 3)) {
-            mViewPager.setCurrentItem(index);
             mCurrentTab = index;
+            mViewPager.setCurrentItem(index);
+            Log.i(TAG,"mCurrentTab:" + mCurrentTab);
         }
-
+        Log.i(TAG,"mCurrentTab:" + mCurrentTab);
         iv_tag1.setImageResource(R.mipmap.ic_crouse);
         iv_tag2.setImageResource(R.mipmap.ic_share);
         iv_tag3.setImageResource(R.mipmap.ic_activity);
@@ -304,6 +304,16 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         public void onPageSelected(int index) {
             //选中第index个tab按钮，来触发对应tab选中效果(按钮下方会出现指示线)
             ((RadioButton) mRadioGroup.getChildAt(index)).setChecked(true);
+
+            if(index!=TAB_COURSE_INDEX && mFragments[TAB_COURSE_INDEX]!=null){
+                ((CourseFragment)mFragments[TAB_COURSE_INDEX]).releaseMemory();
+            }
+            else{
+                if(mFragments[TAB_COURSE_INDEX]==null)
+                    Log.i(TAG,"教程碎片为空");
+                else
+                    Log.i(TAG,"mCurrentTab==TAB_COURSE_INDEX");
+            }
         }
     };
 
@@ -315,11 +325,15 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
         @Override
         public Fragment getItem(int tabIndex) {
+
             switch (tabIndex) {
                 //点击教程tab，要显示教程页面
                 case TAB_COURSE_INDEX:
                     if (mFragments[TAB_COURSE_INDEX] == null)
                         mFragments[TAB_COURSE_INDEX] = new CourseFragment();
+                    else{
+                        ((CourseFragment)mFragments[TAB_COURSE_INDEX]).reloadData();
+                    }
                     return mFragments[TAB_COURSE_INDEX];
                 //点击分享tab，要显示分享页面
                 case TAB_DISPLAY_INDEX:

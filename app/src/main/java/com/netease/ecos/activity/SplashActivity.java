@@ -60,7 +60,10 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
     private void initData() {
 
         if(!isInitialDataLoaded())
+        {
+            Log.i(TAG,"请求初始数据");
             requestInitialData();
+        }
         else{
             if(isLogined()){
 
@@ -248,9 +251,14 @@ public class SplashActivity extends BaseActivity implements View.OnClickListener
         //若存在token则直接登录
         if( token!=null && imId!=null && imToken!=null &&
                 !"".equals(token) && !"".equals(imId) && !"".equals(imToken)){
+
             return true;
         }
         else{
+            Log.i(TAG,"token：" + token);
+            Log.i(TAG,"imId：" + imId);
+            Log.i(TAG,"imToken：" + imToken);
+            Log.i(TAG,"未登录");
             return false;
         }
     }

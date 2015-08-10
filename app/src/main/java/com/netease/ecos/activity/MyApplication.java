@@ -47,6 +47,8 @@ public class MyApplication extends Application {
      */
     public static BaseActivity msCurrentActivity;
 
+    /***主页面activity*/
+    public static MainActivity msMainActivity;
 
     /***
      * 当前Application对象引用
