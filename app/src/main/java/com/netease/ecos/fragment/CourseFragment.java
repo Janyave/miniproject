@@ -274,8 +274,14 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
     }
 
     public void reloadData(){
-        Log.i("course", "重新加载请求数据");
-        initData();
+
+        if(lv_course.getAdapter()==null || courseListViewAdapter==null){
+            initData();
+            Log.i("course", "重新加载请求数据");
+        }
+        else{
+            Log.i("course", "数据已经加载过");
+        }
     }
 
 

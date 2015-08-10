@@ -313,7 +313,10 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 if (mFragments[TAB_COURSE_INDEX] == null)
                     Log.i(TAG, "教程碎片为空");
                 else
+                {
+                    ((CourseFragment) mFragments[TAB_COURSE_INDEX]).reloadData();
                     Log.i(TAG, "mCurrentTab==TAB_COURSE_INDEX");
+                }
             }
 
             if(index!=TAB_DISPLAY_INDEX && mFragments[TAB_DISPLAY_INDEX]!=null){
@@ -323,7 +326,24 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 if(mFragments[TAB_DISPLAY_INDEX]==null)
                     Log.i(TAG,"分享碎片为空");
                 else
-                    Log.i(TAG,"mCurrentTab==TAB_DISPLAY_INDEX");
+                {
+                    ((DisplayFragment)mFragments[TAB_DISPLAY_INDEX]).reloadData();
+                    Log.i(TAG, "mCurrentTab==TAB_DISPLAY_INDEX");
+                }
+            }
+
+
+            if(index!=TAB_COMMUCITY_INDEX && mFragments[TAB_COMMUCITY_INDEX]!=null){
+                ((CommunityFragment)mFragments[TAB_COMMUCITY_INDEX]).releaseMemory();
+            }
+            else{
+                if(mFragments[TAB_COMMUCITY_INDEX]==null)
+                    Log.i(TAG,"活动碎片为空");
+                else
+                {
+                    ((CommunityFragment)mFragments[TAB_COMMUCITY_INDEX]).reloadData();
+                    Log.i(TAG, "mCurrentTab==TAB_COMMUCITY_INDEX");
+                }
             }
         }
     };
@@ -342,17 +362,11 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 case TAB_COURSE_INDEX:
                     if (mFragments[TAB_COURSE_INDEX] == null)
                         mFragments[TAB_COURSE_INDEX] = new CourseFragment();
-                    else {
-                        ((CourseFragment) mFragments[TAB_COURSE_INDEX]).reloadData();
-                    }
                     return mFragments[TAB_COURSE_INDEX];
                 //点击分享tab，要显示分享页面
                 case TAB_DISPLAY_INDEX:
                     if (mFragments[TAB_DISPLAY_INDEX] == null)
                         mFragments[TAB_DISPLAY_INDEX] = new DisplayFragment();
-                    else{
-                        ((DisplayFragment)mFragments[TAB_DISPLAY_INDEX]).reloadData();
-                    }
                     return mFragments[TAB_DISPLAY_INDEX];
                 //点击活动tab，要显示活动页面
                 case TAB_COMMUCITY_INDEX:

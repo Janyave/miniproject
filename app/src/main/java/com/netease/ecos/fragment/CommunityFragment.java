@@ -642,7 +642,15 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
 
 
     public void reloadData(){
-        Log.i("CommunityFragment", "重新加载请求数据");
-        initData();
+
+        if(lv_campaign.getAdapter()==null || campaignListViewAdapter==null){
+            initData();
+            Log.i("CommunityFragment", "重新加载请求数据");
+        }
+        else{
+            Log.i("CommunityFragment", "数据已经加载过");
+        }
+
+
     }
 }
