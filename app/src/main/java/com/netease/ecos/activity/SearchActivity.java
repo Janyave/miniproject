@@ -399,6 +399,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
             Log.d(TAG, "CourseListResponse.success()");
             if (courseList.size() == 0) {
                 Toast.makeText(SearchActivity.this, getResources().getString(R.string.noCourse), Toast.LENGTH_SHORT).show();
+                return;
             }
             courseListViewAdapter = new CourseListViewAdapter(SearchActivity.this, courseList);
             lv_searchList.setVisibility(View.VISIBLE);
@@ -423,8 +424,10 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         @Override
         public void success(List<Share> shareList) {
             dismissProcessBar();
-            if (shareList.size() == 0)
+            if (shareList.size() == 0) {
                 Toast.makeText(SearchActivity.this, getResources().getString(R.string.noShare), Toast.LENGTH_SHORT).show();
+                return;
+            }
             displayListViewAdapter = new DisplayListViewAdapter(SearchActivity.this, shareList);
             lv_searchList.setVisibility(View.VISIBLE);
             lv_searchList.setAdapter(displayListViewAdapter);
