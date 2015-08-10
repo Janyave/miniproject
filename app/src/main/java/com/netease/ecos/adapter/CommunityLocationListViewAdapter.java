@@ -100,9 +100,9 @@ public class CommunityLocationListViewAdapter extends BaseAdapter {
 
     public static String[] strings = new String[]{"热门", "A-G", "H-K", "L-S", "T-Z"};
     public static String[] Location_H = new String[]{"不限", "北京", "上海", "广东", "浙江", "四川"};
-    public static String[] Location_A = new String[]{"安徽", "北京", "重庆", "福建", "甘肃", "广东", "广西", "贵州"};
+    public static String[] Location_A = new String[]{"安徽", "澳门", "北京", "重庆", "福建", "甘肃", "广东", "广西", "贵州"};
     public static String[] Location_I = new String[]{"海南", "河北", "黑龙江", "河南", "湖北", "湖南", "江苏", "江西", "吉林"};
     public static String[] Location_L = new String[]{"辽宁", "内蒙", "宁夏", "青海", "山东", "上海", "陕西", "山西", "四川"};
-    public static String[] Location_T = new String[]{"天津", "新疆", "西藏", "云南", "浙江"};
+    public static String[] Location_T = new String[]{"台湾", "天津", "新疆", "西藏", "香港", "云南", "浙江"};
     private ArrayList<String[]> arrayListLocation = new ArrayList<String[]>();
 }

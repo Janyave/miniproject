@@ -40,6 +40,8 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
     public final static int TYPE_SIGNATURE = 2;
     public final static int TYPE_PASSWORD = 3;
 
+    public final static String NineSpace = "         ";
+
 
     @InjectView(R.id.et_input)
     EditText et_input;
@@ -139,6 +141,8 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
                         break;
                     case TYPE_SIGNATURE:
                         user.characterSignature = et_input.getText().toString();
+                        if (user.characterSignature.equals(""))
+                            user.characterSignature = NineSpace;
                         sendUser(user);
                         Log.w("User", et_input.getText().toString());
                         //TODO

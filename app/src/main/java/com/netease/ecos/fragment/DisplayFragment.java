@@ -339,7 +339,15 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
 
 
     public void reloadData(){
-        Log.i("DisplayFragment", "重新加载请求数据");
-        shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
+
+        if(lv_course.getAdapter()==null || displayListViewAdapter==null){
+            shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
+            Log.i("DisplayFragment", "重新加载请求数据");
+        }
+        else{
+            Log.i("display", "数据已经加载过");
+        }
+
+
     }
 }
