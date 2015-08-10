@@ -121,7 +121,7 @@ public class GetActivityDetailRequest extends BaseRequest {
                 JSONObject signUpUserJO = signUpUserJA.getJSONObject(i);
                 User user = new User();
                 user.userId = signUpUserJO.getString("userId");
-                user.avatarUrl = signUpUserJO.getString("avatarUrl");
+                user.avatarUrl = getString(signUpUserJO, "avatarUrl");
                 user.nickname = signUpUserJO.getString("nickName");
                 activity.signUpUseList.add(user);
             }

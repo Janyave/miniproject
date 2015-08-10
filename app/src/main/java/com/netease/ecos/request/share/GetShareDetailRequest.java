@@ -218,7 +218,6 @@ public class GetShareDetailRequest extends BaseRequest {
             String commentNum = getString(shareJO, KEY_COMMENT_NUM);
             share.commentNum = "".equals(commentNum) ? 0 : Integer.valueOf(commentNum);
 
-
             if (shareJO.has(KEY_IMAGE_URLS) && !shareJO.isNull(KEY_IMAGE_URLS) && !getString(shareJO, KEY_IMAGE_URLS).equals("")) {
                 JSONArray imageUrlJA = new JSONArray(getString(shareJO, KEY_IMAGE_URLS));
 
@@ -276,80 +275,6 @@ public class GetShareDetailRequest extends BaseRequest {
             }
         }
 
-    }
-
-
-    /**
-     * 获取测试分享数据
-     *
-     * @return
-     */
-    public Share getTestShare() {
-        List<Share> shareList = new ArrayList<Share>();
-
-        int length = 2;
-
-        List<String> bannerList = new ArrayList<String>();
-        bannerList.add("http://u4.tdimg.com/7/203/19/46138657748730920288026757971472766587.jpg");
-        bannerList.add("http://www.cnnb.com.cn/pic/0/01/49/86/1498602_864010.jpg");
-        bannerList.add("http://u3.tdimg.com/6/88/143/_56696781343356143444965292996172123406.jpg");
-        bannerList.add("http://i3.cqnews.net/news/attachement/jpg/site82/2011-07-27/4386628352243053135.jpg");
-
-        int i = 0;
-
-        Share share = new Share();
-        share.avatarUrl = "http://img3.imgtn.bdimg.com/it/u=3310376763,3294662014&fm=21&gp=0.jpg";
-        share.nickname = "栗子" + i;
-        share.hasAttention = (i == 0);
-        share.hasPraised = (i == 0);
-        share.coverUrl = bannerList.get(i);
-        share.title = "栗子cos" + i;
-        share.issueTimeStamp = System.currentTimeMillis();
-
-        String totalPics = "2";
-        share.totalPageNumber = "".equals(totalPics) ? 0 : Integer.valueOf(totalPics);
-
-        String praiseNum = "100";
-        share.praiseNum = "".equals(praiseNum) ? 0 : Integer.valueOf(praiseNum);
-
-        String commentNum = "2";
-        share.commentNum = "".equals(commentNum) ? 0 : Integer.valueOf(commentNum);
-
-        List<Image> imageList = new ArrayList<Image>();
-
-        for (int index = 0; i < bannerList.size(); i++) {
-            Image image = new Image();
-            image.originUrl = bannerList.get(index);
-            imageList.add(image);
-        }
-        share.imageList = imageList;
-
-        //设置评论数据
-        List<Comment> commentList = new ArrayList<Comment>();
-
-        int commentsLength = 2;
-        Comment comment;
-        for (int commentIndex = 0; commentIndex < commentsLength; commentIndex++) {
-
-            comment = new Comment();
-            comment.commentId = "" + commentIndex;
-            comment.avatarUrl = "http://p2.gexing.com/touxiang/20120812/2335/5027cd5ea61c8.jpg";
-            comment.content = "不错";
-
-            comment.commentType = CommentType.getCommentTypeByValue("2");
-
-            comment.commentTypeId = "" + i;
-            comment.fromId = "" + i;
-            comment.fromNickName = "蓝天";
-            comment.targetId = "" + i;
-            comment.targetNickname = "" + i;
-            comment.commitTimeStamp = System.currentTimeMillis();
-            commentList.add(comment);
-        }
-
-        share.commentList = commentList;
-
-        return share;
     }
 
     /**

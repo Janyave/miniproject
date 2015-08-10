@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="@string/hello_world"
         style="@style/text_gray_min" />
 
 </LinearLayout>

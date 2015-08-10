@@ -1,6 +1,7 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -20,9 +21,12 @@ public class CampaignListViewAdapter extends BaseAdapter {
 
     private ViewHolder viewHolder = null;
 
+    public static int mInstances = 0;
+
     public CampaignListViewAdapter(Context context, List<ActivityModel> activityList) {
         this.mcontext = context;
         this.activityList = activityList;
+        mInstances ++;
     }
 
     public List<ActivityModel> getActivityList() {
@@ -110,5 +114,12 @@ public class CampaignListViewAdapter extends BaseAdapter {
             if (activityList.get(position).activityType == ActivityModel.ActivityType.派对)
                 viewHolder.activityTypeTxVw.setBackgroundResource(R.drawable.bg_campaign_type_8);
         }
+    }
+
+    @Override
+    public void finalize()
+    {
+        mInstances--;
+        Log.i("CampaignListViewAdapter", "CampaignListViewAdapter，销毁后有" + mInstances + "个对象");
     }
 }

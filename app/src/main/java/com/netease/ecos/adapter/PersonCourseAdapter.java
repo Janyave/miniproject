@@ -3,7 +3,6 @@ package com.netease.ecos.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.netease.ecos.R;
 import com.netease.ecos.activity.CourseDetailActivity;
-import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.model.Course;
 import com.squareup.picasso.Picasso;
 
@@ -62,9 +60,8 @@ public class PersonCourseAdapter extends BaseAdapter implements View.OnClickList
 
         public void setData(final int position) {
             Course item = courseList.get(position);
-            if (item.coverUrl != null && !item.coverUrl.equals("")) {
+            if (item.coverUrl != null && !item.coverUrl.equals(""))
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
-            }
             else
                 iv_cover.setImageResource(R.drawable.img_default);
             tv_title.setText(item.title);
@@ -123,8 +120,8 @@ public class PersonCourseAdapter extends BaseAdapter implements View.OnClickList
         Bundle bundle = new Bundle();
 //        switch (v.getId()) {
 //            default:
-                intent = new Intent(mcontext, CourseDetailActivity.class);
-                bundle.putString(CourseDetailActivity.CourseID, courseList.get(position).courseId);
+        intent = new Intent(mcontext, CourseDetailActivity.class);
+        bundle.putString(CourseDetailActivity.CourseID, courseList.get(position).courseId);
 //                break;
 //        }
         intent.putExtras(bundle);

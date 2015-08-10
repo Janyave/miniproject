@@ -49,6 +49,8 @@ public class UploadAssignmentActivity extends BaseActivity implements View.OnCli
     ImageView imageView;
     @InjectView(R.id.uploadWorkEdTx)
     EditText uploadWorkEdTx;
+    @InjectView(R.id.shareLayout)
+    LinearLayout shareLayout;
 
     //for request
     private CreateAssignmentRequest createAssignmentRequest;
@@ -87,6 +89,7 @@ public class UploadAssignmentActivity extends BaseActivity implements View.OnCli
             Log.d(TAG, "bitmap is null");
         imageView.setImageBitmap(bitmap);
         //implementation on the title bar
+        shareLayout.setOnClickListener(this);
     }
 
     @Override
@@ -103,6 +106,9 @@ public class UploadAssignmentActivity extends BaseActivity implements View.OnCli
                 break;
             case R.id.lly_left_action:
                 UploadAssignmentActivity.this.finish();
+                break;
+            case R.id.shareLayout:
+                Toast.makeText(UploadAssignmentActivity.this, getResources().getString(R.string.noWeixin), Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -144,11 +150,13 @@ public class UploadAssignmentActivity extends BaseActivity implements View.OnCli
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(UploadAssignmentActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
+            dismissProcessBar();
         }
     }
 }

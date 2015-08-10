@@ -147,6 +147,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
 
     public View mContainer;
+
     /**
      * 侧边栏Layout
      *
@@ -167,8 +168,6 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         initListener();
         mUserDataService = UserDataService.getSingleUserDataService(getActivity());
         mUserData = mUserDataService.getUser();
-
-
 
 
 //        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -265,12 +264,12 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         Bundle bundle;
         switch (v.getId()) {
             case R.id.ll_notification:
+                Toast.makeText(getActivity(), getResources().getString(R.string.noPage), Toast.LENGTH_SHORT).show();
+                return;
+            case R.id.ll_contact:
                 intent = new Intent(getActivity(), NotificationActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.ll_contact:
-                Toast.makeText(getActivity(), getResources().getString(R.string.noPage), Toast.LENGTH_SHORT).show();
-                return;
             case R.id.ll_attention:
                 intent = new Intent(getActivity(), NormalListViewActivity.class);
                 bundle = new Bundle();
@@ -429,10 +428,11 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
     }
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -502,7 +502,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         mUserDataService = UserDataService.getSingleUserDataService(getActivity());
         mUserData = mUserDataService.getUser();
 
-        Log.e("侧边栏","用户数据:" + mUserData.toString());
+        Log.e("侧边栏", "用户数据:" + mUserData.toString());
 
         RoundImageView user_avatar = (RoundImageView) v.findViewById(R.id.iv_personage_portrait);
         TextView user_name = (TextView) v.findViewById(R.id.bt_personage_name);
@@ -518,7 +518,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         RequestQueue queue = MyApplication.getRequestQueue();
         ImageLoader.ImageCache imageCache = new SDImageCache();
         ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-        user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
+        if (mUserData.avatarUrl != null && !"".equals(mUserData.avatarUrl))
+            user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
 
         user_name.setText(mUserData.nickname);
         if (mUserData.gender == User.Gender.女) {
@@ -532,9 +533,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
     }
 
-    public void resetUserData(){
-        if(mContainer!=null)
-        {
+    public void resetUserData() {
+        if (mContainer != null) {
             getUserInfoRequest = new GetUserInfoRequest();
             getuserInfoResponse = new GetuserInfoResponse();
             getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, mUserData.userId);
@@ -554,7 +554,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         @Override
         public void success(User user) {
-            if (user.userId.equals(mUserData.userId)){
+            if (user.userId.equals(mUserData.userId)) {
                 mUserData = user;
                 Log.d("ZYW请求侧边栏", mUserData.toString());
                 initUserData(mContainer);

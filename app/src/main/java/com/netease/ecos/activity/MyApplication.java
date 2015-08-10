@@ -215,7 +215,6 @@ public class MyApplication extends Application {
         StatusBarNotificationConfig config = new StatusBarNotificationConfig();
         config.notificationEntrance = NotificationActivity.class;
 
-
         config.notificationSmallIconId = R.mipmap.icon;
         // 通知铃声的uri字符串
         config.notificationSound = "android.resource://com.netease.ecos/raw/msg";
@@ -233,7 +232,6 @@ public class MyApplication extends Application {
 
         // 配置附件缩略图的尺寸大小，
         options.thumbnailSize = ScreenUtil.getScreenMin() / 2;
-
         return options;
     }
 

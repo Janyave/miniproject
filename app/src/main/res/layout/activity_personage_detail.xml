@@ -70,7 +70,6 @@
                         android:layout_height="@dimen/height_tag_36px"
                         android:layout_below="@id/ll_personage_name"
                         android:layout_marginTop="@dimen/margin_50px"
-
                         android:orientation="horizontal"
                         android:gravity="center"></LinearLayout>
 
@@ -185,11 +184,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_20px"
-                android:ellipsize="end"
                 android:gravity="center"
                 android:paddingLeft="@dimen/margin_80px"
                 android:paddingRight="@dimen/margin_80px"
-                android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/bg_red_light_light" />
 

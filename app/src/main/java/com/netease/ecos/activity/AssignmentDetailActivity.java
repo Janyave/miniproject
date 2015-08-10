@@ -1,6 +1,7 @@
 package com.netease.ecos.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.gesture.Gesture;
 import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -23,6 +25,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.WorkDetailListViewAdapter;
+import com.netease.ecos.dialog.FirstDialog;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
@@ -111,9 +114,23 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         super.onCreate(arg0);
         setContentView(R.layout.work_detail_layout);
         ButterKnife.inject(this);
+
+        firstEnter();
         initTitle();
         initData();
         initView();
+
+    }
+
+    private void firstEnter() {
+        SharedPreferences setting = getSharedPreferences(TAG, 0);
+        Boolean first = setting.getBoolean("FIRST", true);
+        if (first) {
+            new FirstDialog(AssignmentDetailActivity.this).show();
+            setting.edit().putBoolean("FIRST", false).commit();
+        } else {
+            //do nothing
+        }
     }
 
     private void initTitle() {
@@ -151,6 +168,11 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
     void initView() {
         //implementation on the title bar
         title_text.setText((workOrder + 1) + "/" + workList.size());
+
+        // 3:2
+        ViewGroup.LayoutParams params=networkImageView.getLayoutParams();
+        params.height=(DisplayWidth-80)*3/2;
+        networkImageView.setLayoutParams(params);
 
         //set the default image for NetWorkImageView
         networkImageView.setDefaultImageResId(R.drawable.img_default);
@@ -279,8 +301,14 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
             dismissProcessBar();
             AssignmentDetailActivity.this.assignment = assignment;
             //set the work image.
-            networkImageView.setImageUrl(assignment.imageUrl, imageLoader);
-            personPicImgView.setImageUrl(assignment.authorAvatarUrl, imageLoader);
+            if (assignment.imageUrl != null && !assignment.imageUrl.equals(""))
+                networkImageView.setImageUrl(assignment.imageUrl, imageLoader);
+            networkImageView.setDefaultImageResId(R.drawable.img_default);
+            networkImageView.setErrorImageResId(R.drawable.img_default);
+            if (assignment.authorAvatarUrl != null && !assignment.authorAvatarUrl.equals(""))
+                personPicImgView.setImageUrl(assignment.authorAvatarUrl, imageLoader);
+            personPicImgView.setDefaultImageResId(R.drawable.img_default);
+            personPicImgView.setErrorImageResId(R.drawable.img_default);
             personNameTxV.setText(assignment.author);
             workDetailDate.setText(assignment.getDateDescription());
             workDetailDescpTxVw.setText(assignment.content);
