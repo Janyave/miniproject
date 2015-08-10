@@ -26,8 +26,6 @@ import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -156,7 +154,7 @@ public class EventWantGoAdapter extends BaseAdapter {
         }
 
         if (TYPE == NormalListViewActivity.TYPE_EVENT_WANTGO) {
-            if (hasFollowEd.get(position) && beFollowed.get(position)) {
+            if (hasFollowEd.get(position).booleanValue() && beFollowed.get(position).booleanValue()) {
                 viewHolder.iv_relation.setImageResource(R.mipmap.ic_contact_friend);
                 viewHolder.iv_relation.setVisibility(View.VISIBLE);
             } else if (hasFollowEd.get(position)) {
@@ -167,9 +165,9 @@ public class EventWantGoAdapter extends BaseAdapter {
             }
         }
 
-        if (TextUtils.equals(userList.get(position).userId, UserDataService.getSingleUserDataService(mcontext).getUser().userId)){
+        if (TextUtils.equals(userList.get(position).userId, UserDataService.getSingleUserDataService(mcontext).getUser().userId)) {
             viewHolder.iv_relation.setVisibility(View.GONE);
-        }else {
+        } else {
             viewHolder.iv_relation.setVisibility(View.VISIBLE);
         }
     }

@@ -45,9 +45,6 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-/**
- * Created by Think on 2015/8/8.
- */
 public class ContactActivity extends Activity implements View.OnClickListener {
     private final String TAG = "Ecos---Contact";
     public static final String TargetUserID = "TargetUserID";

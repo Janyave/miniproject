@@ -171,6 +171,7 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
                 NormalListViewActivity.this.beFollowed = new ArrayList<>();
             for (int i = 0; i < userList.size(); i++) {
                 NormalListViewActivity.this.userList.add(userList.get(i));
+                Log.d(TAG, i + "" + hasFollowEd[i] + "," + beFollowed[i]);
                 NormalListViewActivity.this.hasFollowed.add(hasFollowEd[i]);
                 NormalListViewActivity.this.beFollowed.add(beFollowed[i]);
             }
