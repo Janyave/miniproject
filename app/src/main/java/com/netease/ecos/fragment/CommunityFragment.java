@@ -224,7 +224,6 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
         final String strCategory = recentCategory;
         final String strLocation = recentLocation;
 
-
         String cityCode;
         if (strLocation.equals("不限"))
             cityCode = "";

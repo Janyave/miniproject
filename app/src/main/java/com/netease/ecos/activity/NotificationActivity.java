@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,7 +54,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
     @InjectView(R.id.lly_left_action)
     LinearLayout title_left;
 
-//    @InjectView(R.id.tv_notice)
+    //    @InjectView(R.id.tv_notice)
 //    TextView tv_notice; //通知
     @InjectView(R.id.lv_list)
     XListView lv_list; //显示列表
@@ -81,7 +80,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
         initListener();
         initData();
 
-        Log.v("contact","MyID" +UserDataService.getSingleUserDataService(this).getUser().imId);
+        Log.v("contact", "MyID" + UserDataService.getSingleUserDataService(this).getUser().imId);
     }
 
     private void initTitle() {
@@ -92,14 +91,14 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
 
-        Log.i("联系人列表","联系人列表刷新");
+        Log.i("联系人列表", "联系人列表刷新");
         contactList = ContactDBService.getInstance(NotificationActivity.this).getContactList();
 
-        if(contactList.size()==0)
-            Log.e("notification","联系人列表为空");
+        if (contactList.size() == 0)
+            Log.e("notification", "联系人列表为空");
         for (Contact contact : contactList) {
             Log.e("数据库读取", "contact: --" + contact.toString());
         }
@@ -138,8 +137,8 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 
         contactList = ContactDBService.getInstance(NotificationActivity.this).getContactList();
 
-        if(contactList.size()==0)
-            Log.e("notification","联系人列表为空");
+        if (contactList.size() == 0)
+            Log.e("notification", "联系人列表为空");
         for (Contact contact : contactList) {
             Log.e("数据库读取", "contact: --" + contact.toString());
         }
@@ -205,50 +204,6 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 
 
     }
-
-
-   /* public void testSendTextMessage(){
-        String sessionId = etv_accid.getText().toString();
-        String content = etv_content.getText().toString();
-
-        IMMessage message = MessageBuilder.createTextMessage(
-                sessionId, // 聊天对象的ID，如果是单聊，为用户账号，如果是群聊，为群组ID
-                SessionTypeEnum.P2P, // 聊天类型，单聊或群组
-                content // 文本内容
-        );
-
-        NIMClient.getService(MsgService.class).sendMessage(message, false);
-
-
-
-    }
-
-    public void testSendImageMessage(){
-        String sessionId = etv_accid.getText().toString();
-        String content = etv_content.getText().toString();
-        File file = new File("/storage/emulated/0/com.netease.ecos/nim/thumb/188939b191018f57f3f7ef3a4ace6fd4");
-        IMMessage message = MessageBuilder.createImageMessage(
-                sessionId, // 聊天对象的ID，如果是单聊，为用户账号，如果是群聊，为群组ID
-                SessionTypeEnum.P2P, // 聊天类型，单聊或群组
-                file,// 图片文件对象
-                "图片哦" // 文件显示名字，如果第三方APP不关注，可以为null
-        );
-
-        NIMClient.getService(MsgService.class).sendMessage(message, false);
-    }*/
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
     //信息收听接收器
     Observer<List<IMMessage>> incomingMessageObserver =
@@ -321,7 +276,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
                                 Log.e("图片打开错误", "缩略图不在");
                             }
                             /*BitmapDrawable drawable = new BitmapDrawable(getResources(), imageAttachment.getPathForSave());
-			        		BitmapFactory.Options options = new BitmapFactory.Options();
+                            BitmapFactory.Options options = new BitmapFactory.Options();
 			                options.inJustDecodeBounds = true;
 			                BitmapFactory.decodeFile(imageAttachment.getPathForSave(), options);
 			        		Log.e("展示图片", "drawable原图宽度:" + options.outWidth);
@@ -358,12 +313,12 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
                         Contact contact = new Contact();
                         String myImId = AccountDataService.getSingleAccountDataService(NotificationActivity.this).getUserAccId();
 
-                        contact.setId(myImId,msg.getContactId());
+                        contact.setId(myImId, msg.getContactId());
                         contact.contactAccid = msg.getContactId();
 
                         try {
 
-                            JSONObject content  = new JSONObject(msg.getContent());
+                            JSONObject content = new JSONObject(msg.getContent());
                             contact.contactNickName = content.getString("nickname");
                             contact.contactUserId = content.getString("userId");
                             contact.avatarUrl = content.getString("avatarUrl");
@@ -390,7 +345,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
                         Log.e("最近会话信息", "信息状态：" + msg.getMsgStatus());
                         Log.e("最近会话信息", "会话类型：" + (msg.getSessionType() == SessionTypeEnum.Team ? "群聊" : "单聊"));
                         Log.i("最近会话信息", "----------------------------------------");
-	    	                /*NIMClient.getService(MsgService.class).setChattingAccount(
+                            /*NIMClient.getService(MsgService.class).setChattingAccount(
 	    	                		msg.getContactId(),
 	    	                	    SessionTypeEnum.P2P
 	    	                	    );*/

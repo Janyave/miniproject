@@ -164,7 +164,10 @@ public class ShareListRequest extends BaseRequest {
      * 评论时间时间戳
      */
     public static final String KEY_COMMENT_TIME_STAMP = "commentTimeStamp";
-
+    /**
+     * 评论时间时间戳
+     */
+    public static final String KEY_TAG = "tag";
 
     IShareListResponse mShareListResponse;
 
@@ -190,6 +193,7 @@ public class ShareListRequest extends BaseRequest {
                 map.put(KEY_PAGE_SIZE, String.valueOf(5));
                 //	        	map.put(KEY_PAGE_SIZE, String.valueOf( DEFAULT_PAGE_SIZE ) );
                 map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
+                map.put(KEY_TAG, "");
 
                 traceNormal(TAG, map.toString());
                 traceNormal(TAG, ShareListRequest.this.getUrl(RequestUrlConstants.GET_SHARE_LIST_URL, map));
