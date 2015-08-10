@@ -45,7 +45,8 @@
                             android:layout_width="fill_parent"
                             android:layout_height="@dimen/height_cover_1500px_960px"
                             android:focusable="true"
-                            android:focusableInTouchMode="true" />
+                            android:focusableInTouchMode="true"
+                            android:scaleType="fitXY"/>
 
                         <RelativeLayout
                             android:layout_width="match_parent"

@@ -25,12 +25,14 @@ import butterknife.InjectView;
  */
 public class WriteContentActivity extends Activity implements View.OnClickListener {
     private static String TAG = "Ecos---WriteContent";
-    @InjectView(R.id.tv_title)
-    TextView titleTxVw;
     @InjectView(R.id.lly_right_action)
-    LinearLayout rightButton;
-    @InjectView(R.id.tv_left)
-    TextView backTxVw;
+    LinearLayout title_right;
+    @InjectView(R.id.tv_right_text)
+    TextView title_right_text;
+    @InjectView(R.id.tv_title)
+    TextView title_text;
+    @InjectView(R.id.lly_left_action)
+    LinearLayout title_left;
     @InjectView(R.id.commentEdTx)
     EditText commentEdTx;
 
@@ -44,8 +46,17 @@ public class WriteContentActivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.write_content_layout);
         ButterKnife.inject(this);
+        initTitle();
         initData();
         initView();
+    }
+
+    private void initTitle() {
+        title_left.setOnClickListener(this);
+        title_right.setOnClickListener(this);
+        title_right.setVisibility(View.VISIBLE);
+        title_right_text.setText("发送");
+        title_text.setText("添加评论");
     }
 
     void initData() {
@@ -57,11 +68,6 @@ public class WriteContentActivity extends Activity implements View.OnClickListen
 
     void initView() {
         //implementation on the title bar
-        titleTxVw.setText("添加评论");
-//        rightButton.setText("发送");
-        //set listener
-        rightButton.setOnClickListener(this);
-        backTxVw.setOnClickListener(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
@@ -83,7 +89,7 @@ public class WriteContentActivity extends Activity implements View.OnClickListen
                     response = new UploadCommentResponse();
                 createCommentRequest.request(response, comment);
                 break;
-            case R.id.tv_left:
+            case R.id.lly_left_action:
                 finish();
                 break;
         }

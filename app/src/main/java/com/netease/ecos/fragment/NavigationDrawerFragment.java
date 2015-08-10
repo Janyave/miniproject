@@ -264,12 +264,12 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         Bundle bundle;
         switch (v.getId()) {
             case R.id.ll_notification:
+                Toast.makeText(getActivity(), getResources().getString(R.string.noPage), Toast.LENGTH_SHORT).show();
+                return;
+            case R.id.ll_contact:
                 intent = new Intent(getActivity(), NotificationActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.ll_contact:
-                Toast.makeText(getActivity(), getResources().getString(R.string.noPage), Toast.LENGTH_SHORT).show();
-                return;
             case R.id.ll_attention:
                 intent = new Intent(getActivity(), NormalListViewActivity.class);
                 bundle = new Bundle();

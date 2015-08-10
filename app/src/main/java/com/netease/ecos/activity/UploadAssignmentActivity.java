@@ -150,11 +150,13 @@ public class UploadAssignmentActivity extends BaseActivity implements View.OnCli
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
             Toast.makeText(UploadAssignmentActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
+            dismissProcessBar();
         }
     }
 }
