@@ -132,7 +132,7 @@
     <dimen name="height_tag_54px">24dp</dimen>
     <dimen name="width_tag_150px">52dp</dimen>
     <dimen name="radius_tag_54px">12dp</dimen>
-    <dimen name="height_campaign_type_54px">20dp</dimen>
+    <dimen name="height_campaign_type_54px">24dp</dimen>
     <dimen name="width_campaign_type_150px">68dp</dimen>
     <dimen name="radius_campaign_type_54px">2dp</dimen>
     <dimen name="width_popup_six_type">120dp</dimen>

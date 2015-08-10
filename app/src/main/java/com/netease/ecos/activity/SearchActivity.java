@@ -116,7 +116,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
 
     private void setHistory(String s) {
         if (!TextUtils.isEmpty(s)) {
-            searchHistoryAdapter.getList().add(s);
+            searchHistoryAdapter.getList().add(0,s);
         }
         SharedPreferences setting = getSharedPreferences("Search", 0);
         setting.edit().putString("History", getString(searchHistoryAdapter.getList())).commit();
@@ -147,6 +147,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
             @Override
             public void onClick(View v) {
                 finish();
+                setHistory(searchWord);
             }
         });
         tv_confirm.setOnClickListener(new View.OnClickListener() {
@@ -170,6 +171,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
                     shareListRequest.request(getShareListResponse, DisplayFragment.shareTypes[selectPosition], searchWord, 1);
                 }
                 setHistory(searchWord);
+                et_search.setText("");
             }
         });
 
@@ -200,18 +202,30 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         lv_searchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
             }
         });
 
         lv_searchHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
-                bundle.putString(SearchWord, ((SearchHistoryAdapter.SearchHistoryViewHolder) view.getTag()).tv_search.getText().toString());
-                getIntent().putExtras(bundle);
-                setResult(CourseCategoryActivity.ResultCodeForSearch, getIntent());
-                finish();
+                if (TYPE == TYPE_COURSE)
+                    pageIndex = 0;
+                else
+                    pageIndex = 1;
+                searchWord = ((TextView)view.findViewById(R.id.tv_search)).getText().toString();
+                if (searchWord.equals("")) {
+                    Toast.makeText(SearchActivity.this, getResources().getString(R.string.noContent), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                lv_searchHistory.setVisibility(View.GONE);
+                if (TYPE == TYPE_COURSE) {
+                    showProcessBar(getResources().getString(R.string.loading));
+                    courseListRequest.request(courseListResponse, CourseListRequest.Type.筛选, CourseCategoryActivity.courseTypes[selectPosition], searchWord, CourseListRequest.SortRule.时间, 0);
+                } else {
+                    showProcessBar(getResources().getString(R.string.loading));
+                    shareListRequest.request(getShareListResponse, DisplayFragment.shareTypes[selectPosition], searchWord, 1);
+                }
+                et_search.setText("");
             }
         });
 
@@ -404,6 +418,8 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
             lv_searchList.setVisibility(View.VISIBLE);
             lv_searchList.setAdapter(courseListViewAdapter);
             pageIndex = 0;
+
+
         }
 
         @Override
