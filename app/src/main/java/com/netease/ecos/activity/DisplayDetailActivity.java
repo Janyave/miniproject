@@ -23,6 +23,8 @@ import com.netease.ecos.adapter.ExhibitListViewAdapter;
 import com.netease.ecos.adapter.WorkDetailListViewAdapter;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
+import com.netease.ecos.model.User;
+import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.PraiseRequest;
 import com.netease.ecos.request.share.GetShareDetailRequest;
@@ -93,6 +95,9 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
     private PraiseRequest praiseRequest;
     private PraiseResponse praiseResponse;
 
+    private UserDataService mUserDataService;
+    private User mUserData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +143,10 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         getShareDetealResponse = new GetShareDetealResponse();
         showProcessBar(getResources().getString(R.string.loading));
         getShareDetailRequest.request(getShareDetealResponse, shareId);
+        //get the local user id
+        mUserDataService = UserDataService.getSingleUserDataService(DisplayDetailActivity.this);
+        mUserData = mUserDataService.getUser();
+
     }
 
     @Override
@@ -147,7 +156,7 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         int width = display.getWidth();
         width -= 80;
         ViewGroup.LayoutParams params = exhibitCoverImgVw.getLayoutParams();
-        params.height=width*2/3;
+        params.height = width * 2 / 3;
         exhibitCoverImgVw.setLayoutParams(params);
     }
 
