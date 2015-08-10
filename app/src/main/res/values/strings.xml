@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">ECos</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
 
     <!-- tab 开始-->
     <string name="tab_course">教程</string>
@@ -13,7 +11,8 @@
 
     <!-- 侧滑栏开始 -->
     <string name="drawer_title">我是侧滑栏</string>
-
+    <string name="navigation_drawer_open">navigation_drawer_open</string>
+    <string name="navigation_drawer_close">navigation_drawer_close</string>
     <string name="title_section1">我的消息</string>
     <string name="title_section2">我的等级</string>
     <string name="title_section3">我的教程</string>

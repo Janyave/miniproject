@@ -222,7 +222,7 @@ public class GetAssignmentDetailRequest extends BaseRequest {
             assignment.commentNum = "".equals(commentNum) ? 0 : Integer.valueOf(commentNum);
 
             assignment.hasPraised = asJO.getBoolean("hasPraised");
-//			assignment.issueTimeStamp = Long.valueOf(asJO.getString(KEY_AS_ISSUE_TIMES)).longValue();
+			assignment.issueTimeStamp = Long.valueOf(asJO.getString(KEY_AS_ISSUE_TIMES)).longValue();
 
             //设置评论数据
             List<Comment> commentList = new ArrayList<Comment>();
