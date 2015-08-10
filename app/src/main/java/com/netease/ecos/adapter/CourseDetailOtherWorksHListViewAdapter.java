@@ -13,6 +13,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.model.Course;
+import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 import com.squareup.picasso.Picasso;
@@ -65,14 +66,14 @@ public class CourseDetailOtherWorksHListViewAdapter extends BaseAdapter {
     }
 
     class ViewHolder {
-        private ImageView iv_image;
+        private RoundAngleImageView iv_image;
         private TextView tv_time;
         private TextView tv_name;
         private RoundImageView iv_avatar;
         private LinearLayout ll_author;
 
         ViewHolder(View v) {
-            iv_image = (ImageView) v.findViewById(R.id.iv_image);
+            iv_image = (RoundAngleImageView) v.findViewById(R.id.iv_image);
             tv_name = (TextView) v.findViewById(R.id.tv_name);
             iv_avatar = (RoundImageView) v.findViewById(R.id.iv_avatar);
             tv_time = (TextView) v.findViewById(R.id.tv_time);

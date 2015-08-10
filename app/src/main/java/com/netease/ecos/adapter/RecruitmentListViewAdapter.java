@@ -19,6 +19,7 @@ import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.RecruitmentDetailActivity;
 import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.model.User;
+import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 import com.squareup.picasso.Picasso;
@@ -45,7 +46,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
         private TextView tv_distance;
         private TextView tv_price;
         private TextView tv_talk;
-        private ImageView iv_cover;
+        private RoundAngleImageView iv_cover;
         private LinearLayout ll_author;
         private ImageView genderImVw;
 
@@ -55,7 +56,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             tv_distance = (TextView) root.findViewById(R.id.tv_distance);
             tv_price = (TextView) root.findViewById(R.id.tv_price);
             tv_talk = (TextView) root.findViewById(R.id.tv_talk);
-            iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
+            iv_cover = (RoundAngleImageView) root.findViewById(R.id.iv_cover);
             ll_author = (LinearLayout) root.findViewById(R.id.ll_author);
             genderImVw = (ImageView) root.findViewById(R.id.genderImVw);
         }
