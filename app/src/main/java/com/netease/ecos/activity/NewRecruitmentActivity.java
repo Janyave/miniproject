@@ -172,12 +172,16 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
             displayLsVw.stopLoadMore();
+            Toast.makeText(NewRecruitmentActivity.this, "小编还没找到您在该类别下的分享作品，所以不能发布新的招募哦，快去创建相应的分享吧亲:)", Toast.LENGTH_LONG).show();
+            finish();
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
             dismissProcessBar();
             displayLsVw.stopLoadMore();
+            Toast.makeText(NewRecruitmentActivity.this, "小编还没找到您在该类别下的分享作品，所以不能发布新的招募哦，快去创建相应的分享吧亲:)", Toast.LENGTH_LONG).show();
+            finish();
         }
 
         @Override

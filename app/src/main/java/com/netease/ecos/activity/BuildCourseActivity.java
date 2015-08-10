@@ -185,6 +185,7 @@ public class BuildCourseActivity extends BaseActivity {
         });
         lv_build_course.setAdapter(mCourseStepAdapter);
 
+
         mSetPhotoHelper = new SetPhotoHelper(this, null);
         //图片裁剪后输出宽度
         final int outPutWidth = 450;
