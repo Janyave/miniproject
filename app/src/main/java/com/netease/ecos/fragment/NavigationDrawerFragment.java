@@ -1,7 +1,6 @@
 package com.netease.ecos.fragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -20,7 +19,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,7 +27,6 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.activity.NormalListViewActivity;
@@ -171,9 +168,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         mUserDataService = UserDataService.getSingleUserDataService(getActivity());
         mUserData = mUserDataService.getUser();
 
-        getUserInfoRequest = new GetUserInfoRequest();
-        getuserInfoResponse = new GetuserInfoResponse();
-        getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, mUserData.userId);
+
 
 
 //        mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -540,6 +535,9 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     public void resetUserData(){
         if(mContainer!=null)
         {
+            getUserInfoRequest = new GetUserInfoRequest();
+            getuserInfoResponse = new GetuserInfoResponse();
+            getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, mUserData.userId);
             initUserData(mContainer);
         }
     }

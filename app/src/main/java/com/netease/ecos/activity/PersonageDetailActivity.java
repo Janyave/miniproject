@@ -147,6 +147,14 @@ public class PersonageDetailActivity extends BaseActivity {
         mRecruitment = new ArrayList<Recruitment>();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUserInfoRequest = new GetUserInfoRequest();
+        getuserInfoResponse = new GetuserInfoResponse();
+        getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, userID);
+    }
+
     private void initUserData() {
         showProcessBar("正在加载数据");
         userID = getIntent().getExtras().getString(UserID);
@@ -189,10 +197,11 @@ public class PersonageDetailActivity extends BaseActivity {
             }
         }
         if (mUserData.characterSignature == null && mUserData.characterSignature.equals("")){
-            ll_signature_attention.setVisibility(isOwn ? View.GONE : View.VISIBLE);
             user_description.setVisibility(View.GONE);
+            ll_signature_attention.setVisibility(isOwn ? View.GONE : View.VISIBLE);
         }else{
             user_description.setVisibility(View.VISIBLE);
+            ll_signature_attention.setVisibility(View.VISIBLE);
         }
 
         user_name.setText(mUserData.nickname);
@@ -206,6 +215,13 @@ public class PersonageDetailActivity extends BaseActivity {
         user_description.setText(mUserData.characterSignature);
         contactLayout.setVisibility(isOwn ? View.GONE : View.VISIBLE);
         //TODO set attention text
+        if((!isOwn) && (mShare.get(0) != null) && (!mShare.get(0).equals(""))){
+            if(mShare.get(0).hasAttention) {
+                btn_attention.setText("已关注");
+                btn_attention.setTextColor(getResources().getColor(R.color.text_gray));
+                btn_attention.setBackgroundResource(R.drawable.btn_focus_gray);
+            }
+        }
     }
 
     private void initViews() {
@@ -272,6 +288,8 @@ public class PersonageDetailActivity extends BaseActivity {
 
         @Override
         public void success(String userId, boolean follow) {
+            mShare.get(0).hasAttention = follow;
+            btn_attention.setText(mShare.get(0).hasAttention ? PersonageDetailActivity.this.getString(R.string.focus) : PersonageDetailActivity.this.getString(R.string.notFocus));
 //            tv_display.append("操作对象userId:" + userId + "\n");
 //            tv_display.append("关注状态:" + follow + "\n");
         }
@@ -427,10 +445,10 @@ public class PersonageDetailActivity extends BaseActivity {
                     if (followResponce == null)
                         followResponce = new FollowResponce();
                     if (btn_attention.getText().equals("已关注")) {
-                        btn_attention.setText("+关注");
+                        //btn_attention.setText("+关注");
                         followUserRequest.request(followResponce, userID, false);
                     } else {
-                        btn_attention.setText("已关注");
+                        //btn_attention.setText("已关注");
                         followUserRequest.request(followResponce, userID, true);
                     }
                     break;
