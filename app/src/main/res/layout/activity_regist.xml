@@ -8,6 +8,12 @@ android:id="@+id/main"
         />
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+    <LinearLayout
         android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -26,7 +32,7 @@ android:id="@+id/main"
             style="@style/text_splash_white"
             android:text="@string/aplash_choose_icon"/>
     </LinearLayout>
-
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -33,11 +33,6 @@ public class CreateRecruitmentRequest extends BaseRequest{
 	{
 		super.initBaseRequest(createRecruitmentResponce);
 		mCreateRecruitmentResponce = createRecruitmentResponce;
-		
-		/*if(mCreateRecruitmentResponce!=null)
-		{
-			mCreateRecruitmentResponce.success(getTestRecruitment());
-		}*/
 
 		MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.CREATE_RECRUITMENT_URL,  this, this) {
 			@Override
