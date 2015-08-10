@@ -1,4 +1,4 @@
-﻿package com.netease.ecos.activity;
+package com.netease.ecos.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -104,6 +104,11 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
         initData();
 
+        //取消MainActivity全局监听
+        MyApplication.msMainActivity.unregistObserver();
+        //取消通知栏对应通知
+        MainActivity.cancelNotification(this,targetUserIMID);
+
     }
 
     private void initTitle() {
@@ -199,6 +204,10 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         //最近联系人列表监听
         NIMClient.getService(MsgServiceObserve.class)
                 .observeRecentContact(messageObserver, false);
+
+
+        //开启MainActivity全局监听
+        MyApplication.msMainActivity.registObserver();
     }
 
     private void initListener() {

@@ -47,13 +47,13 @@ public class GetUserInfoRequest extends BaseRequest {
         super.initBaseRequest(getUserInfoResponse);
         mGetUserInfoResponse = getUserInfoResponse;
         mUserId = userId;
-        //		mGetUserInfoResponse.success(getTestUser());
+        //mGetUserInfoResponse.success(getTestUser());
 
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_USER_INFO, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = getRequestBasicMap();
-                if (userId != null) {
+                if (userId != null|| userId.equals(AccountDataService.getSingleAccountDataService(getContext()).getUserId())) {
                     map.put("toUserId", userId);
                     map.put("type", "other");
                 } else {
