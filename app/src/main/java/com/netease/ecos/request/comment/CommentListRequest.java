@@ -110,14 +110,6 @@ public class CommentListRequest extends BaseRequest {
         mCommentListRespnce = commentListRespnce;
         mComment = comment;
 
-		/*List<Comment> commentList = getTestCommentList();
-
-		if(mCommentListRespnce!=null)
-		{
-			mCommentListRespnce.success(commentList);
-		}*/
-
-
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_COMMENT_LIST_URL, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {

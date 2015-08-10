@@ -67,14 +67,13 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(networkImageView);
             else
                 networkImageView.setImageResource(R.drawable.img_default);
+            imageAuthorPic.setDefaultImageResId(R.mipmap.bg_female_default);
+            imageAuthorPic.setErrorImageResId(R.mipmap.bg_female_default);
             if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals("")) {
-                imageAuthorPic.setDefaultImageResId(R.mipmap.bg_female_default);
-                imageAuthorPic.setErrorImageResId(R.mipmap.bg_female_default);
                 RequestQueue queue = MyApplication.getRequestQueue();
                 ImageLoader.ImageCache imageCache = new SDImageCache();
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-                if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals(""))
-                    imageAuthorPic.setImageUrl(item.authorAvatarUrl, imageLoader);
+                imageAuthorPic.setImageUrl(item.authorAvatarUrl, imageLoader);
             } else
                 imageAuthorPic.setImageResource(R.drawable.img_default);
             textViewTitle.setText(item.title);

@@ -26,6 +26,7 @@ import com.netease.ecos.model.Share;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.course.PraiseRequest;
 import com.netease.ecos.request.share.GetShareDetailRequest;
 import com.netease.ecos.request.user.FollowUserRequest;
@@ -254,6 +255,7 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         @Override
         public void onErrorResponse(VolleyError error) {
             dismissProcessBar();
+            Toast.makeText(DisplayDetailActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(error), Toast.LENGTH_SHORT).show();
         }
 
         @Override

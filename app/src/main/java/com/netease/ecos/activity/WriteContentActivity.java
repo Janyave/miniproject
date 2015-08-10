@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.comment.CreateCommentRequest;
 
 import butterknife.ButterKnife;
@@ -102,12 +103,13 @@ public class WriteContentActivity extends Activity implements View.OnClickListen
 
         @Override
         public void doAfterFailedResponse(String message) {
+            Toast.makeText(WriteContentActivity.this, message, Toast.LENGTH_SHORT).show();
 
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-
+            Toast.makeText(WriteContentActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
 
         @Override

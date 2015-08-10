@@ -85,6 +85,8 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
         ImageLoader imageLoader = new ImageLoader(queue, imageCache);
         if (commentList.get(position).avatarUrl != null && !commentList.get(position).avatarUrl.equals(""))
             viewHolder.imageView.setImageUrl(commentList.get(position).avatarUrl, imageLoader);
+        else
+            viewHolder.imageView.setImageResource(R.mipmap.bg_female_default);
         viewHolder.imageView.setErrorImageResId(R.mipmap.bg_female_default);
         viewHolder.imageView.setDefaultImageResId(R.mipmap.bg_female_default);
         viewHolder.nameTxVw.setText(commentList.get(position).fromNickName);

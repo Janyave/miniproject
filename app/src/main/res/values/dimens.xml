@@ -132,7 +132,7 @@
     <dimen name="height_tag_54px">24dp</dimen>
     <dimen name="width_tag_150px">52dp</dimen>
     <dimen name="radius_tag_54px">12dp</dimen>
-    <dimen name="height_campaign_type_54px">20dp</dimen>
+    <dimen name="height_campaign_type_54px">24dp</dimen>
     <dimen name="width_campaign_type_150px">68dp</dimen>
     <dimen name="radius_campaign_type_54px">2dp</dimen>
     <dimen name="width_popup_six_type">120dp</dimen>
@@ -150,11 +150,12 @@
     <dimen name="circle_icon_80px">35dp</dimen>
     <dimen name="circle_icon_210px">70dp</dimen>
     <dimen name="circle_icon_50px">17dp</dimen>
-    <dimen name="radius_circle_icon_100px">17dp</dimen>
+    <dimen name="radius_circle_icon_100px">20dp</dimen>
 
     <dimen name="text_size_44">17sp</dimen>
     <dimen name="text_size_36">15sp</dimen>
     <dimen name="text_size_24">12sp</dimen>
+    <dimen name="text_size_tab">13sp</dimen>
 
     <dimen name="icon_big_260px">85dp</dimen>
     <dimen name="icon_big_200px">60dp</dimen>
@@ -212,7 +213,7 @@
     <dimen name="icon_title_right_img">35dp</dimen>
     <dimen name="height_title_main">63dp</dimen>
     <dimen name="width_title__main_tag">64dp</dimen>
-    <dimen name="paddingTop_title__main_tag">30dp</dimen>
+    <dimen name="paddingTop_title__main_tag">35dp</dimen>
     <dimen name="height_title__main_tag_pic">30dp</dimen>
     <dimen name="marginTop_title__main_tag_pic">8dp</dimen>
 

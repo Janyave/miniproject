@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
 android:id="@+id/main"
-    android:background="@drawable/img_splath_g_l">
+    android:background="@drawable/img_splath_g">
     <include layout="@layout/item_splash_return"
         />
 
@@ -62,6 +62,8 @@ android:id="@+id/main"
                 android:textColorHint="@color/bg_gray_dark"
                 style="@style/text_splash_gray"
                 android:paddingLeft="@dimen/splash_item_edit_marginleft"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:background="@android:color/transparent"
                 android:gravity="center_vertical"/>
         </LinearLayout>

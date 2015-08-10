@@ -39,9 +39,8 @@
                 android:id="@+id/ll_tagList"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/height_tag_36px"
-                android:paddingBottom="@dimen/margin_20px"
+                android:layout_marginBottom="@dimen/margin_20px"
                 android:orientation="horizontal">
-
             </LinearLayout>
 
             <LinearLayout

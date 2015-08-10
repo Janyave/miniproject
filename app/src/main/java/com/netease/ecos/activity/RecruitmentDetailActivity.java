@@ -17,6 +17,7 @@ import com.netease.ecos.adapter.RecruitmentDetailWorkAdapter;
 import com.netease.ecos.model.Recruitment;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.recruitment.GetRecruitmentDetailRequest;
 import com.netease.ecos.request.share.ShareListRequest;
 import com.netease.ecos.utils.RoundImageView;
@@ -194,6 +195,7 @@ public class RecruitmentDetailActivity extends BaseActivity implements View.OnCl
             tv_distance.setText(recruit.distanceKM + getResources().getString(R.string.KM));
             tv_price.setText(recruit.averagePrice + recruit.recruitType.getPriceUnit());
             tv_detail.setText(recruit.description);
+
         }
 
     }
@@ -220,6 +222,7 @@ public class RecruitmentDetailActivity extends BaseActivity implements View.OnCl
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
+            Toast.makeText(RecruitmentDetailActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 }

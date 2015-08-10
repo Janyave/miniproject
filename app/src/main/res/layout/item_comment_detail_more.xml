@@ -43,6 +43,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/tv_time"
                     style="@style/text_gray_mid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />

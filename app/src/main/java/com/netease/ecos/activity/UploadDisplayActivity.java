@@ -19,8 +19,10 @@ import com.netease.ecos.R;
 import com.netease.ecos.adapter.UploadWorksListAdapter;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.Image;
+import com.netease.ecos.model.InputLength;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.share.CreateShareRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
 import com.netease.ecos.utils.UploadImageTools;
@@ -167,6 +169,14 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
                     Toast.makeText(UploadDisplayActivity.this, "请填写完所有内容:)", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (uploadWorksCoverEdTx.getText().length()> InputLength.DisplayTitle_max){
+                    Toast.makeText(UploadDisplayActivity.this, "标题限制 "+InputLength.DisplayTitle_max+" 字", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (uploadWorksDescrpEdTx.getText().length()> InputLength.DisplayContent_max){
+                    Toast.makeText(UploadDisplayActivity.this, "内容限制 "+InputLength.DisplayContent_max+" 字", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 showProcessBar(getResources().getString(R.string.uploading));
                 share.title = uploadWorksCoverEdTx.getText().toString();
                 share.content = uploadWorksDescrpEdTx.getText().toString();
@@ -284,7 +294,7 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
         @Override
         public void onErrorResponse(VolleyError error) {
             dismissProcessBar();
-            Toast.makeText(UploadDisplayActivity.this, "onErrorResponse:" + error.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(UploadDisplayActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(error), Toast.LENGTH_SHORT).show();
         }
 
         @Override

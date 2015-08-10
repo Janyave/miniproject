@@ -24,6 +24,7 @@ import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.course.GetCourseDetailRequest;
 import com.netease.ecos.request.course.PraiseRequest;
 import com.netease.ecos.utils.RoundImageView;
@@ -40,7 +41,6 @@ import butterknife.InjectView;
 
 public class CourseDetailActivity extends BaseActivity implements View.OnClickListener {
     private final String TAG = "Ecos---CourseDetail";
-    public static final int RESULT_CODE_COURSEDETAIL = 1;
     public static final String CourseID = "CourseID";
     //the widget of the title bar
     @InjectView(R.id.lly_right_action)
@@ -140,8 +140,8 @@ public class CourseDetailActivity extends BaseActivity implements View.OnClickLi
         ll_praise.setOnClickListener(this);
         lv_courseStep.setDividerHeight(0);
 
-        ViewGroup.LayoutParams params=iv_cover.getLayoutParams();
-        params.height=DisplayWidth*2/3;
+        ViewGroup.LayoutParams params = iv_cover.getLayoutParams();
+        params.height = DisplayWidth * 2 / 3;
         iv_cover.setLayoutParams(params);
 
         hlv_otherWorks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -267,6 +267,7 @@ public class CourseDetailActivity extends BaseActivity implements View.OnClickLi
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
+            Toast.makeText(CourseDetailActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -276,15 +277,14 @@ public class CourseDetailActivity extends BaseActivity implements View.OnClickLi
      * @param course
      */
     private void bindData(Course course) {
-        Log.d(TAG, "bind the data for course detail");
         this.course = course;
         tv_title.setText(course.title);
         tv_name.setText(course.author);
         tv_praiseNum.setText(course.praiseNum + getResources().getString(R.string.manyFavor));
         setPraiseLayout();
+        iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+        iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
         if (course.authorAvatarUrl != null && !course.authorAvatarUrl.equals("")) {
-            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
-            iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
             RequestQueue queue = MyApplication.getRequestQueue();
             ImageLoader.ImageCache imageCache = new SDImageCache();
             ImageLoader imageLoader = new ImageLoader(queue, imageCache);
@@ -330,8 +330,6 @@ public class CourseDetailActivity extends BaseActivity implements View.OnClickLi
 
         @Override
         public void success(String userId, boolean praise) {
-            Log.d(TAG, "praise success:" + praise);
-
             course.hasPraised = !course.hasPraised;
             setPraiseLayout();
         }
@@ -343,7 +341,7 @@ public class CourseDetailActivity extends BaseActivity implements View.OnClickLi
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-
+            Toast.makeText(CourseDetailActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 }

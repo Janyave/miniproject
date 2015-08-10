@@ -1,15 +1,11 @@
 package com.netease.ecos.activity;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +14,7 @@ import android.widget.Toast;
 
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.model.InputLength;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.request.user.ResetPasswordRequest;
@@ -45,7 +42,6 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
         ButterKnife.inject(this);
-
 
         initListener();
         initData();
@@ -93,7 +89,7 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
     }
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (et_password.getText().toString().length()>7&&et_password.getText().toString().length()<17){
+        if (et_password.getText().toString().length()>= InputLength.Password_min&&et_password.getText().toString().length()<=InputLength.Password_max){
             tv_reset_password.setEnabled(true);
         }else{
             tv_reset_password.setEnabled(false);

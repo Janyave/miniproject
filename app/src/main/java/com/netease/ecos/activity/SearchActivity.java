@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -28,9 +27,9 @@ import com.netease.ecos.adapter.DisplayListViewAdapter;
 import com.netease.ecos.adapter.SearchHistoryAdapter;
 import com.netease.ecos.fragment.DisplayFragment;
 import com.netease.ecos.model.Course;
-import com.netease.ecos.model.Image;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.request.share.ShareListRequest;
 import com.netease.ecos.views.PopupHelper;
@@ -57,7 +56,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
 
     private int TYPE = TYPE_COURSE; //default course
 
-    private static java.util.List<String> HistoryList=new ArrayList<>();  //搜索历史记录
+    private static java.util.List<String> HistoryList = new ArrayList<>();  //搜索历史记录
 
     @InjectView(R.id.iv_left)
     ImageView iv_left;
@@ -74,8 +73,6 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
     LinearLayout ll_searchType;
     @InjectView(R.id.tv_searchType)
     TextView tv_searchType;
-    @InjectView(R.id.iv_searchType)
-    ImageView iv_searchType;
 
     PopupWindow courseTypePopupWindow;
     PopupWindow shareSortTypePopupWindow;
@@ -113,13 +110,13 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
     }
 
     private void setHistoryList() {
-        searchHistoryAdapter=new SearchHistoryAdapter(this, HistoryList);
+        searchHistoryAdapter = new SearchHistoryAdapter(this, HistoryList);
         lv_searchHistory.setAdapter(searchHistoryAdapter);
     }
 
-    private void setHistory(String s){
-        if (!TextUtils.isEmpty(s)){
-            searchHistoryAdapter.getList().add(s);
+    private void setHistory(String s) {
+        if (!TextUtils.isEmpty(s)) {
+            searchHistoryAdapter.getList().add(0,s);
         }
         SharedPreferences setting = getSharedPreferences("Search", 0);
         setting.edit().putString("History", getString(searchHistoryAdapter.getList())).commit();
@@ -150,6 +147,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
             @Override
             public void onClick(View v) {
                 finish();
+                setHistory(searchWord);
             }
         });
         tv_confirm.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +171,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
                     shareListRequest.request(getShareListResponse, DisplayFragment.shareTypes[selectPosition], searchWord, 1);
                 }
                 setHistory(searchWord);
+                et_search.setText("");
             }
         });
 
@@ -203,18 +202,30 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         lv_searchList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
             }
         });
 
         lv_searchHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
-                bundle.putString(SearchWord, ((SearchHistoryAdapter.SearchHistoryViewHolder) view.getTag()).tv_search.getText().toString());
-                getIntent().putExtras(bundle);
-                setResult(CourseCategoryActivity.ResultCodeForSearch, getIntent());
-                finish();
+                if (TYPE == TYPE_COURSE)
+                    pageIndex = 0;
+                else
+                    pageIndex = 1;
+                searchWord = ((TextView)view.findViewById(R.id.tv_search)).getText().toString();
+                if (searchWord.equals("")) {
+                    Toast.makeText(SearchActivity.this, getResources().getString(R.string.noContent), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                lv_searchHistory.setVisibility(View.GONE);
+                if (TYPE == TYPE_COURSE) {
+                    showProcessBar(getResources().getString(R.string.loading));
+                    courseListRequest.request(courseListResponse, CourseListRequest.Type.筛选, CourseCategoryActivity.courseTypes[selectPosition], searchWord, CourseListRequest.SortRule.时间, 0);
+                } else {
+                    showProcessBar(getResources().getString(R.string.loading));
+                    shareListRequest.request(getShareListResponse, DisplayFragment.shareTypes[selectPosition], searchWord, 1);
+                }
+                et_search.setText("");
             }
         });
 
@@ -274,13 +285,13 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
     public void onLoadMore() {
         Toast.makeText(this, "上拉加载", Toast.LENGTH_SHORT).show();
         //1秒后关闭加载
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    lv_searchList.stopLoadMore();
-                }
-            }, 1000);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                lv_searchList.stopLoadMore();
+            }
+        }, 1000);
 
         if (TYPE == TYPE_COURSE) {
 
@@ -291,7 +302,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
 
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-
+                    Toast.makeText(SearchActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -326,7 +337,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
 
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-
+                    Toast.makeText(SearchActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -357,18 +368,18 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
     public void getHistory() {
         SharedPreferences setting = getSharedPreferences("Search", 0);
         String history = setting.getString("History", "");
-        HistoryList=getList(history);
+        HistoryList = getList(history);
     }
 
-    private String getString(List<String> list){
-        String s="";
-        for (int i=0; i<list.size(); i++){
-            s+=list.get(i);
-            s+=",";
+    private String getString(List<String> list) {
+        String s = "";
+        for (int i = 0; i < list.size(); i++) {
+            s += list.get(i);
+            s += ",";
         }
 
-        if (!TextUtils.isEmpty(s)){
-            s=s.substring(0,s.length()-1);
+        if (!TextUtils.isEmpty(s)) {
+            s = s.substring(0, s.length() - 1);
         }
 
 
@@ -381,13 +392,13 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         super.onDestroy();
     }
 
-    private List<String> getList(String s){
-        List<String> list=new ArrayList<>();
-        if (TextUtils.isEmpty(s)){
+    private List<String> getList(String s) {
+        List<String> list = new ArrayList<>();
+        if (TextUtils.isEmpty(s)) {
             return list;
-        }else{
-            String[] l=s.split(",");
-            for (int i=0;i<l.length;i++){
+        } else {
+            String[] l = s.split(",");
+            for (int i = 0; i < l.length; i++) {
                 list.add(l[i]);
             }
             return list;
@@ -402,11 +413,14 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
             Log.d(TAG, "CourseListResponse.success()");
             if (courseList.size() == 0) {
                 Toast.makeText(SearchActivity.this, getResources().getString(R.string.noCourse), Toast.LENGTH_SHORT).show();
+                return;
             }
             courseListViewAdapter = new CourseListViewAdapter(SearchActivity.this, courseList);
             lv_searchList.setVisibility(View.VISIBLE);
             lv_searchList.setAdapter(courseListViewAdapter);
             pageIndex = 0;
+
+
         }
 
         @Override
@@ -426,8 +440,10 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         @Override
         public void success(List<Share> shareList) {
             dismissProcessBar();
-            if (shareList.size() == 0)
+            if (shareList.size() == 0) {
                 Toast.makeText(SearchActivity.this, getResources().getString(R.string.noShare), Toast.LENGTH_SHORT).show();
+                return;
+            }
             displayListViewAdapter = new DisplayListViewAdapter(SearchActivity.this, shareList);
             lv_searchList.setVisibility(View.VISIBLE);
             lv_searchList.setAdapter(displayListViewAdapter);
@@ -443,6 +459,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
+            Toast.makeText(SearchActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 

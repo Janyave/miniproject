@@ -20,6 +20,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.adapter.CourseStepAdapter;
 import com.netease.ecos.dialog.SetPhotoDialog;
 import com.netease.ecos.model.Course;
+import com.netease.ecos.model.InputLength;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.course.CreateCourseRequest;
 import com.netease.ecos.utils.SetPhotoHelper;
@@ -214,29 +215,23 @@ public class BuildCourseActivity extends BaseActivity {
             }
         });
 
-
         btn_add_step.setOnClickListener(mOnClickListener);
         btn_iss_course.setOnClickListener(mOnClickListener);
     }
 
 
     public void initView() {
-
         iv_course_cover.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
             @Override
             public void onGlobalLayout() {
-
                 int width = getResources().getDisplayMetrics().widthPixels;
-                int height = getResources().getDisplayMetrics().heightPixels;
-
                 RelativeLayout.LayoutParams coverParam = (RelativeLayout.LayoutParams) iv_course_cover.getLayoutParams();
                 coverParam.height = width * 2 / 3;
                 iv_course_cover.setLayoutParams(coverParam);
             }
         });
     }
-
 
     @Override
     protected void onResume() {
@@ -276,12 +271,10 @@ public class BuildCourseActivity extends BaseActivity {
             Log.i(TAG, "步骤:" + step.toString());
         }
 
-
         Log.i(TAG, "设置封面图:" + "当前正在设置封面图" + isSettingCoverPhoto);
         Log.i(TAG, "在设置步骤:" + "当前正在设置步骤" + isSettingStepPhoto);
         Log.i(TAG, "当前操作的教程步骤序号:" + "当前操作的教程步骤序号" + mCouserStepPosition);
 
-//        Log.i("onSaveInstanceState", getCourseByPage().toString());
         Log.i("onSaveInstanceState", "-------------------->");
     }
 
@@ -357,7 +350,7 @@ public class BuildCourseActivity extends BaseActivity {
                         }
 
                         File imageFile = mSetPhotoHelper.getFileAfterChoose();
-                        if(imageFile==null)
+                        if (imageFile == null)
                             imageFile = mSetPhotoHelper.getFileBeforeCrop(data, 300, 200);
 
                         mCourseStepAdapter.refleshImageAtPosition(mCouserStepPosition, imageFile.getAbsolutePath());
@@ -377,7 +370,6 @@ public class BuildCourseActivity extends BaseActivity {
                     isSettingStepPhoto = false;
                     Log.e("CLASS_TAG", "onActivityResult() 无对应");
             }
-
 
         } else {
             isSettingCoverPhoto = false;
@@ -414,6 +406,11 @@ public class BuildCourseActivity extends BaseActivity {
                         return;
                     }
 
+                    if (etv_course_title.getText().length()>InputLength.CourseTitle_max){
+                        Toast.makeText(BuildCourseActivity.this, "", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     if (mCourseStepAdapter.isSomeEmpty()) {
                         Toast.makeText(BuildCourseActivity.this, "请将步骤补充完整再进行添加", Toast.LENGTH_LONG).show();
                         return;
@@ -426,9 +423,7 @@ public class BuildCourseActivity extends BaseActivity {
     };
 
     public void createCourse() {
-
         showProcessBar("上传图片");
-
         uploadImages(new UploadFilesCallBack() {
             /**
              *
@@ -442,8 +437,6 @@ public class BuildCourseActivity extends BaseActivity {
                 request.request(new CreateCourseResponse(), course);
             }
         });
-
-
     }
 
     /**
@@ -556,7 +549,6 @@ public class BuildCourseActivity extends BaseActivity {
                 }
             }
         }
-
     }
 
 
@@ -586,6 +578,5 @@ public class BuildCourseActivity extends BaseActivity {
 
         }
     }
-
 
 }

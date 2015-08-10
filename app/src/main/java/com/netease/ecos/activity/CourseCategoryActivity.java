@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -22,6 +21,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.adapter.CourseListViewAdapter;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.course.CourseListRequest;
 import com.netease.ecos.views.AnimationHelper;
 import com.netease.ecos.views.FloadingButton;
@@ -66,15 +66,15 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
     TextView tv_sortText;
     @InjectView(R.id.iv_sortIcon)
     ImageView iv_sortIcon;
+    @InjectView(R.id.ll_location)
+    LinearLayout ll_location;
 
     private PopupWindow popupSortType;
     private PopupWindow popupSixType = new PopupWindow();
     //to record which item is selected in  pop window
     private int selectPosition = 0;
 
-    private ArrayAdapter<CourseListRequest.SortRule> spAdapter;
     private static final CourseListRequest.SortRule[] SORT_RULES = {CourseListRequest.SortRule.时间, CourseListRequest.SortRule.被点赞数};
-
 
     private CourseListViewAdapter courseTypeListViewAdapter;
     //record the search keyword.
@@ -107,6 +107,7 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
         lv_list.initRefleshTime(this.getClass().getSimpleName());
         lv_list.setPullLoadEnable(true);
         lv_list.setXListViewListener(this);
+        ll_location.setOnClickListener(this);
 
         //获取course信息
         request = new CourseListRequest();
@@ -154,6 +155,9 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
+            case R.id.ll_location:
+                Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.noWeixin), Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
@@ -171,10 +175,9 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
 
         request.request(new CourseListRequest.ICourseListResponse() {
 
-
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                Toast.makeText(CourseCategoryActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -184,7 +187,6 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void responseNoGrant() {
-
             }
 
             @Override
@@ -259,7 +261,6 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
         @Override
         public void success(List<Course> courseList) {
             dismissProcessBar();
-            Log.d(TAG, "CourseListResponse.success()");
             if (courseList.size() == 0) {
                 Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.noCourse), Toast.LENGTH_SHORT).show();
             }
@@ -277,6 +278,7 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
+            Toast.makeText(CourseCategoryActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -296,7 +298,6 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
                 }
             }
         });
-
 
         iv_search.setOnClickListener(this);
         ll_left.setOnClickListener(this);
@@ -374,7 +375,6 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
                 pageIndex = 0;
                 tv_sortText.setText(((RadioButton) rg.getChildAt(selectPosition)).getText().toString());
                 ((RadioButton) rg.getChildAt(selectPosition)).setTextColor(getResources().getColor(R.color.text_red));
-//                Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 showProcessBar(getResources().getString(R.string.loading));
                 request.request(courseListResponse, CourseListRequest.Type.筛选, courseType, searchWords, SORT_RULES[selectPosition], 0);
                 iv_sortIcon.setImageResource(R.mipmap.ic_choose_gray_down);

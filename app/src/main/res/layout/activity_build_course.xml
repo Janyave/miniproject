@@ -36,12 +36,16 @@
                     android:layout_width="@dimen/icon_big_200px"
                     android:layout_height="@dimen/icon_big_200px"
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/ic_camera" />
+                    android:src="@mipmap/ic_camera"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="@dimen/margin_50px"
+                    android:layout_marginRight="@dimen/margin_50px"/>
             </RelativeLayout>
 
             <EditText
                 android:id="@+id/etv_course_title"
-                style="@style/text_pink_max"
+                style="@style/text_dark_max"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_40px"
