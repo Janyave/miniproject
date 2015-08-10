@@ -1,5 +1,7 @@
 package com.netease.ecos.request.user;
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request.Method;
@@ -110,6 +112,7 @@ public class LoginRequest extends BaseRequest{
 
 
 			UserDataService.getSingleUserDataService(MyApplication.getContext()).saveUser(user);
+			Log.i("登录成功","用户信息:" + user.toString());
 			AccountDataService accountService = AccountDataService.getSingleAccountDataService(MyApplication.getContext());
 
 			//保存userId、imId(云信id)、imtoken(云信token)
@@ -118,6 +121,7 @@ public class LoginRequest extends BaseRequest{
 			accountService.saveUserImToken(user.imToken);
 			accountService.savePhone(mPhone);
 
+			Log.e("登录存储后查询用户信息", UserDataService.getSingleUserDataService(getContext()).getUser().toString());
 			if(mNorResponce!=null)
 			{
 				mNorResponce.success();

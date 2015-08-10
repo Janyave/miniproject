@@ -23,7 +23,7 @@ public class UserDataService {
 
 	private final static String IM_ID = "imId";
 
-	private final static String IM_TOKEN = "imId";
+	private final static String IM_TOKEN = "imToken";
 
 
 	/*** 存储昵称{@link User#nickname} */
