@@ -228,6 +228,8 @@ public class ShareListRequest extends BaseRequest {
 
                 map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
                 map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
+                map.put(KEY_TAG, "");
+                map.put(KEY_WORD, "");
 
                 traceNormal(TAG, map.toString());
                 traceNormal(TAG, ShareListRequest.this.getUrl(RequestUrlConstants.GET_SHARE_LIST_URL, map));
@@ -263,10 +265,10 @@ public class ShareListRequest extends BaseRequest {
                     map.put(KEY_USER_ID, getUserId());
                 else
                     map.put(KEY_USER_ID, otherUserId);
-
-
                 map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
                 map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
+                map.put(KEY_TAG, "");
+                map.put(KEY_WORD, "");
 
                 traceNormal(TAG, map.toString());
                 traceNormal(TAG, ShareListRequest.this.getUrl(RequestUrlConstants.GET_SHARE_LIST_URL, map));
@@ -287,8 +289,6 @@ public class ShareListRequest extends BaseRequest {
      *
      * @param shareListResponse
      * @param tags
-     * @param shareType
-     * @param keyWord
      * @param pageIndex
      */
     public void requestSomeOneShareWithTag(IShareListResponse shareListResponse, final String otherUserId,
@@ -309,7 +309,8 @@ public class ShareListRequest extends BaseRequest {
 
                 map.put(KEY_PAGE_SIZE, String.valueOf(5));
                 map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
-                map.put("tag", String.valueOf(tags.getTagValues()));
+                map.put(KEY_TAG, String.valueOf(tags.getTagValues()));
+                map.put(KEY_WORD, "");
 
 
                 traceNormal(TAG, map.toString());
