@@ -123,6 +123,8 @@ public class ContactActivity extends BaseActivity implements View.OnClickListene
         targetUserName = bundle.getString(TargetUserName);
         targetUserIMID = bundle.getString(TargetUserIMID);
 
+        title_text.setText(targetUserName);
+
         initData();
     }
 
