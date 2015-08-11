@@ -71,9 +71,10 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
         mainView = inflater.inflate(R.layout.fragment_course, container, false);
         bindView();
         initListener();
-        initData();
+//        initData();
         return mainView;
     }
+
 
     private void bindView() {
         banner = (Banner) mainView.findViewById(R.id.banner);
@@ -142,6 +143,14 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
         bundle.putString(CourseCategoryActivity.CourseCategory, courseType.getBelongs());
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initData();
+
     }
 
     @Override

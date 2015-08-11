@@ -515,9 +515,12 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
         user_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
         //设置加载出错图片
         user_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+
         RequestQueue queue = MyApplication.getRequestQueue();
+
         ImageLoader.ImageCache imageCache = new SDImageCache();
         ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+
         if (mUserData.avatarUrl != null && !"".equals(mUserData.avatarUrl)){
             user_avatar.setImageUrl(mUserData.avatarUrl, imageLoader);
         }else {

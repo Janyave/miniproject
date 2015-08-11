@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
-import com.netease.ecos.utils.SDImageCache;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,7 @@ public class Banner extends RelativeLayout {
     private int count = 4;
     private int delayTime = 3000;
 
-    private int pagerViewID = R.layout.item_bannerpager_replace;
+    private int pagerViewID = R.layout.item_bannerpager;
     private PagerAdapter pagerAdapter;
 
     private Timer timer;
@@ -69,10 +68,12 @@ public class Banner extends RelativeLayout {
         this.URLList = data;
         for (int i = 0; i < data.size(); i++) {
             View v = View.inflate(mContext, pagerViewID, null);
-//            Picasso.with(mContext).load(URLList.get(i)).into((ImageView) v.findViewById(R.id.iv_image));
 
-            ImageLoader imageLoader = new ImageLoader(mQueue, new SDImageCache(300,200));
-            ((NetworkImageView) v.findViewById(R.id.iv_image)).setImageUrl(URLList.get(i), imageLoader);
+            Picasso.with(mContext).load(URLList.get(i)).into((ImageView) v.findViewById(R.id.iv_image));
+
+            Log.i("setURLList","--------------------------" + URLList.get(i));
+//            ImageLoader imageLoader = new ImageLoader(mQueue, new SDImageCache(300,200));
+//            ((NetworkImageView) v.findViewById(R.id.iv_image)).setImageUrl(URLList.get(i), imageLoader);
 
             ViewList.add(v);
         }
