@@ -31,9 +31,11 @@
                 <!--头像姓名私信 -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_item_personInforamtion_180px"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:paddingTop="@dimen/margin_20px"
+                    android:paddingBottom="@dimen/margin_20px"
                     android:paddingLeft="@dimen/margin_40px"
                     android:paddingRight="@dimen/margin_40px">
 
@@ -57,7 +59,7 @@
 
                         <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/height_item_personInforamtion_text_108px"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/margin_40px"
                             android:orientation="vertical">
 
@@ -66,29 +68,26 @@
                                 style="@style/text_dark_mid"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
-
-                            <TextView
-                                android:layout_width="@dimen/width_line"
-                                android:layout_height="0dp"
-                                android:layout_weight="1" />
-
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:layout_marginTop="@dimen/margin_20px">
 
                                 <TextView
                                     android:id="@+id/tv_distance"
                                     style="@style/text_gray_mid"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
+                                    android:layout_height="wrap_content"
+                                    android:text=""/>
 
                                 <TextView
                                     android:id="@+id/tv_price"
                                     style="@style/text_pink_max"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/margin_40px" />
+                                    android:layout_marginLeft="@dimen/margin_40px"
+                                    android:text=""/>
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -124,6 +123,7 @@
                     style="@style/text_dark_mid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text=""
                     android:layout_marginBottom="@dimen/margin_40px"
                     android:layout_marginLeft="@dimen/margin_40px"
                     android:layout_marginRight="@dimen/margin_40px"

@@ -80,7 +80,10 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
         Log.v("contact", "MyID" + UserDataService.getSingleUserDataService(this).getUser().imId);
 
         //取消MainActivity全局监听
-        MyApplication.msMainActivity.unregistObserver();
+        if (MyApplication.msMainActivity!=null){
+            MyApplication.msMainActivity.unregistObserver();
+        }
+
     }
 
     private void initTitle() {
