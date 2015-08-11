@@ -22,7 +22,6 @@
             android:paddingTop="@dimen/margin_40px"
             android:paddingBottom="@dimen/margin_40px"
             style="@style/text_dark_mid"
-            android:hint="输入修改的姓名"
             android:textColorHint="@color/text_gray"/>
         <TextView style="@style/layout_line_gray"/>
     </LinearLayout>

@@ -202,6 +202,7 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
             public void success(List<Course> courseList) {
                 if (courseList.size() == 0) {
                     lv_list.setVisibility(View.GONE);
+                    resultImageView.setVisibility(View.VISIBLE);
                     resultImageView.setImageResource(R.mipmap.no_data);
                     return;
                 }
@@ -278,6 +279,7 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
             dismissProcessBar();
             if (courseList.size() == 0) {
                 lv_list.setVisibility(View.GONE);
+                resultImageView.setVisibility(View.VISIBLE);
                 resultImageView.setImageResource(R.mipmap.no_data);
                 return;
             }
