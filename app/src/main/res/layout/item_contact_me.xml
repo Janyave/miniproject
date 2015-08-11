@@ -7,37 +7,60 @@
         android:id="@+id/ll_me"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="@dimen/margin_10px"
-        android:gravity="center_vertical|right">
-
+        android:gravity="right">
         <TextView
-            android:id="@+id/tv_text"
+            android:id="@+id/tv_time"
             android:layout_width="wrap_content"
-            android:maxWidth="@dimen/width_contact"
             android:layout_height="wrap_content"
-            android:text="我是聊天内容啦啦啦啦啦啦"
-            style="@style/text_white_mid"
-            android:background="@drawable/bg_contact_me"
-            android:paddingTop="@dimen/margin_20px"
-            android:paddingBottom="@dimen/margin_20px"
-            android:paddingLeft="@dimen/margin_40px"
-            android:paddingRight="@dimen/margin_40px"/>
-        <com.netease.ecos.utils.RoundImageView
-            android:id="@+id/iv_avatar"
-            android:layout_width="@dimen/contact_avatar_width"
-            android:layout_height="@dimen/contact_avatar_width"
-            android:layout_marginLeft="@dimen/margin_40px"
-            android:src="@drawable/img_default"
-            android:scaleType="fitXY"/>
+            style="@style/text_gray_min"
+            android:textSize="10sp"
+            android:textColor="@color/bg_gray_dark"
+            android:layout_marginRight="50dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_text"
+                android:layout_width="wrap_content"
+                android:maxWidth="@dimen/width_contact"
+                android:layout_height="wrap_content"
+                android:text="我是聊天内容啦啦啦啦啦啦"
+                style="@style/text_white_mid"
+                android:background="@drawable/bg_contact_me"
+                android:paddingTop="@dimen/margin_20px"
+                android:paddingBottom="@dimen/margin_20px"
+                android:paddingLeft="@dimen/margin_40px"
+                android:paddingRight="@dimen/margin_40px"/>
+            <com.netease.ecos.utils.RoundImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="@dimen/contact_avatar_width"
+                android:layout_height="@dimen/contact_avatar_width"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:src="@drawable/img_default"
+                android:scaleType="fitXY"/>
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/ll_other"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/margin_10px"
-        android:gravity="center_vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/margin_10px">
+        <TextView
+            android:id="@+id/tv_time2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_gray_min"
+            android:textSize="10sp"
+            android:textColor="@color/bg_gray_dark"
+            android:layout_marginLeft="50dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
         <com.netease.ecos.utils.RoundImageView
             android:id="@+id/iv_avatar2"
             android:layout_width="@dimen/contact_avatar_width"
@@ -57,5 +80,6 @@
             android:paddingBottom="@dimen/margin_20px"
             android:paddingLeft="@dimen/margin_30px"
             android:paddingRight="@dimen/margin_30px"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

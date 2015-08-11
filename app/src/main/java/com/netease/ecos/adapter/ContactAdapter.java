@@ -14,6 +14,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.ContactActivity;
 import com.netease.ecos.activity.MyApplication;
+import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
@@ -47,6 +48,8 @@ public class ContactAdapter extends BaseAdapter {
         private TextView tv_text2;
         private LinearLayout ll_me;
         private LinearLayout ll_other;
+        private TextView tv_time;
+        private TextView tv_time2;
 
 
         public ViewHolder(View root) {
@@ -56,6 +59,8 @@ public class ContactAdapter extends BaseAdapter {
             tv_text2 = (TextView) root.findViewById(R.id.tv_text2);
             ll_me = (LinearLayout) root.findViewById(R.id.ll_me);
             ll_other = (LinearLayout) root.findViewById(R.id.ll_other);
+            tv_time=(TextView)root.findViewById(R.id.tv_time);
+            tv_time2=(TextView)root.findViewById(R.id.tv_time2);
 
             iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
             iv_avatar.setErrorImageResId(R.mipmap.bg_nogender_default);
@@ -77,6 +82,8 @@ public class ContactAdapter extends BaseAdapter {
             IMMessage item = messageList.get(position);
             tv_text.setText(ContactActivity.getMessageContentByJSONString(item.getContent()));
             tv_text2.setText(ContactActivity.getMessageContentByJSONString(item.getContent()));
+            tv_time.setText(ModelUtils.getDateDescription(item.getTime()));
+            tv_time2.setText(ModelUtils.getDateDescription(item.getTime()));
             if (isMe) {
                 ll_other.setVisibility(View.GONE);
                 ll_me.setVisibility(View.VISIBLE);

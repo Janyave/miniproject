@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -144,6 +145,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             ll_praise.setOnClickListener(DisplayListViewAdapter.this);
             ll_evaluate.setOnClickListener(DisplayListViewAdapter.this);
             ll_evaluationList.setOnClickListener(DisplayListViewAdapter.this);
+            lv_evaluation.setOnItemClickListener(new itemListener(position));
 
             if (!item.hasPraised) {
                 //TODO 未赞图片
@@ -219,6 +221,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 break;
             case R.id.ll_evaluation:
             case R.id.ll_evaluationList:
+            case R.id.lv_evaluation:
                 intent = new Intent(mcontext, CommentDetailActivity.class);
                 bundle.putString(CommentDetailActivity.FromId, shareList.get(position).shareId);
                 bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.分享.getBelongs());
@@ -226,6 +229,25 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;
+        }
+    }
+
+    class itemListener implements AdapterView.OnItemClickListener{
+        int p;
+
+        public itemListener(int p){
+            this.p=p;
+        }
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent = new Intent(mcontext, CommentDetailActivity.class);
+            Bundle bundle=new Bundle();
+            bundle.putString(CommentDetailActivity.FromId, shareList.get(p).shareId);
+            bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.分享.getBelongs());
+            bundle.putBoolean(CommentDetailActivity.IsPraised, shareList.get(p).hasPraised);
+            intent.putExtras(bundle);
+            mcontext.startActivity(intent);
         }
     }
 

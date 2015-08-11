@@ -102,6 +102,7 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
         //get the extras from intent
         courseType = Course.CourseType.getCourseType(getIntent().getExtras().getString(CourseCategory));
         tv_left.setText(courseType.name());
+        ll_location.setVisibility(View.GONE);
 
         //设置列表Adapter
         lv_list.initRefleshTime(this.getClass().getSimpleName());
