@@ -53,7 +53,7 @@ public class GetUserInfoRequest extends BaseRequest {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = getRequestBasicMap();
-                if (userId != null|| userId.equals(AccountDataService.getSingleAccountDataService(getContext()).getUserId())) {
+                if (userId != null  && userId.equals(AccountDataService.getSingleAccountDataService(getContext()).getUserId())) {
                     map.put("toUserId", userId);
                     map.put("type", "other");
                 } else {
