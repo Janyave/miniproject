@@ -59,12 +59,17 @@ public class UploadImageTools {
         long expires = System.currentTimeMillis() / 1000 + 1000;
 
         try {
-            final String token = Util.getToken(BUCKET_NAME, file.getName(), expires, accessKey, secretKey, null, null);
+            String prfix = String.valueOf(System.currentTimeMillis());
+
+            String fileName = prfix+file.getName();
+            Log.e("上传图片",fileName);
+            final String token = Util.getToken(BUCKET_NAME, fileName, expires, accessKey, secretKey, null, null);
             LogUtil.d(LOGTAG, "token is: " + token);
 
             wanNOSObject.setNosBucketName(BUCKET_NAME);
             wanNOSObject.setUploadToken(token);
-            final String key = file.getName();
+            final String key = fileName;
+//            final String key = file.getName();
             wanNOSObject.setNosObjectName(key);
 
             if (file.getName().contains(".jpg")) {
@@ -85,13 +90,13 @@ public class UploadImageTools {
 
             if(isSys)
                 try {
-                    uploadImageSyn(wanNOSObject, file, callBack, context, uploadContext);
+                    uploadImageSyn(wanNOSObject, file,key, callBack, context, uploadContext);
                 } catch (InvalidParameterException e) {
                     e.printStackTrace();
                 }
             else
                 try {
-                    uploadImageAsy(wanNOSObject, file, callBack, context, uploadContext);
+                    uploadImageAsy(wanNOSObject, file,key, callBack, context, uploadContext);
                 } catch (InvalidParameterException e) {
                     e.printStackTrace();
                 }
@@ -119,10 +124,9 @@ public class UploadImageTools {
      * @param uploadContext
      * @return
      */
-    private static void uploadImageSyn( WanNOSObject wanNOSObject,final File file,
+    private static void uploadImageSyn( WanNOSObject wanNOSObject,final File file,final String key,
                                                       final UploadCallBack callBack, final Context context,
                                                       String uploadContext) throws InvalidParameterException {
-        final String key = file.getName();
 
         WanAccelerator.putFileByHttp(context, file, file.getAbsoluteFile(), uploadContext, wanNOSObject, new Callback() {
             @Override
@@ -175,12 +179,13 @@ public class UploadImageTools {
      * @param uploadContext
      * @return
      */
-    private static void uploadImageAsy( WanNOSObject wanNOSObject,final File file,
+    private static void uploadImageAsy( WanNOSObject wanNOSObject,final File file,final String key,
                                                          final UploadCallBack callBack, final Context context,
                                                          String uploadContext) throws InvalidParameterException {
 
-        final String key = file.getName();
+//        final String key = file.getName();
 
+        Log.e("uploadImageAsy","key:" + key);
         WanAccelerator.putFileByHttp(
                 context, file,
                 file.getAbsoluteFile(), uploadContext,

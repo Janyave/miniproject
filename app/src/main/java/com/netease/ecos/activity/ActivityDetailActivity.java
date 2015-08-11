@@ -248,7 +248,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             tv_author_name.setText(activity.nickname);
             tv_author_time.setText(activity.getDateDescription());
 
-            Collections.reverse(activity.signUpUseList);
+//            Collections.reverse(activity.signUpUseList);
 //            int num=activity.signUpUseList.size()>5?5:activity.signUpUseList.size();
             ll_wantgo_icons.removeAllViews();
 //            for (int position=0; position<num; position++){
