@@ -333,18 +333,19 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
      */
     public void releaseMemory(){
         lv_course.setAdapter(null);
-        displayListViewAdapter = null;
+//        displayListViewAdapter = null;
         Log.i("display", "释放内存");
     }
 
 
     public void reloadData(){
 
-        if(lv_course.getAdapter()==null || displayListViewAdapter==null){
+        if(displayListViewAdapter==null){
             shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
             Log.i("DisplayFragment", "重新加载请求数据");
         }
         else{
+            lv_course.setAdapter(displayListViewAdapter);
             Log.i("display", "数据已经加载过");
         }
 

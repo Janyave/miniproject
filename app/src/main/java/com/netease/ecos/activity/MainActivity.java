@@ -554,6 +554,8 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     public static void notifyMessage(Context context, Intent intent,
                                      String ticker, String contentTitle, String contentText, String fromAccount) {
 
+
+
         Log.e("tag", "notifyJobstaffMessage:");
 
         //如果是设置了不提醒只显示数目的群组(这个是app里保存这个数据的，demo里不做判断)

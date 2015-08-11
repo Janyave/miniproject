@@ -268,18 +268,19 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
      */
     public void releaseMemory(){
         lv_course.setAdapter(null);
-        courseListViewAdapter = null;
+//        courseListViewAdapter = null;
         banner.releaseMemory();
         Log.i("course", "释放内存");
     }
 
     public void reloadData(){
 
-        if(lv_course.getAdapter()==null || courseListViewAdapter==null){
+        if(courseListViewAdapter==null){
             initData();
             Log.i("course", "重新加载请求数据");
         }
         else{
+            lv_course.setAdapter(courseListViewAdapter);
             Log.i("course", "数据已经加载过");
         }
     }

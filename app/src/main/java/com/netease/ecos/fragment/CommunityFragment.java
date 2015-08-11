@@ -634,18 +634,19 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
      */
     public void releaseMemory(){
         lv_campaign.setAdapter(null);
-        campaignListViewAdapter = null;
+//        campaignListViewAdapter = null;
         Log.i("community", "释放内存");
     }
 
 
     public void reloadData(){
 
-        if(lv_campaign.getAdapter()==null || campaignListViewAdapter==null){
+        if(campaignListViewAdapter==null){
             initData();
             Log.i("CommunityFragment", "重新加载请求数据");
         }
         else{
+            lv_campaign.setAdapter(campaignListViewAdapter);
             Log.i("CommunityFragment", "数据已经加载过");
         }
 
