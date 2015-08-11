@@ -60,11 +60,11 @@ public class PersonActivityAdapter extends BaseAdapter implements View.OnClickLi
 
 
         public ViewHolder(View root) {
-            iv_cover = (ImageView) root.findViewById(R.id.iv_cover);
-            tv_tag = (TextView) root.findViewById(R.id.tv_tag);
-            tv_title = (TextView) root.findViewById(R.id.tv_title);
-            tv_time = (TextView) root.findViewById(R.id.tv_time);
-            tv_location = (TextView) root.findViewById(R.id.tv_location);
+            iv_cover = (ImageView) root.findViewById(R.id.iv_campaign_dis);
+            tv_tag = (TextView) root.findViewById(R.id.activityTypeTxVw);
+            tv_title = (TextView) root.findViewById(R.id.tv_campaign_title);
+            tv_time = (TextView) root.findViewById(R.id.tv_campaign_time);
+            tv_location = (TextView) root.findViewById(R.id.tv_campaign_location);
             ll_activity = (LinearLayout) root.findViewById(R.id.ll_activity_item);
         }
 
@@ -79,7 +79,7 @@ public class PersonActivityAdapter extends BaseAdapter implements View.OnClickLi
                 iv_cover.setImageResource(R.drawable.img_default);
             tv_title.setText(item.title);
             tv_tag.setText(item.activityType + "");
-            tv_time.setText(item.activityTime.toString());
+            tv_time.setText(item.activityTime.getDate());
             tv_location.setText(item.location.toString());
             ll_activity.setTag(position);
             ll_activity.setOnClickListener(PersonActivityAdapter.this);
