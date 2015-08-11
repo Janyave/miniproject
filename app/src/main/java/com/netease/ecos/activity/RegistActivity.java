@@ -249,7 +249,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
 
             LoginRequest request = new LoginRequest();
             request.request(new LoginResponse(), phone,pwd);
-            Toast.makeText(RegistActivity.this,"注册成功",Toast.LENGTH_LONG).show();
+            Toast.makeText(RegistActivity.this,getResources().getString(R.string.registerSuccess),Toast.LENGTH_LONG).show();
 
             /*Toast.makeText(RegistActivity.this, "注册成功", Toast.LENGTH_LONG).show();
             //云信登录
@@ -348,7 +348,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                 public void onSuccess(LoginInfo param) {
 
                     dismissProcessBar();
-                    Toast.makeText(RegistActivity.this, "LOGIN SUCCESS", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistActivity.this, getResources().getString(R.string.loginSuccess), Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(RegistActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -362,7 +362,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
                     dismissProcessBar();
                     Log.i("登录", "登录失败");
                     if (code == 302 || code == 404) {
-                        Toast.makeText(RegistActivity.this, "帐号或密码错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistActivity.this,  getResources().getString(R.string.accountPasswordError), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(RegistActivity.this, "login error: " + code, Toast.LENGTH_SHORT).show();
                     }
@@ -399,7 +399,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         @Override
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
-            Toast.makeText(RegistActivity.this,"账号或密码错误O",Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistActivity.this, getResources().getString(R.string.accountPasswordError),Toast.LENGTH_SHORT).show();
         }
 
         @Override

@@ -180,7 +180,7 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
 
     @Override
     public void onLoadMore() {
-        Toast.makeText(RecruitmentCategoryActivity.this, "上拉加载", Toast.LENGTH_SHORT).show();
+        Toast.makeText(RecruitmentCategoryActivity.this, getResources().getString(R.string.loadMore2), Toast.LENGTH_SHORT).show();
 
         //1秒后关闭加载
         Handler handler = new Handler();
@@ -228,18 +228,28 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
         @Override
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
+            lv_list.setVisibility(View.GONE);
+            resultImageView.setImageResource(R.mipmap.no_data);
             Toast.makeText(RecruitmentCategoryActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
             dismissProcessBar();
+            lv_list.setVisibility(View.GONE);
+            resultImageView.setImageResource(R.mipmap.no_data);
             Toast.makeText(RecruitmentCategoryActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void success(List<Recruitment> recruitList) {
             dismissProcessBar();
+            if (recruitList.size() == 0) {
+                lv_list.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.no_data);
+                return;
+            }
+            lv_list.setVisibility(View.VISIBLE);
             //获取recruit信息
             if (recruitList.size() == 0)
                 Toast.makeText(RecruitmentCategoryActivity.this, getResources().getString(R.string.noRecruit), Toast.LENGTH_SHORT).show();

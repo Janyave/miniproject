@@ -106,7 +106,7 @@ public class YunXinLoginActivity extends BaseActivity{
             public void onFailed(int code) {
             	Log.i("登录", "登录失败");
             	if (code == 302 || code == 404) {
-                    Toast.makeText(YunXinLoginActivity.this, "帐号或密码错误", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(YunXinLoginActivity.this,  getResources().getString(R.string.accountPasswordError), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(YunXinLoginActivity.this, "login error: " + code, Toast.LENGTH_SHORT).show();
                 }

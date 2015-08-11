@@ -190,7 +190,7 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
 
     @Override
     public void onLoadMore() {
-        Toast.makeText(getActivity(), "上拉加载", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), getResources().getString(R.string.loadMore2), Toast.LENGTH_SHORT).show();
 
         //1秒后关闭加载
         Handler handler = new Handler();
@@ -243,7 +243,6 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
                 tv_all.setBackgroundResource(R.mipmap.ic_tab_check);
                 shareType = ShareListRequest.ShareType.所有;
                 //send the request
-//                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 dismissProcessBar();
                 showProcessBar(getResources().getString(R.string.loading));
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
@@ -258,7 +257,6 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
                 //send the request
                 dismissProcessBar();
                 showProcessBar(getResources().getString(R.string.loading));
-//                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 pageIndex = 1;
                 break;
@@ -271,7 +269,6 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
                 //send the request
                 dismissProcessBar();
                 showProcessBar(getResources().getString(R.string.loading));
-//                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 pageIndex = 1;
                 break;
@@ -284,7 +281,6 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
                 //send the request
                 dismissProcessBar();
                 showProcessBar(getResources().getString(R.string.loading));
-//                Toast.makeText(getActivity(), getResources().getString(R.string.loadMore), Toast.LENGTH_SHORT).show();
                 shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
                 pageIndex = 1;
                 break;
@@ -319,6 +315,7 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
             dismissProcessBar();
             if (shareList.size() == 0) {
                 lv_course.setVisibility(View.GONE);
+                noDataLayout.setVisibility(View.VISIBLE);
                 resultImageView.setImageResource(R.mipmap.no_data);
                 return;
             }
@@ -331,6 +328,7 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
             lv_course.setVisibility(View.GONE);
+            noDataLayout.setVisibility(View.VISIBLE);
             resultImageView.setImageResource(R.mipmap.server_error);
             Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
@@ -339,6 +337,7 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
             lv_course.setVisibility(View.GONE);
+            noDataLayout.setVisibility(View.VISIBLE);
             resultImageView.setImageResource(R.mipmap.server_error);
         }
     }
@@ -361,7 +360,5 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
             lv_course.setAdapter(displayListViewAdapter);
             Log.i("display", "数据已经加载过");
         }
-
-
     }
 }
