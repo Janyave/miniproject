@@ -7,10 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.NewRecruitmentActivity;
 import com.netease.ecos.model.Recruitment;
+import com.netease.ecos.model.Share;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.share.ShareListRequest;
+
+import java.util.List;
 
 /**
  * Created by hzjixinyu on 2015/8/3.
@@ -21,6 +28,11 @@ public class RecruiteTypeChooseDialog extends Dialog implements View.OnClickList
     private LinearLayout ll_main;
 
     private Context mContext;
+
+    private ShareListRequest request;
+    private ShareListResponse response;
+
+    private Recruitment.RecruitType recruitType;
 
     public RecruiteTypeChooseDialog(Context context) {
         super(context, R.style.Dialog_Transparent);
@@ -56,7 +68,7 @@ public class RecruiteTypeChooseDialog extends Dialog implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        Recruitment.RecruitType recruitType = Recruitment.RecruitType.妆娘;
+        recruitType = Recruitment.RecruitType.妆娘;
         switch (v.getId()) {
             case R.id.photography_btn:
                 recruitType = Recruitment.RecruitType.摄影;
@@ -74,11 +86,42 @@ public class RecruiteTypeChooseDialog extends Dialog implements View.OnClickList
                 recruitType = Recruitment.RecruitType.其他;
                 break;
         }
-        Intent intent = new Intent(mContext, NewRecruitmentActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putString(NewRecruitmentActivity.RecruitmentType, recruitType.getValue());
-        intent.putExtras(bundle);
-        mContext.startActivity(intent);
-        dismiss();
+        Share.Tag tags = Share.Tag.getTagByRecruitType(recruitType);
+        if (request == null)
+            request = new ShareListRequest();
+        if (response == null)
+            response = new ShareListResponse();
+        request.requestSomeOneShareWithTag(response, null, tags, 1);
+
+    }
+
+    class ShareListResponse extends BaseResponceImpl implements ShareListRequest.IShareListResponse {
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+            Toast.makeText(mContext, "小编还没找到您在该类别下的分享作品，所以不能发布新的招募哦，快去创建相应的分享吧亲:)", Toast.LENGTH_LONG).show();
+            dismiss();
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            Toast.makeText(mContext, "小编还没找到您在该类别下的分享作品，所以不能发布新的招募哦，快去创建相应的分享吧亲:)", Toast.LENGTH_LONG).show();
+            dismiss();
+        }
+
+        @Override
+        public void success(List<Share> shareList) {
+            if (shareList.size() == 0) {
+                Toast.makeText(mContext, "小编还没找到您在该类别下的分享作品，所以不能发布新的招募哦，快去创建相应的分享吧亲:)", Toast.LENGTH_LONG).show();
+
+            } else {
+                Intent intent = new Intent(mContext, NewRecruitmentActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(NewRecruitmentActivity.RecruitmentType, recruitType.getValue());
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+            }
+            dismiss();
+        }
     }
 }
