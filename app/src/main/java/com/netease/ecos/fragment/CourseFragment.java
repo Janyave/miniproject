@@ -89,6 +89,7 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
         tv_type_7 = (ImageView) mainView.findViewById(R.id.tv_type_7);
         tv_type_8 = (ImageView) mainView.findViewById(R.id.tv_type_8);
         sv = (ScrollView) mainView.findViewById(R.id.sv);
+        //sv.scrollTo(10,10);
     }
 
 
@@ -156,9 +157,11 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onResume() {
         super.onResume();
+        lv_course.setFocusable(false);
         banner.setFocusable(true);
         banner.setFocusableInTouchMode(true);
         btn_floading.reset();
+        sv.fullScroll(View.FOCUS_UP);
     }
 
     private void initListener() {
