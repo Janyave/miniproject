@@ -82,8 +82,8 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             else
                 iv_cover.setImageResource(R.drawable.img_default);
             tv_name.setText(recruitmentArrayList.get(position).nickname);
-            tv_distance.setText(recruitmentArrayList.get(position).distanceKM + mcontext.getResources().getString(R.string.KM));
-            tv_price.setText(recruitmentArrayList.get(position).averagePrice + recruitmentArrayList.get(position).recruitType.getPriceUnit());
+            tv_distance.setText(recruitmentArrayList.get(position).distanceKM +" "+ mcontext.getResources().getString(R.string.KM));
+            tv_price.setText(recruitmentArrayList.get(position).averagePrice.substring(0,recruitmentArrayList.get(position).averagePrice.length()-2)+ " " + recruitmentArrayList.get(position).recruitType.getPriceUnit());
             genderImVw.setImageResource(recruitmentArrayList.get(position).gender == User.Gender.男 ? R.mipmap.ic_male_line : R.mipmap.ic_female_line);
             //set tag
             ll_author.setTag(position);

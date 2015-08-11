@@ -306,6 +306,7 @@
                             android:listSelector="@android:color/transparent" />
 
                         <LinearLayout
+                            android:id="@+id/newIcon"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_30px"
@@ -313,9 +314,8 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:id="@+id/newIcon"
-                                android:layout_width="@dimen/icon_big_64px"
-                                android:layout_height="@dimen/icon_big_64px"
+                                android:layout_width="@dimen/icon_sidebar_54px"
+                                android:layout_height="@dimen/icon_sidebar_54px"
                                 android:src="@mipmap/ic_activity_add" />
 
                             <TextView
