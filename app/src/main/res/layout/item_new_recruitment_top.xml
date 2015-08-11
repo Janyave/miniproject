@@ -28,6 +28,7 @@
             android:gravity="center"
             android:background="@null"
             style="@style/text_dark_mid"
+            android:inputType="number"
             android:hint="请输入"
             android:textColorHint="@color/text_gray"
             android:clickable="true"/>
