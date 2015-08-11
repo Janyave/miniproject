@@ -226,6 +226,10 @@ public class ActivityModel {
             return ModelUtils.getDateDesByTimeStamp(startDateStamp) + "-" + ModelUtils.getDateDesByTimeStamp(endDateStamp) + "\n" + dayStartTime.substring(0, 5) + "-" + dayEndTime.substring(0, 5);
 
         }
+
+        public String getDate() {
+            return ModelUtils.getDateDesByTimeStamp(startDateStamp) + "-" + ModelUtils.getDateDesByTimeStamp(endDateStamp);
+        }
     }
 
     /**

@@ -379,7 +379,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                         } else if (strCategory.equals(recentCategory) && strLocation.equals(recentLocation)) {  // 判断是否需要更新数据
                             campaignListViewAdapter.setActivityList(activityList);
                             campaignListViewAdapter.notifyDataSetChanged();
-                            lv_campaign.smoothScrollToPosition(0);  // ListView回到顶部
+                            lv_campaign.setSelection(0);  // ListView回到顶部
                         }
                     }
 //                }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
@@ -462,7 +462,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                 } else if (strCategory.equals(recentCategory) && strLocation.equals(recentLocation)) {
                     campaignListViewAdapter.setActivityList(activityList);
                     campaignListViewAdapter.notifyDataSetChanged();
-                    lv_campaign.smoothScrollToPosition(0);  // ListView回到顶部
+                    lv_campaign.setSelection(0);  // ListView回到顶部
                 }
             }
 //        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
@@ -634,18 +634,19 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
      */
     public void releaseMemory(){
         lv_campaign.setAdapter(null);
-        campaignListViewAdapter = null;
+//        campaignListViewAdapter = null;
         Log.i("community", "释放内存");
     }
 
 
     public void reloadData(){
 
-        if(lv_campaign.getAdapter()==null || campaignListViewAdapter==null){
+        if(campaignListViewAdapter==null){
             initData();
             Log.i("CommunityFragment", "重新加载请求数据");
         }
         else{
+            lv_campaign.setAdapter(campaignListViewAdapter);
             Log.i("CommunityFragment", "数据已经加载过");
         }
 

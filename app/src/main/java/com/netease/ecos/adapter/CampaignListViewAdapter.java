@@ -26,7 +26,7 @@ public class CampaignListViewAdapter extends BaseAdapter {
     public CampaignListViewAdapter(Context context, List<ActivityModel> activityList) {
         this.mcontext = context;
         this.activityList = activityList;
-        mInstances ++;
+        mInstances++;
     }
 
     public List<ActivityModel> getActivityList() {
@@ -92,7 +92,7 @@ public class CampaignListViewAdapter extends BaseAdapter {
 
             viewHolder.textViewTitle.setText(activityList.get(position).title);
 
-            viewHolder.textViewTime.setText(activityList.get(position).activityTime.toString());
+            viewHolder.textViewTime.setText(activityList.get(position).activityTime.getDate());
 
             viewHolder.textViewLocation.setText(activityList.get(position).location.toString());
 
@@ -117,8 +117,7 @@ public class CampaignListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public void finalize()
-    {
+    public void finalize() {
         mInstances--;
         Log.i("CampaignListViewAdapter", "CampaignListViewAdapter，销毁后有" + mInstances + "个对象");
     }

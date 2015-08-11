@@ -81,6 +81,7 @@
                                 android:singleLine="true"
                                 android:ellipsize="end"
                                 android:hint="@string/activity_name"
+                                android:maxLength="30"
                                 android:textColorHint="@color/text_gray" />
                         </LinearLayout>
 

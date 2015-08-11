@@ -57,6 +57,7 @@
                 android:paddingRight="@dimen/margin_40px"
                 android:background="@null"
                 android:hint="请输入你的教程名称"
+                android:maxLength="30"
                 android:textColorHint="@color/text_gray" />
             <View
                 style="@style/layout_line_gray"
