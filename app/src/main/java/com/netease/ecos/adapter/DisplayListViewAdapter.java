@@ -98,7 +98,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
             } else
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
-            ;
+
             tv_name.setText(item.nickname);
             if (item.hasAttention)
                 tv_focus.setText("已关注");
