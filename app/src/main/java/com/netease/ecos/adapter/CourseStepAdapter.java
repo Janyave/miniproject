@@ -51,7 +51,7 @@ public class CourseStepAdapter extends BaseAdapter {
 
         mInflater = LayoutInflater.from(mContext);
 
-        mImageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
+        mImageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache(300,200));
     }
 
     @Override

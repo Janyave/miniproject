@@ -155,7 +155,7 @@ public class AssignmentDetailActivity extends BaseActivity implements View.OnTou
         //init the adapter
         workDetailListViewAdapter = new WorkDetailListViewAdapter(this, false);
         //init the data for NetWorkImageView
-        imageCache = new SDImageCache();
+        imageCache = new SDImageCache(200, 300);
         imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
         //get the work detail from the server
         request = new GetAssignmentDetailRequest();

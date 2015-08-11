@@ -169,12 +169,12 @@ public class UploadDisplayActivity extends BaseActivity implements View.OnClickL
                     Toast.makeText(UploadDisplayActivity.this, "请填写完所有内容:)", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (uploadWorksCoverEdTx.getText().length()> InputLength.DisplayTitle_max){
-                    Toast.makeText(UploadDisplayActivity.this, "标题限制 "+InputLength.DisplayTitle_max+" 字", Toast.LENGTH_SHORT).show();
+                if (uploadWorksCoverEdTx.getText().length() > InputLength.DisplayTitle_max) {
+                    Toast.makeText(UploadDisplayActivity.this, "标题限制 " + InputLength.DisplayTitle_max + " 字", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (uploadWorksDescrpEdTx.getText().length()> InputLength.DisplayContent_max){
-                    Toast.makeText(UploadDisplayActivity.this, "内容限制 "+InputLength.DisplayContent_max+" 字", Toast.LENGTH_SHORT).show();
+                if (uploadWorksDescrpEdTx.getText().length() > InputLength.DisplayContent_max) {
+                    Toast.makeText(UploadDisplayActivity.this, "内容限制 " + InputLength.DisplayContent_max + " 字", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 showProcessBar(getResources().getString(R.string.uploading));
