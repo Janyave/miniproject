@@ -51,7 +51,6 @@ public class ContactAdapter extends BaseAdapter {
         private TextView tv_time;
         private TextView tv_time2;
 
-
         public ViewHolder(View root) {
             iv_avatar = (RoundImageView) root.findViewById(R.id.iv_avatar);
             tv_text = (TextView) root.findViewById(R.id.tv_text);
@@ -103,7 +102,7 @@ public class ContactAdapter extends BaseAdapter {
         messageList.add(message);
     }
 
-    //TODO ��������������ģ��Ϊ10��
+    //TODO
     @Override
     public int getCount() {
         return messageList.size();

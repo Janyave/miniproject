@@ -696,6 +696,5 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
             Log.i("CommunityFragment", "数据已经加载过");
         }
 
-
     }
 }
