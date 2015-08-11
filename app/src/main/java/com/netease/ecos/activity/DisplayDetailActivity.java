@@ -137,7 +137,7 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         workDetailListViewAdapter = new WorkDetailListViewAdapter(this, false);
         //for NetWorkImageView
         queue = MyApplication.getRequestQueue();
-        imageCache = new SDImageCache();
+        imageCache = new SDImageCache(300,200);
         imageLoader = new ImageLoader(queue, imageCache);
         //request the data
         getShareDetailRequest = new GetShareDetailRequest();
