@@ -151,10 +151,15 @@ public class PersonageDetailActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
+        Log.d("ZYW","personal detail on resume");
         super.onResume();
         getUserInfoRequest = new GetUserInfoRequest();
         getuserInfoResponse = new GetuserInfoResponse();
-        getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, userID);
+        if(isOwn) {
+            getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, null);
+        }else {
+            getUserInfoRequest.requestOtherUserInfo(getuserInfoResponse, userID);
+        }
     }
 
     private void initUserData() {
