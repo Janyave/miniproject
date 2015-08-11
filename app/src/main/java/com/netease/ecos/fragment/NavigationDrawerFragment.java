@@ -33,6 +33,7 @@ import com.netease.ecos.activity.NormalListViewActivity;
 import com.netease.ecos.activity.NotificationActivity;
 import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.activity.PersonalInfoSettingActivity;
+import com.netease.ecos.database.ContactDBService;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseResponceImpl;
@@ -207,6 +208,8 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
 
         tv_notificationNum = (TextView) mDrawerView.findViewById(R.id.tv_notificationNum);
         tv_contactNum = (TextView) mDrawerView.findViewById(R.id.tv_contactNum);
+        tv_contactNum.setVisibility(View.VISIBLE);
+
 //        tv_courseNum = (TextView) mDrawerView.findViewById(R.id.tv_courseNum);
 //        tv_displayNum = (TextView) mDrawerView.findViewById(R.id.tv_displayNum);
 //        tv_activityNum = (TextView) mDrawerView.findViewById(R.id.tv_activityNum);
@@ -430,7 +433,18 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     @Override
     public void onResume() {
         super.onResume();
+        updateUnReadNum();
+    }
 
+    public void updateUnReadNum(){
+        int unreadNums = ContactDBService.getInstance(getActivity()).getUnReadNums();
+        if(unreadNums==0)
+            tv_contactNum.setVisibility(View.GONE);
+        else
+        {
+            tv_contactNum.setText(String.valueOf(unreadNums));
+            tv_contactNum.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

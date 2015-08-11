@@ -497,8 +497,13 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 Log.v("mainActivity", "targetAvatar--------   " + contact.avatarUrl);
                 intent.putExtras(bundle);
 
-                NotifyUtils.notifyMessage(MyApplication.getContext(), intent, ticker, title, content, contact.fromAccount);
+                if(!msg.getFromAccount().equals(myImId)){
+                    NotifyUtils.notifyMessage(MyApplication.getContext(), intent, ticker, title, content, contact.fromAccount);
+                }
 
+                Log.i("总未读数", "总未读数-------------" + ContactDBService.getInstance(MainActivity.this).getUnReadNums());
+
+                mNavigationDrawerFragment.updateUnReadNum();
 //                Log.e("最近会话信息", "联系人id：" + msg.getContactId());
 //                Log.e("最近会话信息", "会话内容：" + msg.getContent());
 //                Log.e("最近会话信息", "会话账号：" + msg.getFromAccount());
