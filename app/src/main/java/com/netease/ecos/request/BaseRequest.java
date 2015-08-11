@@ -10,6 +10,7 @@ import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.model.AccountDataService;
+import com.netease.ecos.model.UserDataService;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -207,7 +208,20 @@ public abstract class BaseRequest implements Listener<String>,ErrorListener{
 	 */
 	protected String getUserId()
 	{
-		return AccountDataService.getSingleAccountDataService(getContext()).getUserId();
+
+		String userId = null;
+		userId = AccountDataService.getSingleAccountDataService(getContext()).getUserId();
+		if(userId!=null)
+			return userId;
+		else
+		{
+			Log.e("BaseRequest,getUserId()","-----------------AccountDataService,userId==null");
+		}
+		userId = UserDataService.getSingleUserDataService(getContext()).getUser().userId;
+
+		if(userId==null)
+			Log.e("BaseRequest,getUserId()","-----------------UserDataService,userId==null");
+		return userId;
 	}
 
 	/***

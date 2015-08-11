@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_white"
-    android:orientation="vertical">
+    android:background="@color/bg_white">
 
     <ScrollView
         android:id="@+id/sv"
@@ -31,56 +30,48 @@
 
             <TextView style="@style/layout_line_gray" />
 
-            <LinearLayout
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_label_100px"
                 android:background="@color/bg_gray"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
                 android:paddingLeft="@dimen/margin_40px"
-                android:paddingRight="@dimen/margin_40px">
+                android:paddingRight="@dimen/margin_40px"
+                android:layout_gravity="center_vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="4dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_red" />
+
+                <TextView
+                    style="@style/text_dark_max"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="16dp"
+                    android:layout_centerVertical="true"
+                    android:text="推荐教程"/>
 
-                    <TextView
-                        android:layout_width="4dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"
-                        android:background="@drawable/bg_label" />
+                <TextView
+                    style="@style/text_gray_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_centerVertical="true"
+                    android:text="全部"
+                    android:visibility="gone"/>
 
-                    <TextView
-                        style="@style/text_dark_max"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_40px"
-                        android:text="推荐教程" />
+                <ImageView
+                    android:layout_width="@dimen/icon_little_36px"
+                    android:layout_height="@dimen/icon_little_36px"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/margin_20px"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/ic_more"
+                    android:visibility="gone"/>
+            </RelativeLayout>
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        style="@style/text_gray_max"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="全部"
-                        android:visibility="gone" />
-
-                    <ImageView
-                        android:layout_width="@dimen/icon_little_36px"
-                        android:layout_height="@dimen/icon_little_36px"
-                        android:layout_marginLeft="@dimen/margin_20px"
-                        android:src="@mipmap/ic_more"
-                        android:visibility="gone" />
-                </LinearLayout>
-
-            </LinearLayout>
 
             <com.netease.ecos.views.ExtensibleListView
                 android:id="@+id/lv_course"

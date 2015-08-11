@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
@@ -32,7 +33,7 @@ public class Banner extends RelativeLayout {
 
     private TextView tv_currentNum;
     private ImageView iv_currentNum;
-    private ViewPager vp_image;
+    public ViewPager vp_image;
 
     private int[] pagerViewIDs = new int[]{R.mipmap.banner1, R.mipmap.banner2, R.mipmap.banner3, R.mipmap.banner4};
 
@@ -69,8 +70,6 @@ public class Banner extends RelativeLayout {
         this.URLList = data;
         for (int i = 0; i < data.size(); i++) {
             View v = View.inflate(mContext, pagerViewID, null);
-//            Picasso.with(mContext).load(URLList.get(i)).into((ImageView) v.findViewById(R.id.iv_image));
-
             ImageLoader imageLoader = new ImageLoader(mQueue, new SDImageCache(300,200));
             ((NetworkImageView) v.findViewById(R.id.iv_image)).setImageUrl(URLList.get(i), imageLoader);
 
@@ -90,7 +89,7 @@ public class Banner extends RelativeLayout {
 
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
-                container.addView((View) ViewList.get(position % count));
+                container.addView(ViewList.get(position % count));
                 return ViewList.get(position % count);
             }
 
@@ -191,8 +190,17 @@ public class Banner extends RelativeLayout {
 
     public void releaseMemory() {
         vp_image.setAdapter(null);
-        pagerAdapter = null;
     }
 
+    public boolean isReleased(){
+        return pagerAdapter==null || URLList==null || URLList.size()==0;
+    }
 
+    public void reloadData() {
+        vp_image.setAdapter(pagerAdapter);
+    }
+
+    public int getCount(){
+        return vp_image.getCurrentItem()%count;
+    }
 }

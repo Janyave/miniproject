@@ -55,7 +55,7 @@ public class CampaignListViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = parent.inflate(mcontext, R.layout.item_campaign_show, null);
+            convertView = parent.inflate(mcontext, R.layout.item_campaign_show_replace, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
