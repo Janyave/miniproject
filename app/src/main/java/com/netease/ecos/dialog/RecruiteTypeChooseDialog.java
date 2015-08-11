@@ -99,20 +99,20 @@ public class RecruiteTypeChooseDialog extends Dialog implements View.OnClickList
 
         @Override
         public void doAfterFailedResponse(String message) {
-            Toast.makeText(mContext, "小编还没找到您在该类别下的分享作品，所以不能发布新的招募哦，快去创建相应的分享吧亲:)", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, mContext.getResources().getString(R.string.noShareInTag), Toast.LENGTH_LONG).show();
             dismiss();
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
-            Toast.makeText(mContext, "小编还没找到您在该类别下的分享作品，所以不能发布新的招募哦，快去创建相应的分享吧亲:)", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, mContext.getResources().getString(R.string.noShareInTag), Toast.LENGTH_LONG).show();
             dismiss();
         }
 
         @Override
         public void success(List<Share> shareList) {
             if (shareList.size() == 0) {
-                Toast.makeText(mContext, "小编还没找到您在该类别下的分享作品，所以不能发布新的招募哦，快去创建相应的分享吧亲:)", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getResources().getString(R.string.noShareInTag), Toast.LENGTH_LONG).show();
 
             } else {
                 Intent intent = new Intent(mContext, NewRecruitmentActivity.class);

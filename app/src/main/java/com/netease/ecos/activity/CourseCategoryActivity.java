@@ -221,7 +221,7 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
 
     @Override
     public void onLoadMore() {
-        Toast.makeText(CourseCategoryActivity.this, "上拉加载", Toast.LENGTH_SHORT).show();
+        Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.loadMore2), Toast.LENGTH_SHORT).show();
 
         //1秒后关闭加载
         Handler handler = new Handler();
@@ -281,6 +281,7 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
                 resultImageView.setImageResource(R.mipmap.no_data);
                 return;
             }
+            resultImageView.setVisibility(View.GONE);
             lv_list.setVisibility(View.VISIBLE);
             courseTypeListViewAdapter = new CourseListViewAdapter(CourseCategoryActivity.this, courseList);
             lv_list.setAdapter(courseTypeListViewAdapter);

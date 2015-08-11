@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -261,6 +260,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     resultImageView.setImageResource(R.mipmap.no_data);
                     return;
                 }
+                resultImageView.setVisibility(View.GONE);
                 lv_campaign.setVisibility(View.VISIBLE);
                 if (campaignListViewAdapter == null) {
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
@@ -392,6 +392,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                             resultImageView.setImageResource(R.mipmap.no_data);
                             return;
                         }
+                        resultImageView.setVisibility(View.GONE);
                         lv_campaign.setVisibility(View.VISIBLE);
 //                        CommunityFragment.this.activityList=activityList;
                         if (campaignListViewAdapter == null) {
@@ -487,6 +488,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     resultImageView.setImageResource(R.mipmap.no_data);
                     return;
                 }
+                resultImageView.setVisibility(View.GONE);
                 lv_campaign.setVisibility(View.VISIBLE);
 //                CommunityFragment.this.activityList=activityList;
                 if (campaignListViewAdapter == null) {
@@ -568,6 +570,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     resultImageView.setImageResource(R.mipmap.no_data);
                     return;
                 }
+                resultImageView.setVisibility(View.GONE);
                 lv_campaign.setVisibility(View.VISIBLE);
                 //                CommunityFragment.this.activityList=activityList;
                 if (campaignListViewAdapter == null) {
@@ -585,7 +588,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onLoadMore() {
-        Toast.makeText(getActivity(), "上拉加载", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), getResources().getString(R.string.loadMore2), Toast.LENGTH_SHORT).show();
 
         //1秒后关闭加载
         Handler handler = new Handler();

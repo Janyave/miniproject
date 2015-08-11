@@ -74,6 +74,10 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
     @InjectView(R.id.tv_searchType)
     TextView tv_searchType;
 
+    //for no data
+    @InjectView(R.id.resultImageView)
+    ImageView resultImageView;
+
     PopupWindow courseTypePopupWindow;
     PopupWindow shareSortTypePopupWindow;
 
@@ -116,7 +120,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
 
     private void setHistory(String s) {
         if (!TextUtils.isEmpty(s)) {
-            searchHistoryAdapter.getList().add(0,s);
+            searchHistoryAdapter.getList().add(0, s);
         }
         SharedPreferences setting = getSharedPreferences("Search", 0);
         setting.edit().putString("History", getString(searchHistoryAdapter.getList())).commit();
@@ -212,7 +216,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
                     pageIndex = 0;
                 else
                     pageIndex = 1;
-                searchWord = ((TextView)view.findViewById(R.id.tv_search)).getText().toString();
+                searchWord = ((TextView) view.findViewById(R.id.tv_search)).getText().toString();
                 if (searchWord.equals("")) {
                     Toast.makeText(SearchActivity.this, getResources().getString(R.string.noContent), Toast.LENGTH_SHORT).show();
                     return;
@@ -283,7 +287,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
 
     @Override
     public void onLoadMore() {
-        Toast.makeText(this, "上拉加载", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getResources().getString(R.string.loadMore2), Toast.LENGTH_SHORT).show();
         //1秒后关闭加载
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -410,9 +414,9 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         @Override
         public void success(List<Course> courseList) {
             dismissProcessBar();
-            Log.d(TAG, "CourseListResponse.success()");
             if (courseList.size() == 0) {
-                Toast.makeText(SearchActivity.this, getResources().getString(R.string.noCourse), Toast.LENGTH_SHORT).show();
+                lv_searchList.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.no_data);
                 return;
             }
             courseListViewAdapter = new CourseListViewAdapter(SearchActivity.this, courseList);
@@ -426,12 +430,16 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         @Override
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
+            lv_searchList.setVisibility(View.GONE);
+            resultImageView.setImageResource(R.mipmap.server_error);
             Toast.makeText(SearchActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
+            lv_searchList.setVisibility(View.GONE);
+            resultImageView.setImageResource(R.mipmap.server_error);
         }
     }
 
@@ -441,7 +449,8 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         public void success(List<Share> shareList) {
             dismissProcessBar();
             if (shareList.size() == 0) {
-                Toast.makeText(SearchActivity.this, getResources().getString(R.string.noShare), Toast.LENGTH_SHORT).show();
+                lv_searchList.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.no_data);
                 return;
             }
             displayListViewAdapter = new DisplayListViewAdapter(SearchActivity.this, shareList);
@@ -453,12 +462,16 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         @Override
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
+            lv_searchList.setVisibility(View.GONE);
+            resultImageView.setImageResource(R.mipmap.server_error);
             Toast.makeText(SearchActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
+            lv_searchList.setVisibility(View.GONE);
+            resultImageView.setImageResource(R.mipmap.server_error);
             Toast.makeText(SearchActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
