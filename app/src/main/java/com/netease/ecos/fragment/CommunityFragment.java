@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
     private Button btn_location, btn_categary;
     private FloadingButton btn_floading;
     private XListView lv_campaign;
+    private ImageView resultImageView;
     private PopupWindow popupWindowLocation, popupWindowCategory;
     private Handler handler;
     private ImageView iv_show_flag_location, iv_show_flag_category;
@@ -93,6 +95,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
         btn_categary = (Button) mainView.findViewById(R.id.btn_category);
         btn_location = (Button) mainView.findViewById(R.id.btn_location);
         lv_campaign = (XListView) mainView.findViewById(R.id.lv_campaign);
+        resultImageView = (ImageView) mainView.findViewById(R.id.resultImageView);
         btn_floading = (FloadingButton) mainView.findViewById(R.id.btn_floading_community);
         iv_show_flag_location = (ImageView) mainView.findViewById(R.id.iv_show_flag_location);
         iv_show_flag_category = (ImageView) mainView.findViewById(R.id.iv_show_flag_category);
@@ -233,22 +236,32 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-
+                lv_campaign.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.server_error);
             }
 
             @Override
             public void doAfterFailedResponse(String message) {
                 Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
+                lv_campaign.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.server_error);
             }
 
             @Override
             public void responseNoGrant() {
                 dismissProcessBar();
+                lv_campaign.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.server_error);
             }
 
             @Override
             public void success(List<ActivityModel> activityList) {
-                Log.d("test", "activityList size:" + activityList.size());
+                if (activityList.size() == 0) {
+                    lv_campaign.setVisibility(View.GONE);
+                    resultImageView.setImageResource(R.mipmap.no_data);
+                    return;
+                }
+                lv_campaign.setVisibility(View.VISIBLE);
                 if (campaignListViewAdapter == null) {
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
                     lv_campaign.setAdapter(campaignListViewAdapter);
@@ -257,8 +270,6 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     campaignListViewAdapter.notifyDataSetChanged();
                 }
             }
-            // TODO 省份ID与省份名称未定
-            // TODO 全部分类项需要添加
         }, cityCode, strCategory.equals("全部分类") ? null : Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
     }
 
@@ -356,11 +367,15 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         dismissProcessBar();
+                        lv_campaign.setVisibility(View.GONE);
+                        resultImageView.setImageResource(R.mipmap.server_error);
                     }
 
                     @Override
                     public void doAfterFailedResponse(String message) {
                         dismissProcessBar();
+                        lv_campaign.setVisibility(View.GONE);
+                        resultImageView.setImageResource(R.mipmap.server_error);
                         Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
                     }
 
@@ -372,6 +387,12 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     @Override
                     public void success(List<ActivityModel> activityList) {
                         dismissProcessBar();
+                        if (activityList.size() == 0) {
+                            lv_campaign.setVisibility(View.GONE);
+                            resultImageView.setImageResource(R.mipmap.no_data);
+                            return;
+                        }
+                        lv_campaign.setVisibility(View.VISIBLE);
 //                        CommunityFragment.this.activityList=activityList;
                         if (campaignListViewAdapter == null) {
                             campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
@@ -439,22 +460,34 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 dismissProcessBar();
+                lv_campaign.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.server_error);
             }
 
             @Override
             public void doAfterFailedResponse(String message) {
                 dismissProcessBar();
+                lv_campaign.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.server_error);
                 Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void responseNoGrant() {
                 dismissProcessBar();
+                lv_campaign.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.server_error);
             }
 
             @Override
             public void success(List<ActivityModel> activityList) {
                 dismissProcessBar();
+                if (activityList.size() == 0) {
+                    lv_campaign.setVisibility(View.GONE);
+                    resultImageView.setImageResource(R.mipmap.no_data);
+                    return;
+                }
+                lv_campaign.setVisibility(View.VISIBLE);
 //                CommunityFragment.this.activityList=activityList;
                 if (campaignListViewAdapter == null) {
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
@@ -510,21 +543,32 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+                lv_campaign.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.server_error);
 
             }
 
             @Override
             public void doAfterFailedResponse(String message) {
+                lv_campaign.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.server_error);
                 Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void responseNoGrant() {
-
+                lv_campaign.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.server_error);
             }
 
             @Override
             public void success(List<ActivityModel> activityList) {
+                if (activityList.size() == 0) {
+                    lv_campaign.setVisibility(View.GONE);
+                    resultImageView.setImageResource(R.mipmap.no_data);
+                    return;
+                }
+                lv_campaign.setVisibility(View.VISIBLE);
                 //                CommunityFragment.this.activityList=activityList;
                 if (campaignListViewAdapter == null) {
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
@@ -629,23 +673,22 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
             }
     }
 
-    /***
+    /**
      * 释放内存
      */
-    public void releaseMemory(){
+    public void releaseMemory() {
         lv_campaign.setAdapter(null);
 //        campaignListViewAdapter = null;
         Log.i("community", "释放内存");
     }
 
 
-    public void reloadData(){
+    public void reloadData() {
 
-        if(campaignListViewAdapter==null){
+        if (campaignListViewAdapter == null) {
             initData();
             Log.i("CommunityFragment", "重新加载请求数据");
-        }
-        else{
+        } else {
             lv_campaign.setAdapter(campaignListViewAdapter);
             Log.i("CommunityFragment", "数据已经加载过");
         }

@@ -15,8 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:background="@color/bg_white">
+            android:background="@color/bg_white"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_location"
@@ -24,12 +24,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/height_item_140px"
                 android:layout_gravity="right"
-                android:background="@android:color/transparent"
                 android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:text="不限" />
 
-            <TextView
-                style="@style/layout_line_gray_v"/>
+            <TextView style="@style/layout_line_gray_v" />
 
             <Button
                 android:id="@+id/btn_category"
@@ -41,7 +40,7 @@
                 android:text="全部分类" />
         </LinearLayout>
 
-        <TextView style="@style/layout_line_gray"/>
+        <TextView style="@style/layout_line_gray" />
 
         <com.netease.ecos.views.XListView
             android:id="@+id/lv_campaign"
@@ -50,7 +49,22 @@
             android:background="@color/bg_gray"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"
-            android:listSelector="@android:color/transparent"/>
+            android:listSelector="@android:color/transparent"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/noDataLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="90dp"
+            android:paddingRight="90dp">
+
+            <ImageView
+                android:id="@+id/resultImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/no_data" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -60,8 +74,8 @@
         android:layout_height="@dimen/fbtn_icon_180px"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/fbtn_marginRight_50px"
-        android:layout_marginBottom="@dimen/fbtn_marginBotton_100px" />
+        android:layout_marginBottom="@dimen/fbtn_marginBotton_100px"
+        android:layout_marginRight="@dimen/fbtn_marginRight_50px" />
 
     <ImageView
         android:id="@+id/iv_show_flag_location"

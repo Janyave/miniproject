@@ -12,10 +12,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
-import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.utils.SDImageCache;
 
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class Banner extends RelativeLayout {
         this.mContext = context;
         initView();
         initAuto();
+        mQueue  = Volley.newRequestQueue(context);
     }
 
 
@@ -63,11 +65,12 @@ public class Banner extends RelativeLayout {
     }
 
 
+    public RequestQueue mQueue;
     public void setURLList(List<String> data) {
         this.URLList = data;
         for (int i = 0; i < data.size(); i++) {
             View v = View.inflate(mContext, pagerViewID, null);
-            ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache(450,300));
+            ImageLoader imageLoader = new ImageLoader(mQueue, new SDImageCache(300,200));
             ((NetworkImageView) v.findViewById(R.id.iv_image)).setImageUrl(URLList.get(i), imageLoader);
 
             ViewList.add(v);

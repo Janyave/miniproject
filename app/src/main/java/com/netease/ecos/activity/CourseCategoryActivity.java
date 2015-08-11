@@ -69,6 +69,10 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
     @InjectView(R.id.ll_location)
     LinearLayout ll_location;
 
+    //for no data layout
+    @InjectView(R.id.resultImageView)
+    ImageView resultImageView;
+
     private PopupWindow popupSortType;
     private PopupWindow popupSixType = new PopupWindow();
     //to record which item is selected in  pop window
@@ -178,11 +182,15 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+                lv_list.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.server_error);
                 Toast.makeText(CourseCategoryActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void doAfterFailedResponse(String message) {
+                lv_list.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.server_error);
                 Toast.makeText(CourseCategoryActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
             }
 
@@ -192,6 +200,12 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
 
             @Override
             public void success(List<Course> courseList) {
+                if (courseList.size() == 0) {
+                    lv_list.setVisibility(View.GONE);
+                    resultImageView.setImageResource(R.mipmap.no_data);
+                    return;
+                }
+                lv_list.setVisibility(View.VISIBLE);
                 if (courseTypeListViewAdapter == null) {
                     courseTypeListViewAdapter = new CourseListViewAdapter(CourseCategoryActivity.this, courseList);
                     lv_list.setAdapter(courseTypeListViewAdapter);
@@ -263,8 +277,11 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
         public void success(List<Course> courseList) {
             dismissProcessBar();
             if (courseList.size() == 0) {
-                Toast.makeText(CourseCategoryActivity.this, getResources().getString(R.string.noCourse), Toast.LENGTH_SHORT).show();
+                lv_list.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.no_data);
+                return;
             }
+            lv_list.setVisibility(View.VISIBLE);
             courseTypeListViewAdapter = new CourseListViewAdapter(CourseCategoryActivity.this, courseList);
             lv_list.setAdapter(courseTypeListViewAdapter);
             pageIndex = 0;
@@ -273,12 +290,16 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
         @Override
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
+            lv_list.setVisibility(View.GONE);
+            resultImageView.setImageResource(R.mipmap.server_error);
             Toast.makeText(CourseCategoryActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
+            lv_list.setVisibility(View.GONE);
+            resultImageView.setImageResource(R.mipmap.server_error);
             Toast.makeText(CourseCategoryActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }

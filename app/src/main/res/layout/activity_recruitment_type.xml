@@ -2,19 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_gray">
+        android:background="@color/bg_gray"
+        android:orientation="vertical">
+
         <include
             android:id="@+id/include_title"
             layout="@layout/component_title_type" />
+
         <LinearLayout
             android:id="@+id/ll_sort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/bg_white">
+            android:background="@color/bg_white"
+            android:orientation="vertical">
             <!-- 排序下拉菜单-->
             <LinearLayout
                 android:id="@+id/ll_sortType"
@@ -43,7 +47,8 @@
                     android:scaleType="fitCenter"
                     android:src="@mipmap/ic_choose_gray_down" />
             </LinearLayout>
-            <TextView style="@style/layout_line_gray"/>
+
+            <TextView style="@style/layout_line_gray" />
         </LinearLayout>
 
         <!-- 教程列表-->
@@ -52,8 +57,21 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@android:color/transparent"
-            android:listSelector="@android:color/transparent">
-        </com.netease.ecos.views.XListView>
+            android:listSelector="@android:color/transparent" />
+
+        <LinearLayout
+            android:id="@+id/noDataLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="90dp"
+            android:paddingRight="90dp">
+
+            <ImageView
+                android:id="@+id/resultImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/no_data" />
+        </LinearLayout>
 
     </LinearLayout>
 </RelativeLayout>

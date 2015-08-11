@@ -85,7 +85,22 @@
                 android:layout_height="match_parent"
                 android:divider="@android:color/transparent"
                 android:listSelector="@android:color/transparent"
-                android:paddingTop="16dp"></com.netease.ecos.views.XListView>
+                android:paddingTop="16dp" />
+
+            <LinearLayout
+                android:id="@+id/noDataLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="90dp"
+                android:paddingRight="90dp">
+
+                <ImageView
+                    android:id="@+id/resultImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/no_data" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
