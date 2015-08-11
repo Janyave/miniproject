@@ -151,7 +151,6 @@ public class PersonageDetailActivity extends BaseActivity {
 
     @Override
     protected void onResume() {
-        Log.d("ZYW","personal detail on resume");
         super.onResume();
         getUserInfoRequest = new GetUserInfoRequest();
         getuserInfoResponse = new GetuserInfoResponse();
