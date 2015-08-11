@@ -53,7 +53,7 @@ public class GetUserInfoRequest extends BaseRequest {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = getRequestBasicMap();
-                if (userId != null  && !userId.equals(AccountDataService.getSingleAccountDataService(getContext()).getUserId())) {
+                if (userId != null && !userId.equals(AccountDataService.getSingleAccountDataService(getContext()).getUserId())) {
                     map.put("toUserId", userId);
                     map.put("type", "other");
                 } else {
@@ -151,9 +151,10 @@ public class GetUserInfoRequest extends BaseRequest {
             //请求其他人
             else {
                 if (mGetUserInfoResponse != null) {
-//                    boolean hasBeFollowed = usreJO.getBoolean("hasBeFollowed");
-                    boolean hasFollowed = usreJO.getBoolean("hasFollowed");
-                    mGetUserInfoResponse.success(user, hasFollowed);
+                    if (usreJO.has("hasBeFollowed") && !usreJO.isNull("hasBeFollowed")) {
+                        boolean hasFollowed = usreJO.getBoolean("hasFollowed");
+                        mGetUserInfoResponse.success(user, hasFollowed);
+                    }
                 } else {
                     traceError(TAG, "回调接口为null");
                 }

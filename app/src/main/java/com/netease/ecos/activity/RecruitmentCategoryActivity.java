@@ -249,6 +249,7 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
                 resultImageView.setImageResource(R.mipmap.no_data);
                 return;
             }
+            resultImageView.setVisibility(View.GONE);
             lv_list.setVisibility(View.VISIBLE);
             //获取recruit信息
             if (recruitList.size() == 0)

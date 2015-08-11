@@ -317,8 +317,17 @@ public class PersonageDetailActivity extends BaseActivity {
             personCourseAdapter.getCourseList().addAll(courseList);
             if (courseList.size() >= 5) {
                 courseListRequest.requestOtherCourse(courseListResponce, userID, ++mCoursePageIndex);
-            } else
-                personCourseAdapter.notifyDataSetChanged();
+            } else {
+                if (personCourseAdapter.getCourseList().size() == 0) {
+                    lv_list.setVisibility(View.GONE);
+                    resultImageView.setImageResource(R.mipmap.no_data);
+                } else {
+                    lv_list.setVisibility(View.VISIBLE);
+                    resultImageView.setVisibility(View.GONE);
+                    personCourseAdapter.notifyDataSetChanged();
+                }
+            }
+
             dismissProcessBar();
 
         }
@@ -347,8 +356,17 @@ public class PersonageDetailActivity extends BaseActivity {
             personDisplayAdapter.getShareList().addAll(shareList);
             if (shareList.size() >= 5) {
                 shareListRequest.requestOtherShareList(shareListResponse, userID, ++mSharePageIndex);
-            } else
-                personDisplayAdapter.notifyDataSetChanged();
+            } else {
+                if (personDisplayAdapter.getShareList().size() == 0) {
+                    lv_list.setVisibility(View.GONE);
+                    resultImageView.setImageResource(R.mipmap.no_data);
+                } else {
+                    lv_list.setVisibility(View.VISIBLE);
+                    resultImageView.setVisibility(View.GONE);
+                    personDisplayAdapter.notifyDataSetChanged();
+                }
+            }
+
         }
 
         @Override
@@ -373,8 +391,16 @@ public class PersonageDetailActivity extends BaseActivity {
             personActivityAdapter.getActivityList().addAll(activityList);
             if (activityList.size() >= 5) {
                 activityListRequest.requestOtherActivityList(activityListResponse, userID, ++mActivityPageIndex);
-            } else
-                personActivityAdapter.notifyDataSetChanged();
+            } else {
+                if (personActivityAdapter.getActivityList().size() == 0) {
+                    lv_list.setVisibility(View.GONE);
+                    resultImageView.setImageResource(R.mipmap.no_data);
+                } else {
+                    lv_list.setVisibility(View.VISIBLE);
+                    resultImageView.setVisibility(View.GONE);
+                    personActivityAdapter.notifyDataSetChanged();
+                }
+            }
         }
 
         @Override
@@ -398,10 +424,16 @@ public class PersonageDetailActivity extends BaseActivity {
             personRecruitAdapter.getRecruitmentList().addAll(recruitmentList);
             if (recruitmentList.size() >= 5)
                 recruitmentListRequest.requestSomeone(recruitmentListResponse, userID, ++mRecruitmentPageIndex);
-            else
-                personRecruitAdapter.notifyDataSetChanged();
-
-
+            else {
+                if (personRecruitAdapter.getRecruitmentList().size() == 0) {
+                    lv_list.setVisibility(View.GONE);
+                    resultImageView.setImageResource(R.mipmap.no_data);
+                } else {
+                    lv_list.setVisibility(View.VISIBLE);
+                    resultImageView.setVisibility(View.GONE);
+                    personRecruitAdapter.notifyDataSetChanged();
+                }
+            }
         }
 
         @Override
