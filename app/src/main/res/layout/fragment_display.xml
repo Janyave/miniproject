@@ -75,6 +75,7 @@
         android:background="@color/bg_gray"
         android:orientation="vertical">
 
+
         <com.netease.ecos.views.XListView
             android:id="@+id/lv_course"
             android:layout_width="match_parent"

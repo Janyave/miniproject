@@ -81,6 +81,8 @@ public class PersonageDetailActivity extends BaseActivity {
     LinearLayout ll_edit;
     @InjectView(R.id.ll_personage_tag)
     LinearLayout ll_personage_tag;
+    @InjectView(R.id.resultImageView)
+    ImageView resultImageView;
 
 
     private UserDataService mUserDataService;
@@ -212,15 +214,15 @@ public class PersonageDetailActivity extends BaseActivity {
         user_attention.setText("" + mUserData.followOtherNum);
         user_fans.setText("" + mUserData.fansNum);
         user_description.setText(mUserData.characterSignature);
-        if(!isOwn){
+        if (!isOwn) {
             ll_edit.setVisibility(View.GONE);
-        }else {
+        } else {
             ll_edit.setVisibility(View.VISIBLE);
         }
-        if((!isOwn) && mAttentionFlag){
+        if ((!isOwn) && mAttentionFlag) {
             btn_attention.setText(this.getString(R.string.focus));
             btn_attention.setBackgroundResource(R.drawable.btn_focus_gray);
-        }else{
+        } else {
             btn_attention.setText(this.getString(R.string.notFocus));
             btn_attention.setBackgroundResource(R.drawable.btn_focus_pink);
         }
@@ -291,14 +293,14 @@ public class PersonageDetailActivity extends BaseActivity {
 
         @Override
         public void success(String userId, boolean follow) {
-            if(mAttentionFlag){
+            if (mAttentionFlag) {
                 btn_attention.setText(PersonageDetailActivity.this.getString(R.string.notFocus));
                 btn_attention.setBackgroundResource(R.drawable.btn_focus_pink);
                 mAttentionFlag = false;
-            }else {
+            } else {
                 btn_attention.setText(PersonageDetailActivity.this.getString(R.string.focus));
                 btn_attention.setBackgroundResource(R.drawable.btn_focus_gray);
-                mAttentionFlag =true;
+                mAttentionFlag = true;
             }
         }
     }
@@ -312,11 +314,11 @@ public class PersonageDetailActivity extends BaseActivity {
                 personCourseAdapter = new PersonCourseAdapter(PersonageDetailActivity.this);
                 personCourseAdapter.SetCourseList(mCourse);
             }
+            personCourseAdapter.getCourseList().addAll(courseList);
             if (courseList.size() >= 5) {
                 courseListRequest.requestOtherCourse(courseListResponce, userID, ++mCoursePageIndex);
-            }
-            personCourseAdapter.getCourseList().addAll(courseList);
-            personCourseAdapter.notifyDataSetChanged();
+            } else
+                personCourseAdapter.notifyDataSetChanged();
             dismissProcessBar();
 
         }
@@ -342,12 +344,11 @@ public class PersonageDetailActivity extends BaseActivity {
                 personDisplayAdapter = new PersonDisplayAdapter(PersonageDetailActivity.this);
                 personDisplayAdapter.setShareList(mShare);
             }
+            personDisplayAdapter.getShareList().addAll(shareList);
             if (shareList.size() >= 5) {
                 shareListRequest.requestOtherShareList(shareListResponse, userID, ++mSharePageIndex);
-            }
-            personDisplayAdapter.getShareList().addAll(shareList);
-            personDisplayAdapter.notifyDataSetChanged();
-
+            } else
+                personDisplayAdapter.notifyDataSetChanged();
         }
 
         @Override
@@ -369,12 +370,11 @@ public class PersonageDetailActivity extends BaseActivity {
                 personActivityAdapter = new PersonActivityAdapter(PersonageDetailActivity.this);
                 personActivityAdapter.setActivityList(mActivity);
             }
+            personActivityAdapter.getActivityList().addAll(activityList);
             if (activityList.size() >= 5) {
                 activityListRequest.requestOtherActivityList(activityListResponse, userID, ++mActivityPageIndex);
-
-            }
-            personActivityAdapter.getActivityList().addAll(activityList);
-            personActivityAdapter.notifyDataSetChanged();
+            } else
+                personActivityAdapter.notifyDataSetChanged();
         }
 
         @Override
@@ -391,16 +391,17 @@ public class PersonageDetailActivity extends BaseActivity {
     private class RecruitmentListResponse extends BaseResponceImpl implements RecruitmentListRequest.IRecruitmentListResponse {
         @Override
         public void success(List<Recruitment> recruitmentList) {
-            //TODO recruitment success response.
             if (personRecruitAdapter == null) {
                 personRecruitAdapter = new PersonRecruitAdapter(PersonageDetailActivity.this);
                 personRecruitAdapter.setRecruitmentList(mRecruitment);
             }
-            if (recruitmentList.size() >= 5) {
-                recruitmentListRequest.requestSomeone(recruitmentListResponse, userID, ++mRecruitmentPageIndex);
-            }
             personRecruitAdapter.getRecruitmentList().addAll(recruitmentList);
-            personRecruitAdapter.notifyDataSetChanged();
+            if (recruitmentList.size() >= 5)
+                recruitmentListRequest.requestSomeone(recruitmentListResponse, userID, ++mRecruitmentPageIndex);
+            else
+                personRecruitAdapter.notifyDataSetChanged();
+
+
         }
 
         @Override

@@ -37,7 +37,7 @@ import butterknife.InjectView;
 /**
  * Created by hzjixinyu on 2015/7/30.
  */
-public class LoginActivity extends BaseActivity implements TextWatcher,View.OnClickListener{
+public class LoginActivity extends BaseActivity implements TextWatcher, View.OnClickListener {
     @InjectView(R.id.et_phone)
     EditText et_phone;
     @InjectView(R.id.et_password)
@@ -92,12 +92,12 @@ public class LoginActivity extends BaseActivity implements TextWatcher,View.OnCl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_login:
                 login();
                 break;
             case R.id.tv_forgetPassword:
-                startActivityForResult(new Intent(LoginActivity.this, VerifyCodeActivity.class),0);
+                startActivityForResult(new Intent(LoginActivity.this, VerifyCodeActivity.class), 0);
                 break;
             case R.id.iv_return:
                 finish();
@@ -108,7 +108,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher,View.OnCl
     private void login() {
         showProcessBar("登录中");
         LoginRequest request = new LoginRequest();
-        request.request(new LoginResponse(), et_phone.getText().toString(),et_password.getText().toString());
+        request.request(new LoginResponse(), et_phone.getText().toString(), et_password.getText().toString());
     }
 
     @Override
@@ -117,10 +117,10 @@ public class LoginActivity extends BaseActivity implements TextWatcher,View.OnCl
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (et_password.getText().toString().length()>= InputLength.Password_min&&et_password.getText().toString().length()<=InputLength.Password_max&&!TextUtils.isEmpty(et_phone.getText().toString())){
+        if (et_password.getText().toString().length() >= InputLength.Password_min && et_password.getText().toString().length() <= InputLength.Password_max && !TextUtils.isEmpty(et_phone.getText().toString())) {
 //        if (!TextUtils.isEmpty(et_phone.getText().toString())){
             tv_login.setEnabled(true);
-        }else{
+        } else {
             tv_login.setEnabled(false);
         }
     }
@@ -131,12 +131,12 @@ public class LoginActivity extends BaseActivity implements TextWatcher,View.OnCl
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.v("code","enter "+keyCode);
+        Log.v("code", "enter " + keyCode);
         return super.onKeyDown(keyCode, event);
     }
 
 
-    class LoginResponse extends BaseResponceImpl implements NorResponce{
+    class LoginResponse extends BaseResponceImpl implements NorResponce {
 
         @Override
         public void success() {
@@ -145,8 +145,8 @@ public class LoginActivity extends BaseActivity implements TextWatcher,View.OnCl
             String imId = AccountDataService.getSingleAccountDataService(LoginActivity.this).getUserAccId();
             String imtoken = AccountDataService.getSingleAccountDataService(LoginActivity.this).getImToken();
 
-            Log.e("云信登录","imId:" + imId);
-            Log.e("云信令牌","imtoken:" + imtoken);
+            Log.e("云信登录", "imId:" + imId);
+            Log.e("云信令牌", "imtoken:" + imtoken);
 
             AbortableFuture<LoginInfo> loginRequest;
             loginRequest = NIMClient.getService(AuthService.class).login(new LoginInfo(imId, imtoken));
@@ -155,7 +155,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher,View.OnCl
                 public void onSuccess(LoginInfo param) {
 
                     dismissProcessBar();
-                    Toast.makeText(LoginActivity.this, "LOGIN SUCCESS", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getResources().getString(R.string.loginSuccess), Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -169,7 +169,7 @@ public class LoginActivity extends BaseActivity implements TextWatcher,View.OnCl
                     dismissProcessBar();
                     Log.i("登录", "登录失败");
                     if (code == 302 || code == 404) {
-                        Toast.makeText(LoginActivity.this, "帐号或密码错误", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, getResources().getString(R.string.accountPasswordError), Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(LoginActivity.this, "login error: " + code, Toast.LENGTH_SHORT).show();
                     }
@@ -185,14 +185,13 @@ public class LoginActivity extends BaseActivity implements TextWatcher,View.OnCl
             });
 
 
-
             //进行定位并发送定位数据
-            MyApplication.startLocation(new MyApplication.LocationCallBack(){
+            MyApplication.startLocation(new MyApplication.LocationCallBack() {
 
                 @Override
                 public void locationSuccess(LocationData location) {
 
-                    Log.i("登录location","定位成功:" + location.toString());
+                    Log.i("登录location", "定位成功:" + location.toString());
                     new SendLocationRequest().request(null, String.valueOf(location.getLatitude()), String.valueOf(location.getLongitude()));
                 }
 
@@ -206,22 +205,22 @@ public class LoginActivity extends BaseActivity implements TextWatcher,View.OnCl
         @Override
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
-            Toast.makeText(LoginActivity.this,"账号或密码错误O",Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this,  getResources().getString(R.string.accountPasswordError), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
-            Toast.makeText(LoginActivity.this, VolleyErrorParser.parseVolleyError(volleyError),Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode==RESULT_OK){
-            Intent intent=new Intent(LoginActivity.this, ResetPasswordActivity.class);
-            intent.putExtra("phone",data.getStringExtra("phone"));
+        if (resultCode == RESULT_OK) {
+            Intent intent = new Intent(LoginActivity.this, ResetPasswordActivity.class);
+            intent.putExtra("phone", data.getStringExtra("phone"));
             startActivity(intent);
         }
     }

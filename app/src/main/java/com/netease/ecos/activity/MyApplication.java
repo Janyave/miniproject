@@ -400,7 +400,7 @@ public class MyApplication extends Application {
             @Override
             public void onFailed(int code) {
                 if (code == 302 || code == 404) {
-                    Toast.makeText(getContext(), "账号或密码错误", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),  getResources().getString(R.string.accountPasswordError), Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "login error: " + code, Toast.LENGTH_SHORT).show();
                 }

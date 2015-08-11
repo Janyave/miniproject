@@ -135,7 +135,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         getSupportActionBar().hide();
         initViews();
         if (!isNetworkConnected(MainActivity.this)) {
-            Toast.makeText(MainActivity.this, "还未连接至网络，请先连接啊亲:)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.noNetwork), Toast.LENGTH_SHORT).show();
         } else {
 
         }
@@ -244,7 +244,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
     /**
      * implements NavigationDrawerFragment.NavigationDrawerCallbacks
-     * <p/>
+     * <p>
      * 点击侧滑栏(NavigationDrawerFragment)item时的回掉函数
      *
      * @param position 点击的item序号，从0开始
@@ -523,7 +523,6 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
         }
     };
-
 
 
 }
