@@ -30,13 +30,14 @@ public class SDImageCache implements ImageLoader.ImageCache {
     }
 
     @Override
-    public Bitmap getBitmap(String url) {
+    public synchronized Bitmap getBitmap(String url) {
 //		System.out.println("getBitmap(String url, Bitmap bitmap)");
         File imageFile = FileManager.getInstance().getImgFile();
 
         File file = new File(imageFile, StringUtils.hashKeyForDisk(url) + ".png");
         if (ImageTools.isImageExist(file)) {
             Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+            Log.e("图片","file:" + file.getAbsolutePath());
             return bitmap;
         }
         return null;
@@ -44,7 +45,7 @@ public class SDImageCache implements ImageLoader.ImageCache {
 
 
     @Override
-    public void putBitmap(String url, Bitmap bitmap) {
+    public synchronized void putBitmap(String url, Bitmap bitmap) {
         System.out.println("putBitmap(String url, Bitmap bitmap)");
 
         int width = bitmap.getWidth();
