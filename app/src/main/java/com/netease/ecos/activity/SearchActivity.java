@@ -416,6 +416,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
             dismissProcessBar();
             if (courseList.size() == 0) {
                 lv_searchList.setVisibility(View.GONE);
+                resultImageView.setVisibility(View.VISIBLE);
                 resultImageView.setImageResource(R.mipmap.no_data);
                 return;
             }
@@ -431,6 +432,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
             lv_searchList.setVisibility(View.GONE);
+            resultImageView.setVisibility(View.VISIBLE);
             resultImageView.setImageResource(R.mipmap.server_error);
             Toast.makeText(SearchActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
@@ -439,6 +441,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
             lv_searchList.setVisibility(View.GONE);
+            resultImageView.setVisibility(View.VISIBLE);
             resultImageView.setImageResource(R.mipmap.server_error);
         }
     }
@@ -464,6 +467,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
             lv_searchList.setVisibility(View.GONE);
+            resultImageView.setVisibility(View.VISIBLE);
             resultImageView.setImageResource(R.mipmap.server_error);
             Toast.makeText(SearchActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
@@ -472,6 +476,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
             lv_searchList.setVisibility(View.GONE);
+            resultImageView.setVisibility(View.VISIBLE);
             resultImageView.setImageResource(R.mipmap.server_error);
             Toast.makeText(SearchActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
