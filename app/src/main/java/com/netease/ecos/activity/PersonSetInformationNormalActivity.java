@@ -1,6 +1,7 @@
 package com.netease.ecos.activity;
 
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -104,12 +105,15 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
 
     private void initNameData() {
         ll_inputPassword.setVisibility(View.GONE);
-        et_input.setHint(user.nickname);
+        et_input.setText(user.nickname);
+        et_input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(15)});
+
     }
 
     private void initSignatureData() {
         ll_inputPassword.setVisibility(View.GONE);
-        et_input.setHint(user.characterSignature);
+        et_input.setText(user.characterSignature);
+        et_input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
     }
 
     private void initPasswordData() {
