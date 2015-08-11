@@ -230,7 +230,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         mViewPager.setCurrentItem(mCurrentTab);
 
         //任意一个页面两边应持久化的fragment为2
-        mViewPager.setOffscreenPageLimit(1);
+        mViewPager.setOffscreenPageLimit(2);
 
         //设置换页监听
         mViewPager.setOnPageChangeListener(mOnPageChangeListener);
