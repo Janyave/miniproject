@@ -3,6 +3,7 @@ package com.netease.ecos.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -99,8 +100,9 @@ public class PersonRecruitAdapter extends BaseAdapter implements View.OnClickLis
             }
             tv_name.setText(item.nickname);
             tv_tag.setText(item.recruitType + "");
-            tv_price.setText(item.priceUnit + "");
-            tv_distance.setText(item.distanceKM + "");
+            tv_price.setText(item.averagePrice.substring(0,item.averagePrice.length()-2)+" " + item.priceUnit + "");
+            Log.v("price","price"+item.priceUnit);
+            tv_distance.setText(item.distanceKM + ""+" km");
 
             iv_cover.setTag(position);
             tv_name.setTag(position);
