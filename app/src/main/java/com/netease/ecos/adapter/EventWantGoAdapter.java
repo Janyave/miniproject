@@ -152,6 +152,11 @@ public class EventWantGoAdapter extends BaseAdapter {
         } else {
             viewHolder.ll_tagList.setVisibility(View.VISIBLE);
         }
+        if (num==3&&i.hasNext()){
+            View v = parent.inflate(mcontext, R.layout.item_tag, null);
+            ((TextView) v.findViewById(R.id.tv_tag)).setText("...");
+            viewHolder.ll_tagList.addView(v);
+        }
 
         if (TYPE == NormalListViewActivity.TYPE_EVENT_WANTGO) {
             if (hasFollowEd.get(position).booleanValue() && beFollowed.get(position).booleanValue()) {
