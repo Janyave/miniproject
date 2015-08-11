@@ -59,7 +59,7 @@ public class UploadImageTools {
         long expires = System.currentTimeMillis() / 1000 + 1000;
 
         try {
-            final String token = Util.getToken(BUCKET_NAME, String.valueOf(System.currentTimeMillis()), expires, accessKey, secretKey, null, null);
+            final String token = Util.getToken(BUCKET_NAME, System.currentTimeMillis()+file.getName(), expires, accessKey, secretKey, null, null);
             LogUtil.d(LOGTAG, "token is: " + token);
 
             wanNOSObject.setNosBucketName(BUCKET_NAME);
