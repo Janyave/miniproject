@@ -12,6 +12,8 @@
         android:paddingRight="@dimen/margin_20px"
         android:paddingTop="@dimen/margin_20px"
         android:layout_marginBottom="@dimen/margin_30px"
+        android:layout_marginLeft="@dimen/margin_40px"
+        android:layout_marginRight="@dimen/margin_40px"
         android:background="@drawable/bg_course_item">
     <RelativeLayout
         android:layout_width="match_parent"

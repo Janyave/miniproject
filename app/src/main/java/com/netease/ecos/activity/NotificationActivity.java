@@ -59,6 +59,8 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 //    TextView tv_notice; //通知
     @InjectView(R.id.lv_list)
     ListView lv_list; //显示列表
+    @InjectView(R.id.resultImageView)
+    ImageView resultImageView;
 
     private List<Contact> contactList = new ArrayList<Contact>();
 
@@ -109,6 +111,16 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 
         contactAdapter = new NotificationContactAdapter(this, contactList);
         lv_list.setAdapter(contactAdapter);
+
+        checkBlock();
+    }
+
+    private void checkBlock() {
+        if (lv_list.getCount()==0){
+            resultImageView.setVisibility(View.VISIBLE);
+        }else {
+            resultImageView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -149,12 +161,14 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 
         contactAdapter = new NotificationContactAdapter(this, contactList);
         lv_list.setAdapter(contactAdapter);
+        checkBlock();
 
     }
 
     private void freshData() {
         contactAdapter = new NotificationContactAdapter(this, contactList);
         lv_list.setAdapter(contactAdapter);
+        checkBlock();
     }
 
     @Override
@@ -356,7 +370,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
                     }
 
                     contactList = ContactDBService.getInstance(NotificationActivity.this).getContactList();
-
+                    checkBlock();
                     /**Add**/
                     freshData();
                     for (Contact contact : contactList) {

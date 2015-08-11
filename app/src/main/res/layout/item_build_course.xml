@@ -6,8 +6,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_40px"
-        android:layout_marginRight="@dimen/margin_40px"
         android:layout_marginTop="@dimen/margin_50px">
 
         <TextView
@@ -24,7 +22,7 @@
             android:layout_height="25dp"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="@dimen/margin_40px"
-            android:layout_marginRight="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_20px"
             android:contentDescription="点击将当前步骤置为上一步"
             android:padding="2dp"
             android:src="@mipmap/ic_course_up" />
@@ -36,7 +34,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@id/iv_last_step"
             android:layout_marginLeft="@dimen/margin_40px"
-            android:layout_marginRight="@dimen/margin_40px"
+            android:layout_marginRight="@dimen/margin_20px"
             android:layout_marginTop="@dimen/margin_30px"
             android:contentDescription="点击将当前步骤置为下一步"
             android:padding="2dp"
@@ -75,7 +73,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/margin_20px"
             android:contentDescription="删除当前步骤"
-            android:src="@mipmap/ic_course_delete" />
+            android:src="@mipmap/ic_course_delete"
+            android:layout_marginBottom="4dp"/>
 
         <View
             style="@style/layout_line_gray"

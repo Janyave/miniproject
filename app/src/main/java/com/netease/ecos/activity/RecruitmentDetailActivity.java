@@ -196,7 +196,7 @@ public class RecruitmentDetailActivity extends BaseActivity implements View.OnCl
             }
             tv_name.setText(recruit.nickname);
             tv_distance.setText(recruit.distanceKM + getResources().getString(R.string.KM));
-            tv_price.setText(recruit.averagePrice + recruit.recruitType.getPriceUnit());
+            tv_price.setText(recruit.averagePrice.substring(0,recruit.averagePrice.length()-2) + recruit.recruitType.getPriceUnit());
             tv_detail.setText(recruit.description);
 
         }

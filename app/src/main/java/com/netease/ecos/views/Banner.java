@@ -73,6 +73,8 @@ public class Banner extends RelativeLayout {
 
             if (!TextUtils.isEmpty(URLList.get(i))){
                 Picasso.with(mContext).load(URLList.get(i)).into((ImageView) v.findViewById(R.id.iv_image));
+            }else{
+                ((ImageView) v.findViewById(R.id.iv_image)).setImageResource(R.mipmap.img_default);
             }
 
             Log.i("setURLList", "--------------------------" + URLList.get(i));

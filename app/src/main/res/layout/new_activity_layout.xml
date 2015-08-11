@@ -345,7 +345,7 @@
                     android:layout_margin="@dimen/margin_40px"
                     android:background="@drawable/bg_course_item"
                     android:gravity="top|left"
-                    android:hint="@string/activity_description"
+                    android:hint="请填写更多详细内容，么么哒~"
                     android:minLines="3"
                     android:padding="@dimen/margin_40px" />
 

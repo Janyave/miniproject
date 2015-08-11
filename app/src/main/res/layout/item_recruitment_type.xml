@@ -57,7 +57,7 @@
                 style="@style/text_gray_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1111"
+                android:text=""
                 android:layout_alignLeft="@id/tv_name"
                 android:layout_below="@id/tv_name"
                 android:layout_marginTop="@dimen/margin_10px"/>

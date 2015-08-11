@@ -2,6 +2,7 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,11 +25,13 @@ import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.NorResponce;
 import com.netease.ecos.request.user.UpdateUserInfoRequest;
+import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 import com.netease.ecos.utils.SetPhotoHelper;
 import com.netease.ecos.utils.UploadImageTools;
 import com.netease.ecos.views.RoundedNetworkImageView;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.Set;
@@ -76,7 +79,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     @InjectView(R.id.personal_info_set_pic)
     LinearLayout personal_info_set_pic;
     @InjectView(R.id.personal_info_set_avatar_pic)
-    RoundedNetworkImageView personal_info_set_avatar_pic;
+    RoundAngleImageView personal_info_set_avatar_pic;
     @InjectView(R.id.tv_tag1)
     TextView tv_tag1;
     @InjectView(R.id.tv_tag2)
@@ -333,11 +336,10 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         User setUser = UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this).getUser();
         user = UserDataService.getSingleUserDataService(this).getUser();
         mAvatarUrl = setUser.avatarUrl;
-        personal_info_set_avatar_pic.setErrorImageResId(R.mipmap.bg_female_default);
-        personal_info_set_avatar_pic.setDefaultImageResId(R.mipmap.bg_female_default);
-        if (mAvatarUrl != null && !mAvatarUrl.equals("")) {
-            ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
-            personal_info_set_avatar_pic.setImageUrl(mAvatarUrl, imageLoader);
+//        personal_info_set_avatar_pic.setErrorImageResId(R.mipmap.bg_female_default);
+//        personal_info_set_avatar_pic.setDefaultImageResId(R.mipmap.bg_female_default);
+        if (mAvatarUrl != null && !TextUtils.isEmpty(mAvatarUrl)) {
+            Picasso.with(PersonalInfoSettingActivity.this).load(mAvatarUrl).placeholder(R.mipmap.bg_female_default).error(R.mipmap.bg_female_default).into(personal_info_set_avatar_pic);
         } else
             personal_info_set_avatar_pic.setImageResource(R.mipmap.bg_female_default);
 
@@ -447,8 +449,12 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         public void success() {
             if (mAvatarUrl != null) {
                 ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
-                if (mAvatarUrl != null && !mAvatarUrl.equals(""))
-                    personal_info_set_avatar_pic.setImageUrl(mAvatarUrl, imageLoader);
+                if (mAvatarUrl != null && !TextUtils.isEmpty(mAvatarUrl)){
+                    Picasso.with(PersonalInfoSettingActivity.this).load(mAvatarUrl).placeholder(R.mipmap.bg_female_default).error(R.mipmap.bg_female_default).into(personal_info_set_avatar_pic);
+                }else {
+                    personal_info_set_avatar_pic.setImageResource(R.mipmap.bg_female_default);
+                }
+
             }
 
         }

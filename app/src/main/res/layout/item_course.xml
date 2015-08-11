@@ -52,7 +52,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:layout_marginTop="@dimen/margin_30px"
-                android:text="1111"
+                android:text=""
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
@@ -64,7 +64,7 @@
                 android:layout_below="@id/textViewTitle"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="@dimen/margin_30px"
-                android:text="1111"
+                android:text=""
                 android:textAllCaps="false" />
 
             <TextView
@@ -75,7 +75,7 @@
                 android:layout_alignBottom="@id/textViewAuthor"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/margin_20px"
-                android:text="1111"
+                android:text=""
                 android:textAllCaps="false" />
 
             <ImageView

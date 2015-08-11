@@ -51,12 +51,13 @@
                         android:layout_marginLeft="@dimen/margin_40px"
                         android:layout_marginRight="@dimen/margin_40px"
                         android:orientation="vertical"
-                        android:layout_marginTop="32dp">
+                        android:layout_marginTop="29dp">
 
                         <TextView
                             android:id="@+id/tv_event_title"
                             style="@style/text_pink_max"
                             android:text=""
+                            android:maxLines="2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceLarge" />

@@ -85,6 +85,9 @@ public class NotificationContactAdapter extends BaseAdapter{
 
             if( item.avatarUrl!=null && !TextUtils.isEmpty(item.avatarUrl) )
                 Picasso.with(mcontext).load(item.avatarUrl).placeholder(R.mipmap.bg_female_default).error(R.mipmap.bg_female_default).into(iv_avatar);
+            else{
+                iv_avatar.setImageResource(R.mipmap.bg_female_default);
+            }
 //                iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
             tv_name.setText(item.contactNickName);
             tv_recentContact.setText(item.messageContent);

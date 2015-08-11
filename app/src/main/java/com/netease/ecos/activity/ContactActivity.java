@@ -174,19 +174,19 @@ public class ContactActivity extends BaseActivity implements View.OnClickListene
                 }
             });
 
-            Toast.makeText(ContactActivity.this, "Error Intent", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(ContactActivity.this, "Error Intent", Toast.LENGTH_SHORT).show();
             Log.v("contact", "targetIMID--------" + "Error Intent");
         }
 
-        if (TextUtils.isEmpty(targetUserID)) {
-            Toast.makeText(ContactActivity.this, "targetID为空", Toast.LENGTH_SHORT).show();
-        }
-        if (TextUtils.isEmpty(targetUserIMID)) {
-            Toast.makeText(ContactActivity.this, "targetIMID为空", Toast.LENGTH_SHORT).show();
-        }
-        if (TextUtils.isEmpty(targetUserName)) {
-            Toast.makeText(ContactActivity.this, "targetName为空", Toast.LENGTH_SHORT).show();
-        }
+//        if (TextUtils.isEmpty(targetUserID)) {
+//            Toast.makeText(ContactActivity.this, "targetID为空", Toast.LENGTH_SHORT).show();
+//        }
+//        if (TextUtils.isEmpty(targetUserIMID)) {
+//            Toast.makeText(ContactActivity.this, "targetIMID为空", Toast.LENGTH_SHORT).show();
+//        }
+//        if (TextUtils.isEmpty(targetUserName)) {
+//            Toast.makeText(ContactActivity.this, "targetName为空", Toast.LENGTH_SHORT).show();
+//        }
 //        if (TextUtils.isEmpty(targetUserAvatar)) {
 //            Toast.makeText(ContactActivity.this, "targetAvartar为空", Toast.LENGTH_SHORT).show();
 //        }

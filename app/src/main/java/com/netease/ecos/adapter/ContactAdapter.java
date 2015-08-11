@@ -73,9 +73,13 @@ public class ContactAdapter extends BaseAdapter {
 //            ImageLoader imageLoader = new ImageLoader(queue, imageCache);
             if (UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl != null && !TextUtils.isEmpty(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl)){
                 Picasso.with(mcontext).load(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl).placeholder(R.mipmap.bg_female_default).error(R.mipmap.bg_female_default).into(iv_avatar);
+            }else {
+                iv_avatar.setImageResource(R.mipmap.bg_female_default);
             }
             if (targetAvatarUrl != null && !TextUtils.isEmpty(targetAvatarUrl)){
                 Picasso.with(mcontext).load(targetAvatarUrl).placeholder(R.mipmap.bg_female_default).error(R.mipmap.bg_female_default).into(iv_avatar2);
+            }else {
+                iv_avatar2.setImageResource(R.mipmap.bg_female_default);
             }
 //                iv_avatar.setImageUrl(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl, imageLoader);
 

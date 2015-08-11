@@ -39,7 +39,7 @@
                     android:src="@mipmap/ic_camera"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginBottom="@dimen/margin_50px"
+                    android:layout_marginBottom="@dimen/margin_80px"
                     android:layout_marginRight="@dimen/margin_50px"/>
             </RelativeLayout>
 
@@ -51,9 +51,8 @@
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px"
                 android:layout_marginTop="@dimen/margin_40px"
-                android:paddingTop="@dimen/margin_40px"
-                android:padding="@dimen/margin_10px"
-                android:paddingLeft="@dimen/margin_40px"
+                android:paddingTop="@dimen/margin_30px"
+                android:paddingBottom="@dimen/margin_10px"
                 android:paddingRight="@dimen/margin_40px"
                 android:background="@null"
                 android:hint="请输入你的教程名称"
@@ -69,8 +68,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_20px"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px"
                 android:contentDescription="教程列表"
                 android:descendantFocusability="afterDescendants"
                 android:divider="@android:color/transparent"

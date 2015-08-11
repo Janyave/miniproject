@@ -127,9 +127,9 @@
 
     <!-- 带粉色装饰label等-->
     <dimen name="height_label_100px">35dp</dimen>
-    <dimen name="height_tag_36px">18dp</dimen>
-    <dimen name="width_tag_100px">45dp</dimen>
-    <dimen name="radius_tag_36px">9dp</dimen>
+    <dimen name="height_tag_36px">16dp</dimen>
+    <dimen name="width_tag_100px">38dp</dimen>
+    <dimen name="radius_tag_36px">8dp</dimen>
     <dimen name="height_tag_54px">24dp</dimen>
     <dimen name="width_tag_150px">52dp</dimen>
     <dimen name="radius_tag_54px">12dp</dimen>
@@ -154,7 +154,7 @@
     <dimen name="radius_circle_icon_100px">20dp</dimen>
 
     <dimen name="text_size_44">17sp</dimen>
-    <dimen name="text_size_36">15sp</dimen>
+    <dimen name="text_size_36">14sp</dimen>
     <dimen name="text_size_24">12sp</dimen>
     <dimen name="text_size_tab">11sp</dimen>
 
@@ -246,6 +246,7 @@
     <dimen name="circle_icon_line_width">3px</dimen>
     <dimen name="width_activitychoose_position">90dp</dimen>
     <dimen name="activity_tag_size">12sp</dimen>
+    <dimen name="tags_size">10sp</dimen>
 
 
 </resources>

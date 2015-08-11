@@ -132,6 +132,7 @@ public class EventWantGoAdapter extends BaseAdapter {
             if (TYPE == NormalListViewActivity.TYPE_EVENT_FANS) {
                 viewHolder.tv_contact.setText("私信");
             }
+            viewHolder.tv_contact.setVisibility(View.VISIBLE);
         } else
             viewHolder.tv_contact.setVisibility(View.GONE);
 

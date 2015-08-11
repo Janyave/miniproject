@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/imageViewAuthor"
                 android:layout_marginLeft="@dimen/margin_20px"
-                android:text="测试"
+                android:text=""
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -60,7 +60,7 @@
                 android:layout_below="@id/textViewTitle"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_20px"
-                android:text="zhagnenl"
+                android:text=""
                 android:textAllCaps="false" />
             <TextView
                 android:id="@+id/textViewAmz"

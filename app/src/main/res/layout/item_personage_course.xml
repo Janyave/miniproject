@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:layout_marginBottom="@dimen/margin_50px"
-                android:layout_marginRight="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_50px"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -75,6 +75,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/margin_20px"
                 android:gravity="left"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text=""
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
@@ -83,7 +86,8 @@
                 style="@style/text_gray_min"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""/>
         </LinearLayout>
 
     </LinearLayout>

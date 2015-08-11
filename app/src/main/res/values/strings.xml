@@ -54,7 +54,7 @@
     <string name="bt_personage_setting">设置</string>
     <string name="tv_schedule_set_default">课表集(2)</string>
     <string name="tv_course_name_default">教程名称</string>
-    <string name="bt_personage_attention">+关注</string>
+    <string name="bt_personage_attention">关注</string>
     <string name="bt_personage_inbox">私信</string>
     <string name="bt_personage_return">返回</string>
     <string name="tv_personage_tag1">后期君</string>
@@ -102,12 +102,12 @@
 
     <!-- 活动页面-->
     <string name="activity_name">活动名称</string>
-    <string name="type">分类</string>
-    <string name="location">位置</string>
+    <string name="type">活动分类</string>
+    <string name="location">地理位置</string>
     <string name="address">详细地址</string>
-    <string name="time">时间</string>
-    <string name="day">日期</string>
-    <string name="expense">费用</string>
+    <string name="time">详细时间</string>
+    <string name="day">活动日期</string>
+    <string name="expense">活动费用</string>
     <string name="contact">添加联系方式</string>
     <string name="contactDetail">联系号码</string>
     <string name="activity_description">活动简介</string>

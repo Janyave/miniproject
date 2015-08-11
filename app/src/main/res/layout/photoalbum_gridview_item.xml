@@ -11,11 +11,11 @@
   
     <ImageView  
         android:id="@+id/photo_select"  
-        android:layout_width="30dip"  
-        android:layout_height="30dip"  
+        android:layout_width="25dip"
+        android:layout_height="25dip"
         android:layout_alignParentRight="true"  
         android:layout_alignParentTop="true"
-        android:src="@drawable/cb_on"
+        android:src="@mipmap/ic_choose_true"
         android:visibility="invisible"
-         />  
+        />
 </RelativeLayout>
