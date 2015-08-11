@@ -61,14 +61,14 @@ public class UploadImageTools {
         try {
             String prfix = String.valueOf(System.currentTimeMillis());
 
-            String fileName = prfix+file.getName();
-            Log.e("上传图片",fileName);
-            final String token = Util.getToken(BUCKET_NAME, fileName, expires, accessKey, secretKey, null, null);
+            String key = StringUtils.hashKeyForDisk(prfix+file.getName());
+            Log.e("上传图片",key);
+            final String token = Util.getToken(BUCKET_NAME, key, expires, accessKey, secretKey, null, null);
             LogUtil.d(LOGTAG, "token is: " + token);
 
             wanNOSObject.setNosBucketName(BUCKET_NAME);
             wanNOSObject.setUploadToken(token);
-            final String key = fileName;
+//            final String key = fileName;
 //            final String key = file.getName();
             wanNOSObject.setNosObjectName(key);
 
