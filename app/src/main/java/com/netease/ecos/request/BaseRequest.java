@@ -96,10 +96,13 @@ public abstract class BaseRequest implements Listener<String>,ErrorListener{
 				}
 
 				String message = json.getString(KEY_MSG);
-				//账号不存在
+				int code = json.getInt(KEY_CODE);
+				message = RequestFailUtils.parseResetPwdFailedCode(this,code);
+
+				/*//账号不存在
 				if(RETURN_CODE_PHONE_UNREGISTERED == json.getInt(KEY_CODE)){{
 					message = "该账号未注册";
-				}}
+				}}*/
 
 				if(mBaseResponse!=null)
 				{
