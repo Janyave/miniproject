@@ -2,8 +2,10 @@ package com.netease.ecos.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -213,7 +215,13 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
         tv_type_6.setOnClickListener(this);
         tv_type_7.setOnClickListener(this);
         tv_type_8.setOnClickListener(this);
-
+//        banner.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                Toast.makeText(getActivity(), "等数据 "+banner.getCount(),Toast.LENGTH_SHORT).show();
+//                return true;
+//            }
+//        });
     }
 
     class GetBannerResponse extends BaseResponceImpl implements GetBannerRequest.IGetBannerResponse {
