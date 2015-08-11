@@ -63,6 +63,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
         private TextView tv_praise;
         private TextView tv_evaluation;
         private LinearLayout ll_praise;
+        private ImageView iv_relation;
 
         private ExtensibleListView lv_evaluation;
         private DisplayItemEvalutionViewAdapter adapter;
@@ -80,6 +81,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             ll_praise = (LinearLayout) root.findViewById(R.id.ll_praise);
             tv_praise = (TextView) root.findViewById(R.id.tv_praise);
             lv_evaluation = (ExtensibleListView) root.findViewById(R.id.lv_evaluation);
+            iv_relation=(ImageView)root.findViewById(R.id.iv_relation);
         }
 
         /**
@@ -100,10 +102,15 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
 
             tv_name.setText(item.nickname);
-            if (item.hasAttention)
+            if (item.hasAttention){
                 tv_focus.setText("已关注");
-            else
+                iv_relation.setVisibility(View.VISIBLE);
+            }
+            else{
                 tv_focus.setVisibility(View.GONE);
+                iv_relation.setVisibility(View.INVISIBLE);
+            }
+
             tv_focus.setTextColor(mcontext.getResources().getColor(item.hasAttention ? R.color.text_gray : R.color.text_white));
             tv_focus.setBackgroundResource(item.hasAttention ? R.drawable.btn_focus_gray : R.drawable.btn_focus_pink);
 

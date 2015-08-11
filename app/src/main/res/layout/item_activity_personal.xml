@@ -39,6 +39,7 @@
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:ellipsize="end"
+                    android:text=""
                     android:textAppearance="?android:attr/textAppearanceLarge" />
                 <ImageView
                     android:id="@+id/iv1"

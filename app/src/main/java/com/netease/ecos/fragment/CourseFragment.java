@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,7 +14,9 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.CourseCategoryActivity;
+import com.netease.ecos.activity.CourseDetailActivity;
 import com.netease.ecos.activity.CourseTypeActivity;
+import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.adapter.CourseListViewAdapter;
 import com.netease.ecos.model.Course;
 import com.netease.ecos.request.BaseResponceImpl;
@@ -225,13 +228,37 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
         tv_type_6.setOnClickListener(this);
         tv_type_7.setOnClickListener(this);
         tv_type_8.setOnClickListener(this);
-//        banner.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                Toast.makeText(getActivity(), "等数据 "+banner.getCount(),Toast.LENGTH_SHORT).show();
-//                return true;
-//            }
-//        });
+        banner.vp_image.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction()==MotionEvent.ACTION_DOWN){
+                    Intent intent;
+                    Bundle bundle = new Bundle();
+                    intent = new Intent(getActivity(), CourseDetailActivity.class);
+                    switch (banner.getCount()) {
+                        case 0:
+                            bundle.putString(CourseDetailActivity.CourseID, "250");
+                            break;
+                        case 1:
+                            bundle.putString(CourseDetailActivity.CourseID, "251");
+                            break;
+                        case 2:
+                            bundle.putString(CourseDetailActivity.CourseID, "249");
+                            break;
+                        case 3:
+                            bundle.putString(CourseDetailActivity.CourseID, "252");
+                            break;
+                        default:
+                            return false;
+                    }
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                    return false;
+                }else {
+                    return false;
+                }
+            }
+        });
     }
 
     class GetBannerResponse extends BaseResponceImpl implements GetBannerRequest.IGetBannerResponse {

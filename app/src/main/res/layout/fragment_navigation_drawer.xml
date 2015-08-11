@@ -84,7 +84,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_item_140px"
                     android:layout_weight="1"
-                    android:background="@drawable/ll_white"
+                    android:background="@color/btn_white_press"
                     android:gravity="center"
                     android:orientation="horizontal">
 
@@ -114,7 +114,7 @@
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_item_140px"
                     android:layout_weight="1"
-                    android:background="@drawable/ll_white"
+                    android:background="@color/btn_white_press"
                     android:gravity="center"
                     android:orientation="horizontal">
 

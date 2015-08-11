@@ -34,7 +34,6 @@
                     android:layout_marginLeft="@dimen/margin_40px"
                     android:layout_marginRight="@dimen/margin_40px"
                     android:background="@drawable/bg_course_item"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_20px">
 
@@ -43,6 +42,7 @@
                         android:layout_width="@dimen/width_cover_380px_270px"
                         android:layout_height="@dimen/height_cover_380px_270px"
                         android:scaleType="centerCrop"
+                        android:layout_gravity="center_vertical"
                         android:src="@drawable/img_default" />
 
                     <LinearLayout
@@ -50,11 +50,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/margin_40px"
                         android:layout_marginRight="@dimen/margin_40px"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginTop="32dp">
 
                         <TextView
                             android:id="@+id/tv_event_title"
                             style="@style/text_pink_max"
+                            android:text=""
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -208,8 +210,8 @@
                     <TextView
                         android:layout_width="4dp"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
                         android:background="@drawable/bg_label"/>
 
                     <TextView
@@ -358,8 +360,8 @@
                     <TextView
                         android:layout_width="4dp"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
                         android:background="@drawable/bg_label" />
 
                     <TextView
@@ -401,8 +403,8 @@
                     <TextView
                         android:layout_width="4dp"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
                         android:background="@drawable/bg_label" />
 
                     <TextView
