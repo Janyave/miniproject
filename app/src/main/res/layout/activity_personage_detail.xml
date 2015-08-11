@@ -299,7 +299,7 @@
             android:background="@color/bg_gray"
             android:paddingLeft="90dp"
             android:paddingRight="90dp"
-            android:paddingTop="10dp">
+            android:paddingTop="50dp">
 
             <ImageView
                 android:id="@+id/resultImageView"

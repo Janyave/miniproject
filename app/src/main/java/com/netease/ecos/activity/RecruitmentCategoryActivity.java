@@ -246,6 +246,7 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
             dismissProcessBar();
             if (recruitList.size() == 0) {
                 lv_list.setVisibility(View.GONE);
+                resultImageView.setVisibility(View.VISIBLE);
                 resultImageView.setImageResource(R.mipmap.no_data);
                 return;
             }
