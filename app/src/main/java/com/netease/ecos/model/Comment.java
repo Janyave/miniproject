@@ -76,7 +76,10 @@ public class Comment {
         //当天评论
         if (currentDay.getDate() == commentDay.getDate() &&
                 (currentDay.getTime() - commentDay.getTime()) < 24 * 60 * 60 * 1000) {
-            return commentDay.getHours() + ":" + commentDay.getMinutes();
+            if(commentDay.getMinutes()>=10)
+               return commentDay.getHours() + ":" + commentDay.getMinutes();
+            else
+                return commentDay.getHours() + ":0" + commentDay.getMinutes();
         }
         //7天内评论
         if ((currentDay.getTime() - commentDay.getTime()) < 7 * 24 * 60 * 60 * 1000) {

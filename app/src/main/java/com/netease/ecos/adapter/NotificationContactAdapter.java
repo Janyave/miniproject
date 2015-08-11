@@ -16,6 +16,7 @@ import com.netease.ecos.R;
 import com.netease.ecos.activity.ContactActivity;
 import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.activity.PersonageDetailActivity;
+import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.utils.RoundImageView;
@@ -100,8 +101,18 @@ public class NotificationContactAdapter extends BaseAdapter{
                     intent = new Intent(mcontext, ContactActivity.class);
                     bundle.putString(ContactActivity.TargetUserID, contactList.get((int)v.getTag()).contactUserId);
                     bundle.putString(ContactActivity.TargetUserAvatar, contactList.get((int)v.getTag()).avatarUrl);
-                    bundle.putString(ContactActivity.TargetUserName, contactList.get((int)v.getTag()).contactNickName);
-                    bundle.putString(ContactActivity.TargetUserIMID, contactList.get((int) v.getTag()).fromAccount);
+                    bundle.putString(ContactActivity.TargetUserName, contactList.get((int) v.getTag()).contactNickName);
+
+                    String myImId = AccountDataService.getSingleAccountDataService(mcontext).getUserAccId();
+                    String fromAccount = contactList.get((int) v.getTag()).fromAccount;
+                    if(myImId.equals(fromAccount)) {
+                        bundle.putString(ContactActivity.TargetUserIMID, contactList.get((int) v.getTag()).contactAccid);
+                    }
+                    else{
+                        bundle.putString(ContactActivity.TargetUserIMID, contactList.get((int) v.getTag()).fromAccount);
+                    }
+
+//                    bundle.putString(ContactActivity.TargetUserIMID, contactList.get((int) v.getTag()).fromAccount);
                     Log.v("contact", "targetIMID--------   " + contactList.get((int) v.getTag()).fromAccount);
                     Log.v("contact", "targetID--------   " + contactList.get((int)v.getTag()).contactUserId);
                     Log.v("contact", "targetAvatar--------   " + contactList.get((int)v.getTag()).avatarUrl);
