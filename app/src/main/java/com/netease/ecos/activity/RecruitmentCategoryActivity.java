@@ -229,6 +229,7 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
             lv_list.setVisibility(View.GONE);
+            resultImageView.setVisibility(View.VISIBLE);
             resultImageView.setImageResource(R.mipmap.no_data);
             Toast.makeText(RecruitmentCategoryActivity.this, "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
@@ -237,6 +238,7 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
         public void onErrorResponse(VolleyError error) {
             dismissProcessBar();
             lv_list.setVisibility(View.GONE);
+            resultImageView.setVisibility(View.VISIBLE);
             resultImageView.setImageResource(R.mipmap.no_data);
             Toast.makeText(RecruitmentCategoryActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(error), Toast.LENGTH_SHORT).show();
         }
