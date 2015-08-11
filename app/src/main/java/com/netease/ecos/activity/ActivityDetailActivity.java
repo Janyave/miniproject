@@ -17,14 +17,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.EventContactWayAdapter;
-import com.netease.ecos.adapter.EventWantGoAdapter;
 import com.netease.ecos.model.ActivityModel;
-import com.netease.ecos.model.User;
 import com.netease.ecos.request.BaseResponceImpl;
 import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.activity.GetActivityDetailRequest;
 import com.netease.ecos.request.activity.SingupActivityRequest;
-import com.netease.ecos.request.activity.SingupPeopleListRequest;
 import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
@@ -32,11 +29,7 @@ import com.netease.ecos.views.ExtensibleListView;
 import com.netease.ecos.views.HorizontalListView;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -131,7 +124,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         getActivityDetailResponse = new GetActivityDetailResponse();
         showProcessBar(getResources().getString(R.string.loading));
         getActivityDetailRequest.request(getActivityDetailResponse, activityID);
-        imageCache = new SDImageCache();
+        imageCache = new SDImageCache(300,200);
         imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
 
 

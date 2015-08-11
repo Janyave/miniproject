@@ -73,7 +73,7 @@ public class MyApplication extends Application {
         mApplication = this;
 
         Log.e("初始化", "初始化");
-        NIMClient.init(this, getLoginInfo(), getOptions());
+        NIMClient.init(this, getLoginInfo(), null);
 
         //模拟存储用户数据.
 //        saveTestUserData();
@@ -99,25 +99,6 @@ public class MyApplication extends Application {
 
 
     }
-
-    /*private void saveTestUserData() {
-
-        User user = new User();
-
-        user.userId = "1";
-        user.nickname = "蓝天";
-        user.avatarUrl = "http://image.tianjimedia.com/uploadImages/upload/20140912/upload/201409/w4qlbtkmqrapng.png";
-        user.characterSignature = "我老我骄傲。笑我你算老几";
-        user.cityCode = "12";
-        user.cityName = "杭州";
-        user.coverUrl = "http://comic.people.com.cn/NMediaFile/2013/0314/MAIN201303140932000189269100561.jpg";
-        user.gender = User.Gender.女;
-
-        user.followOtherNum = "12";
-        user.fansNum = "20";
-
-        UserDataService.getSingleUserDataService(this).saveUser(user);
-    }*/
 
 
     /***
@@ -199,6 +180,7 @@ public class MyApplication extends Application {
         Log.e(TAG,"token:" + token);
 
         if (!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)) {
+            Log.e(TAG,"!TextUtils.isEmpty(account) && !TextUtils.isEmpty(token)");
             // open db
             return new LoginInfo(account, token);
         }

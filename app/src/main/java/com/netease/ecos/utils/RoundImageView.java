@@ -69,8 +69,10 @@ public class RoundImageView extends NetworkImageView{
         }
         Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
         int w = getWidth(), h = getHeight();
+        paintWhiteRoundBackground(canvas, w);
         Bitmap roundBitmap =  getCroppedBitmap(bitmap, w);
         canvas.drawBitmap(roundBitmap, 0, 0, null);
+
 
         if (is_circle_show){
             paintCircle(canvas, w);
@@ -107,11 +109,18 @@ public class RoundImageView extends NetworkImageView{
 
     private void paintCircle(Canvas canvas, int Radius){
         Paint p = new Paint();
-        Log.d("ZYW_DEBUG", String.valueOf(circle_color));
         p.setColor(circle_color);
         p.setAntiAlias(true); //去除锯齿
         p.setStyle(Paint.Style.STROKE);
         p.setStrokeWidth(circle_lind_width);
-        canvas.drawCircle(Radius/2 + 0.7f, Radius/2 + 0.7f, Radius/2 - 2.0f, p);
+        canvas.drawCircle(Radius / 2 + 0.7f, Radius / 2 + 0.7f, Radius / 2 - 2.0f, p);
+    }
+
+    private void paintWhiteRoundBackground(Canvas canvas, int Radius){
+        Paint p = new Paint();
+        p.setColor(Color.WHITE);
+        p.setAntiAlias(true); //去除锯齿
+        p.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(Radius / 2 + 0.7f, Radius / 2 + 0.7f, Radius / 2 - 2.0f, p);
     }
 }

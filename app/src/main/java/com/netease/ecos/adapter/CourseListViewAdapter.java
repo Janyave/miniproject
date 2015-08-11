@@ -71,7 +71,7 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
             imageAuthorPic.setErrorImageResId(R.mipmap.bg_female_default);
             if (item.authorAvatarUrl != null && !item.authorAvatarUrl.equals("")) {
                 RequestQueue queue = MyApplication.getRequestQueue();
-                ImageLoader.ImageCache imageCache = new SDImageCache();
+                ImageLoader.ImageCache imageCache = new SDImageCache(300,200);
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);
                 imageAuthorPic.setImageUrl(item.authorAvatarUrl, imageLoader);
             } else

@@ -48,6 +48,9 @@ public abstract class BaseRequest implements Listener<String>,ErrorListener{
 	/*** token失效返回码 */
 	protected final static int RETURN_CODE_TOEKN_INVALID = 8001;
 
+	/*** 账号未注册 */
+	protected final static int RETURN_CODE_PHONE_UNREGISTERED = 8125;
+
 
 	public IBaseResponse mBaseResponse;
 
@@ -92,9 +95,15 @@ public abstract class BaseRequest implements Listener<String>,ErrorListener{
 					return ;
 				}
 
+				String message = json.getString(KEY_MSG);
+				//账号不存在
+				if(RETURN_CODE_PHONE_UNREGISTERED == json.getInt(KEY_CODE)){{
+					message = "该账号未注册";
+				}}
+
 				if(mBaseResponse!=null)
 				{
-					mBaseResponse.doAfterFailedResponse(json.getString(KEY_MSG));
+					mBaseResponse.doAfterFailedResponse(message);
 				}
 				else
 				{
@@ -217,7 +226,6 @@ public abstract class BaseRequest implements Listener<String>,ErrorListener{
 	public Map<String,String> getRequestBasicMap(){
 		Map<String,String> basicMap = new HashMap<String,String>();
 
-		//		basicMap.put(KEY_TOKEN, getToken());
 		basicMap.put(KEY_USER_ID, getUserId());
 
 		return basicMap;

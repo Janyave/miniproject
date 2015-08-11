@@ -71,16 +71,16 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 
         regeisterObserver();
 
-        NIMClient.getService(MsgService.class).setChattingAccount(
-                MsgService.MSG_CHATTING_ACCOUNT_ALL,
-                SessionTypeEnum.None
-        );
+        NIMClient.getService(MsgService.class).setChattingAccount(MsgService.MSG_CHATTING_ACCOUNT_ALL, SessionTypeEnum.None);
 
         initTitle();
         initListener();
         initData();
 
         Log.v("contact", "MyID" + UserDataService.getSingleUserDataService(this).getUser().imId);
+
+        //取消MainActivity全局监听
+        MyApplication.msMainActivity.unregistObserver();
     }
 
     private void initTitle() {
@@ -120,10 +120,9 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
         NIMClient.getService(MsgServiceObserve.class)
                 .observeRecentContact(messageObserver, false);
 
-        NIMClient.getService(MsgService.class).setChattingAccount(
-                MsgService.MSG_CHATTING_ACCOUNT_NONE,
-                SessionTypeEnum.None
-        );
+        NIMClient.getService(MsgService.class).setChattingAccount(MsgService.MSG_CHATTING_ACCOUNT_NONE, SessionTypeEnum.None);
+        //开启MainActivity全局监听
+        MyApplication.msMainActivity.registObserver();
 
     }
 

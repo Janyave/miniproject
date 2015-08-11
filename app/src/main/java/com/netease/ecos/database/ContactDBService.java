@@ -78,6 +78,7 @@ public class ContactDBService {
 
 		String myImId = AccountDataService.getSingleAccountDataService(MyApplication.getContext()).getUserAccId();
 		for(Contact contact:list){
+			Log.i("最近联系人列表","contact:" + contact.toString());
 			if(contact.getMyImIdPlusContactImiId().contains(myImId)){
 				choosedlist.add(contact);
 			}

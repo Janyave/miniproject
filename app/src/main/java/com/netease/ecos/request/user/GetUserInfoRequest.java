@@ -47,20 +47,18 @@ public class GetUserInfoRequest extends BaseRequest {
         super.initBaseRequest(getUserInfoResponse);
         mGetUserInfoResponse = getUserInfoResponse;
         mUserId = userId;
-        //		mGetUserInfoResponse.success(getTestUser());
+        //mGetUserInfoResponse.success(getTestUser());
 
         MyStringRequest stringRequest = new MyStringRequest(Method.POST, RequestUrlConstants.GET_USER_INFO, this, this) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = getRequestBasicMap();
-                if (userId != null) {
+                if (userId != null|| userId.equals(AccountDataService.getSingleAccountDataService(getContext()).getUserId())) {
                     map.put("toUserId", userId);
                     map.put("type", "other");
                 } else {
                     map.put("type", "self");
                 }
-                map.put(KEY_TOKEN, getToken());
-
                 traceNormal(TAG, map.toString());
                 traceNormal(TAG, GetUserInfoRequest.this.getUrl(RequestUrlConstants.GET_USER_INFO, map));
                 return map;
@@ -68,7 +66,7 @@ public class GetUserInfoRequest extends BaseRequest {
 
         };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0, 0));
 
         getQueue().add(stringRequest);
 

@@ -15,6 +15,7 @@ import com.netease.ecos.adapter.EventWantGoAdapter;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
 import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.VolleyErrorParser;
 import com.netease.ecos.request.activity.SingupPeopleListRequest;
 import com.netease.ecos.request.user.FollowedUserListRequest;
 
@@ -114,6 +115,7 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
         title_right.setVisibility(View.INVISIBLE);
         title_text.setText("我的关注");
 
+        showProcessBar("");
         FollowedUserListRequest request = new FollowedUserListRequest();
         request.requestMyFollows(new followedUserListRequest(), 1);
     }
@@ -123,6 +125,7 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
         title_right.setVisibility(View.INVISIBLE);
         title_text.setText("我的粉丝");
 
+        showProcessBar("");
         FollowedUserListRequest request = new FollowedUserListRequest();
         request.requestSomeOneFans(new followedUserListRequest(), null, 1);
     }
@@ -148,14 +151,19 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
                 eventWantGoAdapter = new EventWantGoAdapter(NormalListViewActivity.this, TYPE_EVENT_FANS, userList);
                 lv_list.setAdapter(eventWantGoAdapter);
             }
+            dismissProcessBar();
         }
 
         @Override
         public void doAfterFailedResponse(String message) {
+            dismissProcessBar();
+            Toast.makeText(NormalListViewActivity.this, "获取失败", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
+            dismissProcessBar();
+            Toast.makeText(NormalListViewActivity.this, VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -171,6 +179,7 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
                 NormalListViewActivity.this.beFollowed = new ArrayList<>();
             for (int i = 0; i < userList.size(); i++) {
                 NormalListViewActivity.this.userList.add(userList.get(i));
+                Log.d(TAG, i + "" + hasFollowEd[i] + "," + beFollowed[i]);
                 NormalListViewActivity.this.hasFollowed.add(hasFollowEd[i]);
                 NormalListViewActivity.this.beFollowed.add(beFollowed[i]);
             }
@@ -181,16 +190,20 @@ public class NormalListViewActivity extends BaseActivity implements View.OnClick
                 eventWantGoAdapter = new EventWantGoAdapter(NormalListViewActivity.this, TYPE_EVENT_WANTGO, NormalListViewActivity.this.userList, NormalListViewActivity.this.hasFollowed, NormalListViewActivity.this.beFollowed);
                 lv_list.setAdapter(eventWantGoAdapter);
             }
+
+            dismissProcessBar();
         }
 
         @Override
         public void doAfterFailedResponse(String message) {
-            Toast.makeText(NormalListViewActivity.this, message, Toast.LENGTH_SHORT).show();
+            dismissProcessBar();
+            Toast.makeText(NormalListViewActivity.this, "获取失败", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
-            Toast.makeText(NormalListViewActivity.this, "volleyError", Toast.LENGTH_SHORT).show();
+            dismissProcessBar();
+            Toast.makeText(NormalListViewActivity.this, VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -11,8 +11,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.netease.ecos.R;
-import com.squareup.picasso.Picasso;
+import com.netease.ecos.activity.MyApplication;
+import com.netease.ecos.utils.SDImageCache;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +40,7 @@ public class Banner extends RelativeLayout {
     private int count = 4;
     private int delayTime = 3000;
 
-    private int pagerViewID = R.layout.item_bannerpager;
+    private int pagerViewID = R.layout.item_bannerpager_replace;
     private PagerAdapter pagerAdapter;
 
     private Timer timer;
@@ -63,7 +66,11 @@ public class Banner extends RelativeLayout {
         this.URLList = data;
         for (int i = 0; i < data.size(); i++) {
             View v = View.inflate(mContext, pagerViewID, null);
-            Picasso.with(mContext).load(URLList.get(i)).into((ImageView) v.findViewById(R.id.iv_image));
+//            Picasso.with(mContext).load(URLList.get(i)).into((ImageView) v.findViewById(R.id.iv_image));
+
+            ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache(450,300));
+            ((NetworkImageView) v.findViewById(R.id.iv_image)).setImageUrl(URLList.get(i), imageLoader);
+
             ViewList.add(v);
         }
 

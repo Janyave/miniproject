@@ -45,9 +45,6 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-/**
- * Created by Think on 2015/8/8.
- */
 public class ContactActivity extends Activity implements View.OnClickListener {
     private final String TAG = "Ecos---Contact";
     public static final String TargetUserID = "TargetUserID";
@@ -104,6 +101,11 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
         initData();
 
+        //取消MainActivity全局监听
+        MyApplication.msMainActivity.unregistObserver();
+        //取消通知栏对应通知
+        MainActivity.cancelNotification(this,targetUserIMID);
+
     }
 
     private void initTitle() {
@@ -156,7 +158,15 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         title_text.setText(targetUserName);
 
         String myImId = AccountDataService.getSingleAccountDataService(this).getUserAccId();
+
+
+        Log.i("我的云信id1","------------------------" + myImId);
+        String myImId2 =UserDataService.getSingleUserDataService(this).getUser().imId;
+        Log.i("我的云信id2","---------------------------" + myImId2);
+
+
         String myImIdPlusContactImiId = myImId + targetUserIMID;
+
 
         List<Contact> contactList = ContactDBService.getInstance(ContactActivity.this).getContactList();
 
@@ -191,6 +201,10 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         //最近联系人列表监听
         NIMClient.getService(MsgServiceObserve.class)
                 .observeRecentContact(messageObserver, false);
+
+
+        //开启MainActivity全局监听
+        MyApplication.msMainActivity.registObserver();
     }
 
     private void initListener() {
