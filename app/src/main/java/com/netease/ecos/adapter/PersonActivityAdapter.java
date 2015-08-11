@@ -3,6 +3,7 @@ package com.netease.ecos.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -72,7 +73,7 @@ public class PersonActivityAdapter extends BaseAdapter implements View.OnClickLi
          */
         public void setData(final int position) {
             ActivityModel item = activityList.get(position);
-            if (item.coverUrl != null && !item.coverUrl.equals(""))
+            if (item.coverUrl != null && !TextUtils.isEmpty(item.coverUrl))
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             else
                 iv_cover.setImageResource(R.drawable.img_default);
