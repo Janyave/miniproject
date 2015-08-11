@@ -21,7 +21,7 @@
             android:layout_width="@dimen/icon_title_return"
             android:layout_height="@dimen/icon_title_return"
             android:layout_marginLeft="@dimen/margin_10px"
-            android:layout_marginRight="@dimen/margin_30px"
+            android:layout_marginRight="@dimen/margin_40px"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:src="@drawable/btn_return_white" />
@@ -53,8 +53,8 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin_10px"
             android:layout_weight="1"
-            android:layout_marginTop="@dimen/margin_30px"
-            android:layout_marginBottom="@dimen/margin_30px"
+            android:layout_marginTop="@dimen/margin_20px"
+            android:layout_marginBottom="@dimen/margin_20px"
             android:background="@drawable/bg_search_pink"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -90,17 +90,6 @@
             android:gravity="center"
             android:text="确定" />
     </LinearLayout>
-
-    <TextView style="@style/layout_line_gray" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="12dp"
-        android:background="@color/bg_gray"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:gravity="center_vertical" />
-
     <ListView
         android:id="@+id/lv_searchHistory"
         android:layout_width="match_parent"

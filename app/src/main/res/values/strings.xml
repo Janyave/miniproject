@@ -81,7 +81,7 @@
     <string name="title_activity_personage_detail">PersonageDetailActivity</string>
     <string name="manyFavor">个赞</string>
     <string name="manyComment">条评论</string>
-    <string name="page">张</string>
+    <string name="page">P</string>
     <string name="manyAssignment">个网友作品</string>
     <string name="tag">作品标签</string>
 

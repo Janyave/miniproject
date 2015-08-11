@@ -18,6 +18,7 @@
         android:layout_centerVertical="true"
         android:contentDescription="标题左侧按钮，含图标和按钮，根据需要进行显示和隐藏，并更改名称"
         android:orientation="horizontal"
+        android:paddingRight="@dimen/margin_60px"
         android:gravity="center_vertical">
 
         <ImageView
@@ -34,7 +35,9 @@
         android:id="@+id/ll_left"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@id/lly_left_action"
+        android:layout_centerInParent="true"
+        android:paddingLeft="@dimen/margin_110px"
+        android:paddingRight="@dimen/margin_110px"
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <TextView

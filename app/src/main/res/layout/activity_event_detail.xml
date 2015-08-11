@@ -31,7 +31,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_item_campaign_420px"
-                    android:layout_marginBottom="@dimen/margin_30px"
                     android:layout_marginLeft="@dimen/margin_40px"
                     android:layout_marginRight="@dimen/margin_40px"
                     android:background="@drawable/bg_course_item"
@@ -110,14 +109,14 @@
                     android:layout_marginRight="@dimen/margin_30px"
                     android:layout_marginTop="@dimen/margin_20px"
                     android:background="@drawable/bg_campaign_type_1"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textSize="@dimen/activity_tag_size"/>
             </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/ll_photos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_20px"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -235,7 +234,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:minHeight="@dimen/height_activity_show_item_90px"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_20px">
@@ -244,11 +242,13 @@
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
                         android:layout_marginRight="@dimen/margin_20px"
-                        android:src="@mipmap/ic_position_pink" />
+                        android:src="@mipmap/ic_position_pink"
+                        android:layout_marginTop="4dp"/>
 
                     <TextView
                         android:id="@+id/tv_event_location_detail"
                         style="@style/text_dark_mid"
+                        android:text=""
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -259,7 +259,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:minHeight="@dimen/height_activity_show_item_90px"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_20px">
@@ -268,7 +267,8 @@
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
                         android:layout_marginRight="@dimen/margin_20px"
-                        android:src="@mipmap/ic_time_pink" />
+                        android:src="@mipmap/ic_time_pink"
+                        android:layout_marginTop="4dp"/>
 
                     <TextView
                         android:id="@+id/tv_event_time_detail"
@@ -283,7 +283,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:minHeight="@dimen/height_activity_show_item_90px"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_20px">
@@ -292,7 +291,8 @@
                         android:layout_width="@dimen/icon_little_36px"
                         android:layout_height="@dimen/icon_little_36px"
                         android:layout_marginRight="@dimen/margin_20px"
-                        android:src="@mipmap/ic_detail_pink" />
+                        android:src="@mipmap/ic_detail_pink"
+                        android:layout_marginTop="4dp"/>
 
                     <TextView
                         android:id="@+id/tv_event_content_detail"
@@ -315,10 +315,10 @@
 
                     <TextView
                         android:id="@+id/tv_wantgo"
-                        style="@style/text_pink_max"
-                        android:layout_width="@dimen/width_btn_wantgo_220px"
-                        android:layout_height="@dimen/circle_icon_100px"
-                        android:background="@drawable/bg_activty_wantgo"
+                        style="@style/text_white_max"
+                        android:layout_width="75dp"
+                        android:layout_height="28dp"
+                        android:background="@drawable/bg_wantgo_green"
                         android:gravity="center"
                         android:text="@string/notGo" />
 

@@ -102,12 +102,11 @@
                     android:src="@mipmap/ic_praise_num_white" />
 
                 <TextView
-                    android:text="1111"
+                    android:text="1"
                     android:id="@+id/tv_praise"
                     style="@style/text_white_min"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_10px" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
 
@@ -136,7 +135,7 @@
                     android:layout_marginTop="@dimen/margin_20px"
                     android:layout_below="@id/tv_coverTitle"/>
                 <TextView
-                    android:text="11111"
+                    android:text=""
                     android:id="@+id/tv_evaluation"
                     style="@style/text_pink_mid"
                     android:layout_width="wrap_content"
@@ -147,8 +146,8 @@
                     android:layout_marginRight="@dimen/margin_20px"/>
                 <ImageView
                     android:id="@+id/iv_evaluation"
-                    android:layout_width="@dimen/icon_little_36px"
-                    android:layout_height="@dimen/icon_little_36px"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
                     android:layout_alignBottom="@id/tv_evaluation"
                     android:layout_toLeftOf="@id/tv_evaluation"
                     android:src="@mipmap/ic_evalution_num"

@@ -26,10 +26,7 @@
             <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/exhibitCoverImgVw"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_cover_664px_1000px"
-                android:layout_marginLeft="@dimen/margin_40px"
-                android:layout_marginRight="@dimen/margin_40px"
-                android:layout_marginTop="@dimen/margin_40px"
+                android:layout_height="@dimen/height_cover_670px_1080px"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:scaleType="centerCrop"
@@ -38,10 +35,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_50px"
+                android:layout_marginBottom="@dimen/margin_30px"
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px"
-                android:layout_marginTop="@dimen/margin_50px"
+                android:layout_marginTop="@dimen/margin_60px"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -58,7 +55,8 @@
                     style="@style/text_dark_mid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_20px" />
+                    android:layout_marginLeft="@dimen/margin_20px"
+                    android:text="1111111"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -80,6 +78,7 @@
             <TextView
                 android:id="@+id/exhibitTitleTxVw"
                 style="@style/text_pink_max"
+                android:text="1111111"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_50px"
@@ -104,8 +103,8 @@
                     <TextView
                         android:layout_width="4dp"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
                         android:background="@drawable/bg_label" />
 
                     <TextView
@@ -134,7 +133,6 @@
                 android:id="@+id/exhibitLsVw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin_40px"
                 android:paddingBottom="@dimen/margin_20px"
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0dp"
