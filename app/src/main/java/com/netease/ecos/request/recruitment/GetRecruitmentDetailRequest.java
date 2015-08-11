@@ -40,7 +40,7 @@ public class GetRecruitmentDetailRequest extends BaseRequest {
     /**
      * 用户id
      */
-    public static final String KEY_USER_ID = "authorId";
+    public static final String KEY_USER_ID = "userId";
 
     /**
      * 云信id

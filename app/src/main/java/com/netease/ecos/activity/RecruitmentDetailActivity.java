@@ -23,6 +23,8 @@ import com.netease.ecos.request.share.ShareListRequest;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 
+import org.apache.commons.logging.Log;
+
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -143,6 +145,7 @@ public class RecruitmentDetailActivity extends BaseActivity implements View.OnCl
                 bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                android.util.Log.v("id", "++++++" + recruitment.userId);
                 break;
             case R.id.tv_talk:
                 intent = new Intent(RecruitmentDetailActivity.this, ContactActivity.class);

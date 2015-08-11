@@ -103,7 +103,10 @@ public class ContactActivity extends BaseActivity implements View.OnClickListene
         initData();
 
         //取消MainActivity全局监听
-        MyApplication.msMainActivity.unregistObserver();
+        if (MyApplication.msMainActivity!=null){
+            MyApplication.msMainActivity.unregistObserver();
+        }
+
         //取消通知栏对应通知
         NotifyUtils.cancelNotification(this, targetUserIMID);
 

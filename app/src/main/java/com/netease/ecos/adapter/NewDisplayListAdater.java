@@ -108,7 +108,7 @@ public class NewDisplayListAdater extends BaseAdapter {
         Log.e("tag", share.toString());
 
         if (share.coverUrl != null && !share.coverUrl.equals("")) {
-            ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache());
+            ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), new SDImageCache(300,200));
             viewHolder.iv_cover.setImageUrl(share.coverUrl, imageLoader);
         }
 

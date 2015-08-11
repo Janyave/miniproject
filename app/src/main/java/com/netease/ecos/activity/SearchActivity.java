@@ -23,7 +23,7 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.netease.ecos.R;
 import com.netease.ecos.adapter.CourseListViewAdapter;
-import com.netease.ecos.adapter.DisplayListViewAdapter;
+import com.netease.ecos.adapter.SearchDisplayListAdapter;
 import com.netease.ecos.adapter.SearchHistoryAdapter;
 import com.netease.ecos.fragment.DisplayFragment;
 import com.netease.ecos.model.Course;
@@ -85,7 +85,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
 
     //result adapter
     private CourseListViewAdapter courseListViewAdapter;
-    private DisplayListViewAdapter displayListViewAdapter;
+    private SearchDisplayListAdapter displayListViewAdapter;
     //for request
     private ShareListRequest shareListRequest;
     private GetShareListResponse getShareListResponse;
@@ -450,10 +450,11 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
             dismissProcessBar();
             if (shareList.size() == 0) {
                 lv_searchList.setVisibility(View.GONE);
+                resultImageView.setVisibility(View.VISIBLE);
                 resultImageView.setImageResource(R.mipmap.no_data);
                 return;
             }
-            displayListViewAdapter = new DisplayListViewAdapter(SearchActivity.this, shareList);
+            displayListViewAdapter = new SearchDisplayListAdapter(SearchActivity.this, shareList);
             lv_searchList.setVisibility(View.VISIBLE);
             lv_searchList.setAdapter(displayListViewAdapter);
             pageIndex = 1;

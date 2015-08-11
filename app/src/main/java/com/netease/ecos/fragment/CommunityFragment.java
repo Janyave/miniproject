@@ -257,6 +257,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
             public void success(List<ActivityModel> activityList) {
                 if (activityList.size() == 0) {
                     lv_campaign.setVisibility(View.GONE);
+                    resultImageView.setVisibility(View.VISIBLE);
                     resultImageView.setImageResource(R.mipmap.no_data);
                     return;
                 }
@@ -388,7 +389,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     public void success(List<ActivityModel> activityList) {
                         dismissProcessBar();
                         if (activityList.size() == 0) {
-                            lv_campaign.setVisibility(View.GONE);
+                            lv_campaign.setVisibility(View.GONE);resultImageView.setVisibility(View.VISIBLE);
                             resultImageView.setImageResource(R.mipmap.no_data);
                             return;
                         }
@@ -484,7 +485,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
             public void success(List<ActivityModel> activityList) {
                 dismissProcessBar();
                 if (activityList.size() == 0) {
-                    lv_campaign.setVisibility(View.GONE);
+                    lv_campaign.setVisibility(View.GONE);resultImageView.setVisibility(View.VISIBLE);
                     resultImageView.setImageResource(R.mipmap.no_data);
                     return;
                 }
@@ -567,6 +568,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
             public void success(List<ActivityModel> activityList) {
                 if (activityList.size() == 0) {
                     lv_campaign.setVisibility(View.GONE);
+                    resultImageView.setVisibility(View.VISIBLE);
                     resultImageView.setImageResource(R.mipmap.no_data);
                     return;
                 }
