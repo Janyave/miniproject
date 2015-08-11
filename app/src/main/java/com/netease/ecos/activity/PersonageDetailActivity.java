@@ -454,19 +454,47 @@ public class PersonageDetailActivity extends BaseActivity {
             switch (checkedId) {
                 case R.id.radio_1:
                     ((RadioButton) findViewById(R.id.radio_1)).setTextColor(getResources().getColor(R.color.text_red));
-                    lv_list.setAdapter(personCourseAdapter);
+                    if (personCourseAdapter.getCourseList().size() == 0) {
+                        lv_list.setVisibility(View.GONE);
+                        resultImageView.setVisibility(View.VISIBLE);
+                    } else {
+                        lv_list.setVisibility(View.VISIBLE);
+                        resultImageView.setVisibility(View.GONE);
+                        lv_list.setAdapter(personCourseAdapter);
+                    }
                     break;
                 case R.id.radio_2:
                     ((RadioButton) findViewById(R.id.radio_2)).setTextColor(getResources().getColor(R.color.text_red));
-                    lv_list.setAdapter(personDisplayAdapter);
+                    if (personDisplayAdapter.getShareList().size() == 0) {
+                        lv_list.setVisibility(View.GONE);
+                        resultImageView.setVisibility(View.VISIBLE);
+                    } else {
+                        lv_list.setVisibility(View.VISIBLE);
+                        resultImageView.setVisibility(View.GONE);
+                        lv_list.setAdapter(personDisplayAdapter);
+                    }
                     break;
                 case R.id.radio_3:
                     ((RadioButton) findViewById(R.id.radio_3)).setTextColor(getResources().getColor(R.color.text_red));
-                    lv_list.setAdapter(personActivityAdapter);
+                    if (personActivityAdapter.getActivityList().size() == 0) {
+                        lv_list.setVisibility(View.GONE);
+                        resultImageView.setVisibility(View.VISIBLE);
+                    } else {
+                        lv_list.setVisibility(View.VISIBLE);
+                        resultImageView.setVisibility(View.GONE);
+                        lv_list.setAdapter(personActivityAdapter);
+                    }
                     break;
                 case R.id.radio_4:
                     ((RadioButton) findViewById(R.id.radio_4)).setTextColor(getResources().getColor(R.color.text_red));
-                    lv_list.setAdapter(personRecruitAdapter);
+                    if (personRecruitAdapter.getRecruitmentList().size() == 0) {
+                        lv_list.setVisibility(View.GONE);
+                        resultImageView.setVisibility(View.VISIBLE);
+                    } else {
+                        lv_list.setVisibility(View.VISIBLE);
+                        resultImageView.setVisibility(View.GONE);
+                        lv_list.setAdapter(personRecruitAdapter);
+                    }
                     break;
             }
         }
