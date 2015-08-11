@@ -17,9 +17,11 @@ import com.netease.ecos.activity.ContactActivity;
 import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +45,9 @@ public class ContactAdapter extends BaseAdapter {
 
     class ViewHolder {
 
-        private RoundImageView iv_avatar;
+        private RoundAngleImageView iv_avatar;
         private TextView tv_text;
-        private RoundImageView iv_avatar2;
+        private RoundAngleImageView iv_avatar2;
         private TextView tv_text2;
         private LinearLayout ll_me;
         private LinearLayout ll_other;
@@ -53,26 +55,30 @@ public class ContactAdapter extends BaseAdapter {
         private TextView tv_time2;
 
         public ViewHolder(View root) {
-            iv_avatar = (RoundImageView) root.findViewById(R.id.iv_avatar);
+            iv_avatar = (RoundAngleImageView) root.findViewById(R.id.iv_avatar);
             tv_text = (TextView) root.findViewById(R.id.tv_text);
-            iv_avatar2 = (RoundImageView) root.findViewById(R.id.iv_avatar2);
+            iv_avatar2 = (RoundAngleImageView) root.findViewById(R.id.iv_avatar2);
             tv_text2 = (TextView) root.findViewById(R.id.tv_text2);
             ll_me = (LinearLayout) root.findViewById(R.id.ll_me);
             ll_other = (LinearLayout) root.findViewById(R.id.ll_other);
             tv_time=(TextView)root.findViewById(R.id.tv_time);
             tv_time2=(TextView)root.findViewById(R.id.tv_time2);
 
-            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
-            iv_avatar.setErrorImageResId(R.mipmap.bg_nogender_default);
-            iv_avatar2.setDefaultImageResId(R.mipmap.bg_female_default);
-            iv_avatar2.setErrorImageResId(R.mipmap.bg_nogender_default);
-            RequestQueue queue = MyApplication.getRequestQueue();
-            ImageLoader.ImageCache imageCache = new SDImageCache();
-            ImageLoader imageLoader = new ImageLoader(queue, imageCache);
-            if (UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl != null && !UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl.equals(""))
-                iv_avatar.setImageUrl(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl, imageLoader);
-            if (targetAvatarUrl != null && !targetAvatarUrl.equals(""))
-                iv_avatar2.setImageUrl(targetAvatarUrl, imageLoader);
+//            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+//            iv_avatar.setErrorImageResId(R.mipmap.bg_nogender_default);
+//            iv_avatar2.setDefaultImageResId(R.mipmap.bg_female_default);
+//            iv_avatar2.setErrorImageResId(R.mipmap.bg_nogender_default);
+//            RequestQueue queue = MyApplication.getRequestQueue();
+//            ImageLoader.ImageCache imageCache = new SDImageCache();
+//            ImageLoader imageLoader = new ImageLoader(queue, imageCache);
+            if (UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl != null && !TextUtils.isEmpty(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl)){
+                Picasso.with(mcontext).load(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl).placeholder(R.mipmap.bg_female_default).error(R.mipmap.bg_female_default).into(iv_avatar);
+            }
+            if (targetAvatarUrl != null && !TextUtils.isEmpty(targetAvatarUrl)){
+                Picasso.with(mcontext).load(targetAvatarUrl).placeholder(R.mipmap.bg_female_default).error(R.mipmap.bg_female_default).into(iv_avatar2);
+            }
+//                iv_avatar.setImageUrl(UserDataService.getSingleUserDataService(mcontext).getUser().avatarUrl, imageLoader);
+
         }
 
         /**

@@ -191,7 +191,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
         public void success(ActivityModel activity) {
             dismissProcessBar();
             activityModel = activity;
-            if (activity.coverUrl != null && !activity.coverUrl.equals(""))
+            if (activity.coverUrl != null && !TextUtils.isEmpty(activity.coverUrl))
                 Picasso.with(ActivityDetailActivity.this).load(activity.coverUrl).placeholder(R.drawable.img_default).into(iv_event_cover);
             else
                 iv_event_cover.setImageResource(R.drawable.img_default);

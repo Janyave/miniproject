@@ -2,6 +2,7 @@ package com.netease.ecos.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -295,7 +296,7 @@ public class CourseDetailActivity extends BaseActivity implements View.OnClickLi
         } else {
             iv_avatar.setImageResource(R.mipmap.bg_female_default);
         }
-        if (course.coverUrl != null && !course.coverUrl.equals(""))
+        if (course.coverUrl != null &&  !TextUtils.isEmpty(course.coverUrl))
             Picasso.with(CourseDetailActivity.this).load(course.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
         else
             iv_cover.setImageResource(R.drawable.img_default);

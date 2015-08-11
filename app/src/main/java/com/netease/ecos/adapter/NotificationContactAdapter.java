@@ -3,6 +3,7 @@ package com.netease.ecos.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +20,10 @@ import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.model.AccountDataService;
 import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.ModelUtils;
+import com.netease.ecos.utils.RoundAngleImageView;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +44,7 @@ public class NotificationContactAdapter extends BaseAdapter{
     class ViewHolder implements View.OnClickListener{
 
         private RelativeLayout rly_main;
-        private RoundImageView iv_avatar;
+        private RoundAngleImageView iv_avatar;
         private TextView tv_name;
         private TextView tv_recentContact;
         private TextView tv_recentTime;
@@ -50,7 +53,7 @@ public class NotificationContactAdapter extends BaseAdapter{
 
         public ViewHolder(View root) {
             rly_main=(RelativeLayout)root.findViewById(R.id.rly_main);
-            iv_avatar = (RoundImageView) root.findViewById(R.id.iv_avatar);
+            iv_avatar = (RoundAngleImageView) root.findViewById(R.id.iv_avatar);
             tv_name = (TextView) root.findViewById(R.id.tv_name);
             tv_recentContact = (TextView) root.findViewById(R.id.tv_recentContact);
             tv_recentTime = (TextView) root.findViewById(R.id.tv_recentTime);
@@ -73,14 +76,16 @@ public class NotificationContactAdapter extends BaseAdapter{
 
             Log.i("最近联系人列表",item.toString());
 
-            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
-            iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
+//            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+//            iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
 
-            ImageLoader.ImageCache imageCache = new SDImageCache();
-            ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
+//            ImageLoader.ImageCache imageCache = new SDImageCache();
+//            ImageLoader imageLoader = new ImageLoader(MyApplication.getRequestQueue(), imageCache);
             //TODO
-            if( item.avatarUrl!=null && !"".equals(item.avatarUrl) )
-                iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
+
+            if( item.avatarUrl!=null && !TextUtils.isEmpty(item.avatarUrl) )
+                Picasso.with(mcontext).load(item.avatarUrl).placeholder(R.mipmap.bg_female_default).error(R.mipmap.bg_female_default).into(iv_avatar);
+//                iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
             tv_name.setText(item.contactNickName);
             tv_recentContact.setText(item.messageContent);
             tv_recentTime.setText(ModelUtils.getDateDetailByTimeStamp(item.time)+"");

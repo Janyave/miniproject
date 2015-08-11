@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -34,13 +35,15 @@
                 android:paddingBottom="@dimen/margin_20px"
                 android:paddingLeft="@dimen/margin_40px"
                 android:paddingRight="@dimen/margin_40px"/>
-            <com.netease.ecos.utils.RoundImageView
+            <com.netease.ecos.utils.RoundAngleImageView
                 android:id="@+id/iv_avatar"
                 android:layout_width="@dimen/contact_avatar_width"
                 android:layout_height="@dimen/contact_avatar_width"
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:src="@drawable/img_default"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                app:roundWidth="@dimen/radius_contact_avatar_width"
+                app:roundHeight="@dimen/radius_contact_avatar_width"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -61,13 +64,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <com.netease.ecos.utils.RoundImageView
+        <com.netease.ecos.utils.RoundAngleImageView
             android:id="@+id/iv_avatar2"
             android:layout_width="@dimen/contact_avatar_width"
             android:layout_height="@dimen/contact_avatar_width"
             android:layout_marginRight="@dimen/margin_40px"
             android:src="@drawable/img_default"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY"
+            app:roundWidth="@dimen/radius_contact_avatar_width"
+            app:roundHeight="@dimen/radius_contact_avatar_width"/>
         <TextView
             android:id="@+id/tv_text2"
             android:layout_width="wrap_content"

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.netease.ecos.R;
@@ -57,7 +58,7 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
     //    @InjectView(R.id.tv_notice)
 //    TextView tv_notice; //通知
     @InjectView(R.id.lv_list)
-    XListView lv_list; //显示列表
+    ListView lv_list; //显示列表
 
     private List<Contact> contactList = new ArrayList<Contact>();
 
@@ -125,8 +126,9 @@ public class NotificationActivity extends BaseActivity implements View.OnClickLi
 
         NIMClient.getService(MsgService.class).setChattingAccount(MsgService.MSG_CHATTING_ACCOUNT_NONE, SessionTypeEnum.None);
         //开启MainActivity全局监听
-        MyApplication.msMainActivity.registObserver();
-
+        if (MyApplication.msMainActivity!=null){
+            MyApplication.msMainActivity.registObserver();
+        }
     }
 
     private void initListener() {

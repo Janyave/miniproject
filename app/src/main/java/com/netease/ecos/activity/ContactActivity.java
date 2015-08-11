@@ -242,7 +242,9 @@ public class ContactActivity extends BaseActivity implements View.OnClickListene
 
 
         //开启MainActivity全局监听
-        MyApplication.msMainActivity.registObserver();
+        if(MyApplication.msMainActivity!=null){
+            MyApplication.msMainActivity.registObserver();
+        }
     }
 
     private void initListener() {

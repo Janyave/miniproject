@@ -209,7 +209,9 @@
                     <TextView
                         android:layout_width="4dp"
                         android:layout_height="match_parent"
-                        android:background="@color/bg_red" />
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/bg_label"/>
 
                     <TextView
                         style="@style/text_dark_max"
@@ -356,7 +358,9 @@
                     <TextView
                         android:layout_width="4dp"
                         android:layout_height="match_parent"
-                        android:background="@color/bg_red" />
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/bg_label" />
 
                     <TextView
                         style="@style/text_dark_max"
@@ -375,6 +379,7 @@
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px"
                 android:background="@drawable/bg_course_item"
+                android:listSelector="@android:color/transparent"
                 android:divider="@color/bg_gray_dark"
                 android:dividerHeight="@dimen/width_line" />
 
@@ -396,7 +401,9 @@
                     <TextView
                         android:layout_width="4dp"
                         android:layout_height="match_parent"
-                        android:background="@color/bg_red" />
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/bg_label" />
 
                     <TextView
                         style="@style/text_dark_max"
