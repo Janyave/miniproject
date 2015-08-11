@@ -75,7 +75,7 @@ public class CourseListViewAdapter extends BaseAdapter implements View.OnClickLi
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);
                 imageAuthorPic.setImageUrl(item.authorAvatarUrl, imageLoader);
             } else
-                imageAuthorPic.setImageResource(R.drawable.img_default);
+                imageAuthorPic.setBackgroundResource(R.drawable.img_default);
             textViewTitle.setText(item.title);
             textViewAmz.setText(item.praiseNum + "");
             textViewAuthor.setText(item.author);
