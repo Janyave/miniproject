@@ -1,8 +1,6 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -248,32 +246,4 @@ public class NewDisplayListAdater extends BaseAdapter {
         return descrpEdTx.getText().toString();
     }
 
-    public static int MAX_EVALUATION_WORDS =
-
-    TextWatcher remainingTextNumberWatcher = new TextWatcher()
-    {
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count,
-                                      int after) {
-            Log.i("beforeTextChanged", "CharSequence"+s+"  start"+start+"  count"+count+"  after"+after);
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before,
-                                  int count) {
-            Log.i("onTextChanged", "CharSequence"+s+"  start"+start+"  before"+before+"  count"+count);
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            Log.i("afterTextChanged", "    ");
-            int rest = MAX_EVALUATION_WORDS-s.toString().length();
-
-            if(tv_remaining_text_num==null)
-                Log.e(TAG, "tv_remaining_text_num==null");
-            tv_remaining_text_num.setText("当前还可输入"+rest+"个字");
-        }
-    };
 }
