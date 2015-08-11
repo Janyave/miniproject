@@ -11,7 +11,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -272,6 +271,8 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     AccountDataService.getSingleAccountDataService(PersonalInfoSettingActivity.this).clearAllDataExceptUsername();
                     UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this).clearAllData();
 
+                    if(MyApplication.msMainActivity!=null)
+                        MyApplication.msMainActivity.unregistObserver();
 
                     Intent intent = new Intent(PersonalInfoSettingActivity.this, SplashActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

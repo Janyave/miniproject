@@ -123,6 +123,10 @@ public class ContactActivity extends BaseActivity implements View.OnClickListene
         targetUserName = bundle.getString(TargetUserName);
         targetUserIMID = bundle.getString(TargetUserIMID);
 
+        Log.i("onNewIntent","targetUserID" + targetUserID);
+        Log.i("onNewIntent","targetUserAvatar" + targetUserAvatar);
+        Log.i("onNewIntent","targetUserName" + targetUserName);
+
         title_text.setText(targetUserName);
 
         initData();
