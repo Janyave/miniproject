@@ -54,7 +54,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_30px"
                     android:background="@android:color/transparent"
-                    android:text="@string/bt_personage_name_default"
                     android:textStyle="bold" />
 
                 <TextView
