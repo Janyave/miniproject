@@ -281,6 +281,7 @@ public class CourseCategoryActivity extends BaseActivity implements View.OnClick
                 resultImageView.setImageResource(R.mipmap.no_data);
                 return;
             }
+            resultImageView.setVisibility(View.GONE);
             lv_list.setVisibility(View.VISIBLE);
             courseTypeListViewAdapter = new CourseListViewAdapter(CourseCategoryActivity.this, courseList);
             lv_list.setAdapter(courseTypeListViewAdapter);

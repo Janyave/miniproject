@@ -319,6 +319,7 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
                 resultImageView.setImageResource(R.mipmap.no_data);
                 return;
             }
+            noDataLayout.setVisibility(View.GONE);
             lv_course.setVisibility(View.VISIBLE);
             displayListViewAdapter = new DisplayListViewAdapter(getActivity(), shareList);
             lv_course.setAdapter(displayListViewAdapter);

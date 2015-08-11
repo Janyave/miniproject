@@ -260,6 +260,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     resultImageView.setImageResource(R.mipmap.no_data);
                     return;
                 }
+                resultImageView.setVisibility(View.GONE);
                 lv_campaign.setVisibility(View.VISIBLE);
                 if (campaignListViewAdapter == null) {
                     campaignListViewAdapter = new CampaignListViewAdapter(getActivity(), activityList);
@@ -391,6 +392,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                             resultImageView.setImageResource(R.mipmap.no_data);
                             return;
                         }
+                        resultImageView.setVisibility(View.GONE);
                         lv_campaign.setVisibility(View.VISIBLE);
 //                        CommunityFragment.this.activityList=activityList;
                         if (campaignListViewAdapter == null) {
@@ -486,6 +488,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     resultImageView.setImageResource(R.mipmap.no_data);
                     return;
                 }
+                resultImageView.setVisibility(View.GONE);
                 lv_campaign.setVisibility(View.VISIBLE);
 //                CommunityFragment.this.activityList=activityList;
                 if (campaignListViewAdapter == null) {
@@ -567,6 +570,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                     resultImageView.setImageResource(R.mipmap.no_data);
                     return;
                 }
+                resultImageView.setVisibility(View.GONE);
                 lv_campaign.setVisibility(View.VISIBLE);
                 //                CommunityFragment.this.activityList=activityList;
                 if (campaignListViewAdapter == null) {

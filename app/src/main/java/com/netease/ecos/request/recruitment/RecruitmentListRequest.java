@@ -145,7 +145,7 @@ public class RecruitmentListRequest extends BaseRequest {
 
                 map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
                 map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
-
+                map.put(KEY_SORT_RULE, SortRule.智能排序.getValue());
                 traceNormal(TAG, map.toString());
                 traceNormal(TAG, RecruitmentListRequest.this.getUrl(RequestUrlConstants.GET_RECRUITMENT_LIST_URL, map));
                 return map;
@@ -181,6 +181,7 @@ public class RecruitmentListRequest extends BaseRequest {
 
                 map.put(KEY_PAGE_SIZE, String.valueOf(DEFAULT_PAGE_SIZE));
                 map.put(KEY_PAGE_INDEX, String.valueOf(pageIndex));
+                map.put(KEY_SORT_RULE, SortRule.智能排序.getValue());
 
                 traceNormal(TAG, map.toString());
                 traceNormal(TAG, RecruitmentListRequest.this.getUrl(RequestUrlConstants.GET_RECRUITMENT_LIST_URL, map));
