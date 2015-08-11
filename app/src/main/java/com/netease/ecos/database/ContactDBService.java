@@ -131,10 +131,30 @@ public class ContactDBService {
 
 		//以处理状态作为检索条件
 		contact.setMyImIdPlusContactImiId(id);
-		Log.e("getContactById","id:" + id);
+		Log.e("getContactById", "id:" + id);
 		List<Contact> contactList=mContactDAO.queryForMatchingArgs(contact);
 
 		return (contactList.size()>0)?contactList.get(0):null;
+	}
+
+
+	/***
+	 * 获取总未读数
+	 * @return
+	 */
+	public int getUnReadNums(){
+		int totalUnReadNum = 0;
+		String myImId = AccountDataService.getSingleAccountDataService(MyApplication.getContext()).getUserAccId();
+
+		List<Contact> list = mContactDAO.queryForAll();
+		for(Contact contact:list){
+			Log.i("最近联系人列表","contact:" + contact.toString());
+			if(contact.getMyImIdPlusContactImiId().startsWith(myImId)){
+				totalUnReadNum += contact.getUnreadedNum();
+			}
+		}
+
+		return totalUnReadNum;
 	}
 }
 

@@ -325,6 +325,7 @@ public class PersonageDetailActivity extends BaseActivity {
             } else {
                 if (personCourseAdapter.getCourseList().size() == 0) {
                     lv_list.setVisibility(View.GONE);
+                    resultImageView.setVisibility(View.VISIBLE);
                     resultImageView.setImageResource(R.mipmap.no_data);
                 } else {
                     lv_list.setVisibility(View.VISIBLE);
@@ -364,6 +365,7 @@ public class PersonageDetailActivity extends BaseActivity {
             } else {
                 if (personDisplayAdapter.getShareList().size() == 0) {
                     lv_list.setVisibility(View.GONE);
+                    resultImageView.setVisibility(View.VISIBLE);
                     resultImageView.setImageResource(R.mipmap.no_data);
                 } else {
                     lv_list.setVisibility(View.VISIBLE);
@@ -399,6 +401,7 @@ public class PersonageDetailActivity extends BaseActivity {
             } else {
                 if (personActivityAdapter.getActivityList().size() == 0) {
                     lv_list.setVisibility(View.GONE);
+                    resultImageView.setVisibility(View.VISIBLE);
                     resultImageView.setImageResource(R.mipmap.no_data);
                 } else {
                     lv_list.setVisibility(View.VISIBLE);
@@ -432,6 +435,7 @@ public class PersonageDetailActivity extends BaseActivity {
             else {
                 if (personRecruitAdapter.getRecruitmentList().size() == 0) {
                     lv_list.setVisibility(View.GONE);
+                    resultImageView.setVisibility(View.VISIBLE);
                     resultImageView.setImageResource(R.mipmap.no_data);
                 } else {
                     lv_list.setVisibility(View.VISIBLE);

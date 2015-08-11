@@ -272,8 +272,10 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
             exhibitPersonImgVw.setDefaultImageResId(R.mipmap.bg_female_default);
 
             exhibitPersonNameTxVw.setText(share.nickname);
-            if (!share.userId.equals(mUserData.userId))
-                exhibitFocusBtn.setText(share.hasAttention ? DisplayDetailActivity.this.getString(R.string.focus) : DisplayDetailActivity.this.getString(R.string.notFocus));
+            if (!share.userId.equals(mUserData.userId)){
+                exhibitFocusBtn.setText(share.hasAttention ? DisplayDetailActivity.this.getString(R.string.focus) : DisplayDetailActivity.this.getString(R.string.doNotFocus));
+                exhibitFocusBtn.setBackgroundResource(share.hasAttention ? R.drawable.btn_focus_gray : R.drawable.btn_focus_pink);
+            }
             else
                 exhibitFocusBtn.setVisibility(View.GONE);
             exhibitTitleTxVw.setText(share.title);
@@ -301,6 +303,7 @@ public class DisplayDetailActivity extends BaseActivity implements View.OnTouchL
         public void success(String userId, boolean follow) {
             share.hasAttention = follow;
             exhibitFocusBtn.setText(share.hasAttention ? DisplayDetailActivity.this.getString(R.string.focus) : DisplayDetailActivity.this.getString(R.string.notFocus));
+            exhibitFocusBtn.setBackgroundResource(share.hasAttention ? R.drawable.btn_focus_gray : R.drawable.btn_focus_pink);
         }
     }
 
