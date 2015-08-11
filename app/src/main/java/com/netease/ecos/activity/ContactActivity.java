@@ -1,6 +1,6 @@
 package com.netease.ecos.activity;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +19,7 @@ import com.netease.ecos.model.Contact;
 import com.netease.ecos.model.ModelUtils;
 import com.netease.ecos.model.User;
 import com.netease.ecos.model.UserDataService;
+import com.netease.ecos.utils.NotifyUtils;
 import com.netease.ecos.views.sweet_alert_dialog.SweetAlertDialog;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.Observer;
@@ -45,7 +46,7 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class ContactActivity extends Activity implements View.OnClickListener {
+public class ContactActivity extends BaseActivity implements View.OnClickListener {
     private final String TAG = "Ecos---Contact";
     public static final String TargetUserID = "TargetUserID";
     public static final String TargetUserName = "TargetUserName";
@@ -71,16 +72,16 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     /**
      * 对方userId
      */
-    private String targetUserID;
+    public String targetUserID;
     /**
      * 对方昵称
      */
-    private String targetUserName;
+    public String targetUserName;
     /**
      * 对方头像
      */
-    private String targetUserAvatar;
-    private String targetUserIMID = "";
+    public String targetUserAvatar;
+    public String targetUserIMID = "";
 
     private List<IMMessage> messageList = new ArrayList<>();
     private ContactAdapter contactAdapter;
@@ -104,9 +105,37 @@ public class ContactActivity extends Activity implements View.OnClickListener {
         //取消MainActivity全局监听
         MyApplication.msMainActivity.unregistObserver();
         //取消通知栏对应通知
-        MainActivity.cancelNotification(this,targetUserIMID);
+        NotifyUtils.cancelNotification(this, targetUserIMID);
 
     }
+
+    @Override
+    public void onNewIntent(Intent intent){
+        super.onNewIntent(intent);
+
+        Log.i("onNewIntent","intent:" + intent.toString());
+        Bundle bundle = intent.getExtras();
+        targetUserID = bundle.getString(TargetUserID);
+        targetUserAvatar = bundle.getString(TargetUserAvatar);
+        targetUserName = bundle.getString(TargetUserName);
+        targetUserIMID = bundle.getString(TargetUserIMID);
+
+        initData();
+    }
+
+
+    /***
+     *
+     */
+    public void onResume(){
+        super.onResume();
+
+        //取消MainActivity全局监听
+//        MyApplication.msMainActivity.unregistObserver();
+        //取消通知栏对应通知
+        NotifyUtils.cancelNotification(this, targetUserIMID);
+    }
+
 
     private void initTitle() {
         title_left.setOnClickListener(this);
@@ -258,6 +287,7 @@ public class ContactActivity extends Activity implements View.OnClickListener {
     }
 
     private void initData() {
+        messageList = new ArrayList<IMMessage>();
         testMessageHistory(targetUserIMID);
     }
 
@@ -333,6 +363,37 @@ public class ContactActivity extends Activity implements View.OnClickListener {
                         if(message.getFromAccount().equals(targetUserIMID) || message.equals(myImId))
                         {
                             addList(message);
+                        }
+                        else{
+                            Intent intent = new Intent();
+                            intent.setClass(MyApplication.getContext(), ContactActivity.class);
+                            Bundle bundle = new Bundle();
+
+                            Contact contact = new Contact();
+
+                            try {
+                                JSONObject content = new JSONObject(message.getContent());
+                                contact.contactNickName = content.getString("nickname");
+                                contact.contactUserId = content.getString("userId");
+                                contact.avatarUrl = content.getString("avatarUrl");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            contact.fromAccount = message.getFromAccount();
+                            bundle.putString(ContactActivity.TargetUserID, contact.contactUserId);
+                            bundle.putString(ContactActivity.TargetUserAvatar, contact.avatarUrl);
+                            bundle.putString(ContactActivity.TargetUserName, contact.contactNickName);
+                            bundle.putString(ContactActivity.TargetUserIMID, contact.fromAccount);
+                            Log.v("mainActivity,收到信息", "targetIMID--------   " + contact.fromAccount);
+                            Log.v("mainActivity,收到信息", "targetID--------   " + contact.contactUserId);
+                            Log.v("mainActivity,收到信息", "targetAvatar--------   " + contact.avatarUrl);
+                            intent.putExtras(bundle);
+                            String ticker = contact.contactNickName + "发来信息";
+                            String title = contact.contactNickName;
+                            String content = contact.messageContent;
+                            NotifyUtils.notifyMessage(MyApplication.getContext(), intent, ticker, title, content, contact.fromAccount);
+
+
                         }
 
                         Log.i("收到消息", "----------------------------------------------------------");
