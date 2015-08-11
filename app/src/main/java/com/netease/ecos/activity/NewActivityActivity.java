@@ -85,7 +85,7 @@ public class NewActivityActivity extends BaseActivity implements View.OnClickLis
     @InjectView(R.id.expenseEdTx)
     EditText expenseEdTx;
     @InjectView(R.id.newIcon)
-    ImageView newIcon;
+    LinearLayout newIcon;
     @InjectView(R.id.activityDesrpEdTx)
     EditText activityDesrpEdTx;
     @InjectView(R.id.contactListView)

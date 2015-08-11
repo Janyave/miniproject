@@ -10,7 +10,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_campaign_420px"
-            android:layout_marginBottom="@dimen/margin_30px"
+            android:layout_marginTop="@dimen/margin_30px"
             android:layout_marginLeft="@dimen/margin_40px"
             android:layout_marginRight="@dimen/margin_40px"
             android:background="@drawable/bg_course_item"
@@ -96,7 +96,7 @@
             android:layout_height="@dimen/height_campaign_type_54px"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/margin_30px"
-            android:layout_marginTop="@dimen/margin_20px"
+            android:layout_marginTop="@dimen/margin_60px"
             android:paddingLeft="@dimen/margin_20px"
             android:paddingRight="@dimen/margin_20px"
             android:background="@drawable/bg_campaign_type_1"

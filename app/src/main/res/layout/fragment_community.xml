@@ -48,7 +48,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg_gray"
-            android:paddingTop="@dimen/margin_30px"
             android:divider="@android:color/transparent"
             android:dividerHeight="0dp"
             android:listSelector="@android:color/transparent"/>

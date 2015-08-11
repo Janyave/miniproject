@@ -40,7 +40,11 @@
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px"
                 android:orientation="horizontal">
-
+                <CheckBox
+                    android:id="@+id/other_cb"
+                    style="@style/checkbox_tag"
+                    android:text="@string/coser" />
+                <TextView style="@style/layout_0dp_width" />
                 <CheckBox
                     android:id="@+id/makeuper_cb"
                     style="@style/checkbox_tag"
@@ -74,12 +78,7 @@
                     style="@style/checkbox_tag"
                     android:text="@string/costume" />
 
-                <TextView style="@style/layout_0dp_width" />
 
-                <CheckBox
-                    android:id="@+id/other_cb"
-                    style="@style/checkbox_tag"
-                    android:text="@string/others" />
             </LinearLayout>
 
             <LinearLayout
