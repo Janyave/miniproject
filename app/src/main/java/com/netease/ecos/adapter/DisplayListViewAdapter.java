@@ -98,7 +98,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
             } else
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
-            ;
+
             tv_name.setText(item.nickname);
             if (item.hasAttention)
                 tv_focus.setText("已关注");
@@ -181,7 +181,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             return convertView;
         } else {
             if (convertView == null || convertView.getTag() instanceof Boolean) {
-                convertView = parent.inflate(mcontext, R.layout.item_display, null);
+                convertView = parent.inflate(mcontext, R.layout.item_display_replace, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             } else {

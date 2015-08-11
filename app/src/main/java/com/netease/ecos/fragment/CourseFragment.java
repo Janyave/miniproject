@@ -277,20 +277,35 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
     public void releaseMemory(){
         lv_course.setAdapter(null);
 //        courseListViewAdapter = null;
-        banner.releaseMemory();
+//        banner.releaseMemory();
         Log.i("course", "释放内存");
     }
 
     public void reloadData(){
 
         if(courseListViewAdapter==null){
-            initData();
+            requestBanner = new GetBannerRequest();
+            getBannerResponse = new GetBannerResponse();
+            requestBanner.request(getBannerResponse);
             Log.i("course", "重新加载请求数据");
         }
         else{
             lv_course.setAdapter(courseListViewAdapter);
             Log.i("course", "数据已经加载过");
         }
+
+        requestBanner = new GetBannerRequest();
+        getBannerResponse = new GetBannerResponse();
+        requestBanner.request(getBannerResponse);
+
+       /* if(banner.isReleased()){
+            requestBanner = new GetBannerRequest();
+            getBannerResponse = new GetBannerResponse();
+            requestBanner.request(getBannerResponse);
+        }
+        else{
+            reloadData();
+        }*/
     }
 
 
