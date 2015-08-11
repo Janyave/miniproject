@@ -95,6 +95,7 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
             tv_reset_password.setEnabled(false);
         }
     }
+
     @Override
     public void afterTextChanged(Editable s) {
     }
@@ -109,7 +110,7 @@ public class ResetPasswordActivity extends Activity implements View.OnClickListe
 
         @Override
         public void doAfterFailedResponse(String message) {
-            Toast.makeText(ResetPasswordActivity.this, "RESET FAIL", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ResetPasswordActivity.this, message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

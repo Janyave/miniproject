@@ -379,7 +379,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                         } else if (strCategory.equals(recentCategory) && strLocation.equals(recentLocation)) {  // 判断是否需要更新数据
                             campaignListViewAdapter.setActivityList(activityList);
                             campaignListViewAdapter.notifyDataSetChanged();
-                            lv_campaign.smoothScrollToPosition(0);  // ListView回到顶部
+                            lv_campaign.setSelection(0);  // ListView回到顶部
                         }
                     }
 //                }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);
@@ -462,7 +462,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
                 } else if (strCategory.equals(recentCategory) && strLocation.equals(recentLocation)) {
                     campaignListViewAdapter.setActivityList(activityList);
                     campaignListViewAdapter.notifyDataSetChanged();
-                    lv_campaign.smoothScrollToPosition(0);  // ListView回到顶部
+                    lv_campaign.setSelection(0);  // ListView回到顶部
                 }
             }
 //        }, strLocation, Enum.valueOf(ActivityModel.ActivityType.class, strCategory), 0);

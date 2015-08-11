@@ -81,14 +81,46 @@
             <TextView
                 android:id="@+id/tv_coverNum"
                 style="@style/text_white_min"
-                android:layout_width="35dp"
+                android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
+                android:paddingLeft="@dimen/margin_20px"
+                android:paddingRight="@dimen/margin_20px"
                 android:layout_marginBottom="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px"
                 android:background="@drawable/bg_pagenum"
                 android:gravity="center" />
+
+            <LinearLayout
+                android:id="@+id/ll_praise"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:paddingLeft="@dimen/margin_20px"
+                android:paddingRight="@dimen/margin_20px"
+                android:layout_toLeftOf="@id/tv_coverNum"
+                android:layout_marginBottom="@dimen/margin_40px"
+                android:layout_marginRight="@dimen/margin_40px"
+                android:background="@drawable/bg_pagenum">
+                <ImageView
+                    android:id="@+id/iv_praise"
+                    android:layout_width="@dimen/icon_little_36px"
+                    android:layout_height="@dimen/icon_little_36px"
+                    android:src="@mipmap/ic_praise_num_white" />
+
+                <TextView
+                    android:text="1111"
+                    android:id="@+id/tv_praise"
+                    style="@style/text_white_min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_10px" />
+            </LinearLayout>
+
+
 
         </RelativeLayout>
 
@@ -148,29 +180,7 @@
                         android:layout_marginLeft="@dimen/margin_10px" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/ll_praise"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_toLeftOf="@id/ll_evaluation"
-                    android:layout_marginRight="@dimen/margin_80px"
-                    android:layout_alignBottom="@id/tv_coverTime">
-                    <ImageView
-                        android:id="@+id/iv_praise"
-                        android:layout_width="@dimen/icon_little_36px"
-                        android:layout_height="@dimen/icon_little_36px"
-                        android:src="@mipmap/ic_praise_num" />
 
-                    <TextView
-                        android:text=""
-                        android:id="@+id/tv_praise"
-                        style="@style/text_pink_mid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_10px" />
-                </LinearLayout>
 
 
             </RelativeLayout>

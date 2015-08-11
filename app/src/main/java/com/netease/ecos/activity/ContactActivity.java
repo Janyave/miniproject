@@ -328,7 +328,12 @@ public class ContactActivity extends Activity implements View.OnClickListener {
 
                         /**Add**/
                         Toast.makeText(ContactActivity.this, "收到一条信息", Toast.LENGTH_SHORT).show();
-                        addList(message);
+                        String myImId = AccountDataService.getSingleAccountDataService(ContactActivity.this).getUserAccId();
+                        //信息来自当前聊天对象或自己
+                        if(message.getFromAccount().equals(targetUserIMID) || message.equals(myImId))
+                        {
+                            addList(message);
+                        }
 
                         Log.i("收到消息", "----------------------------------------------------------");
                         if (message.getMsgType().compareTo(MsgTypeEnum.text) == 0) {

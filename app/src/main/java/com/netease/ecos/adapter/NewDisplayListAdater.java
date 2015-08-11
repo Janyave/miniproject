@@ -245,4 +245,5 @@ public class NewDisplayListAdater extends BaseAdapter {
         EditText descrpEdTx = (EditText) vTop.findViewById(R.id.descrpEdTx);
         return descrpEdTx.getText().toString();
     }
+
 }

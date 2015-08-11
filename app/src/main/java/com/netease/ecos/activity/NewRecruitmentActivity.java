@@ -99,14 +99,25 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
                 finish();
                 break;
             case R.id.lly_right_action:
-                String price = priceEdTx.getText().toString();
-                String descrp = descrpEdTx.getText().toString();
+                String price = newDisplayListAdater.getPrice();
+                String descrp = newDisplayListAdater.getDes();
+
+                if("".equals(price)){
+                    Toast.makeText(NewRecruitmentActivity.this, "请输入价格 "+ InputLength.RecruitePrice_min+"~"+InputLength.RecruitePrice_max, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if("".equals(descrp)){
+                    Toast.makeText(NewRecruitmentActivity.this, "请输入说明 "+ InputLength.RecruitePrice_min+"~"+InputLength.RecruitePrice_max, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (Integer.parseInt(price)> InputLength.RecruitePrice_max||Integer.parseInt(price)<InputLength.RecruitePrice_min){
-                    Toast.makeText(NewRecruitmentActivity.this, "价格限制 "+ InputLength.RecruitePrice_min+"~"+InputLength.RecruitePrice_max, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewRecruitmentActivity.this, "亲，请输入合理价格 "+ InputLength.RecruitePrice_min+"~"+InputLength.RecruitePrice_max, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (descrp.length()>InputLength.RecruiteDetail_max){
-                    Toast.makeText(NewRecruitmentActivity.this, "说明限制 "+ InputLength.RecruiteDetail_max + "字", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NewRecruitmentActivity.this, " 亲，您输入超过字数限制"+ InputLength.RecruiteDetail_max + "字", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (newDisplayListAdater.isTopViewEmpty()) {

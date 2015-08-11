@@ -3,6 +3,8 @@ package com.netease.ecos.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -247,9 +249,24 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             tv_author_time.setText(activity.getDateDescription());
 
             Collections.reverse(activity.signUpUseList);
-            int num=activity.signUpUseList.size()>5?5:activity.signUpUseList.size();
+//            int num=activity.signUpUseList.size()>5?5:activity.signUpUseList.size();
             ll_wantgo_icons.removeAllViews();
-            for (int position=0; position<num; position++){
+//            for (int position=0; position<num; position++){
+//                View v=View.inflate(ActivityDetailActivity.this, R.layout.item_icon, null);
+//                if (!TextUtils.isEmpty(activity.signUpUseList.get(position).avatarUrl)) {
+//                    Picasso.with(ActivityDetailActivity.this).load(activity.signUpUseList.get(position).avatarUrl).placeholder(R.mipmap.bg_female_default).error(R.mipmap.bg_female_default).into((RoundAngleImageView) v.findViewById(R.id.icon));
+//                }else {
+//                    ((RoundAngleImageView) v.findViewById(R.id.icon)).setImageResource(R.mipmap.bg_female_default);
+//                }
+//                ll_wantgo_icons.addView(v);
+//            }
+
+            DisplayMetrics dm = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(dm);
+            float itemWitdh=dm.density*(getResources().getDimension(R.dimen.circle_icon_100px)+getResources().getDimension(R.dimen.margin_10px));
+            float all=dm.density*ll_wantgo_icons.getWidth();
+            int position=0;
+            for(int width=0;(width+itemWitdh<all)&&(position<activity.signUpUseList.size());width+=itemWitdh){
                 View v=View.inflate(ActivityDetailActivity.this, R.layout.item_icon, null);
                 if (!TextUtils.isEmpty(activity.signUpUseList.get(position).avatarUrl)) {
                     Picasso.with(ActivityDetailActivity.this).load(activity.signUpUseList.get(position).avatarUrl).placeholder(R.mipmap.bg_female_default).error(R.mipmap.bg_female_default).into((RoundAngleImageView) v.findViewById(R.id.icon));
@@ -257,6 +274,7 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
                     ((RoundAngleImageView) v.findViewById(R.id.icon)).setImageResource(R.mipmap.bg_female_default);
                 }
                 ll_wantgo_icons.addView(v);
+                position++;
             }
         }
 

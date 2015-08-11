@@ -23,7 +23,7 @@ import butterknife.InjectView;
 /**
  * Created by Think on 2015/7/23.
  */
-public class WriteContentActivity extends Activity implements View.OnClickListener {
+public class WriteContentActivity extends BaseActivity implements View.OnClickListener {
     private static String TAG = "Ecos---WriteContent";
     @InjectView(R.id.lly_right_action)
     LinearLayout title_right;
@@ -90,6 +90,7 @@ public class WriteContentActivity extends Activity implements View.OnClickListen
                 if (response == null)
                     response = new UploadCommentResponse();
                 createCommentRequest.request(response, comment);
+                showProcessBar(getResources().getString(R.string.e_loading));
                 break;
             case R.id.lly_left_action:
                 finish();
@@ -104,18 +105,20 @@ public class WriteContentActivity extends Activity implements View.OnClickListen
         @Override
         public void doAfterFailedResponse(String message) {
             Toast.makeText(WriteContentActivity.this, message, Toast.LENGTH_SHORT).show();
-
+            dismissProcessBar();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             Toast.makeText(WriteContentActivity.this, "泪奔！服务器出错了:" + VolleyErrorParser.parseVolleyError(volleyError), Toast.LENGTH_SHORT).show();
+            dismissProcessBar();
         }
 
         @Override
         public void success(Comment comment) {
             Toast.makeText(WriteContentActivity.this, getResources().getString(R.string.commentSuccess), Toast.LENGTH_SHORT).show();
             setResult(CommentDetailActivity.ResultCodeForComment);
+            dismissProcessBar();
             finish();
         }
     }
