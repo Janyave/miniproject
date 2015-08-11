@@ -3,6 +3,7 @@ package com.netease.ecos.views;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -70,9 +71,11 @@ public class Banner extends RelativeLayout {
         for (int i = 0; i < data.size(); i++) {
             View v = View.inflate(mContext, pagerViewID, null);
 
-            Picasso.with(mContext).load(URLList.get(i)).into((ImageView) v.findViewById(R.id.iv_image));
+            if (!TextUtils.isEmpty(URLList.get(i))){
+                Picasso.with(mContext).load(URLList.get(i)).into((ImageView) v.findViewById(R.id.iv_image));
+            }
 
-            Log.i("setURLList","--------------------------" + URLList.get(i));
+            Log.i("setURLList", "--------------------------" + URLList.get(i));
 
 
             ViewList.add(v);

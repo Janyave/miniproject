@@ -1,6 +1,7 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -81,7 +82,7 @@ public class CourseDetailOtherWorksHListViewAdapter extends BaseAdapter {
 
         void setData(int position) {
             Course.Assignment item = assignmentList.get(position);
-            if (item.imageUrl != null && !item.imageUrl.equals(""))
+            if (item.imageUrl != null &&  !TextUtils.isEmpty(item.imageUrl))
                 Picasso.with(mContext).load(item.imageUrl).placeholder(R.drawable.img_default).into(iv_image);
             else
                 iv_image.setImageResource(R.drawable.img_default);

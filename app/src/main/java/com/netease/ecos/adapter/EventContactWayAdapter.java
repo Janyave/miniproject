@@ -40,13 +40,18 @@ public class EventContactWayAdapter extends BaseAdapter {
          */
         public void setData(final int position) {
             ActivityModel.ContactWay contactWay = contactWayList.get(position).contactWay;
-            if (contactWay == ActivityModel.ContactWay.QQ || contactWay == ActivityModel.ContactWay.QQ群)
+            if (contactWay == ActivityModel.ContactWay.QQ || contactWay == ActivityModel.ContactWay.QQ群){
                 iv_type.setImageResource(R.mipmap.ic_qq_pink);
-            else if (contactWay == ActivityModel.ContactWay.电话)
+                tv_detail.setText("QQ  " + contactWayList.get(position).value);
+            }
+            else if (contactWay == ActivityModel.ContactWay.电话){
                 iv_type.setImageResource(R.mipmap.ic_phone_pink);
-            else
+                tv_detail.setText("手机 " + contactWayList.get(position).value);
+            }
+            else{
                 iv_type.setImageResource(R.mipmap.ic_weibo_pink);
-            tv_detail.setText(contactWayList.get(position).value);
+                tv_detail.setText("微博 " + contactWayList.get(position).value);
+            }
         }
     }
 

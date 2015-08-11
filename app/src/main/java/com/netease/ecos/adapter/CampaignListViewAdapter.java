@@ -1,6 +1,7 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,7 @@ public class CampaignListViewAdapter extends BaseAdapter {
 
         public void setData(int position) {
             // 设置封面
-            if (activityList.get(position).coverUrl != null && !activityList.get(position).coverUrl.equals(""))
+            if (activityList.get(position).coverUrl != null &&  !TextUtils.isEmpty(activityList.get(position).coverUrl))
                 Picasso.with(mcontext).load(activityList.get(position).coverUrl).placeholder(R.drawable.img_default).into(viewHolder.imageTitlePic);
             else
                 viewHolder.imageTitlePic.setImageResource(R.drawable.img_default);

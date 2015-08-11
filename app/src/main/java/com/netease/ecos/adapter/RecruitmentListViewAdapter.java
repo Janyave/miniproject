@@ -75,7 +75,7 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
                 iv_avatar.setImageUrl(recruitmentArrayList.get(position).avatarUrl, imageLoader);
             } else
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
-            if (recruitmentArrayList.get(position).coverUrl != null && !recruitmentArrayList.get(position).coverUrl.equals(""))
+            if (recruitmentArrayList.get(position).coverUrl != null &&  !TextUtils.isEmpty(recruitmentArrayList.get(position).coverUrl))
                 Picasso.with(mcontext).load(recruitmentArrayList.get(position).coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             else
                 iv_cover.setImageResource(R.drawable.img_default);

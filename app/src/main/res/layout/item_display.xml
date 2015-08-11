@@ -152,7 +152,7 @@
                     android:layout_alignBottom="@id/tv_evaluation"
                     android:layout_toLeftOf="@id/tv_evaluation"
                     android:src="@mipmap/ic_evalution_num"
-                    android:layout_marginBottom="2dp"/>
+                    android:layout_marginBottom="0dp"/>
             </RelativeLayout>
         <TextView style="@style/layout_line_gray" />
 

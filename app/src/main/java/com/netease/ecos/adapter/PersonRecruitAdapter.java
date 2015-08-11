@@ -3,6 +3,7 @@ package com.netease.ecos.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,7 @@ public class PersonRecruitAdapter extends BaseAdapter implements View.OnClickLis
                 iv_avatar.setImageUrl(item.avatarUrl, imageLoader);
             } else
                 iv_avatar.setImageResource(R.mipmap.bg_female_default);
-            if (item.coverUrl != null && !item.coverUrl.equals(""))
+            if (item.coverUrl != null &&  !TextUtils.isEmpty(item.coverUrl))
                 Picasso.with(mcontext).load(item.coverUrl).placeholder(R.drawable.img_default).into(iv_cover);
             else
                 iv_cover.setImageResource(R.drawable.img_default);

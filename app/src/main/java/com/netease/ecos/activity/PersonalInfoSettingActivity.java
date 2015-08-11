@@ -264,7 +264,10 @@ public class PersonalInfoSettingActivity extends BaseActivity {
                     break;
                 case R.id.personal_info_logout:
 
-                    MyApplication.msMainActivity.unregistObserver();
+                    if (MyApplication.msMainActivity!=null){
+                        MyApplication.msMainActivity.unregistObserver();
+                    }
+
 
                     AccountDataService.getSingleAccountDataService(PersonalInfoSettingActivity.this).clearAllDataExceptUsername();
                     UserDataService.getSingleUserDataService(PersonalInfoSettingActivity.this).clearAllData();
