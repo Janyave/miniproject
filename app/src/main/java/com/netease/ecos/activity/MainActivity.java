@@ -143,6 +143,13 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         //隐藏ActionBar
         getSupportActionBar().hide();
         initViews();
+        if (!isNetworkConnected(MainActivity.this)) {
+            Toast.makeText(MainActivity.this, "还未连接至网络，请先连接啊亲:)", Toast.LENGTH_SHORT).show();
+        } else {
+
+        }
+
+
         initData();
 
         Log.e(TAG, "-----------------------------------------------------------------------------");
@@ -179,11 +186,12 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
 
         unregistObserver();
     }
+
     /**
      * 初始化数据
      */
@@ -343,36 +351,31 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
             } else {
                 if (mFragments[TAB_COURSE_INDEX] == null)
                     Log.i(TAG, "教程碎片为空");
-                else
-                {
+                else {
                     ((CourseFragment) mFragments[TAB_COURSE_INDEX]).reloadData();
                     Log.i(TAG, "mCurrentTab==TAB_COURSE_INDEX");
                 }
             }
 
-            if(index!=TAB_DISPLAY_INDEX && mFragments[TAB_DISPLAY_INDEX]!=null){
-                ((DisplayFragment)mFragments[TAB_DISPLAY_INDEX]).releaseMemory();
-            }
-            else{
-                if(mFragments[TAB_DISPLAY_INDEX]==null)
-                    Log.i(TAG,"分享碎片为空");
-                else
-                {
-                    ((DisplayFragment)mFragments[TAB_DISPLAY_INDEX]).reloadData();
+            if (index != TAB_DISPLAY_INDEX && mFragments[TAB_DISPLAY_INDEX] != null) {
+                ((DisplayFragment) mFragments[TAB_DISPLAY_INDEX]).releaseMemory();
+            } else {
+                if (mFragments[TAB_DISPLAY_INDEX] == null)
+                    Log.i(TAG, "分享碎片为空");
+                else {
+                    ((DisplayFragment) mFragments[TAB_DISPLAY_INDEX]).reloadData();
                     Log.i(TAG, "mCurrentTab==TAB_DISPLAY_INDEX");
                 }
             }
 
 
-            if(index!=TAB_COMMUCITY_INDEX && mFragments[TAB_COMMUCITY_INDEX]!=null){
-                ((CommunityFragment)mFragments[TAB_COMMUCITY_INDEX]).releaseMemory();
-            }
-            else{
-                if(mFragments[TAB_COMMUCITY_INDEX]==null)
-                    Log.i(TAG,"活动碎片为空");
-                else
-                {
-                    ((CommunityFragment)mFragments[TAB_COMMUCITY_INDEX]).reloadData();
+            if (index != TAB_COMMUCITY_INDEX && mFragments[TAB_COMMUCITY_INDEX] != null) {
+                ((CommunityFragment) mFragments[TAB_COMMUCITY_INDEX]).releaseMemory();
+            } else {
+                if (mFragments[TAB_COMMUCITY_INDEX] == null)
+                    Log.i(TAG, "活动碎片为空");
+                else {
+                    ((CommunityFragment) mFragments[TAB_COMMUCITY_INDEX]).reloadData();
                     Log.i(TAG, "mCurrentTab==TAB_COMMUCITY_INDEX");
                 }
             }
@@ -403,8 +406,8 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 case TAB_COMMUCITY_INDEX:
                     if (mFragments[TAB_COMMUCITY_INDEX] == null)
                         mFragments[TAB_COMMUCITY_INDEX] = new CommunityFragment();
-                    else{
-                        ((CommunityFragment)mFragments[TAB_COMMUCITY_INDEX]).reloadData();
+                    else {
+                        ((CommunityFragment) mFragments[TAB_COMMUCITY_INDEX]).reloadData();
                     }
                     return mFragments[TAB_COMMUCITY_INDEX];
                 //点击招募tab，要显示招募页面
@@ -445,21 +448,20 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
         return super.onKeyDown(keyCode, event);
     }
 
-    public void registObserver(){
+    public void registObserver() {
         //最近联系人列表监听
         NIMClient.getService(MsgServiceObserve.class)
                 .observeRecentContact(messageObserver, true);
     }
 
-    public void unregistObserver(){
+    public void unregistObserver() {
         //最近联系人列表监听
         NIMClient.getService(MsgServiceObserve.class)
                 .observeRecentContact(messageObserver, false);
     }
 
 
-    Observer<List<RecentContact>> messageObserver =new Observer<List<RecentContact>>()
-    {
+    Observer<List<RecentContact>> messageObserver = new Observer<List<RecentContact>>() {
         @Override
         public void onEvent(List<RecentContact> messages) {
 
@@ -493,7 +495,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 String title = contact.contactNickName;
                 String content = contact.messageContent;
 
-                Intent intent =  new Intent();
+                Intent intent = new Intent();
                 intent.setClass(MyApplication.getContext(), ContactActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(ContactActivity.TargetUserID, contact.contactUserId);
@@ -504,7 +506,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 Log.v("mainActivity", "targetID--------   " + contact.contactUserId);
                 Log.v("mainActivity", "targetAvatar--------   " + contact.avatarUrl);
                 intent.putExtras(bundle);
-                notifyMessage(MyApplication.getContext(), intent, ticker, title, content,contact.fromAccount);
+                notifyMessage(MyApplication.getContext(), intent, ticker, title, content, contact.fromAccount);
 
                 Log.e("最近会话信息", "联系人id：" + msg.getContactId());
                 Log.e("最近会话信息", "会话内容：" + msg.getContent());
@@ -521,7 +523,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                             );*/
             }
 
-           List<Contact> contactList = ContactDBService.getInstance(MainActivity.this).getContactList();
+            List<Contact> contactList = ContactDBService.getInstance(MainActivity.this).getContactList();
 
             for (Contact contact : contactList) {
                 Log.e("数据库读取", "contact: --" + contact.toString());
@@ -531,24 +533,26 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     };
 
 
-
-    /****
+    /**
+     * *
      * 存储设置过的通知，键为通知对应的id,值为通知对应的imid,后续根据imid进行状态栏的管理(通知移除).
      */
-    private static Map<Integer,String> mNotifyMap = new HashMap<Integer,String>();
+    private static Map<Integer, String> mNotifyMap = new HashMap<Integer, String>();
 
     private static int mNotifyId = 0;
-    /***
+
+    /**
      * 设置通知
+     *
      * @param context
-     * @param intent 包含点击通知后启动activity所需的信息
+     * @param intent       包含点击通知后启动activity所需的信息
      * @param ticker
      * @param contentTitle 通知标题
-     * @param contentText 通知内容
-     * @param fromAccount 通知标签，用于后续移除状态栏中的通知，
+     * @param contentText  通知内容
+     * @param fromAccount  通知标签，用于后续移除状态栏中的通知，
      */
     public static void notifyMessage(Context context, Intent intent,
-                                             String ticker,String contentTitle,String contentText,String fromAccount) {
+                                     String ticker, String contentTitle, String contentText, String fromAccount) {
 
         Log.e("tag", "notifyJobstaffMessage:");
 
@@ -573,11 +577,11 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
         ConfigurationService service = ConfigurationService.getConfigurationService(context);
         //若通知开启震动提示
-        if(service.isNotificationVibrator())
-            notification.defaults= notification.defaults|Notification.DEFAULT_VIBRATE;
+        if (service.isNotificationVibrator())
+            notification.defaults = notification.defaults | Notification.DEFAULT_VIBRATE;
         //若通知开启声音提示
-        if(service.isNotificationSound())
-            notification.defaults= notification.defaults|Notification.DEFAULT_SOUND;
+        if (service.isNotificationSound())
+            notification.defaults = notification.defaults | Notification.DEFAULT_SOUND;
 
 
         notification.tickerText = ticker;
@@ -585,19 +589,20 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
 
         notificationManager.notify(notifiId, notification);
 
-        mNotifyMap.put(notifiId,fromAccount);
+        mNotifyMap.put(notifiId, fromAccount);
     }
 
-    /***
+    /**
      * 根据tag移除通知栏的通知
+     *
      * @param context
      */
-    public static void cancelNotification(Context context,String fromAccount){
+    public static void cancelNotification(Context context, String fromAccount) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        for(int notifyId:mNotifyMap.keySet()){
+        for (int notifyId : mNotifyMap.keySet()) {
 
-            if(mNotifyMap.get(notifyId).equals(fromAccount) ){
+            if (mNotifyMap.get(notifyId).equals(fromAccount)) {
 
                 Log.e("取消通知", "取消通知," + "id:" + notifyId + "对方云信id:" + fromAccount);
                 notificationManager.cancel(notifyId);
@@ -606,11 +611,13 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
     }
 
 
-    /****
+    /**
+     * *
      * 取消所有通知，特别是在退出账号时，取消所有通知。
+     *
      * @param context
      */
-    public static void cancelAllNotification(Context context){
+    public static void cancelAllNotification(Context context) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.cancelAll();
