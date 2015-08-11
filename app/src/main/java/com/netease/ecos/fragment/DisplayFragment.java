@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,9 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
     private View mainView;
     private FloadingButton btn_floading;
     private XListView lv_course;
+
+    private LinearLayout noDataLayout;
+    private ImageView resultImageView;
 
     private TextView tv_all;
     private TextView tv_recommend;
@@ -83,6 +88,8 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
         lv_course = (XListView) mainView.findViewById(R.id.lv_course);
         lv_course.setDividerHeight(0);
         btn_floading = (FloadingButton) mainView.findViewById(R.id.btn_floading);
+        resultImageView = (ImageView) mainView.findViewById(R.id.resultImageView);
+        noDataLayout = (LinearLayout) mainView.findViewById(R.id.noDataLayout);
     }
 
 
@@ -310,8 +317,12 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
         @Override
         public void success(List<Share> shareList) {
             dismissProcessBar();
-            if (shareList.size() == 0)
-                Toast.makeText(getActivity(), getResources().getString(R.string.noShare), Toast.LENGTH_SHORT).show();
+            if (shareList.size() == 0) {
+                lv_course.setVisibility(View.GONE);
+                resultImageView.setImageResource(R.mipmap.no_data);
+                return;
+            }
+            lv_course.setVisibility(View.VISIBLE);
             displayListViewAdapter = new DisplayListViewAdapter(getActivity(), shareList);
             lv_course.setAdapter(displayListViewAdapter);
         }
@@ -319,32 +330,34 @@ public class DisplayFragment extends BaseFragment implements XListView.IXListVie
         @Override
         public void doAfterFailedResponse(String message) {
             dismissProcessBar();
+            lv_course.setVisibility(View.GONE);
+            resultImageView.setImageResource(R.mipmap.server_error);
             Toast.makeText(getActivity(), "error happens:" + message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onErrorResponse(VolleyError volleyError) {
             dismissProcessBar();
+            lv_course.setVisibility(View.GONE);
+            resultImageView.setImageResource(R.mipmap.server_error);
         }
     }
 
-    /***
+    /**
      * 释放内存
      */
-    public void releaseMemory(){
+    public void releaseMemory() {
         lv_course.setAdapter(null);
 //        displayListViewAdapter = null;
         Log.i("display", "释放内存");
     }
 
 
-    public void reloadData(){
-
-        if(displayListViewAdapter==null){
+    public void reloadData() {
+        if (displayListViewAdapter == null) {
             shareListRequest.request(getShareListResponse, shareType, searchWord, 1);
             Log.i("DisplayFragment", "重新加载请求数据");
-        }
-        else{
+        } else {
             lv_course.setAdapter(displayListViewAdapter);
             Log.i("display", "数据已经加载过");
         }

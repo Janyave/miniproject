@@ -3,6 +3,7 @@ package com.netease.ecos.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
@@ -49,6 +50,10 @@ public class RecruitmentCategoryActivity extends BaseActivity implements View.On
     LinearLayout ll_sortType;
     @InjectView(R.id.tv_sortText)
     TextView tv_sortText;
+
+    //for no data layout
+    @InjectView(R.id.resultImageView)
+    ImageView resultImageView;
 
     private PopupWindow popupSortType;
     private PopupWindow popupRecruiteType;
