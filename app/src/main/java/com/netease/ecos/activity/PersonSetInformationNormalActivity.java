@@ -3,6 +3,7 @@ package com.netease.ecos.activity;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -113,6 +114,9 @@ public class PersonSetInformationNormalActivity extends BaseActivity implements 
     private void initSignatureData() {
         ll_inputPassword.setVisibility(View.GONE);
         et_input.setText(user.characterSignature);
+        if (TextUtils.isEmpty(user.characterSignature)){
+            et_input.setHint("请输入你的简介");
+        }
         et_input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(50)});
     }
 
