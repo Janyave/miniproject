@@ -20,7 +20,6 @@ import com.netease.ecos.activity.CommentDetailActivity;
 import com.netease.ecos.activity.DisplayDetailActivity;
 import com.netease.ecos.activity.MyApplication;
 import com.netease.ecos.activity.PersonageDetailActivity;
-import com.netease.ecos.activity.SearchActivity;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
 import com.netease.ecos.request.user.FollowUserRequest;
@@ -32,9 +31,9 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 /**
- * Created by hzjixinyu on 2015/7/23.
+ * Created by Think on 2015/8/11.
  */
-public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickListener {
+public class SearchDisplayListAdapter extends BaseAdapter implements View.OnClickListener {
 
     private Context mcontext;
     private List<Share> shareList;
@@ -42,7 +41,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
     public static int mInstances = 0;
 
-    public DisplayListViewAdapter(Context context, List<Share> shareList) {
+    public SearchDisplayListAdapter(Context context, List<Share> shareList) {
         this.mcontext = context;
         this.shareList = shareList;
         request = new FollowUserRequest();
@@ -82,9 +81,6 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             lv_evaluation = (ExtensibleListView) root.findViewById(R.id.lv_evaluation);
         }
 
-        /**
-         * 传入数据未定
-         */
         public void setData(final int position) {
             Share item = shareList.get(position);
 
@@ -132,12 +128,12 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
             //set listener
 //            tv_focus.setOnClickListener(DisplayListViewAdapter.this);
-            iv_avatar.setOnClickListener(DisplayListViewAdapter.this);
-            tv_name.setOnClickListener(DisplayListViewAdapter.this);
-            iv_cover.setOnClickListener(DisplayListViewAdapter.this);
-            tv_coverTitle.setOnClickListener(DisplayListViewAdapter.this);
-            ll_praise.setOnClickListener(DisplayListViewAdapter.this);
-            tv_evaluation.setOnClickListener(DisplayListViewAdapter.this);
+            iv_avatar.setOnClickListener(SearchDisplayListAdapter.this);
+            tv_name.setOnClickListener(SearchDisplayListAdapter.this);
+            iv_cover.setOnClickListener(SearchDisplayListAdapter.this);
+            tv_coverTitle.setOnClickListener(SearchDisplayListAdapter.this);
+            ll_praise.setOnClickListener(SearchDisplayListAdapter.this);
+            tv_evaluation.setOnClickListener(SearchDisplayListAdapter.this);
             lv_evaluation.setOnItemClickListener(new itemListener(position));
 
             if (!item.hasPraised) {
@@ -148,7 +144,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
     @Override
     public int getCount() {
-        return shareList.size() + 1;
+        return shareList.size();
     }
 
 
@@ -165,31 +161,15 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
-        if (position == 0) {
-            convertView = parent.inflate(mcontext, R.layout.item_display_search, null);
-            ((LinearLayout) convertView.findViewById(R.id.ll_search)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent1 = new Intent(mcontext, SearchActivity.class);
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putInt(SearchActivity.SEARCH_TYPE, SearchActivity.TYPE_SHARE);
-                    intent1.putExtras(bundle1);
-                    mcontext.startActivity(intent1);
-                }
-            });
-            convertView.setTag(false);
-            return convertView;
+        if (convertView == null || convertView.getTag() instanceof Boolean) {
+            convertView = parent.inflate(mcontext, R.layout.item_display_replace, null);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
         } else {
-            if (convertView == null || convertView.getTag() instanceof Boolean) {
-                convertView = parent.inflate(mcontext, R.layout.item_display_replace, null);
-                viewHolder = new ViewHolder(convertView);
-                convertView.setTag(viewHolder);
-            } else {
-                viewHolder = (ViewHolder) convertView.getTag();
-            }
-            viewHolder.setData(position - 1);
-            return convertView;
+            viewHolder = (ViewHolder) convertView.getTag();
         }
+        viewHolder.setData(position);
+        return convertView;
     }
 
     @Override
@@ -256,6 +236,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
     @Override
     public void finalize() {
         mInstances--;
-        Log.i("DisplayListViewAdapter", "DisplayListViewAdapter，销毁后有" + mInstances + "个对象");
+        Log.i("SearchDisplayList", "DisplayListViewAdapter，销毁后有" + mInstances + "个对象");
     }
 }
+
