@@ -79,7 +79,6 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             tv_evaluation = (TextView) root.findViewById(R.id.tv_evaluation);
             ll_praise = (LinearLayout) root.findViewById(R.id.ll_praise);
             tv_praise = (TextView) root.findViewById(R.id.tv_praise);
-            tv_evaluation = (TextView) root.findViewById(R.id.tv_evaluation);
             lv_evaluation = (ExtensibleListView) root.findViewById(R.id.lv_evaluation);
         }
 
