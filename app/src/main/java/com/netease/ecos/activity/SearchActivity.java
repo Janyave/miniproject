@@ -58,12 +58,12 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
 
     private static java.util.List<String> HistoryList = new ArrayList<>();  //搜索历史记录
 
-    @InjectView(R.id.iv_left)
-    ImageView iv_left;
     @InjectView(R.id.et_search)
     EditText et_search;
     @InjectView(R.id.tv_confirm)
     TextView tv_confirm;
+    @InjectView(R.id.ll_left)
+    LinearLayout ll_left;
     @InjectView(R.id.lv_searchHistory)
     ListView lv_searchHistory;  //历史记录
     @InjectView(R.id.lv_searchList)
@@ -147,7 +147,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
     }
 
     private void initListener() {
-        iv_left.setOnClickListener(new View.OnClickListener() {
+        ll_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
