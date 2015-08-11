@@ -15,6 +15,8 @@ import com.netease.ecos.model.Comment;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +76,7 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
             viewHolder.setNameTxVw((TextView) convertView.findViewById(R.id.commentPersonNameTxVw));
             viewHolder.setCommentTxVw((TextView) convertView.findViewById(R.id.commentContentTxVw));
             viewHolder.setAllCommentTxVw((TextView) convertView.findViewById(R.id.all_commentTxVw));
+            viewHolder.setTime((TextView)convertView.findViewById(R.id.tv_time));
             convertView.setTag(viewHolder);
         } else
             viewHolder = (CommentViewHolder) convertView.getTag();
@@ -91,6 +94,7 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
         viewHolder.imageView.setDefaultImageResId(R.mipmap.bg_female_default);
         viewHolder.nameTxVw.setText(commentList.get(position).fromNickName);
         viewHolder.commentTxVw.setText(commentList.get(position).content);
+        viewHolder.tv_time.setText(commentList.get(position).getDateDescription());
         if (position == 0 && !isDetail) {
             viewHolder.all_commentTxVw.setVisibility(View.VISIBLE);
             viewHolder.all_commentTxVw.setText(mcontext.getResources().getString(R.string.allComment) + commentCount + mcontext.getResources().getString(R.string.manyComment));
@@ -103,6 +107,7 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
         RoundImageView imageView;
         TextView nameTxVw, commentTxVw;
         TextView all_commentTxVw;
+        TextView tv_time;
 
         public void setImageView(RoundImageView imageView) {
             this.imageView = imageView;
@@ -118,6 +123,10 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
 
         public void setAllCommentTxVw(TextView all_commentTxVw) {
             this.all_commentTxVw = all_commentTxVw;
+        }
+
+        public void setTime(TextView time) {
+            this.tv_time = time;
         }
     }
 }
