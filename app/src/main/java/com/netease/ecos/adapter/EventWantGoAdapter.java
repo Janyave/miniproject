@@ -217,7 +217,6 @@ public class EventWantGoAdapter extends BaseAdapter {
                     bundle.putString(PersonageDetailActivity.UserID, userList.get((int) v.getTag()).userId);
                     bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
                     intent.putExtras(bundle);
-                    Toast.makeText(mcontext, "个人界面", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.tv_contact:
                     intent = new Intent(mcontext, ContactActivity.class);
