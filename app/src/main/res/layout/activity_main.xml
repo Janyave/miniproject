@@ -85,8 +85,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/height_title__main_tag_pic"
                     android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/marginTop_title__main_tag_pic"
-                    android:gravity="bottom">
+                    android:layout_marginTop="@dimen/marginTop_title__main_tag_pic">
                     <ImageView
                         android:id="@+id/iv_tag1"
                         android:layout_width="@dimen/width_title__main_tag"

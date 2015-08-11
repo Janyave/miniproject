@@ -43,10 +43,19 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_20px"
             android:layout_toRightOf="@id/iv_avatar"
-            android:text=""
+            android:text="111111"
             android:layout_centerVertical="true"/>
+        <ImageView
+            android:id="@+id/iv_relation"
+            android:layout_width="@dimen/icon_little_36px"
+            android:layout_height="@dimen/icon_little_36px"
+            android:src="@mipmap/ic_contact_attention"
+            android:layout_toRightOf="@id/tv_name"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_20px"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_focus"
             style="@style/text_white_mid"
             android:layout_width="wrap_content"

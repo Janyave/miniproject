@@ -30,20 +30,20 @@
                 style="@style/text_pink_max"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="111111111111111111111111111111111111"
                 android:singleLine="true"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_marginLeft="@dimen/margin_40px"
                 android:layout_marginRight="@dimen/margin_40px"
                 android:layout_toRightOf="@id/iv_campaign_dis"
                 android:layout_alignTop="@id/iv_campaign_dis"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="30dp"/>
 
             <ImageView
                 android:id="@+id/iv1"
                 android:layout_width="@dimen/icon_little_36px"
                 android:layout_height="@dimen/icon_little_36px"
-                android:layout_marginTop="@dimen/margin_80px"
+                android:layout_marginTop="@dimen/margin_60px"
                 android:src="@mipmap/ic_time_pink"
                 android:layout_below="@id/tv_campaign_title"
                 android:layout_alignLeft="@id/tv_campaign_title"/>
