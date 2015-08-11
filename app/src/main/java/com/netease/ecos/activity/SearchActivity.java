@@ -450,6 +450,7 @@ public class SearchActivity extends BaseActivity implements XListView.IXListView
             dismissProcessBar();
             if (shareList.size() == 0) {
                 lv_searchList.setVisibility(View.GONE);
+                resultImageView.setVisibility(View.VISIBLE);
                 resultImageView.setImageResource(R.mipmap.no_data);
                 return;
             }
