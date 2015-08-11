@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,7 +59,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
     private TextView mSetName;
     private TextView mSetGender;
     private TextView mSetIntro;
-    private Switch mSetMsgAlert;
+    private CheckBox mSetMsgAlert;
     private Button mLogOut;
     private LinearLayout ll_tagsList;
 
@@ -145,7 +146,7 @@ public class PersonalInfoSettingActivity extends BaseActivity {
         mSetName = (TextView) findViewById(R.id.personal_info_set_name);
         mSetGender = (TextView) findViewById(R.id.personal_info_set_gender);
         mSetIntro = (TextView) findViewById(R.id.personal_info_set_intro);
-        mSetMsgAlert = (Switch) findViewById(R.id.personal_info_set_Msg_alert);
+        mSetMsgAlert = (CheckBox) findViewById(R.id.personal_info_set_Msg_alert);
         mLogOut = (Button) findViewById(R.id.personal_info_logout);
         ll_tagsList = (LinearLayout) findViewById(R.id.ll_tagsList);  //add tags in this layout
     }

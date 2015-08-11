@@ -310,7 +310,7 @@
                         style="@style/text_gray_mid"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_40px"
+                        android:layout_marginBottom="@dimen/margin_50px"
                         android:layout_marginLeft="@dimen/margin_50px"
                         android:layout_marginTop="@dimen/margin_50px"
                         android:layout_weight="1"
@@ -388,9 +388,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:text="18888888888" />
+                        android:text="18888888888"
+                        android:layout_marginRight="2dp"/>
 
                     <ImageView
+                        android:visibility="gone"
                         android:layout_width="@dimen/icon_more_36px"
                         android:layout_height="@dimen/icon_more_36px"
                         android:layout_marginLeft="@dimen/margin_40px"
@@ -492,10 +494,12 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1" />
 
-                    <Switch
+                    <CheckBox
                         android:id="@+id/personal_info_set_Msg_alert"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/switch_setting"
+                        android:button="@android:color/transparent"/>
                 </LinearLayout>
             </LinearLayout>
 

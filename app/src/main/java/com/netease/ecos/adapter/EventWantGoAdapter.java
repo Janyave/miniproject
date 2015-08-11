@@ -153,8 +153,9 @@ public class EventWantGoAdapter extends BaseAdapter {
             viewHolder.ll_tagList.setVisibility(View.VISIBLE);
         }
         if (num==3&&i.hasNext()){
+            viewHolder.ll_tagList.removeViewAt(2);
             View v = parent.inflate(mcontext, R.layout.item_tag, null);
-            ((TextView) v.findViewById(R.id.tv_tag)).setText("...");
+            ((TextView) v.findViewById(R.id.tv_tag)).setText("· · ·");
             viewHolder.ll_tagList.addView(v);
         }
 
@@ -196,6 +197,7 @@ public class EventWantGoAdapter extends BaseAdapter {
 
             iv_avatar.setOnClickListener(this);
             tv_contact.setOnClickListener(this);
+            ll_tagList.setOnClickListener(this);
         }
 
         public void setTag(int position) {
@@ -209,6 +211,7 @@ public class EventWantGoAdapter extends BaseAdapter {
             Intent intent;
             Bundle bundle = new Bundle();
             switch (v.getId()) {
+                case R.id.ll_tagsList:
                 case R.id.iv_avatar:
                     intent = new Intent(mcontext, PersonageDetailActivity.class);
                     bundle.putString(PersonageDetailActivity.UserID, userList.get((int) v.getTag()).userId);

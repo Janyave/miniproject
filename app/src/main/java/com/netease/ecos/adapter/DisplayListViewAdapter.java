@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,7 +51,6 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
 
     class ViewHolder {
 
-        private LinearLayout ll_author;
         private RoundImageView iv_avatar;
         private TextView tv_name;
         private TextView tv_focus;
@@ -63,14 +63,11 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
         private TextView tv_praise;
         private TextView tv_evaluation;
         private LinearLayout ll_praise;
-        private LinearLayout ll_evaluate;
 
         private ExtensibleListView lv_evaluation;
-        private LinearLayout ll_evaluationList;
         private DisplayItemEvalutionViewAdapter adapter;
 
         public ViewHolder(View root) {
-            ll_author = (LinearLayout) root.findViewById(R.id.ll_author);
             iv_avatar = (RoundImageView) root.findViewById(R.id.iv_avatar);
             tv_name = (TextView) root.findViewById(R.id.tv_name);
             tv_focus = (TextView) root.findViewById(R.id.tv_focus);
@@ -81,10 +78,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             tv_praise = (TextView) root.findViewById(R.id.tv_praise);
             tv_evaluation = (TextView) root.findViewById(R.id.tv_evaluation);
             ll_praise = (LinearLayout) root.findViewById(R.id.ll_praise);
-            ll_evaluate = (LinearLayout) root.findViewById(R.id.ll_evaluation);
             tv_praise = (TextView) root.findViewById(R.id.tv_praise);
-            tv_evaluation = (TextView) root.findViewById(R.id.tv_evaluation);
-            ll_evaluationList = (LinearLayout) root.findViewById(R.id.ll_evaluationList);
             lv_evaluation = (ExtensibleListView) root.findViewById(R.id.lv_evaluation);
         }
 
@@ -128,22 +122,23 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             lv_evaluation.setAdapter(adapter);
 
             //set tag
-            ll_author.setTag(position);
 //            tv_focus.setTag(position);
             iv_cover.setTag(position);
             tv_coverTitle.setTag(position);
             ll_praise.setTag(position);
-            ll_evaluate.setTag(position);
-            ll_evaluationList.setTag(position);
+            tv_evaluation.setTag(position);
+            iv_avatar.setTag(position);
+            tv_name.setTag(position);
 
             //set listener
-            ll_author.setOnClickListener(DisplayListViewAdapter.this);
 //            tv_focus.setOnClickListener(DisplayListViewAdapter.this);
+            iv_avatar.setOnClickListener(DisplayListViewAdapter.this);
+            tv_name.setOnClickListener(DisplayListViewAdapter.this);
             iv_cover.setOnClickListener(DisplayListViewAdapter.this);
             tv_coverTitle.setOnClickListener(DisplayListViewAdapter.this);
             ll_praise.setOnClickListener(DisplayListViewAdapter.this);
-            ll_evaluate.setOnClickListener(DisplayListViewAdapter.this);
-            ll_evaluationList.setOnClickListener(DisplayListViewAdapter.this);
+            tv_evaluation.setOnClickListener(DisplayListViewAdapter.this);
+            lv_evaluation.setOnItemClickListener(new itemListener(position));
 
             if (!item.hasPraised) {
                 //TODO 未赞图片
@@ -203,6 +198,8 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
         Bundle bundle = new Bundle();
         int position = (int) v.getTag();
         switch (v.getId()) {
+            case R.id.iv_avatar:
+            case R.id.tv_name:
             case R.id.ll_author:
                 intent = new Intent(mcontext, PersonageDetailActivity.class);
                 bundle.putString(PersonageDetailActivity.UserID, shareList.get(position).userId);
@@ -217,8 +214,8 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;
-            case R.id.ll_evaluation:
-            case R.id.ll_evaluationList:
+            case R.id.tv_evaluation:
+            case R.id.lv_evaluation:
                 intent = new Intent(mcontext, CommentDetailActivity.class);
                 bundle.putString(CommentDetailActivity.FromId, shareList.get(position).shareId);
                 bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.分享.getBelongs());
@@ -226,6 +223,25 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
                 break;
+        }
+    }
+
+    class itemListener implements AdapterView.OnItemClickListener{
+        int p;
+
+        public itemListener(int p){
+            this.p=p;
+        }
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent = new Intent(mcontext, CommentDetailActivity.class);
+            Bundle bundle=new Bundle();
+            bundle.putString(CommentDetailActivity.FromId, shareList.get(p).shareId);
+            bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.分享.getBelongs());
+            bundle.putBoolean(CommentDetailActivity.IsPraised, shareList.get(p).hasPraised);
+            intent.putExtras(bundle);
+            mcontext.startActivity(intent);
         }
     }
 

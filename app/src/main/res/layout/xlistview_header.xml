@@ -17,6 +17,7 @@
             android:orientation="vertical" android:id="@+id/xlistview_header_text">
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/xlistview_header_hint_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -24,18 +25,21 @@
                 style="@style/text_gray_mid"/>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:id="@+id/lly_header_time" >
 
                 <TextView
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/xlistview_header_last_time"
                     style="@style/text_gray_min"/>
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/xlistview_header_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -44,6 +48,24 @@
             </LinearLayout>
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+            <ImageView
+                android:id="@+id/iv"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/ic_loading"/>
+            <ImageView
+                android:layout_toRightOf="@id/iv"
+                android:layout_centerVertical="true"
+                android:layout_width="100dp"
+                android:layout_height="15dp"
+                android:src="@mipmap/ic_wait"/>
+        </RelativeLayout>
+
+
         <ImageView
             android:id="@+id/xlistview_header_arrow"
             android:layout_width="wrap_content"
@@ -51,7 +73,8 @@
             android:layout_alignLeft="@id/xlistview_header_text"
             android:layout_centerVertical="true"
             android:layout_marginLeft="-35dp"
-            android:src="@drawable/xlistview_arrow" />
+            android:src="@drawable/xlistview_arrow"
+            android:visibility="gone"/>
 
         <ProgressBar
             android:id="@+id/xlistview_header_progressbar"
@@ -60,7 +83,7 @@
             android:layout_alignLeft="@id/xlistview_header_text"
             android:layout_centerVertical="true"
             android:layout_marginLeft="-40dp"
-            android:visibility="invisible" />
+            android:visibility="gone" />
     </RelativeLayout>
 
 </LinearLayout>

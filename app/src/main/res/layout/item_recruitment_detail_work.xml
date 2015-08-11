@@ -88,7 +88,8 @@
 
                 <TextView
                     android:id="@+id/tv_praise"
-                    style="@style/text_gray_mid"
+                    style="@style/text_pink_mid"
+                    android:layout_marginLeft="@dimen/margin_10px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -114,7 +115,8 @@
 
                 <TextView
                     android:id="@+id/tv_evaluation"
-                    style="@style/text_gray_mid"
+                    style="@style/text_pink_mid"
+                    android:layout_marginLeft="@dimen/margin_10px"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>

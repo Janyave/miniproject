@@ -49,7 +49,6 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
         private TextView tv_price;
         private TextView tv_talk;
         private RoundAngleImageView iv_cover;
-        private LinearLayout ll_author;
         private ImageView genderImVw;
 
         public ViewHolder(View root) {
@@ -59,7 +58,6 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             tv_price = (TextView) root.findViewById(R.id.tv_price);
             tv_talk = (TextView) root.findViewById(R.id.tv_talk);
             iv_cover = (RoundAngleImageView) root.findViewById(R.id.iv_cover);
-            ll_author = (LinearLayout) root.findViewById(R.id.ll_author);
             genderImVw = (ImageView) root.findViewById(R.id.genderImVw);
         }
 
@@ -82,15 +80,17 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
             else
                 iv_cover.setImageResource(R.drawable.img_default);
             tv_name.setText(recruitmentArrayList.get(position).nickname);
-            tv_distance.setText(recruitmentArrayList.get(position).distanceKM + mcontext.getResources().getString(R.string.KM));
-            tv_price.setText(recruitmentArrayList.get(position).averagePrice + recruitmentArrayList.get(position).recruitType.getPriceUnit());
+            tv_distance.setText(recruitmentArrayList.get(position).distanceKM + " " + mcontext.getResources().getString(R.string.KM));
+            tv_price.setText(recruitmentArrayList.get(position).averagePrice.substring(0, recruitmentArrayList.get(position).averagePrice.length() - 2) + " " + recruitmentArrayList.get(position).recruitType.getPriceUnit());
             genderImVw.setImageResource(recruitmentArrayList.get(position).gender == User.Gender.男 ? R.mipmap.ic_male_line : R.mipmap.ic_female_line);
             //set tag
-            ll_author.setTag(position);
             tv_talk.setTag(position);
             iv_cover.setTag(position);
+            iv_avatar.setTag(position);
+            tv_name.setTag(position);
             //set listener
-            ll_author.setOnClickListener(RecruitmentListViewAdapter.this);
+            tv_name.setOnClickListener(RecruitmentListViewAdapter.this);
+            iv_avatar.setOnClickListener(RecruitmentListViewAdapter.this);
             iv_cover.setOnClickListener(RecruitmentListViewAdapter.this);
             tv_talk.setOnClickListener(RecruitmentListViewAdapter.this);
 
@@ -140,6 +140,8 @@ public class RecruitmentListViewAdapter extends BaseAdapter implements View.OnCl
         Bundle bundle = new Bundle();
         int position = (int) v.getTag();
         switch (v.getId()) {
+            case R.id.tv_name:
+            case R.id.iv_avatar:
             case R.id.ll_author:
                 intent = new Intent(mcontext, PersonageDetailActivity.class);
                 bundle.putString(PersonageDetailActivity.UserID, recruitmentArrayList.get(position).userId);

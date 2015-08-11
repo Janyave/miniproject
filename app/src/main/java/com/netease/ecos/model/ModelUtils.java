@@ -63,5 +63,33 @@ public class ModelUtils {
 
 	}
 
+	/**
+	 * 根据{@link #timeStamp}获取时间描述(几秒前、几天前......)
+	 *
+	 * @return
+	 */
+	public static String getDateDescription(long timeStamp) {
+
+		Date currentDay = new Date(System.currentTimeMillis());
+		Date commentDay = new Date(timeStamp);
+
+		//当天评论
+		if (currentDay.getDate() == commentDay.getDate() &&
+				(currentDay.getTime() - commentDay.getTime()) < 24 * 60 * 60 * 1000) {
+			return commentDay.getHours() + ":" + commentDay.getMinutes();
+		}
+		//7天内评论
+		if ((currentDay.getTime() - commentDay.getTime()) < 7 * 24 * 60 * 60 * 1000) {
+			if (currentDay.getDate() > commentDay.getDate())
+				return "" + (currentDay.getDate() - commentDay.getDate()) + "天前";
+			else
+				return "" + Math.ceil((currentDay.getTime() - commentDay.getTime()) / (24 * 60 * 60 * 1000)) + "天前";
+		}
+
+		//很前评论
+		return "" + commentDay.getYear() + "-" + commentDay.getMonth() + "-" + commentDay.getDate();
+
+	}
+
 }
 

@@ -49,6 +49,7 @@
         <ImageView
             android:layout_width="@dimen/icon_little_36px"
             android:layout_height="@dimen/icon_little_36px"
+            android:layout_marginLeft="@dimen/margin_10px"
             android:src="@mipmap/ic_choose_up_down"
             android:scaleType="centerCrop"/>
     </LinearLayout>
@@ -76,8 +77,7 @@
         <ImageView
             android:layout_width="@dimen/icon_big_64px"
             android:layout_height="@dimen/icon_big_64px"
-            android:src="@mipmap/ic_position"
-            android:padding="2dp"/>
+            android:src="@mipmap/ic_position_big"/>
         <TextView
             android:id="@+id/tv_location"
             android:layout_width="wrap_content"

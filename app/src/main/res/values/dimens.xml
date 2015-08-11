@@ -206,7 +206,7 @@
     <!-- Title-->
     <dimen name="height_title">55dp</dimen>
     <dimen name="height_title_normal">45dp</dimen>
-    <dimen name="icon_title_return">35dp</dimen>
+    <dimen name="icon_title_return">30dp</dimen>
     <dimen name="width_title_right_text_160px">55dp</dimen>
     <dimen name="height_title_right_text_80px">26dp</dimen>
     <dimen name="radius_title_right_text_80px">13dp</dimen>

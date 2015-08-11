@@ -8,14 +8,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_30px"
+        android:layout_marginTop="@dimen/margin_30px"
         android:layout_marginLeft="@dimen/margin_40px"
         android:layout_marginRight="@dimen/margin_40px"
         android:background="@drawable/bg_course_item"
         android:orientation="vertical">
 
         <!--头像姓名私信 -->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_item_personInforamtion_180px"
             android:gravity="center_vertical"
@@ -23,69 +23,44 @@
             android:paddingLeft="@dimen/margin_40px"
             android:paddingRight="@dimen/margin_40px">
 
-            <LinearLayout
-                android:id="@+id/ll_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
                 <com.netease.ecos.utils.RoundImageView
                     android:id="@+id/iv_avatar"
                     android:layout_width="@dimen/circle_icon_108px"
                     android:layout_height="@dimen/circle_icon_108px"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
+                    android:layout_centerVertical="true"
                     android:src="@mipmap/bg_female_default"
                     ecos:circle_color="@color/bg_red"
                     ecos:showable="true"/>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/height_item_personInforamtion_text_108px"
-                    android:layout_marginLeft="@dimen/margin_40px"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tv_name"
-                            style="@style/text_dark_mid"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="" />
-
-                        <ImageView
-                            android:id="@+id/genderImVw"
-                            android:layout_width="@dimen/icon_little_36px"
-                            android:layout_height="@dimen/icon_little_36px"
-                            android:layout_marginLeft="12dp"
-                            android:src="@mipmap/ic_gender_female" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:id="@+id/tv_distance"
-                        style="@style/text_gray_mid"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="" />
-                </LinearLayout>
-            </LinearLayout>
-
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:id="@+id/tv_name"
+                style="@style/text_dark_mid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_40px"
+                android:layout_toRightOf="@id/iv_avatar"
+                android:text=""
+                android:layout_alignTop="@id/iv_avatar"/>
 
+            <ImageView
+                android:id="@+id/genderImVw"
+                android:layout_width="@dimen/icon_little_36px"
+                android:layout_height="@dimen/icon_little_36px"
+                android:layout_marginLeft="@dimen/margin_20px"
+                android:src="@mipmap/ic_female_line"
+                android:layout_toRightOf="@id/tv_name"
+                android:layout_alignBottom="@id/tv_name"
+                android:layout_marginBottom="2dp"/>
+            <TextView
+                android:id="@+id/tv_distance"
+                style="@style/text_gray_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1111"
+                android:layout_alignLeft="@id/tv_name"
+                android:layout_below="@id/tv_name"
+                android:layout_marginTop="@dimen/margin_10px"/>
             <TextView
                 android:id="@+id/tv_talk"
                 style="@style/text_white_mid"
@@ -94,9 +69,11 @@
                 android:paddingLeft="@dimen/margin_40px"
                 android:paddingRight="@dimen/margin_40px"
                 android:background="@drawable/btn_focus_pink"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:gravity="center"
                 android:text="私信" />
-        </LinearLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
