@@ -60,7 +60,6 @@
                             style="@style/text_dark_max"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/bt_personage_name_default"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:textStyle="bold" />
                     </LinearLayout>
