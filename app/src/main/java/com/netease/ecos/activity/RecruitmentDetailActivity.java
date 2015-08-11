@@ -180,9 +180,9 @@ public class RecruitmentDetailActivity extends BaseActivity implements View.OnCl
         @Override
         public void success(Recruitment recruit) {
             RecruitmentDetailActivity.this.recruitment = recruit;
+            iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
+            iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
             if (recruit.avatarUrl != null && !recruit.avatarUrl.equals("")) {
-                iv_avatar.setDefaultImageResId(R.mipmap.bg_female_default);
-                iv_avatar.setErrorImageResId(R.mipmap.bg_female_default);
                 RequestQueue queue = MyApplication.getRequestQueue();
                 ImageLoader.ImageCache imageCache = new SDImageCache(300,200);
                 ImageLoader imageLoader = new ImageLoader(queue, imageCache);

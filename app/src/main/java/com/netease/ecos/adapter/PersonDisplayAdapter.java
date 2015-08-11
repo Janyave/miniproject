@@ -9,10 +9,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.netease.ecos.R;
+import com.netease.ecos.activity.CommentDetailActivity;
 import com.netease.ecos.activity.DisplayDetailActivity;
+import com.netease.ecos.activity.PersonageDetailActivity;
+import com.netease.ecos.model.Comment;
 import com.netease.ecos.model.Share;
+import com.netease.ecos.request.BaseResponceImpl;
+import com.netease.ecos.request.course.PraiseRequest;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -24,6 +31,10 @@ public class PersonDisplayAdapter extends BaseAdapter implements View.OnClickLis
 
     private Context mcontext;
     private List<Share> shareList;
+
+    private PraiseRequest praiseRequest;
+    private PraiseResponse praiseResponse;
+    private int praisePos;
 
     public PersonDisplayAdapter(Context context) {
         this.mcontext = context;
@@ -86,8 +97,12 @@ public class PersonDisplayAdapter extends BaseAdapter implements View.OnClickLis
 
             iv_cover.setTag(position);
             tv_coverTitle.setTag(position);
+            ll_praise.setTag(position);
+            ll_evaluate.setTag(position);
             iv_cover.setOnClickListener(PersonDisplayAdapter.this);
             tv_coverTitle.setOnClickListener(PersonDisplayAdapter.this);
+            ll_praise.setOnClickListener(PersonDisplayAdapter.this);
+            ll_evaluate.setOnClickListener(PersonDisplayAdapter.this);
         }
     }
 
@@ -130,10 +145,51 @@ public class PersonDisplayAdapter extends BaseAdapter implements View.OnClickLis
     @Override
     public void onClick(View v) {
         int position = (int) v.getTag();
-        Intent intent = new Intent(mcontext, DisplayDetailActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(DisplayDetailActivity.ShareId, shareList.get(position).shareId);
-        intent.putExtras(bundle);
-        mcontext.startActivity(intent);
+        Intent intent;
+        switch (v.getId()){
+            case R.id.iv_cover:
+            case R.id.tv_coverTitle:
+            case R.id.ll_praise:
+                intent = new Intent(mcontext, DisplayDetailActivity.class);
+                bundle.putString(DisplayDetailActivity.ShareId, shareList.get(position).shareId);
+                intent.putExtras(bundle);
+                mcontext.startActivity(intent);
+                break;
+//            case R.id.ll_praise:
+//                praisePos = position;
+//                if (praiseRequest == null)
+//                    praiseRequest = new PraiseRequest();
+//                if (praiseResponse == null)
+//                    praiseResponse = new PraiseResponse();
+//                praiseRequest.praiseShare(praiseResponse, shareList.get(praisePos).shareId, !shareList.get(praisePos).hasPraised);
+//                break;
+            case R.id.ll_evaluation:
+                intent = new Intent(mcontext, CommentDetailActivity.class);
+                bundle.putString(CommentDetailActivity.FromId, shareList.get(position).shareId);
+                bundle.putString(CommentDetailActivity.CommentType, Comment.CommentType.分享.getBelongs());
+                bundle.putBoolean(CommentDetailActivity.IsPraised, shareList.get(position).hasPraised);
+                intent.putExtras(bundle);
+                mcontext.startActivity(intent);
+                break;
+        }
+    }
+    class PraiseResponse extends BaseResponceImpl implements PraiseRequest.IPraiseResponce {
+
+        @Override
+        public void success(String userId, boolean praise) {
+            shareList.get(praisePos).hasPraised = !shareList.get(praisePos).hasPraised;
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public void doAfterFailedResponse(String message) {
+            //Toast.makeText(mcontext, "error happens:" + message, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError volleyError) {
+
+        }
     }
 }

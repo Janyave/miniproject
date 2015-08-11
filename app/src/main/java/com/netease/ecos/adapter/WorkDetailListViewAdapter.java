@@ -1,6 +1,8 @@
 package com.netease.ecos.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.netease.ecos.R;
 import com.netease.ecos.activity.MyApplication;
+import com.netease.ecos.activity.PersonageDetailActivity;
 import com.netease.ecos.model.Comment;
 import com.netease.ecos.utils.RoundImageView;
 import com.netease.ecos.utils.SDImageCache;
@@ -23,7 +26,7 @@ import java.util.List;
 /**
  * Created by Think on 2015/7/22.
  */
-public class WorkDetailListViewAdapter extends BaseAdapter {
+public class WorkDetailListViewAdapter extends BaseAdapter implements View.OnClickListener {
     private boolean isDetail = false;
     private Context mcontext;
     private List<Comment> commentList;
@@ -101,6 +104,20 @@ public class WorkDetailListViewAdapter extends BaseAdapter {
         } else {
             viewHolder.all_commentTxVw.setVisibility(View.GONE);
         }
+
+        viewHolder.imageView.setTag(position);
+        viewHolder.imageView.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int position = (int) v.getTag();
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(mcontext, PersonageDetailActivity.class);
+        bundle.putString(PersonageDetailActivity.UserID, commentList.get(position).fromId);
+        bundle.putBoolean(PersonageDetailActivity.IsOwn, false);
+        intent.putExtras(bundle);
+        mcontext.startActivity(intent);
     }
 
     private static class CommentViewHolder {
