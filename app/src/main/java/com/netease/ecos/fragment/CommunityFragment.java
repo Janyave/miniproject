@@ -86,6 +86,7 @@ public class CommunityFragment extends BaseFragment implements View.OnClickListe
         bindView();
         initListener();
         initData();
+
         return mainView;
     }
 

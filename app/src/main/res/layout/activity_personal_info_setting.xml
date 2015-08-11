@@ -36,8 +36,8 @@
                     <TextView
                         android:layout_width="4dp"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
                         android:background="@drawable/bg_label" />
 
                     <TextView
@@ -350,8 +350,8 @@
                     <TextView
                         android:layout_width="4dp"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
                         android:background="@drawable/bg_label" />
 
                     <TextView
@@ -460,8 +460,8 @@
                     <TextView
                         android:layout_width="4dp"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
                         android:background="@drawable/bg_label" />
 
                     <TextView

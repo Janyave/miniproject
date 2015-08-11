@@ -115,7 +115,7 @@ public class DisplayListViewAdapter extends BaseAdapter implements View.OnClickL
             tv_coverTitle.setText(item.title);
             tv_coverTime.setText(item.getDateDescription());
 
-            tv_praise.setText(item.praiseNum + mcontext.getResources().getString(R.string.manyFavor));
+            tv_praise.setText(item.praiseNum+"");
             tv_evaluation.setText(item.commentNum + mcontext.getResources().getString(R.string.manyComment));
 
             adapter = new DisplayItemEvalutionViewAdapter(mcontext, item.commentList);

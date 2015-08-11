@@ -101,8 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textStyle="bold" />
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
                 </LinearLayout>
 
                 <TextView
@@ -132,8 +131,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textStyle="bold" />
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -191,7 +189,7 @@
                 <ImageView
                     android:layout_width="@dimen/icon_big_64px"
                     android:layout_height="@dimen/icon_big_64px"
-                    android:padding="5dp"
+                    android:padding="8dp"
                     android:src="@mipmap/ic_more" />
             </LinearLayout>
 
@@ -239,7 +237,7 @@
                 <ImageView
                     android:layout_width="@dimen/icon_big_64px"
                     android:layout_height="@dimen/icon_big_64px"
-                    android:padding="5dp"
+                    android:padding="8dp"
                     android:src="@mipmap/ic_more" />
             </LinearLayout>
 
@@ -287,7 +285,7 @@
                 <ImageView
                     android:layout_width="@dimen/icon_big_64px"
                     android:layout_height="@dimen/icon_big_64px"
-                    android:padding="5dp"
+                    android:padding="8dp"
                     android:src="@mipmap/ic_more" />
             </LinearLayout>
         </LinearLayout>

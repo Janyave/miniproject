@@ -29,10 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/margin_30px"
             android:paddingLeft="@dimen/margin_40px"
-            android:paddingRight="@dimen/margin_40px"
-            android:paddingTop="@dimen/margin_30px">
+            android:paddingRight="@dimen/margin_40px">
 
             <com.netease.ecos.utils.RoundImageView
                 android:id="@+id/imageViewAuthor"
@@ -53,7 +51,8 @@
                 android:layout_toRightOf="@id/imageViewAuthor"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text=""
+                android:layout_marginTop="@dimen/margin_30px"
+                android:text="1111"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
@@ -63,8 +62,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/textViewTitle"
                 android:layout_below="@id/textViewTitle"
-                android:layout_marginTop="@dimen/margin_20px"
-                android:text=""
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="@dimen/margin_30px"
+                android:text="1111"
                 android:textAllCaps="false" />
 
             <TextView
@@ -75,7 +75,7 @@
                 android:layout_alignBottom="@id/textViewAuthor"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/margin_20px"
-                android:text=""
+                android:text="1111"
                 android:textAllCaps="false" />
 
             <ImageView

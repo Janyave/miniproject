@@ -183,9 +183,9 @@ public class ContactActivity extends BaseActivity implements View.OnClickListene
         if (TextUtils.isEmpty(targetUserName)) {
             Toast.makeText(ContactActivity.this, "targetName为空", Toast.LENGTH_SHORT).show();
         }
-        if (TextUtils.isEmpty(targetUserAvatar)) {
-            Toast.makeText(ContactActivity.this, "targetAvartar为空", Toast.LENGTH_SHORT).show();
-        }
+//        if (TextUtils.isEmpty(targetUserAvatar)) {
+//            Toast.makeText(ContactActivity.this, "targetAvartar为空", Toast.LENGTH_SHORT).show();
+//        }
 
         Log.v("contact", "targetID" + targetUserIMID);
 

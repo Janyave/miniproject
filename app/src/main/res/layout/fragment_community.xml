@@ -22,22 +22,23 @@
                 android:id="@+id/btn_location"
                 style="@style/text_gray_mid"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_item_140px"
+                android:layout_height="@dimen/height_item_120px"
                 android:layout_gravity="right"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:text="不限" />
 
-            <TextView style="@style/layout_line_gray_v" />
+            <TextView style="@style/layout_line_gray_v"
+                android:layout_height="@dimen/height_item_60px"/>
 
             <Button
                 android:id="@+id/btn_category"
                 style="@style/text_gray_mid"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/height_item_140px"
+                android:layout_height="@dimen/height_item_120px"
                 android:layout_weight="1"
                 android:background="@color/bg_white"
-                android:text="全部分类" />
+                android:text="分类" />
         </LinearLayout>
 
         <TextView style="@style/layout_line_gray" />

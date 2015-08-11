@@ -222,12 +222,12 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             tv_event_content_detail.setText(activity.introduction);
             if (activity.hasSignuped) {
                 tv_wantgo.setText(getResources().getString(R.string.alreadyGo));
-                tv_wantgo.setTextColor(getResources().getColor(R.color.text_gray));
-                tv_wantgo.setBackgroundResource(R.drawable.bg_activty_wantgo_unable);
+                tv_wantgo.setTextColor(getResources().getColor(R.color.text_white));
+                tv_wantgo.setBackgroundResource(R.drawable.bg_wantgo_gray);
             } else {
                 tv_wantgo.setText(getResources().getString(R.string.notGo));
-                tv_wantgo.setTextColor(getResources().getColor(R.color.text_red));
-                tv_wantgo.setBackgroundResource(R.drawable.bg_activty_wantgo);
+                tv_wantgo.setTextColor(getResources().getColor(R.color.text_white));
+                tv_wantgo.setBackgroundResource(R.drawable.bg_wantgo_green);
             }
             tv_wangoNum.setText(activity.signUpUseList.size() + "");
 
@@ -295,15 +295,15 @@ public class ActivityDetailActivity extends BaseActivity implements View.OnClick
             //it means it want to cancel signing up
             if (signupType == SingupActivityRequest.SignupType.报名) {
                 tv_wantgo.setText(getResources().getString(R.string.alreadyGo));
-                tv_wantgo.setTextColor(getResources().getColor(R.color.text_gray));
+                tv_wantgo.setTextColor(getResources().getColor(R.color.text_white));
                 activityModel.loveNums++;
-                tv_wantgo.setBackgroundResource(R.drawable.bg_activty_wantgo_unable);
+                tv_wantgo.setBackgroundResource(R.drawable.bg_wantgo_gray);
                 tv_wangoNum.setText(activityModel.loveNums + "");
             } else {
                 tv_wantgo.setText(getResources().getString(R.string.notGo));
-                tv_wantgo.setTextColor(getResources().getColor(R.color.text_red));
+                tv_wantgo.setTextColor(getResources().getColor(R.color.text_white));
                 activityModel.loveNums--;
-                tv_wantgo.setBackgroundResource(R.drawable.bg_activty_wantgo);
+                tv_wantgo.setBackgroundResource(R.drawable.bg_wantgo_green);
                 tv_wangoNum.setText(activityModel.loveNums + "");
             }
             activityModel.hasSignuped = !activityModel.hasSignuped;
