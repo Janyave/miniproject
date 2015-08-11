@@ -191,7 +191,14 @@ public class Banner extends RelativeLayout {
 
     public void releaseMemory() {
         vp_image.setAdapter(null);
-        pagerAdapter = null;
+    }
+
+    public boolean isReleased(){
+        return pagerAdapter==null || URLList==null || URLList.size()==0;
+    }
+
+    public void reloadData() {
+        vp_image.setAdapter(pagerAdapter);
     }
 
 

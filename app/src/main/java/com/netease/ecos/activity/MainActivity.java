@@ -336,7 +336,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
             //选中第index个tab按钮，来触发对应tab选中效果(按钮下方会出现指示线)
             ((RadioButton) mRadioGroup.getChildAt(index)).setChecked(true);
 
-            if (index != TAB_COURSE_INDEX && mFragments[TAB_COURSE_INDEX] != null) {
+           /* if (index != TAB_COURSE_INDEX && mFragments[TAB_COURSE_INDEX] != null) {
                 ((CourseFragment) mFragments[TAB_COURSE_INDEX]).releaseMemory();
             } else {
                 if (mFragments[TAB_COURSE_INDEX] == null)
@@ -345,7 +345,7 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                     ((CourseFragment) mFragments[TAB_COURSE_INDEX]).reloadData();
                     Log.i(TAG, "mCurrentTab==TAB_COURSE_INDEX");
                 }
-            }
+            }*/
 
             if (index != TAB_DISPLAY_INDEX && mFragments[TAB_DISPLAY_INDEX] != null) {
                 ((DisplayFragment) mFragments[TAB_DISPLAY_INDEX]).releaseMemory();
@@ -496,7 +496,6 @@ public class MainActivity extends BaseActivity implements NavigationDrawerFragme
                 Log.v("mainActivity", "targetID--------   " + contact.contactUserId);
                 Log.v("mainActivity", "targetAvatar--------   " + contact.avatarUrl);
                 intent.putExtras(bundle);
-
 
                 NotifyUtils.notifyMessage(MyApplication.getContext(), intent, ticker, title, content, contact.fromAccount);
 

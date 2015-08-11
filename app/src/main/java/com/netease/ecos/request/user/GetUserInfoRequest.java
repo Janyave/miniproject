@@ -69,8 +69,9 @@ public class GetUserInfoRequest extends BaseRequest {
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0, 0));
 
         getQueue().add(stringRequest);
-
     }
+
+
 
     /*public void requestPersonalInfo(IGetUserInfoResponse getUserInfoResponse) {
         super.initBaseRequest(getUserInfoResponse);
