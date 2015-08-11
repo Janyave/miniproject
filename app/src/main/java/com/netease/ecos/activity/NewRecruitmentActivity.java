@@ -2,7 +2,6 @@ package com.netease.ecos.activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,15 +42,10 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
     TextView title_text;
     @InjectView(R.id.lly_left_action)
     LinearLayout title_left;
-    @InjectView(R.id.priceEdTx)
-    EditText priceEdTx;
-    @InjectView(R.id.descrpEdTx)
-    EditText descrpEdTx;
     private NewDisplayListAdater newDisplayListAdater;
 
     //for request
     private CreateRecruitmentRequest request;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,22 +96,22 @@ public class NewRecruitmentActivity extends BaseActivity implements View.OnClick
                 String price = newDisplayListAdater.getPrice();
                 String descrp = newDisplayListAdater.getDes();
 
-                if("".equals(price)){
-                    Toast.makeText(NewRecruitmentActivity.this, "请输入价格 "+ InputLength.RecruitePrice_min+"~"+InputLength.RecruitePrice_max, Toast.LENGTH_SHORT).show();
+                if ("".equals(price)) {
+                    Toast.makeText(NewRecruitmentActivity.this, "请输入价格 " + InputLength.RecruitePrice_min + "~" + InputLength.RecruitePrice_max, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if("".equals(descrp)){
-                    Toast.makeText(NewRecruitmentActivity.this, "请输入说明 "+ InputLength.RecruitePrice_min+"~"+InputLength.RecruitePrice_max, Toast.LENGTH_SHORT).show();
+                if ("".equals(descrp)) {
+                    Toast.makeText(NewRecruitmentActivity.this, "请输入说明 " + InputLength.RecruitePrice_min + "~" + InputLength.RecruitePrice_max, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (Integer.parseInt(price)> InputLength.RecruitePrice_max||Integer.parseInt(price)<InputLength.RecruitePrice_min){
-                    Toast.makeText(NewRecruitmentActivity.this, "亲，请输入合理价格 "+ InputLength.RecruitePrice_min+"~"+InputLength.RecruitePrice_max, Toast.LENGTH_SHORT).show();
+                if (Integer.parseInt(price) > InputLength.RecruitePrice_max || Integer.parseInt(price) < InputLength.RecruitePrice_min) {
+                    Toast.makeText(NewRecruitmentActivity.this, "亲，请输入合理价格 " + InputLength.RecruitePrice_min + "~" + InputLength.RecruitePrice_max, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (descrp.length()>InputLength.RecruiteDetail_max){
-                    Toast.makeText(NewRecruitmentActivity.this, " 亲，您输入超过字数限制"+ InputLength.RecruiteDetail_max + "字", Toast.LENGTH_SHORT).show();
+                if (descrp.length() > InputLength.RecruiteDetail_max) {
+                    Toast.makeText(NewRecruitmentActivity.this, " 亲，您输入超过字数限制" + InputLength.RecruiteDetail_max + "字", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (newDisplayListAdater.isTopViewEmpty()) {
