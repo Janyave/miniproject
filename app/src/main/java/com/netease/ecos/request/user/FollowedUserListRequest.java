@@ -1,8 +1,10 @@
 package com.netease.ecos.request.user;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,7 +95,15 @@ public class FollowedUserListRequest extends BaseRequest{
 				JSONObject usreJO = userJA.getJSONObject(i);
 
 				User user = new User();
-
+				if(usreJO.has("roles") && !usreJO.isNull("roles")){
+					JSONArray rolesJA = new JSONArray(getString(usreJO, "roles"));
+					Set<User.RoleType> roleTypeSet = new LinkedHashSet<User.RoleType>();
+					for(int j=0;j<rolesJA.length();j++){
+						roleTypeSet.add( User.RoleType.getRoleTypeByValue(rolesJA.getString(j)) );
+					}
+					user.roleTypeSet = roleTypeSet;
+				}
+				user.characterSignature = getString(usreJO,"characterSignature");
 				user.userId = getString(usreJO, "userId");
 				user.imId = getString(usreJO, "imId");
 				user.nickname = getString(usreJO, "nickname");

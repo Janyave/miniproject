@@ -117,8 +117,11 @@ public class EventWantGoAdapter extends BaseAdapter {
         //set nick name
         viewHolder.tv_name.setText(item.nickname);
         //set signature
-        if (item.characterSignature != null && !item.characterSignature.equals(""))
+        if (item.characterSignature != null && !item.characterSignature.equals("")){
             viewHolder.tv_signature.setText(item.characterSignature);
+            Log.v("11111111111","1111111111");
+        }
+
         else
             viewHolder.tv_signature.setText(mcontext.getResources().getString(R.string.noSignature));
         if (!item.userId.equals(mUserData.userId)) {
