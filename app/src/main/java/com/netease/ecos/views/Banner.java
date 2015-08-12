@@ -1,6 +1,8 @@
 package com.netease.ecos.views;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.netease.ecos.R;
+import com.netease.ecos.activity.CourseDetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ public class Banner extends RelativeLayout {
 
     private TextView tv_currentNum;
     private ImageView iv_currentNum;
-    public ViewPager vp_image;
+    public MyViewPager vp_image;
 
     private int[] pagerViewIDs = new int[]{R.mipmap.banner1, R.mipmap.banner2, R.mipmap.banner3, R.mipmap.banner4};
 
@@ -78,8 +81,6 @@ public class Banner extends RelativeLayout {
             }
 
             Log.i("setURLList", "--------------------------" + URLList.get(i));
-
-
             ViewList.add(v);
         }
 
@@ -96,12 +97,37 @@ public class Banner extends RelativeLayout {
 
             @Override
             public Object instantiateItem(ViewGroup container, int position) {
+                ViewList.get(position % count).setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent;
+                    Bundle bundle = new Bundle();
+                    intent = new Intent(mContext, CourseDetailActivity.class);
+                    switch (mygetCount()) {
+                        case 0:
+                            bundle.putString(CourseDetailActivity.CourseID, "250");
+                            break;
+                        case 1:
+                            bundle.putString(CourseDetailActivity.CourseID, "251");
+                            break;
+                        case 2:
+                            bundle.putString(CourseDetailActivity.CourseID, "249");
+                            break;
+                        case 3:
+                            bundle.putString(CourseDetailActivity.CourseID, "252");
+                            break;
+                    }
+                    intent.putExtras(bundle);
+                        mContext.startActivity(intent);
+                    }
+                });
                 container.addView(ViewList.get(position % count));
                 return ViewList.get(position % count);
             }
 
             @Override
             public void destroyItem(ViewGroup container, int position, Object object) {
+                ((View) ViewList.get(position % count)).clearFocus();
                 container.removeView((View) ViewList.get(position % count));
             }
         };
@@ -134,7 +160,7 @@ public class Banner extends RelativeLayout {
 
     private void initView() {
         View.inflate(mContext, R.layout.item_bannerlayout, this);
-        vp_image = (ViewPager) findViewById(R.id.vp_image);
+        vp_image = (MyViewPager) findViewById(R.id.vp_image);
         tv_currentNum = (TextView) findViewById(R.id.tv_currentNum);
         iv_currentNum = (ImageView) findViewById(R.id.iv_currentNum);
         vp_image.setOnTouchListener(new OnTouchListener() {
@@ -207,7 +233,7 @@ public class Banner extends RelativeLayout {
         vp_image.setAdapter(pagerAdapter);
     }
 
-    public int getCount(){
+    public int mygetCount(){
         return vp_image.getCurrentItem()%count;
     }
 }

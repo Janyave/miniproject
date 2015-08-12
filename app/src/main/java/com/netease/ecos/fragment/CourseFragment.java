@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
     private FloadingButton btn_floading;
     private ExtensibleListView lv_course;
     private ScrollView sv;
+    private RelativeLayout rl_banner;
 
     private CourseListViewAdapter courseListViewAdapter;
 
@@ -92,6 +94,7 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
         tv_type_7 = (ImageView) mainView.findViewById(R.id.tv_type_7);
         tv_type_8 = (ImageView) mainView.findViewById(R.id.tv_type_8);
         sv = (ScrollView) mainView.findViewById(R.id.sv);
+        rl_banner=(RelativeLayout)mainView.findViewById(R.id.rl_banner);
         //sv.scrollTo(10,10);
     }
 
@@ -228,37 +231,7 @@ public class CourseFragment extends BaseFragment implements View.OnClickListener
         tv_type_6.setOnClickListener(this);
         tv_type_7.setOnClickListener(this);
         tv_type_8.setOnClickListener(this);
-        banner.vp_image.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction()==MotionEvent.ACTION_DOWN){
-                    Intent intent;
-                    Bundle bundle = new Bundle();
-                    intent = new Intent(getActivity(), CourseDetailActivity.class);
-                    switch (banner.getCount()) {
-                        case 0:
-                            bundle.putString(CourseDetailActivity.CourseID, "250");
-                            break;
-                        case 1:
-                            bundle.putString(CourseDetailActivity.CourseID, "251");
-                            break;
-                        case 2:
-                            bundle.putString(CourseDetailActivity.CourseID, "249");
-                            break;
-                        case 3:
-                            bundle.putString(CourseDetailActivity.CourseID, "252");
-                            break;
-                        default:
-                            return false;
-                    }
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                    return false;
-                }else {
-                    return false;
-                }
-            }
-        });
+        banner.vp_image.requestFocus();
     }
 
     class GetBannerResponse extends BaseResponceImpl implements GetBannerRequest.IGetBannerResponse {
