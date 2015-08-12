@@ -391,7 +391,7 @@ public class NavigationDrawerFragment extends Fragment implements View.OnClickLi
     public void openNavigationDrawer() {
         //打开NavigationDrawer
         mDrawerLayout.openDrawer(GravityCompat.START);
-        resetUserData();
+        //resetUserData();
     }
 
     /**
